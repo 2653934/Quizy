@@ -165,6 +165,249 @@ window.QUIZY_DATA = {
       ],
       "answerIndex": 1,
       "explanation": "Plots can suggest patterns and unusual values, but an observed association alone does not establish causation."
+    },
+    {
+      "id": "L1-009",
+      "lecture": 1,
+      "concept": "Real-world data",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          18,
+          20
+        ]
+      },
+      "question": "A random forest gives a record ID a high feature-importance score. What should you conclude?",
+      "choices": [
+        "The ID must cause the target outcome",
+        "The model cannot use numerical IDs",
+        "Investigate whether the ID reflects a real pattern or a recording artefact",
+        "All other features should be deleted"
+      ],
+      "answerIndex": 2,
+      "explanation": "Feature importance shows the model used the column; it does not prove the column carries meaningful or causal information."
+    },
+    {
+      "id": "L1-010",
+      "lecture": 1,
+      "concept": "Real-world data",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "question": "In the displayed table, impact_num increases 0, 1, 2, and so on. What is the sensible first check before treating it as a predictive feature?",
+      "choices": [
+        "Whether it is only a row number or ordering artefact",
+        "Whether its font is readable",
+        "Whether it has the same name as the target",
+        "Whether it can be plotted as a pie chart"
+      ],
+      "answerIndex": 0,
+      "explanation": "Sequential values may encode row order rather than a property of the event. Investigate what the column means before using it."
+    },
+    {
+      "id": "L1-011",
+      "lecture": 1,
+      "concept": "Real-world data",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "question": "What does the complex database diagram illustrate about real-world data?",
+      "choices": [
+        "Every dataset is already one clean modelling table",
+        "Databases cannot contain numerical measurements",
+        "Only one table can be explored at a time",
+        "Useful information may be spread across many related tables"
+      ],
+      "answerIndex": 3,
+      "explanation": "Real data may need careful understanding and joins before it becomes a usable analysis table."
+    },
+    {
+      "id": "L1-012",
+      "lecture": 1,
+      "concept": "Real-world data",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          18,
+          19
+        ]
+      },
+      "question": "The decision trees split on a column. Does that alone prove the column is a trustworthy real-world predictor?",
+      "choices": [
+        "Yes, because trees cannot split on irrelevant data",
+        "No, the split may exploit an accidental pattern in the sample",
+        "Yes, if the column contains integers",
+        "No, because decision trees never use numerical columns"
+      ],
+      "answerIndex": 1,
+      "explanation": "A tree can fit patterns in the sample, including identifiers or artefacts. The feature's meaning and generalisation still need checking."
+    },
+    {
+      "id": "L1-013",
+      "lecture": 1,
+      "concept": "Real-world data",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          14,
+          18
+        ]
+      },
+      "question": "Why does the lecturer contrast familiar example datasets with real-life datasets?",
+      "choices": [
+        "To show that real datasets often need more understanding and cleaning",
+        "To show that example datasets have no value",
+        "To prove every real dataset has missing values",
+        "To say models cannot be used outside competitions"
+      ],
+      "answerIndex": 0,
+      "explanation": "The contrast motivates exploration: real data is often less tidy and more complex than a teaching or competition example."
+    },
+    {
+      "id": "L1-014",
+      "lecture": 1,
+      "concept": "Real-world data",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "question": "Which column in the displayed table is clearly categorical rather than a numeric measurement or timestamp?",
+      "choices": [
+        "gps_lat",
+        "alert_timestamp",
+        "impact_id",
+        "cause"
+      ],
+      "answerIndex": 3,
+      "explanation": "The cause column contains labels such as Potholes, Speedbump and Car Wash."
+    },
+    {
+      "id": "L1-015",
+      "lecture": 1,
+      "concept": "Curse of dimensionality",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "question": "In the curse of dimensionality, what does a dimension usually mean?",
+      "choices": [
+        "A record",
+        "A feature",
+        "A missing value",
+        "A class label"
+      ],
+      "answerIndex": 1,
+      "explanation": "A dimension is an attribute or feature used to represent an observation."
+    },
+    {
+      "id": "L1-016",
+      "lecture": 1,
+      "concept": "Curse of dimensionality",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "question": "Which problem does Lecture 1 explicitly associate with thousands of dimensions?",
+      "choices": [
+        "Every feature becomes categorical",
+        "All data is automatically missing",
+        "Visualisation becomes difficult",
+        "The dataset cannot be stored"
+      ],
+      "answerIndex": 2,
+      "explanation": "The slide says high-dimensional data is difficult to visualise."
+    },
+    {
+      "id": "L1-017",
+      "lecture": 1,
+      "concept": "Curse of dimensionality",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "question": "What modelling risk does the Lecture 1 slide connect to many dimensions?",
+      "choices": [
+        "Overfitting",
+        "Guaranteed underfitting",
+        "Loss of all labels",
+        "A fixed number of clusters"
+      ],
+      "answerIndex": 0,
+      "explanation": "With many features, a model can more easily fit peculiarities of the training data rather than a pattern that generalises."
+    },
+    {
+      "id": "L1-018",
+      "lecture": 1,
+      "concept": "Curse of dimensionality",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "question": "Why does the lecturer mention dimensionality reduction?",
+      "choices": [
+        "To remove every outlier",
+        "To prove causation",
+        "To convert all numbers into text",
+        "To make high-dimensional data easier to visualise"
+      ],
+      "answerIndex": 3,
+      "explanation": "The slide introduces dimensionality reduction as a way to make visualisation easier; its methods come later."
+    },
+    {
+      "id": "L1-019",
+      "lecture": 1,
+      "concept": "Curse of dimensionality",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "question": "Which claim about adding features is safest?",
+      "choices": [
+        "More features always improve a model",
+        "More features can make overfitting easier",
+        "Feature count never affects visualisation",
+        "A model cannot use more than three features"
+      ],
+      "answerIndex": 1,
+      "explanation": "Lecture 1 warns that many dimensions can make overfitting easier, so more features are not automatically better."
+    },
+    {
+      "id": "L1-020",
+      "lecture": 1,
+      "concept": "Curse of dimensionality",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "question": "Does a lower-dimensional visualisation necessarily preserve every detail of the original high-dimensional data?",
+      "choices": [
+        "Yes, always",
+        "Only if the data has no outliers",
+        "No, reducing dimensions can leave information out",
+        "Only if the data has labels"
+      ],
+      "answerIndex": 2,
+      "explanation": "The purpose is to make inspection easier, but reducing dimensions can discard or hide some information."
     }
   ]
 };
