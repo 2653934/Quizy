@@ -1285,6 +1285,534 @@
       "choices": ["Always remove it", "Always replace it with zero", "Always classify it as missing", "Remove it, keep it, or cap it depending on the problem"],
       "answerIndex": 3,
       "explanation": "The decision depends on whether the value is error, meaningful rare event, or a value needing a justified limit."
+    },
+    {
+      "id": "L3-001", "lecture": 3, "concept": "Feature engineering motivation",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [3]},
+      "question": "What is the main idea behind 'better data beats fancier algorithms' on the lecture slide?",
+      "choices": ["The quality and representation of features can matter more than a complex model", "Every simple model is always more accurate", "Algorithms never use raw data", "Adding more columns always improves accuracy"],
+      "answerIndex": 0,
+      "explanation": "A useful representation can expose patterns a model might not discover easily from the raw columns."
+    },
+    {
+      "id": "L3-002", "lecture": 3, "concept": "Feature engineering motivation",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [3]},
+      "question": "Which action is feature engineering?",
+      "choices": ["Keeping only the best three existing columns", "Deleting every row with a blank", "Computing capture delay from captured and fuelled dates", "Choosing the final prediction metric"],
+      "answerIndex": 2,
+      "explanation": "Feature engineering creates a useful new feature from existing raw information."
+    },
+    {
+      "id": "L3-003", "lecture": 3, "concept": "Feature engineering motivation",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [3, 4]},
+      "question": "What does feature selection do after candidate features have been created?",
+      "choices": ["Guarantees every feature is normally distributed", "Chooses an informative subset and reduces unnecessary dimensions", "Creates more rows without inspection", "Replaces every feature with its mean"],
+      "answerIndex": 1,
+      "explanation": "Selection aims to retain informative features and discard irrelevant or redundant ones."
+    },
+    {
+      "id": "L3-004", "lecture": 3, "concept": "Feature engineering motivation",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [4]},
+      "question": "Why can adding all available features make a model worse?",
+      "choices": ["More features always reduce training time", "Every added column is a duplicate", "The target variable disappears", "Some features add noise, redundancy, or unnecessary complexity"],
+      "answerIndex": 3,
+      "explanation": "The slide warns that extra columns may be pure noise or repeat existing information."
+    },
+    {
+      "id": "L3-005", "lecture": 3, "concept": "Feature engineering motivation",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [4]},
+      "question": "Which feature is redundant rather than simply irrelevant?",
+      "choices": ["A second column containing nearly the same information as another useful feature", "A random ID unrelated to the task", "A column of pure measurement noise", "A feature with no relation to any useful pattern"],
+      "answerIndex": 0,
+      "explanation": "A redundant feature repeats information already supplied by another feature."
+    },
+    {
+      "id": "L3-006", "lecture": 3, "concept": "Transformations",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [5]},
+      "question": "What is a transformation of a feature?",
+      "choices": ["A guarantee that the target is correct", "A new representation, shape, or scale of the feature", "A new observation copied from another dataset", "A proof that the feature is causal"],
+      "answerIndex": 1,
+      "explanation": "The lecture describes preprocessing transformations as putting existing data into a new representation."
+    },
+    {
+      "id": "L3-007", "lecture": 3, "concept": "Transformations",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [5]},
+      "question": "Why does the slide prefer transformations that are invertible?",
+      "choices": ["They always make the data normal", "They automatically remove missing values", "They can be reversed to recover original units or values", "They make all algorithms scale-insensitive"],
+      "answerIndex": 2,
+      "explanation": "Invertibility lets you relate transformed results back to the original representation."
+    },
+    {
+      "id": "L3-008", "lecture": 3, "concept": "Transformations",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [6]},
+      "question": "Which method is generally most sensitive to differences in feature scale?",
+      "choices": ["A tree-based classifier", "A lookup table of labels", "A category-count chart", "Nearest neighbours using distances"],
+      "answerIndex": 3,
+      "explanation": "Distance-based methods can let a large-scale feature dominate the distance calculation."
+    },
+    {
+      "id": "L3-009", "lecture": 3, "concept": "Transformations",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [6]},
+      "question": "Which model family does the slide describe as relatively insensitive to feature scaling?",
+      "choices": ["Tree-based classifiers", "Nearest neighbours", "Distance-based clustering", "Any model using Euclidean distance"],
+      "answerIndex": 0,
+      "explanation": "Tree-based models split on feature values and are usually much less affected by scaling than distance-based methods."
+    },
+    {
+      "id": "L3-010", "lecture": 3, "concept": "Log and Box-Cox transformations",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [7]},
+      "question": "When does the lecture suggest considering a log transformation?",
+      "choices": ["When all values are identical", "When positive data spans several orders of magnitude", "Only when the feature is categorical", "Only when a plot is already symmetric"],
+      "answerIndex": 1,
+      "explanation": "Logging can compress a wide range of positive magnitudes, especially when values span orders of magnitude."
+    },
+    {
+      "id": "L3-011", "lecture": 3, "concept": "Log and Box-Cox transformations",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [7]},
+      "question": "What input restriction does the slide state for Box-Cox?",
+      "choices": ["Values must be text", "Values must have a mean of zero", "Values must be strictly positive", "Values must contain an outlier"],
+      "answerIndex": 2,
+      "explanation": "The slide says Box-Cox is only used with positive values; zero and negative values do not meet that requirement."
+    },
+    {
+      "id": "L3-012", "lecture": 3, "concept": "Log and Box-Cox transformations",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [5, 7]},
+      "question": "Does applying a log or Box-Cox transformation guarantee a normal distribution?",
+      "choices": ["Yes, by definition", "Yes, if there are any outliers", "Only when the dataset has categories", "No; inspect the transformed distribution"],
+      "answerIndex": 3,
+      "explanation": "Transformations can improve shape or scale but do not guarantee that the result is normal."
+    },
+    {
+      "id": "L3-013", "lecture": 3, "concept": "Standardisation and normalisation",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [9]},
+      "question": "Which formula standardises an observed value x using its feature's mean and standard deviation?",
+      "choices": ["x divided by the maximum", "(x - mean) / standard deviation", "x minus the minimum only", "x squared plus the mean"],
+      "answerIndex": 1,
+      "explanation": "A z-score subtracts the feature mean and divides by its standard deviation."
+    },
+    {
+      "id": "L3-014", "lecture": 3, "concept": "Standardisation and normalisation",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [9]},
+      "question": "After standardising a nonconstant feature using its own mean and standard deviation, what are its resulting mean and standard deviation?",
+      "choices": ["Mean 1, standard deviation 0", "Mean 0, standard deviation 0", "Mean 0, standard deviation 1", "Mean 1, standard deviation 1"],
+      "answerIndex": 2,
+      "explanation": "Subtracting the mean centres the feature at zero; dividing by standard deviation makes its spread one."
+    },
+    {
+      "id": "L3-015", "lecture": 3, "concept": "Standardisation and normalisation",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [9]},
+      "question": "Does z-score standardisation automatically make a strongly skewed feature Gaussian?",
+      "choices": ["No; it changes centre and scale, not the underlying shape", "Yes; zero mean proves normality", "Yes; unit variance proves normality", "Only if the feature is categorical"],
+      "answerIndex": 0,
+      "explanation": "A skewed distribution remains skewed after a linear shift and rescale."
+    },
+    {
+      "id": "L3-016", "lecture": 3, "concept": "Standardisation and normalisation",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [9]},
+      "question": "Under min-max scaling to [0, 1], what happens to the smallest and largest observed values used to fit the scale?",
+      "choices": ["Both become 0", "Both become 1", "They become -1 and 1", "They become 0 and 1, respectively"],
+      "answerIndex": 3,
+      "explanation": "The fitted minimum maps to zero and the fitted maximum maps to one."
+    },
+    {
+      "id": "L3-017", "lecture": 3, "concept": "Standardisation and normalisation",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [9]},
+      "question": "What does 'unit-norm normalisation' specifically target?",
+      "choices": ["A guaranteed Gaussian shape", "A vector length (norm) of one", "A mean of zero for every feature", "Replacing missing values with one"],
+      "answerIndex": 1,
+      "explanation": "Unit-norm scaling divides a vector by its norm; it is not the same operation as min-max scaling."
+    },
+    {
+      "id": "L3-018", "lecture": 3, "concept": "Standardisation and normalisation",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [9]},
+      "question": "Which statement keeps the slide's two uses of 'normalisation' clear?",
+      "choices": ["Min-max and unit-norm scaling are identical", "Neither operation changes numerical values", "Min-max targets a range; unit-norm targets vector length", "Both guarantee a normal distribution"],
+      "answerIndex": 2,
+      "explanation": "The slide mentions a 0-to-1 range and unit norm, but these are distinct scaling methods."
+    },
+    {
+      "id": "L3-019", "lecture": 3, "concept": "Standardisation and normalisation",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [6, 9]},
+      "question": "Why is scaling especially relevant before nearest-neighbour analysis?",
+      "choices": ["Distance can be dominated by a feature with much larger units", "Nearest neighbours ignores all numerical features", "Scaling guarantees the correct labels", "Trees require every feature to have unit norm"],
+      "answerIndex": 0,
+      "explanation": "Nearest-neighbour methods compare distances, so unbalanced feature scales can skew the comparison."
+    },
+    {
+      "id": "L3-020", "lecture": 3, "concept": "Standardisation and normalisation",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [6, 9]},
+      "question": "Which model family on the slides is usually less sensitive to feature scaling than nearest neighbours?",
+      "choices": ["Euclidean-distance clustering", "Distance-weighted KNN", "Any nearest-neighbour method", "Tree-based classifiers"],
+      "answerIndex": 3,
+      "explanation": "Trees use threshold splits rather than a cross-feature distance, making ordinary rescaling less important."
+    },
+    {
+      "id": "L3-021", "lecture": 3, "concept": "Indicator and date features",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [12]},
+      "question": "What is an indicator feature?",
+      "choices": ["A guarantee that a model is accurate", "A replacement for every original column", "A yes/no flag marking whether a condition holds", "A plot showing only missing values"],
+      "answerIndex": 2,
+      "explanation": "An indicator marks a meaningful condition or group, often using binary values such as 0 and 1."
+    },
+    {
+      "id": "L3-022", "lecture": 3, "concept": "Indicator and date features",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [12]},
+      "question": "An age threshold flags whether a person met a vaccination eligibility rule at that time. What kind of feature is this?",
+      "choices": ["A threshold-based indicator", "A random missing-value marker", "A unit-norm transformation", "A correlation coefficient"],
+      "answerIndex": 0,
+      "explanation": "The lecture uses age-based eligibility as an example of creating an indicator from a threshold."
+    },
+    {
+      "id": "L3-023", "lecture": 3, "concept": "Indicator and date features",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [12]},
+      "question": "A housing dataset flags homes with exactly two bedrooms and one bathroom. What does this illustrate?",
+      "choices": ["Deleting two existing columns", "Guaranteed high rent for every flagged home", "Replacing all numeric features with dates", "Combining existing conditions into one indicator"],
+      "answerIndex": 3,
+      "explanation": "An engineered flag can express a useful combination of several raw features without claiming a guaranteed outcome."
+    },
+    {
+      "id": "L3-024", "lecture": 3, "concept": "Indicator and date features",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [12, 13]},
+      "question": "A mall's foot traffic drops during lockdown. What can a lockdown indicator add to the analysis?",
+      "choices": ["Proof that the sensor is broken", "Context explaining an apparent anomaly", "A guarantee that no other factors matter", "A replacement for the entire time series"],
+      "answerIndex": 1,
+      "explanation": "The lecture's mobility example shows how domain knowledge about a special event can explain an unusual pattern."
+    },
+    {
+      "id": "L3-025", "lecture": 3, "concept": "Indicator and date features",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [12]},
+      "question": "Which event could sensibly be represented by an indicator when modelling daily traffic?",
+      "choices": ["A public holiday", "The dataset's file extension", "The chart's font choice", "The number of decimal places in an unrelated field"],
+      "answerIndex": 0,
+      "explanation": "The slide lists holidays, lockdowns, and riots as special events that can affect traffic."
+    },
+    {
+      "id": "L3-026", "lecture": 3, "concept": "Indicator and date features",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [12]},
+      "question": "Referral labels include website, app, and phone. Which new indicator matches the lecture's grouping idea?",
+      "choices": ["A separate random number for each customer", "A flag that every customer was referred by phone", "A flag for online versus telephonic signup", "A column containing the current time"],
+      "answerIndex": 2,
+      "explanation": "The slide suggests grouping signup sources into an online-versus-telephonic indicator."
+    },
+    {
+      "id": "L3-027", "lecture": 3, "concept": "Indicator and date features",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [14]},
+      "question": "A bus-arrival timestamp includes microseconds, but arrival patterns vary mainly by hour. What is a useful feature to extract?",
+      "choices": ["The final microsecond digit only", "The full timestamp as an arbitrary ID", "The file's modification date", "Hour of the day"],
+      "answerIndex": 3,
+      "explanation": "The lecture suggests decomposing timestamps at the granularity relevant to the problem, such as hour or part of day."
+    },
+    {
+      "id": "L3-028", "lecture": 3, "concept": "Indicator and date features",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [14]},
+      "question": "Which set contains only possible date/time features extracted from a timestamp?",
+      "choices": ["Latitude, longitude, cost", "Day of week, hour, part of day", "Mean, median, mode", "Bedrooms, bathrooms, rent"],
+      "answerIndex": 1,
+      "explanation": "A timestamp can be decomposed into useful time components rather than used only as a raw string."
+    },
+    {
+      "id": "L3-029", "lecture": 3, "concept": "Indicator and date features",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [12, 14]},
+      "question": "Why are an extracted 'hour of day' column and a holiday flag examples of feature engineering?",
+      "choices": ["They are new, potentially useful features created from existing data or domain knowledge", "They remove all uncertainty from the target", "They are both mandatory for every model", "They prove a causal effect"],
+      "answerIndex": 0,
+      "explanation": "Both represent existing information in a form that may expose a useful pattern to analysis."
+    },
+    {
+      "id": "L3-030", "lecture": 3, "concept": "Sparse categories and encoding",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [16]},
+      "question": "What is a sparse class in a categorical feature?",
+      "choices": ["A class with no name", "A class with very few observations", "A class with the largest numerical value", "A class that is always missing"],
+      "answerIndex": 1,
+      "explanation": "The slide defines sparse classes as categories represented by very few observations."
+    },
+    {
+      "id": "L3-031", "lecture": 3, "concept": "Sparse categories and encoding",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [16]},
+      "question": "Why can a category represented by only two training rows cause trouble?",
+      "choices": ["It forces all other rows to be deleted", "It cannot be stored in a table", "It guarantees an accurate prediction", "A model may fit those few examples rather than a general pattern"],
+      "answerIndex": 3,
+      "explanation": "Very rare classes can encourage overfitting because there is little evidence about their general behaviour."
+    },
+    {
+      "id": "L3-032", "lecture": 3, "concept": "Sparse categories and encoding",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [16]},
+      "question": "What treatment does the lecture suggest for very sparse classes when appropriate?",
+      "choices": ["Combine sensible related classes", "Assign each rare row its own new class", "Assume the rows are duplicates", "Convert every category to the same number without checking"],
+      "answerIndex": 0,
+      "explanation": "The slide suggests combining sparse categories, but the grouping should respect their meaning."
+    },
+    {
+      "id": "L3-033", "lecture": 3, "concept": "Sparse categories and encoding",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [17]},
+      "question": "How does one-hot encoding represent a category such as 'BMW'?",
+      "choices": ["As one ranked number where larger brands are better", "By deleting the category", "With a BMW column marked 1 for BMW rows and 0 otherwise", "As the average of all car brands"],
+      "answerIndex": 2,
+      "explanation": "One-hot encoding creates a binary column for each category."
+    },
+    {
+      "id": "L3-034", "lecture": 3, "concept": "Sparse categories and encoding",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [17]},
+      "question": "If a categorical feature has 50 distinct values, what can basic one-hot encoding create?",
+      "choices": ["One column with values 1 through 50", "About 50 binary columns", "Exactly two columns", "No numerical representation"],
+      "answerIndex": 1,
+      "explanation": "Basic one-hot encoding produces one 0/1 indicator per category, so many categories lead to many columns."
+    },
+    {
+      "id": "L3-035", "lecture": 3, "concept": "Sparse categories and encoding",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [17]},
+      "question": "What is a risk of label-encoding nominal car brands as 0, 1, 2, and so on?",
+      "choices": ["It creates one column per brand", "It always removes missing values", "It turns every brand into the same class", "A model may incorrectly treat the codes as a meaningful order"],
+      "answerIndex": 3,
+      "explanation": "Car brands have no inherent numerical ranking, but integer codes may imply one to some models."
+    },
+    {
+      "id": "L3-036", "lecture": 3, "concept": "Sparse categories and encoding",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [17]},
+      "question": "Which category set genuinely has an order that a numeric encoding could reflect?",
+      "choices": ["Bad, okay, good", "BMW, Toyota, Suzuki", "Red, green, blue", "Three arbitrary user IDs"],
+      "answerIndex": 0,
+      "explanation": "The slide uses bad/okay/good as an ordinal example, unlike nominal brand names."
+    },
+    {
+      "id": "L3-037", "lecture": 3, "concept": "Sparse categories and encoding",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [17]},
+      "question": "What is the principal column-count difference between basic one-hot and label encoding?",
+      "choices": ["Both create one column per observation", "Label encoding always creates more columns", "One-hot creates a column per category; label encoding keeps one coded column", "Neither creates numeric values"],
+      "answerIndex": 2,
+      "explanation": "One-hot expands categories into binary columns; label encoding replaces the original labels with numbers in one column."
+    },
+    {
+      "id": "L3-038", "lecture": 3, "concept": "Sparse categories and encoding",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [16, 17]},
+      "question": "You group several rare but related publisher names before one-hot encoding. What can this help with?",
+      "choices": ["Guaranteeing every publisher has the same sales", "Proving causation", "Removing the need to inspect categories", "Reducing extremely thin classes and the number of dummy columns"],
+      "answerIndex": 3,
+      "explanation": "Sensible grouping can reduce sparse classes and the dimensionality created by one-hot encoding."
+    },
+    {
+      "id": "L3-039", "lecture": 3, "concept": "High-cardinality categorical data",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [19]},
+      "question": "What makes a categorical feature high-cardinality?",
+      "choices": ["It has a very large number of distinct categories", "It contains many rows regardless of category count", "It has a high numerical mean", "It has no missing values"],
+      "answerIndex": 0,
+      "explanation": "Cardinality refers to the number of distinct category values, not the total number of records."
+    },
+    {
+      "id": "L3-040", "lecture": 3, "concept": "High-cardinality categorical data",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [16, 19]},
+      "question": "Which comparison is correct?",
+      "choices": ["Sparse and high-cardinality mean exactly the same thing", "A sparse class has many rows; high cardinality means one category", "Sparse class means few observations in a class; high cardinality means many classes in a feature", "Both terms describe standard deviation"],
+      "answerIndex": 2,
+      "explanation": "Sparse describes how little data a particular class has; cardinality describes how many distinct classes the feature has."
+    },
+    {
+      "id": "L3-041", "lecture": 3, "concept": "High-cardinality categorical data",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [19]},
+      "question": "What problem can one-hot encoding thousands of individual ZIP codes create?",
+      "choices": ["It guarantees better generalisation", "A huge set of mostly-zero columns", "It converts all rows to missing", "It makes the target categorical"],
+      "answerIndex": 1,
+      "explanation": "One-hot encoding creates a separate binary attribute per category, which can become unwieldy for high-cardinality features."
+    },
+    {
+      "id": "L3-042", "lecture": 3, "concept": "High-cardinality categorical data",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [19]},
+      "question": "Which alternative does the slide suggest for many individual IP-address categories?",
+      "choices": ["Make every IP its own target label", "Delete every record with an IP", "Treat IP addresses as car brands", "Group IP addresses into ranges"],
+      "answerIndex": 3,
+      "explanation": "Binning individual addresses into IP ranges can reduce the number of distinct categories."
+    },
+    {
+      "id": "L3-043", "lecture": 3, "concept": "High-cardinality categorical data",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [19]},
+      "question": "How might ZIP codes be transformed into fewer, meaningful geographic categories?",
+      "choices": ["Map them to suburbs", "Replace them all with a random number", "Sort them alphabetically", "Convert each one to a separate date"],
+      "answerIndex": 0,
+      "explanation": "The slide suggests geocoding ZIP codes to suburbs rather than representing every code separately."
+    },
+    {
+      "id": "L3-044", "lecture": 3, "concept": "High-cardinality categorical data",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [19]},
+      "question": "What does a supervised-ratio encoding try to represent for each category?",
+      "choices": ["The category name's length", "The total file size", "Its association with a defined positive target class", "Its alphabetical position"],
+      "answerIndex": 2,
+      "explanation": "The slide describes assigning each category a score related to the probability of the positive class."
+    },
+    {
+      "id": "L3-045", "lecture": 3, "concept": "High-cardinality categorical data",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [19, 20]},
+      "question": "Before interpreting a weight-of-evidence score, what must be defined?",
+      "choices": ["The chart's font size", "The event and non-event target classes", "A minimum of 50 one-hot columns", "A timestamp for every row"],
+      "answerIndex": 1,
+      "explanation": "The sign of a WoE score only has meaning relative to the chosen event versus non-event."
+    },
+    {
+      "id": "L3-046", "lecture": 3, "concept": "High-cardinality categorical data",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [20]},
+      "question": "Under the lecture slide's convention, what does a positive WoE score indicate?",
+      "choices": ["A higher share of the defined event for that category", "The category contains no events", "The category must be dropped", "The category is numerically larger than all others"],
+      "answerIndex": 0,
+      "explanation": "The slide states that positive WoE corresponds to a higher percentage of the event, once the event is defined."
+    },
+    {
+      "id": "L3-047", "lecture": 3, "concept": "High-cardinality categorical data",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [19, 20]},
+      "question": "What do supervised ratio and weight of evidence have in common here?",
+      "choices": ["They are unsupervised row-shuffling methods", "They always create one dummy column per category", "They guarantee causation", "They use the target outcome to score categories"],
+      "answerIndex": 3,
+      "explanation": "Both are target-based ways to encode categories as scores instead of expanding them into many one-hot columns."
+    },
+    {
+      "id": "L3-048", "lecture": 3, "concept": "Binning and feature crossing",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [21]},
+      "question": "What does discretisation do to a numerical feature?",
+      "choices": ["Guarantees a Gaussian shape", "Splits it into categories or intervals", "Deletes all outliers", "Changes every value to the mean"],
+      "answerIndex": 1,
+      "explanation": "The lecture describes turning numerical values into binary or ordered/nominal groups, such as below versus above a threshold."
+    },
+    {
+      "id": "L3-049", "lecture": 3, "concept": "Binning and feature crossing",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [21]},
+      "question": "Which property defines equal-width bins?",
+      "choices": ["Each bin has exactly the same number of rows", "Each bin has the same class balance", "Each bin has the same numerical interval size", "Each bin has the same average target"],
+      "answerIndex": 2,
+      "explanation": "Equal-width binning uses equal spans of the feature's numeric range; observation counts can differ."
+    },
+    {
+      "id": "L3-050", "lecture": 3, "concept": "Binning and feature crossing",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [21]},
+      "question": "Which property defines equal-frequency bins?",
+      "choices": ["Roughly equal numbers of observations per bin", "Identical numerical widths", "A fixed target value in every bin", "One bin per original value"],
+      "answerIndex": 0,
+      "explanation": "Equal-frequency binning aims to distribute observations fairly evenly, even if the numeric intervals have different widths."
+    },
+    {
+      "id": "L3-051", "lecture": 3, "concept": "Binning and feature crossing",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [21]},
+      "question": "Values are very concentrated at the low end of a range. What can happen with equal-width bins?",
+      "choices": ["All bins are guaranteed equally populated", "The feature becomes binary automatically", "The method uses the target labels by definition", "Some bins may be crowded while others contain few observations"],
+      "answerIndex": 3,
+      "explanation": "Equal-width spans do not adapt to where observations actually lie, so counts may be very uneven."
+    },
+    {
+      "id": "L3-052", "lecture": 3, "concept": "Binning and feature crossing",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [21]},
+      "question": "What criterion does entropy-based splitting seek at each split on the slide?",
+      "choices": ["The longest category label", "The greatest information gain", "The smallest file size", "A guaranteed equal-width interval"],
+      "answerIndex": 1,
+      "explanation": "The slide compares entropy-based binning with decision-tree splits chosen for maximum information gain."
+    },
+    {
+      "id": "L3-053", "lecture": 3, "concept": "Binning and feature crossing",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [23]},
+      "question": "If only overall vehicle sales matter, how can sales_cars and sales_bakkies be crossed?",
+      "choices": ["Subtract one from the other", "Divide each by the date", "Add them to form total sales", "Replace both with a random ID"],
+      "answerIndex": 2,
+      "explanation": "The lecture's sum example combines car and bakkie sales into an overall vehicle-sales feature."
+    },
+    {
+      "id": "L3-054", "lecture": 3, "concept": "Binning and feature crossing",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [23]},
+      "question": "Which operation creates 'time on market' from listing and purchase dates?",
+      "choices": ["Purchase date minus listing date", "Listing date multiplied by purchase date", "Adding the two dates", "Counting the number of houses in the suburb"],
+      "answerIndex": 0,
+      "explanation": "A date difference measures the elapsed time between listing and purchase."
+    },
+    {
+      "id": "L3-055", "lecture": 3, "concept": "Binning and feature crossing",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [23]},
+      "question": "Expected purchases are 200 and expected profit per purchase is R15. Which interaction gives expected earnings?",
+      "choices": ["200 - 15 = R185", "200 / 15", "200 + 15 = R215", "200 × R15 = R3,000"],
+      "answerIndex": 3,
+      "explanation": "The product of expected uptake and profit per sale estimates total earnings."
+    },
+    {
+      "id": "L3-056", "lecture": 3, "concept": "Binning and feature crossing",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [23]},
+      "question": "To create spending per client from total spending and client count, which operation is appropriate?",
+      "choices": ["Multiply spending by client count", "Divide total spending by client count", "Subtract total spending from count", "One-hot encode the numeric total"],
+      "answerIndex": 1,
+      "explanation": "A quotient turns a total into a per-client rate, matching the slide's interaction example."
+    },
+    {
+      "id": "L3-057", "lecture": 3, "concept": "Binning and feature crossing",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [23]},
+      "question": "Why create crossed features rather than only feeding raw columns to a model?",
+      "choices": ["Crossing guarantees zero error", "Every feature must be a product", "A meaningful combination can expose an interaction based on domain knowledge", "Raw columns cannot be numerical"],
+      "answerIndex": 2,
+      "explanation": "Feature crossing encodes useful relationships between existing variables that may be less obvious separately."
+    },
+    {
+      "id": "L3-058", "lecture": 3, "concept": "Augmentation and leakage",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [24]},
+      "question": "How could a driving-behaviour dataset be augmented using a date column?",
+      "choices": ["Replace every date with the target", "Delete all days without rain", "Join weather observations for the same dates", "Convert each date to an arbitrary user ID"],
+      "answerIndex": 2,
+      "explanation": "The slide gives weather on a given day as information that can be layered onto time-indexed driving data."
+    },
+    {
+      "id": "L3-059", "lecture": 3, "concept": "Augmentation and leakage",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [24]},
+      "question": "What does geocoding a street address produce in the lecture example?",
+      "choices": ["Latitude and longitude", "A guaranteed cluster label", "A target value", "A normal distribution"],
+      "answerIndex": 0,
+      "explanation": "Geocoding converts an address or place into geographic coordinates."
+    },
+    {
+      "id": "L3-060", "lecture": 3, "concept": "Augmentation and leakage",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [24]},
+      "question": "After obtaining latitude and longitude for two places, what new feature might be calculated?",
+      "choices": ["The exact causal effect of location", "The number of missing text fields", "The model's final accuracy", "A distance between the places"],
+      "answerIndex": 3,
+      "explanation": "Coordinates can be used to compute a geographic distance, for example with the haversine formula."
+    },
+    {
+      "id": "L3-061", "lecture": 3, "concept": "Augmentation and leakage",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [25]},
+      "question": "What can a text-embedding model produce from sentences or transaction descriptions?",
+      "choices": ["A proof of causation", "Numerical representations of the text", "A guaranteed target label", "Only a date and time"],
+      "answerIndex": 1,
+      "explanation": "Embeddings encode text into numerical vectors that can be compared or clustered."
+    },
+    {
+      "id": "L3-062", "lecture": 3, "concept": "Augmentation and leakage",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [24, 25]},
+      "question": "After clustering text embeddings, which result becomes a categorical feature on the slide?",
+      "choices": ["The cluster assignment for each record", "The mere fact that two words look similar", "The chart's colour palette", "The original sentence length only"],
+      "answerIndex": 0,
+      "explanation": "The slide's pipeline is text to embeddings to clusters; the assigned cluster label is used as a new categorical feature."
+    },
+    {
+      "id": "L3-063", "lecture": 3, "concept": "Augmentation and leakage",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [26]},
+      "question": "Why ask whether a new feature can be computed for future observations?",
+      "choices": ["Because past values are always useless", "Because future rows must have every possible category", "Because model predictions will need that feature at the time they are made", "Because the feature must be normally distributed"],
+      "answerIndex": 2,
+      "explanation": "A feature that exists only after the outcome is known cannot be supplied for genuine future predictions."
+    },
+    {
+      "id": "L3-064", "lecture": 3, "concept": "Augmentation and leakage",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [26]},
+      "question": "Which is a useful question to ask before keeping a newly engineered feature?",
+      "choices": ["Does it make every row unique?", "Does it have the longest name?", "Does it always use a neural network?", "Is it explainable and potentially predictive?"],
+      "answerIndex": 3,
+      "explanation": "The checklist asks whether a feature is intuitive, grounded in knowledge or exploration, and predictive."
+    },
+    {
+      "id": "L3-065", "lecture": 3, "concept": "Augmentation and leakage",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [26]},
+      "question": "Why is a feature calculated from the target value invalid for genuine prediction?",
+      "choices": ["It always has too few categories", "It leaks the answer, which will not be available when predicting new cases", "It must have a mean of zero", "It makes the feature univariate"],
+      "answerIndex": 1,
+      "explanation": "The slide explicitly warns not to use the target to build features: it gives the model information unavailable in production."
+    },
+    {
+      "id": "L3-066", "lecture": 3, "concept": "Augmentation and leakage",
+      "source": {"file": "IDVE_Lecture_3_2026.pdf", "pages": [26]},
+      "question": "You predict whether a future refuelling will be expensive before it happens, but use the final receipt's total_spent as an input. What is the problem?",
+      "choices": ["Only high cardinality", "Unit-norm scaling", "Target leakage, because the feature reconstructs the answer", "A lack of date decomposition"],
+      "answerIndex": 2,
+      "explanation": "The final receipt is not available before the refuelling; using it gives away information about the outcome."
     }
   ]
 }
