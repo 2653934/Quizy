@@ -408,6 +408,2246 @@ window.QUIZY_DATA = {
       ],
       "answerIndex": 2,
       "explanation": "The purpose is to make inspection easier, but reducing dimensions can discard or hide some information."
+    },
+    {
+      "id": "L2-001",
+      "lecture": 2,
+      "concept": "Descriptive statistics",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          3,
+          4
+        ]
+      },
+      "question": "For the sorted values 2, 2, 3, 5, 18, what are the mean, median and mode?",
+      "choices": [
+        "5, 3, 2",
+        "6, 2, 3",
+        "6, 3, 2",
+        "3, 6, 2"
+      ],
+      "answerIndex": 2,
+      "explanation": "The sum is 30, so the mean is 30/5 = 6. The middle value is 3, and 2 occurs most often."
+    },
+    {
+      "id": "L2-002",
+      "lecture": 2,
+      "concept": "Descriptive statistics",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          3,
+          4
+        ]
+      },
+      "question": "If 18 in the values 2, 2, 3, 5, 18 becomes 100, which centre measure changes more?",
+      "choices": [
+        "The mean",
+        "The median",
+        "They change equally",
+        "Neither can change"
+      ],
+      "answerIndex": 0,
+      "explanation": "The large value pulls the mean upward, while the middle sorted value remains 3."
+    },
+    {
+      "id": "L2-003",
+      "lecture": 2,
+      "concept": "Descriptive statistics",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "question": "Which measure is the most frequent value?",
+      "choices": [
+        "Median",
+        "Mean",
+        "Range",
+        "Mode"
+      ],
+      "answerIndex": 3,
+      "explanation": "The mode is the value that appears most often."
+    },
+    {
+      "id": "L2-004",
+      "lecture": 2,
+      "concept": "Descriptive statistics",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "question": "What is the relationship between variance and standard deviation?",
+      "choices": [
+        "Variance is the median squared",
+        "Variance is standard deviation squared",
+        "Variance is the maximum minus minimum",
+        "Variance counts categories"
+      ],
+      "answerIndex": 1,
+      "explanation": "Variance is the square of standard deviation; standard deviation is the square root of variance."
+    },
+    {
+      "id": "L2-005",
+      "lecture": 2,
+      "concept": "Descriptive statistics",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "question": "Which denominator appears in the slide's sample standard-deviation formula?",
+      "choices": [
+        "N",
+        "N + 1",
+        "N - 1",
+        "2N"
+      ],
+      "answerIndex": 2,
+      "explanation": "The slide divides by N - 1 for a sample and by N for a population."
+    },
+    {
+      "id": "L2-006",
+      "lecture": 2,
+      "concept": "Descriptive statistics",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "question": "Which percentile corresponds to the median?",
+      "choices": [
+        "50th",
+        "25th",
+        "75th",
+        "100th"
+      ],
+      "answerIndex": 0,
+      "explanation": "The median divides the sorted data in two and corresponds to the 50th percentile."
+    },
+    {
+      "id": "L2-007",
+      "lecture": 2,
+      "concept": "Descriptive statistics",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "question": "Why should descriptive statistics often be followed by a plot?",
+      "choices": [
+        "Statistics always use incorrect formulas",
+        "A plot removes missing values",
+        "A plot proves the data is normal",
+        "A summary can hide the distribution's shape and outliers"
+      ],
+      "answerIndex": 3,
+      "explanation": "The lecturer warns that quick summaries may hide skewness, outliers and other features of the distribution."
+    },
+    {
+      "id": "L2-008",
+      "lecture": 2,
+      "concept": "Descriptive statistics",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "question": "What does a category count tell you?",
+      "choices": [
+        "The average numerical value",
+        "How often a category occurs",
+        "The distance from the mean",
+        "The middle sorted value"
+      ],
+      "answerIndex": 1,
+      "explanation": "Count is the number of observations in each category."
+    },
+    {
+      "id": "L2-009",
+      "lecture": 2,
+      "concept": "Skewness and kurtosis",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          5,
+          6
+        ]
+      },
+      "question": "A distribution has a long tail extending to the right. What is its skew?",
+      "choices": [
+        "Negative",
+        "Zero",
+        "Undefined in every case",
+        "Positive"
+      ],
+      "answerIndex": 3,
+      "explanation": "Skew is named for the direction of the longer tail: right-tail means positive skew."
+    },
+    {
+      "id": "L2-010",
+      "lecture": 2,
+      "concept": "Skewness and kurtosis",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          5,
+          6
+        ]
+      },
+      "question": "A distribution is negatively skewed. Where is its longer tail?",
+      "choices": [
+        "On the left",
+        "On the right",
+        "On both sides equally",
+        "There is no tail"
+      ],
+      "answerIndex": 0,
+      "explanation": "Negative skew means the left tail is longer. Do not name skew by where most observations are."
+    },
+    {
+      "id": "L2-011",
+      "lecture": 2,
+      "concept": "Skewness and kurtosis",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          5,
+          6
+        ]
+      },
+      "question": "In the slide's left-skewed illustration, which direction is the mean pulled?",
+      "choices": [
+        "Right, toward the peak",
+        "Left, toward the long tail",
+        "It always equals the mode",
+        "It always becomes zero"
+      ],
+      "answerIndex": 1,
+      "explanation": "Extreme values in the left tail pull the mean leftward. The diagram places the mean left of the median and mode."
+    },
+    {
+      "id": "L2-012",
+      "lecture": 2,
+      "concept": "Skewness and kurtosis",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          5,
+          6
+        ]
+      },
+      "question": "Which description best matches a symmetric distribution in the slide's diagram?",
+      "choices": [
+        "A longer left tail",
+        "A longer right tail",
+        "Similar tails on both sides",
+        "Only one possible value"
+      ],
+      "answerIndex": 2,
+      "explanation": "The slide's symmetric example has matching left and right sides, with mean, median and mode aligned."
+    },
+    {
+      "id": "L2-013",
+      "lecture": 2,
+      "concept": "Skewness and kurtosis",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "question": "Which measure describes asymmetry rather than tail heaviness?",
+      "choices": [
+        "Kurtosis",
+        "Variance",
+        "Range",
+        "Skewness"
+      ],
+      "answerIndex": 3,
+      "explanation": "Skewness describes left-right asymmetry; kurtosis describes tail heaviness relative to normal."
+    },
+    {
+      "id": "L2-014",
+      "lecture": 2,
+      "concept": "Skewness and kurtosis",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          7,
+          8
+        ]
+      },
+      "question": "Which kurtosis type has heavier tails than a normal-like distribution?",
+      "choices": [
+        "Leptokurtic",
+        "Platykurtic",
+        "Mesokurtic",
+        "Symmetric"
+      ],
+      "answerIndex": 0,
+      "explanation": "Leptokurtic is positive on the slide's excess-kurtosis scale and has heavier tails."
+    },
+    {
+      "id": "L2-015",
+      "lecture": 2,
+      "concept": "Skewness and kurtosis",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          7,
+          8
+        ]
+      },
+      "question": "Which kurtosis type has lighter tails than normal?",
+      "choices": [
+        "Leptokurtic",
+        "Platykurtic",
+        "Mesokurtic",
+        "Positively skewed"
+      ],
+      "answerIndex": 1,
+      "explanation": "Platykurtic has negative excess kurtosis and thinner tails than the normal-like curve."
+    },
+    {
+      "id": "L2-016",
+      "lecture": 2,
+      "concept": "Skewness and kurtosis",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          7,
+          8
+        ]
+      },
+      "question": "On the excess-kurtosis scale used in the slides, what is the normal-like reference called?",
+      "choices": [
+        "Platykurtic",
+        "Leptokurtic",
+        "Mesokurtic",
+        "Left-skewed"
+      ],
+      "answerIndex": 2,
+      "explanation": "Mesokurtic is the normal-like reference, labelled zero in the slide's diagram."
+    },
+    {
+      "id": "L2-017",
+      "lecture": 2,
+      "concept": "Skewness and kurtosis",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          7,
+          9
+        ]
+      },
+      "question": "A dataset has many unusually extreme observations relative to a normal-like curve. Which property is most relevant?",
+      "choices": [
+        "The file name",
+        "Its category count only",
+        "The direction of time",
+        "Heavy tails or kurtosis"
+      ],
+      "answerIndex": 3,
+      "explanation": "Kurtosis concerns tail heaviness, which relates to extreme observations."
+    },
+    {
+      "id": "L2-018",
+      "lecture": 2,
+      "concept": "Skewness and kurtosis",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          5,
+          9
+        ]
+      },
+      "question": "Which statement correctly distinguishes skewness from kurtosis?",
+      "choices": [
+        "Skewness concerns asymmetry; kurtosis concerns tail heaviness",
+        "Skewness counts rows; kurtosis counts columns",
+        "Skewness and kurtosis both prove causation",
+        "Kurtosis is another name for the median"
+      ],
+      "answerIndex": 0,
+      "explanation": "The lecture contrasts left-right symmetry with the extent of heavy or light tails."
+    },
+    {
+      "id": "L2-019",
+      "lecture": 2,
+      "concept": "Correlation",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "question": "Which correlation is stronger in magnitude: -0.9 or +0.4?",
+      "choices": [
+        "+0.4 because it is positive",
+        "They are equally strong",
+        "-0.9 because its absolute value is larger",
+        "Neither has direction"
+      ],
+      "answerIndex": 2,
+      "explanation": "Strength follows absolute value; the negative sign gives direction, not weakness."
+    },
+    {
+      "id": "L2-020",
+      "lecture": 2,
+      "concept": "Correlation",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "question": "What does a negative correlation indicate?",
+      "choices": [
+        "As one variable tends to rise, the other tends to fall",
+        "Both variables must be negative numbers",
+        "The variables are unrelated",
+        "One variable definitely causes the other"
+      ],
+      "answerIndex": 0,
+      "explanation": "The negative sign indicates an inverse association, not negative values or causation."
+    },
+    {
+      "id": "L2-021",
+      "lecture": 2,
+      "concept": "Correlation",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "question": "Which coefficient is most directly designed for a linear relationship?",
+      "choices": [
+        "Spearman",
+        "Kendall tau",
+        "Kurtosis",
+        "Pearson"
+      ],
+      "answerIndex": 3,
+      "explanation": "Pearson correlation describes linear association."
+    },
+    {
+      "id": "L2-022",
+      "lecture": 2,
+      "concept": "Correlation",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "question": "A relationship curves upward but never turns downward. Which coefficient is useful for this monotonic pattern?",
+      "choices": [
+        "Variance",
+        "Spearman",
+        "Range",
+        "Pearson only"
+      ],
+      "answerIndex": 1,
+      "explanation": "Spearman uses ranks and can capture a monotonic relationship even when it is not straight."
+    },
+    {
+      "id": "L2-023",
+      "lecture": 2,
+      "concept": "Correlation",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "question": "Why might Spearman correlation be weak for a clear U-shaped relationship?",
+      "choices": [
+        "Spearman only works with dates",
+        "The pattern is too linear",
+        "The relationship changes direction and is not monotonic",
+        "All U-shaped data is random"
+      ],
+      "answerIndex": 2,
+      "explanation": "A U-shape falls and then rises, so one consistent rank direction does not describe it well."
+    },
+    {
+      "id": "L2-024",
+      "lecture": 2,
+      "concept": "Correlation",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          10,
+          11
+        ]
+      },
+      "question": "Pearson correlation is near zero. Which conclusion is safest?",
+      "choices": [
+        "There is no strong linear association detected, but another pattern may exist",
+        "The variables cannot be related in any way",
+        "One variable has no effect on anything",
+        "The data must be normally distributed"
+      ],
+      "answerIndex": 0,
+      "explanation": "A near-zero Pearson coefficient does not rule out curved or other non-linear relationships."
+    },
+    {
+      "id": "L2-025",
+      "lecture": 2,
+      "concept": "Correlation",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "question": "Which other rank-based dependence measure does the slide name alongside Spearman?",
+      "choices": [
+        "Standard deviation",
+        "Mean",
+        "Pearson's variance",
+        "Kendall's tau"
+      ],
+      "answerIndex": 3,
+      "explanation": "Kendall's tau is similar in purpose to Spearman as a rank-based dependence measure."
+    },
+    {
+      "id": "L2-026",
+      "lecture": 2,
+      "concept": "Correlation",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "question": "A coefficient is +0.8. What does the positive sign tell you?",
+      "choices": [
+        "The association is weak",
+        "The variables tend to move in the same direction",
+        "The first variable causes the second",
+        "Each value rises by exactly 0.8 units"
+      ],
+      "answerIndex": 1,
+      "explanation": "Positive sign indicates same-direction association; 0.8 is not a slope or causal claim."
+    },
+    {
+      "id": "L2-027",
+      "lecture": 2,
+      "concept": "Correlation",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "question": "Can a strong correlation alone prove that one variable causes another?",
+      "choices": [
+        "Yes, whenever the coefficient exceeds 0.7",
+        "Yes, if both variables are numeric",
+        "No, another factor may explain the association",
+        "No, because all correlations are weak"
+      ],
+      "answerIndex": 2,
+      "explanation": "Association does not by itself identify the cause; confounding factors may be present."
+    },
+    {
+      "id": "L2-028",
+      "lecture": 2,
+      "concept": "Correlation",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "question": "What is the possible range of a standard correlation coefficient?",
+      "choices": [
+        "-1 to +1",
+        "0 to 100",
+        "-infinity to +infinity",
+        "Only 0 or 1"
+      ],
+      "answerIndex": 0,
+      "explanation": "The lecture gives the range as -1 through +1."
+    },
+    {
+      "id": "L2-029",
+      "lecture": 2,
+      "concept": "Histogram and KDE",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "question": "What does the height of a histogram bar usually show?",
+      "choices": [
+        "The mean of all values",
+        "The count in that interval",
+        "The correlation coefficient",
+        "The number of variables"
+      ],
+      "answerIndex": 1,
+      "explanation": "The variable is divided into bins; each bar shows how many observations fall in a bin."
+    },
+    {
+      "id": "L2-030",
+      "lecture": 2,
+      "concept": "Histogram and KDE",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "question": "What might happen if histogram bins are much too wide?",
+      "choices": [
+        "Every value disappears",
+        "The y-axis becomes a probability",
+        "Small features of the distribution may be hidden",
+        "The histogram becomes a scatter plot"
+      ],
+      "answerIndex": 2,
+      "explanation": "Broad bins merge values together and may conceal structure; bin width is an important choice."
+    },
+    {
+      "id": "L2-031",
+      "lecture": 2,
+      "concept": "Histogram and KDE",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "question": "What might happen if histogram bins are much too narrow?",
+      "choices": [
+        "The chart may look noisy or fragmented",
+        "Every bar must have the same count",
+        "The data becomes categorical",
+        "The mean changes"
+      ],
+      "answerIndex": 0,
+      "explanation": "Many very narrow bins can emphasise small fluctuations rather than the broader distribution shape."
+    },
+    {
+      "id": "L2-032",
+      "lecture": 2,
+      "concept": "Histogram and KDE",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "question": "How does the lecture describe constructing a KDE?",
+      "choices": [
+        "Sort categories alphabetically",
+        "Connect histogram bar tops with straight lines",
+        "Replace each value with a box",
+        "Place a smooth curve at each data point and combine the curves"
+      ],
+      "answerIndex": 3,
+      "explanation": "The slide shows a continuous kernel centred on each observation; together they form a smooth density estimate."
+    },
+    {
+      "id": "L2-033",
+      "lecture": 2,
+      "concept": "Histogram and KDE",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "question": "What does the lecture say is on the KDE y-axis?",
+      "choices": [
+        "Exact-value probability",
+        "Probability density",
+        "Number of categories",
+        "Correlation strength"
+      ],
+      "answerIndex": 1,
+      "explanation": "The slide explicitly says probability density, not the probability of one exact value."
+    },
+    {
+      "id": "L2-034",
+      "lecture": 2,
+      "concept": "Histogram and KDE",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          15,
+          16
+        ]
+      },
+      "question": "Which pairing is correct?",
+      "choices": [
+        "Histogram: binned counts; KDE: smoothed density",
+        "Histogram: spatial distance; KDE: category count",
+        "Histogram: causation; KDE: correlation",
+        "Histogram: ranks; KDE: five-number summary"
+      ],
+      "answerIndex": 0,
+      "explanation": "A histogram counts observations in intervals, whereas KDE produces a smooth density estimate."
+    },
+    {
+      "id": "L2-035",
+      "lecture": 2,
+      "concept": "Histogram and KDE",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "question": "A histogram is mainly suited to viewing the distribution of which type of variable?",
+      "choices": [
+        "A database table name",
+        "A URL identifier",
+        "A continuous numerical variable",
+        "Only a Boolean variable"
+      ],
+      "answerIndex": 2,
+      "explanation": "The slide presents histograms as an approximate view of the distribution of one continuous variable."
+    },
+    {
+      "id": "L2-036",
+      "lecture": 2,
+      "concept": "Histogram and KDE",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "question": "Why can overlapping KDE curves be useful?",
+      "choices": [
+        "They prove two groups are identical",
+        "They automatically remove outliers",
+        "They convert all values to counts",
+        "They help compare distribution shapes on the same axes"
+      ],
+      "answerIndex": 3,
+      "explanation": "The slide notes KDE is useful when comparing distributions together on shared axes."
+    },
+    {
+      "id": "L2-037",
+      "lecture": 2,
+      "concept": "Box and violin plots",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "question": "What does the line inside a standard box plot usually mark?",
+      "choices": [
+        "The median",
+        "The mode",
+        "The maximum",
+        "The count"
+      ],
+      "answerIndex": 0,
+      "explanation": "The line inside the box marks the median, the middle sorted value."
+    },
+    {
+      "id": "L2-038",
+      "lecture": 2,
+      "concept": "Box and violin plots",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "question": "Which values form the lower and upper edges of the box?",
+      "choices": [
+        "Minimum and maximum",
+        "Mean and mode",
+        "First and third quartiles",
+        "Two standard deviations"
+      ],
+      "answerIndex": 2,
+      "explanation": "The box runs from Q1 to Q3, containing the middle half of the observations."
+    },
+    {
+      "id": "L2-039",
+      "lecture": 2,
+      "concept": "Box and violin plots",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "question": "Do box-plot whiskers always end at the exact observed minimum and maximum?",
+      "choices": [
+        "Yes, by definition",
+        "No, their meaning depends on the plotting rule",
+        "Only when the data is categorical",
+        "Only for violin plots"
+      ],
+      "answerIndex": 1,
+      "explanation": "The slide notes alternative whisker conventions, including standard-deviation or percentile limits."
+    },
+    {
+      "id": "L2-040",
+      "lecture": 2,
+      "concept": "Box and violin plots",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "question": "What do separate dots beyond the box-plot whiskers commonly indicate?",
+      "choices": [
+        "The median",
+        "The number of categories",
+        "Certain measurement error",
+        "Potential outlying observations"
+      ],
+      "answerIndex": 3,
+      "explanation": "Points beyond the whiskers are commonly drawn separately as potential outliers; they need investigation, not automatic deletion."
+    },
+    {
+      "id": "L2-041",
+      "lecture": 2,
+      "concept": "Box and violin plots",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "question": "What does the width of a violin at a particular value suggest?",
+      "choices": [
+        "Relative density or concentration of observations",
+        "The exact number of missing rows",
+        "The correlation coefficient",
+        "The x-axis unit"
+      ],
+      "answerIndex": 0,
+      "explanation": "The violin adds a KDE-like shape; wider regions indicate more concentrated values."
+    },
+    {
+      "id": "L2-042",
+      "lecture": 2,
+      "concept": "Box and violin plots",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "question": "Which plot is especially useful for seeing multiple peaks in a distribution?",
+      "choices": [
+        "A plain box plot",
+        "A pie chart",
+        "A violin plot",
+        "A dendrogram"
+      ],
+      "answerIndex": 2,
+      "explanation": "The violin's density shape can show multimodality that a compact box summary may hide."
+    },
+    {
+      "id": "L2-043",
+      "lecture": 2,
+      "concept": "Box and violin plots",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          17,
+          18
+        ]
+      },
+      "question": "Which statement best compares box and violin plots?",
+      "choices": [
+        "Both prove causation",
+        "Box plots emphasise quartiles and outliers; violins also show density shape",
+        "Only violins can compare groups",
+        "Box plots always reveal every peak"
+      ],
+      "answerIndex": 1,
+      "explanation": "A box plot is a compact five-number-style summary; a violin adds a density view."
+    },
+    {
+      "id": "L2-044",
+      "lecture": 2,
+      "concept": "Box and violin plots",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "question": "Which section of a box plot contains the middle 50% of values?",
+      "choices": [
+        "The whiskers",
+        "The separate dots",
+        "The legend",
+        "The box between Q1 and Q3"
+      ],
+      "answerIndex": 3,
+      "explanation": "Q1 to Q3 spans the central half of the ordered data."
+    },
+    {
+      "id": "L2-045",
+      "lecture": 2,
+      "concept": "Heatmaps and scatter plots",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "question": "What does colour represent in a heatmap?",
+      "choices": [
+        "The order in which rows were recorded",
+        "The magnitude of a value",
+        "The name of the plotting library",
+        "A causal effect"
+      ],
+      "answerIndex": 1,
+      "explanation": "The lecture defines heatmaps as using colour to display the magnitude of values."
+    },
+    {
+      "id": "L2-046",
+      "lecture": 2,
+      "concept": "Heatmaps and scatter plots",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "question": "You want to compare correlations across many pairs of numerical variables. Which plot is most suitable?",
+      "choices": [
+        "A pie chart",
+        "A single-variable histogram",
+        "A box plot",
+        "A matrix heatmap"
+      ],
+      "answerIndex": 3,
+      "explanation": "A matrix heatmap uses rows and columns for variable pairs and colour for the corresponding correlation values."
+    },
+    {
+      "id": "L2-047",
+      "lecture": 2,
+      "concept": "Heatmaps and scatter plots",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          19,
+          21
+        ]
+      },
+      "question": "In a spatial heatmap, what is colour tied to?",
+      "choices": [
+        "The magnitude of a value at a location",
+        "The alphabetical order of place names",
+        "The number of variables in the entire dataset",
+        "The age of the map file"
+      ],
+      "answerIndex": 0,
+      "explanation": "A spatial heatmap displays values over locations, with colour encoding magnitude at each place."
+    },
+    {
+      "id": "L2-048",
+      "lecture": 2,
+      "concept": "Heatmaps and scatter plots",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "question": "Why should you read a heatmap's colour scale before interpreting it?",
+      "choices": [
+        "Because heatmaps never contain numbers",
+        "Because every heatmap uses the same colours",
+        "Because a colour has no universal value meaning",
+        "Because the scale proves causation"
+      ],
+      "answerIndex": 2,
+      "explanation": "Colour represents magnitude, but the legend defines which colours correspond to larger or smaller values in that plot."
+    },
+    {
+      "id": "L2-049",
+      "lecture": 2,
+      "concept": "Heatmaps and scatter plots",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "question": "Which is a difference between a matrix and a spatial heatmap?",
+      "choices": [
+        "Only the spatial heatmap uses colour",
+        "A matrix arranges values by rows and columns; a spatial heatmap arranges them by location",
+        "A spatial heatmap can only show correlations",
+        "A matrix heatmap cannot show missing values"
+      ],
+      "answerIndex": 1,
+      "explanation": "The lecture shows matrix heatmaps for tables such as correlations or missingness, and spatial heatmaps for values at locations."
+    },
+    {
+      "id": "L2-050",
+      "lecture": 2,
+      "concept": "Heatmaps and scatter plots",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "question": "Which plot best shows the relationship between two numerical variables for individual observations?",
+      "choices": [
+        "A scatter plot",
+        "A pie chart",
+        "A single box plot",
+        "A frequency table"
+      ],
+      "answerIndex": 0,
+      "explanation": "A scatter plot positions each observation using two numerical axes, making their relationship visible."
+    },
+    {
+      "id": "L2-051",
+      "lecture": 2,
+      "concept": "Heatmaps and scatter plots",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "question": "How can a scatter plot include a third categorical variable, such as penguin species?",
+      "choices": [
+        "By deleting one numerical axis",
+        "By calculating a mean first",
+        "By changing every point to a bar",
+        "By colouring points according to category"
+      ],
+      "answerIndex": 3,
+      "explanation": "The lecture notes that a categorical third variable can be added; distinct point colours can show its classes."
+    },
+    {
+      "id": "L2-052",
+      "lecture": 2,
+      "concept": "Heatmaps and scatter plots",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "question": "A scatter plot shows two variables increasing together. What is the safest conclusion?",
+      "choices": [
+        "The first variable definitely causes the second",
+        "The second variable definitely causes the first",
+        "They appear associated, but causation is not established",
+        "A third variable cannot affect them"
+      ],
+      "answerIndex": 2,
+      "explanation": "The plotted association could reflect another variable or coincidence; the scatter plot alone cannot establish causation."
+    },
+    {
+      "id": "L2-053",
+      "lecture": 2,
+      "concept": "Heatmaps and scatter plots",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "question": "What can a scatter plot help reveal beyond an overall upward or downward pattern?",
+      "choices": [
+        "Guaranteed model accuracy",
+        "Clusters or unusual observations",
+        "The exact cause of each observation",
+        "The correct unit for every variable"
+      ],
+      "answerIndex": 1,
+      "explanation": "Individual plotted points can reveal separated groups or unusual observations as well as an overall relationship."
+    },
+    {
+      "id": "L2-054",
+      "lecture": 2,
+      "concept": "Heatmaps and scatter plots",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          19,
+          23
+        ]
+      },
+      "question": "Which plot choice best fits each aim: many pairwise correlations, then two numeric variables as individual points?",
+      "choices": [
+        "Histogram, then pie chart",
+        "Scatter plot, then matrix heatmap",
+        "Violin plot, then histogram",
+        "Matrix heatmap, then scatter plot"
+      ],
+      "answerIndex": 3,
+      "explanation": "A matrix heatmap summarises many variable pairs, while a scatter plot shows the two-variable observations directly."
+    },
+    {
+      "id": "L2-055",
+      "lecture": 2,
+      "concept": "Dendrograms and plot choice",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "question": "What does a dendrogram primarily show?",
+      "choices": [
+        "The exact probability of each observation",
+        "The frequency of one category",
+        "Hierarchical connections among objects",
+        "A time series trend"
+      ],
+      "answerIndex": 2,
+      "explanation": "A dendrogram represents how objects or groups connect in a hierarchy."
+    },
+    {
+      "id": "L2-056",
+      "lecture": 2,
+      "concept": "Dendrograms and plot choice",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "question": "In the lecture's dendrogram, two objects join at a low height. What does this suggest?",
+      "choices": [
+        "They are relatively similar under the chosen distance metric",
+        "They are necessarily identical",
+        "They are the most different objects",
+        "One object causes the other"
+      ],
+      "answerIndex": 0,
+      "explanation": "The slide says lower joining height corresponds to greater similarity under the distance metric."
+    },
+    {
+      "id": "L2-057",
+      "lecture": 2,
+      "concept": "Dendrograms and plot choice",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "question": "What determines the grouping shown by a dendrogram?",
+      "choices": [
+        "The chart colours alone",
+        "The alphabetical order of labels",
+        "The file's modification date",
+        "A chosen distance or similarity measure"
+      ],
+      "answerIndex": 3,
+      "explanation": "The lecture notes that a distance metric is used to group the data."
+    },
+    {
+      "id": "L2-058",
+      "lecture": 2,
+      "concept": "Dendrograms and plot choice",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "question": "What does the lecture's cluster map add to a heatmap-style view?",
+      "choices": [
+        "A pie chart for every cell",
+        "Dendrograms showing similar behaviour",
+        "A guaranteed causal explanation",
+        "A time axis instead of rows"
+      ],
+      "answerIndex": 1,
+      "explanation": "The cluster-map slide shows a heatmap together with dendrograms to display similarities among entries."
+    },
+    {
+      "id": "L2-059",
+      "lecture": 2,
+      "concept": "Dendrograms and plot choice",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "question": "Which chart type does the lecture suggest for comparing counts across categories?",
+      "choices": [
+        "A spectrogram",
+        "A scatter plot",
+        "A bar chart",
+        "A dendrogram only"
+      ],
+      "answerIndex": 2,
+      "explanation": "Bar charts compare the quantities or counts of different categories."
+    },
+    {
+      "id": "L2-060",
+      "lecture": 2,
+      "concept": "Dendrograms and plot choice",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "question": "A value is measured repeatedly over a long period. Which chart best shows how it changes over time?",
+      "choices": [
+        "A line chart",
+        "A pie chart",
+        "One box plot",
+        "A category-count table only"
+      ],
+      "answerIndex": 0,
+      "explanation": "The slide recommends line charts for continuously changing data such as a time series."
+    },
+    {
+      "id": "L2-061",
+      "lecture": 2,
+      "concept": "Dendrograms and plot choice",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "question": "What are bar and pie charts used for on the lecture's chart-choice slide?",
+      "choices": [
+        "Proving causation",
+        "Showing the exact coordinates of observations",
+        "Testing stationarity",
+        "Comparing category quantities or counts"
+      ],
+      "answerIndex": 3,
+      "explanation": "The slide groups bar and pie charts as ways to compare quantities or counts of categories."
+    },
+    {
+      "id": "L2-062",
+      "lecture": 2,
+      "concept": "Dendrograms and plot choice",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          28
+        ]
+      },
+      "question": "What does univariate analysis explore?",
+      "choices": [
+        "Only a relationship between two variables",
+        "One variable",
+        "Every variable at once",
+        "Only categorical variables"
+      ],
+      "answerIndex": 1,
+      "explanation": "Univariate means examining a single variable; it may be numerical or categorical."
+    },
+    {
+      "id": "L2-063",
+      "lecture": 2,
+      "concept": "Dendrograms and plot choice",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          28
+        ]
+      },
+      "question": "You want to examine the relationship between bill length and flipper length. Is this univariate or bivariate analysis?",
+      "choices": [
+        "Univariate, because both are numerical",
+        "Univariate, because one species is plotted",
+        "Bivariate, because two variables are involved",
+        "Neither, because it needs a map"
+      ],
+      "answerIndex": 2,
+      "explanation": "Bivariate analysis explores a relationship between two variables, regardless of whether both are numerical."
+    },
+    {
+      "id": "L2-064",
+      "lecture": 2,
+      "concept": "Dendrograms and plot choice",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          23,
+          28
+        ]
+      },
+      "question": "Which combination best explores two numerical variables and a third categorical grouping?",
+      "choices": [
+        "A histogram of one numeric variable only",
+        "A pie chart of one category only",
+        "A single line chart with no labels",
+        "A scatter plot with points coloured by category"
+      ],
+      "answerIndex": 3,
+      "explanation": "Two numerical axes show the relationship; colour can identify a third categorical variable."
+    },
+    {
+      "id": "L2-065",
+      "lecture": 2,
+      "concept": "Cleaning and data integrity",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          29
+        ]
+      },
+      "question": "A record lists a person's age as -4 years. What is the best first response?",
+      "choices": [
+        "Treat it as an obvious inconsistency and investigate it",
+        "Assume every negative value is a useful outlier",
+        "Convert the whole age column to text",
+        "Keep it because calculations can still run"
+      ],
+      "answerIndex": 0,
+      "explanation": "A negative age is not plausible; the lecture recommends identifying inconsistencies and deciding how to handle them."
+    },
+    {
+      "id": "L2-066",
+      "lecture": 2,
+      "concept": "Cleaning and data integrity",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          30,
+          31
+        ]
+      },
+      "question": "Which operation can accidentally multiply rows and produce duplicate observations?",
+      "choices": [
+        "Renaming a chart title",
+        "Changing point colours",
+        "Joining data from multiple tables",
+        "Sorting rows by date"
+      ],
+      "answerIndex": 2,
+      "explanation": "The slides identify joins and combining sources as common ways duplicate observations arise."
+    },
+    {
+      "id": "L2-067",
+      "lecture": 2,
+      "concept": "Cleaning and data integrity",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          31
+        ]
+      },
+      "question": "How can you find candidate duplicate observations?",
+      "choices": [
+        "Ignore all repeated values",
+        "Group by relevant identifying columns and count rows",
+        "Keep only the first alphabetical category",
+        "Plot a single KDE and delete every peak"
+      ],
+      "answerIndex": 1,
+      "explanation": "Grouping on relevant columns and checking counts can reveal candidates for duplicate review."
+    },
+    {
+      "id": "L2-068",
+      "lecture": 2,
+      "concept": "Cleaning and data integrity",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          31
+        ]
+      },
+      "question": "Two rows look similar but may represent two separate fuel purchases. What should you do before removing either row?",
+      "choices": [
+        "Delete both immediately",
+        "Assume similar rows are always errors",
+        "Keep only the row with a higher value",
+        "Check whether they are true duplicate records or legitimate repeated events"
+      ],
+      "answerIndex": 3,
+      "explanation": "Repeated real-world events can be valid; confirm record identity before dropping a suspected duplicate."
+    },
+    {
+      "id": "L2-069",
+      "lecture": 2,
+      "concept": "Cleaning and data integrity",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          31
+        ]
+      },
+      "question": "A category appears as 'Pothole', 'pothole', and 'potholes' with the same intended meaning. What is the sensible cleaning step?",
+      "choices": [
+        "Treat all three as unrelated classes",
+        "Delete every row with those labels",
+        "Standardise them to one class",
+        "Convert them to three numerical features without checking"
+      ],
+      "answerIndex": 2,
+      "explanation": "The slide uses these labels as an example of classes that should be grouped after checking their meaning."
+    },
+    {
+      "id": "L2-070",
+      "lecture": 2,
+      "concept": "Cleaning and data integrity",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          31
+        ]
+      },
+      "question": "Which chart can help reveal inconsistent labels when there are a manageable number of categories?",
+      "choices": [
+        "A category-count bar chart",
+        "A time-series line chart only",
+        "A spectrogram",
+        "A map without labels"
+      ],
+      "answerIndex": 0,
+      "explanation": "The lecture suggests bar charts for spotting category names that do not make sense or may be duplicates."
+    },
+    {
+      "id": "L2-071",
+      "lecture": 2,
+      "concept": "Cleaning and data integrity",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          31
+        ]
+      },
+      "question": "You are modelling single-family homes only. How should apartment records be treated?",
+      "choices": [
+        "As essential examples for the target population",
+        "As irrelevant observations for this specific problem",
+        "As evidence that every class label is a typo",
+        "As automatic outliers within the home prices"
+      ],
+      "answerIndex": 1,
+      "explanation": "Whether a record is relevant depends on the problem; the slide gives apartments in a single-family-home task as an exclusion example."
+    },
+    {
+      "id": "L2-072",
+      "lecture": 2,
+      "concept": "Cleaning and data integrity",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          30
+        ]
+      },
+      "question": "What is high bias most associated with on the lecture slide?",
+      "choices": [
+        "A model memorising every training example",
+        "A model with perfect generalisation",
+        "A dataset with no missing values",
+        "An overly simple model that underfits"
+      ],
+      "answerIndex": 3,
+      "explanation": "High bias means the model is too simple or misses information, leading to underfitting."
+    },
+    {
+      "id": "L2-073",
+      "lecture": 2,
+      "concept": "Cleaning and data integrity",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          30
+        ]
+      },
+      "question": "A model follows quirks of its training set but performs poorly on new data. Which problem does that illustrate?",
+      "choices": [
+        "High bias and underfitting",
+        "Correct removal of duplicates",
+        "High variance and overfitting",
+        "A guaranteed causal relationship"
+      ],
+      "answerIndex": 2,
+      "explanation": "The slide says high variance means paying too much attention to training data and failing to generalise."
+    },
+    {
+      "id": "L2-074",
+      "lecture": 2,
+      "concept": "Cleaning and data integrity",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          29,
+          31
+        ]
+      },
+      "question": "Why might a value such as 100,000 km driven in one month need a domain check?",
+      "choices": [
+        "It is unusual and may be inconsistent, but its meaning depends on context",
+        "Every large number is automatically invalid",
+        "It proves the vehicle was driven exactly that far",
+        "Only string values can be inconsistent"
+      ],
+      "answerIndex": 0,
+      "explanation": "The lecture uses implausible monthly mileage as an example of a potential inconsistency that should be investigated with domain knowledge."
+    },
+    {
+      "id": "L2-075",
+      "lecture": 2,
+      "concept": "Missingness mechanisms",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          32
+        ]
+      },
+      "question": "What does MCAR mean?",
+      "choices": [
+        "Missingness depends on the unseen value",
+        "Missingness is explained by a recorded feature",
+        "Missingness is unrelated to the values or other variables",
+        "No entries are missing"
+      ],
+      "answerIndex": 2,
+      "explanation": "Missing Completely At Random means the chance of being missing is not related to observed or unobserved values."
+    },
+    {
+      "id": "L2-076",
+      "lecture": 2,
+      "concept": "Missingness mechanisms",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          32
+        ]
+      },
+      "question": "A recorder fails unpredictably, regardless of the vehicle or reading. Which missingness mechanism best fits?",
+      "choices": [
+        "MCAR",
+        "MAR",
+        "MNAR",
+        "Feature leakage"
+      ],
+      "answerIndex": 0,
+      "explanation": "An unrelated random equipment failure is an example of missing completely at random."
+    },
+    {
+      "id": "L2-077",
+      "lecture": 2,
+      "concept": "Missingness mechanisms",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          32
+        ]
+      },
+      "question": "Which description best captures MAR in the usual statistical distinction?",
+      "choices": [
+        "There is no missing data",
+        "Missingness depends only on the missing value itself",
+        "Missingness cannot be explained by any variable",
+        "Missingness can be explained by observed variables"
+      ],
+      "answerIndex": 3,
+      "explanation": "Missing At Random does not mean causeless. After accounting for recorded variables, missingness need not depend on the unseen value itself."
+    },
+    {
+      "id": "L2-078",
+      "lecture": 2,
+      "concept": "Missingness mechanisms",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          32
+        ]
+      },
+      "question": "Fuel-cost values are more often missing for older cars, and car age is recorded. Which mechanism could fit if age explains the missingness?",
+      "choices": [
+        "MCAR",
+        "MAR",
+        "MNAR because the costs must be high",
+        "No missingness mechanism"
+      ],
+      "answerIndex": 1,
+      "explanation": "Recorded car age can explain the chance that cost is missing, which is the usual MAR situation."
+    },
+    {
+      "id": "L2-079",
+      "lecture": 2,
+      "concept": "Missingness mechanisms",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          32
+        ]
+      },
+      "question": "People omit a fuel cost specifically because that cost was unusually high, even after considering recorded features. Which mechanism best fits?",
+      "choices": [
+        "MCAR",
+        "MAR",
+        "MNAR",
+        "Normalisation"
+      ],
+      "answerIndex": 2,
+      "explanation": "The missingness depends on the cost value that is itself missing, the hallmark of Missing Not At Random."
+    },
+    {
+      "id": "L2-080",
+      "lecture": 2,
+      "concept": "Missingness mechanisms",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          32
+        ]
+      },
+      "question": "What is the key distinction between MAR and MNAR?",
+      "choices": [
+        "MAR can be accounted for using observed variables; MNAR still depends on the unseen value",
+        "MAR means values are never missing; MNAR means all values are missing",
+        "MAR applies only to text; MNAR only to numbers",
+        "MAR is always harmless; MNAR always makes analysis impossible"
+      ],
+      "answerIndex": 0,
+      "explanation": "For MAR, observed data can explain the missingness; for MNAR, missingness depends on the missing value even after accounting for observed data."
+    },
+    {
+      "id": "L2-081",
+      "lecture": 2,
+      "concept": "Missingness mechanisms",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          32
+        ]
+      },
+      "question": "Why should you investigate which rows are missing a value before choosing a treatment?",
+      "choices": [
+        "Because every blank cell has the same cause",
+        "Because missingness patterns can carry information or bias the analysis",
+        "Because plots are impossible with any missing value",
+        "Because all missing rows must be deleted"
+      ],
+      "answerIndex": 1,
+      "explanation": "The lecture asks us to look for a sensible root cause; the pattern affects how we interpret and handle missing data."
+    },
+    {
+      "id": "L2-082",
+      "lecture": 2,
+      "concept": "Missingness mechanisms",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          32
+        ]
+      },
+      "question": "Does 'Missing At Random' mean that missing values have no identifiable pattern at all?",
+      "choices": [
+        "Yes; MAR is another name for MCAR",
+        "Yes; MAR means nothing is missing",
+        "Only for categorical columns",
+        "No; the pattern may be explained by recorded variables"
+      ],
+      "answerIndex": 3,
+      "explanation": "The name is deceptive: MAR missingness may depend on observed information, unlike MCAR."
+    },
+    {
+      "id": "L2-083",
+      "lecture": 2,
+      "concept": "Missingness mechanisms",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          32
+        ]
+      },
+      "question": "If some values are missing, what conclusion does the lecture support?",
+      "choices": [
+        "The analysis is automatically doomed",
+        "The dataset is definitely MCAR",
+        "The impact can be serious, but investigate the cause before deciding what to do",
+        "Delete the entire variable without inspection"
+      ],
+      "answerIndex": 2,
+      "explanation": "Missing values can affect analysis, but the slide explicitly says they do not automatically make it impossible."
+    },
+    {
+      "id": "L2-084",
+      "lecture": 2,
+      "concept": "Imputation",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          33
+        ]
+      },
+      "question": "When might deleting rows with missing values be more defensible according to the lecture?",
+      "choices": [
+        "When values are definitely MNAR",
+        "When the missingness is MCAR and the remaining sample is still adequate",
+        "Whenever any column has a blank",
+        "Only when the dataset has one category"
+      ],
+      "answerIndex": 1,
+      "explanation": "Deletion can be considered under MCAR, but it still loses observations and needs a sample-size check."
+    },
+    {
+      "id": "L2-085",
+      "lecture": 2,
+      "concept": "Imputation",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          33
+        ]
+      },
+      "question": "What is a direct cost of deleting rows with missing values?",
+      "choices": [
+        "The sample mean must double",
+        "All relationships become causal",
+        "Every missing value becomes zero",
+        "Sample size and statistical power can decrease"
+      ],
+      "answerIndex": 3,
+      "explanation": "Fewer observations can mean less power even when deletion is otherwise acceptable."
+    },
+    {
+      "id": "L2-086",
+      "lecture": 2,
+      "concept": "Imputation",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          33
+        ]
+      },
+      "question": "Why is median imputation often preferable to mean imputation when observed values have extreme outliers?",
+      "choices": [
+        "The median is less pulled by extreme values",
+        "The median preserves every correlation exactly",
+        "The median always equals zero",
+        "The median removes all missingness mechanisms"
+      ],
+      "answerIndex": 0,
+      "explanation": "Extreme observations can pull the mean much more than the median, so the median may be a more representative fill value."
+    },
+    {
+      "id": "L2-087",
+      "lecture": 2,
+      "concept": "Imputation",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          33
+        ]
+      },
+      "question": "A dataset contains two groups with very different typical fuel costs. Why might one global mean be a poor fill value?",
+      "choices": [
+        "It guarantees too many categories",
+        "It makes every missing value MCAR",
+        "It may represent neither group's typical value well",
+        "It automatically proves leakage"
+      ],
+      "answerIndex": 2,
+      "explanation": "The slide notes that sub-populations can have different means; a single overall value can hide that structure."
+    },
+    {
+      "id": "L2-088",
+      "lecture": 2,
+      "concept": "Imputation",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          33
+        ]
+      },
+      "question": "What can filling all gaps with one constant do to a variable's distribution?",
+      "choices": [
+        "Preserve the exact original spread",
+        "Create a pile-up at the fill value and distort spread",
+        "Guarantee a normal distribution",
+        "Remove every outlier"
+      ],
+      "answerIndex": 1,
+      "explanation": "Repeatedly inserting the same value changes the observed distribution and can reduce or distort variation."
+    },
+    {
+      "id": "L2-089",
+      "lecture": 2,
+      "concept": "Imputation",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          33
+        ]
+      },
+      "question": "Which statement about constant-value imputation and relationships is most accurate?",
+      "choices": [
+        "It can distort relationships with other variables",
+        "It preserves all relationships exactly",
+        "It always makes every correlation exactly zero",
+        "It proves the missingness is random"
+      ],
+      "answerIndex": 0,
+      "explanation": "Filling with a constant can alter correlations and modelling outcomes; it does not literally force every correlation to zero."
+    },
+    {
+      "id": "L2-090",
+      "lecture": 2,
+      "concept": "Imputation",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          34
+        ]
+      },
+      "question": "How does regression imputation obtain a missing value?",
+      "choices": [
+        "It selects the global median without using other features",
+        "It copies a value from a separate dataset",
+        "It deletes the row",
+        "It predicts from other observed variables"
+      ],
+      "answerIndex": 3,
+      "explanation": "A regression model uses the remaining observed variables to predict a missing entry."
+    },
+    {
+      "id": "L2-091",
+      "lecture": 2,
+      "concept": "Imputation",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          34
+        ]
+      },
+      "question": "What limitation does the lecture note for plain regression imputation?",
+      "choices": [
+        "It can only fill text labels",
+        "It needs no observed predictors",
+        "A fixed prediction does not include the value's natural residual variation",
+        "It always requires a separate dataset"
+      ],
+      "answerIndex": 2,
+      "explanation": "A deterministic prediction omits the natural variability around the regression estimate."
+    },
+    {
+      "id": "L2-092",
+      "lecture": 2,
+      "concept": "Imputation",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          34
+        ]
+      },
+      "question": "Hot-deck imputation chooses a value from where?",
+      "choices": [
+        "An unrelated random website",
+        "A similar record in the same dataset",
+        "Only the column mean",
+        "A theoretical normal distribution"
+      ],
+      "answerIndex": 1,
+      "explanation": "Hot-deck finds records with similar other variables in the current dataset and draws a donor value."
+    },
+    {
+      "id": "L2-093",
+      "lecture": 2,
+      "concept": "Imputation",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          34
+        ]
+      },
+      "question": "What distinguishes cold-deck from hot-deck imputation in these slides?",
+      "choices": [
+        "Cold-deck draws from a separate dataset",
+        "Cold-deck always uses the median",
+        "Cold-deck never uses donor values",
+        "Cold-deck deletes missing rows"
+      ],
+      "answerIndex": 0,
+      "explanation": "Cold-deck uses an external dataset as the source of donor values; hot-deck uses the current dataset."
+    },
+    {
+      "id": "L2-094",
+      "lecture": 2,
+      "concept": "Special values",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          35
+        ]
+      },
+      "question": "What does NaN often indicate in a numerical column?",
+      "choices": [
+        "A guaranteed maximum",
+        "An exact zero",
+        "A missing or undefined value",
+        "A category label"
+      ],
+      "answerIndex": 2,
+      "explanation": "NaN means Not a Number and often appears where a numeric value is missing or undefined."
+    },
+    {
+      "id": "L2-095",
+      "lecture": 2,
+      "concept": "Special values",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          35
+        ]
+      },
+      "question": "Why check how an aggregation function treats NaN?",
+      "choices": [
+        "It always converts NaN to infinity",
+        "It may silently omit NaN values, changing the count used",
+        "It proves the column is categorical",
+        "It automatically repairs missing values"
+      ],
+      "answerIndex": 1,
+      "explanation": "The slide warns that counts, sums, and other aggregations may skip NaNs, so you should verify the effective sample."
+    },
+    {
+      "id": "L2-096",
+      "lecture": 2,
+      "concept": "Special values",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          35
+        ]
+      },
+      "question": "An age column contains -1. What should you check before treating it as a real age?",
+      "choices": [
+        "Whether -1 is a sentinel for unknown or erroneous age",
+        "Whether the row is first in the file",
+        "Whether every age should be scaled to -1",
+        "Whether the chart colour is red"
+      ],
+      "answerIndex": 0,
+      "explanation": "Negative age is not physically valid; the slide uses it as a possible marker for unknown age."
+    },
+    {
+      "id": "L2-097",
+      "lecture": 2,
+      "concept": "Special values",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          35
+        ]
+      },
+      "question": "What is a sentinel value such as 999 sometimes used for?",
+      "choices": [
+        "Proving a value is an outlier",
+        "Showing that all records have the same value",
+        "Making a plot causal",
+        "Marking an error or missing value when 999 is not plausible"
+      ],
+      "answerIndex": 3,
+      "explanation": "Values such as -1 or ±999 may be placeholders when that number cannot reasonably occur in the field."
+    },
+    {
+      "id": "L2-098",
+      "lecture": 2,
+      "concept": "Special values",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          35
+        ]
+      },
+      "question": "Should every occurrence of -1 or 999 automatically be converted to missing?",
+      "choices": [
+        "Yes, those numbers are never valid",
+        "Only if the dataset has a time column",
+        "No; first check the column's meaning and documentation",
+        "Yes, but only for categorical variables"
+      ],
+      "answerIndex": 2,
+      "explanation": "A sentinel interpretation depends on context; a number can be a valid measurement in another column."
+    },
+    {
+      "id": "L2-099",
+      "lecture": 2,
+      "concept": "Special values",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          35
+        ]
+      },
+      "question": "Which calculation can produce positive or negative infinity in numerical data?",
+      "choices": [
+        "A division by zero",
+        "Counting a valid category",
+        "Sorting text labels",
+        "Finding a median of five finite numbers"
+      ],
+      "answerIndex": 0,
+      "explanation": "The lecture specifically warns that ±infinity can arise from divide-by-zero errors and needs investigation."
+    },
+    {
+      "id": "L2-100",
+      "lecture": 2,
+      "concept": "Special values",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          35
+        ]
+      },
+      "question": "Why might placeholder values like -999 distort an outlier check?",
+      "choices": [
+        "They are always close to the mean",
+        "They can look extremely far from genuine values despite representing missingness",
+        "They prevent all plots from rendering",
+        "They prove the sample has high bias"
+      ],
+      "answerIndex": 1,
+      "explanation": "A sentinel can appear as an extreme observation unless it is recognised and handled as a placeholder."
+    },
+    {
+      "id": "L2-101",
+      "lecture": 2,
+      "concept": "Special values",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          35
+        ]
+      },
+      "question": "You find +infinity in a derived rate column. What is the sound first step?",
+      "choices": [
+        "Assume it is an ordinary finite observation",
+        "Delete the entire dataset",
+        "Replace all rates with the mean immediately",
+        "Check the calculation and whether its denominator was zero"
+      ],
+      "answerIndex": 3,
+      "explanation": "The slide recommends investigating whether divide by zero produced the infinite value before choosing a treatment."
+    },
+    {
+      "id": "L2-102",
+      "lecture": 2,
+      "concept": "Outliers",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          36
+        ]
+      },
+      "question": "A value lies far from the rest of the distribution. What should you conclude first?",
+      "choices": [
+        "It is definitely a recording error",
+        "It must be deleted",
+        "It has no effect on visualisations",
+        "It is a potential outlier whose meaning needs investigation"
+      ],
+      "answerIndex": 3,
+      "explanation": "The lecture says outliers can affect plots and models but should not automatically be discarded."
+    },
+    {
+      "id": "L2-103",
+      "lecture": 2,
+      "concept": "Outliers",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          36
+        ]
+      },
+      "question": "Why might deleting an unusual observation be especially harmful in rare-event analysis?",
+      "choices": [
+        "It may be the very event the analysis aims to find",
+        "It would always increase sample size",
+        "It would guarantee a normal distribution",
+        "It would make all other values identical"
+      ],
+      "answerIndex": 0,
+      "explanation": "A genuine rare event can be the signal of interest, so its context matters before removal."
+    },
+    {
+      "id": "L2-104",
+      "lecture": 2,
+      "concept": "Outliers",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          36
+        ]
+      },
+      "question": "How can an extreme observation affect a visualisation?",
+      "choices": [
+        "It guarantees causation",
+        "It can stretch the axis and hide detail among typical values",
+        "It makes the graph univariate",
+        "It changes every value into a category"
+      ],
+      "answerIndex": 1,
+      "explanation": "An extreme value can influence the plot scale and make most observations difficult to distinguish."
+    },
+    {
+      "id": "L2-105",
+      "lecture": 2,
+      "concept": "Outliers",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          36
+        ]
+      },
+      "question": "What is 'masking' in the outlier discussion?",
+      "choices": [
+        "Replacing all values with the mean",
+        "Hiding category names on a graph",
+        "An extreme value affecting the reference scale so other unusual values are harder to notice",
+        "Removing all rare events automatically"
+      ],
+      "answerIndex": 2,
+      "explanation": "An extreme observation can influence spread or thresholds and conceal other unusual points; reassessment may reveal them."
+    },
+    {
+      "id": "L2-106",
+      "lecture": 2,
+      "concept": "Outliers",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          37
+        ]
+      },
+      "question": "Which outlier rule examines values in the top and bottom chosen portions of a distribution?",
+      "choices": [
+        "A percentile-based rule",
+        "A categorical colour legend",
+        "A causal diagram",
+        "A time-zone conversion"
+      ],
+      "answerIndex": 0,
+      "explanation": "Percentile-based screening uses chosen upper and lower cutoffs in the ordered values."
+    },
+    {
+      "id": "L2-107",
+      "lecture": 2,
+      "concept": "Outliers",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          37
+        ]
+      },
+      "question": "When is a simple Z-score rule most naturally justified by the slide?",
+      "choices": [
+        "When values are text labels",
+        "When no observations have a mean",
+        "When the sample contains only one row",
+        "When the numerical distribution is roughly Gaussian"
+      ],
+      "answerIndex": 3,
+      "explanation": "The slide discusses standard-deviation distance from the mean in the context of a Normal or Gaussian distribution."
+    },
+    {
+      "id": "L2-108",
+      "lecture": 2,
+      "concept": "Outliers",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          37
+        ]
+      },
+      "question": "Which plot can quickly reveal an unusual point in a two-numerical-variable view?",
+      "choices": [
+        "Pie chart",
+        "Scatter plot",
+        "A category name list",
+        "An unrelated table heading"
+      ],
+      "answerIndex": 1,
+      "explanation": "The lecture notes scatter plots as a quick visual outlier check in two dimensions."
+    },
+    {
+      "id": "L2-109",
+      "lecture": 2,
+      "concept": "Outliers",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          37
+        ]
+      },
+      "question": "What assumption about outliers underlies isolation forest on the lecture slide?",
+      "choices": [
+        "They must form the largest cluster",
+        "They always have missing values",
+        "They are relatively rare and far from other points",
+        "They always occur in time series"
+      ],
+      "answerIndex": 2,
+      "explanation": "Isolation forest uses trees and works from the idea that anomalous points are rare and easier to isolate."
+    },
+    {
+      "id": "L2-110",
+      "lecture": 2,
+      "concept": "Outliers",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          37
+        ]
+      },
+      "question": "Which outlier methods on the slide use distance or neighbourhood structure?",
+      "choices": [
+        "KNN or DBSCAN",
+        "Mean substitution only",
+        "A pie chart and a line chart",
+        "Cold-deck imputation"
+      ],
+      "answerIndex": 0,
+      "explanation": "The slide lists KNN and DBSCAN as distance-metric-based approaches."
+    },
+    {
+      "id": "L2-111",
+      "lecture": 2,
+      "concept": "Outliers",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          36,
+          37
+        ]
+      },
+      "question": "After investigating a genuine extreme value, which choices does the lecture allow?",
+      "choices": [
+        "Always remove it",
+        "Always replace it with zero",
+        "Always classify it as missing",
+        "Remove it, keep it, or cap it depending on the problem"
+      ],
+      "answerIndex": 3,
+      "explanation": "The decision depends on whether the value is error, meaningful rare event, or a value needing a justified limit."
     }
   ]
 };
