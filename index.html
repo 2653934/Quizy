@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#147d83">
+  <title>Quizy · DVE study room</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside>
+      <div class="brand"><b>q</b> Quizy</div>
+      <div class="aside-middle">
+        <div class="eyebrow">Your practice space</div>
+        <p>One question at a time. No answer patterns to memorise.</p>
+        <div class="side-link">COMS4060A<br><strong>Data Visualisation &amp; Exploration</strong></div>
+      </div>
+      <div class="sidefoot">Your results stay on this device. The question order and answer positions shuffle each new round.</div>
+    </aside>
+    <main>
+      <div class="topline"><span>COMS4060A / TEST PRACTICE</span><span class="date">30 Sep 2026 · MCQ</span></div>
+      <header class="hero">
+        <div>
+          <div class="eyebrow">The study room, quiz edition</div>
+          <h1>Think first.<br><em>Then tap.</em></h1>
+          <p>Short questions tied to the lecture slides. The bank grows as we cover more concepts.</p>
+        </div>
+        <div class="seal"><span>THE QUESTION BANK</span><b id="bank-count">0</b><span>QUESTIONS</span></div>
+      </header>
+      <section class="stats" aria-label="Study progress">
+        <div class="stat"><div class="eyebrow">Questions available</div><strong id="total-count">0</strong><small>Current bank</small></div>
+        <div class="stat"><div class="eyebrow">Answered correctly</div><strong id="correct-count">0</strong><small>Across your latest attempts</small></div>
+        <div class="stat"><div class="eyebrow">Needs another look</div><strong id="review-count">0</strong><small>Try these again</small></div>
+      </section>
+      <section id="setup" class="panel">
+        <div class="eyebrow">Start a round</div>
+        <h2>What shall we practise?</h2>
+        <p id="bank-note">Loading questions…</p>
+        <div class="form-row">
+          <label for="lecture">Lecture</label>
+          <select id="lecture"><option value="all">All available lectures</option></select>
+        </div>
+        <div class="form-row">
+          <label for="mode">Questions</label>
+          <select id="mode"><option value="all">All questions</option><option value="review">Only ones I got wrong</option></select>
+        </div>
+        <button id="start" class="primary">Start quiz ↗</button>
+        <p id="setup-message" class="message" role="status"></p>
+      </section>
+      <section id="quiz" class="panel" hidden>
+        <div class="quiz-top"><span id="position" class="eyebrow"></span><button id="quit" class="quiet">End round</button></div>
+        <progress id="progress" value="0" max="1" aria-label="Quiz progress"></progress>
+        <div id="source" class="source"></div>
+        <h2 id="question"></h2>
+        <div id="choices" class="choices"></div>
+        <div id="feedback" class="feedback" role="status" hidden></div>
+        <button id="next" class="primary" hidden>Next question ↗</button>
+      </section>
+      <section id="summary" class="panel" hidden>
+        <div class="eyebrow">Round complete</div>
+        <h2 id="summary-title"></h2>
+        <p id="summary-detail"></p>
+        <button id="again" class="primary">Choose another round ↗</button>
+      </section>
+      <footer>Questions are for practice, not a prediction of the actual test. Check explanations against your lecture slides when unsure.</footer>
+    </main>
+  </div>
+  <script src="questions-data.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
