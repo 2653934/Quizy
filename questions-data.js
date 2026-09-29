@@ -75,7 +75,7 @@ window.QUIZY_DATA = {
           12
         ]
       },
-      "question": "Which pair of data issues does Lecture 1 explicitly suggest checking before modelling?",
+      "question": "Which pair of data issues should you check before modelling?",
       "choices": [
         "Font size and slide colour",
         "File name and folder path",
@@ -136,7 +136,7 @@ window.QUIZY_DATA = {
           11
         ]
       },
-      "question": "Which statement best matches the lecturer's message 'Know it before you machine learn it'?",
+      "question": "What does the advice 'Know it before you machine learn it' mean?",
       "choices": [
         "Understand the dataset and its limitations before choosing a model",
         "Choose the most advanced model first, then inspect the data",
@@ -197,7 +197,7 @@ window.QUIZY_DATA = {
           18
         ]
       },
-      "question": "In the displayed table, impact_num increases 0, 1, 2, and so on. What is the sensible first check before treating it as a predictive feature?",
+      "question": "An impact_num column increases 0, 1, 2, and so on, one step per record. What should you check before treating it as a predictive feature?",
       "choices": [
         "Whether it is only a row number or ordering artefact",
         "Whether its font is readable",
@@ -217,7 +217,7 @@ window.QUIZY_DATA = {
           21
         ]
       },
-      "question": "What does the complex database diagram illustrate about real-world data?",
+      "question": "What often makes information in a real-world database harder to turn into one modelling table?",
       "choices": [
         "Every dataset is already one clean modelling table",
         "Databases cannot contain numerical measurements",
@@ -259,7 +259,7 @@ window.QUIZY_DATA = {
           18
         ]
       },
-      "question": "Why does the lecturer contrast familiar example datasets with real-life datasets?",
+      "question": "Why might a real-world dataset require more exploration than a tidy teaching example?",
       "choices": [
         "To show that real datasets often need more understanding and cleaning",
         "To show that example datasets have no value",
@@ -279,7 +279,7 @@ window.QUIZY_DATA = {
           18
         ]
       },
-      "question": "Which column in the displayed table is clearly categorical rather than a numeric measurement or timestamp?",
+      "question": "A table has gps_lat, alert_timestamp, impact_id, and cause (values like Potholes and Speedbump). Which column is categorical?",
       "choices": [
         "gps_lat",
         "alert_timestamp",
@@ -319,7 +319,7 @@ window.QUIZY_DATA = {
           22
         ]
       },
-      "question": "Which problem does Lecture 1 explicitly associate with thousands of dimensions?",
+      "question": "Which exploration problem commonly arises with thousands of feature dimensions?",
       "choices": [
         "Every feature becomes categorical",
         "All data is automatically missing",
@@ -339,7 +339,7 @@ window.QUIZY_DATA = {
           22
         ]
       },
-      "question": "What modelling risk does the Lecture 1 slide connect to many dimensions?",
+      "question": "What modelling risk can increase when there are many feature dimensions?",
       "choices": [
         "Overfitting",
         "Guaranteed underfitting",
@@ -359,7 +359,7 @@ window.QUIZY_DATA = {
           22
         ]
       },
-      "question": "Why does the lecturer mention dimensionality reduction?",
+      "question": "Why might dimensionality reduction help when exploring high-dimensional data?",
       "choices": [
         "To remove every outlier",
         "To prove causation",
@@ -501,7 +501,7 @@ window.QUIZY_DATA = {
           4
         ]
       },
-      "question": "Which denominator appears in the slide's sample standard-deviation formula?",
+      "question": "Which denominator is used in the usual sample standard-deviation formula?",
       "choices": [
         "N",
         "N + 1",
@@ -624,7 +624,7 @@ window.QUIZY_DATA = {
           6
         ]
       },
-      "question": "In the slide's left-skewed illustration, which direction is the mean pulled?",
+      "question": "A distribution has a long tail of unusually low values on the left. Which direction is the mean pulled?",
       "choices": [
         "Right, toward the peak",
         "Left, toward the long tail",
@@ -632,7 +632,7 @@ window.QUIZY_DATA = {
         "It always becomes zero"
       ],
       "answerIndex": 1,
-      "explanation": "Extreme values in the left tail pull the mean leftward. The diagram places the mean left of the median and mode."
+      "explanation": "Extreme values in the left tail pull the mean leftward, usually below the median."
     },
     {
       "id": "L2-012",
@@ -645,7 +645,7 @@ window.QUIZY_DATA = {
           6
         ]
       },
-      "question": "Which description best matches a symmetric distribution in the slide's diagram?",
+      "question": "Which description best matches a symmetric numerical distribution?",
       "choices": [
         "A longer left tail",
         "A longer right tail",
@@ -653,7 +653,7 @@ window.QUIZY_DATA = {
         "Only one possible value"
       ],
       "answerIndex": 2,
-      "explanation": "The slide's symmetric example has matching left and right sides, with mean, median and mode aligned."
+      "explanation": "A symmetric distribution has similar left and right sides; in a unimodal symmetric example, mean, median and mode align."
     },
     {
       "id": "L2-013",
@@ -728,7 +728,7 @@ window.QUIZY_DATA = {
           8
         ]
       },
-      "question": "On the excess-kurtosis scale used in the slides, what is the normal-like reference called?",
+      "question": "On an excess-kurtosis scale where a normal distribution has value zero, what is the normal-like reference called?",
       "choices": [
         "Platykurtic",
         "Leptokurtic",
@@ -911,7 +911,7 @@ window.QUIZY_DATA = {
           11
         ]
       },
-      "question": "Which other rank-based dependence measure does the slide name alongside Spearman?",
+      "question": "Which rank-based dependence measure is an alternative to Spearman?",
       "choices": [
         "Standard deviation",
         "Mean",
@@ -1051,7 +1051,7 @@ window.QUIZY_DATA = {
           16
         ]
       },
-      "question": "How does the lecture describe constructing a KDE?",
+      "question": "How is a kernel density estimate (KDE) constructed conceptually?",
       "choices": [
         "Sort categories alphabetically",
         "Connect histogram bar tops with straight lines",
@@ -1071,7 +1071,7 @@ window.QUIZY_DATA = {
           16
         ]
       },
-      "question": "What does the lecture say is on the KDE y-axis?",
+      "question": "What quantity is shown on the y-axis of a KDE curve?",
       "choices": [
         "Exact-value probability",
         "Probability density",
@@ -1535,7 +1535,7 @@ window.QUIZY_DATA = {
           24
         ]
       },
-      "question": "In the lecture's dendrogram, two objects join at a low height. What does this suggest?",
+      "question": "In a distance-based dendrogram, two objects join at a low height. What does this suggest?",
       "choices": [
         "They are relatively similar under the chosen distance metric",
         "They are necessarily identical",
@@ -1575,7 +1575,7 @@ window.QUIZY_DATA = {
           25
         ]
       },
-      "question": "What does the lecture's cluster map add to a heatmap-style view?",
+      "question": "What does a cluster map add to a heatmap-style view?",
       "choices": [
         "A pie chart for every cell",
         "Dendrograms showing similar behaviour",
@@ -1583,7 +1583,7 @@ window.QUIZY_DATA = {
         "A time axis instead of rows"
       ],
       "answerIndex": 1,
-      "explanation": "The cluster-map slide shows a heatmap together with dendrograms to display similarities among entries."
+      "explanation": "A cluster map combines a heatmap with dendrograms to display similarities among entries."
     },
     {
       "id": "L2-059",
@@ -1595,7 +1595,7 @@ window.QUIZY_DATA = {
           26
         ]
       },
-      "question": "Which chart type does the lecture suggest for comparing counts across categories?",
+      "question": "Which chart type is useful for comparing counts across categories?",
       "choices": [
         "A spectrogram",
         "A scatter plot",
@@ -1635,7 +1635,7 @@ window.QUIZY_DATA = {
           26
         ]
       },
-      "question": "What are bar and pie charts used for on the lecture's chart-choice slide?",
+      "question": "What are bar and pie charts commonly used to compare?",
       "choices": [
         "Proving causation",
         "Showing the exact coordinates of observations",
@@ -1857,7 +1857,7 @@ window.QUIZY_DATA = {
           30
         ]
       },
-      "question": "What is high bias most associated with on the lecture slide?",
+      "question": "What is high model bias most associated with?",
       "choices": [
         "A model memorising every training example",
         "A model with perfect generalisation",
@@ -2078,7 +2078,7 @@ window.QUIZY_DATA = {
           32
         ]
       },
-      "question": "If some values are missing, what conclusion does the lecture support?",
+      "question": "If some values are missing, which conclusion is most sensible?",
       "choices": [
         "The analysis is automatically doomed",
         "The dataset is definitely MCAR",
@@ -2098,7 +2098,7 @@ window.QUIZY_DATA = {
           33
         ]
       },
-      "question": "When might deleting rows with missing values be more defensible according to the lecture?",
+      "question": "When might deleting rows with missing values be more defensible?",
       "choices": [
         "When values are definitely MNAR",
         "When the missingness is MCAR and the remaining sample is still adequate",
@@ -2238,7 +2238,7 @@ window.QUIZY_DATA = {
           34
         ]
       },
-      "question": "What limitation does the lecture note for plain regression imputation?",
+      "question": "What is a limitation of plain deterministic regression imputation?",
       "choices": [
         "It can only fill text labels",
         "It needs no observed predictors",
@@ -2278,7 +2278,7 @@ window.QUIZY_DATA = {
           34
         ]
       },
-      "question": "What distinguishes cold-deck from hot-deck imputation in these slides?",
+      "question": "What distinguishes cold-deck from hot-deck imputation?",
       "choices": [
         "Cold-deck draws from a separate dataset",
         "Cold-deck always uses the median",
@@ -2558,7 +2558,7 @@ window.QUIZY_DATA = {
           37
         ]
       },
-      "question": "When is a simple Z-score rule most naturally justified by the slide?",
+      "question": "When is a simple Z-score outlier rule most naturally justified?",
       "choices": [
         "When values are text labels",
         "When no observations have a mean",
@@ -2598,7 +2598,7 @@ window.QUIZY_DATA = {
           37
         ]
       },
-      "question": "What assumption about outliers underlies isolation forest on the lecture slide?",
+      "question": "What assumption about outliers underlies isolation forest?",
       "choices": [
         "They must form the largest cluster",
         "They always have missing values",
@@ -2618,7 +2618,7 @@ window.QUIZY_DATA = {
           37
         ]
       },
-      "question": "Which outlier methods on the slide use distance or neighbourhood structure?",
+      "question": "Which outlier methods use distance or neighbourhood structure?",
       "choices": [
         "KNN or DBSCAN",
         "Mean substitution only",
@@ -2639,7 +2639,7 @@ window.QUIZY_DATA = {
           37
         ]
       },
-      "question": "After investigating a genuine extreme value, which choices does the lecture allow?",
+      "question": "After investigating a genuine extreme value, which actions might be justified?",
       "choices": [
         "Always remove it",
         "Always replace it with zero",
@@ -2659,7 +2659,7 @@ window.QUIZY_DATA = {
           3
         ]
       },
-      "question": "What is the main idea behind 'better data beats fancier algorithms' on the lecture slide?",
+      "question": "What is the main idea behind 'better data beats fancier algorithms'?",
       "choices": [
         "The quality and representation of features can matter more than a complex model",
         "Every simple model is always more accurate",
@@ -2780,7 +2780,7 @@ window.QUIZY_DATA = {
           5
         ]
       },
-      "question": "Why does the slide prefer transformations that are invertible?",
+      "question": "Why are invertible feature transformations useful?",
       "choices": [
         "They always make the data normal",
         "They automatically remove missing values",
@@ -2820,7 +2820,7 @@ window.QUIZY_DATA = {
           6
         ]
       },
-      "question": "Which model family does the slide describe as relatively insensitive to feature scaling?",
+      "question": "Which model family is relatively insensitive to feature scaling?",
       "choices": [
         "Tree-based classifiers",
         "Nearest neighbours",
@@ -2840,7 +2840,7 @@ window.QUIZY_DATA = {
           7
         ]
       },
-      "question": "When does the lecture suggest considering a log transformation?",
+      "question": "When should you consider a log transformation?",
       "choices": [
         "When all values are identical",
         "When positive data spans several orders of magnitude",
@@ -2860,7 +2860,7 @@ window.QUIZY_DATA = {
           7
         ]
       },
-      "question": "What input restriction does the slide state for Box-Cox?",
+      "question": "What input restriction applies to the Box-Cox transformation?",
       "choices": [
         "Values must be text",
         "Values must have a mean of zero",
@@ -3001,7 +3001,7 @@ window.QUIZY_DATA = {
           9
         ]
       },
-      "question": "Which statement keeps the slide's two uses of 'normalisation' clear?",
+      "question": "Which statement clearly distinguishes min-max scaling from unit-norm normalisation?",
       "choices": [
         "Min-max and unit-norm scaling are identical",
         "Neither operation changes numerical values",
@@ -3043,7 +3043,7 @@ window.QUIZY_DATA = {
           9
         ]
       },
-      "question": "Which model family on the slides is usually less sensitive to feature scaling than nearest neighbours?",
+      "question": "Which model family is usually less sensitive to feature scaling than nearest neighbours?",
       "choices": [
         "Euclidean-distance clustering",
         "Distance-weighted KNN",
@@ -3164,7 +3164,7 @@ window.QUIZY_DATA = {
           12
         ]
       },
-      "question": "Referral labels include website, app, and phone. Which new indicator matches the lecture's grouping idea?",
+      "question": "Referral labels include website, app, and phone. Which new indicator groups these sources meaningfully?",
       "choices": [
         "A separate random number for each customer",
         "A flag that every customer was referred by phone",
@@ -3285,7 +3285,7 @@ window.QUIZY_DATA = {
           16
         ]
       },
-      "question": "What treatment does the lecture suggest for very sparse classes when appropriate?",
+      "question": "What might you do with very sparse categorical classes when the grouping makes sense?",
       "choices": [
         "Combine sensible related classes",
         "Assign each rare row its own new class",
@@ -3487,7 +3487,7 @@ window.QUIZY_DATA = {
           19
         ]
       },
-      "question": "Which alternative does the slide suggest for many individual IP-address categories?",
+      "question": "What is one way to reduce the number of individual IP-address categories?",
       "choices": [
         "Make every IP its own target label",
         "Delete every record with an IP",
@@ -3568,7 +3568,7 @@ window.QUIZY_DATA = {
           20
         ]
       },
-      "question": "Under the lecture slide's convention, what does a positive WoE score indicate?",
+      "question": "Under a WoE convention where positive scores favour the defined event, what does a positive score indicate?",
       "choices": [
         "A higher share of the defined event for that category",
         "The category contains no events",
@@ -3689,7 +3689,7 @@ window.QUIZY_DATA = {
           21
         ]
       },
-      "question": "What criterion does entropy-based splitting seek at each split on the slide?",
+      "question": "What criterion does entropy-based splitting seek at each split?",
       "choices": [
         "The longest category label",
         "The greatest information gain",
@@ -3829,7 +3829,7 @@ window.QUIZY_DATA = {
           24
         ]
       },
-      "question": "What does geocoding a street address produce in the lecture example?",
+      "question": "What does geocoding a street address produce?",
       "choices": [
         "Latitude and longitude",
         "A guaranteed cluster label",
@@ -3890,7 +3890,7 @@ window.QUIZY_DATA = {
           25
         ]
       },
-      "question": "After clustering text embeddings, which result becomes a categorical feature on the slide?",
+      "question": "After clustering text embeddings, which result can become a categorical feature?",
       "choices": [
         "The cluster assignment for each record",
         "The mere fact that two words look similar",
@@ -3898,7 +3898,7 @@ window.QUIZY_DATA = {
         "The original sentence length only"
       ],
       "answerIndex": 0,
-      "explanation": "The slide's pipeline is text to embeddings to clusters; the assigned cluster label is used as a new categorical feature."
+      "explanation": "In the pipeline text to embeddings to clusters, the assigned cluster label is used as a new categorical feature."
     },
     {
       "id": "L3-063",
@@ -4192,7 +4192,7 @@ window.QUIZY_DATA = {
           7
         ]
       },
-      "question": "Which three components does the wrapper-method slide say you need?",
+      "question": "Which three components does a wrapper feature-selection procedure need?",
       "choices": [
         "A base learner, a search procedure, and an objective function",
         "A heatmap, a histogram, and a pie chart",
@@ -4313,7 +4313,7 @@ window.QUIZY_DATA = {
           8
         ]
       },
-      "question": "What must the base model provide for the RFE approach described in the lecture?",
+      "question": "What must the base model provide for recursive feature elimination (RFE)?",
       "choices": [
         "Only a plot title",
         "Feature weights or importance scores",
@@ -4353,7 +4353,7 @@ window.QUIZY_DATA = {
           10
         ]
       },
-      "question": "Which evaluation metric on the slide is associated with a regression task?",
+      "question": "Which evaluation metric is associated with a regression task?",
       "choices": [
         "R-squared",
         "F1-score",
@@ -4535,7 +4535,7 @@ window.QUIZY_DATA = {
           14
         ]
       },
-      "question": "For a numerical feature and numerical target, which simple association score does the slide mention?",
+      "question": "For a numerical feature and numerical target, which simple association score could be used?",
       "choices": [
         "A category-count pie chart",
         "Only the file size",
@@ -4615,7 +4615,7 @@ window.QUIZY_DATA = {
           15
         ]
       },
-      "question": "What does entropy describe in the lecture?",
+      "question": "What does entropy describe?",
       "choices": [
         "Expected uncertainty in a variable",
         "The number of columns in a table",
@@ -4935,7 +4935,7 @@ window.QUIZY_DATA = {
           20
         ]
       },
-      "question": "Which expression matches the common mRMR score described on the slide?",
+      "question": "Which expression matches a common mRMR score?",
       "choices": [
         "Relevance plus redundancy",
         "Redundancy minus relevance",
@@ -4955,7 +4955,7 @@ window.QUIZY_DATA = {
           20
         ]
       },
-      "question": "How does the mRMR subset grow on this slide?",
+      "question": "How does an iterative mRMR feature subset grow?",
       "choices": [
         "By deleting all features at once",
         "By adding one best-scoring feature at a time until K are selected",
@@ -5015,7 +5015,7 @@ window.QUIZY_DATA = {
           22
         ]
       },
-      "question": "Which criteria does the slide mention for choosing a decision-tree split?",
+      "question": "Which criteria can be used to choose a decision-tree split?",
       "choices": [
         "Information gain or Gini impurity",
         "Only the feature name",
@@ -5155,7 +5155,7 @@ window.QUIZY_DATA = {
           24
         ]
       },
-      "question": "Which comparison matches the slide's L1 versus L2 distinction?",
+      "question": "Which comparison correctly distinguishes L1 from L2 regularisation for feature selection?",
       "choices": [
         "L1 and L2 both force every coefficient to zero",
         "L2 selects exactly one feature",
@@ -5195,7 +5195,7 @@ window.QUIZY_DATA = {
           27
         ]
       },
-      "question": "What is varied across k-fold cross-validation folds in the lecture's stability check?",
+      "question": "What is varied across k-fold cross-validation folds when checking a feature set's stability?",
       "choices": [
         "The names of all features",
         "The definition of the target",
@@ -5295,7 +5295,7 @@ window.QUIZY_DATA = {
           29
         ]
       },
-      "question": "Does the lecture claim one feature-selection method is best for every dataset?",
+      "question": "Is one feature-selection method best for every dataset?",
       "choices": [
         "No; the suitable method depends on the data and problem",
         "Yes; exhaustive search is always best",
@@ -5335,7 +5335,7 @@ window.QUIZY_DATA = {
           29
         ]
       },
-      "question": "What practical approach does the final slide recommend?",
+      "question": "What is a sensible practical approach to feature selection?",
       "choices": [
         "Pick one selector once and never revisit it",
         "Iterate over suitable methods and cross-validate the resulting feature set",
@@ -5376,7 +5376,7 @@ window.QUIZY_DATA = {
           26
         ]
       },
-      "question": "What does SelectFromModel use to choose features in the slide's Python example?",
+      "question": "What does SelectFromModel use to choose features?",
       "choices": [
         "Only the order of columns",
         "A chosen fitted learning model and its selection settings",
