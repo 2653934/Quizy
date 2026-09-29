@@ -1813,6 +1813,566 @@
       "choices": ["Only high cardinality", "Unit-norm scaling", "Target leakage, because the feature reconstructs the answer", "A lack of date decomposition"],
       "answerIndex": 2,
       "explanation": "The final receipt is not available before the refuelling; using it gives away information about the outcome."
+    },
+    {
+      "id": "L4-001", "lecture": 4, "concept": "Relevant, redundant and irrelevant features",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [3]},
+      "question": "What is feature selection trying to do?",
+      "choices": ["Keep an informative subset of features and reduce dimensionality", "Create every possible new feature", "Delete all rows with missing values", "Guarantee that the model has no error"],
+      "answerIndex": 0,
+      "explanation": "Selection chooses useful features from the candidates rather than automatically keeping every column."
+    },
+    {
+      "id": "L4-002", "lecture": 4, "concept": "Relevant, redundant and irrelevant features",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [4]},
+      "question": "Why does adding more features not always improve a model in practice?",
+      "choices": ["Models cannot use more than two columns", "Every new feature becomes a target", "Irrelevant or distracting features can add noise", "More features always reduce variance"],
+      "answerIndex": 2,
+      "explanation": "The slide warns that irrelevant or distracting attributes can confuse the learning process."
+    },
+    {
+      "id": "L4-003", "lecture": 4, "concept": "Relevant, redundant and irrelevant features",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [5]},
+      "question": "Which description best fits an irrelevant feature?",
+      "choices": ["It repeats another useful feature", "It is measured in a different unit", "It is useful only together with a second feature", "It provides no useful predictive information for the task"],
+      "answerIndex": 3,
+      "explanation": "Irrelevant means the feature does not provide useful information for the prediction problem."
+    },
+    {
+      "id": "L4-004", "lecture": 4, "concept": "Relevant, redundant and irrelevant features",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [5]},
+      "question": "A dataset includes the same trip distance in kilometres and miles. How would these two columns usually relate?",
+      "choices": ["Both must be irrelevant", "They are largely redundant because one repeats the other's information", "They are guaranteed independent", "They prove a causal relationship"],
+      "answerIndex": 1,
+      "explanation": "The units differ, but one distance can be converted to the other, so keeping both often adds little new information."
+    },
+    {
+      "id": "L4-005", "lecture": 4, "concept": "Relevant, redundant and irrelevant features",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [5]},
+      "question": "Can a feature be individually relevant yet redundant with another feature?",
+      "choices": ["Yes; it may predict the target but duplicate information already available", "No; redundancy means it has no relation to the target", "Only if it is categorical", "Only after standardisation"],
+      "answerIndex": 0,
+      "explanation": "Relevance to the target and redundancy with another feature are different questions."
+    },
+    {
+      "id": "L4-006", "lecture": 4, "concept": "Relevant, redundant and irrelevant features",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [5]},
+      "question": "When might a weakly relevant but non-redundant feature still be worth keeping?",
+      "choices": ["When it simply copies a stronger feature", "When its name is short", "When it adds useful information in combination with other features", "When every value is identical"],
+      "answerIndex": 2,
+      "explanation": "A feature can contribute new information as part of a combination even if it has a weak individual association."
+    },
+    {
+      "id": "L4-007", "lecture": 4, "concept": "Relevant, redundant and irrelevant features",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [5]},
+      "question": "What does 'strongly relevant' suggest about a feature?",
+      "choices": ["It always has the largest raw numbers", "It must be identical to another column", "It has no connection to the task", "It carries clearly useful information for predicting the target"],
+      "answerIndex": 3,
+      "explanation": "The slide lists strongly relevant features as the main goal of feature selection."
+    },
+    {
+      "id": "L4-008", "lecture": 4, "concept": "Relevant, redundant and irrelevant features",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [4, 5]},
+      "question": "Which statement best separates irrelevant from redundant features?",
+      "choices": ["Both terms mean a column is missing", "Irrelevant adds no useful signal; redundant repeats signal another feature already provides", "Irrelevant always means categorical; redundant always means numerical", "Redundant features can never predict the target"],
+      "answerIndex": 1,
+      "explanation": "Irrelevance concerns useful target information; redundancy concerns overlap with other features."
+    },
+    {
+      "id": "L4-009", "lecture": 4, "concept": "Relevant, redundant and irrelevant features",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [4]},
+      "question": "Why can domain knowledge help before automatic feature selection?",
+      "choices": ["It guarantees all choices are correct", "It makes validation unnecessary", "It can identify meaningful or distracting attributes the algorithm may not interpret well", "It forces every feature to be normally distributed"],
+      "answerIndex": 2,
+      "explanation": "The slide notes that pre-selection can be useful, especially when we understand the domain."
+    },
+    {
+      "id": "L4-010", "lecture": 4, "concept": "Wrapper selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [6, 7]},
+      "question": "Why is wrapper feature selection called a wrapper method?",
+      "choices": ["It wraps every feature in a new category", "It removes the need for a model", "It embeds a base learner in the subset-search procedure", "It always uses one fixed subset"],
+      "answerIndex": 2,
+      "explanation": "A wrapper evaluates candidate feature subsets by training and scoring a base model on them."
+    },
+    {
+      "id": "L4-011", "lecture": 4, "concept": "Wrapper selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [7]},
+      "question": "Which three components does the wrapper-method slide say you need?",
+      "choices": ["A base learner, a search procedure, and an objective function", "A heatmap, a histogram, and a pie chart", "A target, an outlier, and a timestamp", "A mean, a median, and a mode"],
+      "answerIndex": 0,
+      "explanation": "The learner evaluates subsets, the search chooses what to try, and the objective scores the results."
+    },
+    {
+      "id": "L4-012", "lecture": 4, "concept": "Wrapper selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [6, 7]},
+      "question": "Why can a wrapper method be computationally expensive?",
+      "choices": ["It never evaluates a model", "It uses only one candidate subset", "It cannot operate on numerical features", "It repeatedly trains and scores models for different subsets"],
+      "answerIndex": 3,
+      "explanation": "Trying multiple subsets requires repeated fitting and evaluation of the base learner."
+    },
+    {
+      "id": "L4-013", "lecture": 4, "concept": "Wrapper selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [8]},
+      "question": "How does forward selection build a feature subset?",
+      "choices": ["Start with all features and remove one at a time", "Start small and add a useful feature at each step", "Try only the final feature in the table", "Assign every feature the same score"],
+      "answerIndex": 1,
+      "explanation": "Forward selection begins with a small model and incrementally adds features that improve performance."
+    },
+    {
+      "id": "L4-014", "lecture": 4, "concept": "Wrapper selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [8]},
+      "question": "How does backward selection begin?",
+      "choices": ["With no features", "With the target as a feature", "With all candidate features, then removes them one at a time", "With a random one-hot encoding"],
+      "answerIndex": 2,
+      "explanation": "Backward selection starts from the full set and removes features according to the scoring criterion."
+    },
+    {
+      "id": "L4-015", "lecture": 4, "concept": "Wrapper selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [8]},
+      "question": "What is the main drawback of exhaustive feature-subset search?",
+      "choices": ["The number of combinations grows rapidly and becomes expensive", "It can evaluate only categorical features", "It never evaluates the base model", "It always picks no features"],
+      "answerIndex": 0,
+      "explanation": "Exhaustive search tries every subset, which becomes computationally infeasible as feature count rises."
+    },
+    {
+      "id": "L4-016", "lecture": 4, "concept": "Wrapper selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [8]},
+      "question": "What does recursive feature elimination (RFE) do repeatedly?",
+      "choices": ["Adds the least important feature", "Replaces the target with a feature", "Uses every possible subset in parallel", "Fits a model and removes the weakest-ranked feature or features"],
+      "answerIndex": 3,
+      "explanation": "RFE refits and drops features using the model's weights or importance scores until the desired number remains."
+    },
+    {
+      "id": "L4-017", "lecture": 4, "concept": "Wrapper selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [8]},
+      "question": "What must the base model provide for the RFE approach described in the lecture?",
+      "choices": ["Only a plot title", "Feature weights or importance scores", "An equal number of rows in every class", "A timestamp for every observation"],
+      "answerIndex": 1,
+      "explanation": "RFE needs a way to rank current features so it can identify the weakest to remove."
+    },
+    {
+      "id": "L4-018", "lecture": 4, "concept": "Wrapper selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [9]},
+      "question": "Why can forward and backward selection produce different subsets?",
+      "choices": ["Their feature names are always different", "One method cannot use cross-validation", "They begin at opposite ends and follow different greedy paths", "Backward selection never measures performance"],
+      "answerIndex": 2,
+      "explanation": "Adding from a small model and removing from a full one can encounter different intermediate combinations."
+    },
+    {
+      "id": "L4-019", "lecture": 4, "concept": "Wrapper selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [10]},
+      "question": "Which evaluation metric on the slide is associated with a regression task?",
+      "choices": ["R-squared", "F1-score", "Recall alone", "A category count"],
+      "answerIndex": 0,
+      "explanation": "R-squared describes the proportion of target variance predictable from the features in regression."
+    },
+    {
+      "id": "L4-020", "lecture": 4, "concept": "Wrapper selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [10]},
+      "question": "Which evaluation metric combines precision and recall for classification?",
+      "choices": ["R-squared", "Variance", "Pearson correlation", "F1-score"],
+      "answerIndex": 3,
+      "explanation": "F1 is the harmonic mean of precision and recall."
+    },
+    {
+      "id": "L4-021", "lecture": 4, "concept": "Wrapper selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [10]},
+      "question": "Why might a feature-selection objective penalise the number of chosen features?",
+      "choices": ["Because accuracy is never relevant", "To balance predictive performance against unnecessary complexity", "To force one-hot encoding", "To make training labels disappear"],
+      "answerIndex": 1,
+      "explanation": "The lecture notes that an objective can reward fit while discouraging needless extra features."
+    },
+    {
+      "id": "L4-022", "lecture": 4, "concept": "Filter selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [11]},
+      "question": "What does a filter method usually use to select features?",
+      "choices": ["Repeated full-model training for every possible subset", "A random choice with no scores", "Statistical scores relating features to the target", "Only the column names"],
+      "answerIndex": 2,
+      "explanation": "Filter methods score feature-target relationships without wrapping a repeated model-fitting search around them."
+    },
+    {
+      "id": "L4-023", "lecture": 4, "concept": "Filter selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [11]},
+      "question": "Why are filter methods often faster than wrapper methods?",
+      "choices": ["They generally avoid fitting a predictive model for many candidate subsets", "They always inspect fewer rows", "They never calculate statistics", "They require no target variable"],
+      "answerIndex": 0,
+      "explanation": "Wrappers repeatedly train and evaluate models; filters commonly use simpler statistical scores first."
+    },
+    {
+      "id": "L4-024", "lecture": 4, "concept": "Filter selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [11]},
+      "question": "What can a univariate filter miss?",
+      "choices": ["The number of rows", "The spelling of feature names", "Whether the data has a target", "A useful interaction that appears only when features are combined"],
+      "answerIndex": 3,
+      "explanation": "A typical univariate filter assesses one feature against the target at a time, so combinations can be overlooked."
+    },
+    {
+      "id": "L4-025", "lecture": 4, "concept": "Filter selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [11, 12]},
+      "question": "Why might selecting features only by their individual target scores keep too many columns?",
+      "choices": ["Every feature is guaranteed to be independent", "Several selected features may repeat the same information", "Target scores remove all redundant columns automatically", "The method always uses an exhaustive search"],
+      "answerIndex": 1,
+      "explanation": "Individual relevance does not tell us whether selected features are mutually redundant."
+    },
+    {
+      "id": "L4-026", "lecture": 4, "concept": "Filter selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [12]},
+      "question": "What would a simple variance-threshold filter likely remove?",
+      "choices": ["A feature whose value is almost constant", "A feature with several useful levels", "The target variable", "Every numerical feature"],
+      "answerIndex": 0,
+      "explanation": "A nearly constant feature has little observed variation and may fall below a chosen variance threshold."
+    },
+    {
+      "id": "L4-027", "lecture": 4, "concept": "Filter selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [12]},
+      "question": "Two selected features are highly correlated with each other. What should you investigate?",
+      "choices": ["Whether both are necessarily causal", "Whether one must be categorical", "Whether their information is redundant", "Whether the target can be removed"],
+      "answerIndex": 2,
+      "explanation": "A high inter-feature correlation can indicate overlapping information even when both features relate to the target."
+    },
+    {
+      "id": "L4-028", "lecture": 4, "concept": "Filter selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [12, 14]},
+      "question": "For a numerical feature and numerical target, which simple association score does the slide mention?",
+      "choices": ["A category-count pie chart", "Only the file size", "Only a ZIP-code mapping", "Pearson or Spearman correlation"],
+      "answerIndex": 3,
+      "explanation": "The lecture lists correlation coefficients for numerical input versus numerical target relationships."
+    },
+    {
+      "id": "L4-029", "lecture": 4, "concept": "Filter selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [13]},
+      "question": "In a chi-square independence test, what is compared?",
+      "choices": ["The numerical mean before and after scaling", "Observed category counts and counts expected under independence", "Training accuracy and a map legend", "The same category name in two files"],
+      "answerIndex": 1,
+      "explanation": "The test contrasts observed contingency-table counts with expected counts if the variables were independent."
+    },
+    {
+      "id": "L4-030", "lecture": 4, "concept": "Filter selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [13]},
+      "question": "If observed category counts differ greatly from counts expected under independence, what does that suggest?",
+      "choices": ["Evidence of an association with the target", "Proof the variables are independent", "The feature must be constant", "The outcome is necessarily caused by the feature"],
+      "answerIndex": 0,
+      "explanation": "Large observed-versus-expected differences give evidence against independence, not proof of causation."
+    },
+    {
+      "id": "L4-031", "lecture": 4, "concept": "Filter selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [13]},
+      "question": "Which chi-square feature would usually be preferred when selecting for association?",
+      "choices": ["The one with the smallest test statistic and largest p-value", "The one with perfectly matching observed and expected counts", "The one with a larger test statistic and smaller p-value", "The one with the longest category labels"],
+      "answerIndex": 2,
+      "explanation": "The slide says to choose features with higher chi-square statistics or lower p-values, indicating stronger evidence against independence."
+    },
+    {
+      "id": "L4-032", "lecture": 4, "concept": "Entropy and mutual information",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [15]},
+      "question": "What does entropy describe in the lecture?",
+      "choices": ["Expected uncertainty in a variable", "The number of columns in a table", "The average numerical feature value", "The amount of feature scaling"],
+      "answerIndex": 0,
+      "explanation": "Entropy quantifies how uncertain a variable is before its outcome is known."
+    },
+    {
+      "id": "L4-033", "lecture": 4, "concept": "Entropy and mutual information",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [16]},
+      "question": "Which binary event has higher entropy: a 50/50 split or a 90/10 split?",
+      "choices": ["The 90/10 split", "Both necessarily have zero entropy", "The 50/50 split", "Entropy cannot be compared for binary events"],
+      "answerIndex": 2,
+      "explanation": "A balanced binary outcome is harder to predict in advance and therefore has higher entropy."
+    },
+    {
+      "id": "L4-034", "lecture": 4, "concept": "Entropy and mutual information",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [15]},
+      "question": "What does conditional entropy H(target | feature) mean?",
+      "choices": ["The count of missing target values", "The uncertainty remaining in the target after knowing the feature", "The target mean before seeing any data", "The correlation between two features"],
+      "answerIndex": 1,
+      "explanation": "Conditional entropy asks how uncertain the target remains when the feature value is known."
+    },
+    {
+      "id": "L4-035", "lecture": 4, "concept": "Entropy and mutual information",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [17]},
+      "question": "Which expression gives the mutual information between a target Y and feature X?",
+      "choices": ["H(Y) + H(Y | X)", "H(Y | X) - H(Y)", "H(X) multiplied by H(Y)", "H(Y) - H(Y | X)"],
+      "answerIndex": 3,
+      "explanation": "Mutual information is the uncertainty in Y removed by knowing X."
+    },
+    {
+      "id": "L4-036", "lecture": 4, "concept": "Entropy and mutual information",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [17]},
+      "question": "A feature cuts target uncertainty from 1 bit to 0.2 bits. What is its mutual information with the target?",
+      "choices": ["0.8 bits", "1.2 bits", "-0.8 bits", "0.2 bits"],
+      "answerIndex": 0,
+      "explanation": "MI is original entropy minus remaining conditional entropy: 1 - 0.2 = 0.8 bits."
+    },
+    {
+      "id": "L4-037", "lecture": 4, "concept": "Entropy and mutual information",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [17]},
+      "question": "Which feature has higher mutual information with the target?",
+      "choices": ["The one leaving more uncertainty after it is known", "The one removing more uncertainty about the target", "The one with the longest name", "The one with the largest raw numerical values"],
+      "answerIndex": 1,
+      "explanation": "Higher MI means a feature removes more target uncertainty; lower remaining uncertainty is better."
+    },
+    {
+      "id": "L4-038", "lecture": 4, "concept": "Entropy and mutual information",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [17]},
+      "question": "If a feature and target are independent, what is their theoretical mutual information?",
+      "choices": ["Always negative", "Exactly their joint entropy", "One by definition", "Zero"],
+      "answerIndex": 3,
+      "explanation": "Knowing an independent feature does not reduce uncertainty in the target."
+    },
+    {
+      "id": "L4-039", "lecture": 4, "concept": "Entropy and mutual information",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [17]},
+      "question": "Can theoretical mutual information be negative?",
+      "choices": ["No; it measures a nonnegative reduction in uncertainty", "Yes, whenever Pearson correlation is negative", "Yes, for a 90/10 target", "Only when the data is categorical"],
+      "answerIndex": 0,
+      "explanation": "MI is nonnegative in theory; independence gives zero, not a negative value."
+    },
+    {
+      "id": "L4-040", "lecture": 4, "concept": "Entropy and mutual information",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [17]},
+      "question": "Why might mutual information find a useful feature that Pearson correlation misses?",
+      "choices": ["MI ignores the target", "Pearson tests categorical names only", "MI can detect nonlinear dependence, while Pearson measures linear association", "MI requires a perfect straight line"],
+      "answerIndex": 2,
+      "explanation": "The slide states that information can be shared through any dependence, including nonlinear patterns."
+    },
+    {
+      "id": "L4-041", "lecture": 4, "concept": "Entropy and mutual information",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [17]},
+      "question": "How can mutual information scores be used for a simple feature-selection filter?",
+      "choices": ["Choose only features with the lowest possible score", "Replace every value with its MI score", "Use the score to prove causation", "Rank features and keep the top K"],
+      "answerIndex": 3,
+      "explanation": "The lecture proposes scoring all features by MI and selecting the highest-ranked K."
+    },
+    {
+      "id": "L4-042", "lecture": 4, "concept": "mRMR",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [20]},
+      "question": "What does mRMR stand for?",
+      "choices": ["Maximum rows, minimum regression", "Minimum relevance, maximum redundancy", "Minimum redundancy, maximum relevance", "Maximum residual, minimum range"],
+      "answerIndex": 2,
+      "explanation": "The aim is useful target information with as little repeated information among selected features as possible."
+    },
+    {
+      "id": "L4-043", "lecture": 4, "concept": "mRMR",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [20]},
+      "question": "In mRMR, what does relevance measure?",
+      "choices": ["A candidate feature's relationship with the target", "The candidate's relationship with a chart title", "The number of rows in the dataset", "The similarity among already selected features only"],
+      "answerIndex": 0,
+      "explanation": "Relevance is how much information a candidate feature provides about the target."
+    },
+    {
+      "id": "L4-044", "lecture": 4, "concept": "mRMR",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [20]},
+      "question": "In mRMR, what does redundancy measure?",
+      "choices": ["Only the feature's relation to the target", "The percentage of missing rows", "How large the feature's numbers are", "How much the candidate overlaps with features already selected"],
+      "answerIndex": 3,
+      "explanation": "Redundancy compares a candidate with the current selected subset, looking for repeated information."
+    },
+    {
+      "id": "L4-045", "lecture": 4, "concept": "mRMR",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [20]},
+      "question": "Why is the first mRMR feature chosen by maximum relevance alone?",
+      "choices": ["The target is not yet known", "No feature has been selected yet, so there is no selected-set redundancy to assess", "All features have identical redundancy", "The first feature is always alphabetical"],
+      "answerIndex": 1,
+      "explanation": "Before the first selection, the selected subset is empty, so only relevance to the target can guide the choice."
+    },
+    {
+      "id": "L4-046", "lecture": 4, "concept": "mRMR",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [20]},
+      "question": "After one feature is selected, what does mRMR consider for each candidate?",
+      "choices": ["Relevance to target together with redundancy against the selected subset", "Only the candidate's spelling", "Only the selected feature's variance", "Whether the candidate was first in the file"],
+      "answerIndex": 0,
+      "explanation": "The iterative score balances useful target association against information already supplied by selected features."
+    },
+    {
+      "id": "L4-047", "lecture": 4, "concept": "mRMR",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [20]},
+      "question": "Litres is already selected. Gallons predicts the target well but is simply litres in another unit. How might mRMR treat gallons?",
+      "choices": ["Always select it because relevance is the only score", "Treat it as irrelevant to the target", "Penalise it for high redundancy with litres", "Convert it to a date feature"],
+      "answerIndex": 2,
+      "explanation": "Gallons can be relevant yet add little new information after the equivalent litres feature is included."
+    },
+    {
+      "id": "L4-048", "lecture": 4, "concept": "mRMR",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [20]},
+      "question": "Which expression matches the common mRMR score described on the slide?",
+      "choices": ["Relevance plus redundancy", "Redundancy minus relevance", "Feature count multiplied by target mean", "Relevance minus redundancy"],
+      "answerIndex": 3,
+      "explanation": "One common mRMR form rewards target relevance while subtracting overlap with selected features."
+    },
+    {
+      "id": "L4-049", "lecture": 4, "concept": "mRMR",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [20]},
+      "question": "How does the mRMR subset grow on this slide?",
+      "choices": ["By deleting all features at once", "By adding one best-scoring feature at a time until K are selected", "By keeping only the first two columns", "By creating a new target at every step"],
+      "answerIndex": 1,
+      "explanation": "The procedure iteratively adds the candidate with the best relevance-versus-redundancy score."
+    },
+    {
+      "id": "L4-050", "lecture": 4, "concept": "Embedded selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [21]},
+      "question": "When do embedded methods carry out feature selection?",
+      "choices": ["Only after every possible subset is tested", "During model training", "Before any data is observed", "Only after deployment"],
+      "answerIndex": 1,
+      "explanation": "Selection is built into the learner's fitting process rather than a separate repeated subset search."
+    },
+    {
+      "id": "L4-051", "lecture": 4, "concept": "Embedded selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [21]},
+      "question": "Why are embedded methods often faster than wrappers?",
+      "choices": ["They never fit any model", "They always use only two features", "They never evaluate data", "They do not need a separate model fit for every candidate subset"],
+      "answerIndex": 3,
+      "explanation": "Embedded selection occurs as part of training, avoiding many wrapper-style retraining rounds."
+    },
+    {
+      "id": "L4-052", "lecture": 4, "concept": "Embedded selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [22]},
+      "question": "Which criteria does the slide mention for choosing a decision-tree split?",
+      "choices": ["Information gain or Gini impurity", "Only the feature name", "Only the largest raw number", "The order of rows in the CSV"],
+      "answerIndex": 0,
+      "explanation": "Tree nodes choose a useful split using a metric such as information gain or Gini impurity."
+    },
+    {
+      "id": "L4-053", "lecture": 4, "concept": "Embedded selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [22]},
+      "question": "What does bootstrap sampling 'with replacement' mean for one random-forest tree?",
+      "choices": ["Every original row appears exactly once", "Only features, never rows, are sampled", "A row may be drawn more than once while another row is not drawn", "The tree uses only rows with missing values"],
+      "answerIndex": 2,
+      "explanation": "After each draw the row remains eligible, so duplicates and omissions can occur in the bootstrap sample."
+    },
+    {
+      "id": "L4-054", "lecture": 4, "concept": "Embedded selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [22]},
+      "question": "In a random forest, what is typically restricted at each split?",
+      "choices": ["The target must become numerical", "A random subset of candidate features is considered", "The number of rows must equal one", "The split must use the same feature in every tree"],
+      "answerIndex": 1,
+      "explanation": "Each node considers a random subset of features, helping the trees differ from one another."
+    },
+    {
+      "id": "L4-055", "lecture": 4, "concept": "Embedded selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [22]},
+      "question": "What does the forest aggregate across its trees?",
+      "choices": ["Only column names", "Only the raw target values", "Only one chosen root split", "Tree predictions and feature-importance scores"],
+      "answerIndex": 3,
+      "explanation": "The slide describes combining tree predictions and averaging feature importances across the ensemble."
+    },
+    {
+      "id": "L4-056", "lecture": 4, "concept": "Embedded selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [22]},
+      "question": "How is a random-forest classification prediction commonly combined?",
+      "choices": ["By majority vote among tree predictions", "By deleting every tree except the first", "By always taking the largest feature value", "By comparing only the chart colours"],
+      "answerIndex": 0,
+      "explanation": "For classification, the ensemble commonly votes across the trees; regression can average predictions."
+    },
+    {
+      "id": "L4-057", "lecture": 4, "concept": "Embedded selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [24]},
+      "question": "What kind of coefficient penalty does LASSO use?",
+      "choices": ["No penalty at all", "Only a penalty on the number of rows", "An L1 penalty on absolute coefficient values", "An L2 penalty only"],
+      "answerIndex": 2,
+      "explanation": "LASSO adds an absolute-value (L1) penalty to the fitting objective."
+    },
+    {
+      "id": "L4-058", "lecture": 4, "concept": "Embedded selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [24]},
+      "question": "How does LASSO's L1 penalty enable feature selection?",
+      "choices": ["It creates more one-hot columns", "It can drive some feature coefficients exactly to zero", "It copies the target into each feature", "It guarantees every feature has equal weight"],
+      "answerIndex": 1,
+      "explanation": "A zero coefficient removes that feature's contribution to the fitted linear model."
+    },
+    {
+      "id": "L4-059", "lecture": 4, "concept": "Embedded selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [24]},
+      "question": "Which comparison matches the slide's L1 versus L2 distinction?",
+      "choices": ["L1 and L2 both force every coefficient to zero", "L2 selects exactly one feature", "L1 has no effect on coefficients", "L1 can create exact zeros; L2 usually shrinks toward zero without exact zeros"],
+      "answerIndex": 3,
+      "explanation": "The lecture contrasts LASSO's sparse L1 solution with L2's shrinkage toward zero."
+    },
+    {
+      "id": "L4-060", "lecture": 4, "concept": "Embedded selection",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [24]},
+      "question": "A fitted LASSO model gives one feature a coefficient of exactly zero. What does that imply for this fitted model?",
+      "choices": ["The feature contributes nothing to its linear prediction", "The feature has no possible use in any other model", "The feature proves the target is random", "The feature must contain missing values"],
+      "answerIndex": 0,
+      "explanation": "A zero coefficient excludes that feature from this model's prediction, not necessarily from every possible model."
+    },
+    {
+      "id": "L4-061", "lecture": 4, "concept": "Selection stability",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [27]},
+      "question": "What is varied across k-fold cross-validation folds in the lecture's stability check?",
+      "choices": ["The names of all features", "The definition of the target", "The row splits used for training and validation", "The meaning of the score"],
+      "answerIndex": 2,
+      "explanation": "K-fold cross-validation partitions observations into different training and validation row sets to test generalisation."
+    },
+    {
+      "id": "L4-062", "lecture": 4, "concept": "Selection stability",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [27]},
+      "question": "Why evaluate a selected feature set over multiple folds?",
+      "choices": ["To check whether its performance holds up across different row splits", "To guarantee it is the only useful feature set", "To convert every column to a date", "To avoid ever training a model"],
+      "answerIndex": 0,
+      "explanation": "A stable feature set should perform reasonably consistently beyond one fortunate train/validation split."
+    },
+    {
+      "id": "L4-063", "lecture": 4, "concept": "Selection stability",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [27]},
+      "question": "Which statement correctly distinguishes k-fold CV from changing feature subsets?",
+      "choices": ["K-fold means using K different target definitions", "K-fold creates new raw features automatically", "K-fold requires a different feature name in every fold", "K-fold changes training/validation rows; a selector may be evaluated within those folds"],
+      "answerIndex": 3,
+      "explanation": "CV splits observations, while selection chooses columns; the two procedures can be combined."
+    },
+    {
+      "id": "L4-064", "lecture": 4, "concept": "Selection stability",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [27]},
+      "question": "What is one way to combine several feature selectors?",
+      "choices": ["Ignore every selector except the first", "Count how often each feature is chosen, or use weighted votes", "Rename all features to the same label", "Always select every available feature"],
+      "answerIndex": 1,
+      "explanation": "The slide suggests aggregating selectors by selection frequency or weighted voting."
+    },
+    {
+      "id": "L4-065", "lecture": 4, "concept": "Selection stability",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [27]},
+      "question": "A feature is chosen by 8 of 10 selectors. What does selection frequency describe?",
+      "choices": ["How many times a model was deployed", "The number of missing rows", "How consistently selectors chose that feature", "Its exact causal effect"],
+      "answerIndex": 2,
+      "explanation": "Selection frequency summarises agreement among selectors; it is not proof of causality."
+    },
+    {
+      "id": "L4-066", "lecture": 4, "concept": "Selection stability",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [29]},
+      "question": "Does the lecture claim one feature-selection method is best for every dataset?",
+      "choices": ["No; the suitable method depends on the data and problem", "Yes; exhaustive search is always best", "Yes; variance threshold is always enough", "Yes; LASSO always wins"],
+      "answerIndex": 0,
+      "explanation": "The conclusion explicitly says there is no universally best feature-selection method."
+    },
+    {
+      "id": "L4-067", "lecture": 4, "concept": "Selection stability",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [29]},
+      "question": "How can domain knowledge help choose features?",
+      "choices": ["By replacing all validation", "By proving a feature is causal", "By guaranteeing a normal distribution", "By identifying features that are meaningful, plausible, and available for the task"],
+      "answerIndex": 3,
+      "explanation": "An expert can judge whether a feature makes sense for the real problem and can actually be used."
+    },
+    {
+      "id": "L4-068", "lecture": 4, "concept": "Selection stability",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [29]},
+      "question": "What practical approach does the final slide recommend?",
+      "choices": ["Pick one selector once and never revisit it", "Iterate over suitable methods and cross-validate the resulting feature set", "Use every column regardless of meaning", "Choose features solely by alphabetic order"],
+      "answerIndex": 1,
+      "explanation": "Selection may take several iterations, and the chosen set should be checked by cross-validation."
+    },
+    {
+      "id": "L4-069", "lecture": 4, "concept": "Selection stability",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [22, 27]},
+      "question": "As a reminder, what is possible when a random-forest tree takes a bootstrap sample with replacement?",
+      "choices": ["Every row must appear exactly once", "No row may be repeated", "Some rows repeat and some original rows are omitted", "Only features are sampled, never observations"],
+      "answerIndex": 2,
+      "explanation": "Sampling with replacement keeps every row eligible after each draw, allowing repeats and leaving some rows out."
+    },
+    {
+      "id": "L4-070", "lecture": 4, "concept": "Selection stability",
+      "source": {"file": "IDVE_Lecture_4_2026.pdf", "pages": [26]},
+      "question": "What does SelectFromModel use to choose features in the slide's Python example?",
+      "choices": ["Only the order of columns", "A chosen fitted learning model and its selection settings", "A handwritten list of every row", "Only the colour of a chart"],
+      "answerIndex": 1,
+      "explanation": "The slide describes giving SelectFromModel a learning algorithm and parameters so it can select features from the fitted model."
     }
   ]
 }
