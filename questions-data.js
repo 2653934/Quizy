@@ -5385,6 +5385,1781 @@ window.QUIZY_DATA = {
       ],
       "answerIndex": 1,
       "explanation": "The slide describes giving SelectFromModel a learning algorithm and parameters so it can select features from the fitted model."
+    },
+    {
+      "id": "L5-001",
+      "lecture": 5,
+      "concept": "Time-series basics",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "question": "Which property makes a sequence a time series rather than an unordered set of rows?",
+      "choices": [
+        "It contains only numerical values",
+        "It has no missing values",
+        "The temporal order of observations matters",
+        "Every observation is independent"
+      ],
+      "answerIndex": 2,
+      "explanation": "A time series is a set of observations ordered by time; their sequence carries information."
+    },
+    {
+      "id": "L5-002",
+      "lecture": 5,
+      "concept": "Time-series basics",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "question": "Which statement about neighbouring time-series observations is most accurate?",
+      "choices": [
+        "They are often related, but not guaranteed to be correlated",
+        "They are always identical",
+        "They must be perfectly predictable",
+        "Their order may always be shuffled safely"
+      ],
+      "answerIndex": 0,
+      "explanation": "Adjacent observations often have dependence, but it is not a universal guarantee."
+    },
+    {
+      "id": "L5-003",
+      "lecture": 5,
+      "concept": "Time-series basics",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "question": "Why can randomly shuffling a time series before exploration be misleading?",
+      "choices": [
+        "It makes every value negative",
+        "It converts dates to categories",
+        "It proves the series stationary",
+        "It destroys the original temporal sequence and lag relationships"
+      ],
+      "answerIndex": 3,
+      "explanation": "Shuffling breaks the order needed to inspect trends, timing, and possible dependence across lags."
+    },
+    {
+      "id": "L5-004",
+      "lecture": 5,
+      "concept": "Time-series basics",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "question": "Why must an ambiguous date such as 03/04/2026 be interpreted with its source format?",
+      "choices": [
+        "Because every date uses UTC",
+        "It could mean 3 April or 4 March",
+        "Because all dates are Unix timestamps",
+        "Because dates have no order"
+      ],
+      "answerIndex": 1,
+      "explanation": "Day-first and month-first formats can assign different calendar dates to the same string."
+    },
+    {
+      "id": "L5-005",
+      "lecture": 5,
+      "concept": "Time-series basics",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "question": "What do Unix epoch timestamps represent?",
+      "choices": [
+        "A time offset measured from an agreed epoch, commonly 1 January 1970",
+        "A category rank",
+        "The number of rows in a dataset",
+        "A moving-average window size"
+      ],
+      "answerIndex": 0,
+      "explanation": "An epoch timestamp counts elapsed time since a fixed origin; the unit, such as seconds or milliseconds, must also be checked."
+    },
+    {
+      "id": "L5-006",
+      "lecture": 5,
+      "concept": "Time-series basics",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "question": "Two sensors record the same event in different time zones. What should you do before aligning their timestamps?",
+      "choices": [
+        "Sort each file by its row number only",
+        "Drop all observations from one sensor",
+        "Convert times to a common time basis such as UTC",
+        "Assume clock times refer to the same instant"
+      ],
+      "answerIndex": 2,
+      "explanation": "A common time basis avoids matching different instants that happen to have the same local clock display."
+    },
+    {
+      "id": "L5-007",
+      "lecture": 5,
+      "concept": "Time-series basics",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "question": "What is a possible consequence of ignoring daylight-saving changes in timestamped data?",
+      "choices": [
+        "All numerical values become zero",
+        "Events may be aligned to the wrong hour",
+        "The data becomes categorical",
+        "Every timestamp becomes missing"
+      ],
+      "answerIndex": 1,
+      "explanation": "Local clock offsets can change over time, so time-zone handling matters when comparing events."
+    },
+    {
+      "id": "L5-008",
+      "lecture": 5,
+      "concept": "Time-series basics",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "question": "Before plotting or joining two time-series datasets, which alignment check matters?",
+      "choices": [
+        "Only whether the files have the same name",
+        "Only whether the y-axis is colourful",
+        "Only whether both datasets have a median",
+        "Whether time zones, periods, and sampling frequencies are compatible"
+      ],
+      "answerIndex": 3,
+      "explanation": "Comparisons can be misleading if timestamps or frequencies refer to different periods or instants."
+    },
+    {
+      "id": "L5-009",
+      "lecture": 5,
+      "concept": "Sampling and resampling",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          5,
+          6
+        ]
+      },
+      "question": "What does sampling frequency describe?",
+      "choices": [
+        "The number of categories in a feature",
+        "How often observations are recorded in time",
+        "How many models are trained",
+        "The strength of Pearson correlation"
+      ],
+      "answerIndex": 1,
+      "explanation": "Frequency expresses observation rate, such as readings per second or one reading per day."
+    },
+    {
+      "id": "L5-010",
+      "lecture": 5,
+      "concept": "Sampling and resampling",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          5,
+          6
+        ]
+      },
+      "question": "Readings arrive at 09:00, 09:01, 09:07, and 09:08. What should you check?",
+      "choices": [
+        "Whether the six-minute gap means irregular sampling or missing periods",
+        "Whether every value is Gaussian",
+        "Whether the records should be alphabetised",
+        "Whether all readings are outliers"
+      ],
+      "answerIndex": 0,
+      "explanation": "The timestamp differences are not evenly spaced; the gap may matter for analysis and resampling."
+    },
+    {
+      "id": "L5-011",
+      "lecture": 5,
+      "concept": "Sampling and resampling",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "question": "What is upsampling a time series?",
+      "choices": [
+        "Moving to fewer observations per unit time",
+        "Randomly shuffling the observations",
+        "Moving to a higher observation frequency",
+        "Replacing time with a category label"
+      ],
+      "answerIndex": 2,
+      "explanation": "Upsampling creates a finer time grid, such as moving from hourly to minute-level positions."
+    },
+    {
+      "id": "L5-012",
+      "lecture": 5,
+      "concept": "Sampling and resampling",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "question": "After upsampling hourly observations to a minute-by-minute grid, what usually needs attention?",
+      "choices": [
+        "Every original row must be deleted",
+        "A random target must be added",
+        "The original readings must be duplicated as real measurements",
+        "New time slots have no observed value and need a justified fill or interpolation"
+      ],
+      "answerIndex": 3,
+      "explanation": "A finer grid does not create new measurements; inserted gaps require an explicit handling choice."
+    },
+    {
+      "id": "L5-013",
+      "lecture": 5,
+      "concept": "Sampling and resampling",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "question": "How is downsampling from minute readings to hourly readings commonly performed?",
+      "choices": [
+        "By inventing sixty new values",
+        "By grouping each hour and aggregating its readings",
+        "By changing the date format only",
+        "By swapping the training target"
+      ],
+      "answerIndex": 1,
+      "explanation": "Downsampling reduces frequency and requires an aggregation rule such as mean or sum."
+    },
+    {
+      "id": "L5-014",
+      "lecture": 5,
+      "concept": "Sampling and resampling",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "question": "You downsample fuel sales into daily totals. Which aggregation is appropriate for total sales per day?",
+      "choices": [
+        "The first sale only",
+        "The mean without considering the task",
+        "The sum of sales within each day",
+        "A forward-filled value from the previous day"
+      ],
+      "answerIndex": 2,
+      "explanation": "Daily totals require adding the sales in each day's time bin; another question might call for a mean instead."
+    },
+    {
+      "id": "L5-015",
+      "lecture": 5,
+      "concept": "Sampling and resampling",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "question": "What does 1 Hz sampling mean?",
+      "choices": [
+        "One reading per second",
+        "One reading per minute",
+        "Fifteen readings per second",
+        "One reading per year"
+      ],
+      "answerIndex": 0,
+      "explanation": "Hertz counts observations per second, so 1 Hz is one sample each second."
+    },
+    {
+      "id": "L5-016",
+      "lecture": 5,
+      "concept": "Sampling and resampling",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "question": "GPS readings are at 1 Hz while accelerometer readings are at 15 Hz. Which sensor has finer original time resolution?",
+      "choices": [
+        "GPS, because 1 is lower",
+        "Both are identical",
+        "Neither has timestamps",
+        "The accelerometer"
+      ],
+      "answerIndex": 3,
+      "explanation": "Fifteen samples per second can capture faster changes than one sample per second."
+    },
+    {
+      "id": "L5-017",
+      "lecture": 5,
+      "concept": "Sampling and resampling",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "question": "Why might downsampling 15 Hz acceleration data to 1 Hz be risky when studying sudden motion?",
+      "choices": [
+        "It guarantees all samples are duplicated",
+        "Rapid changes may be averaged away",
+        "It increases the original resolution",
+        "It removes the time zone automatically"
+      ],
+      "answerIndex": 1,
+      "explanation": "Short acceleration spikes can disappear when many high-frequency readings are compressed into one low-frequency value."
+    },
+    {
+      "id": "L5-018",
+      "lecture": 5,
+      "concept": "Missing temporal observations",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          5,
+          10
+        ]
+      },
+      "question": "A fuel-transaction table has no row for Tuesday because nobody refuelled. Is that necessarily a missing sensor reading?",
+      "choices": [
+        "Yes, every date must have a transaction",
+        "Yes, unless Tuesday was a holiday",
+        "No; no event occurred, which differs from a failed scheduled measurement",
+        "No, because dates cannot be missing"
+      ],
+      "answerIndex": 2,
+      "explanation": "Event-based data may have no record when nothing happened; scheduled sensor data may have a missing reading when a sample was expected."
+    },
+    {
+      "id": "L5-019",
+      "lecture": 5,
+      "concept": "Missing temporal observations",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          5,
+          10
+        ]
+      },
+      "question": "A sensor is expected to report every minute but has no reading at 12:03. What should you investigate?",
+      "choices": [
+        "Whether the scheduled measurement is missing and how much can change during the gap",
+        "Whether the sensor name is alphabetical",
+        "Whether a transaction occurred at 12:03",
+        "Whether all nearby readings are identical"
+      ],
+      "answerIndex": 0,
+      "explanation": "A gap in an expected fixed-frequency stream may hide important movement or fluctuations."
+    },
+    {
+      "id": "L5-020",
+      "lecture": 5,
+      "concept": "Smoothing and gaps",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "question": "What is a rolling window of length four readings?",
+      "choices": [
+        "Four unrelated columns",
+        "The entire dataset shuffled four times",
+        "Exactly four future values only",
+        "The current reading together with the three preceding readings"
+      ],
+      "answerIndex": 3,
+      "explanation": "A four-reading lookback window uses the four most recent observations available at that point."
+    },
+    {
+      "id": "L5-021",
+      "lecture": 5,
+      "concept": "Smoothing and gaps",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "question": "A three-reading simple moving average sees the sequence 2, 4, 9. What is the first full-window average?",
+      "choices": [
+        "4",
+        "5",
+        "9",
+        "15"
+      ],
+      "answerIndex": 1,
+      "explanation": "The first complete three-reading window has mean (2 + 4 + 9) / 3 = 5."
+    },
+    {
+      "id": "L5-022",
+      "lecture": 5,
+      "concept": "Smoothing and gaps",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "question": "For a full-window simple moving average of length X, how many initial positions lack a complete window?",
+      "choices": [
+        "X - 1",
+        "X + 1",
+        "Exactly one for every X",
+        "None"
+      ],
+      "answerIndex": 0,
+      "explanation": "The first X - 1 positions do not yet have X observations behind them, so the full-window average is undefined there."
+    },
+    {
+      "id": "L5-023",
+      "lecture": 5,
+      "concept": "Smoothing and gaps",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "question": "What is the usual effect of a simple moving average on a noisy series?",
+      "choices": [
+        "It guarantees all sudden spikes are preserved",
+        "It makes the observations independent",
+        "It smooths short-term fluctuations",
+        "It proves a causal trend"
+      ],
+      "answerIndex": 2,
+      "explanation": "A moving average combines nearby readings, reducing rapid variation while potentially hiding brief events."
+    },
+    {
+      "id": "L5-024",
+      "lecture": 5,
+      "concept": "Smoothing and gaps",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "question": "How does an exponentially weighted moving average differ from an equal-weight simple moving average?",
+      "choices": [
+        "It ignores every recent observation",
+        "It always uses future observations",
+        "It replaces time with category labels",
+        "It places more weight on recent readings"
+      ],
+      "answerIndex": 3,
+      "explanation": "Exponential weighting decreases the influence of older observations instead of treating all readings in a fixed window equally."
+    },
+    {
+      "id": "L5-025",
+      "lecture": 5,
+      "concept": "Smoothing and gaps",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "question": "Which statement about filling a short time-series gap is most accurate?",
+      "choices": [
+        "Linear interpolation is always safe regardless of the pattern",
+        "The chosen fill method should reflect whether values change smoothly or fluctuate sharply",
+        "Every gap should be filled with zero",
+        "Forward filling creates a new measured value"
+      ],
+      "answerIndex": 1,
+      "explanation": "Interpolation is an estimate, not an observation; a rapid or seasonal process needs extra care."
+    },
+    {
+      "id": "L5-026",
+      "lecture": 5,
+      "concept": "Smoothing and gaps",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "question": "Why can straight-line interpolation through a strongly seasonal gap be misleading?",
+      "choices": [
+        "It may ignore the recurring rise-and-fall pattern inside the gap",
+        "It always raises every value",
+        "It changes every timestamp to UTC",
+        "It proves the seasonality is random"
+      ],
+      "answerIndex": 0,
+      "explanation": "A straight line may miss seasonal structure; the slide suggests accounting for seasonality when imputing such gaps."
+    },
+    {
+      "id": "L5-027",
+      "lecture": 5,
+      "concept": "Stationarity and tests",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "question": "Which description best captures weak stationarity in a time series?",
+      "choices": [
+        "Every value must be identical",
+        "The mean, variance, and lag-dependent covariance stay stable over time",
+        "The series must increase every day",
+        "The observations must be independent"
+      ],
+      "answerIndex": 1,
+      "explanation": "Stationarity concerns stable underlying statistical properties, not a perfectly flat sequence of values."
+    },
+    {
+      "id": "L5-028",
+      "lecture": 5,
+      "concept": "Stationarity and tests",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "question": "A stationary time series has different readings from one day to the next. Is that possible?",
+      "choices": [
+        "No, every reading must equal the mean",
+        "No, its variance must be zero",
+        "Only if there is no timestamp",
+        "Yes, readings can fluctuate while the generating properties remain stable"
+      ],
+      "answerIndex": 3,
+      "explanation": "Values can vary around a stable process; stationarity does not require constant observed values."
+    },
+    {
+      "id": "L5-029",
+      "lecture": 5,
+      "concept": "Stationarity and tests",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "question": "A series has a persistent upward trend in its level. How should you usually regard the raw series?",
+      "choices": [
+        "Non-stationary as-is because its mean level changes with time",
+        "Stationary because values rise steadily",
+        "Stationary because its timestamps are ordered",
+        "Impossible to plot"
+      ],
+      "answerIndex": 0,
+      "explanation": "A time-varying mean conflicts with ordinary weak stationarity, though removing a deterministic trend may help."
+    },
+    {
+      "id": "L5-030",
+      "lecture": 5,
+      "concept": "Stationarity and tests",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "question": "In an autoregressive AR(1) expression y(t) = alpha × y(t-1) + error(t), what is used to help predict the current value?",
+      "choices": [
+        "Only the date label",
+        "An unrelated variable's future value",
+        "A past value of the same series plus an error term",
+        "Only a category count"
+      ],
+      "answerIndex": 2,
+      "explanation": "An autoregression relates the series to its own lagged value, with an innovation or error term."
+    },
+    {
+      "id": "L5-031",
+      "lecture": 5,
+      "concept": "Stationarity and tests",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "question": "What happens in the simple AR(1) example when alpha equals 1?",
+      "choices": [
+        "All observations become zero",
+        "Shocks accumulate in a unit-root, random-walk-like process",
+        "The process becomes perfectly seasonal",
+        "Every shock disappears after one step"
+      ],
+      "answerIndex": 1,
+      "explanation": "With alpha = 1, each new value carries the previous value plus a shock; accumulated shocks can make variance grow over time."
+    },
+    {
+      "id": "L5-032",
+      "lecture": 5,
+      "concept": "Stationarity and tests",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "question": "What is the null hypothesis of the Augmented Dickey-Fuller (ADF) test?",
+      "choices": [
+        "The series has zero variance",
+        "The series is certainly Gaussian",
+        "The target is independent of every feature",
+        "A unit root is present, implying non-stationarity in this test"
+      ],
+      "answerIndex": 3,
+      "explanation": "ADF starts from the unit-root hypothesis; evidence against it supports rejecting that non-stationary null."
+    },
+    {
+      "id": "L5-033",
+      "lecture": 5,
+      "concept": "Stationarity and tests",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "question": "An ADF test returns p = 0.01 at a 5% threshold. What is the usual conclusion?",
+      "choices": [
+        "Reject the unit-root null; evidence favours stationarity under the tested specification",
+        "Accept the unit-root null as proven",
+        "The series must have no noise",
+        "The test cannot be interpreted because p is below 0.05"
+      ],
+      "answerIndex": 0,
+      "explanation": "A sufficiently small p-value provides evidence against the ADF null of a unit root."
+    },
+    {
+      "id": "L5-034",
+      "lecture": 5,
+      "concept": "Stationarity and tests",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "question": "At 5% significance, an ADF test gives p = 0.42. What should you say?",
+      "choices": [
+        "The series is proven stationary",
+        "The unit-root null has been rejected",
+        "There is insufficient evidence to reject the unit-root null",
+        "All future values are perfectly predictable"
+      ],
+      "answerIndex": 2,
+      "explanation": "A large p-value does not reject the ADF unit-root null; it does not prove the null is true."
+    },
+    {
+      "id": "L5-035",
+      "lecture": 5,
+      "concept": "Stationarity and tests",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "question": "What is the null hypothesis of a KPSS test configured for trend stationarity?",
+      "choices": [
+        "The series has a unit root",
+        "The series is stationary around a deterministic trend",
+        "The series has no timestamps",
+        "The series is independent of every feature"
+      ],
+      "answerIndex": 1,
+      "explanation": "Unlike ADF, this KPSS version begins with trend stationarity as its null hypothesis."
+    },
+    {
+      "id": "L5-036",
+      "lecture": 5,
+      "concept": "Stationarity and tests",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "question": "A KPSS test for trend stationarity gives a very small p-value. Which interpretation is appropriate?",
+      "choices": [
+        "It proves a perfectly constant series",
+        "It confirms the stationary null",
+        "It is interpreted exactly like an ADF small p-value",
+        "It is evidence against the trend-stationary null"
+      ],
+      "answerIndex": 3,
+      "explanation": "A small KPSS p-value leads you to reject its stationarity null, opposite to the ADF null direction."
+    },
+    {
+      "id": "L5-037",
+      "lecture": 5,
+      "concept": "Stationarity and tests",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "question": "Which pairing of test and null hypothesis is correct?",
+      "choices": [
+        "ADF: unit root; KPSS: stationarity under its chosen level/trend specification",
+        "ADF: stationarity; KPSS: unit root",
+        "Both: no missing values",
+        "Both: perfect prediction"
+      ],
+      "answerIndex": 0,
+      "explanation": "The two tests start from different null hypotheses, so their p-values must not be read as though the nulls match."
+    },
+    {
+      "id": "L5-038",
+      "lecture": 5,
+      "concept": "Stationarity and tests",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "question": "For the ADF decision rule shown in the lecture, what supports rejecting a unit root at 5%?",
+      "choices": [
+        "Only a large p-value",
+        "Only a positive time trend",
+        "A p-value below 0.05 and a test statistic more negative than the 5% critical value",
+        "Exactly equal readings at all times"
+      ],
+      "answerIndex": 2,
+      "explanation": "The lecture combines a small p-value with a test statistic below the chosen critical cutoff when interpreting ADF."
+    },
+    {
+      "id": "L5-039",
+      "lecture": 5,
+      "concept": "Stationarity and tests",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          11,
+          12
+        ]
+      },
+      "question": "Why is stationarity useful for many time-series methods?",
+      "choices": [
+        "It makes all observations independent",
+        "It gives a more stable underlying pattern for analysis and meets assumptions of many methods",
+        "It removes every outlier automatically",
+        "It guarantees exact future predictions"
+      ],
+      "answerIndex": 1,
+      "explanation": "Stable process properties make modelling and interpretation easier, and many tools assume stationarity."
+    },
+    {
+      "id": "L5-040",
+      "lecture": 5,
+      "concept": "Stationarity and tests",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          11,
+          12
+        ]
+      },
+      "question": "Which statement is FALSE?",
+      "choices": [
+        "A stationary series may fluctuate from one timestamp to another",
+        "A persistent changing mean can indicate non-stationarity",
+        "An AR model can use a series' own past values",
+        "Stationarity means every observed value must stay exactly the same"
+      ],
+      "answerIndex": 3,
+      "explanation": "Stationarity means stable statistical properties, not identical observations at every time point."
+    },
+    {
+      "id": "L5-041",
+      "lecture": 5,
+      "concept": "Differencing and decomposition",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "question": "What is a first difference at time t?",
+      "choices": [
+        "The original level y(t)",
+        "The previous level divided by the current level",
+        "The current level minus the previous level",
+        "The mean of all future levels"
+      ],
+      "answerIndex": 2,
+      "explanation": "First differencing calculates y(t) - y(t-1), expressing change between adjacent observations."
+    },
+    {
+      "id": "L5-042",
+      "lecture": 5,
+      "concept": "Differencing and decomposition",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "question": "A series has levels 10, 13, 18. What are its first differences?",
+      "choices": [
+        "3 and 5",
+        "10 and 13",
+        "13 and 18",
+        "-3 and -5"
+      ],
+      "answerIndex": 0,
+      "explanation": "The differences are 13 - 10 = 3 and 18 - 13 = 5."
+    },
+    {
+      "id": "L5-043",
+      "lecture": 5,
+      "concept": "Differencing and decomposition",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "question": "After first differencing, what do the new values mainly represent?",
+      "choices": [
+        "The original absolute levels",
+        "The exact seasonal period",
+        "The number of categories",
+        "Changes from one observation to the next"
+      ],
+      "answerIndex": 3,
+      "explanation": "Differencing replaces levels with adjacent changes, which may help remove a persistent level trend."
+    },
+    {
+      "id": "L5-044",
+      "lecture": 5,
+      "concept": "Differencing and decomposition",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "question": "Why might differencing be applied to a series with a rising level trend?",
+      "choices": [
+        "To turn dates into text labels",
+        "To focus on changes and potentially reduce the trend's non-stationarity",
+        "To guarantee the values become independent",
+        "To prove the series is multiplicative"
+      ],
+      "answerIndex": 1,
+      "explanation": "Successive differences can remove or reduce a trend in the level, though the resulting series still needs checking."
+    },
+    {
+      "id": "L5-045",
+      "lecture": 5,
+      "concept": "Differencing and decomposition",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "question": "Which transformations are mentioned as ways to change a non-stationary series' scale or variance?",
+      "choices": [
+        "Only row shuffling",
+        "Only one-hot encoding",
+        "Log, square-root, or power transformations",
+        "Replacing all values with the median"
+      ],
+      "answerIndex": 2,
+      "explanation": "The slide lists log, square-root, and power transformations among approaches toward stationarity."
+    },
+    {
+      "id": "L5-046",
+      "lecture": 5,
+      "concept": "Differencing and decomposition",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "question": "A positive-valued series has swings that grow as its level rises. Why might a log transform help?",
+      "choices": [
+        "It can compress larger values and make spread more stable",
+        "It removes every seasonal event automatically",
+        "It creates additional measurements",
+        "It guarantees stationarity without testing"
+      ],
+      "answerIndex": 0,
+      "explanation": "Logging positive values compresses large magnitudes and may stabilise growth in variation."
+    },
+    {
+      "id": "L5-047",
+      "lecture": 5,
+      "concept": "Differencing and decomposition",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "question": "What must you check before taking an ordinary logarithm of observed series values?",
+      "choices": [
+        "Whether every timestamp has the same weekday",
+        "Whether the series has exactly one category",
+        "Whether all levels are equal",
+        "Whether the input values are positive or need a justified adjustment"
+      ],
+      "answerIndex": 3,
+      "explanation": "The ordinary real-valued log is undefined for zero or negative inputs, so those values need a deliberate treatment."
+    },
+    {
+      "id": "L5-048",
+      "lecture": 5,
+      "concept": "Differencing and decomposition",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "question": "After differencing or transforming a series, what should be done before treating it as stationary?",
+      "choices": [
+        "Assume the transformation worked",
+        "Reinspect and test the transformed series",
+        "Shuffle its timestamps",
+        "Always remove every seasonal component"
+      ],
+      "answerIndex": 1,
+      "explanation": "A transformation may help but does not guarantee stationarity; the new series needs another check."
+    },
+    {
+      "id": "L5-049",
+      "lecture": 5,
+      "concept": "Differencing and decomposition",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "question": "Which set names the usual components used to decompose a time series?",
+      "choices": [
+        "Mean, median, mode",
+        "Latitude, longitude, altitude",
+        "Trend, seasonality, and noise",
+        "Rows, columns, labels"
+      ],
+      "answerIndex": 2,
+      "explanation": "Decomposition separates longer-term movement, fixed-period patterns, and irregular residual variation."
+    },
+    {
+      "id": "L5-050",
+      "lecture": 5,
+      "concept": "Differencing and decomposition",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "question": "Which statement distinguishes seasonality from a broader cycle?",
+      "choices": [
+        "Seasonality repeats at fixed intervals; cycles need not have a fixed period",
+        "Cycles are always random noise",
+        "Seasonality never repeats",
+        "Both must occur every day"
+      ],
+      "answerIndex": 0,
+      "explanation": "A seasonal pattern has a regular clock or calendar period, while a cycle can recur without exact timing."
+    },
+    {
+      "id": "L5-051",
+      "lecture": 5,
+      "concept": "Differencing and decomposition",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          16,
+          18
+        ]
+      },
+      "question": "Seasonal swings stay about 20 units above and below the trend even as the level rises. Which decomposition form is a reasonable first guess?",
+      "choices": [
+        "Multiplicative, because swings scale with the level",
+        "Additive, because the absolute seasonal amplitude stays similar",
+        "Random walk, because all values are equal",
+        "No decomposition can represent seasonality"
+      ],
+      "answerIndex": 1,
+      "explanation": "A roughly constant absolute seasonal effect fits an additive trend + seasonal + noise view."
+    },
+    {
+      "id": "L5-052",
+      "lecture": 5,
+      "concept": "Differencing and decomposition",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          16,
+          18
+        ]
+      },
+      "question": "Seasonal swings grow in proportion to the series' rising level. Which decomposition form is a reasonable first guess?",
+      "choices": [
+        "Additive, because seasonal size never changes",
+        "Noisy, because a seasonal pattern cannot grow",
+        "Multiplicative, because the seasonal effect scales with the level",
+        "Differenced, because every value must be zero"
+      ],
+      "answerIndex": 2,
+      "explanation": "Proportional growth in seasonal amplitude points toward a multiplicative structure."
+    },
+    {
+      "id": "L5-053",
+      "lecture": 5,
+      "concept": "Differencing and decomposition",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "question": "Which component describes irregular variation not explained by trend or seasonality?",
+      "choices": [
+        "A fixed calendar season",
+        "The timestamp index",
+        "The long-term trend",
+        "Noise or residual variation"
+      ],
+      "answerIndex": 3,
+      "explanation": "Noise is the irregular remainder after the more systematic components are accounted for."
+    },
+    {
+      "id": "L5-054",
+      "lecture": 5,
+      "concept": "Trend identification and removal",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "question": "Daily values rise and fall, but their overall level slowly increases over years. What is the long-term component?",
+      "choices": [
+        "A fixed daily season",
+        "A trend",
+        "A missing observation",
+        "A category label"
+      ],
+      "answerIndex": 1,
+      "explanation": "Trend captures the longer-term direction even when individual observations fluctuate."
+    },
+    {
+      "id": "L5-055",
+      "lecture": 5,
+      "concept": "Trend identification and removal",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "question": "Why use a moving average while exploring a noisy series?",
+      "choices": [
+        "To guarantee all spikes are preserved",
+        "To remove the time axis",
+        "To make every reading identical",
+        "To smooth short-term fluctuations and reveal longer-term movement"
+      ],
+      "answerIndex": 3,
+      "explanation": "Averaging neighbouring observations can make an underlying trend easier to see."
+    },
+    {
+      "id": "L5-056",
+      "lecture": 5,
+      "concept": "Trend identification and removal",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "question": "What is a likely problem with a moving-average window that is too short for a noisy series?",
+      "choices": [
+        "Much of the short-term noise remains",
+        "Every seasonal effect disappears",
+        "No observations retain timestamps",
+        "The average necessarily becomes negative"
+      ],
+      "answerIndex": 0,
+      "explanation": "A short window smooths less, so rapid fluctuations can still obscure the larger pattern."
+    },
+    {
+      "id": "L5-057",
+      "lecture": 5,
+      "concept": "Trend identification and removal",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "question": "What is a likely problem with a moving-average window that is too long?",
+      "choices": [
+        "It guarantees overfitting",
+        "It creates new high-frequency readings",
+        "It can smooth away meaningful changes",
+        "It becomes a categorical feature"
+      ],
+      "answerIndex": 2,
+      "explanation": "Excessive smoothing can lose useful local information."
+    },
+    {
+      "id": "L5-058",
+      "lecture": 5,
+      "concept": "Trend identification and removal",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          19,
+          22
+        ]
+      },
+      "question": "A monthly series has a roughly yearly seasonal cycle. Which moving-average window is a sensible starting point for estimating its trend?",
+      "choices": [
+        "Exactly one minute",
+        "Around 12 months, then inspect the result",
+        "The entire dataset regardless of length",
+        "One observation only"
+      ],
+      "answerIndex": 1,
+      "explanation": "A window near the seasonal length is a useful starting guess, but window choice remains iterative."
+    },
+    {
+      "id": "L5-059",
+      "lecture": 5,
+      "concept": "Trend identification and removal",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "question": "Why might trend-window selection require several attempts?",
+      "choices": [
+        "A moving average changes the original timestamp order",
+        "All datasets have the same season length",
+        "The target variable must be deleted",
+        "The true seasonal length and the right amount of smoothing may not be known in advance"
+      ],
+      "answerIndex": 3,
+      "explanation": "Different windows reveal or suppress different patterns, so inspect and adjust rather than assuming one universal size."
+    },
+    {
+      "id": "L5-060",
+      "lecture": 5,
+      "concept": "Trend identification and removal",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "question": "In an additive decomposition y = trend + seasonality + noise, how do you detrend y?",
+      "choices": [
+        "Subtract the estimated trend from y",
+        "Divide the trend by y",
+        "Multiply y by the trend",
+        "Randomly shuffle y"
+      ],
+      "answerIndex": 0,
+      "explanation": "Subtracting trend leaves the additive remainder of seasonality plus noise."
+    },
+    {
+      "id": "L5-061",
+      "lecture": 5,
+      "concept": "Trend identification and removal",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "question": "In a multiplicative decomposition y = trend × seasonality × noise, how do you detrend y when trend is nonzero?",
+      "choices": [
+        "Subtract y from the trend",
+        "Add the trend to y",
+        "Divide y by the estimated trend",
+        "Set every value to one"
+      ],
+      "answerIndex": 2,
+      "explanation": "Dividing by trend leaves the multiplicative remainder of seasonality times noise."
+    },
+    {
+      "id": "L5-062",
+      "lecture": 5,
+      "concept": "Trend identification and removal",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "question": "After removing an estimated trend, what can still remain in the series?",
+      "choices": [
+        "Only a constant zero",
+        "Seasonality and noise",
+        "Only the original trend",
+        "No time dependence by definition"
+      ],
+      "answerIndex": 1,
+      "explanation": "Detrending removes one component; periodic and irregular variation may remain."
+    },
+    {
+      "id": "L5-063",
+      "lecture": 5,
+      "concept": "Trend identification and removal",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          21,
+          22
+        ]
+      },
+      "question": "What should you do after removing a trend to see whether the result is suitable for stationary modelling?",
+      "choices": [
+        "Assume the remainder must be stationary",
+        "Ignore any remaining seasonal pattern",
+        "Replace all observations with their mean",
+        "Inspect the remainder and check stationarity again"
+      ],
+      "answerIndex": 3,
+      "explanation": "Removing trend may help but does not guarantee stationarity, especially when seasonality remains."
+    },
+    {
+      "id": "L5-064",
+      "lecture": 5,
+      "concept": "Seasonality and cycles",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          23,
+          28
+        ]
+      },
+      "question": "Which description best fits seasonality?",
+      "choices": [
+        "An irregular event that never repeats",
+        "A change in measurement units",
+        "A repeating pattern at a fixed, predictable time interval",
+        "Any single extreme observation"
+      ],
+      "answerIndex": 2,
+      "explanation": "Seasonality follows a regular time period, such as day of week or month of year."
+    },
+    {
+      "id": "L5-065",
+      "lecture": 5,
+      "concept": "Seasonality and cycles",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          28
+        ]
+      },
+      "question": "What makes a longer economic boom-and-bust cycle different from fixed-period seasonality?",
+      "choices": [
+        "Its recurrence need not follow one fixed time interval",
+        "It must occur every Monday",
+        "It has no possible effect on a trend",
+        "It can never recur"
+      ],
+      "answerIndex": 0,
+      "explanation": "Cycles can recur, but their duration is not predictably fixed like a seasonal period."
+    },
+    {
+      "id": "L5-066",
+      "lecture": 5,
+      "concept": "Seasonality and cycles",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "question": "In daily data, autocorrelation peaks at lags 7, 14, and 21. What pattern does this suggest?",
+      "choices": [
+        "A three-hour cycle",
+        "No temporal structure",
+        "A yearly pattern",
+        "A weekly repeating pattern"
+      ],
+      "answerIndex": 3,
+      "explanation": "Daily observations separated by multiples of seven days are similar, indicating weekly repetition."
+    },
+    {
+      "id": "L5-067",
+      "lecture": 5,
+      "concept": "Seasonality and cycles",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          24,
+          25
+        ]
+      },
+      "question": "A monthly series has an autocorrelation peak at lag 12. Which period is suggested?",
+      "choices": [
+        "Twelve days",
+        "About one year",
+        "Twelve hours",
+        "No repeating period"
+      ],
+      "answerIndex": 1,
+      "explanation": "Twelve monthly observations separate values by roughly a year."
+    },
+    {
+      "id": "L5-068",
+      "lecture": 5,
+      "concept": "Seasonality and cycles",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "question": "In autocorrelation, what does a lag of seven identify?",
+      "choices": [
+        "A correlation magnitude of 7",
+        "Exactly seven missing observations",
+        "Separation by seven observation intervals",
+        "Seven different features"
+      ],
+      "answerIndex": 2,
+      "explanation": "Lag indicates temporal separation; the correlation coefficient supplies the strength and direction."
+    },
+    {
+      "id": "L5-069",
+      "lecture": 5,
+      "concept": "Seasonality and cycles",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "question": "What does autocorrelation compare?",
+      "choices": [
+        "A series with lagged versions of itself",
+        "Two unrelated category names",
+        "Only the smallest and largest value",
+        "The filename and timestamp"
+      ],
+      "answerIndex": 0,
+      "explanation": "Autocorrelation measures similarity between observations of the same series at different time lags."
+    },
+    {
+      "id": "L5-070",
+      "lecture": 5,
+      "concept": "Seasonality and cycles",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "question": "A detrended monthly series has a clear January effect. How could that seasonal effect be estimated?",
+      "choices": [
+        "Use only one January value and discard the rest",
+        "Ignore the calendar month",
+        "Replace all months with the yearly total",
+        "Average the values for each calendar month across years"
+      ],
+      "answerIndex": 3,
+      "explanation": "Repeated positions within the seasonal cycle can be averaged to estimate a typical effect for each month."
+    },
+    {
+      "id": "L5-071",
+      "lecture": 5,
+      "concept": "Seasonality and cycles",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "question": "Under additive decomposition y = trend + seasonality + noise, what remains after subtracting trend and seasonality?",
+      "choices": [
+        "The original trend",
+        "A residual intended to contain mainly noise",
+        "Only a new seasonal signal",
+        "A guaranteed zero at every time"
+      ],
+      "answerIndex": 1,
+      "explanation": "The additive residual is y - trend - seasonality; it ideally contains the unexplained variation."
+    },
+    {
+      "id": "L5-072",
+      "lecture": 5,
+      "concept": "Seasonality and cycles",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "question": "Under multiplicative decomposition y = trend × seasonality × noise, how do you isolate the residual when the components are nonzero?",
+      "choices": [
+        "Add trend and seasonality to y",
+        "Subtract trend only",
+        "Divide y by the product of trend and seasonality",
+        "Shuffle the observations"
+      ],
+      "answerIndex": 2,
+      "explanation": "Dividing y by trend × seasonality leaves the multiplicative residual factor."
+    },
+    {
+      "id": "L5-073",
+      "lecture": 5,
+      "concept": "Seasonality and cycles",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "question": "After removing estimated trend and seasonality, which test is still important?",
+      "choices": [
+        "Check whether the residual is stationary",
+        "Assume the residual is stationary automatically",
+        "Check whether all values are identical",
+        "Convert the residual to category labels"
+      ],
+      "answerIndex": 0,
+      "explanation": "Decomposition is not proof of stationarity; the residual should be inspected and tested."
+    },
+    {
+      "id": "L5-074",
+      "lecture": 5,
+      "concept": "Seasonality and cycles",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "question": "How can you assess whether an additive or multiplicative decomposition is plausible?",
+      "choices": [
+        "Look only at the file extension",
+        "Assume both are always identical",
+        "Ignore the original series",
+        "Reconstruct from the components and compare with the original series"
+      ],
+      "answerIndex": 3,
+      "explanation": "The lecture recommends checking that the chosen component combination describes the observed series well."
+    },
+    {
+      "id": "L5-075",
+      "lecture": 5,
+      "concept": "Fourier and spectrograms",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          29
+        ]
+      },
+      "question": "A pattern repeats every T seconds. How is its frequency f related to T?",
+      "choices": [
+        "f = 1/T",
+        "f = T squared",
+        "f = T + 1",
+        "f is unrelated to T"
+      ],
+      "answerIndex": 0,
+      "explanation": "Frequency is the number of repetitions per unit time, the inverse of period."
+    },
+    {
+      "id": "L5-076",
+      "lecture": 5,
+      "concept": "Fourier and spectrograms",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          29
+        ]
+      },
+      "question": "A vibration repeats once every two seconds. What is its frequency?",
+      "choices": [
+        "2 Hz",
+        "0.5 Hz",
+        "4 Hz",
+        "0.25 Hz"
+      ],
+      "answerIndex": 1,
+      "explanation": "f = 1/T = 1/2 cycles per second = 0.5 Hz."
+    },
+    {
+      "id": "L5-077",
+      "lecture": 5,
+      "concept": "Fourier and spectrograms",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          29
+        ]
+      },
+      "question": "What does a Fourier transform reveal about a time series?",
+      "choices": [
+        "Only its minimum and maximum values",
+        "Only the number of missing timestamps",
+        "Its component frequencies and their relative amplitudes",
+        "The exact cause of every peak"
+      ],
+      "answerIndex": 2,
+      "explanation": "Fourier analysis represents a signal by oscillatory components at different frequencies and strengths."
+    },
+    {
+      "id": "L5-078",
+      "lecture": 5,
+      "concept": "Fourier and spectrograms",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          29,
+          31
+        ]
+      },
+      "question": "What is a frequency spectrum?",
+      "choices": [
+        "A list of time-zone offsets",
+        "A table of class labels",
+        "A sequence of raw observations in date order",
+        "A view of how signal content is distributed across frequencies"
+      ],
+      "answerIndex": 3,
+      "explanation": "A spectrum displays the frequency components rather than only the original time-domain waveform."
+    },
+    {
+      "id": "L5-079",
+      "lecture": 5,
+      "concept": "Fourier and spectrograms",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          31
+        ]
+      },
+      "question": "A power spectral density plot has a pronounced peak at one frequency. What is a reasonable interpretation?",
+      "choices": [
+        "A relatively strong repeating component occurs at that frequency",
+        "The entire series must be constant",
+        "No other frequency can be present",
+        "The peak proves what physically caused the signal"
+      ],
+      "answerIndex": 0,
+      "explanation": "A strong spectral peak suggests substantial signal power at the corresponding repetition rate."
+    },
+    {
+      "id": "L5-080",
+      "lecture": 5,
+      "concept": "Fourier and spectrograms",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          31
+        ]
+      },
+      "question": "Why can a spectrum reveal more than a single seasonal-period estimate?",
+      "choices": [
+        "It removes every source of noise",
+        "It can reveal several frequency components in the same signal",
+        "It guarantees the signal is stationary",
+        "It identifies the cause of every component"
+      ],
+      "answerIndex": 1,
+      "explanation": "A signal can contain multiple repeated patterns; spectral analysis shows their frequencies together."
+    },
+    {
+      "id": "L5-081",
+      "lecture": 5,
+      "concept": "Fourier and spectrograms",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          36,
+          37
+        ]
+      },
+      "question": "What important detail may a power spectrum computed over an entire recording hide?",
+      "choices": [
+        "Whether the data is numerical",
+        "The names of the sensors",
+        "When a frequency became stronger or weaker",
+        "The units of every raw observation"
+      ],
+      "answerIndex": 2,
+      "explanation": "A whole-recording spectrum summarises frequencies across the recording but does not localise their changes in time."
+    },
+    {
+      "id": "L5-082",
+      "lecture": 5,
+      "concept": "Fourier and spectrograms",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          36
+        ]
+      },
+      "question": "What does the short-time Fourier transform (STFT) do?",
+      "choices": [
+        "Shuffles the original time order",
+        "Replaces all measurements with their median",
+        "Computes one transform only for the full recording",
+        "Computes Fourier transforms over successive short time windows"
+      ],
+      "answerIndex": 3,
+      "explanation": "STFT divides the signal into windows and estimates the frequency content of each window."
+    },
+    {
+      "id": "L5-083",
+      "lecture": 5,
+      "concept": "Fourier and spectrograms",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          36
+        ]
+      },
+      "question": "Which three quantities are displayed in a typical spectrogram?",
+      "choices": [
+        "Time, frequency, and signal intensity",
+        "Mean, median, and mode",
+        "Latitude, longitude, and distance",
+        "Row count, class count, and p-value"
+      ],
+      "answerIndex": 0,
+      "explanation": "Time is commonly horizontal, frequency vertical, and intensity or power is shown by colour."
+    },
+    {
+      "id": "L5-084",
+      "lecture": 5,
+      "concept": "Fourier and spectrograms",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          36
+        ]
+      },
+      "question": "What distinguishes a spectrogram from a whole-recording power spectrum?",
+      "choices": [
+        "A spectrogram cannot show frequency",
+        "A spectrogram shows how frequency content changes over time",
+        "A spectrum must use category labels",
+        "A spectrogram proves the signal's physical cause"
+      ],
+      "answerIndex": 1,
+      "explanation": "The windowed spectra retain time information, making evolving frequencies visible."
+    },
+    {
+      "id": "L5-085",
+      "lecture": 5,
+      "concept": "Fourier and spectrograms",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          36
+        ]
+      },
+      "question": "Why can short windows help analyse a signal that is not stationary over its full duration?",
+      "choices": [
+        "They make every observation identical",
+        "They remove every trend without checking",
+        "The process may be approximately stable within each short window",
+        "They guarantee an exact global Fourier model"
+      ],
+      "answerIndex": 2,
+      "explanation": "A globally changing signal can be locally close enough to stationary for windowed frequency analysis."
+    },
+    {
+      "id": "L5-086",
+      "lecture": 5,
+      "concept": "Fourier and spectrograms",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          36
+        ]
+      },
+      "question": "A wrist accelerometer records walking, then running. Which view is better for seeing when the movement frequency changed?",
+      "choices": [
+        "One whole-recording spectrum only",
+        "A category-count pie chart",
+        "Only the mean acceleration",
+        "A spectrogram"
+      ],
+      "answerIndex": 3,
+      "explanation": "A spectrogram preserves time alongside frequency, revealing the transition from one cadence to another."
+    },
+    {
+      "id": "L5-087",
+      "lecture": 5,
+      "concept": "Fourier and spectrograms",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          36
+        ]
+      },
+      "question": "If a spectrogram's legend assigns a time-frequency cell a high intensity, what does that mean?",
+      "choices": [
+        "Greater strength of that frequency at that time",
+        "A later calendar date only",
+        "A different categorical label",
+        "A longer text description"
+      ],
+      "answerIndex": 0,
+      "explanation": "Colour encodes the strength or power at a time-frequency location; read the legend to confirm its scale."
+    },
+    {
+      "id": "L5-088",
+      "lecture": 5,
+      "concept": "Fourier and spectrograms",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          29,
+          36
+        ]
+      },
+      "question": "Which statement is FALSE about Fourier analysis of a changing time series?",
+      "choices": [
+        "A transform can reveal repeating frequencies",
+        "One full-series spectrum tells you exactly when each frequency occurred",
+        "Windowed transforms can track changing frequency content",
+        "Frequency is the inverse of period"
+      ],
+      "answerIndex": 1,
+      "explanation": "A full-series spectrum lacks the timing of local frequency changes; a spectrogram adds that time dimension."
     }
   ]
 };
