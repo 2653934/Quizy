@@ -7160,6 +7160,1336 @@ window.QUIZY_DATA = {
       ],
       "answerIndex": 1,
       "explanation": "A full-series spectrum lacks the timing of local frequency changes; a spectrogram adds that time dimension."
+    },
+    {
+      "id": "L6-001",
+      "lecture": 6,
+      "concept": "Coordinates and spatial formats",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "question": "Which information is geospatial?",
+      "choices": [
+        "Only numerical model scores",
+        "Locations such as coordinates, addresses, or area boundaries",
+        "Only dates without locations",
+        "Only category names with no spatial reference"
+      ],
+      "answerIndex": 1,
+      "explanation": "Geospatial information is tied to places on Earth's surface, often with additional attributes."
+    },
+    {
+      "id": "L6-002",
+      "lecture": 6,
+      "concept": "Coordinates and spatial formats",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "question": "Which coordinate describes north-south position relative to the equator?",
+      "choices": [
+        "Longitude",
+        "Altitude",
+        "Latitude",
+        "Time zone"
+      ],
+      "answerIndex": 2,
+      "explanation": "Latitude measures angular north-south position; the slide accidentally swaps the latitude and longitude direction labels."
+    },
+    {
+      "id": "L6-003",
+      "lecture": 6,
+      "concept": "Coordinates and spatial formats",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "question": "Which coordinate describes east-west position relative to the prime meridian?",
+      "choices": [
+        "Longitude",
+        "Latitude",
+        "Elevation",
+        "Sampling frequency"
+      ],
+      "answerIndex": 0,
+      "explanation": "Longitude measures angular east-west position; the lecture's coordinate-format slide has these direction headings swapped."
+    },
+    {
+      "id": "L6-004",
+      "lecture": 6,
+      "concept": "Coordinates and spatial formats",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "question": "A location has latitude -26.2 degrees. Which hemisphere contains it?",
+      "choices": [
+        "Northern",
+        "Eastern",
+        "Western",
+        "Southern"
+      ],
+      "answerIndex": 3,
+      "explanation": "Negative latitude indicates a location south of the equator."
+    },
+    {
+      "id": "L6-005",
+      "lecture": 6,
+      "concept": "Coordinates and spatial formats",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "question": "Why does a coordinate reference system or datum matter?",
+      "choices": [
+        "It guarantees every map has the same colours",
+        "It defines how coordinates correspond to positions on Earth",
+        "It gives each building a sales price",
+        "It changes all vectors into raster images"
+      ],
+      "answerIndex": 1,
+      "explanation": "A datum and coordinate system establish the spatial reference used to interpret coordinate numbers."
+    },
+    {
+      "id": "L6-006",
+      "lecture": 6,
+      "concept": "Coordinates and spatial formats",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "question": "Which identifier refers to the widely used WGS84 geographic coordinate system?",
+      "choices": [
+        "EPSG:3857 only",
+        "CRS:0000",
+        "EPSG:4326",
+        "Hz:4326"
+      ],
+      "answerIndex": 2,
+      "explanation": "WGS84 latitude/longitude coordinates are commonly identified by EPSG:4326."
+    },
+    {
+      "id": "L6-007",
+      "lecture": 6,
+      "concept": "Coordinates and spatial formats",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "question": "Two map layers represent the same city but plot in different positions. What should you check first?",
+      "choices": [
+        "Whether their coordinate reference systems match or were transformed correctly",
+        "Whether both files have the same name",
+        "Whether both layers use the same colour",
+        "Whether the city has a seasonal trend"
+      ],
+      "answerIndex": 0,
+      "explanation": "Mismatched spatial references can make coordinates appear misaligned even when both layers describe the same place."
+    },
+    {
+      "id": "L6-008",
+      "lecture": 6,
+      "concept": "Coordinates and spatial formats",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "question": "Which set lists vector geometry types?",
+      "choices": [
+        "Pixels, rows, and columns",
+        "Mean, median, and mode",
+        "Trend, seasonality, and noise",
+        "Points, lines, and polygons"
+      ],
+      "answerIndex": 3,
+      "explanation": "Vector spatial data represents features as discrete geometries such as points, lines, and polygons."
+    },
+    {
+      "id": "L6-009",
+      "lecture": 6,
+      "concept": "Coordinates and spatial formats",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "question": "What is raster spatial data?",
+      "choices": [
+        "A list of only place names",
+        "A pixel or cell grid with values tied to locations",
+        "Only a road-network edge list",
+        "A shapefile geometry index"
+      ],
+      "answerIndex": 1,
+      "explanation": "Raster data is arranged in cells or pixels, as in satellite imagery or a measured spatial grid."
+    },
+    {
+      "id": "L6-010",
+      "lecture": 6,
+      "concept": "Coordinates and spatial formats",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "question": "A building polygon also records its use and construction year. What are those non-spatial details called?",
+      "choices": [
+        "Attributes",
+        "A second coordinate system",
+        "Raster pixels",
+        "Autocorrelation lags"
+      ],
+      "answerIndex": 0,
+      "explanation": "Attributes describe a spatial feature beyond its geometry or location."
+    },
+    {
+      "id": "L6-011",
+      "lecture": 6,
+      "concept": "Coordinates and spatial formats",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "question": "In a shapefile dataset, what is stored in the .shp component?",
+      "choices": [
+        "Only the colour legend",
+        "The index for geometry",
+        "Feature geometry",
+        "Only the timestamp format"
+      ],
+      "answerIndex": 2,
+      "explanation": "The .shp file stores the vector shapes themselves."
+    },
+    {
+      "id": "L6-012",
+      "lecture": 6,
+      "concept": "Coordinates and spatial formats",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "question": "What is the role of the .shx file alongside a shapefile's .shp file?",
+      "choices": [
+        "It stores the main attribute table",
+        "It converts vector to raster",
+        "It defines the time zone",
+        "It indexes the feature geometries"
+      ],
+      "answerIndex": 3,
+      "explanation": "The .shx companion provides the geometry index."
+    },
+    {
+      "id": "L6-013",
+      "lecture": 6,
+      "concept": "Coordinates and spatial formats",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "question": "What information is stored in a shapefile's .dbf component?",
+      "choices": [
+        "Only the polygon coordinates",
+        "The attributes associated with spatial features",
+        "The geographic prime meridian",
+        "A Fourier frequency spectrum"
+      ],
+      "answerIndex": 1,
+      "explanation": "The .dbf file stores the tabular non-spatial attributes for the shapes."
+    },
+    {
+      "id": "L6-014",
+      "lecture": 6,
+      "concept": "Distance and point maps",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "question": "For two locations a short distance apart, why can a flat-Earth distance approximation be reasonable?",
+      "choices": [
+        "Earth's curvature has little effect over a small area",
+        "Latitude and longitude become metres",
+        "Both locations must share one latitude",
+        "The Earth stops rotating locally"
+      ],
+      "answerIndex": 0,
+      "explanation": "Over a small area, the curved surface is close enough to flat for an approximation, depending on the accuracy needed."
+    },
+    {
+      "id": "L6-015",
+      "lecture": 6,
+      "concept": "Distance and point maps",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "question": "You need the surface distance between two cities far apart on Earth. Which approach accounts for Earth's curvature?",
+      "choices": [
+        "Subtract their longitude values and call the result kilometres",
+        "Count raster pixels without knowing their size",
+        "Use a great-circle calculation such as haversine",
+        "Treat the cities as adjacent cells"
+      ],
+      "answerIndex": 2,
+      "explanation": "Great-circle methods such as haversine account for the curved Earth; simple flat approximations become less suitable over larger distances."
+    },
+    {
+      "id": "L6-016",
+      "lecture": 6,
+      "concept": "Distance and point maps",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "question": "A difference of 1 in latitude or longitude is measured in what unit when using geographic coordinates?",
+      "choices": [
+        "Kilometres",
+        "Degrees of angle",
+        "Raster cells",
+        "Seconds"
+      ],
+      "answerIndex": 1,
+      "explanation": "Geographic latitude and longitude are angles, not direct ground-distance units."
+    },
+    {
+      "id": "L6-017",
+      "lecture": 6,
+      "concept": "Distance and point maps",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "question": "Why does a 1-degree difference in longitude not always represent the same ground distance?",
+      "choices": [
+        "Longitude is a time measure",
+        "Map colours change the distance",
+        "Height above sea level is its main cause",
+        "Meridians converge toward the poles, so distance varies with latitude"
+      ],
+      "answerIndex": 3,
+      "explanation": "Lines of longitude meet at the poles. Thus one degree of longitude spans less ground distance at higher latitudes."
+    },
+    {
+      "id": "L6-018",
+      "lecture": 6,
+      "concept": "Distance and point maps",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "question": "Which statement about computing distance directly from latitude/longitude degrees is most accurate?",
+      "choices": [
+        "Subtracting coordinates always gives kilometres",
+        "Latitude and longitude have identical ground scales everywhere",
+        "Degree differences need an appropriate distance method or spatial conversion",
+        "Altitude alone converts degrees to metres"
+      ],
+      "answerIndex": 2,
+      "explanation": "Angular coordinates cannot simply be subtracted and interpreted as kilometres; choose a suitable geographic-distance method or projection."
+    },
+    {
+      "id": "L6-019",
+      "lecture": 6,
+      "concept": "Distance and point maps",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "question": "What is the main benefit of showing point data over a basemap with borders, roads, or imagery?",
+      "choices": [
+        "It removes every missing value",
+        "It gives geographic context and helps reveal location errors",
+        "It guarantees a causal explanation",
+        "It changes all points into polygons"
+      ],
+      "answerIndex": 1,
+      "explanation": "A basemap shows where points fall relative to known places and can make implausible or misplaced points obvious."
+    },
+    {
+      "id": "L6-020",
+      "lecture": 6,
+      "concept": "Distance and point maps",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "question": "A set of South African locations appears north of the equator. Which coordinate issue should you investigate first?",
+      "choices": [
+        "Too many shapefile attributes",
+        "Incorrect hemisphere or missing minus sign on latitude",
+        "A moving-average window that is too long",
+        "An overfitted random forest"
+      ],
+      "answerIndex": 1,
+      "explanation": "South Africa is in the Southern Hemisphere, so its latitude values should be negative."
+    },
+    {
+      "id": "L6-021",
+      "lecture": 6,
+      "concept": "Distance and point maps",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          8,
+          9
+        ]
+      },
+      "question": "A location field defaults to (0, 0) when a real address cannot be mapped. How should a cluster at (0, 0) be interpreted?",
+      "choices": [
+        "It proves many events occurred at the same real location",
+        "It proves the map projection is correct",
+        "It may be a missing or failed-geocoding placeholder that creates a false hotspot",
+        "It is the average of every valid coordinate"
+      ],
+      "answerIndex": 2,
+      "explanation": "A default coordinate can pile missing locations onto one map point and create a misleading concentration."
+    },
+    {
+      "id": "L6-022",
+      "lecture": 6,
+      "concept": "Distance and point maps",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "question": "A reporting system puts every unparsed address at its headquarters. What error can a point map show?",
+      "choices": [
+        "An artificial hotspot at headquarters",
+        "A true increase in headquarters-area events",
+        "A guaranteed improvement in spatial precision",
+        "A change in Earth's curvature"
+      ],
+      "answerIndex": 0,
+      "explanation": "Defaulting failed addresses to one valid place falsely concentrates events there; the map can expose that artefact."
+    },
+    {
+      "id": "L6-023",
+      "lecture": 6,
+      "concept": "Distance and point maps",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "question": "GPS points are recorded in time order as a vehicle moves. Which plot best represents its trajectory?",
+      "choices": [
+        "A pie chart of coordinate signs",
+        "An unordered histogram of latitudes",
+        "A map connecting the points in their recorded sequence",
+        "A single mean coordinate only"
+      ],
+      "answerIndex": 2,
+      "explanation": "A trajectory depends on the spatial points and their order, so connecting sequential points reveals the path."
+    },
+    {
+      "id": "L6-024",
+      "lecture": 6,
+      "concept": "Distance and point maps",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "question": "Why might connecting randomly scattered event locations in row order be misleading?",
+      "choices": [
+        "Points cannot be shown on a map",
+        "The line would suggest a trajectory that the events do not represent",
+        "A basemap makes points invisible",
+        "Random locations have no coordinates"
+      ],
+      "answerIndex": 1,
+      "explanation": "Connecting points is meaningful when they form an ordered path, not merely because they occur as rows in a dataset."
+    },
+    {
+      "id": "L6-025",
+      "lecture": 6,
+      "concept": "Choropleths, heatmaps and time",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "question": "A map shades each South African province according to its total number of recorded accidents. What type of map is this?",
+      "choices": [
+        "Trajectory map",
+        "Scatter plot",
+        "Choropleth map",
+        "Spectrogram"
+      ],
+      "answerIndex": 2,
+      "explanation": "A choropleth colours predefined geographic areas according to a statistic aggregated for each area."
+    },
+    {
+      "id": "L6-026",
+      "lecture": 6,
+      "concept": "Choropleths, heatmaps and time",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          12,
+          13
+        ]
+      },
+      "question": "Which feature most clearly distinguishes a choropleth from a spatial heatmap?",
+      "choices": [
+        "A choropleth shades defined areas; a heatmap shows spatial intensity beyond those fixed boundaries",
+        "Only a heatmap may use colours",
+        "A choropleth always shows individual GPS points",
+        "A heatmap must use province borders"
+      ],
+      "answerIndex": 0,
+      "explanation": "Choropleths summarise metrics inside chosen regions, while heatmaps convey intensity across space without requiring those region boundaries."
+    },
+    {
+      "id": "L6-027",
+      "lecture": 6,
+      "concept": "Choropleths, heatmaps and time",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "question": "Thousands of taxi pickup points overlap on a city map. Which display can show where pickups are most concentrated without drawing each point separately?",
+      "choices": [
+        "A pie chart of coordinates",
+        "A boxplot of longitude only",
+        "An ADF test",
+        "A spatial intensity heatmap"
+      ],
+      "answerIndex": 3,
+      "explanation": "A heatmap aggregates the point pattern into a spatial intensity display."
+    },
+    {
+      "id": "L6-028",
+      "lecture": 6,
+      "concept": "Choropleths, heatmaps and time",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "question": "Province A has 100 accidents among 1 million people; Province B has 80 among 100,000 people. For comparing per-person accident risk, which value is more appropriate?",
+      "choices": [
+        "Only the raw accident count",
+        "An accident rate adjusted for population",
+        "The province name in alphabetical order",
+        "The number of map pixels in each province"
+      ],
+      "answerIndex": 1,
+      "explanation": "Raw counts reflect how many events occurred, but rates account for the population at risk; B has fewer events yet a higher per-person rate."
+    },
+    {
+      "id": "L6-029",
+      "lecture": 6,
+      "concept": "Choropleths, heatmaps and time",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "question": "Two provinces have different population sizes. Why can a choropleth of raw case counts mislead a comparison of risk?",
+      "choices": [
+        "Raw counts are always missing",
+        "Map shading changes the arithmetic",
+        "More people can produce more cases even when individual risk is lower",
+        "Choropleths cannot show numbers"
+      ],
+      "answerIndex": 2,
+      "explanation": "A larger population may have more total cases simply because more people are exposed; use a suitable rate when comparing risk."
+    },
+    {
+      "id": "L6-030",
+      "lecture": 6,
+      "concept": "Choropleths, heatmaps and time",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "question": "A province is shaded by its average income. What important detail can this area-level summary hide?",
+      "choices": [
+        "Differences between neighbourhoods within the province",
+        "The province's existence",
+        "The units of latitude everywhere",
+        "Whether time has a past"
+      ],
+      "answerIndex": 0,
+      "explanation": "Aggregation gives one value for the whole area, which can mask substantial within-area variation."
+    },
+    {
+      "id": "L6-031",
+      "lecture": 6,
+      "concept": "Choropleths, heatmaps and time",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "question": "A map of taxi positions changes throughout the day. Which method helps reveal that change?",
+      "choices": [
+        "Ignore every timestamp",
+        "Show only one map for all hours",
+        "Sort taxi names alphabetically",
+        "Make a map for each hour or animate the time periods"
+      ],
+      "answerIndex": 3,
+      "explanation": "Time slices or an animation preserve when points occurred instead of collapsing the whole day into one map."
+    },
+    {
+      "id": "L6-032",
+      "lecture": 6,
+      "concept": "Choropleths, heatmaps and time",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "question": "Morning and evening taxi hotspots differ. What might a single all-day heatmap conceal?",
+      "choices": [
+        "That taxis have locations",
+        "When each hotspot was active",
+        "The map's north direction",
+        "Whether point data is vector data"
+      ],
+      "answerIndex": 1,
+      "explanation": "Combining all times can hide how the spatial pattern changes by hour; compare time slices to see when each hotspot forms."
+    },
+    {
+      "id": "L6-033",
+      "lecture": 6,
+      "concept": "Choropleths, heatmaps and time",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          15,
+          16
+        ]
+      },
+      "question": "Can a map combine taxi point markers, a road network, and a separate summary of trip times?",
+      "choices": [
+        "Yes, layers and linked summaries can provide complementary context",
+        "No, every map supports exactly one data type",
+        "Only if all taxis share one coordinate",
+        "Only after discarding timestamps"
+      ],
+      "answerIndex": 0,
+      "explanation": "Different spatial layers and time summaries can be combined to explain more than a single view."
+    },
+    {
+      "id": "L6-034",
+      "lecture": 6,
+      "concept": "Choropleths, heatmaps and time",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "question": "A road map colours segments by steepness rather than traffic density. What does this illustrate?",
+      "choices": [
+        "Only event counts can be mapped",
+        "Colour must always encode latitude",
+        "Spatial displays can encode different numerical attributes",
+        "Steepness is necessarily a time series"
+      ],
+      "answerIndex": 2,
+      "explanation": "Map colour or intensity can represent numerical features such as road incline, not only point density or counts."
+    },
+    {
+      "id": "L6-035",
+      "lecture": 6,
+      "concept": "Geocoding, geofencing and networks",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "question": "A database stores street addresses but no coordinates. Which process can turn the addresses into points for a map?",
+      "choices": [
+        "Differencing",
+        "Geocoding",
+        "Geofencing",
+        "Binning"
+      ],
+      "answerIndex": 1,
+      "explanation": "Geocoding converts a text address or place description into geographic coordinates."
+    },
+    {
+      "id": "L6-036",
+      "lecture": 6,
+      "concept": "Geocoding, geofencing and networks",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "question": "A GPS coordinate is available, but the analyst needs a nearby address or place name. What is this conversion called?",
+      "choices": [
+        "Reverse geocoding",
+        "One-hot encoding",
+        "Great-circle routing",
+        "Standardisation"
+      ],
+      "answerIndex": 0,
+      "explanation": "Reverse geocoding starts with coordinates and seeks a human-readable address or place name."
+    },
+    {
+      "id": "L6-037",
+      "lecture": 6,
+      "concept": "Geocoding, geofencing and networks",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "question": "A street name occurs in two Johannesburg suburbs. Why should an automatically geocoded result be checked?",
+      "choices": [
+        "All coordinates are measured in kilometres",
+        "A geocoder always returns (0, 0)",
+        "The same street name can lead to the wrong matching location",
+        "Geocoding can only process one-word addresses"
+      ],
+      "answerIndex": 2,
+      "explanation": "Ambiguous or incomplete addresses can match a real but incorrect place, so location plausibility matters."
+    },
+    {
+      "id": "L6-038",
+      "lecture": 6,
+      "concept": "Geocoding, geofencing and networks",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "question": "A vehicle alert is triggered when its GPS point enters a defined area. Which spatial idea is being used?",
+      "choices": [
+        "Box-Cox transformation",
+        "Fourier decomposition",
+        "Mean imputation",
+        "Geofencing"
+      ],
+      "answerIndex": 3,
+      "explanation": "A geofence is a virtual boundary, and the system tests whether the GPS point lies inside it."
+    },
+    {
+      "id": "L6-039",
+      "lecture": 6,
+      "concept": "Geocoding, geofencing and networks",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "question": "To assign each clinic point to a municipality polygon, what spatial question must be answered?",
+      "choices": [
+        "Which polygon contains each point?",
+        "Which clinic has the highest longitude?",
+        "Which points have identical timestamps?",
+        "What is the Fourier frequency of each point?"
+      ],
+      "answerIndex": 0,
+      "explanation": "Point-in-polygon testing identifies the boundary area containing each location."
+    },
+    {
+      "id": "L6-040",
+      "lecture": 6,
+      "concept": "Geocoding, geofencing and networks",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "question": "An activity app hides the start and end of a route within a short distance of the user's home. What is the purpose of this zone?",
+      "choices": [
+        "To estimate the user's average speed",
+        "To protect a sensitive location with a spatial safety boundary",
+        "To convert all GPS points into street names",
+        "To calculate the shortest road route"
+      ],
+      "answerIndex": 1,
+      "explanation": "A safety zone suppresses points within a specified range of a private location, such as a home."
+    },
+    {
+      "id": "L6-041",
+      "lecture": 6,
+      "concept": "Geocoding, geofencing and networks",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "question": "In a road network, what do nodes and edges usually represent?",
+      "choices": [
+        "Nodes are map colours; edges are time periods",
+        "Nodes are pixels; edges are rainfall values",
+        "Nodes are junctions or locations; edges are connecting road segments",
+        "Nodes are only countries; edges are only borders"
+      ],
+      "answerIndex": 2,
+      "explanation": "A network models connected places with nodes and the connections between them with edges."
+    },
+    {
+      "id": "L6-042",
+      "lecture": 6,
+      "concept": "Geocoding, geofencing and networks",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "question": "For a fastest-driving-route problem, what could a road edge's weight represent?",
+      "choices": [
+        "The street name's number of letters",
+        "Travel time along that segment",
+        "The map background colour",
+        "The road's latitude sign"
+      ],
+      "answerIndex": 1,
+      "explanation": "Weighted edges can encode travel time; a shortest-distance task could instead use segment length."
+    },
+    {
+      "id": "L6-043",
+      "lecture": 6,
+      "concept": "Geocoding, geofencing and networks",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "question": "Why might a road-network edge need a direction?",
+      "choices": [
+        "To make longitude positive",
+        "To produce a heatmap",
+        "To show a one-way street where travel is allowed in only one direction",
+        "To turn an address into coordinates"
+      ],
+      "answerIndex": 2,
+      "explanation": "Direction is needed when a connection can be traversed one way but not the reverse."
+    },
+    {
+      "id": "L6-044",
+      "lecture": 6,
+      "concept": "Geocoding, geofencing and networks",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "question": "Two addresses are close as the crow flies, but a river and one-way roads separate them. What should estimate their actual driving time?",
+      "choices": [
+        "Only their straight-line distance",
+        "Only a latitude histogram",
+        "A road-network route using travel-time weights and directions",
+        "The area of the municipality polygon"
+      ],
+      "answerIndex": 2,
+      "explanation": "Driving time depends on connected roads, permitted direction, and road travel-time weights rather than straight-line distance alone."
+    },
+    {
+      "id": "L6-045",
+      "lecture": 6,
+      "concept": "Spatial autocorrelation",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          20,
+          23
+        ]
+      },
+      "question": "Neighbouring areas tend to have similarly high or similarly low house prices. What spatial pattern is this?",
+      "choices": [
+        "Positive spatial autocorrelation",
+        "Negative spatial autocorrelation",
+        "No spatial information",
+        "A time-series unit root"
+      ],
+      "answerIndex": 0,
+      "explanation": "Positive spatial autocorrelation means nearby places tend to have similar attribute values."
+    },
+    {
+      "id": "L6-046",
+      "lecture": 6,
+      "concept": "Spatial autocorrelation",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          23,
+          25
+        ]
+      },
+      "question": "A map alternates high-value and low-value areas so neighbours tend to be unlike each other. Which description fits?",
+      "choices": [
+        "Positive spatial autocorrelation",
+        "Negative spatial autocorrelation",
+        "A perfectly uniform attribute",
+        "A duplicate address"
+      ],
+      "answerIndex": 1,
+      "explanation": "Negative spatial autocorrelation means nearby areas tend to be dissimilar in the attribute being studied."
+    },
+    {
+      "id": "L6-047",
+      "lecture": 6,
+      "concept": "Spatial autocorrelation",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "question": "What does a spatial-weights matrix specify?",
+      "choices": [
+        "Which months belong to each season",
+        "Which attributes are categorical",
+        "Which locations count as neighbours and how strongly they are linked",
+        "Which point has the highest altitude only"
+      ],
+      "answerIndex": 2,
+      "explanation": "Spatial weights formalise neighbourhood relationships, for example using distance or shared boundaries."
+    },
+    {
+      "id": "L6-048",
+      "lecture": 6,
+      "concept": "Spatial autocorrelation",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "question": "Two square areas touch only at one corner. Under which common contiguity rule are they neighbours?",
+      "choices": [
+        "Rook only",
+        "Neither rook nor queen",
+        "Both rook and queen",
+        "Queen, but not rook"
+      ],
+      "answerIndex": 3,
+      "explanation": "Queen contiguity accepts a shared edge or corner; rook contiguity requires a shared edge."
+    },
+    {
+      "id": "L6-049",
+      "lecture": 6,
+      "concept": "Spatial autocorrelation",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "question": "Under rook contiguity, when are two area polygons treated as neighbours?",
+      "choices": [
+        "When they share an edge",
+        "Only when they share a corner",
+        "Whenever they have the same income",
+        "Whenever they share a map colour"
+      ],
+      "answerIndex": 0,
+      "explanation": "Rook contiguity uses shared edges, like a rook moving across adjacent squares on a chessboard."
+    },
+    {
+      "id": "L6-050",
+      "lecture": 6,
+      "concept": "Spatial autocorrelation",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "question": "Instead of shared borders, an analyst gives nearby places larger weights than distant ones. Which spatial-weight approach is this?",
+      "choices": [
+        "Time-window smoothing",
+        "Distance-based weighting",
+        "One-hot encoding",
+        "Rook-only contiguity"
+      ],
+      "answerIndex": 1,
+      "explanation": "Distance-based weights express spatial closeness by separation rather than a binary shared-border rule."
+    },
+    {
+      "id": "L6-051",
+      "lecture": 6,
+      "concept": "Spatial autocorrelation",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "question": "A spatial lag of income is calculated for one neighbourhood. What does it summarise?",
+      "choices": [
+        "The neighbourhood's income last year",
+        "Only its own income",
+        "The weighted income values of its neighbouring areas",
+        "The number of missing coordinates"
+      ],
+      "answerIndex": 2,
+      "explanation": "A spatial lag uses the spatial weights to summarise an attribute in surrounding locations."
+    },
+    {
+      "id": "L6-052",
+      "lecture": 6,
+      "concept": "Spatial autocorrelation",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          23,
+          24
+        ]
+      },
+      "question": "What question does global Moran's I address?",
+      "choices": [
+        "Which exact street has the largest hotspot?",
+        "Whether the whole study area shows spatial association in an attribute",
+        "How to geocode a text address",
+        "Which road is shortest by driving time"
+      ],
+      "answerIndex": 1,
+      "explanation": "Global Moran's I summarises overall spatial autocorrelation, not the exact location of each hotspot."
+    },
+    {
+      "id": "L6-053",
+      "lecture": 6,
+      "concept": "Spatial autocorrelation",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          24,
+          25
+        ]
+      },
+      "question": "A statistically supported Moran's I is strongly positive. What does it suggest?",
+      "choices": [
+        "Nearby areas tend to have similar values",
+        "Every area has the same value",
+        "Nearby areas tend to have opposite values",
+        "The map has no spatial coordinates"
+      ],
+      "answerIndex": 0,
+      "explanation": "A positive Moran's I indicates global clustering of similar values; significance helps distinguish that pattern from a random one."
+    },
+    {
+      "id": "L6-054",
+      "lecture": 6,
+      "concept": "Spatial autocorrelation",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          24,
+          25
+        ]
+      },
+      "question": "Moran's I is close to zero for a mapped attribute. What is the cautious interpretation?",
+      "choices": [
+        "There must be one strong hotspot",
+        "All locations have equal values",
+        "There is little overall spatial autocorrelation under the chosen weights",
+        "The latitude and longitude were swapped"
+      ],
+      "answerIndex": 2,
+      "explanation": "Near zero indicates little global association for that weighting scheme; it does not rule out local patterns."
+    },
+    {
+      "id": "L6-055",
+      "lecture": 6,
+      "concept": "Spatial autocorrelation",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          24,
+          25
+        ]
+      },
+      "question": "A statistically supported Moran's I is negative. What does it suggest?",
+      "choices": [
+        "Only that the data contain missing values",
+        "Neighbouring values tend to be dissimilar",
+        "A single all-area hotspot",
+        "A definite cause-and-effect relationship"
+      ],
+      "answerIndex": 1,
+      "explanation": "Negative global spatial autocorrelation means nearby attribute values tend to contrast."
+    },
+    {
+      "id": "L6-056",
+      "lecture": 6,
+      "concept": "Spatial autocorrelation",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "question": "When testing whether observed spatial autocorrelation is unusual, what is the null hypothesis described in the lecture?",
+      "choices": [
+        "Every value increases with time",
+        "Every pair of areas shares an edge",
+        "All points are at (0, 0)",
+        "Complete spatial randomness"
+      ],
+      "answerIndex": 3,
+      "explanation": "The lecture compares the observed pattern with a reference distribution under complete spatial randomness."
+    },
+    {
+      "id": "L6-057",
+      "lecture": 6,
+      "concept": "Local patterns and clustering",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          27
+        ]
+      },
+      "question": "Global Moran's I suggests overall clustering, but you need to identify where specific clusters are. What should you use?",
+      "choices": [
+        "Only the global value again",
+        "LISA or another local spatial-association analysis",
+        "A non-spatial mean only",
+        "A time-series unit-root test"
+      ],
+      "answerIndex": 1,
+      "explanation": "Global Moran's I summarises the study area; local indicators such as LISA identify locations of local clusters and outliers."
+    },
+    {
+      "id": "L6-058",
+      "lecture": 6,
+      "concept": "Local patterns and clustering",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          27
+        ]
+      },
+      "question": "In a LISA classification, what does HH mean?",
+      "choices": [
+        "A high-value area surrounded by high-value neighbours",
+        "A high-value area surrounded by low-value neighbours",
+        "A low-value area surrounded by low-value neighbours",
+        "An area with no neighbours"
+      ],
+      "answerIndex": 0,
+      "explanation": "High-high is a local cluster of high attribute values."
+    },
+    {
+      "id": "L6-059",
+      "lecture": 6,
+      "concept": "Local patterns and clustering",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          27
+        ]
+      },
+      "question": "In a LISA classification, what does LL indicate?",
+      "choices": [
+        "A high area among low neighbours",
+        "A missing-coordinate placeholder",
+        "A low-value area with low-value neighbours",
+        "A low area among high neighbours"
+      ],
+      "answerIndex": 2,
+      "explanation": "Low-low identifies a cluster of low values, often called a coldspot for the measured attribute."
+    },
+    {
+      "id": "L6-060",
+      "lecture": 6,
+      "concept": "Local patterns and clustering",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          27
+        ]
+      },
+      "question": "An area has a high value but its surrounding areas have low values. Which LISA category fits?",
+      "choices": [
+        "HH cluster",
+        "LL cluster",
+        "LH outlier",
+        "HL spatial outlier"
+      ],
+      "answerIndex": 3,
+      "explanation": "High-low (HL) is unlike its neighbours, so it is a local spatial outlier rather than a same-value cluster."
+    },
+    {
+      "id": "L6-061",
+      "lecture": 6,
+      "concept": "Local patterns and clustering",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          27
+        ]
+      },
+      "question": "A low-value area sits among high-value neighbours. How should it be classified by LISA?",
+      "choices": [
+        "HH hotspot",
+        "LH spatial outlier",
+        "LL coldspot",
+        "No location can have this pattern"
+      ],
+      "answerIndex": 1,
+      "explanation": "Low-high (LH) contrasts with its high-value neighbours and is a spatial outlier."
+    },
+    {
+      "id": "L6-062",
+      "lecture": 6,
+      "concept": "Local patterns and clustering",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          27
+        ]
+      },
+      "question": "Which pair of LISA categories describes areas similar to their neighbours rather than local outliers?",
+      "choices": [
+        "HL and LH",
+        "HH and HL",
+        "HH and LL",
+        "LH and LL"
+      ],
+      "answerIndex": 2,
+      "explanation": "HH and LL are like-neighbour clusters; HL and LH are unlike-neighbour outliers."
+    },
+    {
+      "id": "L6-063",
+      "lecture": 6,
+      "concept": "Local patterns and clustering",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          29
+        ]
+      },
+      "question": "Which clustering method usually requires choosing the number of groups k before fitting?",
+      "choices": [
+        "K-means",
+        "HDBSCAN",
+        "Geocoding",
+        "Moran's I"
+      ],
+      "answerIndex": 0,
+      "explanation": "K-means partitions points into a chosen number k of clusters."
+    },
+    {
+      "id": "L6-064",
+      "lecture": 6,
+      "concept": "Local patterns and clustering",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          29,
+          30
+        ]
+      },
+      "question": "A point dataset has irregularly shaped clusters and scattered noise. Which choice is especially suitable?",
+      "choices": [
+        "K-means with a fixed k only",
+        "A choropleth without analysis",
+        "A global average coordinate",
+        "A density-based method such as HDBSCAN"
+      ],
+      "answerIndex": 3,
+      "explanation": "Density-based clustering can capture irregular shapes and treat scattered points as noise."
+    },
+    {
+      "id": "L6-065",
+      "lecture": 6,
+      "concept": "Local patterns and clustering",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          29
+        ]
+      },
+      "question": "What is one advantage of HDBSCAN over basic k-means for exploratory spatial clustering?",
+      "choices": [
+        "It guarantees a fixed number of equal-sized circular groups",
+        "It can find varying-density clusters without preselecting k",
+        "It converts addresses into latitude and longitude",
+        "It calculates a province-wide Moran's I"
+      ],
+      "answerIndex": 1,
+      "explanation": "HDBSCAN uses density structure and does not require a chosen number of clusters in advance."
+    },
+    {
+      "id": "L6-066",
+      "lecture": 6,
+      "concept": "Local patterns and clustering",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          29
+        ]
+      },
+      "question": "Why might HDBSCAN label some points as noise rather than assign every point to a cluster?",
+      "choices": [
+        "All points must be at (0, 0)",
+        "Only polygons can form clusters",
+        "Some points are not part of a sufficiently dense, stable region",
+        "Latitude is missing from every point"
+      ],
+      "answerIndex": 2,
+      "explanation": "Density-based methods can leave sparse or isolated points unclustered instead of forcing them into a group."
     }
   ]
 };
