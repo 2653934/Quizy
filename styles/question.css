@@ -1,5 +1,5 @@
-/* A question: source line, text, options (choices, checkboxes, true/false, match rows),
-   their correct / wrong / missed states, and the feedback after answering. */
+/* A question: source line, text, the generic option look (.choice) with its correct / wrong states,
+   and the feedback after answering. Rules only one question type uses are in styles/types/<type>.css. */
 .source {
   font-size: 12px;
   color: var(--muted);
@@ -15,25 +15,11 @@
   line-height: 1.35;
 }
 
-/* Choices (single, multi, truefalse) */
+/* Choices (single, truefalse, multi) */
 .choices {
   display: grid;
   gap: 10px;
   margin: 22px 0;
-}
-
-.choices.tf {
-  grid-template-columns: 1fr 1fr;
-}
-
-.choices.tf .choice {
-  justify-content: center;
-  text-align: center;
-  font-weight: 650;
-}
-
-.choices.tf .choice .tag {
-  text-align: center;
 }
 
 .choice {
@@ -54,23 +40,6 @@
   background: var(--light);
 }
 
-.choice.check {
-  cursor: pointer;
-}
-
-.choice.check input {
-  width: 22px;
-  height: 22px;
-  margin: 1px 0 0;
-  flex-shrink: 0;
-  accent-color: var(--accent);
-}
-
-.choice.check:has(input:checked):not(.done) {
-  border-color: var(--accent);
-  background: var(--light);
-}
-
 .choice .letter {
   font-weight: 700;
   color: var(--accent);
@@ -78,10 +47,6 @@
 
 .choice .text {
   flex: 1;
-}
-
-.choices.tf .choice .text {
-  flex: none;
 }
 
 .choice .tag {
@@ -107,58 +72,6 @@
 
 .choice.wrong .tag {
   color: var(--bad);
-}
-
-.choice.missed {
-  background: #fff;
-  border: 2px dashed var(--green);
-}
-
-.choice.missed .tag {
-  color: var(--green);
-}
-
-/* Match rows */
-.match-row {
-  display: grid;
-  grid-template-columns: 1fr minmax(180px, 260px);
-  gap: 8px 16px;
-  align-items: center;
-  padding: 12px 14px;
-  border: 1px solid var(--line);
-  border-radius: 7px;
-  background: var(--choice-bg);
-}
-
-.match-prompt {
-  font-weight: 600;
-}
-
-.match-row select {
-  padding: 11px 12px;
-  border: 1px solid var(--field-line);
-  background: #fff;
-  border-radius: 6px;
-  min-height: 48px;
-  width: 100%;
-}
-
-.match-row.correct {
-  background: #dceee2;
-  border-color: var(--green);
-}
-
-.match-row.wrong {
-  background: #f8e6e0;
-  border-color: var(--bad);
-}
-
-.match-answer {
-  grid-column: 1/-1;
-  margin: 0;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--green);
 }
 
 /* Feedback after answering */
@@ -226,9 +139,5 @@
 
   .question.long {
     font-size: 19px;
-  }
-
-  .match-row {
-    grid-template-columns: 1fr;
   }
 }

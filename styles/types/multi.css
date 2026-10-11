@@ -1,0 +1,26 @@
+/* multi: checkbox rows, and the dashed "Missed" state for a correct option that wasn't ticked. */
+.choice.check {
+  cursor: pointer;
+}
+
+.choice.check input {
+  width: 22px;
+  height: 22px;
+  margin: 1px 0 0;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+}
+
+.choice.check:has(input:checked):not(.done) {
+  border-color: var(--accent);
+  background: var(--light);
+}
+
+.choice.missed {
+  background: #fff;
+  border: 2px dashed var(--green);
+}
+
+.choice.missed .tag {
+  color: var(--green);
+}

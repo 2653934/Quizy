@@ -1,0 +1,18 @@
+/* truefalse: True and False side by side, centred. */
+.choices.tf {
+  grid-template-columns: 1fr 1fr;
+}
+
+.choices.tf .choice {
+  justify-content: center;
+  text-align: center;
+  font-weight: 650;
+}
+
+.choices.tf .choice .tag {
+  text-align: center;
+}
+
+.choices.tf .choice .text {
+  flex: none;
+}
