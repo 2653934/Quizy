@@ -21,6 +21,7 @@
   $('start').addEventListener('click', ui.start);
   $('check').addEventListener('click', ui.check);
   $('next').addEventListener('click', ui.next);
+  $('copy-claude').addEventListener('click', ui.copyForClaude);
   $('quit').addEventListener('click', ui.backToSetup);
   $('again').addEventListener('click', ui.backToSetup);
 

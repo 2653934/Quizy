@@ -74,6 +74,38 @@
   color: var(--bad);
 }
 
+/* Typed answers (short, numeric, written) */
+.answer-input {
+  width: 100%;
+  min-height: 48px;
+  padding: 11px 12px;
+  border: 1px solid var(--field-line);
+  border-radius: 6px;
+  background: #fff;
+  font: inherit;
+  font-size: 16px; /* 16px or more stops phones zooming in on focus */
+  color: inherit;
+}
+
+.answer-input:read-only {
+  background: var(--surface);
+}
+
+.answer-input.correct {
+  background: #dceee2;
+  border-color: var(--green);
+}
+
+.answer-input.wrong {
+  background: #f8e6e0;
+  border-color: var(--bad);
+}
+
+/* Text that keeps its line breaks (model answers, worked solutions) */
+.pre {
+  white-space: pre-line;
+}
+
 /* Feedback after answering */
 .feedback {
   border-left: 4px solid var(--green);
@@ -123,6 +155,28 @@
 .study-note .small {
   font-size: 12px;
   color: var(--muted);
+}
+
+/* "Copy for Claude" (types with askClaude) */
+.ask {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin: 0 0 18px;
+}
+
+.ask-note {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.ask-fallback {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--field-line);
+  border-radius: 6px;
+  font: 13px/1.45 ui-monospace, monospace;
 }
 
 #check,

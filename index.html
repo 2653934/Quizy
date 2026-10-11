@@ -15,6 +15,9 @@
   <link rel="stylesheet" href="styles/types/truefalse.css">
   <link rel="stylesheet" href="styles/types/multi.css">
   <link rel="stylesheet" href="styles/types/match.css">
+  <link rel="stylesheet" href="styles/types/short.css">
+  <link rel="stylesheet" href="styles/types/numeric.css">
+  <link rel="stylesheet" href="styles/types/written.css">
   <link rel="stylesheet" href="styles/views.css">
 </head>
 <body data-view="setup">
@@ -53,6 +56,7 @@
             <select id="set"></select>
           </div>
           <p id="set-description" class="set-description"></p>
+          <p id="set-unofficial" class="set-unofficial" hidden>Answers on this set are unofficial</p>
           <div class="form-row">
             <label for="lecture">Lecture</label>
             <select id="lecture"></select>
@@ -80,6 +84,11 @@
         <div id="choices" class="choices"></div>
         <button id="check" class="primary" hidden>Check answer</button>
         <div id="feedback" class="feedback" role="status" hidden></div>
+        <div id="ask" class="ask" hidden>
+          <button id="copy-claude" type="button">Copy for Claude</button>
+          <span class="ask-note">Paste it into Claude to have your answer marked.</span>
+          <textarea id="ask-fallback" class="ask-fallback" readonly rows="6" aria-label="Prompt for Claude" hidden></textarea>
+        </div>
         <button id="next" class="primary" hidden>Next question ↗</button>
       </section>
       <section id="summary" class="panel" hidden>
@@ -98,15 +107,20 @@
   <script src="src/core/storage.js" defer></script>
   <script src="src/core/data.js" defer></script>
   <script src="src/core/state.js" defer></script>
+  <script src="src/core/prompt.js" defer></script>
   <script src="src/types/registry.js" defer></script>
   <script src="src/types/single.js" defer></script>
   <script src="src/types/truefalse.js" defer></script>
   <script src="src/types/multi.js" defer></script>
   <script src="src/types/match.js" defer></script>
+  <script src="src/types/short.js" defer></script>
+  <script src="src/types/numeric.js" defer></script>
+  <script src="src/types/written.js" defer></script>
   <script src="src/ui/theme.js" defer></script>
   <script src="src/ui/views.js" defer></script>
   <script src="src/ui/subjects.js" defer></script>
   <script src="src/ui/setup.js" defer></script>
+  <script src="src/ui/ask.js" defer></script>
   <script src="src/ui/quiz.js" defer></script>
   <script src="src/ui/summary.js" defer></script>
   <script src="src/main.js" defer></script>

@@ -1,0 +1,10 @@
+/* short: one text input; after checking, the accepted answer(s) underneath. */
+.short-input {
+  max-width: 480px;
+}
+
+.answer-key .pre {
+  margin: 4px 0 0;
+  font-weight: 700;
+  color: var(--green);
+}

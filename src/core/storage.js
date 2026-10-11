@@ -5,6 +5,7 @@
 //   quizy-attempts-v2-<subject>  {[questionId]: {correct, score, at}}
 //   quizy-dve-attempts-v1        old DVE progress, copied to v2 once (and kept)
 //   quizy-last-subject           key of the subject shown last
+//   quizy-written-v1-<subject>   {[questionId]: text} typed for "written" questions, restored when they reappear
 (function (Quizy) {
   const store = {
     get(key) { try { return localStorage.getItem(key); } catch { return null; } },
@@ -25,6 +26,11 @@
       catch { return {}; }
     },
     saveAttempts(subject, attempts) { store.set(attemptsKey(subject), JSON.stringify(attempts)); },
+    loadWritten(subject) {
+      try { return JSON.parse(store.get(`quizy-written-v1-${subject}`) || '{}') || {}; }
+      catch { return {}; }
+    },
+    saveWritten(subject, texts) { store.set(`quizy-written-v1-${subject}`, JSON.stringify(texts)); },
     lastSubject() { return store.get('quizy-last-subject'); },
     setLastSubject(subject) { store.set('quizy-last-subject', subject); }
   };

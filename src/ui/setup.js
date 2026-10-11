@@ -5,6 +5,8 @@
 (function (Quizy) {
   const ui = Quizy.ui = Quizy.ui || {};
   const {$, plural, marksOf, state} = Quizy;
+  // Kinds counted like a paper ("N questions · M marks · order randomised") rather than as a bank.
+  const PAPER_KINDS = ['past-paper', 'practice-quiz', 'tutorial'];
 
   ui.currentSet = () => state.sets.find(s => s.id === $('set').value);
 
@@ -32,7 +34,7 @@
     const selected = ui.selection();
     const marks = selected.reduce((sum, q) => sum + marksOf(q), 0);
     const lectures = new Set(set.questions.map(q => q.lecture)).size;
-    $('bank-note').textContent = set.kind === 'past-paper'
+    $('bank-note').textContent = PAPER_KINDS.includes(set.kind)
       ? `${plural(selected.length, 'question')} · ${plural(marks, 'mark')} · order randomised`
       : `${plural(selected.length, 'question')} selected from ${plural(set.questions.length, 'question')} across ${plural(lectures, 'lecture')}.`;
     $('setup-message').textContent = '';
@@ -41,6 +43,7 @@
   ui.chooseSet = function () {
     const set = ui.currentSet();
     $('set-description').textContent = set.description || '';
+    $('set-unofficial').hidden = !set.unofficialAnswers;
     const lecture = $('lecture');
     lecture.replaceChildren(new Option('All lectures in this set', 'all'));
     const lectures = [...new Set(set.questions.map(q => q.lecture))].sort((a, b) => a - b);

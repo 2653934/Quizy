@@ -1,0 +1,105 @@
+/* written: a textarea; after "Reveal model answer", your answer next to the model answer,
+   then the rubric as a checklist and "Submit my mark". */
+.written-input {
+  min-height: 132px;
+  resize: vertical;
+}
+
+.written-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 16px;
+}
+
+.written-yours {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+}
+
+.written-model {
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.written-model .pre {
+  margin: 6px 0 0;
+}
+
+.rubric {
+  display: grid;
+  gap: 8px;
+  margin: 8px 0 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.rubric legend {
+  padding: 0;
+  margin-bottom: 8px;
+}
+
+.rubric-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 16px;
+  min-height: 52px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--choice-bg);
+  cursor: pointer;
+}
+
+.rubric-point input {
+  width: 22px;
+  height: 22px;
+  margin: 1px 0 0;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+}
+
+.rubric-point .text {
+  flex: 1;
+}
+
+.rubric-marks {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.rubric-point:has(input:checked):not(.ticked) {
+  border-color: var(--accent);
+  background: var(--light);
+}
+
+.rubric-point.ticked {
+  background: #dceee2;
+  border-color: var(--green);
+  cursor: default;
+}
+
+.rubric-point.unticked {
+  cursor: default;
+}
+
+.rubric-submit {
+  justify-self: start;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .written-compare {
+    grid-template-columns: 1fr;
+  }
+
+  .rubric-point {
+    padding: 14px 13px;
+    min-height: 56px;
+  }
+}

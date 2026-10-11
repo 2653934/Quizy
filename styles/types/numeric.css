@@ -1,0 +1,75 @@
+/* numeric: one row per part (label, input, unit), or a rows × cols grid of inputs. */
+.numeric-parts {
+  display: grid;
+  gap: 10px;
+}
+
+.numeric-parts .numeric-part {
+  display: grid;
+  grid-template-columns: 1fr minmax(160px, 260px);
+  gap: 8px 16px;
+  align-items: center;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--choice-bg);
+}
+
+.numeric-parts .numeric-part.correct {
+  background: #dceee2;
+  border-color: var(--green);
+}
+
+.numeric-parts .numeric-part.wrong {
+  background: #f8e6e0;
+  border-color: var(--bad);
+}
+
+.numeric-label {
+  font-weight: 600;
+}
+
+.numeric-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.numeric-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.numeric-unit {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.numeric-note {
+  grid-column: 1/-1;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--bad);
+}
+
+.numeric-part.correct .numeric-note {
+  color: var(--green);
+}
+
+.numeric-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.numeric-grid .numeric-note {
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .numeric-parts .numeric-part {
+    grid-template-columns: 1fr;
+  }
+}

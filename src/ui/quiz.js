@@ -50,6 +50,8 @@
     $('next').textContent = index === round.length - 1 ? 'See results ↗' : 'Next question ↗';
     $('check').hidden = !type.needsCheckButton;
     $('check').disabled = true;
+    $('check').textContent = type.checkLabel || 'Check answer';
+    ui.hideAsk();
 
     const choices = $('choices');
     choices.replaceChildren();
@@ -68,13 +70,15 @@
     $('check').hidden = true;
     storage.saveAttempts(state.subject.key, state.attempts);
     ui.updateStats();
-    showFeedback(q, score);
+    showFeedback(q, score, response);
+    ui.showAsk(q, response);
     $('next').hidden = false;
     $('next').focus({preventScroll: true});
   }
 
-  // Verdict and marks, then the study note, then any doubt about the official answer.
-  function showFeedback(q, score) {
+  // Verdict and marks, then any type-specific notes (e.g. a worked solution), the study note,
+  // then any doubt about the official answer.
+  function showFeedback(q, score, response) {
     const feedback = $('feedback');
     const marks = marksOf(q);
     const full = isFull(score, q);
@@ -83,9 +87,10 @@
     heading.append(el('strong', '', full ? 'Correct!' : score > 0 ? 'Partly right.' : 'Not quite.'));
     if (state.roundSet.totalMarks !== undefined || marks !== 1 || (score > 0 && !full)) heading.append(el('span', 'score', `${formatMarks(score)} / ${formatMarks(marks)} ${marks === 1 ? 'mark' : 'marks'}`));
     feedback.append(heading);
+    if (typeOf(q).resultNotes) feedback.append(...typeOf(q).resultNotes(q, response));
     if (q.explanation || q.optionsNote) {
       const note = el('div', 'study-note');
-      note.append(el('div', 'eyebrow', 'Study note'));
+      note.append(el('div', 'eyebrow', state.roundSet.unofficialAnswers ? 'Study note (unofficial answer)' : 'Study note'));
       if (q.explanation) note.append(el('p', '', q.explanation));
       if (q.optionsNote) note.append(el('p', 'small', q.optionsNote));
       feedback.append(note);
@@ -98,10 +103,17 @@
     feedback.hidden = false;
   }
 
-  // "Check answer", for types that need it.
+  // "Check answer", for types that need it. Types with a reveal() step (written) show more first
+  // and call grade() themselves once the user is done.
   ui.check = function () {
+    if (state.answered || $('check').hidden) return;
     const item = Quizy.currentItem();
-    grade(typeOf(item.q).readResponse($('choices'), item.q, item));
+    const type = typeOf(item.q);
+    const response = type.readResponse($('choices'), item.q, item);
+    if (!type.reveal) return grade(response);
+    $('check').hidden = true;
+    type.reveal($('choices'), item.q, item, response, grade);
+    ui.showAsk(item.q, response);
   };
 
   ui.next = function () {

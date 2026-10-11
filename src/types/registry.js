@@ -6,16 +6,24 @@
 //     // Pure and Node-safe (tools/build-data.cjs and tests/ use these):
 //     validate(q, set, fail)     type-specific checks; call fail(message) once per problem
 //     makeOrder(q, shuffle)      {choiceOrder, pairOrder, optionOrder} for one round item, as arrays of
-//                                original indices (grading always uses original indices)
+//                                original indices (grading always uses original indices; empty if nothing shuffles)
 //     score(q, response)         marks earned for a response
+//     askClaude(q, response)     optional: {answer, reference} as plain text. When present, a "Copy for Claude"
+//                                button copies a marking prompt (src/core/prompt.js) after answering / revealing.
 //     // Browser only:
 //     needsCheckButton           true: the answer is submitted with "Check answer"
+//     checkLabel                 optional text for that button (default "Check answer")
 //     hints(q, set)              hint nodes shown above the inputs ([] for none)
 //     render(container, q, item, onReady, submit)
 //                                draw the inputs into container. Check-button types call onReady(true/false)
 //                                to enable the button; tap-to-answer types call submit(response) themselves.
 //     readResponse(container, q, item)          check-button types: read the response from the DOM
+//     reveal(container, q, item, response, submit)
+//                                optional second step (written): the check button calls this instead of grading.
+//                                The type shows more (e.g. a model answer and a rubric) and calls
+//                                submit(finalResponse) when the user is done; only then is the answer graded and saved.
 //     showResult(container, q, item, response)  disable the inputs, mark correct / wrong / missed, add tags
+//     resultNotes(q, response)   optional: nodes added to the feedback after the verdict, before the study note
 //   });
 //
 // src/ui/quiz.js only ever calls these; it never checks q.type itself.
@@ -78,7 +86,40 @@
   }
   function addTag(node, text) { node.append(Quizy.el('span', 'tag', text)); }
 
-  Quizy.typeHelpers = {isText, validIndex, where, checkWords, checkChoices, checkEmphasisInChoices, choiceText, markChoices};
+  // For types whose parts / rubric points carry their own marks: they must add up to the question's marks.
+  const positive = n => typeof n === 'number' && Number.isFinite(n) && n > 0;
+  function checkMarksSum(q, set, list, what, fail) {
+    const sum = list.reduce((total, x) => total + (positive(x.marks) ? x.marks : 0), 0);
+    if (Math.abs(sum - Quizy.marksOf(q)) > 1e-9) fail(`${where(q, set)}: ${what} marks add up to ${sum}, but the question has ${Quizy.marksOf(q)}`);
+  }
+
+  // A labelled block of text that keeps its line breaks (model answer, worked solution, accepted answers).
+  function textBlock(className, eyebrow, text) {
+    const block = Quizy.el('div', className);
+    block.append(Quizy.el('div', 'eyebrow', eyebrow), Quizy.el('p', 'pre', text));
+    return block;
+  }
+
+  // A one-line text input that phones won't autocorrect or capitalise.
+  function textInput(className) {
+    const input = Quizy.el('input', className);
+    input.type = 'text';
+    input.setAttribute('autocapitalize', 'off');
+    input.setAttribute('autocomplete', 'off');
+    input.setAttribute('autocorrect', 'off');
+    input.spellcheck = false;
+    return input;
+  }
+
+  // Enter in a text input submits, as long as the check button would be enabled.
+  function onEnter(input, ready, submit) {
+    input.addEventListener('keydown', event => {
+      if (event.key === 'Enter' && !event.isComposing && ready()) { event.preventDefault(); submit(); }
+    });
+  }
+
+  Quizy.typeHelpers = {isText, validIndex, where, checkWords, checkChoices, checkEmphasisInChoices, choiceText, markChoices,
+    positive, checkMarksSum, textBlock, textInput, onEnter};
 
   if (typeof module !== 'undefined') module.exports = Quizy;
 })(globalThis.Quizy = globalThis.Quizy || {});

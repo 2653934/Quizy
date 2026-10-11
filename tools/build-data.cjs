@@ -4,8 +4,10 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const root = path.join(__dirname, '..');
-// The app's own Node-safe code: the set file rule and the question types (every file in src/types/).
+// The app's own Node-safe code: helpers, marks, the set file rule and the question types (every file in src/types/).
 // Each type validates its own fields; this script keeps the checks that span questions and sets.
+require('../src/core/util.js');
+require('../src/core/scoring.js');
 const Quizy = require('../src/core/data.js');
 require('../src/types/registry.js');
 for (const file of fs.readdirSync(path.join(root, 'src/types')).sort()) require(path.join(root, 'src/types', file));
@@ -58,6 +60,7 @@ for (const subject of registry.subjects) {
     if (set.subject !== subject.key) fail(`${file}: subject is "${set.subject}", expected "${subject.key}"`);
     if (!isText(set.title)) fail(`${file}: missing title`);
     if (!KINDS.has(set.kind)) fail(`${file}: unknown kind "${set.kind}"`);
+    if (set.unofficialAnswers !== undefined && typeof set.unofficialAnswers !== 'boolean') fail(`${file}: unofficialAnswers must be true or false`);
     if (!Array.isArray(set.questions)) { fail(`${file}: questions must be an array`); continue; }
     for (const q of set.questions) checkQuestion(q, set, ids);
     const marks = set.questions.reduce((sum, q) => sum + (q.marks ?? 1), 0);
