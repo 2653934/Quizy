@@ -1,0 +1,975 @@
+{
+  "id": "nlp-tutorial",
+  "subject": "nlp",
+  "title": "Tutorial",
+  "kind": "tutorial",
+  "description": "The lecturer's exam-style tutorial (all sections, lectures 1–10), transcribed word for word. Write or think your answer, reveal the model answer, then tick the marking points you covered. Calculation questions are checked automatically. Answers are unofficial: written by Claude, not the lecturer.",
+  "sourceFile": "02 Practice Questions/NLP_Tutorial-2.pdf",
+  "unofficialAnswers": true,
+  "totalMarks": 136,
+  "transcriptionNotes": "Question text is copied exactly from the PDF, including mark annotations and typos ('co-occurance', 'explaing', 'roll of feature extraction', 'processes', 'LoRa'). Maths is written in Unicode, matrices as [[row1], [row2]], and the count table in 4.2 as 'phrase: count' lines. Question 6.6 has no marks on the paper and is set to 2 here. Model answers, rubrics and worked solutions are written by Claude, not the lecturer. Rubric marks follow the paper's mark allocation.",
+  "questions": [
+    {
+      "id": "nlp-tut-1-1",
+      "number": "1.1",
+      "lecture": 1,
+      "concept": "Tokenization",
+      "type": "written",
+      "marks": 3,
+      "question": "Define tokenization and describe why it is particularly difficult to tokenize agglutinative languages. (3 Marks)",
+      "modelAnswer": "Tokenization is splitting raw text into the units a model works with (tokens: words, subwords or characters).\n\nIn agglutinative languages (e.g. isiZulu, Turkish, Finnish) a single word is built by gluing many morphemes together, each carrying its own meaning or grammatical function. So:\n• Splitting on whitespace gives a huge vocabulary of long, rare words, most of which are seen only once or never (sparsity / out-of-vocabulary words).\n• The meaningful units are inside the word, and their boundaries aren't marked, so a tokenizer has to find morpheme-like pieces without breaking the meaning.",
+      "rubric": [
+        {
+          "point": "Defines tokenization: splitting text into units/tokens (words, subwords or characters) for processing",
+          "marks": 1
+        },
+        {
+          "point": "Agglutinative: words are formed by joining many morphemes, each with its own meaning/function",
+          "marks": 1
+        },
+        {
+          "point": "Why that's hard: whitespace tokens become very many, long and rare (sparse vocabulary / OOV), and the meaningful boundaries are inside words and unmarked",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-1-2",
+      "number": "1.2",
+      "lecture": 1,
+      "concept": "Lemmatization vs stemming",
+      "type": "written",
+      "marks": 4,
+      "question": "Explain the difference between lemmatization and stemming. (4 Marks)",
+      "modelAnswer": "Both reduce related word forms to a shared base form, but differently:\n• Stemming chops off affixes with crude, rule-based heuristics (e.g. strip '-ing', '-s'). It is fast but the result may not be a real word ('studies' → 'studi') and it can over- or under-stem.\n• Lemmatization uses a dictionary (lexicon) and morphological analysis, often with the part of speech, to return the proper dictionary form, the lemma ('studies' → 'study', 'ran' → 'run', 'better' → 'good'). It is more accurate but slower and needs language resources.",
+      "rubric": [
+        {
+          "point": "Both map inflected/related forms to a common base form",
+          "marks": 1
+        },
+        {
+          "point": "Stemming: rule-based removal of affixes (heuristic chopping)",
+          "marks": 1
+        },
+        {
+          "point": "Stemming's output may not be a real word / errors (over- or under-stemming); fast",
+          "marks": 1
+        },
+        {
+          "point": "Lemmatization: uses a vocabulary/morphological analysis (and POS) to return the valid dictionary form (lemma), e.g. ran → run",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-1-3",
+      "number": "1.3",
+      "lecture": 1,
+      "concept": "Bound vs unbound morphemes",
+      "type": "written",
+      "marks": 2,
+      "question": "Explain the difference between bound and unbound morphemes. (2 Marks)",
+      "modelAnswer": "A morpheme is the smallest unit of meaning.\n• An unbound (free) morpheme can stand alone as a word, e.g. 'cat', 'kind', 'run'.\n• A bound morpheme cannot stand alone and only appears attached to another morpheme, e.g. the plural '-s', '-ness', 'un-', '-ed'.",
+      "rubric": [
+        {
+          "point": "Unbound/free morpheme can stand on its own as a word (with an example)",
+          "marks": 1
+        },
+        {
+          "point": "Bound morpheme must attach to another morpheme, e.g. an affix like -s, -ness, un- (with an example)",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-1-4",
+      "number": "1.4",
+      "lecture": 1,
+      "concept": "Co-occurrence matrix and PPMI",
+      "type": "written",
+      "marks": 7,
+      "question": "Construct the co-occurance matrix for the phrase “The cat sat on the mat. The cat sat on the floor” with a context window of 1 word on either side of the focal word (3 Marks). Then calculate the PPMI for the focal word “cat” and context word “mat” (4 Marks).",
+      "modelAnswer": "Pre-process: lower-case and drop punctuation → the cat sat on the mat the cat sat on the floor (12 tokens; vocabulary: the, cat, sat, on, mat, floor).\n\nCount each word's neighbours 1 to the left and 1 to the right (here the window runs across the full stop; say so if you choose to stop at sentence boundaries):\n\n          the  cat  sat  on  mat  floor\nthe        0    2    0    2    2    1\ncat        2    0    2    0    0    0\nsat        0    2    0    2    0    0\non         2    0    2    0    0    0\nmat        2    0    0    0    0    0\nfloor      1    0    0    0    0    0\n\n(The matrix is symmetric. If you stop the window at the full stop, the the–mat and mat–the counts become 1.)\n\nPPMI(w, c) = max(0, log₂ [P(w, c) / (P(w) P(c))]), with probabilities taken from the matrix counts.\n\n'cat' and 'mat' are never within 1 word of each other, so count(cat, mat) = 0 → P(cat, mat) = 0 → PMI = log₂ 0 = −∞ → PPMI = max(0, −∞) = 0.\n\nFor comparison, PPMI(cat, the): the matrix total is 22, so P(cat, the) = 2/22, P(cat) = 4/22 (row sum) and P(the) = 7/22. PMI = log₂[(2/22) / ((4/22)(7/22))] = log₂(44/28) ≈ 0.65, so PPMI ≈ 0.65.",
+      "rubric": [
+        {
+          "point": "Pre-processing stated (lower-case, punctuation removed) and vocabulary listed",
+          "marks": 1
+        },
+        {
+          "point": "Matrix rows/columns over the vocabulary, counting neighbours within ±1 word",
+          "marks": 1
+        },
+        {
+          "point": "Counts correct (e.g. the–cat 2, cat–sat 2, sat–on 2, on–the 2, the–mat 2 (or 1 if stopping at the full stop), the–floor 1) and the matrix is symmetric",
+          "marks": 1
+        },
+        {
+          "point": "PPMI formula: max(0, log [P(w,c) / (P(w)P(c))])",
+          "marks": 1
+        },
+        {
+          "point": "Probabilities taken from the co-occurrence counts (joint over the total; marginals from row/column sums)",
+          "marks": 1
+        },
+        {
+          "point": "Observes count(cat, mat) = 0, so P(cat, mat) = 0 and PMI = log 0 = −∞",
+          "marks": 1
+        },
+        {
+          "point": "Concludes PPMI(cat, mat) = 0 (negative/undefined PMI is clipped to 0)",
+          "marks": 1
+        }
+      ],
+      "explanation": "The trick in this question: 'cat' and 'mat' never appear next to each other, so the answer is 0 however you handle the sentence boundary. The PPMI(cat, the) working is there so you can practise a non-zero case."
+    },
+    {
+      "id": "nlp-tut-2-1",
+      "number": "2.1",
+      "lecture": 2,
+      "concept": "SkipGram vs CBOW",
+      "type": "written",
+      "marks": 4,
+      "question": "Describe the difference between SkipGram and CBOW (the two versions of Word2Vec). (4 Marks)",
+      "modelAnswer": "Both learn word vectors by prediction within a context window, but in opposite directions:\n• Skip-gram takes the centre (focal) word and predicts each of the surrounding context words. Each centre word gives several training pairs, so it is slower but represents rare words better.\n• CBOW (continuous bag of words) takes the surrounding context words, combines them (averages/sums their vectors, ignoring order) and predicts the centre word. It is faster and smooths over the context, but does worse for rare words.",
+      "rubric": [
+        {
+          "point": "Skip-gram: input is the centre word, it predicts the context words",
+          "marks": 1
+        },
+        {
+          "point": "CBOW: input is the context words, it predicts the centre word",
+          "marks": 1
+        },
+        {
+          "point": "CBOW combines/averages the context vectors (bag of words: order ignored)",
+          "marks": 1
+        },
+        {
+          "point": "A trade-off: skip-gram is slower but better for rare words; CBOW is faster/smoother",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-2-2",
+      "number": "2.2",
+      "lecture": 2,
+      "concept": "Negative sampling",
+      "type": "written",
+      "marks": 3,
+      "question": "Explain what Negative Sampling is and the approach that word2vec uses to choose negative samples. (3 Marks)",
+      "modelAnswer": "Computing a softmax over the whole vocabulary for every training pair is too expensive. Negative sampling replaces it with a few binary classifications: push up the score of the real (centre, context) pair and push down the scores of k randomly chosen 'negative' context words that did not occur with it. Only k + 1 output vectors are updated per step.\n\nword2vec draws the negatives from the unigram distribution raised to the power 3/4: P(w) ∝ count(w)^0.75. Frequent words are sampled more often, but the 3/4 power flattens the distribution so rare words get picked more than their raw frequency would give.",
+      "rubric": [
+        {
+          "point": "Replaces the expensive full softmax over the vocabulary (speeds up training)",
+          "marks": 1
+        },
+        {
+          "point": "Trains the model to tell the true context word from k randomly sampled 'negative' words (score up for the real pair, down for the negatives)",
+          "marks": 1
+        },
+        {
+          "point": "Negatives are drawn from the unigram frequency distribution raised to the 3/4 power (frequent words more likely, but flattened)",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-2-3",
+      "number": "2.3",
+      "lecture": 2,
+      "concept": "Count vs prediction embeddings",
+      "type": "written",
+      "marks": 6,
+      "question": "State and explaing one weakness for count-based and prediction-based methods of obtaining word embeddings. (6 Marks)",
+      "modelAnswer": "Count-based (co-occurrence matrix, PPMI, SVD):\n• Weakness: the matrix is |V| × |V|, so it is huge and very sparse, and dominated by frequent words.\n• Why it matters: storing it and running SVD scales badly with vocabulary size, and reducing the dimensions can throw away information about rare words. Adding new text means recounting and refactorising.\n\nPrediction-based (Word2Vec):\n• Weakness: each training step only sees one local window, so the model never uses the corpus-wide co-occurrence statistics directly. It also gives one fixed vector per word type: no vector for unseen (OOV) words and no way to tell senses apart ('bank').\n• Why it matters: it needs a lot of training passes and data to work well, it is sensitive to hyperparameters, and rare or new words are represented poorly or not at all.\n\n(Any well-explained weakness per method earns the marks, e.g. a single static vector per word, or both inheriting bias from the corpus.)",
+      "rubric": [
+        {
+          "point": "States a valid weakness of count-based methods (e.g. huge sparse |V|×|V| matrix, dominated by frequent words)",
+          "marks": 1
+        },
+        {
+          "point": "Explains why it is a problem (memory/compute of SVD scales badly, rare-word information lost, must recount for new data)",
+          "marks": 2
+        },
+        {
+          "point": "States a valid weakness of prediction-based methods (e.g. only local windows / no global statistics, static vector per word, OOV)",
+          "marks": 1
+        },
+        {
+          "point": "Explains why it is a problem (more data and training needed, hyperparameter-sensitive, unseen words or multiple senses not handled)",
+          "marks": 2
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-3-1",
+      "number": "3.1",
+      "lecture": 3,
+      "concept": "Text classification tasks",
+      "type": "written",
+      "marks": 3,
+      "question": "Describe three different kinds of text classification tasks. (3 Marks)",
+      "modelAnswer": "Any three, each with a short description:\n• Sentiment analysis: is a review positive or negative (or a 1–5 rating)?\n• Spam detection: is an email spam or not (binary)?\n• Topic / news categorisation: which one of many topics a document belongs to (multi-class).\n• Language identification, intent detection, or multi-label tagging (several labels per document, e.g. tagging a question with several subjects).",
+      "rubric": [
+        {
+          "point": "First task named and described (e.g. sentiment analysis)",
+          "marks": 1
+        },
+        {
+          "point": "Second task named and described (e.g. spam detection, binary)",
+          "marks": 1
+        },
+        {
+          "point": "Third task named and described (e.g. topic classification, multi-class; or multi-label tagging)",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-3-2",
+      "number": "3.2",
+      "lecture": 3,
+      "concept": "Softmax and cross-entropy",
+      "type": "numeric",
+      "marks": 3,
+      "question": "Suppose we have a target p∗ and the pre-softmax model output p. First apply the Softmax function to p and then calculate the cross-entropy loss where: (3 Marks)\np∗ = [0.0, 0.0, 0.0, 1.0] and p = [0.2, 0.2, 0.5, 0.6]\nRemember that the Softmax equation is:\nsoftmax(xᵢ) = exp(xᵢ) / Σⱼ₌₁ᵈ exp(xⱼ)\nwhere xᵢ is the i-th index of the input vector x and d is the dimension of x. Similarly the cross-entropy loss (with natural logarithm) is:\nCE(p∗, p̂) = − Σⱼ₌₁ᵈ p∗ⱼ log(p̂ⱼ)\nwhere p̂ is the post-softmax model output.",
+      "parts": [
+        {
+          "label": "p̂₁",
+          "answer": 0.2065,
+          "tolerance": 0.001,
+          "marks": 0.5
+        },
+        {
+          "label": "p̂₂",
+          "answer": 0.2065,
+          "tolerance": 0.001,
+          "marks": 0.5
+        },
+        {
+          "label": "p̂₃",
+          "answer": 0.2788,
+          "tolerance": 0.001,
+          "marks": 0.5
+        },
+        {
+          "label": "p̂₄",
+          "answer": 0.3081,
+          "tolerance": 0.001,
+          "marks": 0.5
+        },
+        {
+          "label": "CE(p∗, p̂)",
+          "answer": 1.1773,
+          "tolerance": 0.005,
+          "marks": 1
+        }
+      ],
+      "solution": "1. Exponentiate each entry:\n   e^0.2 = 1.2214, e^0.2 = 1.2214, e^0.5 = 1.6487, e^0.6 = 1.8221\n2. Sum: 1.2214 + 1.2214 + 1.6487 + 1.8221 = 5.9136\n3. Divide each by the sum:\n   p̂ = [0.2065, 0.2065, 0.2788, 0.3081] (these add to 1)\n4. The target is one-hot on class 4, so only that term survives:\n   CE = −(0·log 0.2065 + 0·log 0.2065 + 0·log 0.2788 + 1·log 0.3081) = −ln(0.3081) ≈ 1.177",
+      "inputHint": "Give each value to 4 decimal places.",
+      "explanation": "With a one-hot target, cross-entropy is just −log of the probability given to the correct class."
+    },
+    {
+      "id": "nlp-tut-3-3",
+      "number": "3.3",
+      "lecture": 3,
+      "concept": "Logistic regression vs Naive Bayes",
+      "type": "written",
+      "marks": 6,
+      "question": "Describe the roll of feature extraction when implementing Logistic Regression and how this avoids the conditional independence assumption usually used by Naive Bayes. (3+3 Marks)",
+      "modelAnswer": "Role of feature extraction (3):\nLogistic regression can't take raw text; it needs a fixed-length numeric vector. Feature extraction turns each document into such a vector, e.g. bag-of-words counts, n-grams, TF-IDF or hand-designed features (counts of positive words, negation flags…). The model then learns a weight per feature and applies a sigmoid/softmax to the weighted sum. The quality of the classifier depends heavily on which features are chosen.\n\nAvoiding conditional independence (3):\nNaive Bayes is generative: it models P(features | class) and, to make that tractable, assumes every feature is independent given the class, multiplying per-word probabilities. Logistic regression is discriminative: it models P(class | features) directly and learns the weights jointly from the data. It never has to factorise P(features | class), so it makes no independence assumption: correlated or overlapping features (e.g. 'not' and 'not good') just share weight instead of being double-counted.",
+      "rubric": [
+        {
+          "point": "Feature extraction maps variable-length text to a fixed-length numeric feature vector",
+          "marks": 1
+        },
+        {
+          "point": "Gives examples of features (bag-of-words, n-grams, TF-IDF, hand-crafted features)",
+          "marks": 1
+        },
+        {
+          "point": "Logistic regression learns a weight per feature and applies a sigmoid/softmax to the weighted sum; feature choice drives performance",
+          "marks": 1
+        },
+        {
+          "point": "Naive Bayes is generative, modelling P(features|class) with features assumed independent given the class",
+          "marks": 1
+        },
+        {
+          "point": "Logistic regression is discriminative: it models P(class|features) directly and learns the weights jointly",
+          "marks": 1
+        },
+        {
+          "point": "So it needs no independence assumption: correlated/overlapping features are handled by the learned weights rather than double-counted",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-3-4",
+      "number": "3.4",
+      "lecture": 3,
+      "concept": "Neural feature learning",
+      "type": "written",
+      "marks": 3,
+      "question": "Explain why manual feature extraction is not necessary for neural networks. (3 Marks)",
+      "modelAnswer": "A neural network learns its own features. The input is just tokens mapped to embeddings, and the hidden layers (CNN filters, RNN states, attention…) compute intermediate representations. Because everything is differentiable, the gradient of the task loss trains these layers end to end, so they become detectors of whatever patterns are useful for the task (e.g. a CNN filter for 'not good'). The network replaces hand-designed features with learned ones; the human only chooses the architecture and data.",
+      "rubric": [
+        {
+          "point": "Inputs are raw tokens/embeddings; hidden layers act as feature extractors",
+          "marks": 1
+        },
+        {
+          "point": "The layers are trained end to end with backpropagation from the task loss",
+          "marks": 1
+        },
+        {
+          "point": "So they learn task-relevant features/patterns automatically, instead of features designed by hand",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-4-1",
+      "number": "4.1",
+      "lecture": 5,
+      "concept": "Global pooling in a CNN LM",
+      "type": "written",
+      "marks": 3,
+      "question": "Describe the purpose of the Global-Pooling operation in a CNN language model. (3 Marks)",
+      "modelAnswer": "After the convolutions there is one feature value per filter per position, and the number of positions depends on the sentence length. Global pooling (usually max, sometimes mean) takes, for each filter, the max/average over all positions. This:\n• turns a variable-length sequence into a fixed-size vector (one value per filter) that the final linear + softmax layer can use;\n• makes the representation independent of where a pattern occurred (position-invariant: 'did this pattern appear anywhere?');\n• summarises the whole context into the single context vector h used to predict the next token.\n\nNote: the lecturer pointed out the cost for generation: every new token means re-running the convolutions and the pooling over the whole sequence, unlike an RNN's running hidden state.",
+      "rubric": [
+        {
+          "point": "Aggregates each filter's responses over all positions (max or mean)",
+          "marks": 1
+        },
+        {
+          "point": "Produces a fixed-size vector from variable-length input, for the output/softmax layer",
+          "marks": 1
+        },
+        {
+          "point": "Position invariance / summarises the whole context into one representation for prediction",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-4-2",
+      "number": "4.2",
+      "lecture": 5,
+      "concept": "Laplace-smoothed n-gram",
+      "type": "numeric",
+      "marks": 4,
+      "question": "Suppose we have the 4-gram language model described below. Calculate the probability P(moon|cat on the), using laplace smoothing. Suppose δ = 0.1, the vocabulary count is 20 and we have the following counts: (4 Marks)\nCounts\ncat on the: 10\ncat on the moon: 0",
+      "parts": [
+        {
+          "label": "P(moon | cat on the)",
+          "answer": 0.0083333,
+          "tolerance": 0.0001,
+          "marks": 4
+        }
+      ],
+      "solution": "Laplace (add-δ) smoothing:\nP(w | context) = (N(context, w) + δ) / (N(context) + δ·|V|)\n\n= (N(cat on the moon) + 0.1) / (N(cat on the) + 0.1 × 20)\n= (0 + 0.1) / (10 + 2)\n= 0.1 / 12\n≈ 0.00833 (= 1/120)\n\nWithout smoothing it would be 0/10 = 0.",
+      "inputHint": "A decimal (e.g. 0.0083) or a fraction (e.g. 1/120).",
+      "explanation": "The denominator adds δ for every word in the vocabulary (δ·|V|), so that the smoothed probabilities still sum to 1."
+    },
+    {
+      "id": "nlp-tut-4-3",
+      "number": "4.3",
+      "lecture": 4,
+      "concept": "Spatial (CNN) vs temporal (RNN)",
+      "type": "written",
+      "marks": 5,
+      "question": "Explain why a CNN is considered as representing (and as a result processing) sentences spatially and RNNs are considered as representing (and processes) sentences temporally. (5 Marks)",
+      "modelAnswer": "CNN, spatial:\n• The sentence is laid out as a 2-D grid (positions × embedding dimensions), like an image, so word order becomes a spatial axis.\n• Filters slide over windows of neighbouring words and detect local patterns (n-gram-like features) the same way at every position (shared weights, translation invariance).\n• All positions are processed at once, in parallel; there is no notion of 'before' or 'after' beyond the window, and pooling then summarises over the positions.\n\nRNN, temporal:\n• The sentence is read one token at a time, in order, as a sequence of time steps.\n• The hidden state at step t is computed from the input at t and the hidden state at t−1, so it carries a running memory of everything seen so far.\n• Processing is inherently sequential (step t must wait for t−1), which is why order and time are built into how it represents the sentence.",
+      "rubric": [
+        {
+          "point": "CNN: sentence as a grid/matrix of positions × embedding dims; position is treated like a spatial axis",
+          "marks": 1
+        },
+        {
+          "point": "CNN: filters slide over local windows, applying the same weights at every position (local n-gram patterns, translation invariance)",
+          "marks": 1
+        },
+        {
+          "point": "CNN: all positions processed in parallel; no running memory, pooling summarises",
+          "marks": 1
+        },
+        {
+          "point": "RNN: tokens read one at a time as time steps",
+          "marks": 1
+        },
+        {
+          "point": "RNN: hidden state h_t depends on x_t and h_{t−1} (recurrent memory), so processing is sequential",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-4-4",
+      "number": "4.4",
+      "lecture": 3,
+      "concept": "Multiple convolutional kernels",
+      "type": "written",
+      "marks": 2,
+      "question": "Explain why it is necessary to have multiple convolutional kernels in a single layer of a CNN. (2 Marks)",
+      "modelAnswer": "Each kernel (filter) is a single pattern detector: it learns to respond to one kind of local pattern, e.g. one n-gram feature such as 'not good'. Text contains many different useful patterns, so a layer needs many kernels (each producing its own feature map) to capture them all, often with different widths for different n-gram lengths.",
+      "rubric": [
+        {
+          "point": "One kernel detects only one kind of pattern/feature",
+          "marks": 1
+        },
+        {
+          "point": "Many different patterns are needed, so many kernels produce multiple feature maps (optionally with different widths)",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-4-5",
+      "number": "4.5",
+      "lecture": 4,
+      "concept": "Bidirectional RNNs",
+      "type": "written",
+      "marks": 2,
+      "question": "Explain the advantage of bidirectional RNNs over vanilla RNNs. (2 Marks)",
+      "modelAnswer": "A vanilla RNN reads left to right, so the state at a word only knows the words before it (and early words fade by the end). A bidirectional RNN runs a second RNN right to left and concatenates the two states, so every position's representation uses both the left and the right context (e.g. 'bank' in 'bank of the river'). This helps whenever the whole input is available, such as classification or tagging. It can't be used for left-to-right generation, where the future is unknown.",
+      "rubric": [
+        {
+          "point": "A second RNN reads the sequence in reverse, and the two states are combined/concatenated",
+          "marks": 1
+        },
+        {
+          "point": "So each position sees both past and future context (less forgetting of earlier words), useful when the whole input is known",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-4-6",
+      "number": "4.6",
+      "lecture": 5,
+      "concept": "Nucleus sampling",
+      "type": "written",
+      "marks": 3,
+      "question": "Explain the problem which nucleus sampling aims to solve and how it goes about solving the problem. (3 Marks)",
+      "modelAnswer": "Problem: when generating, we want text that is coherent and diverse. Greedy decoding and low temperature are repetitive; pure sampling or high temperature is incoherent. Top-k sampling keeps a fixed number k of candidates, but the right number depends on the context: after 'the dress colour was…' many words are plausible, while after 'the light was…' only 'on'/'off' are. A fixed k is too narrow for one and too wide for the other.\n\nSolution: nucleus (top-p) sampling picks, at each step, the smallest set of most probable tokens whose cumulative probability reaches p (e.g. 0.9). That set (the 'nucleus') adapts its size to the distribution. The probabilities are renormalised within the nucleus and the next token is sampled from it, so unlikely tail tokens are never chosen (coherence) while there is still variety among the plausible ones (diversity).",
+      "rubric": [
+        {
+          "point": "Problem: the coherence–diversity trade-off; a fixed top-k doesn't fit distributions of different shape (flat vs peaked)",
+          "marks": 1
+        },
+        {
+          "point": "Keeps the smallest set of top tokens whose cumulative probability ≥ p, so the number of candidates adapts",
+          "marks": 1
+        },
+        {
+          "point": "Renormalises and samples from that nucleus: excludes the unreliable tail while keeping diversity",
+          "marks": 1
+        }
+      ],
+      "explanation": "Careful: in lecture the lecturer described picking uniformly from the nucleus. The standard method samples in proportion to the renormalised probabilities; write that."
+    },
+    {
+      "id": "nlp-tut-5-1",
+      "number": "5.1",
+      "lecture": 6,
+      "concept": "BLEU",
+      "type": "written",
+      "marks": 3,
+      "question": "Explain what the BLEU score measures and describe 2 problems with it. (3 Marks)",
+      "modelAnswer": "BLEU measures how much a generated text (typically a machine translation) overlaps with one or more human reference translations: the modified n-gram precision for n = 1–4, combined by a geometric mean, multiplied by a brevity penalty for candidates that are too short.\n\nProblems (any two):\n• Only exact surface matches count: valid paraphrases or synonyms that aren't in the references are penalised; it doesn't measure meaning.\n• It depends heavily on the number and quality of the reference translations.\n• It is unreliable for single sentences and correlates imperfectly with human judgement (fluency, word order beyond n-grams).\n• It can be gamed: the lecturer noted it behaves badly as outputs get longer, which is part of why the field moved back to measures like perplexity.",
+      "rubric": [
+        {
+          "point": "Measures n-gram overlap/precision between the generated text and reference text(s), with a brevity penalty",
+          "marks": 1
+        },
+        {
+          "point": "First problem explained (e.g. exact matching penalises paraphrases/synonyms; not meaning)",
+          "marks": 1
+        },
+        {
+          "point": "Second problem explained (e.g. depends on the references, poor at sentence level, gameable by length, weak correlation with humans)",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-5-2",
+      "number": "5.2",
+      "lecture": 4,
+      "concept": "RNN training problems",
+      "type": "written",
+      "marks": 2,
+      "question": "What are the two primary weaknesses of RNNs which make them difficult or unstable to train. (2 Marks)",
+      "modelAnswer": "Backpropagation through time multiplies by the same recurrent weight matrix (and activation derivatives) at every step, so:\n1. Vanishing gradients: the gradient shrinks exponentially over long sequences, so early inputs get almost no credit and long-range dependencies aren't learned (a credit-assignment problem). LSTMs/GRUs use gating to help.\n2. Exploding gradients: the gradient grows exponentially, making updates huge and training unstable. Gradient clipping is the usual fix.",
+      "rubric": [
+        {
+          "point": "Vanishing gradients (long-range dependencies not learned)",
+          "marks": 1
+        },
+        {
+          "point": "Exploding gradients (unstable updates)",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-5-3",
+      "number": "5.3",
+      "lecture": 6,
+      "concept": "Attention score functions",
+      "type": "written",
+      "marks": 6,
+      "question": "State the three types of score functions typically used for an attention mechanism and the functional form of each. (6 Marks)",
+      "modelAnswer": "With decoder state hₜ and encoder state sₖ:\n1. Dot product: score(hₜ, sₖ) = hₜᵀ sₖ. No parameters; large when the vectors align. (Used, scaled by 1/√dₖ, in Transformers.)\n2. Bilinear (Luong's 'general'): score(hₜ, sₖ) = hₜᵀ W sₖ, with a learned matrix W. The dot product is the special case W = I.\n3. Multi-layer perceptron (additive, Bahdanau): score(hₜ, sₖ) = wᵀ tanh(W₁[hₜ; sₖ]), i.e. concatenate, a learned layer, tanh, then project to a scalar with the learned vector w.",
+      "rubric": [
+        {
+          "point": "Names dot-product",
+          "marks": 1
+        },
+        {
+          "point": "Dot-product form: hₜᵀ sₖ",
+          "marks": 1
+        },
+        {
+          "point": "Names bilinear",
+          "marks": 1
+        },
+        {
+          "point": "Bilinear form: hₜᵀ W sₖ with learned W",
+          "marks": 1
+        },
+        {
+          "point": "Names multi-layer perceptron (additive)",
+          "marks": 1
+        },
+        {
+          "point": "MLP form: wᵀ tanh(W₁[hₜ; sₖ])",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-5-4",
+      "number": "5.4",
+      "lecture": 7,
+      "concept": "Self-attention calculation",
+      "type": "numeric",
+      "marks": 10,
+      "question": "Given weight matrices WQ, WK, and WV representing the query, key and value matrices of a particular attention block in a transformer, and an input matrix X of 2 word vectors of 2 dimensions each. Calculate the Self Attention matrix A for the 2 tokens. Each row of X is a token and so you should left multiply by the weights. In other words use: W Xᵀ. (10 Marks)\nWQ = [[1.5, 1.2], [0.8, 1.5]]\nWK = [[0.7, 1.0], [0.9, 0.1]]\nWV = [[2.0, 1.0], [0.4, 0.4]]\nX = [[0.5, 1.5], [1.1, 0.4]]",
+      "parts": [
+        {
+          "label": "A[1,1]",
+          "answer": 0.6036,
+          "tolerance": 0.005,
+          "marks": 2.5
+        },
+        {
+          "label": "A[1,2]",
+          "answer": 0.3964,
+          "tolerance": 0.005,
+          "marks": 2.5
+        },
+        {
+          "label": "A[2,1]",
+          "answer": 0.6397,
+          "tolerance": 0.005,
+          "marks": 2.5
+        },
+        {
+          "label": "A[2,2]",
+          "answer": 0.3603,
+          "tolerance": 0.005,
+          "marks": 2.5
+        }
+      ],
+      "solution": "Tokens are the rows of X: x₁ = [0.5, 1.5], x₂ = [1.1, 0.4]. Using W Xᵀ, each column of the result is one token.\n\n1. Queries Q = WQ Xᵀ:\n   q₁ = [1.5·0.5 + 1.2·1.5, 0.8·0.5 + 1.5·1.5] = [2.55, 2.65]\n   q₂ = [1.5·1.1 + 1.2·0.4, 0.8·1.1 + 1.5·0.4] = [2.13, 1.48]\n2. Keys K = WK Xᵀ:\n   k₁ = [0.7·0.5 + 1.0·1.5, 0.9·0.5 + 0.1·1.5] = [1.85, 0.60]\n   k₂ = [0.7·1.1 + 1.0·0.4, 0.9·1.1 + 0.1·0.4] = [1.17, 1.03]\n3. Values V = WV Xᵀ:\n   v₁ = [2.50, 0.80], v₂ = [2.60, 0.60]\n4. Scaled scores Sᵢⱼ = qᵢ · kⱼ / √dₖ with dₖ = 2 (√2 ≈ 1.4142):\n   q₁·k₁ = 2.55·1.85 + 2.65·0.60 = 6.3075 → 4.4601\n   q₁·k₂ = 2.55·1.17 + 2.65·1.03 = 5.7130 → 4.0397\n   q₂·k₁ = 2.13·1.85 + 1.48·0.60 = 4.8285 → 3.4143\n   q₂·k₂ = 2.13·1.17 + 1.48·1.03 = 4.0165 → 2.8401\n5. Row-wise softmax (each row = one query token):\n   row 1: e^4.4601 / (e^4.4601 + e^4.0397) = 1 / (1 + e^−0.4204) = 0.6036; the other entry is 0.3964\n   row 2: 1 / (1 + e^−0.5742) = 0.6397; the other entry is 0.3603\n\nA = [[0.6036, 0.3964], [0.6397, 0.3603]]\n\nThis is the attention matrix: stop here. The lecturer said that if he asks for the attention matrix/weights, you do not multiply by V. If you were asked for the attention OUTPUT, it would be A·Vᵀ: token 1 → [2.5396, 0.7207], token 2 → [2.5360, 0.7279].\n\n(Without the 1/√dₖ scaling you'd get A = [[0.6444, 0.3556], [0.6925, 0.3075]]. Always scale unless told otherwise.)",
+      "grid": {
+        "rows": 2,
+        "cols": 2
+      },
+      "inputHint": "Enter the attention weights (after softmax) to 4 decimal places. Rows are the query tokens.",
+      "explanation": "The question says 'Self Attention matrix A', which by the lecturer's definition is softmax(QKᵀ/√dₖ). Older solution packs that multiply by V answer a different question."
+    },
+    {
+      "id": "nlp-tut-5-5",
+      "number": "5.5",
+      "lecture": 7,
+      "concept": "Encoder vs decoder",
+      "type": "written",
+      "marks": 6,
+      "question": "Explain the primary difference between the encoder and the decoder of a transformer neural network, with specific mention to the types of attention that can be found in each. (6 Marks)",
+      "modelAnswer": "Encoder: reads the whole source sequence at once and builds contextual representations of it. Each layer has (unmasked) self-attention, where every token attends to every other source token, left and right, followed by a feed-forward layer (both with residual connections and layer norm). Q, K and V all come from the encoder states.\n\nDecoder: generates the target one token at a time (autoregressively), so it must not see the future. Each layer has:\n1. Masked self-attention: each target token attends only to itself and earlier target tokens (future scores set to −∞ before the softmax). This keeps training consistent with inference.\n2. Cross (encoder–decoder) attention: queries come from the decoder, keys and values come from the encoder output, so each target position can look up the relevant source information.\n3. A feed-forward layer, then an output projection + softmax over the vocabulary to predict the next token.\n\nSo the primary difference: the encoder sees everything and only attends to itself; the decoder is masked and also attends to the encoder.",
+      "rubric": [
+        {
+          "point": "Encoder processes the whole input at once to build contextual representations",
+          "marks": 1
+        },
+        {
+          "point": "Encoder uses unmasked self-attention (tokens attend in both directions)",
+          "marks": 1
+        },
+        {
+          "point": "Decoder generates autoregressively / predicts the next token",
+          "marks": 1
+        },
+        {
+          "point": "Decoder uses masked self-attention (only attends to previous positions) and explains why (the future is unknown at inference)",
+          "marks": 1
+        },
+        {
+          "point": "Decoder has cross/encoder–decoder attention",
+          "marks": 1
+        },
+        {
+          "point": "In cross-attention, queries come from the decoder; keys and values from the encoder",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-6-1",
+      "number": "6.1",
+      "lecture": 8,
+      "concept": "Domain adaptation vs sequential transfer",
+      "type": "written",
+      "marks": 6,
+      "question": "With an emphasis on the kinds of data which either form of transfer learning handles, briefly explain the difference between domain adaptation and sequential transfer learning. (6 Marks)",
+      "modelAnswer": "Domain adaptation (transductive transfer):\n• Same task in the source and target, but the data distribution / domain differs (e.g. sentiment on movie reviews → sentiment on product reviews, or news → tweets).\n• Data: labelled data in the source domain, while the target domain has little or no labelled data (often only unlabelled target data).\n• Goal: make a model trained on the source distribution work on the shifted target distribution.\n\nSequential transfer learning (inductive transfer):\n• Different tasks, learned one after the other: first pretrain on a source task, then adapt (fine-tune) to the target task.\n• Data: a huge, general, usually unlabelled corpus for pretraining (e.g. Wikipedia/web text with a language-modelling objective, as in ELMo, BERT and GPT), then a smaller labelled, task-specific dataset for the target task.\n• Goal: reuse general knowledge of language for a new task.",
+      "rubric": [
+        {
+          "point": "Domain adaptation: same task, different domain/data distribution",
+          "marks": 1
+        },
+        {
+          "point": "Domain adaptation data: labelled source data; little/no labelled (often only unlabelled) target-domain data",
+          "marks": 1
+        },
+        {
+          "point": "Gives an example of a domain shift",
+          "marks": 1
+        },
+        {
+          "point": "Sequential transfer: different tasks learned in sequence (pretrain, then fine-tune)",
+          "marks": 1
+        },
+        {
+          "point": "Sequential transfer data: large general (usually unlabelled) pretraining corpus, then smaller labelled target-task data",
+          "marks": 1
+        },
+        {
+          "point": "Gives an example (e.g. pretrained language model such as BERT fine-tuned for classification)",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-6-2",
+      "number": "6.2",
+      "lecture": 8,
+      "concept": "BERT output and pre-training",
+      "type": "written",
+      "marks": 6,
+      "question": "Briefly describe the structure of the output of the BERT model and the two types of tasks used to pre-train the model. (6 Marks)",
+      "modelAnswer": "Output structure: BERT is a Transformer encoder. For an input [CLS] tokens… [SEP] (tokens of sentence B [SEP]) it outputs one contextual vector per input token, from the final layer, all of the same hidden size. The vector at the [CLS] position is used as a summary of the whole input for sequence-level tasks (classification, sentence-pair tasks). The other token vectors are used for token-level tasks (tagging, span extraction such as QA).\n\nPre-training tasks:\n1. Masked language modelling (MLM): 15% of tokens are chosen; of those, 80% are replaced by [MASK], 10% by a random token and 10% left unchanged. The model predicts the original tokens from both left and right context.\n2. Next sentence prediction (NSP): the input is a pair of segments that are either consecutive in the text or random (50/50), and the [CLS] output predicts which.",
+      "rubric": [
+        {
+          "point": "One contextual output vector per input token (from the final encoder layer)",
+          "marks": 1
+        },
+        {
+          "point": "The [CLS] output is used as the sequence-level representation (classification); token outputs for token-level tasks",
+          "marks": 1
+        },
+        {
+          "point": "Mentions special tokens [CLS]/[SEP] and sentence pairs/segments",
+          "marks": 1
+        },
+        {
+          "point": "Masked language modelling named",
+          "marks": 1
+        },
+        {
+          "point": "MLM details: ~15% of tokens chosen (80% [MASK] / 10% random / 10% unchanged), predict the originals using both directions",
+          "marks": 1
+        },
+        {
+          "point": "Next sentence prediction: is sentence B the actual next sentence or random (50/50), predicted from [CLS]",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-6-3",
+      "number": "6.3",
+      "lecture": 8,
+      "concept": "Encoder-only vs decoder-only",
+      "type": "written",
+      "marks": 4,
+      "question": "State the difference between an encoder only transformer model and a decoder only transformer model and give an example of each. (4 Marks)",
+      "modelAnswer": "Encoder-only: a stack of Transformer encoder blocks with bidirectional (unmasked) self-attention, so every token sees the whole input. It produces contextual representations, is trained with objectives like masked language modelling, and is used for understanding tasks (classification, tagging). Example: BERT (also RoBERTa).\n\nDecoder-only: a stack of decoder blocks with masked (causal) self-attention and no cross-attention, so each token only sees earlier tokens. It is trained as a left-to-right language model (next-token prediction) and used for generation. Example: GPT (GPT-2/3/4, LLaMA, Claude).",
+      "rubric": [
+        {
+          "point": "Encoder-only: bidirectional/unmasked self-attention, builds representations (understanding tasks, MLM-style training)",
+          "marks": 1
+        },
+        {
+          "point": "Encoder-only example: BERT (or RoBERTa etc.)",
+          "marks": 1
+        },
+        {
+          "point": "Decoder-only: masked/causal self-attention, autoregressive next-token generation, no encoder/cross-attention",
+          "marks": 1
+        },
+        {
+          "point": "Decoder-only example: GPT (or LLaMA etc.)",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-6-4",
+      "number": "6.4",
+      "lecture": 8,
+      "concept": "Adapter layers",
+      "type": "written",
+      "marks": 2,
+      "question": "Describe the purpose of an adapter layer in transfer learning. (2 Marks)",
+      "modelAnswer": "Adapters let you adapt a large pretrained model to a new task cheaply. Small trainable modules (a bottleneck: project down to a small hidden size, nonlinearity, project back up, with a residual connection) are inserted into each layer. The pretrained weights are frozen and only the adapters are trained. So each new task needs only a few new parameters (stored separately per task), with less risk of catastrophic forgetting, instead of fine-tuning and storing the whole model.",
+      "rubric": [
+        {
+          "point": "Small trainable bottleneck modules inserted into a frozen pretrained network",
+          "marks": 1
+        },
+        {
+          "point": "Purpose: adapt to a new task by training/storing only a few parameters (parameter-efficient; the base model is shared and not forgotten)",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-6-5",
+      "number": "6.5",
+      "lecture": 8,
+      "concept": "LoRA vs adapters",
+      "type": "written",
+      "marks": 4,
+      "question": "Describe the benefits of LoRa over an adapter layer and how it achieves these benefits. (4 marks)",
+      "modelAnswer": "How LoRA works: the pretrained weights W₀ are frozen, and the update is learned as a low-rank product ΔW = BA (B ∈ ℝ^{d×r}, A ∈ ℝ^{r×k}, with rank r ≪ d, k), so W' = W₀ + BA.\n\nBenefits over adapters:\n• No extra inference latency: adapters add new layers that run in sequence at inference time. LoRA's BA can be merged into W₀ after training (W' = W₀ + BA), so the model has the same architecture and speed as before.\n• Very few trainable parameters and less memory: only A and B are trained (the slides quote up to 10,000× fewer trainable parameters and 3× less GPU memory for GPT-3), and swapping tasks means swapping small BA matrices.",
+      "rubric": [
+        {
+          "point": "Freezes the pretrained weights W₀",
+          "marks": 1
+        },
+        {
+          "point": "Learns a low-rank update ΔW = BA (rank r much smaller than the weight dimensions)",
+          "marks": 1
+        },
+        {
+          "point": "Benefit: no added inference latency, because BA can be merged into W (adapters add sequential layers)",
+          "marks": 1
+        },
+        {
+          "point": "Benefit: far fewer trainable parameters / less memory, small per-task checkpoints",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-6-6",
+      "number": "6.6",
+      "lecture": 8,
+      "concept": "LoRA memory calculation",
+      "type": "written",
+      "marks": 2,
+      "question": "Consider a layer of a neural network implemented by the matrix W ∈ ℝ^(N×D) with 16-bit floating point type values.\n(a) Calculate the memory required to store this layer of weights.\n(b) Calculate the memory required to store a LoRa layer with rank= 2 approximating W",
+      "modelAnswer": "16-bit floats take 2 bytes each.\n(a) W has N·D values → 16·N·D bits = 2ND bytes.\n(b) A rank-2 LoRA approximation stores B ∈ ℝ^(N×2) and A ∈ ℝ^(2×D): 2N + 2D values → 2·(2N + 2D) = 4(N + D) bytes (= 32(N + D) bits).\n\nExample: N = D = 1000 gives 2,000,000 bytes (2 MB) for W, but only 8,000 bytes (8 kB) for the LoRA layer. (In practice the frozen W is still stored; the saving is in what you train and store per task.)",
+      "rubric": [
+        {
+          "point": "(a) 2ND bytes (16ND bits)",
+          "marks": 1
+        },
+        {
+          "point": "(b) A and B have 2N + 2D values → 4(N + D) bytes (32(N + D) bits)",
+          "marks": 1
+        }
+      ],
+      "explanation": "The paper gives no marks for this question, so it's set to 2 here."
+    },
+    {
+      "id": "nlp-tut-7-1",
+      "number": "7.1",
+      "lecture": 10,
+      "concept": "Reader vs writer responsible languages",
+      "type": "written",
+      "marks": 3,
+      "question": "Describe the difference between reader responsible and writer responsible languages. (3 Marks)",
+      "modelAnswer": "It's about who is responsible for making communication understood, which comes down to how much context has to be given explicitly.\n• Writer-responsible languages (e.g. English): the speaker/writer must make the message understandable, so the necessary context is stated explicitly with the message and little situational awareness is needed.\n• Reader-responsible languages (e.g. Mandarin): the listener/reader must work out the meaning; context is often omitted for brevity and lots of situational awareness is needed.\n\nThe lecture's NLP link: writer-responsible text adds context that isn't always necessary (e.g. stating gender in 'He wants to be a nurse'), which can teach models false correlations and implicit bias.",
+      "rubric": [
+        {
+          "point": "Writer-responsible: the writer/speaker makes the meaning clear; context given explicitly (e.g. English)",
+          "marks": 1
+        },
+        {
+          "point": "Reader-responsible: the reader/listener must infer the meaning; context omitted, more situational awareness needed (e.g. Mandarin)",
+          "marks": 1
+        },
+        {
+          "point": "The difference is how much context must be explicit (optionally: the link to implicit bias/false correlations in models)",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-7-2",
+      "number": "7.2",
+      "lecture": 10,
+      "concept": "Code-switching",
+      "type": "written",
+      "marks": 3,
+      "question": "Explain what is meant by the term “code-switching” and one bias that LLMs can induce in languages which have code-switching. (3 Marks)",
+      "modelAnswer": "Code-switching is alternating between two or more languages (or varieties) within one conversation, or even within one sentence, e.g. mixing isiZulu and English. It's common in multilingual communities such as South Africa, where people have a home language and a professional language.\n\nOne bias (example): LLMs are trained mostly on high-resource, monolingual (largely English) web text and tokenise under-represented languages poorly. On code-switched input they tend to answer in or default to the dominant language, mistranslate or 'correct' the mixed text into standard English, or perform worse, treating code-switched speech as wrong. That pushes users towards the dominant language and reinforces a hegemonic view (erasing the minority language and its culture).",
+      "rubric": [
+        {
+          "point": "Defines code-switching: alternating between languages within a conversation/sentence",
+          "marks": 1
+        },
+        {
+          "point": "Names a bias: e.g. defaulting/normalising to the dominant (English) language, or worse performance on mixed or under-represented languages",
+          "marks": 1
+        },
+        {
+          "point": "Explains why/impact: training data dominated by high-resource monolingual text and poor tokenisation, so minority language use and culture are eroded (hegemonic view)",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-7-3",
+      "number": "7.3",
+      "lecture": 10,
+      "concept": "Expressivity, regularity and compositionality",
+      "type": "written",
+      "marks": 3,
+      "question": "Define the terms “Expressivity” and “Regularity”. Then explain how the combination of these two properties of language can lead to compositionality. (3 Marks)",
+      "modelAnswer": "Expressivity: a language's ability to express many distinct meanings, with different signals for different meanings. It comes from the pressure to communicate.\n\nRegularity (compressibility): the language follows systematic, consistent rules and patterns, which makes it easy to learn and pass on. It comes from the learning bottleneck in iterated learning, where each generation learns from limited data.\n\nTogether: a language that is only expressive could be a huge list of unrelated words (hard to learn); one that is only regular could be a single signal for everything (useless). Satisfying both pressures leads to compositionality: a small set of reusable parts (words and morphemes) combined by regular rules, whose meaning is built from the meanings of the parts. This gives near-unlimited expressiveness from a learnable system.",
+      "rubric": [
+        {
+          "point": "Expressivity: the ability to convey many distinct meanings (communicative pressure)",
+          "marks": 1
+        },
+        {
+          "point": "Regularity: systematic, rule-based structure that makes the language compressible/learnable (learning bottleneck)",
+          "marks": 1
+        },
+        {
+          "point": "Combined: reusable parts + rules whose meanings combine, so the language is both learnable and highly expressive (compositionality)",
+          "marks": 1
+        }
+      ],
+      "explanation": "These terms aren't in the slide text; they come from the iterated-learning / origins-of-language discussion (Kirby) linked in Lecture 8. Check your own lecture notes for the lecturer's exact wording."
+    },
+    {
+      "id": "nlp-tut-7-4",
+      "number": "7.4",
+      "lecture": 10,
+      "concept": "Dataset curation",
+      "type": "written",
+      "marks": 5,
+      "question": "Why is it important that datasets are curated and what are some of the risks of using uncurated datasets? (5 Marks)",
+      "modelAnswer": "Why curate: curation is the organisation, selection and integration of data from various sources. Language models learn whatever is in their data, so curation is how you control what they learn: removing social biases, anonymising to preserve privacy, removing exploitable patterns and balancing the data so groups and languages are fairly represented.\n\nRisks of uncurated (e.g. raw web) data:\n• Hegemonic view: dominant voices on the internet are over-represented, so models encode and amplify their views and biases, and under-represented groups and languages are served worse.\n• Toxic or harmful content and stereotypes are reproduced.\n• Privacy leaks: personal information is memorised and can be regurgitated.\n• Generated content feeds back into training data (dead-internet theory), leading to bias propagation and model collapse.\n• Duplication, misinformation, low quality, and exploitable patterns (adversarial triggers).\n\n(Curation has costs too: the curator can be biased, data is thrown away, and there is no single best approach.)",
+      "rubric": [
+        {
+          "point": "Curation defined (selecting/organising/cleaning data) and why it matters: models learn what's in their data",
+          "marks": 1
+        },
+        {
+          "point": "Benefit: removes/reduces social biases and balances representation",
+          "marks": 1
+        },
+        {
+          "point": "Risk: over-representation of dominant voices (hegemonic view) and amplified bias against under-represented groups/languages",
+          "marks": 1
+        },
+        {
+          "point": "Risk: toxic content and privacy leaks (personal data memorised)",
+          "marks": 1
+        },
+        {
+          "point": "Risk: AI-generated/low-quality data feeding back in (bias propagation, model collapse), or misinformation/duplication",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-7-5",
+      "number": "7.5",
+      "lecture": 10,
+      "concept": "Stochastic parrots",
+      "type": "written",
+      "marks": 2,
+      "question": "Please explain what is meant by the term “Stochastic Parrots” in relation to neural network based language models. (2 Marks)",
+      "modelAnswer": "From Bender et al. (2021): a language model is 'a system for haphazardly stitching together sequences of linguistic forms it has observed in its vast training data, according to probabilistic information about how they combine, but without any reference to meaning'. It is fluent and coherent (it parrots form, stochastically), but it isn't grounded in meaning, intent or shared context with the listener, so its opinions and semantic content are just sampled. The paper also warns that bigger isn't more diverse: huge web datasets encode a hegemonic view.",
+      "rubric": [
+        {
+          "point": "LMs generate text by recombining patterns from training data according to probabilities (stochastic, parroting form)",
+          "marks": 1
+        },
+        {
+          "point": "Without grounding in meaning/intent/understanding: fluent but not meaningful (with related risks, e.g. bias at scale)",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-7-6",
+      "number": "7.6",
+      "lecture": 10,
+      "concept": "Model collapse",
+      "type": "written",
+      "marks": 2,
+      "question": "Please describe one way in which model collapse can be identified and why this phenomenon corresponds to model collapse. (2 Marks)",
+      "modelAnswer": "Model collapse happens when models are trained recursively on data generated by earlier models instead of real human data.\n\nOne way to identify it: train successive generations on the previous generation's outputs and track the output distribution against the original data. The diversity falls (variance shrinks, outputs become repetitive and more alike, rare tokens or events disappear), and the perplexity on real held-out human data rises.\n\nWhy that is collapse: each generation samples mostly from the high-probability region and loses the tails. Training on those samples narrows the learned distribution further, so over generations the model's distribution 'collapses' towards a few modes and forgets the true data distribution. Errors compound instead of averaging out.",
+      "rubric": [
+        {
+          "point": "A way to identify it, e.g. falling output diversity/variance, disappearing tails/rare content, or rising perplexity on real data across generations trained on generated data",
+          "marks": 1
+        },
+        {
+          "point": "Why: recursive training on generated samples loses the tails, so the distribution narrows (collapses towards modes) and forgets the true data",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-tut-8-1",
+      "number": "8.1",
+      "lecture": 9,
+      "concept": "Mechanistic interpretability",
+      "type": "written",
+      "marks": 4,
+      "question": "Define mechanistic interpretability and describe the high level goal of the subfield. (4 Marks)",
+      "modelAnswer": "Definition: mechanistic interpretability is the study of reverse-engineering a trained neural network's internal computations, its weights, neurons, attention heads and the circuits they form, into human-understandable mechanisms (algorithms). It is more than correlating inputs with outputs.\n\nHow: look inside the model, e.g. probe or visualise activations, study attention heads, and do causal interventions (ablating or patching activations) to test what a component does. A classic example is the induction head: a two-layer attention circuit that looks back for an earlier occurrence of the current token and copies what followed it, which explains in-context learning.\n\nGoal: explain how the model produces its behaviour, so we can predict, debug and control it: detect failures, biases or deception, and make models safer and more trustworthy (e.g. steering a feature, as with 'Golden Gate Claude').",
+      "rubric": [
+        {
+          "point": "Definition: reverse-engineering a network's internal components (neurons/heads/circuits) into understandable mechanisms",
+          "marks": 1
+        },
+        {
+          "point": "More than input–output correlation: identifies causal mechanisms (e.g. probing, ablation/patching)",
+          "marks": 1
+        },
+        {
+          "point": "An example such as induction heads (or the sentiment neuron, curve detectors)",
+          "marks": 1
+        },
+        {
+          "point": "Goal: understand how behaviour arises in order to predict/control models and make them safe and trustworthy",
+          "marks": 1
+        }
+      ]
+    }
+  ]
+}
