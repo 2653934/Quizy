@@ -1,0 +1,13 @@
+{
+  "subjects": [
+    {"key": "dve", "code": "COMS4060A", "name": "Data Visualisation & Exploration",
+     "theme": {"accent": "#147d83", "paper": "#f2f5f4", "light": "#dbefee", "aside": "#e8f0ef"},
+     "sets": ["dve-lecture-bank"]},
+    {"key": "nlp", "code": "COMS4054A", "name": "Natural Language Processing",
+     "theme": {"accent": "#5b4bb7", "paper": "#f4f3f8", "light": "#e6e2f6", "aside": "#ebe8f4"},
+     "sets": ["nlp-past-quiz-2-2025"]},
+    {"key": "do", "code": "COMS4050A", "name": "DO",
+     "theme": {"accent": "#9a5c15", "paper": "#f7f4ef", "light": "#f3e6d3", "aside": "#efe9df"},
+     "sets": []}
+  ]
+}
