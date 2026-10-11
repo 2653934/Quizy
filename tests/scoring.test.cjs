@@ -109,3 +109,18 @@ test('NLP past paper: all right is 50 / 50, every option picked (or a wrong matc
   assert.equal(Quizy.formatMarks(right), '50');
   assert.equal(Quizy.formatMarks(wrong), '0');
 });
+
+test('state: recordAnswer feeds attempts and roundTotals', () => {
+  const sets = {'x-a': {id: 'x-a', totalMarks: 3, questions: [{id: 'q1', marks: 2}, {id: 'q2'}]}};
+  Quizy.state.data = {subjects: [{key: 'x', sets: ['x-a']}], sets};
+  Quizy.selectSubject('missing', () => ({}));
+  assert.equal(Quizy.state.subject.key, 'x');
+  Quizy.beginRound(sets['x-a'], sets['x-a'].questions.map(q => ({q})));
+  Quizy.recordAnswer(1);
+  assert.equal(Quizy.nextItem(), true);
+  Quizy.recordAnswer(1);
+  assert.equal(Quizy.nextItem(), false);
+  assert.deepEqual(Quizy.state.attempts.q1.correct, false);
+  assert.deepEqual(Quizy.state.attempts.q2.correct, true);
+  assert.deepEqual(Quizy.roundTotals(Quizy.state.round), {score: 2, full: 1, marks: 3, count: 2});
+});
