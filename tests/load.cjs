@@ -1,4 +1,4 @@
-// Loads the app's Node-safe files (src/core/ minus the browser-only parts, and every type) the same way
+// Loads the app's Node-safe files (src/core/ except storage.js, and every question type) the same way
 // tools/build-data.cjs does, and returns the shared Quizy namespace.
 const fs = require('node:fs');
 const path = require('node:path');
