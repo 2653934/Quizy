@@ -16,6 +16,7 @@ const {setFile} = require('../src/core/data.js');
 // Question types register themselves; each one validates its own fields.
 const Quizy = require('../src/types/registry.js');
 require('../src/types/single.js');
+require('../src/types/truefalse.js');
 
 function checkWords(where, text, words) {
   if (!Array.isArray(words)) return fail(`${where}: emphasis must be an array`);
