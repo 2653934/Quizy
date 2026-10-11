@@ -150,123 +150,30 @@
       $('figure-link').href = q.image.src;
     }
 
-    // Types registered in src/types/ draw themselves; the branches below cover types not moved yet.
     const type = Quizy.types[q.type];
-    const hints = $('hints');
-    hints.replaceChildren();
-    if (type) hints.append(...type.hints(q, roundSet));
-    else if (q.type === 'multi') {
-      hints.append(el('p', 'hint', 'Select all that apply.'));
-      if (q.negativeMarking && roundSet.negativeMarkingNote) hints.append(el('p', 'hint warn', roundSet.negativeMarkingNote));
-    }
-    else if (q.type === 'match') hints.append(el('p', 'hint', 'Pick an option for each item, then check your answer.'));
+    $('hints').replaceChildren(...type.hints(q, roundSet));
 
     $('feedback').hidden = true;
     $('feedback').replaceChildren();
     $('next').hidden = true;
     $('next').textContent = index === round.length - 1 ? 'See results ↗' : 'Next question ↗';
-    $('check').hidden = !(type ? type.needsCheckButton : (q.type === 'multi' || q.type === 'match'));
+    $('check').hidden = !type.needsCheckButton;
     $('check').disabled = true;
 
     const choices = $('choices');
     choices.replaceChildren();
-    choices.className = 'choices' + (!type && q.type === 'truefalse' ? ' tf' : '');
-    if (type) type.render(choices, q, item, ready => { $('check').disabled = !ready; }, grade);
-    else if (q.type === 'single' || q.type === 'truefalse') {
-      item.choiceOrder.forEach((original, i) => {
-        const button = el('button', 'choice');
-        button.type = 'button';
-        button.dataset.original = original;
-        if (q.type === 'single') button.append(el('span', 'letter', letter(i)));
-        const text = el('span', 'text');
-        richText(text, q.choices[original], q.emphasisInChoices?.[original]);
-        button.append(text);
-        button.addEventListener('click', () => grade([original]));
-        choices.append(button);
-      });
-    } else if (q.type === 'multi') {
-      item.choiceOrder.forEach((original, i) => {
-        const label = el('label', 'choice check');
-        label.dataset.original = original;
-        const box = el('input');
-        box.type = 'checkbox';
-        box.value = original;
-        box.addEventListener('change', () => { $('check').disabled = !choices.querySelector('input:checked'); });
-        const text = el('span', 'text');
-        richText(text, q.choices[original], q.emphasisInChoices?.[original]);
-        label.append(box, el('span', 'letter', letter(i)), text);
-        choices.append(label);
-      });
-    } else if (q.type === 'match') {
-      item.pairOrder.forEach((original, i) => {
-        const row = el('div', 'match-row');
-        row.dataset.original = original;
-        const id = `match-${i}`;
-        const prompt = el('label', 'match-prompt', q.pairs[original].prompt);
-        prompt.htmlFor = id;
-        const select = el('select');
-        select.id = id;
-        select.add(new Option('Choose…', ''));
-        for (const o of item.optionOrder) select.add(new Option(q.options[o], String(o)));
-        select.addEventListener('change', () => { $('check').disabled = [...choices.querySelectorAll('select')].some(s => !s.value); });
-        row.append(prompt, select);
-        choices.append(row);
-      });
-    }
+    choices.className = 'choices';
+    type.render(choices, q, item, ready => { $('check').disabled = !ready; }, grade);
   }
 
-  function scoreOf(q, picked) {
-    const marks = marksOf(q);
-    if (q.type === 'match') return marks * picked.filter(p => p.correct).length / q.pairs.length;
-    if (q.type === 'multi') {
-      // Moodle-style negative marking: marks × max(0, right/C − wrong/W).
-      const right = picked.filter(i => q.answer.includes(i)).length;
-      const wrong = picked.length - right;
-      const W = q.choices.length - q.answer.length;
-      return marks * Math.max(0, right / q.answer.length - (W ? wrong / W : 0));
-    }
-    return q.answer.includes(picked[0]) ? marks : 0;
-  }
-
-  function addTag(node, text) { node.append(el('span', 'tag', text)); }
-
-  function grade(picked) {
+  function grade(response) {
     if (answered) return;
     const item = round[index];
     const q = item.q;
     const choices = $('choices');
-    let score;
     const type = Quizy.types[q.type];
-    if (type) {
-      score = type.score(q, picked);
-      type.showResult(choices, q, item, picked);
-    } else if (q.type === 'match') {
-      const rows = [...choices.children].map(row => {
-        const pair = q.pairs[Number(row.dataset.original)];
-        const select = row.querySelector('select');
-        return {row, select, pair, correct: select.value !== '' && q.options[Number(select.value)] === pair.answer};
-      });
-      score = scoreOf(q, rows);
-      for (const {row, select, pair, correct} of rows) {
-        select.disabled = true;
-        row.classList.add(correct ? 'correct' : 'wrong');
-        if (!correct) row.append(el('p', 'match-answer', `Answer: ${pair.answer}`));
-      }
-    } else {
-      if (q.type === 'multi') picked = [...choices.querySelectorAll('input:checked')].map(box => Number(box.value));
-      score = scoreOf(q, picked);
-      for (const option of choices.children) {
-        const original = Number(option.dataset.original);
-        const isAnswer = q.answer.includes(original);
-        const wasPicked = picked.includes(original);
-        if (option.tagName === 'BUTTON') option.disabled = true;
-        else option.querySelector('input').disabled = true;
-        option.classList.add('done');
-        if (isAnswer && wasPicked) { option.classList.add('correct'); addTag(option, '✓ Correct'); }
-        else if (isAnswer) { option.classList.add(q.type === 'multi' ? 'missed' : 'correct'); addTag(option, q.type === 'multi' ? 'Missed' : '✓ Answer'); }
-        else if (wasPicked) { option.classList.add('wrong'); addTag(option, '✗ Your pick'); }
-      }
-    }
+    const score = type.score(q, response);
+    type.showResult(choices, q, item, response);
     answered = true;
     $('check').hidden = true;
 
@@ -324,12 +231,7 @@
     roundSet = currentSet();
     round = shuffle(selected).map(q => ({
       q,
-      // True/False always stays in paper order; everything else is reshuffled each round.
-      ...(Quizy.types[q.type] ? Quizy.types[q.type].makeOrder(q, shuffle) : {
-      choiceOrder: q.choices ? (q.type === 'truefalse' ? order(q.choices.length) : shuffle(order(q.choices.length))) : [],
-      pairOrder: q.pairs ? shuffle(order(q.pairs.length)) : [],
-      optionOrder: q.options ? shuffle(order(q.options.length)) : []
-      })
+      ...Quizy.types[q.type].makeOrder(q, shuffle)
     }));
     index = 0;
     roundScore = 0;
@@ -339,8 +241,8 @@
     drawQuestion();
   });
   $('check').addEventListener('click', () => {
-    const item = round[index], type = Quizy.types[item.q.type];
-    grade(type ? type.readResponse($('choices'), item.q, item) : []);
+    const item = round[index];
+    grade(Quizy.types[item.q.type].readResponse($('choices'), item.q, item));
   });
   $('next').addEventListener('click', () => {
     if (!answered) return;

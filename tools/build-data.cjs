@@ -4,67 +4,37 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const root = path.join(__dirname, '..');
-const TYPES = new Set(['single', 'truefalse', 'multi', 'match']);
+// The app's own Node-safe code: the set file rule and the question types (every file in src/types/).
+// Each type validates its own fields; this script keeps the checks that span questions and sets.
+const Quizy = require('../src/core/data.js');
+require('../src/types/registry.js');
+for (const file of fs.readdirSync(path.join(root, 'src/types')).sort()) require(path.join(root, 'src/types', file));
+const {setFile} = Quizy;
+const {isText, checkWords} = Quizy.typeHelpers;
+
 const KINDS = new Set(['lecture-bank', 'past-paper', 'practice-quiz', 'tutorial', 'generated']);
 const errors = [];
 const fail = message => errors.push(message);
 const readJSON = file => JSON.parse(fs.readFileSync(path.join(root, file), 'utf8'));
-const isText = value => typeof value === 'string' && value.length > 0;
-const validIndex = (i, list) => Number.isInteger(i) && i >= 0 && i < list.length;
-// A set with id "<subject>-<name>" lives in data/<subject>/<name>.json; the app uses the same rule.
-const {setFile} = require('../src/core/data.js');
-// Question types register themselves; each one validates its own fields.
-const Quizy = require('../src/types/registry.js');
-require('../src/types/single.js');
-require('../src/types/truefalse.js');
-require('../src/types/multi.js');
-
-function checkWords(where, text, words) {
-  if (!Array.isArray(words)) return fail(`${where}: emphasis must be an array`);
-  for (const word of words) {
-    if (!isText(word) || !text.includes(word)) fail(`${where}: emphasis "${word}" does not appear in the text`);
-  }
-}
 
 function checkQuestion(q, set, ids) {
   const where = `${set.id} / ${q.id}`;
   if (!isText(q.id)) return fail(`${set.id}: a question is missing its id`);
   if (ids.has(q.id)) fail(`${where}: duplicate id (also in ${ids.get(q.id)})`);
   ids.set(q.id, set.id);
-  if (!TYPES.has(q.type)) return fail(`${where}: unknown type "${q.type}"`);
+  const type = Object.hasOwn(Quizy.types, q.type) ? Quizy.types[q.type] : null;
+  if (!type) return fail(`${where}: unknown type "${q.type}"`);
   if (!isText(q.question)) fail(`${where}: missing question text`);
   if (q.lecture === undefined) fail(`${where}: missing lecture`);
   if (q.marks !== undefined && !(typeof q.marks === 'number' && q.marks > 0)) fail(`${where}: marks must be a positive number`);
-  if (q.emphasis !== undefined && isText(q.question)) checkWords(where, q.question, q.emphasis);
+  if (q.emphasis !== undefined && isText(q.question)) checkWords(where, q.question, q.emphasis, fail);
   if (q.keyDispute !== undefined && !isText(q.keyDispute)) fail(`${where}: keyDispute must be text`);
   if (q.image !== undefined) {
     if (!isText(q.image.src) || !isText(q.image.alt)) fail(`${where}: image needs src and alt`);
     else if (!fs.existsSync(path.join(root, q.image.src))) fail(`${where}: image ${q.image.src} not found`);
   }
   if (set.kind === 'lecture-bank' && (!q.source?.file || !Array.isArray(q.source.pages) || !q.source.pages.length)) fail(`${where}: missing source`);
-  if (Quizy.types[q.type]) return Quizy.types[q.type].validate(q, set, fail);
-
-  if (q.type === 'match') {
-    if (!Array.isArray(q.pairs) || !q.pairs.length) return fail(`${where}: match needs pairs`);
-    if (!Array.isArray(q.options) || q.options.length < 2 || !q.options.every(isText)) return fail(`${where}: match needs at least two options`);
-    for (const pair of q.pairs) {
-      if (!isText(pair.prompt)) fail(`${where}: a pair is missing its prompt`);
-      if (!q.options.includes(pair.answer)) fail(`${where}: pair answer "${pair.answer}" is not in options`);
-    }
-    return;
-  }
-  if (!Array.isArray(q.choices) || q.choices.length < 2 || !q.choices.every(isText)) return fail(`${where}: needs at least two text choices`);
-  if (!Array.isArray(q.answer) || !q.answer.length) return fail(`${where}: answer must be a non-empty array of indices`);
-  if (!q.answer.every(i => validIndex(i, q.choices))) fail(`${where}: answer index out of range`);
-  if (new Set(q.answer).size !== q.answer.length) fail(`${where}: repeated answer index`);
-  if (q.type !== 'multi' && q.answer.length !== 1) fail(`${where}: ${q.type} must have exactly one answer`);
-  if (q.type === 'truefalse' && JSON.stringify(q.choices) !== '["True","False"]') fail(`${where}: truefalse choices must be exactly ["True","False"]`);
-  if (q.emphasisInChoices !== undefined) {
-    for (const [i, words] of Object.entries(q.emphasisInChoices)) {
-      if (!validIndex(Number(i), q.choices)) fail(`${where}: emphasisInChoices index ${i} out of range`);
-      else checkWords(`${where} choice ${i}`, q.choices[Number(i)], words);
-    }
-  }
+  type.validate(q, set, fail);
 }
 
 const registry = readJSON('data/subjects.json');
