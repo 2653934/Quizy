@@ -1,13 +1,7 @@
 'use strict';
 
 (async function () {
-  const $ = id => document.getElementById(id);
-  const el = (tag, className, text) => {
-    const node = document.createElement(tag);
-    if (className) node.className = className;
-    if (text !== undefined) node.textContent = text;
-    return node;
-  };
+  const {$, el, richText, shuffle, order, plural, formatMarks, letter, marksOf, isFull} = Quizy;
   const store = {
     get(key) { try { return localStorage.getItem(key); } catch { return null; } },
     set(key, value) { try { localStorage.setItem(key, value); } catch { /* Quiz remains usable if browser storage is unavailable. */ } }
@@ -50,31 +44,6 @@
 
   let subject, sets = [], attempts = {};
   let round = [], index = 0, answered = false, roundSet = null, roundScore = 0, roundFull = 0, roundMarks = 0;
-
-  const marksOf = q => q.marks ?? 1;
-  const formatMarks = n => String(Math.round(n * 100) / 100);
-  const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
-  const letter = i => String.fromCharCode(97 + i) + '.';
-  const isFull = (score, q) => score >= marksOf(q) - 1e-9;
-
-  function shuffle(items) {
-    const copy = [...items];
-    for (let i = copy.length - 1; i > 0; i--) {
-      const j = Math.floor(Quizy.random() * (i + 1));
-      [copy[i], copy[j]] = [copy[j], copy[i]];
-    }
-    return copy;
-  }
-  const order = n => [...Array(n).keys()];
-
-  // Writes text into node, bolding whole-word matches of `words`. Never changes the text itself.
-  function richText(node, text, words) {
-    node.replaceChildren();
-    if (!words || !words.length) { node.textContent = text; return; }
-    const escaped = words.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-    const parts = text.split(new RegExp(`\\b(${escaped.join('|')})\\b`, 'g'));
-    parts.forEach((part, i) => node.append(i % 2 ? el('strong', '', part) : document.createTextNode(part)));
-  }
 
   // ---- Theme -------------------------------------------------------------
   const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
