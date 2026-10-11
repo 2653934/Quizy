@@ -23,6 +23,6 @@ data/<subject>/img/...         # images referenced by questions (image.src is re
 - **Question types:** `single` (`choices`, `answer: [i]`), `truefalse` (`choices: ["True","False"]`), `multi` (`choices`, `answer: [i, …]`, optional `negativeMarking`) and `match` (`pairs: [{prompt, answer}]`, `options`). Answer indices are zero-based. Optional fields: `marks` (default 1), `explanation`, `keyDispute`, `emphasis`, `image: {src, alt}` and `source`.
 - **Past papers are verbatim:** never edit their wording. If an answer looks wrong, add a `keyDispute` instead of changing `answer`.
 
-Then run `node build-data.cjs`. It validates every set (unique ids, answer ranges, images, mark totals) and regenerates `questions-data.js`. Commit **both** the JSON and `questions-data.js`. The generated JavaScript lets the page work when opened directly from a local file; GitHub Pages reads the JSON.
+Then run `node tools/build-data.cjs`. It validates every set (unique ids, answer ranges, images, mark totals) and regenerates `generated/quizy-data.js`. Run `node tools/check-verbatim.cjs` to confirm past papers are bundled verbatim. Commit **both** the JSON and `generated/quizy-data.js`. The generated JavaScript lets the page work when opened directly from a local file; GitHub Pages reads the JSON.
 
 Do not put private information in the question bank because a published site is public. Lecture PDFs are deliberately not included; use your course copies when checking a source.

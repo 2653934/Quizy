@@ -13,7 +13,7 @@
     set(key, value) { try { localStorage.setItem(key, value); } catch { /* Quiz remains usable if browser storage is unavailable. */ } }
   };
 
-  // A set with id "<subject>-<name>" lives in data/<subject>/<name>.json (build-data.cjs uses the same rule).
+  // A set with id "<subject>-<name>" lives in data/<subject>/<name>.json (tools/build-data.cjs uses the same rule).
   const setFile = (subject, id) => `data/${subject}/${id.slice(subject.length + 1)}.json`;
   async function getJSON(url) {
     const response = await fetch(url, {cache: 'no-store'});
