@@ -11,8 +11,8 @@ const fail = message => errors.push(message);
 const readJSON = file => JSON.parse(fs.readFileSync(path.join(root, file), 'utf8'));
 const isText = value => typeof value === 'string' && value.length > 0;
 const validIndex = (i, list) => Number.isInteger(i) && i >= 0 && i < list.length;
-// A set with id "<subject>-<name>" lives in data/<subject>/<name>.json (app.js uses the same rule).
-const setFile = (subject, id) => `data/${subject}/${id.slice(subject.length + 1)}.json`;
+// A set with id "<subject>-<name>" lives in data/<subject>/<name>.json; the app uses the same rule.
+const {setFile} = require('../src/core/data.js');
 
 function checkWords(where, text, words) {
   if (!Array.isArray(words)) return fail(`${where}: emphasis must be an array`);

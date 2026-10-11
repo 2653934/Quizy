@@ -2,45 +2,16 @@
 
 (async function () {
   const {$, el, richText, shuffle, order, plural, formatMarks, letter, marksOf, isFull} = Quizy;
-  const store = {
-    get(key) { try { return localStorage.getItem(key); } catch { return null; } },
-    set(key, value) { try { localStorage.setItem(key, value); } catch { /* Quiz remains usable if browser storage is unavailable. */ } }
-  };
+  const {storage} = Quizy;
 
-  // A set with id "<subject>-<name>" lives in data/<subject>/<name>.json (tools/build-data.cjs uses the same rule).
-  const setFile = (subject, id) => `data/${subject}/${id.slice(subject.length + 1)}.json`;
-  async function getJSON(url) {
-    const response = await fetch(url, {cache: 'no-store'});
-    if (!response.ok) throw new Error(`${url} unavailable`);
-    return response.json();
-  }
-  async function loadData() {
-    if (location.protocol !== 'file:') {
-      try {
-        const registry = await getJSON('data/subjects.json');
-        const sets = {};
-        await Promise.all(registry.subjects.flatMap(s => s.sets.map(async id => { sets[id] = await getJSON(setFile(s.key, id)); })));
-        return {subjects: registry.subjects, sets};
-      } catch (error) {
-        console.warn('Using the bundled question data.', error);
-      }
-    }
-    return window.QUIZY_DATA;
-  }
-
-  const data = await loadData();
+  const data = await Quizy.loadData();
   if (!data || !Array.isArray(data.subjects) || !data.subjects.length) {
     $('bank-note').textContent = 'The question bank could not be loaded.';
     $('start').disabled = true;
     return;
   }
 
-  // Progress: one localStorage key per subject. DVE progress from v1 carries over (question ids are unchanged).
-  const attemptsKey = subject => `quizy-attempts-v2-${subject}`;
-  if (store.get(attemptsKey('dve')) === null) {
-    const old = store.get('quizy-dve-attempts-v1');
-    if (old !== null) store.set(attemptsKey('dve'), old);
-  }
+  storage.migrate();
 
   let subject, sets = [], attempts = {};
   let round = [], index = 0, answered = false, roundSet = null, roundScore = 0, roundFull = 0, roundMarks = 0;
@@ -111,10 +82,9 @@
 
   function chooseSubject(key) {
     subject = data.subjects.find(s => s.key === key) || data.subjects[0];
-    store.set('quizy-last-subject', subject.key);
+    storage.setLastSubject(subject.key);
     sets = subject.sets.map(id => data.sets[id]).filter(Boolean);
-    try { attempts = JSON.parse(store.get(attemptsKey(subject.key)) || '{}') || {}; }
-    catch { attempts = {}; }
+    attempts = storage.loadAttempts(subject.key);
 
     applyTheme(subject.theme);
     const short = subject.key.toUpperCase();
@@ -296,7 +266,7 @@
     roundScore += score;
     if (full) roundFull++;
     attempts[q.id] = {correct: full, score, at: new Date().toISOString()};
-    store.set(attemptsKey(subject.key), JSON.stringify(attempts));
+    storage.saveAttempts(subject.key, attempts);
     updateStats();
 
     const feedback = $('feedback');
@@ -369,5 +339,5 @@
   $('quit').addEventListener('click', () => { show('setup'); updateNote(); });
   $('again').addEventListener('click', () => { show('setup'); updateNote(); });
 
-  chooseSubject(store.get('quizy-last-subject'));
+  chooseSubject(storage.lastSubject());
 })();
