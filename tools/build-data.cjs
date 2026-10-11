@@ -13,6 +13,9 @@ const isText = value => typeof value === 'string' && value.length > 0;
 const validIndex = (i, list) => Number.isInteger(i) && i >= 0 && i < list.length;
 // A set with id "<subject>-<name>" lives in data/<subject>/<name>.json; the app uses the same rule.
 const {setFile} = require('../src/core/data.js');
+// Question types register themselves; each one validates its own fields.
+const Quizy = require('../src/types/registry.js');
+require('../src/types/single.js');
 
 function checkWords(where, text, words) {
   if (!Array.isArray(words)) return fail(`${where}: emphasis must be an array`);
@@ -37,6 +40,7 @@ function checkQuestion(q, set, ids) {
     else if (!fs.existsSync(path.join(root, q.image.src))) fail(`${where}: image ${q.image.src} not found`);
   }
   if (set.kind === 'lecture-bank' && (!q.source?.file || !Array.isArray(q.source.pages) || !q.source.pages.length)) fail(`${where}: missing source`);
+  if (Quizy.types[q.type]) return Quizy.types[q.type].validate(q, set, fail);
 
   if (q.type === 'match') {
     if (!Array.isArray(q.pairs) || !q.pairs.length) return fail(`${where}: match needs pairs`);
