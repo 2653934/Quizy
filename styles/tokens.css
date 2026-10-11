@@ -1,0 +1,22 @@
+/* Theme tokens. src/ui/theme.js overwrites these per subject (accent/paper/light/aside come from
+   data/subjects.json; the rest are derived). These are the DVE values, used for the first paint.
+   --ink, --muted, --green, --bad and --warn are shared by every theme. */
+:root {
+  --paper: #f2f5f4;
+  --ink: #213438;
+  --muted: #586e72;
+  --accent: #147d83;
+  --light: #dbefee;
+  --aside: #e8f0ef;
+  --accent-dark: #116a6f;
+  --seal: #d4e5ea;
+  --line: #c5d4d3;
+  --track: #d3e2e1;
+  --shadow: #bfd1d0;
+  --field-line: #9fb8b7;
+  --surface: #fbfefe;
+  --choice-bg: #f8fcfc;
+  --green: #3c735a;
+  --bad: #9a463a;
+  --warn: #8a5a00;
+}

@@ -1,0 +1,120 @@
+/* Reset, typography, buttons and form rows. */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 15px/1.55 system-ui, sans-serif;
+  overflow-wrap: anywhere;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* Typography */
+h1 {
+  font: clamp(38px, 4vw, 59px)/1.1 Georgia, serif;
+  letter-spacing: -1.8px;
+  margin: 12px 0 16px;
+}
+
+h1 em {
+  color: var(--accent);
+  font-weight: normal;
+}
+
+h2 {
+  font: 29px/1.2 Georgia, serif;
+  margin: 8px 0 18px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 1.7px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Buttons */
+button,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button,
+select,
+input {
+  outline-offset: 4px;
+}
+
+button {
+  cursor: pointer;
+  border: 1.5px solid var(--ink);
+  border-radius: 7px;
+  background: var(--surface);
+  padding: 9px 15px;
+  min-height: 48px;
+}
+
+button:hover {
+  background: var(--light);
+}
+
+button:disabled {
+  cursor: default;
+}
+
+button.primary {
+  background: var(--accent);
+  color: white;
+  box-shadow: 3px 3px 0 var(--ink);
+  font-weight: 650;
+}
+
+button.primary:hover {
+  background: var(--accent-dark);
+}
+
+button.primary:disabled {
+  opacity: .5;
+  box-shadow: none;
+}
+
+.quiet {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.quiet:hover {
+  background: var(--light);
+}
+
+/* Form rows (setup panel) */
+.form-row {
+  display: grid;
+  gap: 6px;
+  margin: 16px 0;
+  max-width: 480px;
+}
+
+.form-row label {
+  font-weight: 650;
+  font-size: 13px;
+}
+
+.form-row select {
+  padding: 11px 12px;
+  border: 1px solid var(--field-line);
+  background: #fff;
+  border-radius: 6px;
+  min-height: 48px;
+  max-width: 100%;
+}
