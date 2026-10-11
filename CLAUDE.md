@@ -8,7 +8,7 @@ It is a multi-subject app. Each subject has its own theme and a list of quiz set
 | key | Subject | Sets |
 |---|---|---|
 | `dve` | COMS4060A Data Visualisation & Exploration | `dve-lecture-bank` (421 questions, lectures 1–6) |
-| `nlp` | COMS4054A Natural Language Processing | `nlp-past-quiz-2-2025` (25 questions / 50 marks) |
+| `nlp` | COMS4054A Natural Language Processing | `nlp-past-quiz-2-2025` (25 questions / 50 marks). Two more sets, `nlp-practice-quiz` and `nlp-tutorial` (kinds `practice-quiz` / `tutorial`, using `short`, `numeric` and `written`), are written separately by the content author, who also adds them to `subjects.json` |
 | `do`  | COMS4050A DO (full name not given yet; the owner calls it "DO") | none yet, so the app shows a "No quizzes yet" state |
 
 There is no in-app editing, no accounts and no backend. Content is changed by editing JSON under `data/` and rebuilding.
@@ -29,18 +29,21 @@ src/
     random.js               # Quizy.random(): Math.random, or seeded by ?seed=N in the URL (tests only); Quizy.seedRandom(n) in Node
     util.js                 # $(), el(), richText(), shuffle(), order(), plural(), formatMarks(), letter()
     scoring.js              # marksOf(), isFull(), roundTotals()
-    storage.js              # Quizy.storage: localStorage in try/catch, attempts per subject, v1→v2 DVE migration, last subject
+    storage.js              # Quizy.storage: localStorage in try/catch, attempts per subject, v1→v2 DVE migration, last subject, written drafts
     data.js                 # setFile() rule; loadData(): JSON over HTTP, else window.QUIZY_DATA
     state.js                # Quizy.state (data, subject, sets, attempts, roundSet, round, index, answered) + setters
+    prompt.js               # claudePrompt(): the "Copy for Claude" marking prompt (plain text)
   types/                    # one file per question type, registered in Quizy.types
-    registry.js             # registerType(); the contract (documented at the top); shared helpers for choice-based types
+    registry.js             # registerType(); the contract (documented at the top); shared helpers (Quizy.typeHelpers)
     single.js  truefalse.js  multi.js  match.js
+    short.js  numeric.js  written.js   # numeric.js also defines Quizy.parseNumber()
   ui/
     theme.js                # applyTheme(): CSS tokens, theme-color meta, favicon
     views.js                # show(view): panels, body[data-view], scroll to top
     subjects.js             # subject tabs, chooseSubject() (subject text in aside/header)
     setup.js                # set/lecture/mode selects, description, count line, empty state, stats, "Start quiz"
-    quiz.js                 # startRound(), draw a question, grade, feedback, "Check answer", "Next" (all via the type)
+    ask.js                  # "Copy for Claude" button: clipboard with an execCommand fallback, "Copied ✓"
+    quiz.js                 # startRound(), draw a question, grade, feedback, "Check answer", reveal step, "Next" (all via the type)
     summary.js              # end-of-round screen
   main.js                   # boot: load data → migrate storage → build tabs → wire events → chooseSubject(last)
 styles/                     # readable CSS, loaded in this order (later files may override earlier ones)
@@ -48,15 +51,17 @@ styles/                     # readable CSS, loaded in this order (later files ma
   base.css                  # reset, typography, buttons, form rows
   layout.css                # shell, aside, main, header/hero, stats, footer + their breakpoints
   components.css            # subject tabs, seal, panels, setup text, empty state, progress, figure, hints, caution
-  question.css              # source line, question text, choices, true/false, match rows, states, feedback
+  question.css              # shared question rules: source line, text, generic .choice + states, typed inputs, feedback, "Copy for Claude"
+  types/<type>.css          # rules only one type uses; same order as the type scripts (single, truefalse, multi, match, short, numeric, written)
   views.css                 # body[data-view] rules (hiding hero/stats during a round, compact header)
 tools/
   build-data.cjs            # validate data/ and write generated/quizy-data.js
-  check-verbatim.cjs        # past-paper strings in the bundle are byte-identical to data/
+  check-verbatim.cjs        # source-paper strings (past-paper, practice-quiz, tutorial) in the bundle are byte-identical to data/
 tests/
   load.cjs                  # loads the Node-safe src files for the tests
-  scoring.test.cjs          # marks, Moodle multi formula, match, single, truefalse, round totals, state
-  types.test.cjs            # each type's validate() accepts the real data and rejects broken examples; makeOrder rules
+  fixture.cjs               # a tiny set using every new type (short, numeric, numeric grid, written); only used by the tests
+  scoring.test.cjs          # marks, Moodle multi formula, every type's score, parseNumber, tolerance edges, Claude prompt, round totals, state
+  types.test.cjs            # each type's validate() accepts the real data + fixture and rejects broken examples; makeOrder rules
   smoke.md                  # the browser smoke check (Playwright from a scratch folder; the scripts are inside)
 ```
 Each CSS file keeps the `@media` overrides for its own selectors, so an override always loads after the rule it overrides. If you move a rule between files, keep that true.
@@ -69,34 +74,43 @@ Quizy.registerType('multi', {
   validate(q, set, fail) { … },          // type-specific checks; fail(message) per problem
   makeOrder(q, shuffle) { … },           // {choiceOrder, pairOrder, optionOrder}: arrays of original indices for one round item
   score(q, response) { … },              // marks earned (the Moodle formula lives in multi.js)
+  askClaude(q, response) { … },          // optional: {answer, reference} text; enables "Copy for Claude"
   // browser only
   needsCheckButton: true,                // false: the type submits itself on tap (single, truefalse)
+  checkLabel: 'Check answer',            // optional button text (written: "Reveal model answer")
   hints(q, set) { … },                   // nodes shown above the inputs ([] for none)
   render(container, q, item, onReady, submit) { … }, // draw inputs; onReady(bool) enables "Check answer"; tap types call submit(response)
   readResponse(container, q, item) { … },            // check-button types: read the response from the DOM
-  showResult(container, q, item, response) { … }    // disable inputs, mark correct/wrong/missed, add tags
+  reveal(container, q, item, response, submit) { … }, // optional second step: replaces grading on the check button; call submit(final) later
+  showResult(container, q, item, response) { … },   // disable inputs, mark correct/wrong/missed, add tags
+  resultNotes(q, response) { … }         // optional: feedback nodes after the verdict, before the study note
 });
 ```
-Responses: `single`/`truefalse` `[pickedOriginalIndex]`; `multi` the ticked original indices; `match` an array indexed by original pair index holding the picked original option index (or `null`). `src/ui/quiz.js` has no `q.type` branches; it only calls the registered type. `tools/build-data.cjs` keeps the checks that span questions and sets and calls the type's `validate` for the rest; an unknown type fails the build.
+Responses: `single`/`truefalse` `[pickedOriginalIndex]`; `multi` the ticked original indices; `match` an array indexed by original pair index holding the picked original option index (or `null`); `short` the typed string; `numeric` the typed string of each part, by part index (parsed by `score`); `written` `{text, ticked}` (ticked rubric indices).
+
+The optional hooks were added for the typed types and the original four don't use them:
+- **Two-step submit (`reveal`).** "Check answer" (labelled with `checkLabel`) reads the response and, if the type has `reveal`, hides itself and calls `reveal(…, submit)` instead of grading. The type then shows more (written: model answer + rubric checklist + "Submit my mark") and calls `submit(finalResponse)`; only then are `score`, `showResult`, the feedback and the saved attempt done.
+- **"Copy for Claude" (`askClaude`).** When a type has it, `ui.showAsk` (`src/ui/ask.js`) shows the button after answering, or already after revealing. The prompt is built by `Quizy.claudePrompt` (`src/core/prompt.js`) from subject, set title, question, marks and the type's `{answer, reference}`, and asks Claude to mark against the reference, say what's missing and give one tip. No network calls.
+- **`resultNotes`** adds type-specific feedback blocks (numeric: "Worked solution") before the study note. `src/ui/quiz.js` has no `q.type` branches; it only calls the registered type. `tools/build-data.cjs` keeps the checks that span questions and sets and calls the type's `validate` for the rest; an unknown type fails the build.
 
 ### How to add a question type
 1. Add `src/types/<name>.js` that registers the contract above (copy the closest existing type). Put its per-type validation in `validate`, and reuse `Quizy.typeHelpers` where it fits.
 2. Add `<script src="src/types/<name>.js" defer></script>` to `index.html` after `registry.js` and before `src/ui/`.
-3. Add its styles to `styles/question.css` (or a new `styles/<name>.css` linked after `question.css` and before `views.css`).
+3. Add `styles/types/<name>.css` for rules only this type uses, linked in `index.html` after the other `styles/types/` files (same order as the type scripts) and before `views.css`. Rules several types share go in `styles/question.css`.
 4. Add validate/score cases to `tests/types.test.cjs` and `tests/scoring.test.cjs`, and update the "registered types" test. `tools/build-data.cjs` and `tests/load.cjs` load every file in `src/types/` automatically.
 5. Document the type in the Question schema table below.
 
 ### How to add a set
 1. Create `data/<subject>/<name>.json` with id `<subject>-<name>` (see "Set file header" below).
 2. Add the id to that subject's `sets` in `data/subjects.json`, in the order it should appear.
-3. Run `node tools/build-data.cjs`, `node tools/check-verbatim.cjs` (for past papers) and the tests. Commit the JSON together with `generated/quizy-data.js`.
+3. Run `node tools/build-data.cjs`, `node tools/check-verbatim.cjs` (for past papers, practice quizzes and tutorials) and the tests. Commit the JSON together with `generated/quizy-data.js`.
 
 ### How to add a subject
 1. Add an entry to `data/subjects.json` (`key`, `code`, `name`, `theme` with four `#rrggbb` colours and checked contrast, `sets`), and create `data/<key>/` (a `.gitkeep` if it has no sets yet).
 2. Rebuild. Tabs, theme, header text and the empty state all come from the data, so no code changes are needed.
 
 ## Hard rules
-- **Past papers are verbatim.** Never reword, "fix" typos in, shorten or reformat the text of any question, choice or matching prompt in a set with `"kind": "past-paper"`. Typos such as "Bilnear", "capture by" and "called then classification token" are intentional transcriptions. The only things that may change are **the order of the questions and the order of the options**, randomised on every new round.
+- **Source papers are verbatim** (kinds `past-paper`, `practice-quiz`, `tutorial`). Never reword, "fix" typos in, shorten or reformat the text of any question, choice, matching prompt, option or numeric part label in a set of those kinds. Typos such as "Bilnear", "capture by" and "called then classification token" are intentional transcriptions. The only things that may change are **the order of the questions and the order of the options**, randomised on every new round.
 - **Don't change the given answers** (taken from the 'The correct answer is:' lines of the attempt review, not the student's picks). If an answer looks wrong, leave `answer` alone and add or keep a `keyDispute` string. The UI shows it after answering.
 - `explanation` fields are study notes, not part of the paper. They are shown after answering, visually separate from the question.
 - Stay static: it must work both when `index.html` is opened from disk (`file://`, using the bundled `generated/quizy-data.js`) and on GitHub Pages (fetching the JSON). No CDNs, frameworks or npm dependencies. Node is only used for the build script, tools and tests (built-in modules only, e.g. `node:test`).
@@ -121,10 +135,12 @@ Each subject has `key`, `code`, `name`, `theme` and `sets` (ordered ids). `theme
 `src/ui/theme.js` (`applyTheme`) sets those four as CSS custom properties on `:root` and derives the rest by mixing colours: `--accent-dark` (hover), `--seal`, `--line`, `--track`, `--shadow`, `--field-line`, `--surface`, `--choice-bg`. It also updates `<meta name="theme-color">` and the favicon. `styles/tokens.css` holds DVE defaults for first paint. Don't hard-code theme colours in CSS; use the tokens. `--ink`, `--muted`, `--green`, `--bad` and `--warn` are shared by all themes.
 
 ### Set file header
-`id`, `subject`, `title`, `kind` (`"lecture-bank"` | `"past-paper"` | `"practice-quiz"` | `"tutorial"` | `"generated"`), `description`, optional `totalMarks`, optional `negativeMarkingNote`, and `questions`. Extra metadata such as `sourceFile` and `transcriptionNotes` is allowed and ignored by the UI. `data/nlp/past-quiz-2-2025.json` is a complete example.
+`id`, `subject`, `title`, `kind` (`"lecture-bank"` | `"past-paper"` | `"practice-quiz"` | `"tutorial"` | `"generated"`), `description`, optional `totalMarks`, optional `negativeMarkingNote`, optional `unofficialAnswers` (boolean), and `questions`. Extra metadata such as `sourceFile` and `transcriptionNotes` is allowed and ignored by the UI. `data/nlp/past-quiz-2-2025.json` is a complete example.
+
+`"unofficialAnswers": true` means the answers, rubrics and solutions were written by Claude, not the lecturer. The setup screen then shows "Answers on this set are unofficial" under the description, the study-note heading reads "Study note (unofficial answer)", and the Claude prompt says the reference may be wrong.
 
 ## Question schema
-Common fields: `id` (globally unique), `lecture`, `concept`, `question` (may contain `\n`, rendered as line breaks), `type`, `marks` (default 1), `explanation`, optional `keyDispute`, optional `emphasis` (words shown in bold inside `question`, matched as whole words), optional `emphasisInChoices` (`{"<original choice index>": [words]}`), optional `image` `{src, alt}` (path relative to `index.html`), optional `optionsNote` (shown in small print under the study note), and optional `source`. DVE uses `source: {file, pages}` (required for `lecture-bank` sets); the NLP past paper uses `number`, the question's original number, shown as "Paper Q14".
+Common fields: `id` (globally unique), `lecture`, `concept`, `question` (may contain `\n`, rendered as line breaks), `type`, `marks` (default 1), `explanation`, optional `keyDispute`, optional `emphasis` (words shown in bold inside `question`, matched as whole words), optional `emphasisInChoices` (`{"<original choice index>": [words]}`), optional `image` `{src, alt}` (path relative to `index.html`), optional `optionsNote` (shown in small print under the study note), and optional `source`. DVE uses `source: {file, pages}` (required for `lecture-bank` sets); the NLP past paper uses `number`, the question's original number, shown as "Paper Q14" (the tutorial uses strings such as `"3.2"`).
 
 | `type` | Fields | UI | Grading |
 |---|---|---|---|
@@ -132,15 +148,20 @@ Common fields: `id` (globally unique), `lecture`, `concept`, `question` (may con
 | `truefalse` | `choices: ["True","False"]`, `answer: [i]` | Two buttons, **never shuffled** (True then False) | full marks or 0 |
 | `multi` | `choices[]`, `answer: [i,…]`, `negativeMarking` | Checkboxes + "Check answer" (disabled until one is ticked). Shows "Select all that apply" and, if `negativeMarking`, the set's `negativeMarkingNote` | Moodle style (below) |
 | `match` | `pairs: [{prompt, answer}]`, `options[]` | One `<select>` per prompt (prompts and options both shuffled) + "Check answer" (disabled until every row is filled) | `marks × (correct pairs / pairs)` |
+| `short` | `accept: ["…"]` (non-empty strings), optional `caseSensitive` | One text input (no autocapitalise/autocomplete/spellcheck); "Check answer" once non-empty, Enter submits. Afterwards shows the accepted answer(s) | Trim, collapse inner whitespace, lower-case unless `caseSensitive`; full marks if it equals any normalised `accept` entry, else 0 |
+| `numeric` | `parts: [{label, answer, tolerance \| relTolerance, marks, unit?}]`, optional `grid: {rows, cols}`, optional `inputHint`, `solution` | One `inputmode="decimal"` text input per part (label beside it, unit after it), or a rows × cols grid filled row by row (labels become `title`/`aria-label`). "Check answer" once every input is filled. Unreadable input gets "Couldn't read this number". Afterwards: each input right/wrong, expected value beside wrong ones, then a "Worked solution" block before the study note | Each part earns its `marks` if `\|x − answer\| ≤ tolerance` (or `≤ relTolerance × \|answer\|`), edge included; score = sum. Accepted input: `0.0083`, `.0083`, `-1.2`, `8.33e-3`/`E`, decimal comma `0,0083`, simple fraction `1/120` (`Quizy.parseNumber`); anything else counts as wrong |
+| `written` | `modelAnswer`, `rubric: [{point, marks}]` | Optional `<textarea>` (kept per question in storage and restored) + "Reveal model answer" (always enabled). Reveal: textarea read-only beside the model answer, the rubric as a checklist with marks, "Submit my mark". Feedback and the saved attempt come only after submitting | Self-marked: sum of the ticked points' marks |
+
+Validation for the typed types: `short` needs `accept`; `numeric` needs parts, finite answers, exactly one positive tolerance field per part (`relTolerance` needs a non-zero answer), positive part marks adding up to the question's `marks`, a consistent `grid` (`rows × cols = parts.length`) and a non-empty `solution`; `written` needs a non-empty `modelAnswer` and rubric points with text and positive marks adding up to the question's `marks`. None of them shuffle (`makeOrder` returns empty orders). After answering (or revealing, for `written`) they show "Copy for Claude".
 
 **Moodle-style multi-select score:** with C correct and W wrong options, `score = marks × max(0, picked_correct / C − picked_wrong / W)`. Picking every option scores 0; 1 correct + 1 wrong with C=1, W=3 scores 0.667; 1 of 2 correct scores 0.5. A question counts as "correct" for progress only at full marks; partial marks appear in the feedback (e.g. "2.67 / 4 marks").
 
 Shuffling happens per round (`ui.startRound` calls each type's `makeOrder`): each round item stores `choiceOrder` / `pairOrder` / `optionOrder` as arrays of original indices, and grading always uses original indices. The question objects and their strings are never copied or modified, and options are re-lettered a., b., c. after shuffling.
 
-After answering, options are marked correct, wrong-and-picked or missed-correct (dashed border, multi only), followed by the verdict and marks, the study note, and any `keyDispute` as a caution box.
+After answering, options are marked correct, wrong-and-picked or missed-correct (dashed border, multi only), followed by the verdict and marks, any type-specific block (numeric's worked solution), the study note, and any `keyDispute` as a caution box. Typed types then show "Copy for Claude" ("Copied ✓" for 2 seconds; if both the Clipboard API and the `execCommand` fallback fail, the prompt appears in a read-only box to copy by hand).
 
 ## Rounds and summary
-- Setup: subject switcher (segmented control, disabled during a round), then **Quiz set**, the set's `description`, **Lecture** (built from the set), **Questions** (all / only ones I got wrong), and a live count line. Past-paper sets show "N questions · M marks · order randomised".
+- Setup: subject switcher (segmented control, disabled during a round), then **Quiz set**, the set's `description`, **Lecture** (built from the set), **Questions** (all / only ones I got wrong), and a live count line. Past-paper, practice-quiz and tutorial sets show "N questions · M marks · order randomised"; sets with `unofficialAnswers` show the unofficial note under the description.
 - Stats and the seal count questions across the whole current subject.
 - During a round, `show()` (`src/ui/views.js`) sets `<body data-view="quiz">` and `styles/views.css` hides the hero and the stats row and compacts the header: the subject switcher is disabled, keeps 48px tabs and hides their course-code line, and on phones the brand bar and top margins shrink. Both come back on the setup and summary screens (`data-view="setup"` / `"summary"`). The desktop side panel is unchanged.
 - Scrolling: switching views scrolls smoothly to the top of the page. "Next question" smoothly scrolls the quiz panel into view (`scrollIntoView`, `scroll-margin-top: 12px`), so the progress bar, "End round" and the question are on screen. At 375×667 the question text must start within the first screen on every question (last measured 2026-10-11: at most 301px from the top, on question 1; later questions start nearer the top).
@@ -150,25 +171,27 @@ After answering, options are marked correct, wrong-and-picked or missed-correct 
 - `localStorage` only, every access wrapped in try/catch (`src/core/storage.js`). Progress key per subject: `quizy-attempts-v2-<subject>` holding `{[questionId]: {correct, score, at}}`.
 - Migration: on load, if `quizy-attempts-v2-dve` is missing and `quizy-dve-attempts-v1` exists, the old value is copied over (the old key is kept). Old entries have no `score`, which is fine.
 - Last subject: `quizy-last-subject`.
+- Written drafts: `quizy-written-v1-<subject>` holding `{[questionId]: text}`, saved as you type and restored when the question reappears (empty text removes the entry).
 
 ## `tools/build-data.cjs`
-Reads `data/subjects.json` and every set it references. It validates subject keys and theme colours, the set file rule, `kind`, unique question ids across all sets, that `type` is registered, `image.src` files existing, `emphasis` words appearing in the text, `source` on lecture-bank questions and `totalMarks` matching the sum of marks. Each type's `validate` adds its own checks: answer indices in range (exactly one for `single`/`truefalse`, ≥ 1 for `multi`), `truefalse` choices exactly `["True","False"]`, `match` answers present in `options`, `emphasisInChoices`. It then writes `generated/quizy-data.js` and prints counts per subject. The app (`Quizy.loadData`) fetches `data/subjects.json` and the set files over HTTP and falls back to `window.QUIZY_DATA` on `file://` or when any fetch fails.
+Reads `data/subjects.json` and every set it references. It loads the Node-safe `util.js`, `scoring.js` and `data.js` plus every type. It validates subject keys and theme colours, the set file rule, `kind`, `unofficialAnswers` being a boolean, unique question ids across all sets, that `type` is registered, `image.src` files existing, `emphasis` words appearing in the text, `source` on lecture-bank questions and `totalMarks` matching the sum of marks. Each type's `validate` adds its own checks: answer indices in range (exactly one for `single`/`truefalse`, ≥ 1 for `multi`), `truefalse` choices exactly `["True","False"]`, `match` answers present in `options`, `emphasisInChoices`, and the `short` / `numeric` / `written` rules in the Question schema. It then writes `generated/quizy-data.js` and prints counts per subject. The app (`Quizy.loadData`) fetches `data/subjects.json` and the set files over HTTP and falls back to `window.QUIZY_DATA` on `file://` or when any fetch fails.
 
 **Run `node tools/build-data.cjs` after every data change, and commit the JSON together with the generated JS.**
 
 ## Verifying changes
-Last full verification: 2026-10-11 (after the restructure), all passing. For any non-trivial change, repeat:
+Last full verification: 2026-10-12 (after adding `short` / `numeric` / `written`), all passing: the seeded smoke run was byte-identical to the baseline (64/64 screenshots), and the new types were played end to end with the owner's practice-quiz and tutorial sets added in a scratch copy. For any non-trivial change, repeat:
 1. `node tools/build-data.cjs` passes, with the expected counts (DVE 421, NLP 25 / 50 marks, DO 0 at present).
-2. `node tools/check-verbatim.cjs` passes: every past-paper `question`, `choices`, `pairs` and `options` string in the bundle is byte-identical to the source JSON.
+2. `node tools/check-verbatim.cjs` passes: every `question`, `choices`, `pairs`, `options` and `parts[].label` string of the past-paper, practice-quiz and tutorial sets in the bundle is byte-identical to the source JSON.
 3. `node --test "tests/*.test.cjs"` passes. (On Node 24, `node --test tests/` does not work: a directory argument is treated as a module path. The quoted glob works the same in PowerShell and bash.)
-4. Browser check, see `tests/smoke.md` (Playwright installed in a scratch folder, not the repo; `playwright-core` with `channel: 'msedge'` works on this machine): `file://` and a local HTTP server, at 375px and at desktop width. Switch subjects, play a round covering every type, and confirm that old progress still counts, nothing scrolls sideways, tap targets are ≥ 48px, and there are no console errors. At 375×667, after each question's scroll has settled, the question text, progress bar and "End round" must be on screen. (When waiting for smooth scrolling to finish, don't return a Promise from `page.waitForFunction`: it counts as truthy straight away. Poll `scrollY` inside `page.evaluate` instead.) The smoke scripts replay seeded rounds (`?seed=7`) and compare text, scores and screenshots with a baseline, so run them before and after a change.
+4. Browser check, see `tests/smoke.md` (Playwright installed in a scratch folder, not the repo; `playwright-core` with `channel: 'msedge'` works on this machine): `file://` and a local HTTP server, at 375px and at desktop width. Switch subjects, play a round covering every type, and confirm that old progress still counts, nothing scrolls sideways, tap targets are ≥ 48px, and there are no console errors. At 375×667, after each question's scroll has settled, the question text, progress bar and "End round" must be on screen. (When waiting for smooth scrolling to finish, don't return a Promise from `page.waitForFunction`: it counts as truthy straight away. Poll `scrollY` inside `page.evaluate` instead.) The smoke scripts replay seeded rounds (`?seed=7`) and compare text, scores and screenshots with a baseline, so run them before and after a change. `newtypes.cjs` (also in `tests/smoke.md`) plays one `short`, `numeric` (single, multi-part and grid) and `written` question end to end, including restoring a written draft after a reload, the clipboard button and its fallback, and the unofficial labels.
 
-## Roadmap (after the restructure, in order)
-1. NLP practice quiz and tutorial as new sets (the tutorial needs a `written` type: show the question, the user writes or thinks an answer, "Reveal model answer", then self-mark full/partial/none).
+## Roadmap
+1. (Done on `feature/written-numeric`, not merged yet) `short` / `numeric` / `written` types and "Copy for Claude". The NLP practice quiz and tutorial sets are written separately and pass validation; the content author adds them to `subjects.json`.
 2. Generated "similar" questions to cover the rest of the NLP content (L5–8), then the same for DVE and DO.
 
 ## Out of scope for now (don't build yet)
-- Anything on the roadmap until the restructure (branch `refactor/structure`) is merged. These come later as new set files (written tutorial questions will probably need a `written` type with a "reveal model answer" + self-mark flow).
+- Generated "similar" question sets (roadmap item 2) until `feature/written-numeric` is merged.
+- Built-in AI marking (needs an API key, which can't be kept secret on a static public site). "Copy for Claude" covers this for now.
 - In-app editing, accounts, sync, analytics.
 
 ## Open questions

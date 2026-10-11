@@ -10,6 +10,7 @@ node smoke.cjs <path-to-Quizy> baseline     # before a change (e.g. on main)
 node smoke.cjs <path-to-Quizy> candidate    # after the change
 node compare.cjs baseline candidate         # identical text, scores and screenshots?
 ALL=1 node smoke.cjs <path-to-Quizy> out    # also: every NLP question, every non-single DVE question, a partial-marks round
+node newtypes.cjs <repo-with-new-sets> nt   # short / numeric / written end to end (see below)
 ```
 
 ## What it does
@@ -343,4 +344,230 @@ for (const f of pngs) {
 }
 console.log(`${same}/${pngs.length} screenshots identical; ${diffs} difference(s).`);
 process.exit(diffs ? 1 : 0);
+```
+
+## newtypes.cjs
+
+Plays one question of each typed type end to end over `file://` and HTTP at 375×667 and 1280×800, using the NLP `practice-quiz` (short) and `tutorial` (numeric, numeric grid, written) sets. It needs those ids in `data/subjects.json`. Until the content author adds them, run it on a scratch copy of the repo with the two ids appended to NLP's `sets` and `node tools/build-data.cjs` rerun there.
+
+It checks:
+- The "Answers on this set are unofficial" note and the paper-style count line.
+- short: "Check answer" disabled until something is typed, Enter submits, case and spaces are ignored, the accepted answer is shown, and the heading reads "Study note (unofficial answer)".
+- "Copy for Claude": "Copied ✓", the label resets after 2 s, the clipboard content, and the `execCommand` fallback when the Clipboard API rejects. On `file://` the clipboard is read back from an HTTP page, because file pages may write it but not read it.
+- numeric: the unreadable-number note, fractions and decimal commas, partial marks, expected values, the worked solution before the study note, and a 2-column grid.
+- written: the draft is restored after a reload, revealing shows the model answer and rubric without saving an attempt, and submitting saves the ticked marks.
+- No sideways scroll, tap targets ≥ 48px (inputs, textareas and rubric rows included) and no console errors.
+
+It writes full-page screenshots of each state to the output folder for a visual check. Windows returns clipboard text with CRLF line endings, so the script normalises them before comparing.
+
+```js
+// node newtypes.cjs <repoDir with the new sets in subjects.json> <outDir>
+// Plays one question of each new type end to end over file:// and HTTP at 375x667 and 1280x800.
+const http = require('node:http');
+const fs = require('node:fs');
+const path = require('node:path');
+const {chromium} = require('playwright-core');
+
+const repo = path.resolve(process.argv[2]);
+const out = path.resolve(process.argv[3]);
+fs.mkdirSync(out, {recursive: true});
+const TYPES = {'.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.svg': 'image/svg+xml'};
+const serve = () => new Promise(resolve => {
+  const server = http.createServer((req, res) => {
+    const file = path.join(repo, decodeURIComponent(new URL(req.url, 'http://x').pathname));
+    if (!file.startsWith(repo) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) { res.writeHead(404); return res.end(); }
+    res.writeHead(200, {'content-type': TYPES[path.extname(file)] || 'application/octet-stream'});
+    res.end(fs.readFileSync(file));
+  });
+  server.listen(0, () => resolve(server));
+});
+const ready = page => page.waitForSelector('.subject-tab[aria-pressed=true]', {state: 'attached'});
+const settle = page => page.evaluate(async () => {
+  let last = -1, same = 0;
+  for (let i = 0; i < 100 && same < 6; i++) { await new Promise(r => setTimeout(r, 50)); if (scrollY === last) same++; else { same = 0; last = scrollY; } }
+});
+const layout = page => page.evaluate(() => {
+  const doc = document.documentElement;
+  const small = [];
+  for (const node of document.querySelectorAll('button, select, .choice, input, textarea, .rubric-point')) {
+    const box = node.getBoundingClientRect();
+    if (!box.width || !box.height || node.closest('[hidden]') || getComputedStyle(node).opacity === '0') continue;
+    const target = node.matches('input[type=checkbox]') ? node.closest('label').getBoundingClientRect() : box;
+    if (target.height < 47.5) small.push(`${node.tagName}#${node.id}.${node.className} ${target.height}`);
+  }
+  return {hScroll: doc.scrollWidth > doc.clientWidth, small};
+});
+// Start a round with just this question, through the app's own startRound.
+const play = (page, setId, qid) => page.evaluate(([setId, qid]) => {
+  const set = Quizy.state.sets.find(s => s.id === setId);
+  Quizy.ui.startRound(set, set.questions.filter(q => q.id === qid));
+}, [setId, qid]);
+const text = (page, sel) => page.evaluate(s => { const n = document.querySelector(s); return n && !n.closest('[hidden]') ? n.innerText : null; }, sel);
+
+(async () => {
+  const server = await serve();
+  const fileUrl = 'file:///' + path.join(repo, 'index.html').replace(/\\/g, '/');
+  const httpUrl = `http://localhost:${server.address().port}/index.html`;
+  const browser = await chromium.launch({channel: 'msedge'});
+  const problems = [];
+  const report = {};
+  const expect = (cond, msg) => { if (!cond) problems.push(msg); };
+  for (const [mode, url] of [['file', fileUrl], ['http', httpUrl]]) {
+    for (const [w, h] of [[375, 667], [1280, 800]]) {
+      const name = `${mode}-${w}`;
+      const context = await browser.newContext({viewport: {width: w, height: h}, deviceScaleFactor: 1});
+      if (mode === 'http') await context.grantPermissions(['clipboard-read', 'clipboard-write'], {origin: new URL(httpUrl).origin});
+      const page = await context.newPage();
+      const errors = [];
+      page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
+      page.on('pageerror', e => errors.push(String(e)));
+      const r = report[name] = {};
+      const shot = async tag => { await settle(page); await page.screenshot({path: path.join(out, `${name}-${tag}.png`), fullPage: true}); r[`layout-${tag}`] = await layout(page); };
+
+      // Setup: unofficial note and the paper-style count line.
+      await page.goto(url); await ready(page);
+      await page.click('.subject-tab[data-key=nlp]');
+      await page.selectOption('#set', 'nlp-practice-quiz');
+      r.unofficial = await text(page, '#set-unofficial');
+      r.notePractice = await page.textContent('#bank-note');
+      await page.selectOption('#set', 'nlp-tutorial');
+      r.noteTutorial = await page.textContent('#bank-note');
+      await shot('setup-tutorial');
+      await page.selectOption('#set', 'nlp-past-quiz-2-2025');
+      r.unofficialPast = await text(page, '#set-unofficial');
+      expect(r.unofficial === 'Answers on this set are unofficial' && r.unofficialPast === null, `${name} unofficial note`);
+      expect(/^29 questions · 29 marks · order randomised$/.test(r.notePractice.replace(/^\d+/, '29')), `${name} practice note ${r.notePractice}`);
+
+      // A real "Start quiz" round of the tutorial draws its first question without errors.
+      await page.selectOption('#set', 'nlp-tutorial');
+      await page.click('#start');
+      r.firstTutorial = await page.textContent('#position');
+
+      // short: Enter submits; case and spaces ignored.
+      await play(page, 'nlp-practice-quiz', 'nlp-pq-3-1');
+      r.shortCheckDisabled = await page.isDisabled('#check');
+      await page.fill('#choices input', '  SoftMax ');
+      r.shortCheckEnabled = !(await page.isDisabled('#check'));
+      await page.press('#choices input', 'Enter');
+      r.shortVerdict = await text(page, '#feedback .verdict');
+      r.shortKey = await text(page, '.answer-key');
+      r.shortNote = await text(page, '#feedback .study-note .eyebrow');
+      r.shortInputAttrs = await page.evaluate(() => { const i = document.querySelector('#choices input'); return [i.getAttribute('autocapitalize'), i.getAttribute('autocomplete'), i.spellcheck, i.readOnly]; });
+      expect(r.shortVerdict?.startsWith('Correct!') && r.shortCheckDisabled && r.shortCheckEnabled, `${name} short ${r.shortVerdict}`);
+      expect(r.shortNote === 'STUDY NOTE (UNOFFICIAL ANSWER)', `${name} short note label ${r.shortNote}`);
+      await shot('short');
+      // Copy for Claude.
+      await page.click('#copy-claude');
+      await page.waitForFunction(() => document.getElementById('copy-claude').textContent !== 'Copy for Claude', null, {timeout: 3000}).catch(() => {});
+      r.copyLabel = await page.textContent('#copy-claude');
+      r.clipboard = await page.evaluate(() => navigator.clipboard.readText().catch(e => 'read failed: ' + e.name));
+      if (r.clipboard.startsWith('read failed')) {
+        // file:// pages may write but not read the clipboard: read it back from an HTTP page instead.
+        const reader = await browser.newContext();
+        await reader.grantPermissions(['clipboard-read'], {origin: new URL(httpUrl).origin});
+        const rp = await reader.newPage();
+        await rp.goto(httpUrl);
+        r.clipboard = await rp.evaluate(() => navigator.clipboard.readText());
+        await reader.close();
+      }
+      r.clipboard = r.clipboard.replace(/\r\n/g, '\n');
+      await page.waitForTimeout(2200);
+      r.copyLabelAfter = await page.textContent('#copy-claude');
+      expect(r.copyLabel === 'Copied ✓' && r.copyLabelAfter === 'Copy for Claude', `${name} copy label ${r.copyLabel} / ${r.copyLabelAfter}`);
+      if (!r.clipboard.startsWith('read failed')) expect(r.clipboard.includes('Accepted answer:\nsoftmax') && r.clipboard.includes('My answer:\nSoftMax'), `${name} clipboard content`);
+      // Fallback when the Clipboard API rejects.
+      await page.waitForTimeout(2200);
+      await page.evaluate(() => { Object.defineProperty(navigator, 'clipboard', {value: {writeText: () => Promise.reject(new Error('blocked'))}, configurable: true}); });
+      await page.click('#copy-claude');
+      await page.waitForFunction(() => document.getElementById('copy-claude').textContent !== 'Copy for Claude', null, {timeout: 3000}).catch(() => {});
+      r.copyFallbackLabel = await page.textContent('#copy-claude');
+      expect(r.copyFallbackLabel === 'Copied ✓', `${name} execCommand fallback ${r.copyFallbackLabel}`);
+
+      // numeric, one part: an unreadable value shows a note; a fraction is accepted.
+      await play(page, 'nlp-tutorial', 'nlp-tut-4-2');
+      await page.fill('#choices input', '1/');
+      await page.locator('#choices input').blur();
+      r.numUnreadable = await text(page, '.numeric-note');
+      await page.fill('#choices input', '1/120');
+      r.numNoteCleared = await text(page, '.numeric-note');
+      r.numInputMode = await page.getAttribute('#choices input', 'inputmode');
+      await page.click('#check');
+      r.numVerdict = await text(page, '#feedback .verdict');
+      r.numFeedbackOrder = await page.evaluate(() => [...document.querySelectorAll('#feedback > div')].map(d => d.className + ':' + (d.querySelector('.eyebrow')?.textContent || '')));
+      expect(r.numUnreadable === 'Couldn’t read this number.' && r.numNoteCleared === null && r.numInputMode === 'decimal', `${name} numeric note ${r.numUnreadable}`);
+      expect(r.numVerdict?.includes('4 / 4 marks'), `${name} numeric verdict ${r.numVerdict}`);
+      expect(r.numFeedbackOrder[1] === 'study-note solution:Worked solution', `${name} worked solution order ${r.numFeedbackOrder}`);
+      await shot('numeric');
+
+      // numeric, five parts (list layout), partly wrong.
+      await play(page, 'nlp-tutorial', 'nlp-tut-3-2');
+      const answers = await page.evaluate(() => Quizy.currentItem().q.parts.map(p => String(p.answer)));
+      const inputs = page.locator('#choices input');
+      for (let i = 0; i < answers.length; i++) await inputs.nth(i).fill(i === 1 ? 'oops' : i === 2 ? '0.9' : answers[i].replace('.', ','));
+      r.parts5CheckEnabled = !(await page.isDisabled('#check'));
+      await page.click('#check');
+      r.parts5Verdict = await text(page, '#feedback .verdict');
+      r.parts5Notes = await page.$$eval('.numeric-note', ns => ns.map(n => n.textContent));
+      expect(r.parts5Verdict?.startsWith('Partly right.'), `${name} parts5 ${r.parts5Verdict}`);
+      await shot('numeric-parts');
+
+      // numeric, 2x2 grid.
+      await play(page, 'nlp-tutorial', 'nlp-tut-5-4');
+      r.gridCols = await page.evaluate(() => getComputedStyle(document.querySelector('.numeric-grid')).gridTemplateColumns.split(' ').length);
+      r.gridLabels = await page.$$eval('#choices input', ns => ns.map(n => n.title + '|' + n.getAttribute('aria-label')));
+      const grid = await page.evaluate(() => Quizy.currentItem().q.parts.map(p => String(p.answer)));
+      for (let i = 0; i < grid.length; i++) await page.locator('#choices input').nth(i).fill(i === 3 ? '0.1' : grid[i]);
+      await page.click('#check');
+      r.gridVerdict = await text(page, '#feedback .verdict');
+      expect(r.gridCols === 2, `${name} grid cols ${r.gridCols}`);
+      await shot('numeric-grid');
+
+      // written: type, reload, restore, reveal, tick, submit.
+      await play(page, 'nlp-tutorial', 'nlp-tut-1-1');
+      r.writtenCheck = [await page.textContent('#check'), await page.isDisabled('#check')];
+      await page.fill('#choices textarea', 'Tokenisation splits text into tokens.\nAgglutinative words glue morphemes together.');
+      await shot('written-typing');
+      await page.reload(); await ready(page);
+      await page.click('.subject-tab[data-key=nlp]');
+      await play(page, 'nlp-tutorial', 'nlp-tut-1-1');
+      r.writtenRestored = await page.inputValue('#choices textarea');
+      expect(r.writtenRestored.startsWith('Tokenisation splits text') && r.writtenCheck[0] === 'Reveal model answer' && !r.writtenCheck[1], `${name} written restore/check ${JSON.stringify(r.writtenCheck)}`);
+      await page.click('#check');
+      r.writtenRevealed = await page.evaluate(() => ({
+        readOnly: document.querySelector('#choices textarea').readOnly,
+        model: !!document.querySelector('.written-model'),
+        points: document.querySelectorAll('.rubric-point').length,
+        submit: !!document.querySelector('.rubric-submit'),
+        feedbackHidden: document.getElementById('feedback').hidden,
+        checkHidden: document.getElementById('check').hidden,
+        askShown: !document.getElementById('ask').hidden,
+        saved: localStorage.getItem('quizy-attempts-v2-nlp')
+      }));
+      expect(r.writtenRevealed.readOnly && r.writtenRevealed.model && r.writtenRevealed.points > 0 && r.writtenRevealed.feedbackHidden && r.writtenRevealed.askShown && !(r.writtenRevealed.saved || '').includes('nlp-tut-1-1'), `${name} written reveal ${JSON.stringify(r.writtenRevealed)}`);
+      await shot('written-revealed');
+      await page.click('.rubric-point >> nth=0');
+      const firstMarks = await page.evaluate(() => Quizy.currentItem().q.rubric[0].marks);
+      await page.click('.rubric-submit');
+      r.writtenVerdict = await text(page, '#feedback .verdict');
+      r.writtenSaved = await page.evaluate(() => JSON.parse(localStorage.getItem('quizy-attempts-v2-nlp'))['nlp-tut-1-1']);
+      r.writtenText = await page.evaluate(() => JSON.parse(localStorage.getItem('quizy-written-v1-nlp')));
+      expect(r.writtenSaved?.score === firstMarks && r.writtenVerdict?.includes(`${firstMarks} / 3 marks`), `${name} written score ${r.writtenVerdict}`);
+      await page.click('#copy-claude');
+      await page.waitForFunction(() => document.getElementById('copy-claude').textContent !== 'Copy for Claude', null, {timeout: 3000}).catch(() => {});
+      r.writtenClipboard = await page.evaluate(() => navigator.clipboard.readText().catch(e => 'read failed: ' + e.name));
+      await shot('written-submitted');
+      await page.click('#next');
+      r.summary = await page.textContent('#summary-title');
+
+      r.errors = errors;
+      for (const [k, v] of Object.entries(r)) if (k.startsWith('layout-') && (v.hScroll || v.small.length)) problems.push(`${name} ${k}: hScroll=${v.hScroll} small=${v.small.join('; ')}`);
+      if (errors.length) problems.push(`${name} console: ${errors.join(' | ')}`);
+      await context.close();
+    }
+  }
+  await browser.close();
+  server.close();
+  fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 1));
+  console.log(problems.length ? 'PROBLEMS:\n' + problems.join('\n') : 'All new-type checks passed.');
+})().catch(e => { console.error(e); process.exit(1); });
 ```
