@@ -1,11 +1,15 @@
 'use strict';
 
 // The end-of-round screen. Sets with totalMarks show marks; other sets show a count.
+// A mock paper shows its own breakdown (src/ui/paper.js).
 (function (Quizy) {
   const ui = Quizy.ui = Quizy.ui || {};
   const {$, plural, formatMarks, state} = Quizy;
 
   ui.showSummary = function () {
+    if (state.paper) return ui.showPaperSummary();
+    $('summary-eyebrow').textContent = 'Round complete';
+    $('paper-result').hidden = true;
     const totals = Quizy.roundTotals(state.round);
     $('progress').value = totals.count;
     const hasMarks = state.roundSet.totalMarks !== undefined;

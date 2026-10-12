@@ -8,6 +8,7 @@
   if (!data || !Array.isArray(data.subjects) || !data.subjects.length) {
     $('bank-note').textContent = 'The question bank could not be loaded.';
     $('start').disabled = true;
+    $('generate').disabled = true;
     return;
   }
   state.data = data;
@@ -16,9 +17,15 @@
   ui.buildSubjectTabs();
 
   $('set').addEventListener('change', ui.chooseSet);
-  $('lecture').addEventListener('change', ui.updateNote);
+  $('style').addEventListener('change', ui.updateNote);
   $('mode').addEventListener('change', ui.updateNote);
   $('start').addEventListener('click', ui.start);
+  $('generate').addEventListener('click', ui.generatePaper);
+  $('replay').addEventListener('click', ui.replayPaper);
+  $('paper-code').addEventListener('keydown', event => { if (event.key === 'Enter') ui.replayPaper(); });
+  $('continue').addEventListener('click', ui.resume);
+  $('interlude-quit').addEventListener('click', ui.backToSetup);
+  $('retry-missed').addEventListener('click', ui.retryMissed);
   $('check').addEventListener('click', ui.check);
   $('next').addEventListener('click', ui.next);
   $('copy-claude').addEventListener('click', ui.copyForClaude);

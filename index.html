@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="styles/layout.css">
   <link rel="stylesheet" href="styles/components.css">
   <link rel="stylesheet" href="styles/question.css">
+  <link rel="stylesheet" href="styles/paper.css">
   <link rel="stylesheet" href="styles/types/single.css">
   <link rel="stylesheet" href="styles/types/truefalse.css">
   <link rel="stylesheet" href="styles/types/multi.css">
@@ -59,16 +60,31 @@
           <p id="set-description" class="set-description"></p>
           <p id="set-unofficial" class="set-unofficial" hidden>Answers on this set are unofficial</p>
           <div class="form-row">
-            <label for="lecture">Lecture</label>
-            <select id="lecture"></select>
+            <span id="lectures-label" class="label">Lecture</span>
+            <div id="lectures" class="chips" role="group" aria-labelledby="lectures-label"></div>
+          </div>
+          <div class="form-row">
+            <label for="style">Question style</label>
+            <select id="style"></select>
           </div>
           <div class="form-row">
             <label for="mode">Questions</label>
             <select id="mode"><option value="all">All questions</option><option value="review">Only ones I got wrong</option></select>
           </div>
           <p id="bank-note" class="bank-note">Loading questions…</p>
-          <button id="start" class="primary">Start quiz ↗</button>
+          <div class="start-row">
+            <button id="start" class="primary">Start quiz ↗</button>
+            <button id="generate" type="button">Generate a mock test ↗</button>
+          </div>
           <p id="setup-message" class="message" role="status"></p>
+          <div class="paper-start">
+            <p class="paper-note">A mock test is shaped like the real one: Section A quiz (30 marks), then Section B theory (20 marks), from the lectures you picked. Quiz set and question style don’t apply.</p>
+            <label for="paper-code">Replay paper code</label>
+            <div class="replay-row">
+              <input id="paper-code" class="answer-input" type="text" inputmode="numeric" autocomplete="off" placeholder="e.g. 4821">
+              <button id="replay" type="button">Replay</button>
+            </div>
+          </div>
         </div>
         <div id="empty" class="empty" hidden>
           <strong>No quizzes yet</strong>
@@ -76,6 +92,7 @@
         </div>
       </section>
       <section id="quiz" class="panel" hidden>
+        <div id="paper-bar" class="paper-bar" hidden></div>
         <div class="quiz-top"><span id="position" class="eyebrow"></span><button id="quit" class="quiet">End round</button></div>
         <progress id="progress" value="0" max="1" aria-label="Quiz progress"></progress>
         <div id="source" class="source"></div>
@@ -92,10 +109,26 @@
         </div>
         <button id="next" class="primary" hidden>Next question ↗</button>
       </section>
+      <section id="interlude" class="panel" hidden>
+        <div id="interlude-code" class="eyebrow"></div>
+        <h2 id="interlude-title"></h2>
+        <p id="interlude-detail"></p>
+        <div class="start-row">
+          <button id="continue" class="primary"></button>
+          <button id="interlude-quit" class="quiet">End round</button>
+        </div>
+      </section>
       <section id="summary" class="panel" hidden>
-        <div class="eyebrow">Round complete</div>
+        <div id="summary-eyebrow" class="eyebrow">Round complete</div>
         <h2 id="summary-title"></h2>
         <p id="summary-detail"></p>
+        <div id="paper-result" class="paper-result" hidden>
+          <dl id="paper-scores" class="paper-scores"></dl>
+          <p id="paper-origin" class="paper-origin"></p>
+          <div class="eyebrow" id="missed-title"></div>
+          <ol id="missed-list" class="missed-list"></ol>
+          <button id="retry-missed" class="primary">Retry the ones I missed ↗</button>
+        </div>
         <button id="again" class="primary">Choose another round ↗</button>
       </section>
       <footer>Questions are for practice, not a prediction of the actual test. Check explanations against your lecture slides when unsure.</footer>
@@ -126,6 +159,7 @@
   <script src="src/ui/ask.js" defer></script>
   <script src="src/ui/quiz.js" defer></script>
   <script src="src/ui/summary.js" defer></script>
+  <script src="src/ui/paper.js" defer></script>
   <script src="src/main.js" defer></script>
 </body>
 </html>

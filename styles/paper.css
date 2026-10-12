@@ -1,0 +1,103 @@
+/* Mock papers: the setup block (note and "Replay paper code"), the section bar during a paper,
+   and the paper's summary (section marks, seen vs new, questions to redo). */
+.paper-start {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--field-line);
+  max-width: 560px;
+}
+
+.paper-note {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.paper-start label {
+  display: block;
+  font-weight: 650;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.replay-row {
+  display: flex;
+  gap: 10px;
+}
+
+.replay-row .answer-input {
+  width: 9em;
+}
+
+/* "Paper 4821 · Section A · Quiz (30 marks)" above the question */
+.paper-bar {
+  margin: -6px 0 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* Summary */
+.paper-scores {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: start;
+  gap: 6px 28px;
+  margin: 0 0 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--choice-bg);
+}
+
+.paper-scores dt {
+  font-weight: 650;
+}
+
+.paper-scores dd {
+  margin: 0;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.paper-scores dt:last-of-type,
+.paper-scores dd:last-of-type {
+  padding-top: 6px;
+  border-top: 1px solid var(--line);
+}
+
+.paper-origin {
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--muted);
+}
+
+.missed-list {
+  display: grid;
+  gap: 8px;
+  margin: 8px 0 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.missed-item {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2px 14px;
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--line);
+  background: var(--choice-bg);
+}
+
+.missed-marks {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+#retry-missed {
+  margin-bottom: 14px;
+}

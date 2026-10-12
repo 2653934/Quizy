@@ -42,7 +42,7 @@
     clearTimeout(timer);
     $('copy-claude').textContent = 'Copy for Claude';
     if (!type.askClaude) return;
-    prompt = Quizy.claudePrompt({subject: state.subject, set: state.roundSet, q, ...type.askClaude(q, response)});
+    prompt = Quizy.claudePrompt({subject: state.subject, set: Quizy.currentItem().set, q, ...type.askClaude(q, response)});
   };
   ui.hideAsk = function () { $('ask').hidden = true; };
 

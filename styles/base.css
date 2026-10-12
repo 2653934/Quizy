@@ -105,7 +105,8 @@ button.primary:disabled {
   max-width: 480px;
 }
 
-.form-row label {
+.form-row label,
+.form-row .label {
   font-weight: 650;
   font-size: 13px;
 }

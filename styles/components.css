@@ -116,6 +116,46 @@
   color: var(--warn);
 }
 
+/* Lecture chips (toggle buttons) */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  min-width: 56px;
+  padding: 9px 14px;
+  border: 1px solid var(--field-line);
+  border-radius: 6px;
+  background: #fff;
+  font-weight: 650;
+}
+
+.chip[aria-pressed=true] {
+  background: var(--accent);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+.chip[aria-pressed=true]:hover {
+  background: var(--accent-dark);
+}
+
+.chip.none:not([aria-pressed=true]) {
+  border-style: dashed;
+  color: var(--muted);
+  font-weight: normal;
+}
+
+/* "Start quiz" and "Generate a mock test" side by side (wrapping on phones) */
+.start-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 14px;
+}
+
 /* "No quizzes yet" */
 .empty {
   border: 1.5px dashed var(--field-line);

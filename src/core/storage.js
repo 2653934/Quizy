@@ -6,6 +6,7 @@
 //   quizy-dve-attempts-v1        old DVE progress, copied to v2 once (and kept)
 //   quizy-last-subject           key of the subject shown last
 //   quizy-written-v1-<subject>   {[questionId]: text} typed for "written" questions, restored when they reappear
+//   quizy-lectures-v1-<subject>  ["5", "6"]: the lecture chips chosen last ([] for all lectures)
 (function (Quizy) {
   const store = {
     get(key) { try { return localStorage.getItem(key); } catch { return null; } },
@@ -31,6 +32,13 @@
       catch { return {}; }
     },
     saveWritten(subject, texts) { store.set(`quizy-written-v1-${subject}`, JSON.stringify(texts)); },
+    loadLectures(subject) {
+      try {
+        const list = JSON.parse(store.get(`quizy-lectures-v1-${subject}`) || '[]');
+        return Array.isArray(list) ? list.map(String) : [];
+      } catch { return []; }
+    },
+    saveLectures(subject, lectures) { store.set(`quizy-lectures-v1-${subject}`, JSON.stringify(lectures)); },
     lastSubject() { return store.get('quizy-last-subject'); },
     setLastSubject(subject) { store.set('quizy-last-subject', subject); }
   };
