@@ -15,6 +15,8 @@
     Quizy.storage.saveWritten(subjectKey(), texts);
   }
   const markLabel = marks => `${Quizy.formatMarks(marks)} ${marks === 1 ? 'mark' : 'marks'}`;
+  const reference = q => `Model answer:\n${q.modelAnswer}\n\nRubric:\n` + q.rubric.map(p => `- [${markLabel(p.marks)}] ${p.point}`).join('\n');
+  const modelAnswer = q => textBlock('written-model', 'Model answer', q.modelAnswer);
 
   Quizy.registerType('written', {
     validate(q, set, fail) {
@@ -32,8 +34,9 @@
     score: (q, response) => [...new Set(response.ticked)].filter(i => validIndex(i, q.rubric)).reduce((sum, i) => sum + q.rubric[i].marks, 0),
     askClaude: (q, response) => ({
       answer: response.text.trim() || '(I didn’t write anything down; I only thought it through.)',
-      reference: `Model answer:\n${q.modelAnswer}\n\nRubric:\n` + q.rubric.map(p => `- [${markLabel(p.marks)}] ${p.point}`).join('\n')
+      reference: reference(q)
     }),
+    reference,
 
     needsCheckButton: true,
     checkLabel: 'Reveal model answer',
@@ -57,7 +60,7 @@
       const yours = Quizy.el('div', 'written-yours');
       yours.append(Quizy.el('div', 'eyebrow', 'Your answer'), box);
       const compare = Quizy.el('div', 'written-compare');
-      compare.append(yours, textBlock('written-model', 'Model answer', q.modelAnswer));
+      compare.append(yours, modelAnswer(q));
 
       const rubric = Quizy.el('fieldset', 'rubric');
       rubric.append(Quizy.el('legend', 'eyebrow', 'Tick the points you covered'));
@@ -66,7 +69,7 @@
         const tick = Quizy.el('input');
         tick.type = 'checkbox';
         tick.value = i;
-        label.append(tick, Quizy.el('span', 'text', point.point), Quizy.el('span', 'rubric-marks', markLabel(point.marks)));
+        label.append(tick, Quizy.richEl('span', 'text', point.point), Quizy.el('span', 'rubric-marks', markLabel(point.marks)));
         rubric.append(label);
       });
       const done = Quizy.el('button', 'primary rubric-submit', 'Submit my mark');
@@ -83,6 +86,17 @@
         tick.closest('label').classList.add(response.ticked.includes(Number(tick.value)) ? 'ticked' : 'unticked');
       }
       container.querySelector('.rubric-submit')?.remove();
+    },
+    // The model answer, then the rubric with each point's marks.
+    answerKey(q) {
+      const rubric = Quizy.el('div', 'rubric answer-rubric');
+      rubric.append(Quizy.el('div', 'eyebrow', 'Rubric'));
+      for (const point of q.rubric) {
+        const row = Quizy.el('div', 'rubric-point');
+        row.append(Quizy.richEl('span', 'text', point.point), Quizy.el('span', 'rubric-marks', markLabel(point.marks)));
+        rubric.append(row);
+      }
+      return [modelAnswer(q), rubric];
     }
   });
 

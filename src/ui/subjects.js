@@ -38,5 +38,7 @@
     for (const tab of $('subjects').children) tab.setAttribute('aria-pressed', String(tab.dataset.key === subject.key));
 
     ui.showSets();
+    // Switching subject while browsing shows the new subject's questions.
+    if (ui.view === 'browse' || ui.view === 'answer') ui.openBrowse();
   };
 })(window.Quizy = window.Quizy || {});

@@ -6,12 +6,14 @@
   <meta name="theme-color" content="#147d83">
   <title>Quizy · study room</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
   <link rel="stylesheet" href="styles/tokens.css">
   <link rel="stylesheet" href="styles/base.css">
   <link rel="stylesheet" href="styles/layout.css">
   <link rel="stylesheet" href="styles/components.css">
   <link rel="stylesheet" href="styles/question.css">
   <link rel="stylesheet" href="styles/paper.css">
+  <link rel="stylesheet" href="styles/browse.css">
   <link rel="stylesheet" href="styles/types/single.css">
   <link rel="stylesheet" href="styles/types/truefalse.css">
   <link rel="stylesheet" href="styles/types/multi.css">
@@ -76,6 +78,7 @@
             <button id="start" class="primary">Start quiz ↗</button>
             <button id="generate" type="button">Generate a mock test ↗</button>
           </div>
+          <button id="browse-open" class="quiet browse-open" type="button">Browse all questions →</button>
           <p id="setup-message" class="message" role="status"></p>
           <div class="paper-start">
             <p class="paper-note">A mock test is shaped like the real one: Section A quiz (30 marks), then Section B theory (20 marks), from the lectures you picked. Quiz set and question style don’t apply.</p>
@@ -90,6 +93,46 @@
           <strong>No quizzes yet</strong>
           <p>There are no question sets for this subject so far. They'll show up here once they're added.</p>
         </div>
+      </section>
+      <section id="browse" class="panel" hidden>
+        <div class="quiz-top"><span class="eyebrow">Question bank</span><button id="browse-close" class="quiet" type="button">Back to setup</button></div>
+        <h2>Browse all questions</h2>
+        <div class="browse-filters">
+          <div class="form-row wide">
+            <label for="browse-search">Search</label>
+            <input id="browse-search" class="answer-input" type="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="e.g. attention matrix, Q5.4">
+          </div>
+          <div class="form-row">
+            <label for="browse-set">Quiz set</label>
+            <select id="browse-set"></select>
+          </div>
+          <div class="form-row wide">
+            <span id="browse-lectures-label" class="label">Lecture</span>
+            <div id="browse-lectures" class="chips" role="group" aria-labelledby="browse-lectures-label"></div>
+          </div>
+          <div class="form-row">
+            <label for="browse-style">Question style</label>
+            <select id="browse-style"></select>
+          </div>
+          <label class="browse-wrong"><input id="browse-wrong" type="checkbox"> Only ones I got wrong</label>
+        </div>
+        <p id="browse-count" class="bank-note" role="status"></p>
+        <ol id="browse-list" class="browse-list"></ol>
+        <button id="browse-more" type="button" hidden></button>
+      </section>
+      <section id="answer" class="panel" hidden>
+        <div class="quiz-top"><span id="answer-set" class="eyebrow"></span><button id="answer-back" class="quiet" type="button">← Back to the list</button></div>
+        <div id="answer-source" class="source"></div>
+        <h2 id="answer-question" class="question"></h2>
+        <figure id="answer-figure" class="figure" hidden><a id="answer-figure-link" target="_blank" rel="noopener"><img id="answer-figure-img" alt=""></a><figcaption>Tap the image to open it full size.</figcaption></figure>
+        <div class="eyebrow answer-heading">Answer</div>
+        <div id="answer-key" class="answer-key-view"></div>
+        <div id="answer-notes" class="answer-notes"></div>
+        <div class="start-row answer-actions">
+          <button id="answer-practise" class="primary" type="button">Practise this question ↗</button>
+          <button id="answer-copy" type="button">Copy for Claude</button>
+        </div>
+        <textarea id="answer-fallback" class="ask-fallback" readonly rows="6" aria-label="Prompt for Claude" hidden></textarea>
       </section>
       <section id="quiz" class="panel" hidden>
         <div id="paper-bar" class="paper-bar" hidden></div>
@@ -129,14 +172,18 @@
           <ol id="missed-list" class="missed-list"></ol>
           <button id="retry-missed" class="primary">Retry the ones I missed ↗</button>
         </div>
+        <button id="to-browse" class="primary" hidden>Back to browse ↗</button>
         <button id="again" class="primary">Choose another round ↗</button>
       </section>
       <footer>Questions are for practice, not a prediction of the actual test. Check explanations against your lecture slides when unsure.</footer>
     </main>
   </div>
   <script src="generated/quizy-data.js" defer></script>
+  <script src="vendor/katex/katex.min.js" defer></script>
   <script src="src/core/random.js" defer></script>
   <script src="src/core/util.js" defer></script>
+  <script src="src/core/math.js" defer></script>
+  <script src="src/core/search.js" defer></script>
   <script src="src/core/scoring.js" defer></script>
   <script src="src/core/storage.js" defer></script>
   <script src="src/core/data.js" defer></script>
@@ -160,6 +207,7 @@
   <script src="src/ui/quiz.js" defer></script>
   <script src="src/ui/summary.js" defer></script>
   <script src="src/ui/paper.js" defer></script>
+  <script src="src/ui/browse.js" defer></script>
   <script src="src/main.js" defer></script>
 </body>
 </html>

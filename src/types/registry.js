@@ -10,6 +10,8 @@
 //     score(q, response)         marks earned for a response
 //     askClaude(q, response)     optional: {answer, reference} as plain text. When present, a "Copy for Claude"
 //                                button copies a marking prompt (src/core/prompt.js) after answering / revealing.
+//     reference(q)               the reference answer as plain text (LaTeX kept as $…$): the browse view's
+//                                "Copy for Claude" prompt, and askClaude's reference where a type has one
 //     // Browser only:
 //     needsCheckButton           true: the answer is submitted with "Check answer"
 //     checkLabel                 optional text for that button (default "Check answer")
@@ -25,7 +27,12 @@
 //                                submit(finalResponse) when the user is done; only then is the answer graded and saved.
 //     showResult(container, q, item, response)  disable the inputs, mark correct / wrong / missed, add tags
 //     resultNotes(q, response)   optional: nodes added to the feedback after the verdict, before the study note
+//     answerKey(q)               nodes showing the answer in the browse view (src/ui/browse.js): the correct
+//                                options, pairs, labels, values or model answer, without any inputs
 //   });
+//
+// Every text from the data is drawn with Quizy.richText / Quizy.richEl (maths, see src/core/math.js), except
+// <option> text, which can't hold markup and uses Quizy.mathToPlain.
 //
 // src/ui/quiz.js only ever calls these; it never checks q.type itself.
 (function (Quizy) {
@@ -87,6 +94,32 @@
   }
   function addTag(node, text) { node.append(Quizy.el('span', 'tag', text)); }
 
+  // The browse view's answer for a choice-based question: every option in its original order, answers marked.
+  function choiceKey(q, letters = true) {
+    const list = Quizy.el('div', 'choices answer-choices');
+    q.choices.forEach((choice, i) => {
+      const isAnswer = q.answer.includes(i);
+      const row = Quizy.el('div', 'choice done' + (isAnswer ? ' correct' : ''));
+      if (letters) row.append(Quizy.el('span', 'letter', Quizy.letter(i)));
+      row.append(choiceText(q, i));
+      if (isAnswer) addTag(row, '✓ Answer');
+      list.append(row);
+    });
+    return [list];
+  }
+  function choiceReference(q) {
+    const options = q.choices.map((choice, i) => `${Quizy.letter(i)} ${choice}`).join('\n');
+    const answers = q.answer.map(i => `${Quizy.letter(i)} ${q.choices[i]}`).join('\n');
+    return `Options:\n${options}\n\nCorrect answer${q.answer.length === 1 ? '' : 's'}:\n${answers}`;
+  }
+
+  // "left → right" rows for the browse view (match pairs, labels, numeric parts).
+  function answerRows(rows) {
+    const list = Quizy.el('dl', 'answer-rows');
+    for (const [left, right] of rows) list.append(Quizy.richEl('dt', '', left), Quizy.richEl('dd', '', right));
+    return list;
+  }
+
   // For types whose parts / rubric points carry their own marks: they must add up to the question's marks.
   const positive = n => typeof n === 'number' && Number.isFinite(n) && n > 0;
   function checkMarksSum(q, set, list, what, fail) {
@@ -97,7 +130,7 @@
   // A labelled block of text that keeps its line breaks (model answer, worked solution, accepted answers).
   function textBlock(className, eyebrow, text) {
     const block = Quizy.el('div', className);
-    block.append(Quizy.el('div', 'eyebrow', eyebrow), Quizy.el('p', 'pre', text));
+    block.append(Quizy.el('div', 'eyebrow', eyebrow), Quizy.richEl('p', 'pre', text));
     return block;
   }
 
@@ -119,8 +152,11 @@
     });
   }
 
+  // <option> text can't hold markup, so its maths becomes plain text.
+  const option = (text, value) => new Option(Quizy.mathToPlain(text), value);
+
   Quizy.typeHelpers = {isText, validIndex, where, checkWords, checkChoices, checkEmphasisInChoices, choiceText, markChoices,
-    positive, checkMarksSum, textBlock, textInput, onEnter};
+    choiceKey, choiceReference, answerRows, positive, checkMarksSum, textBlock, textInput, onEnter, option};
 
   if (typeof module !== 'undefined') module.exports = Quizy;
 })(globalThis.Quizy = globalThis.Quizy || {});

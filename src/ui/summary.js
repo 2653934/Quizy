@@ -7,6 +7,10 @@
   const {$, plural, formatMarks, state} = Quizy;
 
   ui.showSummary = function () {
+    // A round started from the browse view goes back there.
+    const toBrowse = ui.returnTo === 'browse';
+    $('to-browse').hidden = !toBrowse;
+    $('again').hidden = toBrowse;
     if (state.paper) return ui.showPaperSummary();
     $('summary-eyebrow').textContent = 'Round complete';
     $('paper-result').hidden = true;

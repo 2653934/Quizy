@@ -4,7 +4,7 @@
 // One <select> per label in number order; the options are shuffled once per round and every row
 // gets the same list. Marks × (correct labels / labels).
 (function (Quizy) {
-  const {isText, where} = Quizy.typeHelpers;
+  const {isText, where, answerRows, option} = Quizy.typeHelpers;
 
   // True when the option index picked for a label gives that label's answer.
   const isRight = (q, label, picked) => picked !== null && picked !== undefined && q.options[picked] === label.answer;
@@ -44,7 +44,7 @@
         select.id = id;
         select.setAttribute('aria-label', `Label ${q.labels[original].number}`);
         select.add(new Option('Choose…', ''));
-        for (const o of item.optionOrder) select.add(new Option(q.options[o], String(o)));
+        for (const o of item.optionOrder) select.add(option(q.options[o], String(o)));
         select.addEventListener('change', () => onReady(![...container.querySelectorAll('select')].some(s => !s.value)));
         row.append(number, select);
         container.append(row);
@@ -64,9 +64,11 @@
         const correct = isRight(q, label, response[Number(row.dataset.original)]);
         row.querySelector('select').disabled = true;
         row.classList.add(correct ? 'correct' : 'wrong');
-        if (!correct) row.append(Quizy.el('p', 'label-answer', `Answer: ${label.answer}`));
+        if (!correct) row.append(Quizy.richEl('p', 'label-answer', `Answer: ${label.answer}`));
       }
-    }
+    },
+    reference: q => 'Correct labels:\n' + byNumber(q).map(i => `${q.labels[i].number}: ${q.labels[i].answer}`).join('\n'),
+    answerKey: q => [answerRows(byNumber(q).map(i => [String(q.labels[i].number), q.labels[i].answer]))]
   });
 
   if (typeof module !== 'undefined') module.exports = Quizy;

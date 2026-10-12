@@ -6,7 +6,6 @@
   const ui = Quizy.ui = Quizy.ui || {};
   const {$, state} = Quizy;
   let prompt = '';
-  let timer = null;
 
   // The Clipboard API can be missing or blocked (file://, older phones), so fall back to execCommand.
   function legacyCopy(text) {
@@ -28,30 +27,41 @@
     return legacyCopy(text);
   }
 
-  function setLabel(text) {
-    clearTimeout(timer);
-    $('copy-claude').textContent = text;
-    timer = setTimeout(() => { $('copy-claude').textContent = 'Copy for Claude'; }, 2000);
+  // The button says text for 2 seconds, then "Copy for Claude" again.
+  const timers = new Map();
+  function setLabel(button, text) {
+    clearTimeout(timers.get(button));
+    button.textContent = text;
+    timers.set(button, setTimeout(() => { button.textContent = 'Copy for Claude'; }, 2000));
+  }
+  function resetButton(button, fallback) {
+    clearTimeout(timers.get(button));
+    button.textContent = 'Copy for Claude';
+    fallback.hidden = true;
+  }
+
+  // Copies text and says so on the button; if both ways fail, shows the text in the fallback box to copy by hand.
+  async function copyWith(button, fallback, text) {
+    if (await copyText(text)) return setLabel(button, 'Copied ✓');
+    setLabel(button, 'Couldn’t copy. Select the text below.');
+    fallback.value = text;
+    fallback.hidden = false;
+    fallback.select();
   }
 
   // Shows the button for this question and response, or hides it when the type has no askClaude.
   ui.showAsk = function (q, response) {
     const type = Quizy.types[q.type];
     $('ask').hidden = !type.askClaude;
-    $('ask-fallback').hidden = true;
-    clearTimeout(timer);
-    $('copy-claude').textContent = 'Copy for Claude';
+    resetButton($('copy-claude'), $('ask-fallback'));
     if (!type.askClaude) return;
     prompt = Quizy.claudePrompt({subject: state.subject, set: Quizy.currentItem().set, q, ...type.askClaude(q, response)});
   };
   ui.hideAsk = function () { $('ask').hidden = true; };
 
-  ui.copyForClaude = async function () {
-    if (await copyText(prompt)) return setLabel('Copied ✓');
-    // Both ways failed: show the text so it can be copied by hand.
-    setLabel('Couldn’t copy. Select the text below.');
-    $('ask-fallback').value = prompt;
-    $('ask-fallback').hidden = false;
-    $('ask-fallback').select();
-  };
+  ui.copyForClaude = () => copyWith($('copy-claude'), $('ask-fallback'), prompt);
+
+  // The browse view's answer panel has its own button and fallback box.
+  ui.resetCopyButton = resetButton;
+  ui.copyWith = copyWith;
 })(window.Quizy = window.Quizy || {});

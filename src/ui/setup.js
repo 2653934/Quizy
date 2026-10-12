@@ -20,6 +20,9 @@
   const lecturesIn = questions => [...new Set(questions.map(q => String(q.lecture)))].sort(byLecture);
   const inLectures = q => !lectures.length || lectures.includes(String(q.lecture));
 
+  // Shared with the browse view (src/ui/browse.js).
+  Object.assign(ui, {STYLES, ALL, lecturesIn});
+
   ui.currentSet = () => state.sets.find(s => s.id === $('set').value);
   // The sets the "Quiz set" choice covers: one, or every set of the subject ("Everything in NLP").
   ui.currentSets = () => $('set').value === ALL ? state.sets : state.sets.filter(s => s.id === $('set').value);
@@ -67,17 +70,21 @@
 
   // "Question style": the styles present in the chosen set(s) and lectures. Keeps the choice if it is still there.
   function buildStyles() {
-    const present = new Set(ui.currentSets().flatMap(s => s.questions).filter(inLectures).map(q => q.type));
-    const select = $('style');
-    const before = select.value;
+    ui.fillStyles($('style'), ui.currentSets().flatMap(s => s.questions).filter(inLectures));
+  }
+  ui.fillStyles = function (select, questions, before = select.value) {
+    const present = new Set(questions.map(q => q.type));
     select.replaceChildren(new Option('All styles', ALL), ...STYLES.filter(([type]) => present.has(type)).map(([type, name]) => new Option(name, type)));
     select.value = present.has(before) ? before : ALL;
-  }
+  };
 
   // Lecture chips: "All", then every lecture in the subject (the mock paper draws from every set).
   // Lectures with nothing in the chosen set(s) are shown muted.
   function buildChips() {
-    const inSets = new Set(lecturesIn(ui.currentSets().flatMap(s => s.questions)));
+    ui.fillChips($('lectures'), lectures, ui.currentSets().flatMap(s => s.questions), toggleLecture);
+  }
+  ui.fillChips = function (container, chosen, inSet, onToggle) {
+    const inSets = new Set(lecturesIn(inSet));
     const chip = (value, text, pressed) => {
       const button = el('button', 'chip', text);
       button.type = 'button';
@@ -87,16 +94,16 @@
         button.classList.add('none');
         button.title = 'No questions from this lecture in this quiz set';
       }
-      button.addEventListener('click', () => toggleLecture(value));
+      button.addEventListener('click', () => onToggle(value));
       return button;
     };
-    $('lectures').replaceChildren(chip(ALL, 'All', !lectures.length), ...lecturesIn(Quizy.allQuestions()).map(n => chip(n, `L${n}`, lectures.includes(n))));
-  }
+    container.replaceChildren(chip(ALL, 'All', !chosen.length), ...lecturesIn(Quizy.allQuestions()).map(n => chip(n, `L${n}`, chosen.includes(n))));
+  };
 
   // "All" clears the choice; a lecture chip toggles. Removing the last lecture goes back to all.
+  ui.toggled = (chosen, value) => value === ALL ? [] : chosen.includes(value) ? chosen.filter(n => n !== value) : [...chosen, value].sort(byLecture);
   function toggleLecture(value) {
-    if (value === ALL) lectures = [];
-    else lectures = lectures.includes(value) ? lectures.filter(n => n !== value) : [...lectures, value].sort(byLecture);
+    lectures = ui.toggled(lectures, value);
     storage.saveLectures(state.subject.key, lectures);
     buildChips();
     buildStyles();
@@ -106,7 +113,7 @@
   ui.chooseSet = function () {
     const set = ui.currentSet();
     const sets = ui.currentSets();
-    $('set-description').textContent = set ? set.description || '' : `Every question from the ${sets.length} sets in ${subjectName()}, mixed together.`;
+    Quizy.richText($('set-description'), set ? set.description || '' : `Every question from the ${sets.length} sets in ${subjectName()}, mixed together.`);
     $('set-unofficial').hidden = !sets.some(s => s.unofficialAnswers);
     $('set-unofficial').textContent = set ? 'Answers on this set are unofficial' : 'Answers on some of these sets are unofficial';
     buildChips();
@@ -141,7 +148,11 @@
 
   // Back from a round or the summary.
   ui.backToSetup = function () {
+    ui.returnTo = null;
     ui.show('setup');
     ui.updateNote();
   };
+
+  // "End round": back to where the round was started (setup, or the browse list for "Practise this question").
+  ui.endRound = () => ui.returnTo === 'browse' ? ui.backToBrowse() : ui.backToSetup();
 })(window.Quizy = window.Quizy || {});

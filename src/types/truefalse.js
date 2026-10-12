@@ -2,7 +2,7 @@
 
 // truefalse: two buttons, True then False, never shuffled. Tapping one reveals the answer. Full marks or 0.
 (function (Quizy) {
-  const {where, checkChoices, checkEmphasisInChoices, choiceText, markChoices} = Quizy.typeHelpers;
+  const {where, checkChoices, checkEmphasisInChoices, choiceText, markChoices, choiceKey, choiceReference} = Quizy.typeHelpers;
 
   Quizy.registerType('truefalse', {
     validate(q, set, fail) {
@@ -29,7 +29,9 @@
         container.append(button);
       }
     },
-    showResult(container, q, item, response) { markChoices(container, q, response, ['correct', '✓ Answer']); }
+    showResult(container, q, item, response) { markChoices(container, q, response, ['correct', '✓ Answer']); },
+    reference: q => `Correct answer: ${q.choices[q.answer[0]]}`,
+    answerKey: q => choiceKey(q, false)
   });
 
   if (typeof module !== 'undefined') module.exports = Quizy;

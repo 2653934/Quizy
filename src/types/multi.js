@@ -2,7 +2,7 @@
 
 // multi: "select all that apply" with checkboxes and a "Check answer" button. Moodle-style marking.
 (function (Quizy) {
-  const {checkChoices, checkEmphasisInChoices, choiceText, markChoices} = Quizy.typeHelpers;
+  const {checkChoices, checkEmphasisInChoices, choiceText, markChoices, choiceKey, choiceReference} = Quizy.typeHelpers;
 
   Quizy.registerType('multi', {
     validate(q, set, fail) {
@@ -39,7 +39,9 @@
       });
     },
     readResponse: container => [...container.querySelectorAll('input:checked')].map(box => Number(box.value)),
-    showResult(container, q, item, response) { markChoices(container, q, response, ['missed', 'Missed']); }
+    showResult(container, q, item, response) { markChoices(container, q, response, ['missed', 'Missed']); },
+    reference: choiceReference,
+    answerKey: q => choiceKey(q)
   });
 
   if (typeof module !== 'undefined') module.exports = Quizy;

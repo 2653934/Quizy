@@ -20,7 +20,7 @@ const errorsFor = q => {
 test('the eight types are registered with the full contract', () => {
   assert.deepEqual(Object.keys(Quizy.types).sort(), ['label', 'match', 'multi', 'numeric', 'short', 'single', 'truefalse', 'written']);
   for (const [name, type] of Object.entries(Quizy.types)) {
-    for (const fn of ['validate', 'makeOrder', 'score', 'hints', 'render', 'showResult']) assert.equal(typeof type[fn], 'function', `${name}.${fn}`);
+    for (const fn of ['validate', 'makeOrder', 'score', 'hints', 'render', 'showResult', 'reference', 'answerKey']) assert.equal(typeof type[fn], 'function', `${name}.${fn}`);
     assert.equal(typeof type.needsCheckButton, 'boolean', `${name}.needsCheckButton`);
     if (type.needsCheckButton) assert.equal(typeof type.readResponse, 'function', `${name}.readResponse`);
     for (const fn of ['askClaude', 'reveal', 'resultNotes']) if (type[fn] !== undefined) assert.equal(typeof type[fn], 'function', `${name}.${fn}`);

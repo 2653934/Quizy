@@ -56,3 +56,14 @@
     margin-top: 14px;
   }
 }
+
+/* Browsing the question bank (body[data-view=browse], also for the answer view): no hero or stats.
+   The subject switcher stays enabled. */
+[data-view=browse] .hero,
+[data-view=browse] .stats {
+  display: none;
+}
+
+[data-view=browse] .subjects {
+  margin-bottom: 0;
+}

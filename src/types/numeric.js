@@ -3,7 +3,7 @@
 // numeric: one or more numbers, each its own part with its own marks and tolerance.
 // Optional grid {rows, cols} lays the parts out as a matrix, row by row (e.g. attention matrices).
 (function (Quizy) {
-  const {isText, where, positive, checkMarksSum, textBlock, textInput, onEnter} = Quizy.typeHelpers;
+  const {isText, where, positive, checkMarksSum, textBlock, textInput, onEnter, answerRows} = Quizy.typeHelpers;
 
   // A plain number (0.0083, .0083, -1.2, 8.33e-3, decimal comma 0,0083) or a simple fraction (1/120).
   // Returns null for anything else, including empty text, other expressions and division by zero.
@@ -33,6 +33,9 @@
   const unit = part => part.unit ? ` ${part.unit}` : '';
   const tolerance = part => part.tolerance !== undefined ? `± ${part.tolerance}` : `± ${+(part.relTolerance * 100).toPrecision(6)}%`;
   const expected = part => `${part.answer}${unit(part)} (${tolerance(part)})`;
+  const reference = q => 'Expected values:\n' + q.parts.map(part => `${part.label}: ${expected(part)}, ${Quizy.plural(part.marks, 'mark')}`).join('\n')
+    + `\n\nWorked solution:\n${q.solution}`;
+  const solution = q => textBlock('study-note solution', 'Worked solution', q.solution);
 
   Quizy.registerType('numeric', {
     validate(q, set, fail) {
@@ -63,14 +66,14 @@
     score: (q, response) => q.parts.reduce((sum, part, i) => sum + (isRight(part, response[i]) ? part.marks : 0), 0),
     askClaude: (q, response) => ({
       answer: q.parts.map((part, i) => `${part.label}: ${response[i].trim() || '(no answer)'}${unit(part)}`).join('\n'),
-      reference: 'Expected values:\n' + q.parts.map(part => `${part.label}: ${expected(part)}, ${Quizy.plural(part.marks, 'mark')}`).join('\n')
-        + `\n\nWorked solution:\n${q.solution}`
+      reference: reference(q)
     }),
+    reference,
 
     needsCheckButton: true,
     hints(q) {
       const hints = [Quizy.el('p', 'hint', 'Type numbers like 0.25, 1/4 or 2.5e-3, then check your answer.')];
-      if (q.inputHint) hints.push(Quizy.el('p', 'hint', q.inputHint));
+      if (q.inputHint) hints.push(Quizy.richEl('p', 'hint', q.inputHint));
       return hints;
     },
     render(container, q, item, onReady, submit) {
@@ -85,16 +88,16 @@
         input.inputMode = 'decimal';
         input.id = `numeric-${i}`;
         if (q.grid) {
-          input.title = part.label;
-          input.setAttribute('aria-label', part.label);
+          input.title = Quizy.mathToPlain(part.label);
+          input.setAttribute('aria-label', Quizy.mathToPlain(part.label));
         } else {
-          const label = Quizy.el('label', 'numeric-label', part.label);
+          const label = Quizy.richEl('label', 'numeric-label', part.label);
           label.htmlFor = input.id;
           row.append(label);
         }
         const field = Quizy.el('span', 'numeric-field');
         field.append(input);
-        if (part.unit) field.append(Quizy.el('span', 'numeric-unit', part.unit));
+        if (part.unit) field.append(Quizy.richEl('span', 'numeric-unit', part.unit));
         const note = Quizy.el('p', 'numeric-note');
         note.hidden = true;
         input.addEventListener('input', () => { note.hidden = true; onReady(ready()); });
@@ -119,11 +122,12 @@
         input.classList.add(right ? 'correct' : 'wrong');
         row.classList.add(right ? 'correct' : 'wrong');
         const note = row.querySelector('.numeric-note');
-        note.textContent = right ? '✓' : (Quizy.parseNumber(response[i]) === null ? 'Couldn’t read this number. ' : '✗ ') + `Expected ${expected(part)}`;
+        Quizy.richText(note, right ? '✓' : (Quizy.parseNumber(response[i]) === null ? 'Couldn’t read this number. ' : '✗ ') + `Expected ${expected(part)}`);
         note.hidden = false;
       });
     },
-    resultNotes: q => [textBlock('study-note solution', 'Worked solution', q.solution)]
+    resultNotes: q => [solution(q)],
+    answerKey: q => [answerRows(q.parts.map(part => [part.label, `${expected(part)} · ${Quizy.plural(part.marks, 'mark')}`])), solution(q)]
   });
 
   if (typeof module !== 'undefined') module.exports = Quizy;
