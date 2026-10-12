@@ -89,7 +89,7 @@
       "type": "written",
       "marks": 7,
       "question": "Construct the co-occurance matrix for the phrase “The cat sat on the mat. The cat sat on the floor” with a context window of 1 word on either side of the focal word (3 Marks). Then calculate the PPMI for the focal word “cat” and context word “mat” (4 Marks).",
-      "modelAnswer": "Pre-process: lower-case and drop punctuation → the cat sat on the mat the cat sat on the floor (12 tokens; vocabulary: the, cat, sat, on, mat, floor).\n\nCount each word's neighbours 1 to the left and 1 to the right (here the window runs across the full stop; say so if you choose to stop at sentence boundaries):\n\n          the  cat  sat  on  mat  floor\nthe        0    2    0    2    2    1\ncat        2    0    2    0    0    0\nsat        0    2    0    2    0    0\non         2    0    2    0    0    0\nmat        2    0    0    0    0    0\nfloor      1    0    0    0    0    0\n\n(The matrix is symmetric. If you stop the window at the full stop, the the–mat and mat–the counts become 1.)\n\nPPMI(w, c) = max(0, log₂ [P(w, c) / (P(w) P(c))]), with probabilities taken from the matrix counts.\n\n'cat' and 'mat' are never within 1 word of each other, so count(cat, mat) = 0 → P(cat, mat) = 0 → PMI = log₂ 0 = −∞ → PPMI = max(0, −∞) = 0.\n\nFor comparison, PPMI(cat, the): the matrix total is 22, so P(cat, the) = 2/22, P(cat) = 4/22 (row sum) and P(the) = 7/22. PMI = log₂[(2/22) / ((4/22)(7/22))] = log₂(44/28) ≈ 0.65, so PPMI ≈ 0.65.",
+      "modelAnswer": "Pre-process: lower-case and drop punctuation → the cat sat on the mat the cat sat on the floor (12 tokens; vocabulary: the, cat, sat, on, mat, floor).\n\nCount each word's neighbours 1 to the left and 1 to the right (here the window runs across the full stop; say so if you choose to stop at sentence boundaries):\n\n          the  cat  sat  on  mat  floor\nthe        0    2    0    2    2    1\ncat        2    0    2    0    0    0\nsat        0    2    0    2    0    0\non         2    0    2    0    0    0\nmat        2    0    0    0    0    0\nfloor      1    0    0    0    0    0\n\n(The matrix is symmetric. If you stop the window at the full stop, the the–mat and mat–the counts become 1.)\n\n$$\\begin{aligned}\\mathrm{PPMI}(w,c) &= \\\\ &\\max\\left(0,\\ \\log_2 \\frac{P(w,c)}{P(w)\\,P(c)}\\right)\\end{aligned}$$with probabilities taken from the matrix counts.\n\n'cat' and 'mat' are never within 1 word of each other, so $\\mathrm{count}(cat, mat) = 0 \\Rightarrow P(cat, mat) = 0 \\Rightarrow \\mathrm{PMI} = \\log_2 0 = -\\infty \\Rightarrow \\mathrm{PPMI} = \\max(0, -\\infty) = 0$.\n\nFor comparison, PPMI(cat, the): the matrix total is 22, so P(cat, the) = 2/22, P(cat) = 4/22 (row sum) and P(the) = 7/22. $$\\begin{aligned}\\mathrm{PMI} &= \\log_2 \\frac{2/22}{(4/22)(7/22)} \\\\ &= \\log_2 \\frac{44}{28} \\approx 0.65\\end{aligned}$$so PPMI ≈ 0.65.",
       "rubric": [
         {
           "point": "Pre-processing stated (lower-case, punctuation removed) and vocabulary listed",
@@ -104,7 +104,7 @@
           "marks": 1
         },
         {
-          "point": "PPMI formula: max(0, log [P(w,c) / (P(w)P(c))])",
+          "point": "PPMI formula: $\\max\\left(0, \\log \\frac{P(w,c)}{P(w)P(c)}\\right)$",
           "marks": 1
         },
         {
@@ -112,7 +112,7 @@
           "marks": 1
         },
         {
-          "point": "Observes count(cat, mat) = 0, so P(cat, mat) = 0 and PMI = log 0 = −∞",
+          "point": "Observes count(cat, mat) = 0, so P(cat, mat) = 0 and $\\mathrm{PMI} = \\log 0 = -\\infty$",
           "marks": 1
         },
         {
@@ -158,7 +158,7 @@
       "type": "written",
       "marks": 3,
       "question": "Explain what Negative Sampling is and the approach that word2vec uses to choose negative samples. (3 Marks)",
-      "modelAnswer": "Computing a softmax over the whole vocabulary for every training pair is too expensive. Negative sampling replaces it with a few binary classifications: push up the score of the real (centre, context) pair and push down the scores of k randomly chosen 'negative' context words that did not occur with it. Only k + 1 output vectors are updated per step.\n\nword2vec draws the negatives from the unigram distribution raised to the power 3/4: P(w) ∝ count(w)^0.75. Frequent words are sampled more often, but the 3/4 power flattens the distribution so rare words get picked more than their raw frequency would give.",
+      "modelAnswer": "Computing a softmax over the whole vocabulary for every training pair is too expensive. Negative sampling replaces it with a few binary classifications: push up the score of the real (centre, context) pair and push down the scores of k randomly chosen 'negative' context words that did not occur with it. Only k + 1 output vectors are updated per step.\n\nword2vec draws the negatives from the unigram distribution raised to the power 3/4: $P(w) \\propto \\mathrm{count}(w)^{0.75}$. Frequent words are sampled more often, but the 3/4 power flattens the distribution so rare words get picked more than their raw frequency would give.",
       "rubric": [
         {
           "point": "Replaces the expensive full softmax over the vocabulary (speeds up training)",
@@ -182,10 +182,10 @@
       "type": "written",
       "marks": 6,
       "question": "State and explaing one weakness for count-based and prediction-based methods of obtaining word embeddings. (6 Marks)",
-      "modelAnswer": "Count-based (co-occurrence matrix, PPMI, SVD):\n• Weakness: the matrix is |V| × |V|, so it is huge and very sparse, and dominated by frequent words.\n• Why it matters: storing it and running SVD scales badly with vocabulary size, and reducing the dimensions can throw away information about rare words. Adding new text means recounting and refactorising.\n\nPrediction-based (Word2Vec):\n• Weakness: each training step only sees one local window, so the model never uses the corpus-wide co-occurrence statistics directly. It also gives one fixed vector per word type: no vector for unseen (OOV) words and no way to tell senses apart ('bank').\n• Why it matters: it needs a lot of training passes and data to work well, it is sensitive to hyperparameters, and rare or new words are represented poorly or not at all.\n\n(Any well-explained weakness per method earns the marks, e.g. a single static vector per word, or both inheriting bias from the corpus.)",
+      "modelAnswer": "Count-based (co-occurrence matrix, PPMI, SVD):\n• Weakness: the matrix is $|V| \\times |V|$, so it is huge and very sparse, and dominated by frequent words.\n• Why it matters: storing it and running SVD scales badly with vocabulary size, and reducing the dimensions can throw away information about rare words. Adding new text means recounting and refactorising.\n\nPrediction-based (Word2Vec):\n• Weakness: each training step only sees one local window, so the model never uses the corpus-wide co-occurrence statistics directly. It also gives one fixed vector per word type: no vector for unseen (OOV) words and no way to tell senses apart ('bank').\n• Why it matters: it needs a lot of training passes and data to work well, it is sensitive to hyperparameters, and rare or new words are represented poorly or not at all.\n\n(Any well-explained weakness per method earns the marks, e.g. a single static vector per word, or both inheriting bias from the corpus.)",
       "rubric": [
         {
-          "point": "States a valid weakness of count-based methods (e.g. huge sparse |V|×|V| matrix, dominated by frequent words)",
+          "point": "States a valid weakness of count-based methods (e.g. huge sparse $|V| \\times |V|$ matrix, dominated by frequent words)",
           "marks": 1
         },
         {
@@ -233,42 +233,42 @@
       "concept": "Softmax and cross-entropy",
       "type": "numeric",
       "marks": 3,
-      "question": "Suppose we have a target p∗ and the pre-softmax model output p. First apply the Softmax function to p and then calculate the cross-entropy loss where: (3 Marks)\np∗ = [0.0, 0.0, 0.0, 1.0] and p = [0.2, 0.2, 0.5, 0.6]\nRemember that the Softmax equation is:\nsoftmax(xᵢ) = exp(xᵢ) / Σⱼ₌₁ᵈ exp(xⱼ)\nwhere xᵢ is the i-th index of the input vector x and d is the dimension of x. Similarly the cross-entropy loss (with natural logarithm) is:\nCE(p∗, p̂) = − Σⱼ₌₁ᵈ p∗ⱼ log(p̂ⱼ)\nwhere p̂ is the post-softmax model output.",
+      "question": "Suppose we have a target $p^*$ and the pre-softmax model output $p$. First apply the Softmax function to $p$ and then calculate the cross-entropy loss where: (3 Marks)\n$p^* = [0.0, 0.0, 0.0, 1.0]$ and $p = [0.2, 0.2, 0.5, 0.6]$\nRemember that the Softmax equation is:\n$$\\mathrm{softmax}(x_i) = \\frac{\\exp(x_i)}{\\sum_{j=1}^{d} \\exp(x_j)}$$\nwhere $x_i$ is the $i$-th index of the input vector $x$ and $d$ is the dimension of $x$. Similarly the cross-entropy loss (with natural logarithm) is:\n$$\\mathrm{CE}(p^*, \\hat{p}) = -\\sum_{j=1}^{d} p^*_j \\log(\\hat{p}_j)$$\nwhere $\\hat{p}$ is the post-softmax model output.",
       "parts": [
         {
-          "label": "p̂₁",
+          "label": "$\\hat{p}_1$",
           "answer": 0.2065,
           "tolerance": 0.001,
           "marks": 0.5
         },
         {
-          "label": "p̂₂",
+          "label": "$\\hat{p}_2$",
           "answer": 0.2065,
           "tolerance": 0.001,
           "marks": 0.5
         },
         {
-          "label": "p̂₃",
+          "label": "$\\hat{p}_3$",
           "answer": 0.2788,
           "tolerance": 0.001,
           "marks": 0.5
         },
         {
-          "label": "p̂₄",
+          "label": "$\\hat{p}_4$",
           "answer": 0.3081,
           "tolerance": 0.001,
           "marks": 0.5
         },
         {
-          "label": "CE(p∗, p̂)",
+          "label": "$\\mathrm{CE}(p^*, \\hat{p})$",
           "answer": 1.1773,
           "tolerance": 0.005,
           "marks": 1
         }
       ],
-      "solution": "1. Exponentiate each entry:\n   e^0.2 = 1.2214, e^0.2 = 1.2214, e^0.5 = 1.6487, e^0.6 = 1.8221\n2. Sum: 1.2214 + 1.2214 + 1.6487 + 1.8221 = 5.9136\n3. Divide each by the sum:\n   p̂ = [0.2065, 0.2065, 0.2788, 0.3081] (these add to 1)\n4. The target is one-hot on class 4, so only that term survives:\n   CE = −(0·log 0.2065 + 0·log 0.2065 + 0·log 0.2788 + 1·log 0.3081) = −ln(0.3081) ≈ 1.177",
+      "solution": "1. Exponentiate each entry:\n   $e^{0.2} = 1.2214,\\ e^{0.2} = 1.2214,\\ e^{0.5} = 1.6487,\\ e^{0.6} = 1.8221$\n2. Sum: 1.2214 + 1.2214 + 1.6487 + 1.8221 = 5.9136\n3. Divide each by the sum:\n   $\\hat{p} = [0.2065, 0.2065, 0.2788, 0.3081]$ (these add to 1)\n4. The target is one-hot on class 4, so only that term survives:\n   $$\\begin{aligned}\\mathrm{CE} &= -(0 \\cdot \\log 0.2065 + 0 \\cdot \\log 0.2065 \\\\ &\\quad + 0 \\cdot \\log 0.2788 + 1 \\cdot \\log 0.3081) \\\\ &= -\\ln(0.3081) \\approx 1.177\\end{aligned}$$",
       "inputHint": "Give each value to 4 decimal places.",
-      "explanation": "With a one-hot target, cross-entropy is just −log of the probability given to the correct class."
+      "explanation": "With a one-hot target, cross-entropy is just $-\\log$ of the probability given to the correct class."
     },
     {
       "id": "nlp-tut-3-3",
@@ -355,13 +355,14 @@
       ]
     },
     {
-      "id": "nlp-tut-4-2", "variantOf": "laplace-calc",
+      "id": "nlp-tut-4-2",
+      "variantOf": "laplace-calc",
       "number": "4.2",
       "lecture": 5,
       "concept": "Laplace-smoothed n-gram",
       "type": "numeric",
       "marks": 4,
-      "question": "Suppose we have the 4-gram language model described below. Calculate the probability P(moon|cat on the), using laplace smoothing. Suppose δ = 0.1, the vocabulary count is 20 and we have the following counts: (4 Marks)\nCounts\ncat on the: 10\ncat on the moon: 0",
+      "question": "Suppose we have the 4-gram language model described below. Calculate the probability $P(moon|cat\\ on\\ the)$, using laplace smoothing. Suppose $\\delta = 0.1$, the vocabulary count is 20 and we have the following counts: (4 Marks)\nCounts\ncat on the: 10\ncat on the moon: 0",
       "parts": [
         {
           "label": "P(moon | cat on the)",
@@ -370,9 +371,9 @@
           "marks": 4
         }
       ],
-      "solution": "Laplace (add-δ) smoothing:\nP(w | context) = (N(context, w) + δ) / (N(context) + δ·|V|)\n\n= (N(cat on the moon) + 0.1) / (N(cat on the) + 0.1 × 20)\n= (0 + 0.1) / (10 + 2)\n= 0.1 / 12\n≈ 0.00833 (= 1/120)\n\nWithout smoothing it would be 0/10 = 0.",
+      "solution": "Laplace (add-$\\delta$) smoothing:\n$$P(w \\mid context) = \\frac{N(context, w) + \\delta}{N(context) + \\delta \\cdot |V|}$$\n\n$$\\begin{aligned}&= \\frac{N(cat\\ on\\ the\\ moon) + 0.1}{N(cat\\ on\\ the) + 0.1 \\times 20} \\\\ &= \\frac{0 + 0.1}{10 + 2} = \\frac{0.1}{12} \\\\ &\\approx 0.00833 = \\frac{1}{120}\\end{aligned}$$\n\nWithout smoothing it would be 0/10 = 0.",
       "inputHint": "A decimal (e.g. 0.0083) or a fraction (e.g. 1/120).",
-      "explanation": "The denominator adds δ for every word in the vocabulary (δ·|V|), so that the smoothed probabilities still sum to 1."
+      "explanation": "The denominator adds $\\delta$ for every word in the vocabulary ($\\delta \\cdot |V|$), so that the smoothed probabilities still sum to 1."
     },
     {
       "id": "nlp-tut-4-3",
@@ -382,7 +383,7 @@
       "type": "written",
       "marks": 5,
       "question": "Explain why a CNN is considered as representing (and as a result processing) sentences spatially and RNNs are considered as representing (and processes) sentences temporally. (5 Marks)",
-      "modelAnswer": "CNN, spatial:\n• The sentence is laid out as a 2-D grid (positions × embedding dimensions), like an image, so word order becomes a spatial axis.\n• Filters slide over windows of neighbouring words and detect local patterns (n-gram-like features) the same way at every position (shared weights, translation invariance).\n• All positions are processed at once, in parallel; there is no notion of 'before' or 'after' beyond the window, and pooling then summarises over the positions.\n\nRNN, temporal:\n• The sentence is read one token at a time, in order, as a sequence of time steps.\n• The hidden state at step t is computed from the input at t and the hidden state at t−1, so it carries a running memory of everything seen so far.\n• Processing is inherently sequential (step t must wait for t−1), which is why order and time are built into how it represents the sentence.",
+      "modelAnswer": "CNN, spatial:\n• The sentence is laid out as a 2-D grid (positions × embedding dimensions), like an image, so word order becomes a spatial axis.\n• Filters slide over windows of neighbouring words and detect local patterns (n-gram-like features) the same way at every position (shared weights, translation invariance).\n• All positions are processed at once, in parallel; there is no notion of 'before' or 'after' beyond the window, and pooling then summarises over the positions.\n\nRNN, temporal:\n• The sentence is read one token at a time, in order, as a sequence of time steps.\n• The hidden state at step $t$ is computed from the input at $t$ and the hidden state at $t-1$, so it carries a running memory of everything seen so far.\n• Processing is inherently sequential (step $t$ must wait for $t-1$), which is why order and time are built into how it represents the sentence.",
       "rubric": [
         {
           "point": "CNN: sentence as a grid/matrix of positions × embedding dims; position is treated like a spatial axis",
@@ -401,7 +402,7 @@
           "marks": 1
         },
         {
-          "point": "RNN: hidden state h_t depends on x_t and h_{t−1} (recurrent memory), so processing is sequential",
+          "point": "RNN: hidden state $h_t$ depends on $x_t$ and $h_{t-1}$ (recurrent memory), so processing is sequential",
           "marks": 1
         }
       ]
@@ -461,7 +462,7 @@
           "marks": 1
         },
         {
-          "point": "Keeps the smallest set of top tokens whose cumulative probability ≥ p, so the number of candidates adapts",
+          "point": "Keeps the smallest set of top tokens whose cumulative probability $\\geq p$, so the number of candidates adapts",
           "marks": 1
         },
         {
@@ -523,14 +524,14 @@
       "type": "written",
       "marks": 6,
       "question": "State the three types of score functions typically used for an attention mechanism and the functional form of each. (6 Marks)",
-      "modelAnswer": "With decoder state hₜ and encoder state sₖ:\n1. Dot product: score(hₜ, sₖ) = hₜᵀ sₖ. No parameters; large when the vectors align. (Used, scaled by 1/√dₖ, in Transformers.)\n2. Bilinear (Luong's 'general'): score(hₜ, sₖ) = hₜᵀ W sₖ, with a learned matrix W. The dot product is the special case W = I.\n3. Multi-layer perceptron (additive, Bahdanau): score(hₜ, sₖ) = wᵀ tanh(W₁[hₜ; sₖ]), i.e. concatenate, a learned layer, tanh, then project to a scalar with the learned vector w.",
+      "modelAnswer": "With decoder state $h_t$ and encoder state $s_k$:\n1. Dot product: $\\mathrm{score}(h_t, s_k) = h_t^T s_k$. No parameters; large when the vectors align. (Used, scaled by $1/\\sqrt{d_k}$, in Transformers.)\n2. Bilinear (Luong's 'general'): $\\mathrm{score}(h_t, s_k) = h_t^T W s_k$, with a learned matrix $W$. The dot product is the special case $W = I$.\n3. Multi-layer perceptron (additive, Bahdanau): $\\mathrm{score}(h_t, s_k) = w^T \\tanh(W_1[h_t; s_k])$, i.e. concatenate, a learned layer, tanh, then project to a scalar with the learned vector $w$.",
       "rubric": [
         {
           "point": "Names dot-product",
           "marks": 1
         },
         {
-          "point": "Dot-product form: hₜᵀ sₖ",
+          "point": "Dot-product form: $h_t^T s_k$",
           "marks": 1
         },
         {
@@ -538,7 +539,7 @@
           "marks": 1
         },
         {
-          "point": "Bilinear form: hₜᵀ W sₖ with learned W",
+          "point": "Bilinear form: $h_t^T W s_k$ with learned $W$",
           "marks": 1
         },
         {
@@ -546,19 +547,20 @@
           "marks": 1
         },
         {
-          "point": "MLP form: wᵀ tanh(W₁[hₜ; sₖ])",
+          "point": "MLP form: $w^T \\tanh(W_1[h_t; s_k])$",
           "marks": 1
         }
       ]
     },
     {
-      "id": "nlp-tut-5-4", "variantOf": "attn-calc",
+      "id": "nlp-tut-5-4",
+      "variantOf": "attn-calc",
       "number": "5.4",
       "lecture": 7,
       "concept": "Self-attention calculation",
       "type": "numeric",
       "marks": 10,
-      "question": "Given weight matrices WQ, WK, and WV representing the query, key and value matrices of a particular attention block in a transformer, and an input matrix X of 2 word vectors of 2 dimensions each. Calculate the Self Attention matrix A for the 2 tokens. Each row of X is a token and so you should left multiply by the weights. In other words use: W Xᵀ. (10 Marks)\nWQ = [[1.5, 1.2], [0.8, 1.5]]\nWK = [[0.7, 1.0], [0.9, 0.1]]\nWV = [[2.0, 1.0], [0.4, 0.4]]\nX = [[0.5, 1.5], [1.1, 0.4]]",
+      "question": "Given weight matrices $W_Q$, $W_K$, and $W_V$ representing the query, key and value matrices of a particular attention block in a transformer, and an input matrix $X$ of 2 word vectors of 2 dimensions each. Calculate the Self Attention matrix $A$ for the 2 tokens. Each row of $X$ is a token and so you should left multiply by the weights. In other words use: $WX^T$. (10 Marks)\n$$W_Q = \\begin{bmatrix} 1.5 & 1.2 \\\\ 0.8 & 1.5 \\end{bmatrix} \\quad W_K = \\begin{bmatrix} 0.7 & 1.0 \\\\ 0.9 & 0.1 \\end{bmatrix}$$ $$W_V = \\begin{bmatrix} 2.0 & 1.0 \\\\ 0.4 & 0.4 \\end{bmatrix}$$\n$$X = \\begin{bmatrix} 0.5 & 1.5 \\\\ 1.1 & 0.4 \\end{bmatrix}$$",
       "parts": [
         {
           "label": "A[1,1]",
@@ -585,13 +587,13 @@
           "marks": 2.5
         }
       ],
-      "solution": "Tokens are the rows of X: x₁ = [0.5, 1.5], x₂ = [1.1, 0.4]. Using W Xᵀ, each column of the result is one token.\n\n1. Queries Q = WQ Xᵀ:\n   q₁ = [1.5·0.5 + 1.2·1.5, 0.8·0.5 + 1.5·1.5] = [2.55, 2.65]\n   q₂ = [1.5·1.1 + 1.2·0.4, 0.8·1.1 + 1.5·0.4] = [2.13, 1.48]\n2. Keys K = WK Xᵀ:\n   k₁ = [0.7·0.5 + 1.0·1.5, 0.9·0.5 + 0.1·1.5] = [1.85, 0.60]\n   k₂ = [0.7·1.1 + 1.0·0.4, 0.9·1.1 + 0.1·0.4] = [1.17, 1.03]\n3. Values V = WV Xᵀ:\n   v₁ = [2.50, 0.80], v₂ = [2.60, 0.60]\n4. Scaled scores Sᵢⱼ = qᵢ · kⱼ / √dₖ with dₖ = 2 (√2 ≈ 1.4142):\n   q₁·k₁ = 2.55·1.85 + 2.65·0.60 = 6.3075 → 4.4601\n   q₁·k₂ = 2.55·1.17 + 2.65·1.03 = 5.7130 → 4.0397\n   q₂·k₁ = 2.13·1.85 + 1.48·0.60 = 4.8285 → 3.4143\n   q₂·k₂ = 2.13·1.17 + 1.48·1.03 = 4.0165 → 2.8401\n5. Row-wise softmax (each row = one query token):\n   row 1: e^4.4601 / (e^4.4601 + e^4.0397) = 1 / (1 + e^−0.4204) = 0.6036; the other entry is 0.3964\n   row 2: 1 / (1 + e^−0.5742) = 0.6397; the other entry is 0.3603\n\nA = [[0.6036, 0.3964], [0.6397, 0.3603]]\n\nThis is the attention matrix: stop here. The lecturer said that if he asks for the attention matrix/weights, you do not multiply by V. If you were asked for the attention OUTPUT, it would be A·Vᵀ: token 1 → [2.5396, 0.7207], token 2 → [2.5360, 0.7279].\n\n(Without the 1/√dₖ scaling you'd get A = [[0.6444, 0.3556], [0.6925, 0.3075]]. Always scale unless told otherwise.)",
+      "solution": "Tokens are the rows of $X$: $x_1 = [0.5, 1.5]$, $x_2 = [1.1, 0.4]$. Using $WX^T$, each column of the result is one token.\n\n1. Queries $Q = W_Q X^T$:\n$$q_1 = \\begin{bmatrix} 1.5 \\cdot 0.5 + 1.2 \\cdot 1.5 \\\\ 0.8 \\cdot 0.5 + 1.5 \\cdot 1.5 \\end{bmatrix} = \\begin{bmatrix} 2.55 \\\\ 2.65 \\end{bmatrix}$$\n$$q_2 = \\begin{bmatrix} 1.5 \\cdot 1.1 + 1.2 \\cdot 0.4 \\\\ 0.8 \\cdot 1.1 + 1.5 \\cdot 0.4 \\end{bmatrix} = \\begin{bmatrix} 2.13 \\\\ 1.48 \\end{bmatrix}$$\n2. Keys $K = W_K X^T$:\n$$k_1 = \\begin{bmatrix} 0.7 \\cdot 0.5 + 1.0 \\cdot 1.5 \\\\ 0.9 \\cdot 0.5 + 0.1 \\cdot 1.5 \\end{bmatrix} = \\begin{bmatrix} 1.85 \\\\ 0.60 \\end{bmatrix}$$\n$$k_2 = \\begin{bmatrix} 0.7 \\cdot 1.1 + 1.0 \\cdot 0.4 \\\\ 0.9 \\cdot 1.1 + 0.1 \\cdot 0.4 \\end{bmatrix} = \\begin{bmatrix} 1.17 \\\\ 1.03 \\end{bmatrix}$$\n3. Values $V = W_V X^T$: $v_1 = [2.50, 0.80]$, $v_2 = [2.60, 0.60]$\n4. Scaled scores $S_{ij} = \\dfrac{q_i \\cdot k_j}{\\sqrt{d_k}}$ with $d_k = 2$ ($\\sqrt{2} \\approx 1.4142$):\n$$\\begin{aligned}q_1 \\cdot k_1 &= 2.55 \\cdot 1.85 + 2.65 \\cdot 0.60 \\\\ &= 6.3075 \\;\\to\\; 4.4601\\end{aligned}$$\n$$\\begin{aligned}q_1 \\cdot k_2 &= 2.55 \\cdot 1.17 + 2.65 \\cdot 1.03 \\\\ &= 5.7130 \\;\\to\\; 4.0397\\end{aligned}$$\n$$\\begin{aligned}q_2 \\cdot k_1 &= 2.13 \\cdot 1.85 + 1.48 \\cdot 0.60 \\\\ &= 4.8285 \\;\\to\\; 3.4143\\end{aligned}$$\n$$\\begin{aligned}q_2 \\cdot k_2 &= 2.13 \\cdot 1.17 + 1.48 \\cdot 1.03 \\\\ &= 4.0165 \\;\\to\\; 2.8401\\end{aligned}$$\n5. Row-wise softmax (each row = one query token):\n$$\\begin{aligned}\\text{row 1: } &\\frac{e^{4.4601}}{e^{4.4601} + e^{4.0397}} \\\\ &= \\frac{1}{1 + e^{-0.4204}} = 0.6036 \\\\ &\\text{other entry: } 0.3964\\end{aligned}$$\n$$\\begin{aligned}\\text{row 2: } &\\frac{1}{1 + e^{-0.5742}} = 0.6397 \\\\ &\\text{other entry: } 0.3603\\end{aligned}$$\n$$A = \\begin{bmatrix} 0.6036 & 0.3964 \\\\ 0.6397 & 0.3603 \\end{bmatrix}$$\nThis is the attention matrix: stop here. The lecturer said that if he asks for the attention matrix/weights, you do not multiply by $V$. If you were asked for the attention OUTPUT, it would be $AV^T$: token 1 → $[2.5396, 0.7207]$, token 2 → $[2.5360, 0.7279]$.\n\n(Without the $1/\\sqrt{d_k}$ scaling you'd get $A = \\begin{bmatrix} 0.6444 & 0.3556 \\\\ 0.6925 & 0.3075 \\end{bmatrix}$. Always scale unless told otherwise.)",
       "grid": {
         "rows": 2,
         "cols": 2
       },
       "inputHint": "Enter the attention weights (after softmax) to 4 decimal places. Rows are the query tokens.",
-      "explanation": "The question says 'Self Attention matrix A', which by the lecturer's definition is softmax(QKᵀ/√dₖ). Older solution packs that multiply by V answer a different question."
+      "explanation": "The question says 'Self Attention matrix A', which by the lecturer's definition is $\\mathrm{softmax}(QK^T/\\sqrt{d_k})$. Older solution packs that multiply by $V$ answer a different question."
     },
     {
       "id": "nlp-tut-5-5",
@@ -601,7 +603,7 @@
       "type": "written",
       "marks": 6,
       "question": "Explain the primary difference between the encoder and the decoder of a transformer neural network, with specific mention to the types of attention that can be found in each. (6 Marks)",
-      "modelAnswer": "Encoder: reads the whole source sequence at once and builds contextual representations of it. Each layer has (unmasked) self-attention, where every token attends to every other source token, left and right, followed by a feed-forward layer (both with residual connections and layer norm). Q, K and V all come from the encoder states.\n\nDecoder: generates the target one token at a time (autoregressively), so it must not see the future. Each layer has:\n1. Masked self-attention: each target token attends only to itself and earlier target tokens (future scores set to −∞ before the softmax). This keeps training consistent with inference.\n2. Cross (encoder–decoder) attention: queries come from the decoder, keys and values come from the encoder output, so each target position can look up the relevant source information.\n3. A feed-forward layer, then an output projection + softmax over the vocabulary to predict the next token.\n\nSo the primary difference: the encoder sees everything and only attends to itself; the decoder is masked and also attends to the encoder.",
+      "modelAnswer": "Encoder: reads the whole source sequence at once and builds contextual representations of it. Each layer has (unmasked) self-attention, where every token attends to every other source token, left and right, followed by a feed-forward layer (both with residual connections and layer norm). Q, K and V all come from the encoder states.\n\nDecoder: generates the target one token at a time (autoregressively), so it must not see the future. Each layer has:\n1. Masked self-attention: each target token attends only to itself and earlier target tokens (future scores set to $-\\infty$ before the softmax). This keeps training consistent with inference.\n2. Cross (encoder–decoder) attention: queries come from the decoder, keys and values come from the encoder output, so each target position can look up the relevant source information.\n3. A feed-forward layer, then an output projection + softmax over the vocabulary to predict the next token.\n\nSo the primary difference: the encoder sees everything and only attends to itself; the decoder is masked and also attends to the encoder.",
       "rubric": [
         {
           "point": "Encoder processes the whole input at once to build contextual representations",
@@ -666,7 +668,8 @@
       ]
     },
     {
-      "id": "nlp-tut-6-2", "variantOf": "bert-pretrain",
+      "id": "nlp-tut-6-2",
+      "variantOf": "bert-pretrain",
       "number": "6.2",
       "lecture": 8,
       "concept": "BERT output and pre-training",
@@ -750,17 +753,18 @@
       ]
     },
     {
-      "id": "nlp-tut-6-5", "variantOf": "lora-benefits",
+      "id": "nlp-tut-6-5",
+      "variantOf": "lora-benefits",
       "number": "6.5",
       "lecture": 8,
       "concept": "LoRA vs adapters",
       "type": "written",
       "marks": 4,
       "question": "Describe the benefits of LoRa over an adapter layer and how it achieves these benefits. (4 marks)",
-      "modelAnswer": "How LoRA works: the pretrained weights W₀ are frozen, and the update is learned as a low-rank product ΔW = BA (B ∈ ℝ^{d×r}, A ∈ ℝ^{r×k}, with rank r ≪ d, k), so W' = W₀ + BA.\n\nBenefits over adapters:\n• No extra inference latency: adapters add new layers that run in sequence at inference time. LoRA's BA can be merged into W₀ after training (W' = W₀ + BA), so the model has the same architecture and speed as before.\n• Very few trainable parameters and less memory: only A and B are trained (the slides quote up to 10,000× fewer trainable parameters and 3× less GPU memory for GPT-3), and swapping tasks means swapping small BA matrices.",
+      "modelAnswer": "How LoRA works: the pretrained weights $W_0$ are frozen, and the update is learned as a low-rank product $\\Delta W = BA$ ($B \\in \\mathbb{R}^{d \\times r}$, $A \\in \\mathbb{R}^{r \\times k}$, with rank $r \\ll d, k$), so $W' = W_0 + BA$.\n\nBenefits over adapters:\n• No extra inference latency: adapters add new layers that run in sequence at inference time. LoRA's $BA$ can be merged into $W_0$ after training ($W' = W_0 + BA$), so the model has the same architecture and speed as before.\n• Very few trainable parameters and less memory: only A and B are trained (the slides quote up to 10,000× fewer trainable parameters and 3× less GPU memory for GPT-3), and swapping tasks means swapping small BA matrices.",
       "rubric": [
         {
-          "point": "Freezes the pretrained weights W₀",
+          "point": "Freezes the pretrained weights $W_0$",
           "marks": 1
         },
         {
@@ -778,21 +782,22 @@
       ]
     },
     {
-      "id": "nlp-tut-6-6", "variantOf": "lora-mem",
+      "id": "nlp-tut-6-6",
+      "variantOf": "lora-mem",
       "number": "6.6",
       "lecture": 8,
       "concept": "LoRA memory calculation",
       "type": "written",
       "marks": 2,
-      "question": "Consider a layer of a neural network implemented by the matrix W ∈ ℝ^(N×D) with 16-bit floating point type values.\n(a) Calculate the memory required to store this layer of weights.\n(b) Calculate the memory required to store a LoRa layer with rank= 2 approximating W",
-      "modelAnswer": "16-bit floats take 2 bytes each.\n(a) W has N·D values → 16·N·D bits = 2ND bytes.\n(b) A rank-2 LoRA approximation stores B ∈ ℝ^(N×2) and A ∈ ℝ^(2×D): 2N + 2D values → 2·(2N + 2D) = 4(N + D) bytes (= 32(N + D) bits).\n\nExample: N = D = 1000 gives 2,000,000 bytes (2 MB) for W, but only 8,000 bytes (8 kB) for the LoRA layer. (In practice the frozen W is still stored; the saving is in what you train and store per task.)",
+      "question": "Consider a layer of a neural network implemented by the matrix $W \\in \\mathbb{R}^{N \\times D}$ with 16-bit floating point type values.\n(a) Calculate the memory required to store this layer of weights.\n(b) Calculate the memory required to store a LoRa layer with rank= 2 approximating $W$",
+      "modelAnswer": "16-bit floats take 2 bytes each.\n(a) $W$ has $N \\cdot D$ values → $16ND$ bits $= 2ND$ bytes.\n(b) A rank-2 LoRA approximation stores $B \\in \\mathbb{R}^{N \\times 2}$ and $A \\in \\mathbb{R}^{2 \\times D}$: $2N + 2D$ values → $2(2N + 2D) = 4(N + D)$ bytes ($= 32(N + D)$ bits).\n\nExample: N = D = 1000 gives 2,000,000 bytes (2 MB) for W, but only 8,000 bytes (8 kB) for the LoRA layer. (In practice the frozen W is still stored; the saving is in what you train and store per task.)",
       "rubric": [
         {
           "point": "(a) 2ND bytes (16ND bits)",
           "marks": 1
         },
         {
-          "point": "(b) A and B have 2N + 2D values → 4(N + D) bytes (32(N + D) bits)",
+          "point": "(b) A and B have $2N + 2D$ values → $4(N + D)$ bytes ($32(N + D)$ bits)",
           "marks": 1
         }
       ],

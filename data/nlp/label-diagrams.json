@@ -73,7 +73,7 @@
         "Global max-pooling",
         "Beam search"
       ],
-      "explanation": "Bottom up. Encoder (left): input embedding + positional encoding → [multi-head self-attention → add & norm → feed forward → add & norm] × N. Decoder (right): output embedding + positional encoding → masked multi-head self-attention → add & norm → multi-head encoder–decoder (cross) attention, where Q comes from the decoder and K, V from the encoder → add & norm → feed forward → add & norm, × N → linear → softmax over the vocabulary."
+      "explanation": "Bottom up. Encoder (left): input embedding + positional encoding → [multi-head self-attention → add & norm → feed forward → add & norm] $\\times N$. Decoder (right): output embedding + positional encoding → masked multi-head self-attention → add & norm → multi-head encoder–decoder (cross) attention, where Q comes from the decoder and K, V from the encoder → add & norm → feed forward → add & norm, $\\times N$ → linear → softmax over the vocabulary."
     },
     {
       "id": "nlp-lab-encoder-decoder",
@@ -341,7 +341,7 @@
         "Self-attention",
         "Average pooling"
       ],
-      "explanation": "Characters → convolution (several filters over character n-grams) → global max-pooling over positions (fixed-size vector) → 2 highway blocks (gate g = σ(Wx + b) mixes a linear transform with the input: g·Linear(x) + (1 − g)·x) → a final linear projection. Because it works from characters, ELMo is open-vocabulary."
+      "explanation": "Characters → convolution (several filters over character n-grams) → global max-pooling over positions (fixed-size vector) → 2 highway blocks (gate $g = \\sigma(Wx + b)$ mixes a linear transform with the input: $g \\cdot \\mathrm{Linear}(x) + (1 - g) \\cdot x$) → a final linear projection. Because it works from characters, ELMo is open-vocabulary."
     },
     {
       "id": "nlp-lab-elmo",
@@ -377,7 +377,7 @@
         "Word2Vec embedding lookup",
         "Bidirectional GRU"
       ],
-      "explanation": "ELMo: char-CNN + highway layers give a context-independent token representation; a 2-layer forward LSTM language model and a separate 2-layer backward LSTM LM read the sentence; the ELMo representation is a task-specific weighted sum (λ₀, λ₁, λ₂) of the layers. No self-attention."
+      "explanation": "ELMo: char-CNN + highway layers give a context-independent token representation; a 2-layer forward LSTM language model and a separate 2-layer backward LSTM LM read the sentence; the ELMo representation is a task-specific weighted sum ($\\lambda_0, \\lambda_1, \\lambda_2$) of the layers. No self-attention."
     },
     {
       "id": "nlp-lab-lora",
@@ -418,7 +418,7 @@
         "Layer Norm",
         "Softmax"
       ],
-      "explanation": "LoRA freezes W₀ and learns ΔW = BA with rank r ≪ d, so h = W₀x + BAx. After training, BA can be merged into W₀, so unlike adapters there's no extra inference latency."
+      "explanation": "LoRA freezes $W_0$ and learns $\\Delta W = BA$ with rank $r \\ll d$, so $h = W_0 x + BAx$. After training, $BA$ can be merged into $W_0$, so unlike adapters there's no extra inference latency."
     },
     {
       "id": "nlp-lab-bert-input",
@@ -561,7 +561,7 @@
         "(dot product with W_V)",
         "(layer norm)"
       ],
-      "explanation": "Input: all encoder states s₁…s_m and one decoder state h_t → scores score(h_t, s_k) → softmax → attention weights a_k^(t) → weighted sum → attention output c^(t) = Σ a_k^(t) s_k, the source context for decoder step t."
+      "explanation": "Input: all encoder states $s_1, \\ldots, s_m$ and one decoder state $h_t$ → scores $\\mathrm{score}(h_t, s_k)$ → softmax → attention weights $a_k^{(t)}$ → weighted sum → attention output $c^{(t)} = \\sum_k a_k^{(t)} s_k$, the source context for decoder step $t$."
     },
     {
       "id": "nlp-lab-score-functions",
@@ -596,7 +596,7 @@
         "Softmax",
         "Euclidean distance"
       ],
-      "explanation": "Dot-product: h_tᵀ s_k. Bilinear: h_tᵀ W s_k (learned W; W = I gives the dot product). MLP (additive): w₂ᵀ tanh(W₁[h_t, s_k]). Bahdanau used MLP, Luong used bilinear."
+      "explanation": "Dot-product: $h_t^T s_k$. Bilinear: $h_t^T W s_k$ (learned $W$; $W = I$ gives the dot product). MLP (additive): $w_2^T \\tanh(W_1[h_t, s_k])$. Bahdanau used MLP, Luong used bilinear."
     },
     {
       "id": "nlp-lab-bahdanau",
@@ -642,7 +642,7 @@
         "Unidirectional encoder",
         "Dot-product (score function)"
       ],
-      "explanation": "Bahdanau: bidirectional encoder; attention uses the previous decoder state h_{t−1}; MLP score function; the context c^(t) is fed into the next decoder step together with h_{t−1}."
+      "explanation": "Bahdanau: bidirectional encoder; attention uses the previous decoder state $h_{t-1}$; MLP score function; the context $c^{(t)}$ is fed into the next decoder step together with $h_{t-1}$."
     },
     {
       "id": "nlp-lab-luong",
@@ -683,7 +683,7 @@
         "Bidirectional encoder: concatenate states from forward and backward RNNs",
         "Dot-product (score function)"
       ],
-      "explanation": "Luong: unidirectional encoder; attention uses the current decoder state h_t; bilinear score function; then h̃_t = tanh(W_c[h_t, c^(t)]) combines context and state to predict the next token."
+      "explanation": "Luong: unidirectional encoder; attention uses the current decoder state $h_t$; bilinear score function; then $\\tilde{h}_t = \\tanh(W_c[h_t, c^{(t)}])$ combines context and state to predict the next token."
     }
   ]
 }
