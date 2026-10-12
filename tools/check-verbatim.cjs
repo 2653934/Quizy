@@ -1,5 +1,5 @@
 // Check that source papers (kinds past-paper, practice-quiz and tutorial) reach the app verbatim: every
-// question, choice, matching prompt, option and numeric part label string in generated/quizy-data.js
+// question, choice, matching prompt, option, diagram label answer and numeric part label string in generated/quizy-data.js
 // must be byte-identical to its source JSON under data/.
 // Run after node tools/build-data.cjs: node tools/check-verbatim.cjs
 const fs = require('node:fs');
@@ -20,6 +20,7 @@ const strings = q => [
   ...(q.choices || []),
   ...(q.pairs || []).flatMap(p => [p.prompt, p.answer]),
   ...(q.options || []),
+  ...(q.labels || []).map(l => l.answer),
   ...(q.parts || []).map(p => p.label)
 ];
 

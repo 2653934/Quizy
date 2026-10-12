@@ -20,11 +20,11 @@
     parts.forEach((part, i) => node.append(i % 2 ? Quizy.el('strong', '', part) : document.createTextNode(part)));
   };
 
-  // Fisher-Yates on a copy, using Quizy.random (src/core/random.js).
-  Quizy.shuffle = function (items) {
+  // Fisher-Yates on a copy, using Quizy.random (src/core/random.js) or the given generator.
+  Quizy.shuffle = function (items, random = Quizy.random) {
     const copy = [...items];
     for (let i = copy.length - 1; i > 0; i--) {
-      const j = Math.floor(Quizy.random() * (i + 1));
+      const j = Math.floor(random() * (i + 1));
       [copy[i], copy[j]] = [copy[j], copy[i]];
     }
     return copy;

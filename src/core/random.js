@@ -22,6 +22,8 @@
     }
     return source();
   };
+  // A separate seeded generator, e.g. for a mock paper's code (src/core/paper.js).
+  Quizy.seeded = seeded;
   // For Node tests: Quizy.seedRandom(42) to replay, Quizy.seedRandom(null) to go back to Math.random.
   Quizy.seedRandom = seed => { source = seed === null ? Math.random : seeded(seed); };
 
