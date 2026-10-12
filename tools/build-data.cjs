@@ -3,18 +3,23 @@
 const fs = require('node:fs');
 const path = require('node:path');
 
-const root = path.join(__dirname, '..');
+// The repo, or another folder with the same layout (data/, generated/): node tools/build-data.cjs <folder> (used by the tests).
+const root = process.argv[2] ? path.resolve(process.argv[2]) : path.join(__dirname, '..');
 // The app's own Node-safe code: helpers, marks, the set file rule, the paper fields and the question types (every file in src/types/).
 // Each type validates its own fields; this script keeps the checks that span questions and sets.
 require('../src/core/random.js');
 require('../src/core/util.js');
+require('../src/core/math.js');
 require('../src/core/scoring.js');
 const Quizy = require('../src/core/data.js');
 require('../src/core/paper.js');
 require('../src/types/registry.js');
-for (const file of fs.readdirSync(path.join(root, 'src/types')).sort()) require(path.join(root, 'src/types', file));
+const types = path.join(__dirname, '..', 'src', 'types');
+for (const file of fs.readdirSync(types).sort()) require(path.join(types, file));
 const {setFile} = Quizy;
 const {isText, checkWords} = Quizy.typeHelpers;
+// The vendored KaTeX (UMD build) checks every formula once, as the app will draw it.
+const katex = require('../vendor/katex/katex.min.js');
 
 const KINDS = new Set(['lecture-bank', 'past-paper', 'practice-quiz', 'tutorial', 'generated']);
 const errors = [];
@@ -39,6 +44,12 @@ function checkQuestion(q, set, ids) {
   }
   if (set.kind === 'lecture-bank' && (!q.source?.file || !Array.isArray(q.source.pages) || !q.source.pages.length)) fail(`${where}: missing source`);
   type.validate(q, set, fail);
+  for (const [field, text] of Quizy.shownFields(q)) checkMath(`${where} ${field}`, text);
+}
+
+// $…$ / $$…$$ maths: balanced, and every formula parses (src/core/math.js).
+function checkMath(where, text) {
+  for (const problem of Quizy.checkMath(text, katex)) fail(`${where}: ${problem}`);
 }
 
 const registry = readJSON('data/subjects.json');
@@ -61,6 +72,7 @@ for (const subject of registry.subjects) {
     if (set.id !== id) fail(`${file}: id is "${set.id}", expected "${id}"`);
     if (set.subject !== subject.key) fail(`${file}: subject is "${set.subject}", expected "${subject.key}"`);
     if (!isText(set.title)) fail(`${file}: missing title`);
+    if (set.description !== undefined) checkMath(`${id} description`, set.description);
     if (!KINDS.has(set.kind)) fail(`${file}: unknown kind "${set.kind}"`);
     if (set.unofficialAnswers !== undefined && typeof set.unofficialAnswers !== 'boolean') fail(`${file}: unofficialAnswers must be true or false`);
     if (!Array.isArray(set.questions)) { fail(`${file}: questions must be an array`); continue; }
