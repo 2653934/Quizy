@@ -9959,7 +9959,7 @@ window.QUIZY_DATA = {
           "answer": [
             1
           ],
-          "explanation": "∏ argmax p(y_t|y<t,x) ≠ argmax ∏ p(y_t|y<t,x). Greedy autoregressive decoding is not the same as finding the most probable whole sentence, which is why beam search exists."
+          "explanation": "$\\prod_t \\arg\\max_{y_t} p(y_t|y_{<t},x) \\neq \\arg\\max_y \\prod_t p(y_t|y_{<t},x)$. Greedy autoregressive decoding is not the same as finding the most probable whole sentence, which is why beam search exists."
         },
         {
           "id": "nlp-pq2-08",
@@ -9999,7 +9999,7 @@ window.QUIZY_DATA = {
           "answer": [
             0
           ],
-          "explanation": "Bahdanau uses a bidirectional encoder, attends from the previous decoder state h_{t-1}, and uses an MLP score function."
+          "explanation": "Bahdanau uses a bidirectional encoder, attends from the previous decoder state $h_{t-1}$, and uses an MLP score function."
         },
         {
           "id": "nlp-pq2-10",
@@ -10016,7 +10016,7 @@ window.QUIZY_DATA = {
           "answer": [
             1
           ],
-          "explanation": "Luong uses a unidirectional (forward) encoder, attends from the current decoder state h_t, and uses a bilinear score function."
+          "explanation": "Luong uses a unidirectional (forward) encoder, attends from the current decoder state $h_t$, and uses a bilinear score function."
         },
         {
           "id": "nlp-pq2-11",
@@ -10060,17 +10060,17 @@ window.QUIZY_DATA = {
           "concept": "Scaled dot-product attention",
           "marks": 2,
           "type": "single",
-          "question": "Which of the following is the correct equation to compute attention weights in a Transformer's attention layer. Note that v is a value vector, q is a query vector and k is a key vector with dimension dₖ.",
+          "question": "Which of the following is the correct equation to compute attention weights in a Transformer's attention layer. Note that $v$ is a value vector, $q$ is a query vector and $k$ is a key vector with dimension $d_k$.",
           "choices": [
-            "softmax(kkᵀ / √dₖ)",
-            "softmax(qvᵀ / √dₖ)",
-            "softmax(vkᵀ / √dₖ)",
-            "softmax(qkᵀ / √dₖ)"
+            "$\\mathrm{softmax}\\left(\\dfrac{kk^T}{\\sqrt{d_k}}\\right)$",
+            "$\\mathrm{softmax}\\left(\\dfrac{qv^T}{\\sqrt{d_k}}\\right)$",
+            "$\\mathrm{softmax}\\left(\\dfrac{vk^T}{\\sqrt{d_k}}\\right)$",
+            "$\\mathrm{softmax}\\left(\\dfrac{qk^T}{\\sqrt{d_k}}\\right)$"
           ],
           "answer": [
             3
           ],
-          "explanation": "Attention weights = softmax(qkᵀ/√dₖ): query against key. The lecturer stressed that the weights do NOT include multiplying by V."
+          "explanation": "Attention weights = $\\mathrm{softmax}(qk^T/\\sqrt{d_k})$: query against key. The lecturer stressed that the weights do NOT include multiplying by $V$."
         },
         {
           "id": "nlp-pq2-14",
@@ -10122,7 +10122,7 @@ window.QUIZY_DATA = {
           "answer": [
             1
           ],
-          "explanation": "Each head i has its own W_i^Q, W_i^K and W_i^V and works independently. The outputs are concatenated and projected with W_O."
+          "explanation": "Each head $i$ has its own $W_i^Q$, $W_i^K$ and $W_i^V$ and works independently. The outputs are concatenated and projected with $W_O$."
         },
         {
           "id": "nlp-pq2-16",
@@ -10189,7 +10189,7 @@ window.QUIZY_DATA = {
           "marks": 2,
           "type": "multi",
           "negativeMarking": true,
-          "question": "Using the notation from the lecture slides, the functions used to obtain position embeddings in transformers are:\nPE(pos, 2i) = sin(pos / 10000^(2i/d_model))\nand\nPE(pos, 2i+1) = cos(pos / 10000^(2i/d_model))\nwhere pos is the position of the token in the sentence, d_model is the dimension of the token embeddings and i is a dimension of the token vector.\nGiven this definition, which of the following are True about position embeddings in Transformer.",
+          "question": "Using the notation from the lecture slides, the functions used to obtain position embeddings in transformers are:\n$$PE_{pos,2i} = \\sin(pos/10000^{2i/d_{model}})$$\nand\n$$PE_{pos,2i+1} = \\cos(pos/10000^{2i/d_{model}})$$\nwhere $pos$ is the position of the token in the sentence, $d_{model}$ is the dimension of the token embeddings and $i$ is a dimension of the token vector.\nGiven this definition, which of the following are True about position embeddings in Transformer.",
           "emphasis": [
             "True"
           ],
@@ -10458,7 +10458,7 @@ window.QUIZY_DATA = {
             "softmax"
           ],
           "caseSensitive": false,
-          "explanation": "Softmax turns the linear layer's scores (logits) into a probability distribution: exp(xᵢ)/Σⱼ exp(xⱼ). For two classes a sigmoid does the same job."
+          "explanation": "Softmax turns the linear layer's scores (logits) into a probability distribution: $\\frac{\\exp(x_i)}{\\sum_j \\exp(x_j)}$. For two classes a sigmoid does the same job."
         },
         {
           "id": "nlp-pq-3-2",
@@ -10494,7 +10494,7 @@ window.QUIZY_DATA = {
           "answer": [
             1
           ],
-          "explanation": "Without smoothing, a word never seen with a class has count 0, so P(word|class) = 0 and the whole product becomes 0. Adding δ to every count prevents that."
+          "explanation": "Without smoothing, a word never seen with a class has count 0, so P(word|class) = 0 and the whole product becomes 0. Adding $\\delta$ to every count prevents that."
         },
         {
           "id": "nlp-pq-3-4",
@@ -10528,7 +10528,7 @@ window.QUIZY_DATA = {
           "answer": [
             0
           ],
-          "explanation": "A CNN lays the sequence out as positions and slides filters across them, so order becomes a spatial axis. An RNN represents order temporally: step t depends on step t−1. (Tutorial 4.3 asks you to explain exactly this.)"
+          "explanation": "A CNN lays the sequence out as positions and slides filters across them, so order becomes a spatial axis. An RNN represents order temporally: step $t$ depends on step $t-1$. (Tutorial 4.3 asks you to explain exactly this.)"
         },
         {
           "id": "nlp-pq-4-1",
@@ -10588,7 +10588,7 @@ window.QUIZY_DATA = {
             3,
             4
           ],
-          "explanation": "Temperature divides the logits before the softmax (a hyperparameter). τ < 1 sharpens the distribution: more coherent, less diverse. τ > 1 flattens it: more diverse, less coherent. Top-p adapts the candidate set to the distribution (2 words for 'the light was…', many for 'the dress colour was…')."
+          "explanation": "Temperature divides the logits before the softmax (a hyperparameter). $\\tau < 1$ sharpens the distribution: more coherent, less diverse. $\\tau > 1$ flattens it: more diverse, less coherent. Top-p adapts the candidate set to the distribution (2 words for 'the light was…', many for 'the dress colour was…')."
         },
         {
           "id": "nlp-pq-5-1",
@@ -10852,7 +10852,7 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 7,
           "question": "Construct the co-occurance matrix for the phrase “The cat sat on the mat. The cat sat on the floor” with a context window of 1 word on either side of the focal word (3 Marks). Then calculate the PPMI for the focal word “cat” and context word “mat” (4 Marks).",
-          "modelAnswer": "Pre-process: lower-case and drop punctuation → the cat sat on the mat the cat sat on the floor (12 tokens; vocabulary: the, cat, sat, on, mat, floor).\n\nCount each word's neighbours 1 to the left and 1 to the right (here the window runs across the full stop; say so if you choose to stop at sentence boundaries):\n\n          the  cat  sat  on  mat  floor\nthe        0    2    0    2    2    1\ncat        2    0    2    0    0    0\nsat        0    2    0    2    0    0\non         2    0    2    0    0    0\nmat        2    0    0    0    0    0\nfloor      1    0    0    0    0    0\n\n(The matrix is symmetric. If you stop the window at the full stop, the the–mat and mat–the counts become 1.)\n\nPPMI(w, c) = max(0, log₂ [P(w, c) / (P(w) P(c))]), with probabilities taken from the matrix counts.\n\n'cat' and 'mat' are never within 1 word of each other, so count(cat, mat) = 0 → P(cat, mat) = 0 → PMI = log₂ 0 = −∞ → PPMI = max(0, −∞) = 0.\n\nFor comparison, PPMI(cat, the): the matrix total is 22, so P(cat, the) = 2/22, P(cat) = 4/22 (row sum) and P(the) = 7/22. PMI = log₂[(2/22) / ((4/22)(7/22))] = log₂(44/28) ≈ 0.65, so PPMI ≈ 0.65.",
+          "modelAnswer": "Pre-process: lower-case and drop punctuation → the cat sat on the mat the cat sat on the floor (12 tokens; vocabulary: the, cat, sat, on, mat, floor).\n\nCount each word's neighbours 1 to the left and 1 to the right (here the window runs across the full stop; say so if you choose to stop at sentence boundaries):\n\n          the  cat  sat  on  mat  floor\nthe        0    2    0    2    2    1\ncat        2    0    2    0    0    0\nsat        0    2    0    2    0    0\non         2    0    2    0    0    0\nmat        2    0    0    0    0    0\nfloor      1    0    0    0    0    0\n\n(The matrix is symmetric. If you stop the window at the full stop, the the–mat and mat–the counts become 1.)\n\n$$\\begin{aligned}\\mathrm{PPMI}(w,c) &= \\\\ &\\max\\left(0,\\ \\log_2 \\frac{P(w,c)}{P(w)\\,P(c)}\\right)\\end{aligned}$$with probabilities taken from the matrix counts.\n\n'cat' and 'mat' are never within 1 word of each other, so $\\mathrm{count}(cat, mat) = 0 \\Rightarrow P(cat, mat) = 0 \\Rightarrow \\mathrm{PMI} = \\log_2 0 = -\\infty \\Rightarrow \\mathrm{PPMI} = \\max(0, -\\infty) = 0$.\n\nFor comparison, PPMI(cat, the): the matrix total is 22, so P(cat, the) = 2/22, P(cat) = 4/22 (row sum) and P(the) = 7/22. $$\\begin{aligned}\\mathrm{PMI} &= \\log_2 \\frac{2/22}{(4/22)(7/22)} \\\\ &= \\log_2 \\frac{44}{28} \\approx 0.65\\end{aligned}$$so PPMI ≈ 0.65.",
           "rubric": [
             {
               "point": "Pre-processing stated (lower-case, punctuation removed) and vocabulary listed",
@@ -10867,7 +10867,7 @@ window.QUIZY_DATA = {
               "marks": 1
             },
             {
-              "point": "PPMI formula: max(0, log [P(w,c) / (P(w)P(c))])",
+              "point": "PPMI formula: $\\max\\left(0, \\log \\frac{P(w,c)}{P(w)P(c)}\\right)$",
               "marks": 1
             },
             {
@@ -10875,7 +10875,7 @@ window.QUIZY_DATA = {
               "marks": 1
             },
             {
-              "point": "Observes count(cat, mat) = 0, so P(cat, mat) = 0 and PMI = log 0 = −∞",
+              "point": "Observes count(cat, mat) = 0, so P(cat, mat) = 0 and $\\mathrm{PMI} = \\log 0 = -\\infty$",
               "marks": 1
             },
             {
@@ -10921,7 +10921,7 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 3,
           "question": "Explain what Negative Sampling is and the approach that word2vec uses to choose negative samples. (3 Marks)",
-          "modelAnswer": "Computing a softmax over the whole vocabulary for every training pair is too expensive. Negative sampling replaces it with a few binary classifications: push up the score of the real (centre, context) pair and push down the scores of k randomly chosen 'negative' context words that did not occur with it. Only k + 1 output vectors are updated per step.\n\nword2vec draws the negatives from the unigram distribution raised to the power 3/4: P(w) ∝ count(w)^0.75. Frequent words are sampled more often, but the 3/4 power flattens the distribution so rare words get picked more than their raw frequency would give.",
+          "modelAnswer": "Computing a softmax over the whole vocabulary for every training pair is too expensive. Negative sampling replaces it with a few binary classifications: push up the score of the real (centre, context) pair and push down the scores of k randomly chosen 'negative' context words that did not occur with it. Only k + 1 output vectors are updated per step.\n\nword2vec draws the negatives from the unigram distribution raised to the power 3/4: $P(w) \\propto \\mathrm{count}(w)^{0.75}$. Frequent words are sampled more often, but the 3/4 power flattens the distribution so rare words get picked more than their raw frequency would give.",
           "rubric": [
             {
               "point": "Replaces the expensive full softmax over the vocabulary (speeds up training)",
@@ -10945,10 +10945,10 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 6,
           "question": "State and explaing one weakness for count-based and prediction-based methods of obtaining word embeddings. (6 Marks)",
-          "modelAnswer": "Count-based (co-occurrence matrix, PPMI, SVD):\n• Weakness: the matrix is |V| × |V|, so it is huge and very sparse, and dominated by frequent words.\n• Why it matters: storing it and running SVD scales badly with vocabulary size, and reducing the dimensions can throw away information about rare words. Adding new text means recounting and refactorising.\n\nPrediction-based (Word2Vec):\n• Weakness: each training step only sees one local window, so the model never uses the corpus-wide co-occurrence statistics directly. It also gives one fixed vector per word type: no vector for unseen (OOV) words and no way to tell senses apart ('bank').\n• Why it matters: it needs a lot of training passes and data to work well, it is sensitive to hyperparameters, and rare or new words are represented poorly or not at all.\n\n(Any well-explained weakness per method earns the marks, e.g. a single static vector per word, or both inheriting bias from the corpus.)",
+          "modelAnswer": "Count-based (co-occurrence matrix, PPMI, SVD):\n• Weakness: the matrix is $|V| \\times |V|$, so it is huge and very sparse, and dominated by frequent words.\n• Why it matters: storing it and running SVD scales badly with vocabulary size, and reducing the dimensions can throw away information about rare words. Adding new text means recounting and refactorising.\n\nPrediction-based (Word2Vec):\n• Weakness: each training step only sees one local window, so the model never uses the corpus-wide co-occurrence statistics directly. It also gives one fixed vector per word type: no vector for unseen (OOV) words and no way to tell senses apart ('bank').\n• Why it matters: it needs a lot of training passes and data to work well, it is sensitive to hyperparameters, and rare or new words are represented poorly or not at all.\n\n(Any well-explained weakness per method earns the marks, e.g. a single static vector per word, or both inheriting bias from the corpus.)",
           "rubric": [
             {
-              "point": "States a valid weakness of count-based methods (e.g. huge sparse |V|×|V| matrix, dominated by frequent words)",
+              "point": "States a valid weakness of count-based methods (e.g. huge sparse $|V| \\times |V|$ matrix, dominated by frequent words)",
               "marks": 1
             },
             {
@@ -10996,42 +10996,42 @@ window.QUIZY_DATA = {
           "concept": "Softmax and cross-entropy",
           "type": "numeric",
           "marks": 3,
-          "question": "Suppose we have a target p∗ and the pre-softmax model output p. First apply the Softmax function to p and then calculate the cross-entropy loss where: (3 Marks)\np∗ = [0.0, 0.0, 0.0, 1.0] and p = [0.2, 0.2, 0.5, 0.6]\nRemember that the Softmax equation is:\nsoftmax(xᵢ) = exp(xᵢ) / Σⱼ₌₁ᵈ exp(xⱼ)\nwhere xᵢ is the i-th index of the input vector x and d is the dimension of x. Similarly the cross-entropy loss (with natural logarithm) is:\nCE(p∗, p̂) = − Σⱼ₌₁ᵈ p∗ⱼ log(p̂ⱼ)\nwhere p̂ is the post-softmax model output.",
+          "question": "Suppose we have a target $p^*$ and the pre-softmax model output $p$. First apply the Softmax function to $p$ and then calculate the cross-entropy loss where: (3 Marks)\n$p^* = [0.0, 0.0, 0.0, 1.0]$ and $p = [0.2, 0.2, 0.5, 0.6]$\nRemember that the Softmax equation is:\n$$\\mathrm{softmax}(x_i) = \\frac{\\exp(x_i)}{\\sum_{j=1}^{d} \\exp(x_j)}$$\nwhere $x_i$ is the $i$-th index of the input vector $x$ and $d$ is the dimension of $x$. Similarly the cross-entropy loss (with natural logarithm) is:\n$$\\mathrm{CE}(p^*, \\hat{p}) = -\\sum_{j=1}^{d} p^*_j \\log(\\hat{p}_j)$$\nwhere $\\hat{p}$ is the post-softmax model output.",
           "parts": [
             {
-              "label": "p̂₁",
+              "label": "$\\hat{p}_1$",
               "answer": 0.2065,
               "tolerance": 0.001,
               "marks": 0.5
             },
             {
-              "label": "p̂₂",
+              "label": "$\\hat{p}_2$",
               "answer": 0.2065,
               "tolerance": 0.001,
               "marks": 0.5
             },
             {
-              "label": "p̂₃",
+              "label": "$\\hat{p}_3$",
               "answer": 0.2788,
               "tolerance": 0.001,
               "marks": 0.5
             },
             {
-              "label": "p̂₄",
+              "label": "$\\hat{p}_4$",
               "answer": 0.3081,
               "tolerance": 0.001,
               "marks": 0.5
             },
             {
-              "label": "CE(p∗, p̂)",
+              "label": "$\\mathrm{CE}(p^*, \\hat{p})$",
               "answer": 1.1773,
               "tolerance": 0.005,
               "marks": 1
             }
           ],
-          "solution": "1. Exponentiate each entry:\n   e^0.2 = 1.2214, e^0.2 = 1.2214, e^0.5 = 1.6487, e^0.6 = 1.8221\n2. Sum: 1.2214 + 1.2214 + 1.6487 + 1.8221 = 5.9136\n3. Divide each by the sum:\n   p̂ = [0.2065, 0.2065, 0.2788, 0.3081] (these add to 1)\n4. The target is one-hot on class 4, so only that term survives:\n   CE = −(0·log 0.2065 + 0·log 0.2065 + 0·log 0.2788 + 1·log 0.3081) = −ln(0.3081) ≈ 1.177",
+          "solution": "1. Exponentiate each entry:\n   $e^{0.2} = 1.2214,\\ e^{0.2} = 1.2214,\\ e^{0.5} = 1.6487,\\ e^{0.6} = 1.8221$\n2. Sum: 1.2214 + 1.2214 + 1.6487 + 1.8221 = 5.9136\n3. Divide each by the sum:\n   $\\hat{p} = [0.2065, 0.2065, 0.2788, 0.3081]$ (these add to 1)\n4. The target is one-hot on class 4, so only that term survives:\n   $$\\begin{aligned}\\mathrm{CE} &= -(0 \\cdot \\log 0.2065 + 0 \\cdot \\log 0.2065 \\\\ &\\quad + 0 \\cdot \\log 0.2788 + 1 \\cdot \\log 0.3081) \\\\ &= -\\ln(0.3081) \\approx 1.177\\end{aligned}$$",
           "inputHint": "Give each value to 4 decimal places.",
-          "explanation": "With a one-hot target, cross-entropy is just −log of the probability given to the correct class."
+          "explanation": "With a one-hot target, cross-entropy is just $-\\log$ of the probability given to the correct class."
         },
         {
           "id": "nlp-tut-3-3",
@@ -11125,7 +11125,7 @@ window.QUIZY_DATA = {
           "concept": "Laplace-smoothed n-gram",
           "type": "numeric",
           "marks": 4,
-          "question": "Suppose we have the 4-gram language model described below. Calculate the probability P(moon|cat on the), using laplace smoothing. Suppose δ = 0.1, the vocabulary count is 20 and we have the following counts: (4 Marks)\nCounts\ncat on the: 10\ncat on the moon: 0",
+          "question": "Suppose we have the 4-gram language model described below. Calculate the probability $P(moon|cat\\ on\\ the)$, using laplace smoothing. Suppose $\\delta = 0.1$, the vocabulary count is 20 and we have the following counts: (4 Marks)\nCounts\ncat on the: 10\ncat on the moon: 0",
           "parts": [
             {
               "label": "P(moon | cat on the)",
@@ -11134,9 +11134,9 @@ window.QUIZY_DATA = {
               "marks": 4
             }
           ],
-          "solution": "Laplace (add-δ) smoothing:\nP(w | context) = (N(context, w) + δ) / (N(context) + δ·|V|)\n\n= (N(cat on the moon) + 0.1) / (N(cat on the) + 0.1 × 20)\n= (0 + 0.1) / (10 + 2)\n= 0.1 / 12\n≈ 0.00833 (= 1/120)\n\nWithout smoothing it would be 0/10 = 0.",
+          "solution": "Laplace (add-$\\delta$) smoothing:\n$$P(w \\mid context) = \\frac{N(context, w) + \\delta}{N(context) + \\delta \\cdot |V|}$$\n\n$$\\begin{aligned}&= \\frac{N(cat\\ on\\ the\\ moon) + 0.1}{N(cat\\ on\\ the) + 0.1 \\times 20} \\\\ &= \\frac{0 + 0.1}{10 + 2} = \\frac{0.1}{12} \\\\ &\\approx 0.00833 = \\frac{1}{120}\\end{aligned}$$\n\nWithout smoothing it would be 0/10 = 0.",
           "inputHint": "A decimal (e.g. 0.0083) or a fraction (e.g. 1/120).",
-          "explanation": "The denominator adds δ for every word in the vocabulary (δ·|V|), so that the smoothed probabilities still sum to 1."
+          "explanation": "The denominator adds $\\delta$ for every word in the vocabulary ($\\delta \\cdot |V|$), so that the smoothed probabilities still sum to 1."
         },
         {
           "id": "nlp-tut-4-3",
@@ -11146,7 +11146,7 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 5,
           "question": "Explain why a CNN is considered as representing (and as a result processing) sentences spatially and RNNs are considered as representing (and processes) sentences temporally. (5 Marks)",
-          "modelAnswer": "CNN, spatial:\n• The sentence is laid out as a 2-D grid (positions × embedding dimensions), like an image, so word order becomes a spatial axis.\n• Filters slide over windows of neighbouring words and detect local patterns (n-gram-like features) the same way at every position (shared weights, translation invariance).\n• All positions are processed at once, in parallel; there is no notion of 'before' or 'after' beyond the window, and pooling then summarises over the positions.\n\nRNN, temporal:\n• The sentence is read one token at a time, in order, as a sequence of time steps.\n• The hidden state at step t is computed from the input at t and the hidden state at t−1, so it carries a running memory of everything seen so far.\n• Processing is inherently sequential (step t must wait for t−1), which is why order and time are built into how it represents the sentence.",
+          "modelAnswer": "CNN, spatial:\n• The sentence is laid out as a 2-D grid (positions × embedding dimensions), like an image, so word order becomes a spatial axis.\n• Filters slide over windows of neighbouring words and detect local patterns (n-gram-like features) the same way at every position (shared weights, translation invariance).\n• All positions are processed at once, in parallel; there is no notion of 'before' or 'after' beyond the window, and pooling then summarises over the positions.\n\nRNN, temporal:\n• The sentence is read one token at a time, in order, as a sequence of time steps.\n• The hidden state at step $t$ is computed from the input at $t$ and the hidden state at $t-1$, so it carries a running memory of everything seen so far.\n• Processing is inherently sequential (step $t$ must wait for $t-1$), which is why order and time are built into how it represents the sentence.",
           "rubric": [
             {
               "point": "CNN: sentence as a grid/matrix of positions × embedding dims; position is treated like a spatial axis",
@@ -11165,7 +11165,7 @@ window.QUIZY_DATA = {
               "marks": 1
             },
             {
-              "point": "RNN: hidden state h_t depends on x_t and h_{t−1} (recurrent memory), so processing is sequential",
+              "point": "RNN: hidden state $h_t$ depends on $x_t$ and $h_{t-1}$ (recurrent memory), so processing is sequential",
               "marks": 1
             }
           ]
@@ -11225,7 +11225,7 @@ window.QUIZY_DATA = {
               "marks": 1
             },
             {
-              "point": "Keeps the smallest set of top tokens whose cumulative probability ≥ p, so the number of candidates adapts",
+              "point": "Keeps the smallest set of top tokens whose cumulative probability $\\geq p$, so the number of candidates adapts",
               "marks": 1
             },
             {
@@ -11287,14 +11287,14 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 6,
           "question": "State the three types of score functions typically used for an attention mechanism and the functional form of each. (6 Marks)",
-          "modelAnswer": "With decoder state hₜ and encoder state sₖ:\n1. Dot product: score(hₜ, sₖ) = hₜᵀ sₖ. No parameters; large when the vectors align. (Used, scaled by 1/√dₖ, in Transformers.)\n2. Bilinear (Luong's 'general'): score(hₜ, sₖ) = hₜᵀ W sₖ, with a learned matrix W. The dot product is the special case W = I.\n3. Multi-layer perceptron (additive, Bahdanau): score(hₜ, sₖ) = wᵀ tanh(W₁[hₜ; sₖ]), i.e. concatenate, a learned layer, tanh, then project to a scalar with the learned vector w.",
+          "modelAnswer": "With decoder state $h_t$ and encoder state $s_k$:\n1. Dot product: $\\mathrm{score}(h_t, s_k) = h_t^T s_k$. No parameters; large when the vectors align. (Used, scaled by $1/\\sqrt{d_k}$, in Transformers.)\n2. Bilinear (Luong's 'general'): $\\mathrm{score}(h_t, s_k) = h_t^T W s_k$, with a learned matrix $W$. The dot product is the special case $W = I$.\n3. Multi-layer perceptron (additive, Bahdanau): $\\mathrm{score}(h_t, s_k) = w^T \\tanh(W_1[h_t; s_k])$, i.e. concatenate, a learned layer, tanh, then project to a scalar with the learned vector $w$.",
           "rubric": [
             {
               "point": "Names dot-product",
               "marks": 1
             },
             {
-              "point": "Dot-product form: hₜᵀ sₖ",
+              "point": "Dot-product form: $h_t^T s_k$",
               "marks": 1
             },
             {
@@ -11302,7 +11302,7 @@ window.QUIZY_DATA = {
               "marks": 1
             },
             {
-              "point": "Bilinear form: hₜᵀ W sₖ with learned W",
+              "point": "Bilinear form: $h_t^T W s_k$ with learned $W$",
               "marks": 1
             },
             {
@@ -11310,7 +11310,7 @@ window.QUIZY_DATA = {
               "marks": 1
             },
             {
-              "point": "MLP form: wᵀ tanh(W₁[hₜ; sₖ])",
+              "point": "MLP form: $w^T \\tanh(W_1[h_t; s_k])$",
               "marks": 1
             }
           ]
@@ -11323,7 +11323,7 @@ window.QUIZY_DATA = {
           "concept": "Self-attention calculation",
           "type": "numeric",
           "marks": 10,
-          "question": "Given weight matrices WQ, WK, and WV representing the query, key and value matrices of a particular attention block in a transformer, and an input matrix X of 2 word vectors of 2 dimensions each. Calculate the Self Attention matrix A for the 2 tokens. Each row of X is a token and so you should left multiply by the weights. In other words use: W Xᵀ. (10 Marks)\nWQ = [[1.5, 1.2], [0.8, 1.5]]\nWK = [[0.7, 1.0], [0.9, 0.1]]\nWV = [[2.0, 1.0], [0.4, 0.4]]\nX = [[0.5, 1.5], [1.1, 0.4]]",
+          "question": "Given weight matrices $W_Q$, $W_K$, and $W_V$ representing the query, key and value matrices of a particular attention block in a transformer, and an input matrix $X$ of 2 word vectors of 2 dimensions each. Calculate the Self Attention matrix $A$ for the 2 tokens. Each row of $X$ is a token and so you should left multiply by the weights. In other words use: $WX^T$. (10 Marks)\n$$W_Q = \\begin{bmatrix} 1.5 & 1.2 \\\\ 0.8 & 1.5 \\end{bmatrix} \\quad W_K = \\begin{bmatrix} 0.7 & 1.0 \\\\ 0.9 & 0.1 \\end{bmatrix}$$ $$W_V = \\begin{bmatrix} 2.0 & 1.0 \\\\ 0.4 & 0.4 \\end{bmatrix}$$\n$$X = \\begin{bmatrix} 0.5 & 1.5 \\\\ 1.1 & 0.4 \\end{bmatrix}$$",
           "parts": [
             {
               "label": "A[1,1]",
@@ -11350,13 +11350,13 @@ window.QUIZY_DATA = {
               "marks": 2.5
             }
           ],
-          "solution": "Tokens are the rows of X: x₁ = [0.5, 1.5], x₂ = [1.1, 0.4]. Using W Xᵀ, each column of the result is one token.\n\n1. Queries Q = WQ Xᵀ:\n   q₁ = [1.5·0.5 + 1.2·1.5, 0.8·0.5 + 1.5·1.5] = [2.55, 2.65]\n   q₂ = [1.5·1.1 + 1.2·0.4, 0.8·1.1 + 1.5·0.4] = [2.13, 1.48]\n2. Keys K = WK Xᵀ:\n   k₁ = [0.7·0.5 + 1.0·1.5, 0.9·0.5 + 0.1·1.5] = [1.85, 0.60]\n   k₂ = [0.7·1.1 + 1.0·0.4, 0.9·1.1 + 0.1·0.4] = [1.17, 1.03]\n3. Values V = WV Xᵀ:\n   v₁ = [2.50, 0.80], v₂ = [2.60, 0.60]\n4. Scaled scores Sᵢⱼ = qᵢ · kⱼ / √dₖ with dₖ = 2 (√2 ≈ 1.4142):\n   q₁·k₁ = 2.55·1.85 + 2.65·0.60 = 6.3075 → 4.4601\n   q₁·k₂ = 2.55·1.17 + 2.65·1.03 = 5.7130 → 4.0397\n   q₂·k₁ = 2.13·1.85 + 1.48·0.60 = 4.8285 → 3.4143\n   q₂·k₂ = 2.13·1.17 + 1.48·1.03 = 4.0165 → 2.8401\n5. Row-wise softmax (each row = one query token):\n   row 1: e^4.4601 / (e^4.4601 + e^4.0397) = 1 / (1 + e^−0.4204) = 0.6036; the other entry is 0.3964\n   row 2: 1 / (1 + e^−0.5742) = 0.6397; the other entry is 0.3603\n\nA = [[0.6036, 0.3964], [0.6397, 0.3603]]\n\nThis is the attention matrix: stop here. The lecturer said that if he asks for the attention matrix/weights, you do not multiply by V. If you were asked for the attention OUTPUT, it would be A·Vᵀ: token 1 → [2.5396, 0.7207], token 2 → [2.5360, 0.7279].\n\n(Without the 1/√dₖ scaling you'd get A = [[0.6444, 0.3556], [0.6925, 0.3075]]. Always scale unless told otherwise.)",
+          "solution": "Tokens are the rows of $X$: $x_1 = [0.5, 1.5]$, $x_2 = [1.1, 0.4]$. Using $WX^T$, each column of the result is one token.\n\n1. Queries $Q = W_Q X^T$:\n$$q_1 = \\begin{bmatrix} 1.5 \\cdot 0.5 + 1.2 \\cdot 1.5 \\\\ 0.8 \\cdot 0.5 + 1.5 \\cdot 1.5 \\end{bmatrix} = \\begin{bmatrix} 2.55 \\\\ 2.65 \\end{bmatrix}$$\n$$q_2 = \\begin{bmatrix} 1.5 \\cdot 1.1 + 1.2 \\cdot 0.4 \\\\ 0.8 \\cdot 1.1 + 1.5 \\cdot 0.4 \\end{bmatrix} = \\begin{bmatrix} 2.13 \\\\ 1.48 \\end{bmatrix}$$\n2. Keys $K = W_K X^T$:\n$$k_1 = \\begin{bmatrix} 0.7 \\cdot 0.5 + 1.0 \\cdot 1.5 \\\\ 0.9 \\cdot 0.5 + 0.1 \\cdot 1.5 \\end{bmatrix} = \\begin{bmatrix} 1.85 \\\\ 0.60 \\end{bmatrix}$$\n$$k_2 = \\begin{bmatrix} 0.7 \\cdot 1.1 + 1.0 \\cdot 0.4 \\\\ 0.9 \\cdot 1.1 + 0.1 \\cdot 0.4 \\end{bmatrix} = \\begin{bmatrix} 1.17 \\\\ 1.03 \\end{bmatrix}$$\n3. Values $V = W_V X^T$: $v_1 = [2.50, 0.80]$, $v_2 = [2.60, 0.60]$\n4. Scaled scores $S_{ij} = \\dfrac{q_i \\cdot k_j}{\\sqrt{d_k}}$ with $d_k = 2$ ($\\sqrt{2} \\approx 1.4142$):\n$$\\begin{aligned}q_1 \\cdot k_1 &= 2.55 \\cdot 1.85 + 2.65 \\cdot 0.60 \\\\ &= 6.3075 \\;\\to\\; 4.4601\\end{aligned}$$\n$$\\begin{aligned}q_1 \\cdot k_2 &= 2.55 \\cdot 1.17 + 2.65 \\cdot 1.03 \\\\ &= 5.7130 \\;\\to\\; 4.0397\\end{aligned}$$\n$$\\begin{aligned}q_2 \\cdot k_1 &= 2.13 \\cdot 1.85 + 1.48 \\cdot 0.60 \\\\ &= 4.8285 \\;\\to\\; 3.4143\\end{aligned}$$\n$$\\begin{aligned}q_2 \\cdot k_2 &= 2.13 \\cdot 1.17 + 1.48 \\cdot 1.03 \\\\ &= 4.0165 \\;\\to\\; 2.8401\\end{aligned}$$\n5. Row-wise softmax (each row = one query token):\n$$\\begin{aligned}\\text{row 1: } &\\frac{e^{4.4601}}{e^{4.4601} + e^{4.0397}} \\\\ &= \\frac{1}{1 + e^{-0.4204}} = 0.6036 \\\\ &\\text{other entry: } 0.3964\\end{aligned}$$\n$$\\begin{aligned}\\text{row 2: } &\\frac{1}{1 + e^{-0.5742}} = 0.6397 \\\\ &\\text{other entry: } 0.3603\\end{aligned}$$\n$$A = \\begin{bmatrix} 0.6036 & 0.3964 \\\\ 0.6397 & 0.3603 \\end{bmatrix}$$\nThis is the attention matrix: stop here. The lecturer said that if he asks for the attention matrix/weights, you do not multiply by $V$. If you were asked for the attention OUTPUT, it would be $AV^T$: token 1 → $[2.5396, 0.7207]$, token 2 → $[2.5360, 0.7279]$.\n\n(Without the $1/\\sqrt{d_k}$ scaling you'd get $A = \\begin{bmatrix} 0.6444 & 0.3556 \\\\ 0.6925 & 0.3075 \\end{bmatrix}$. Always scale unless told otherwise.)",
           "grid": {
             "rows": 2,
             "cols": 2
           },
           "inputHint": "Enter the attention weights (after softmax) to 4 decimal places. Rows are the query tokens.",
-          "explanation": "The question says 'Self Attention matrix A', which by the lecturer's definition is softmax(QKᵀ/√dₖ). Older solution packs that multiply by V answer a different question."
+          "explanation": "The question says 'Self Attention matrix A', which by the lecturer's definition is $\\mathrm{softmax}(QK^T/\\sqrt{d_k})$. Older solution packs that multiply by $V$ answer a different question."
         },
         {
           "id": "nlp-tut-5-5",
@@ -11366,7 +11366,7 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 6,
           "question": "Explain the primary difference between the encoder and the decoder of a transformer neural network, with specific mention to the types of attention that can be found in each. (6 Marks)",
-          "modelAnswer": "Encoder: reads the whole source sequence at once and builds contextual representations of it. Each layer has (unmasked) self-attention, where every token attends to every other source token, left and right, followed by a feed-forward layer (both with residual connections and layer norm). Q, K and V all come from the encoder states.\n\nDecoder: generates the target one token at a time (autoregressively), so it must not see the future. Each layer has:\n1. Masked self-attention: each target token attends only to itself and earlier target tokens (future scores set to −∞ before the softmax). This keeps training consistent with inference.\n2. Cross (encoder–decoder) attention: queries come from the decoder, keys and values come from the encoder output, so each target position can look up the relevant source information.\n3. A feed-forward layer, then an output projection + softmax over the vocabulary to predict the next token.\n\nSo the primary difference: the encoder sees everything and only attends to itself; the decoder is masked and also attends to the encoder.",
+          "modelAnswer": "Encoder: reads the whole source sequence at once and builds contextual representations of it. Each layer has (unmasked) self-attention, where every token attends to every other source token, left and right, followed by a feed-forward layer (both with residual connections and layer norm). Q, K and V all come from the encoder states.\n\nDecoder: generates the target one token at a time (autoregressively), so it must not see the future. Each layer has:\n1. Masked self-attention: each target token attends only to itself and earlier target tokens (future scores set to $-\\infty$ before the softmax). This keeps training consistent with inference.\n2. Cross (encoder–decoder) attention: queries come from the decoder, keys and values come from the encoder output, so each target position can look up the relevant source information.\n3. A feed-forward layer, then an output projection + softmax over the vocabulary to predict the next token.\n\nSo the primary difference: the encoder sees everything and only attends to itself; the decoder is masked and also attends to the encoder.",
           "rubric": [
             {
               "point": "Encoder processes the whole input at once to build contextual representations",
@@ -11524,10 +11524,10 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 4,
           "question": "Describe the benefits of LoRa over an adapter layer and how it achieves these benefits. (4 marks)",
-          "modelAnswer": "How LoRA works: the pretrained weights W₀ are frozen, and the update is learned as a low-rank product ΔW = BA (B ∈ ℝ^{d×r}, A ∈ ℝ^{r×k}, with rank r ≪ d, k), so W' = W₀ + BA.\n\nBenefits over adapters:\n• No extra inference latency: adapters add new layers that run in sequence at inference time. LoRA's BA can be merged into W₀ after training (W' = W₀ + BA), so the model has the same architecture and speed as before.\n• Very few trainable parameters and less memory: only A and B are trained (the slides quote up to 10,000× fewer trainable parameters and 3× less GPU memory for GPT-3), and swapping tasks means swapping small BA matrices.",
+          "modelAnswer": "How LoRA works: the pretrained weights $W_0$ are frozen, and the update is learned as a low-rank product $\\Delta W = BA$ ($B \\in \\mathbb{R}^{d \\times r}$, $A \\in \\mathbb{R}^{r \\times k}$, with rank $r \\ll d, k$), so $W' = W_0 + BA$.\n\nBenefits over adapters:\n• No extra inference latency: adapters add new layers that run in sequence at inference time. LoRA's $BA$ can be merged into $W_0$ after training ($W' = W_0 + BA$), so the model has the same architecture and speed as before.\n• Very few trainable parameters and less memory: only A and B are trained (the slides quote up to 10,000× fewer trainable parameters and 3× less GPU memory for GPT-3), and swapping tasks means swapping small BA matrices.",
           "rubric": [
             {
-              "point": "Freezes the pretrained weights W₀",
+              "point": "Freezes the pretrained weights $W_0$",
               "marks": 1
             },
             {
@@ -11552,15 +11552,15 @@ window.QUIZY_DATA = {
           "concept": "LoRA memory calculation",
           "type": "written",
           "marks": 2,
-          "question": "Consider a layer of a neural network implemented by the matrix W ∈ ℝ^(N×D) with 16-bit floating point type values.\n(a) Calculate the memory required to store this layer of weights.\n(b) Calculate the memory required to store a LoRa layer with rank= 2 approximating W",
-          "modelAnswer": "16-bit floats take 2 bytes each.\n(a) W has N·D values → 16·N·D bits = 2ND bytes.\n(b) A rank-2 LoRA approximation stores B ∈ ℝ^(N×2) and A ∈ ℝ^(2×D): 2N + 2D values → 2·(2N + 2D) = 4(N + D) bytes (= 32(N + D) bits).\n\nExample: N = D = 1000 gives 2,000,000 bytes (2 MB) for W, but only 8,000 bytes (8 kB) for the LoRA layer. (In practice the frozen W is still stored; the saving is in what you train and store per task.)",
+          "question": "Consider a layer of a neural network implemented by the matrix $W \\in \\mathbb{R}^{N \\times D}$ with 16-bit floating point type values.\n(a) Calculate the memory required to store this layer of weights.\n(b) Calculate the memory required to store a LoRa layer with rank= 2 approximating $W$",
+          "modelAnswer": "16-bit floats take 2 bytes each.\n(a) $W$ has $N \\cdot D$ values → $16ND$ bits $= 2ND$ bytes.\n(b) A rank-2 LoRA approximation stores $B \\in \\mathbb{R}^{N \\times 2}$ and $A \\in \\mathbb{R}^{2 \\times D}$: $2N + 2D$ values → $2(2N + 2D) = 4(N + D)$ bytes ($= 32(N + D)$ bits).\n\nExample: N = D = 1000 gives 2,000,000 bytes (2 MB) for W, but only 8,000 bytes (8 kB) for the LoRA layer. (In practice the frozen W is still stored; the saving is in what you train and store per task.)",
           "rubric": [
             {
               "point": "(a) 2ND bytes (16ND bits)",
               "marks": 1
             },
             {
-              "point": "(b) A and B have 2N + 2D values → 4(N + D) bytes (32(N + D) bits)",
+              "point": "(b) A and B have $2N + 2D$ values → $4(N + D)$ bytes ($32(N + D)$ bits)",
               "marks": 1
             }
           ],
@@ -11766,7 +11766,7 @@ window.QUIZY_DATA = {
           "answer": [
             1
           ],
-          "explanation": "A trigram uses n − 1 = 2 context tokens plus the predicted token. The lecturer warned that this naming mix-up 'sometimes comes up'."
+          "explanation": "A trigram uses $n - 1 = 2$ context tokens plus the predicted token. The lecturer warned that this naming mix-up 'sometimes comes up'."
         },
         {
           "id": "nlp-new-002",
@@ -11774,17 +11774,17 @@ window.QUIZY_DATA = {
           "concept": "Markov assumption",
           "type": "single",
           "marks": 1,
-          "question": "Under the Markov assumption, a 4-gram language model approximates P(yₜ | y₁, …, yₜ₋₁) by:",
+          "question": "Under the Markov assumption, a 4-gram language model approximates $P(y_t \\mid y_1, \\ldots, y_{t-1})$ by:",
           "choices": [
-            "P(yₜ | yₜ₋₃, yₜ₋₂, yₜ₋₁)",
-            "P(yₜ | yₜ₋₄, yₜ₋₃, yₜ₋₂, yₜ₋₁)",
-            "P(yₜ | yₜ₋₁)",
-            "P(yₜ₋₃, yₜ₋₂, yₜ₋₁, yₜ)"
+            "$P(y_t \\mid y_{t-3}, y_{t-2}, y_{t-1})$",
+            "$P(y_t \\mid y_{t-4}, y_{t-3}, y_{t-2}, y_{t-1})$",
+            "$P(y_t \\mid y_{t-1})$",
+            "$P(y_{t-3}, y_{t-2}, y_{t-1}, y_t)$"
           ],
           "answer": [
             0
           ],
-          "explanation": "An n-gram model keeps the previous n − 1 tokens, so a 4-gram uses three tokens of context."
+          "explanation": "An n-gram model keeps the previous $n - 1$ tokens, so a 4-gram uses three tokens of context."
         },
         {
           "id": "nlp-new-003",
@@ -11792,19 +11792,19 @@ window.QUIZY_DATA = {
           "concept": "Temperature",
           "type": "multi",
           "marks": 3,
-          "question": "Which of the following statements about sampling with temperature τ are True?",
+          "question": "Which of the following statements about sampling with temperature $\\tau$ are True?",
           "choices": [
-            "As τ → 0 sampling approaches greedy decoding (always the most probable token)",
-            "τ = 1 gives the ordinary softmax distribution",
-            "τ > 1 makes the distribution sharper and the text more coherent",
-            "Changing τ can change which token is the most probable"
+            "As $\\tau \\to 0$ sampling approaches greedy decoding (always the most probable token)",
+            "$\\tau = 1$ gives the ordinary softmax distribution",
+            "$\\tau > 1$ makes the distribution sharper and the text more coherent",
+            "Changing $\\tau$ can change which token is the most probable"
           ],
           "answer": [
             0,
             1
           ],
           "negativeMarking": true,
-          "explanation": "τ < 1 sharpens (more coherent, less diverse), τ > 1 flattens (more diverse, less coherent). Dividing every logit by the same positive τ never changes their order, so the argmax stays the same."
+          "explanation": "$\\tau < 1$ sharpens (more coherent, less diverse), $\\tau > 1$ flattens (more diverse, less coherent). Dividing every logit by the same positive $\\tau$ never changes their order, so the argmax stays the same."
         },
         {
           "id": "nlp-new-004",
@@ -11820,7 +11820,7 @@ window.QUIZY_DATA = {
           "answer": [
             0
           ],
-          "explanation": "Perplexity = 2^(−(1/M) Σ log₂ (1/|V|)) = 2^(log₂|V|) = |V|, the 'knows nothing' baseline."
+          "explanation": "$\\mathrm{PPL} = 2^{-\\frac{1}{M}\\sum \\log_2 (1/|V|)} = 2^{\\log_2 |V|} = |V|$, the 'knows nothing' baseline."
         },
         {
           "id": "nlp-new-005",
@@ -11846,12 +11846,12 @@ window.QUIZY_DATA = {
           "concept": "Laplace smoothing",
           "type": "multi",
           "marks": 3,
-          "question": "Which of the following are True about Laplace (add-δ) smoothing for an n-gram model?",
+          "question": "Which of the following are True about Laplace (add-$\\delta$) smoothing for an n-gram model?",
           "choices": [
-            "It adds δ to every n-gram count",
-            "It adds δ·|V| to the context count in the denominator",
+            "It adds $\\delta$ to every n-gram count",
+            "It adds $\\delta \\cdot |V|$ to the context count in the denominator",
             "It gives every n-gram, including unseen ones, a non-zero probability",
-            "Its weights λ are chosen by cross-validation"
+            "Its weights $\\lambda$ are chosen by cross-validation"
           ],
           "answer": [
             0,
@@ -11859,7 +11859,7 @@ window.QUIZY_DATA = {
             2
           ],
           "negativeMarking": true,
-          "explanation": "P = (δ + N(context, w)) / (δ·|V| + N(context)). The λ weights chosen by cross-validation belong to linear interpolation, not Laplace smoothing."
+          "explanation": "$P = \\dfrac{\\delta + N(context, w)}{\\delta \\cdot |V| + N(context)}$. The $\\lambda$ weights chosen by cross-validation belong to linear interpolation, not Laplace smoothing."
         },
         {
           "id": "nlp-new-007",
@@ -11877,7 +11877,7 @@ window.QUIZY_DATA = {
           "answer": [
             0
           ],
-          "explanation": "The model outputs one distribution over |V| classes, so the loss is multiclass cross-entropy: with a one-hot target it is −log p(correct token). The lecturer specifically warned against mixing it up with binary cross-entropy."
+          "explanation": "The model outputs one distribution over |V| classes, so the loss is multiclass cross-entropy: with a one-hot target it is $-\\log p(\\text{correct token})$. The lecturer specifically warned against mixing it up with binary cross-entropy."
         },
         {
           "id": "nlp-new-008",
@@ -11911,7 +11911,7 @@ window.QUIZY_DATA = {
           "answer": [
             1
           ],
-          "explanation": "Add the most probable tokens until the total reaches p: 0.60 < 0.9, then 0.60 + 0.35 = 0.95 ≥ 0.9, so the nucleus is {on, off}."
+          "explanation": "Add the most probable tokens until the total reaches p: $0.60 < 0.9$, then $0.60 + 0.35 = 0.95 \\geq 0.9$, so the nucleus is {on, off}."
         },
         {
           "id": "nlp-new-010",
@@ -11958,7 +11958,7 @@ window.QUIZY_DATA = {
           "answer": [
             0
           ],
-          "explanation": "Every other term in −Σ p*ⱼ log p̂ⱼ is multiplied by 0."
+          "explanation": "Every other term in $-\\sum_j p^*_j \\log \\hat{p}_j$ is multiplied by 0."
         },
         {
           "id": "nlp-new-013",
@@ -12018,15 +12018,15 @@ window.QUIZY_DATA = {
           "marks": 1,
           "question": "In the Luong attention model, which decoder state is used to compute the attention scores at step t?",
           "choices": [
-            "The current decoder state hₜ",
-            "The previous decoder state hₜ₋₁",
+            "The current decoder state $h_t$",
+            "The previous decoder state $h_{t-1}$",
             "The final encoder state",
-            "The source context c⁽ᵗ⁾"
+            "The source context $c^{(t)}$"
           ],
           "answer": [
             0
           ],
-          "explanation": "Luong first updates hₜ, then attends with it. Bahdanau attends with the previous state hₜ₋₁."
+          "explanation": "Luong first updates $h_t$, then attends with it. Bahdanau attends with the previous state $h_{t-1}$."
         },
         {
           "id": "nlp-new-017",
@@ -12050,7 +12050,7 @@ window.QUIZY_DATA = {
           "concept": "Attention weights",
           "type": "multi",
           "marks": 3,
-          "question": "Which of the following are True about the attention weights a⁽ᵗ⁾ₖ in an RNN encoder–decoder with attention?",
+          "question": "Which of the following are True about the attention weights $a_k^{(t)}$ in an RNN encoder–decoder with attention?",
           "choices": [
             "For a given decoder step they sum to 1 over the source tokens",
             "They are obtained by applying softmax to the attention scores",
@@ -12070,17 +12070,17 @@ window.QUIZY_DATA = {
           "concept": "Score functions",
           "type": "single",
           "marks": 1,
-          "question": "The dot-product score is a special case of the bilinear score hₜᵀ W sₖ when W is:",
+          "question": "The dot-product score is a special case of the bilinear score $h_t^T W s_k$ when $W$ is:",
           "choices": [
             "The identity matrix",
             "A matrix of ones",
-            "A diagonal matrix of 1/√dₖ",
+            "A diagonal matrix of $1/\\sqrt{d_k}$",
             "A learned weight matrix"
           ],
           "answer": [
             0
           ],
-          "explanation": "hₜᵀ I sₖ = hₜᵀ sₖ."
+          "explanation": "$h_t^T I s_k = h_t^T s_k$."
         },
         {
           "id": "nlp-new-020",
@@ -12130,7 +12130,7 @@ window.QUIZY_DATA = {
             "The final encoder state initialises the decoder",
             "Character-level CNN with highway layers"
           ],
-          "explanation": "Bahdanau: bi-RNN encoder, hₜ₋₁, MLP. Luong: uni-RNN, hₜ, bilinear. Transformer: attention only. Plain seq2seq: a single vector passes the source to the decoder."
+          "explanation": "Bahdanau: bi-RNN encoder, $h_{t-1}$, MLP. Luong: uni-RNN, $h_t$, bilinear. Transformer: attention only. Plain seq2seq: a single vector passes the source to the decoder."
         },
         {
           "id": "nlp-new-022",
@@ -12148,7 +12148,7 @@ window.QUIZY_DATA = {
           "answer": [
             0
           ],
-          "explanation": "P(y | x) = ∏ₜ P(yₜ | y<ₜ, x): a language model over the target that is conditioned on the source x."
+          "explanation": "$P(y \\mid x) = \\prod_t P(y_t \\mid y_{<t}, x)$: a language model over the target that is conditioned on the source $x$."
         },
         {
           "id": "nlp-new-023",
@@ -12225,7 +12225,7 @@ window.QUIZY_DATA = {
           "question": "Which of the following are True about multi-head attention in a Transformer?",
           "choices": [
             "Each head has its own query, key and value projection matrices",
-            "The heads' outputs are concatenated and then multiplied by an output matrix W_O",
+            "The heads' outputs are concatenated and then multiplied by an output matrix $W_O$",
             "Each head attends to a different chunk of the sentence",
             "The output has the same dimension as the input, so layers can be stacked"
           ],
@@ -12235,7 +12235,7 @@ window.QUIZY_DATA = {
             3
           ],
           "negativeMarking": true,
-          "explanation": "Every head sees all the tokens but uses its own projections (a different subspace). Concatenate → W_O → back to d_model."
+          "explanation": "Every head sees all the tokens but uses its own projections (a different subspace). Concatenate → $W_O$ → back to $d_{model}$."
         },
         {
           "id": "nlp-new-028",
@@ -12243,7 +12243,7 @@ window.QUIZY_DATA = {
           "concept": "Scaling",
           "type": "single",
           "marks": 1,
-          "question": "Why are the attention scores divided by √dₖ in scaled dot-product attention?",
+          "question": "Why are the attention scores divided by $\\sqrt{d_k}$ in scaled dot-product attention?",
           "choices": [
             "To stop large dot products from pushing the softmax into a saturated, near one-hot region with tiny gradients",
             "To turn the scores into probabilities",
@@ -12253,7 +12253,7 @@ window.QUIZY_DATA = {
           "answer": [
             0
           ],
-          "explanation": "The variance of q·k grows with dₖ; dividing by √dₖ keeps it around 1, a bit like stopping the softmax from behaving as if it had a very low temperature."
+          "explanation": "The variance of $q \\cdot k$ grows with $d_k$; dividing by $\\sqrt{d_k}$ keeps it around 1, a bit like stopping the softmax from behaving as if it had a very low temperature."
         },
         {
           "id": "nlp-new-029",
@@ -12279,7 +12279,7 @@ window.QUIZY_DATA = {
           "marks": 1,
           "question": "In masked self-attention, the scores for future positions are set to which value before the softmax?",
           "choices": [
-            "−∞",
+            "$-\\infty$",
             "0",
             "1",
             "The mean of the other scores"
@@ -12287,7 +12287,7 @@ window.QUIZY_DATA = {
           "answer": [
             0
           ],
-          "explanation": "exp(−∞) = 0, so the future weights become exactly 0. Setting a score to 0 would not mask anything, because exp(0) = 1."
+          "explanation": "$\\exp(-\\infty) = 0$, so the future weights become exactly 0. Setting a score to 0 would not mask anything, because $\\exp(0) = 1$."
         },
         {
           "id": "nlp-new-031",
@@ -12303,7 +12303,7 @@ window.QUIZY_DATA = {
           "answer": [
             0
           ],
-          "explanation": "PE(pos, 2i) = sin(pos/10000^(2i/d_model)), PE(pos, 2i+1) = cos(…)."
+          "explanation": "$PE_{pos,2i} = \\sin(pos/10000^{2i/d_{model}})$, $PE_{pos,2i+1} = \\cos(\\ldots)$."
         },
         {
           "id": "nlp-new-032",
@@ -12316,7 +12316,7 @@ window.QUIZY_DATA = {
             "relu",
             "rectified linear unit"
           ],
-          "explanation": "ReLU: FFN(x) = max(0, xW₁ + b₁)W₂ + b₂."
+          "explanation": "ReLU: $\\mathrm{FFN}(x) = \\max(0, xW_1 + b_1)W_2 + b_2$."
         },
         {
           "id": "nlp-new-033",
@@ -12354,7 +12354,7 @@ window.QUIZY_DATA = {
           "answer": [
             0
           ],
-          "explanation": "Mean 0 / variance 1 over the d_model features of one token, followed by a learned scale γ and shift β. Normalising across the batch is BatchNorm."
+          "explanation": "Mean 0 / variance 1 over the $d_{model}$ features of one token, followed by a learned scale $\\gamma$ and shift $\\beta$. Normalising across the batch is BatchNorm."
         },
         {
           "id": "nlp-new-035",
@@ -12364,10 +12364,10 @@ window.QUIZY_DATA = {
           "marks": 1,
           "question": "A residual (skip) connection around a sublayer F computes:",
           "choices": [
-            "x + F(x)",
-            "F(x) − x",
-            "F(x) · x",
-            "LayerNorm(F(x)) only"
+            "$x + F(x)$",
+            "$F(x) - x$",
+            "$F(x) \\cdot x$",
+            "$\\mathrm{LayerNorm}(F(x))$ only"
           ],
           "answer": [
             0
@@ -12380,7 +12380,7 @@ window.QUIZY_DATA = {
           "concept": "Attention weights vs output",
           "type": "truefalse",
           "marks": 1,
-          "question": "True or False, the attention weights of a Transformer attention layer are computed as softmax(QKᵀ/√dₖ)V.",
+          "question": "True or False, the attention weights of a Transformer attention layer are computed as $\\mathrm{softmax}(QK^T/\\sqrt{d_k})V$.",
           "choices": [
             "True",
             "False"
@@ -12388,7 +12388,7 @@ window.QUIZY_DATA = {
           "answer": [
             1
           ],
-          "explanation": "softmax(QKᵀ/√dₖ) are the weights (the attention matrix). Multiplying by V gives the attention OUTPUT. The lecturer said that if he asks for the attention matrix, don't multiply by V.",
+          "explanation": "$\\mathrm{softmax}(QK^T/\\sqrt{d_k})$ are the weights (the attention matrix). Multiplying by $V$ gives the attention OUTPUT. The lecturer said that if he asks for the attention matrix, don't multiply by $V$.",
           "variantOf": "attn-weights-eq"
         },
         {
@@ -12447,7 +12447,7 @@ window.QUIZY_DATA = {
             3
           ],
           "negativeMarking": true,
-          "explanation": "Contextual, char-CNN based (open vocabulary), forward and backward LSTM LMs, with task-specific λ weights over the layers. No self-attention.",
+          "explanation": "Contextual, char-CNN based (open vocabulary), forward and backward LSTM LMs, with task-specific $\\lambda$ weights over the layers. No self-attention.",
           "variantOf": "elmo-facts"
         },
         {
@@ -12482,7 +12482,7 @@ window.QUIZY_DATA = {
           "answer": [
             0
           ],
-          "explanation": "W' = W₀ + BA has the same shape as W₀; adapters add sequential layers that slow inference down.",
+          "explanation": "$W' = W_0 + BA$ has the same shape as $W_0$; adapters add sequential layers that slow inference down.",
           "variantOf": "lora-benefits"
         },
         {
@@ -12604,7 +12604,7 @@ window.QUIZY_DATA = {
             2
           ],
           "negativeMarking": true,
-          "explanation": "W' = W₀ + BA with B ∈ ℝ^(d×r), A ∈ ℝ^(r×k), r ≪ d, k. W₀ itself is unchanged.",
+          "explanation": "$W' = W_0 + BA$ with $B \\in \\mathbb{R}^{d \\times r}$, $A \\in \\mathbb{R}^{r \\times k}$, $r \\ll d, k$. $W_0$ itself is unchanged.",
           "variantOf": "lora-facts"
         },
         {
@@ -12622,7 +12622,7 @@ window.QUIZY_DATA = {
               "marks": 3
             }
           ],
-          "solution": "log₂ probabilities: −1, −2, −1, −3 → sum −7 → average −1.75.\nPerplexity = 2^(−average log₂ p) = 2^1.75 ≈ 3.3636.\nCheck: it sits between 1 (perfect) and |V| (uniform).",
+          "solution": "$\\log_2$ probabilities: $-1, -2, -1, -3$ → sum $-7$ → average $-1.75$.\n$$\\mathrm{PPL} = 2^{-\\frac{1}{M}\\sum_t \\log_2 p(y_t)} = 2^{1.75} \\approx 3.3636$$\nCheck: it sits between 1 (perfect) and $|V|$ (uniform).",
           "inputHint": "Give your answer to 2 decimal places."
         },
         {
@@ -12631,28 +12631,28 @@ window.QUIZY_DATA = {
           "concept": "Temperature calculation",
           "type": "numeric",
           "marks": 3,
-          "question": "A language model outputs the scores (logits) [2, 1, 0] for three candidate tokens. Apply softmax with temperature τ = 2 and give the three probabilities. Is the result more or less diverse than ordinary softmax?",
+          "question": "A language model outputs the scores (logits) [2, 1, 0] for three candidate tokens. Apply softmax with temperature $\\tau = 2$ and give the three probabilities. Is the result more or less diverse than ordinary softmax?",
           "parts": [
             {
-              "label": "p₁",
+              "label": "$p_1$",
               "answer": 0.5065,
               "tolerance": 0.002,
               "marks": 1
             },
             {
-              "label": "p₂",
+              "label": "$p_2$",
               "answer": 0.3072,
               "tolerance": 0.002,
               "marks": 1
             },
             {
-              "label": "p₃",
+              "label": "$p_3$",
               "answer": 0.1863,
               "tolerance": 0.002,
               "marks": 1
             }
           ],
-          "solution": "Divide the logits by τ = 2: [1, 0.5, 0].\nExponentiate: e¹ = 2.7183, e^0.5 = 1.6487, e⁰ = 1 → sum 5.3670.\nProbabilities: [0.5065, 0.3072, 0.1863].\nOrdinary softmax (τ = 1) gives [0.6652, 0.2447, 0.0900], so τ = 2 flattens the distribution: MORE diverse, less coherent. The ranking stays the same.",
+          "solution": "Divide the logits by $\\tau = 2$: $[1, 0.5, 0]$.\nExponentiate: $e^{1} = 2.7183,\\ e^{0.5} = 1.6487,\\ e^{0} = 1$ → sum $5.3670$.\n$$\\begin{aligned}p_i &= \\frac{e^{z_i/\\tau}}{\\sum_j e^{z_j/\\tau}} \\\\ &= [0.5065,\\ 0.3072,\\ 0.1863]\\end{aligned}$$\nOrdinary softmax ($\\tau = 1$) gives $[0.6652, 0.2447, 0.0900]$, so $\\tau = 2$ flattens the distribution: MORE diverse, less coherent. The ranking stays the same.",
           "inputHint": "Give each probability to 4 decimal places."
         },
         {
@@ -12661,7 +12661,7 @@ window.QUIZY_DATA = {
           "concept": "N-gram probabilities",
           "type": "numeric",
           "marks": 4,
-          "question": "A bigram model is trained on the corpus 'the cat sat on the mat the cat ran' (9 tokens; vocabulary: the, cat, sat, on, mat, ran, so |V| = 6). Calculate (a) the maximum-likelihood estimate of P(cat | the) and (b) P(cat | the) with Laplace smoothing, δ = 1.",
+          "question": "A bigram model is trained on the corpus 'the cat sat on the mat the cat ran' (9 tokens; vocabulary: the, cat, sat, on, mat, ran, so $|V| = 6$). Calculate (a) the maximum-likelihood estimate of $P(cat \\mid the)$ and (b) $P(cat \\mid the)$ with Laplace smoothing, $\\delta = 1$.",
           "parts": [
             {
               "label": "(a) MLE P(cat | the)",
@@ -12676,7 +12676,7 @@ window.QUIZY_DATA = {
               "marks": 2
             }
           ],
-          "solution": "Count 'the' as a context: it appears 3 times, and is followed by 'cat' 2 times (and 'mat' once).\n(a) P = N(the cat) / N(the) = 2/3 ≈ 0.6667.\n(b) P = (N(the cat) + δ) / (N(the) + δ·|V|) = (2 + 1) / (3 + 6) = 3/9 ≈ 0.3333.\nSmoothing moves probability mass from seen to unseen bigrams.",
+          "solution": "Count 'the' as a context: it appears 3 times, and is followed by 'cat' 2 times (and 'mat' once).\n(a) $$P = \\frac{N(the\\ cat)}{N(the)} = \\frac{2}{3} \\approx 0.6667$$\n(b) $$\\begin{aligned}P &= \\frac{N(the\\ cat) + \\delta}{N(the) + \\delta |V|} \\\\ &= \\frac{2 + 1}{3 + 6} = \\frac{3}{9} \\approx 0.3333\\end{aligned}$$\nSmoothing moves probability mass from seen to unseen bigrams.",
           "inputHint": "A decimal (e.g. 0.67) or a fraction (e.g. 2/3).",
           "variantOf": "laplace-calc"
         },
@@ -12686,7 +12686,7 @@ window.QUIZY_DATA = {
           "concept": "Linear interpolation",
           "type": "numeric",
           "marks": 2,
-          "question": "A 4-gram model uses linear interpolation with λ₄ = 0.6, λ₃ = 0.3, λ₂ = 0.08, λ₁ = 0.02 for the 4-gram, trigram, bigram and unigram estimates. For a word w the estimates are P₄ = 0 (unseen), P₃ = 0.2, P₂ = 0.1 and P₁ = 0.05. Calculate the interpolated probability.",
+          "question": "A 4-gram model uses linear interpolation with $\\lambda_4 = 0.6,\\ \\lambda_3 = 0.3,\\ \\lambda_2 = 0.08,\\ \\lambda_1 = 0.02$ for the 4-gram, trigram, bigram and unigram estimates. For a word w the estimates are $P_4 = 0$ (unseen), $P_3 = 0.2$, $P_2 = 0.1$ and $P_1 = 0.05$. Calculate the interpolated probability.",
           "parts": [
             {
               "label": "P(w | context)",
@@ -12695,7 +12695,7 @@ window.QUIZY_DATA = {
               "marks": 2
             }
           ],
-          "solution": "P = 0.6·0 + 0.3·0.2 + 0.08·0.1 + 0.02·0.05 = 0 + 0.06 + 0.008 + 0.001 = 0.069.\n(The λs sum to 1, so the result is still a probability, and an unseen 4-gram no longer gives 0.)",
+          "solution": "$$\\begin{aligned}P &= \\lambda_4 P_4 + \\lambda_3 P_3 + \\lambda_2 P_2 + \\lambda_1 P_1 \\\\ &= 0.6 \\cdot 0 + 0.3 \\cdot 0.2 \\\\ &\\quad + 0.08 \\cdot 0.1 + 0.02 \\cdot 0.05 \\\\ &= 0.069\\end{aligned}$$\n(The $\\lambda$s sum to 1, so the result is still a probability, and an unseen 4-gram no longer gives 0.)",
           "inputHint": "Give your answer to 3 decimal places."
         },
         {
@@ -12704,40 +12704,40 @@ window.QUIZY_DATA = {
           "concept": "Attention calculation",
           "type": "numeric",
           "marks": 5,
-          "question": "An RNN decoder state is hₜ = [1, 0] and the encoder states are s₁ = [2, 1], s₂ = [0, 1], s₃ = [1, 1]. Using dot-product attention, calculate the three attention weights and the attention output (source context) c⁽ᵗ⁾.",
+          "question": "An RNN decoder state is $h_t = [1, 0]$ and the encoder states are $s_1 = [2, 1]$, $s_2 = [0, 1]$, $s_3 = [1, 1]$. Using dot-product attention, calculate the three attention weights and the attention output (source context) $c^{(t)}$.",
           "parts": [
             {
-              "label": "a₁",
+              "label": "$a_1$",
               "answer": 0.6652,
               "tolerance": 0.003,
               "marks": 1
             },
             {
-              "label": "a₂",
+              "label": "$a_2$",
               "answer": 0.09,
               "tolerance": 0.003,
               "marks": 1
             },
             {
-              "label": "a₃",
+              "label": "$a_3$",
               "answer": 0.2447,
               "tolerance": 0.003,
               "marks": 1
             },
             {
-              "label": "c⁽ᵗ⁾ first component",
+              "label": "$c^{(t)}$ first component",
               "answer": 1.5752,
               "tolerance": 0.005,
               "marks": 1
             },
             {
-              "label": "c⁽ᵗ⁾ second component",
+              "label": "$c^{(t)}$ second component",
               "answer": 1,
               "tolerance": 0.005,
               "marks": 1
             }
           ],
-          "solution": "Scores: hₜ·s₁ = 2, hₜ·s₂ = 0, hₜ·s₃ = 1.\nSoftmax: e² = 7.389, e⁰ = 1, e¹ = 2.718 → sum 11.107 → a = [0.6652, 0.0900, 0.2447].\nOutput: c = a₁s₁ + a₂s₂ + a₃s₃ = 0.6652·[2, 1] + 0.0900·[0, 1] + 0.2447·[1, 1] = [1.5752, 1.0000].\n(The second component is 1 because every encoder state has 1 there and the weights sum to 1.)",
+          "solution": "Scores: $h_t \\cdot s_1 = 2,\\ h_t \\cdot s_2 = 0,\\ h_t \\cdot s_3 = 1$.\nSoftmax: $e^2 = 7.389,\\ e^0 = 1,\\ e^1 = 2.718$ → sum $11.107$ → $a = [0.6652,\\ 0.0900,\\ 0.2447]$.\n$$\\begin{aligned}c^{(t)} &= a_1 s_1 + a_2 s_2 + a_3 s_3 \\\\ &= 0.6652\\,[2, 1] + 0.0900\\,[0, 1] \\\\ &\\quad + 0.2447\\,[1, 1] \\\\ &= [1.5752,\\ 1.0000]\\end{aligned}$$\n(The second component is 1 because every encoder state has 1 there and the weights sum to 1.)",
           "inputHint": "Give each value to 4 decimal places."
         },
         {
@@ -12746,22 +12746,22 @@ window.QUIZY_DATA = {
           "concept": "Scaled dot-product attention",
           "type": "numeric",
           "marks": 3,
-          "question": "A query q = [1, 2, 0, 1] attends to two keys k₁ = [1, 0, 1, 1] and k₂ = [2, 1, 0, 0] in a Transformer attention layer (dₖ = 4). Calculate the two attention weights.",
+          "question": "A query $q = [1, 2, 0, 1]$ attends to two keys $k_1 = [1, 0, 1, 1]$ and $k_2 = [2, 1, 0, 0]$ in a Transformer attention layer ($d_k = 4$). Calculate the two attention weights.",
           "parts": [
             {
-              "label": "weight on k₁",
+              "label": "weight on $k_1$",
               "answer": 0.2689,
               "tolerance": 0.003,
               "marks": 1.5
             },
             {
-              "label": "weight on k₂",
+              "label": "weight on $k_2$",
               "answer": 0.7311,
               "tolerance": 0.003,
               "marks": 1.5
             }
           ],
-          "solution": "q·k₁ = 1 + 0 + 0 + 1 = 2; q·k₂ = 2 + 2 + 0 + 0 = 4.\nScale by √dₖ = 2: scores [1, 2].\nSoftmax: e¹/(e¹ + e²) = 0.2689, e²/(e¹ + e²) = 0.7311.\nThese ARE the attention weights: don't multiply by V unless the output is asked for.",
+          "solution": "$q \\cdot k_1 = 1 + 0 + 0 + 1 = 2$; $q \\cdot k_2 = 2 + 2 + 0 + 0 = 4$.\nScale by $\\sqrt{d_k} = 2$: scores $[1, 2]$.\n$$\\frac{e^1}{e^1 + e^2} = 0.2689, \\qquad \\frac{e^2}{e^1 + e^2} = 0.7311$$\nThese ARE the attention weights: don't multiply by $V$ unless the output is asked for.",
           "inputHint": "Give each weight to 4 decimal places.",
           "variantOf": "attn-calc"
         },
@@ -12771,7 +12771,7 @@ window.QUIZY_DATA = {
           "concept": "LoRA parameter count",
           "type": "numeric",
           "marks": 3,
-          "question": "A Transformer layer has a 4096 × 4096 weight matrix W. It is fine-tuned with LoRA of rank r = 8. Calculate (a) the number of trainable LoRA parameters for this matrix and (b) that number as a percentage of W's parameters.",
+          "question": "A Transformer layer has a $4096 \\times 4096$ weight matrix $W$. It is fine-tuned with LoRA of rank $r = 8$. Calculate (a) the number of trainable LoRA parameters for this matrix and (b) that number as a percentage of W's parameters.",
           "parts": [
             {
               "label": "(a) trainable parameters",
@@ -12787,7 +12787,7 @@ window.QUIZY_DATA = {
               "unit": "%"
             }
           ],
-          "solution": "W has 4096 × 4096 = 16,777,216 parameters.\nLoRA trains B ∈ ℝ^(4096×8) and A ∈ ℝ^(8×4096): 8·4096 + 8·4096 = 65,536 parameters.\n65,536 / 16,777,216 = 0.0039 → 0.39%.",
+          "solution": "$W$ has $4096 \\times 4096 = 16{,}777{,}216$ parameters.\nLoRA trains $B \\in \\mathbb{R}^{4096 \\times 8}$ and $A \\in \\mathbb{R}^{8 \\times 4096}$: $8 \\cdot 4096 + 8 \\cdot 4096 = 65{,}536$ parameters.\n$$\\frac{65{,}536}{16{,}777{,}216} = 0.0039 \\to 0.39\\%$$",
           "inputHint": "Write the count as a whole number, e.g. 12345 (no spaces).",
           "variantOf": "lora-mem"
         },
@@ -12797,10 +12797,10 @@ window.QUIZY_DATA = {
           "concept": "Multi-head attention dimensions",
           "type": "numeric",
           "marks": 3,
-          "question": "A Transformer has d_model = 512 and 8 attention heads, with each head's key dimension dₖ = d_model / h. Calculate (a) dₖ and (b) the total number of weights (no biases) in one multi-head attention block's projection matrices W_Q, W_K, W_V and W_O.",
+          "question": "A Transformer has $d_{model} = 512$ and 8 attention heads, with each head's key dimension $d_k = d_{model}/h$. Calculate (a) $d_k$ and (b) the total number of weights (no biases) in one multi-head attention block's projection matrices $W_Q$, $W_K$, $W_V$ and $W_O$.",
           "parts": [
             {
-              "label": "(a) dₖ",
+              "label": "(a) $d_k$",
               "answer": 64,
               "tolerance": 0.5,
               "marks": 1
@@ -12812,7 +12812,7 @@ window.QUIZY_DATA = {
               "marks": 2
             }
           ],
-          "solution": "(a) dₖ = 512 / 8 = 64.\n(b) Across all heads, W_Q, W_K and W_V are each 512 × (8·64) = 512 × 512, and W_O is 512 × 512: 4 × 262,144 = 1,048,576.\nSplitting into heads doesn't add parameters compared with one full-width head.",
+          "solution": "(a) $d_k = 512 / 8 = 64$.\n(b) Across all heads, $W_Q$, $W_K$ and $W_V$ are each $512 \\times (8 \\cdot 64) = 512 \\times 512$, and $W_O$ is $512 \\times 512$: $4 \\times 262{,}144 = 1{,}048{,}576$.\nSplitting into heads doesn't add parameters compared with one full-width head.",
           "inputHint": "Whole numbers, no spaces."
         },
         {
@@ -12821,7 +12821,7 @@ window.QUIZY_DATA = {
           "concept": "Positional encoding values",
           "type": "numeric",
           "marks": 3,
-          "question": "Using PE(pos, 2i) = sin(pos/10000^(2i/d_model)) and PE(pos, 2i+1) = cos(pos/10000^(2i/d_model)), calculate the first two dimensions (i = 0) of the positional encoding for pos = 1, and the first dimension for pos = 2. Use radians.",
+          "question": "Using $PE_{pos,2i} = \\sin(pos/10000^{2i/d_{model}})$ and $PE_{pos,2i+1} = \\cos(pos/10000^{2i/d_{model}})$, calculate the first two dimensions ($i = 0$) of the positional encoding for $pos = 1$, and the first dimension for $pos = 2$. Use radians.",
           "parts": [
             {
               "label": "PE(1, 0)",
@@ -12852,7 +12852,7 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 4,
           "question": "Explain why a count-based n-gram language model can assign zero probability to a perfectly valid sentence, and describe two techniques that address this. (4 Marks)",
-          "modelAnswer": "Language is compositional, so most n-grams (especially long ones) never appear in the training corpus. The MLE P(w | context) = N(context, w)/N(context) is then 0 for an unseen n-gram, and because the sentence probability is a product, a single 0 makes the whole sentence 0. If the context itself is unseen, the estimate is 0/0, undefined.\nFixes (any two):\n• Backoff: if the longer context has no counts, use a shorter one (trigram → bigram → unigram).\n• Linear interpolation: mix the estimates of every order, Σ λᵢ Pᵢ with Σ λᵢ = 1, λs chosen on a validation set.\n• Laplace (add-δ) smoothing: (N + δ)/(N(context) + δ|V|), so nothing is ever 0.",
+          "modelAnswer": "Language is compositional, so most n-grams (especially long ones) never appear in the training corpus. The MLE $P(w \\mid context) = N(context, w)/N(context)$ is then 0 for an unseen n-gram, and because the sentence probability is a product, a single 0 makes the whole sentence 0. If the context itself is unseen, the estimate is 0/0, undefined.\nFixes (any two):\n• Backoff: if the longer context has no counts, use a shorter one (trigram → bigram → unigram).\n• Linear interpolation: mix the estimates of every order, $\\sum_i \\lambda_i P_i$ with $\\sum_i \\lambda_i = 1$, $\\lambda$s chosen on a validation set.\n• Laplace (add-$\\delta$) smoothing: $\\dfrac{N + \\delta}{N(context) + \\delta |V|}$, so nothing is ever 0.",
           "rubric": [
             {
               "point": "Unseen n-grams have count 0 (sparsity / compositionality)",
@@ -12879,14 +12879,14 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 4,
           "question": "Explain the coherence–diversity trade-off in text generation and how sampling temperature controls it. Why is temperature alone not a complete solution? (4 Marks)",
-          "modelAnswer": "Generated text should be coherent (make sense, stay consistent with what came before) and diverse (different samples, not always the most likely, short, repetitive output).\nTemperature divides the logits by τ before the softmax. τ < 1 sharpens the distribution: more coherent but repetitive and less diverse ('the new version of the new version…'). τ > 1 flattens it: more diverse but incoherent. τ = 1 is the ordinary softmax.\nIt isn't enough because it is one global knob: moving it in either direction improves one property and hurts the other, and it ignores how many plausible candidates there are at each step. Top-k and especially top-p (nucleus) sampling adapt to the distribution.",
+          "modelAnswer": "Generated text should be coherent (make sense, stay consistent with what came before) and diverse (different samples, not always the most likely, short, repetitive output).\nTemperature divides the logits by $\\tau$ before the softmax. $\\tau < 1$ sharpens the distribution: more coherent but repetitive and less diverse ('the new version of the new version…'). $\\tau > 1$ flattens it: more diverse but incoherent. $\\tau = 1$ is the ordinary softmax.\nIt isn't enough because it is one global knob: moving it in either direction improves one property and hurts the other, and it ignores how many plausible candidates there are at each step. Top-k and especially top-p (nucleus) sampling adapt to the distribution.",
           "rubric": [
             {
               "point": "Defines coherence and diversity",
               "marks": 1
             },
             {
-              "point": "Temperature divides the logits before softmax: τ<1 sharper/more coherent, τ>1 flatter/more diverse",
+              "point": "Temperature divides the logits before softmax: $\\tau<1$ sharper/more coherent, $\\tau>1$ flatter/more diverse",
               "marks": 1
             },
             {
@@ -12906,7 +12906,7 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 3,
           "question": "Define perplexity for a language model, state its best and worst values, and explain why a lower perplexity is better. (3 Marks)",
-          "modelAnswer": "Perplexity(y₁:M) = 2^(−(1/M) Σₜ log₂ p(yₜ | y<ₜ)): 2 to the power of the average negative log-likelihood (cross-entropy in bits). It measures how 'surprised' the model is by the text.\nBest: 1, when the model gives probability 1 to every correct token. Worst (uniform model): |V|, when it gives 1/|V| to every token.\nLower perplexity means higher likelihood of real text, i.e. the model predicts the data better.",
+          "modelAnswer": "$$\\mathrm{Perplexity}(y_{1:M}) = 2^{-\\frac{1}{M}\\sum_{t} \\log_2 p(y_t \\mid y_{<t})}$$ 2 to the power of the average negative log-likelihood (cross-entropy in bits). It measures how 'surprised' the model is by the text.\nBest: 1, when the model gives probability 1 to every correct token. Worst (uniform model): $|V|$, when it gives $1/|V|$ to every token.\nLower perplexity means higher likelihood of real text, i.e. the model predicts the data better.",
           "rubric": [
             {
               "point": "Formula / definition: exponentiated average negative log-likelihood ('surprise')",
@@ -13025,14 +13025,14 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 4,
           "question": "Compare the Bahdanau and Luong attention models. Give four differences or defining features. (4 Marks)",
-          "modelAnswer": "• Encoder: Bahdanau uses a bidirectional RNN (forward and backward states concatenated); Luong uses a unidirectional RNN.\n• Which decoder state attends: Bahdanau uses the previous state hₜ₋₁; Luong uses the current state hₜ.\n• Score function: Bahdanau uses an MLP (additive) score; Luong uses a bilinear score.\n• How the context is used: Bahdanau feeds c⁽ᵗ⁾ (with hₜ₋₁) into the next decoder step; Luong combines c⁽ᵗ⁾ and hₜ (h̃ₜ = tanh(W_c[hₜ, c⁽ᵗ⁾])) to make the prediction.\nThe lecturer framed them as two variants of the same general mechanism, differing mainly in the score function and in hₜ vs hₜ₋₁.",
+          "modelAnswer": "• Encoder: Bahdanau uses a bidirectional RNN (forward and backward states concatenated); Luong uses a unidirectional RNN.\n• Which decoder state attends: Bahdanau uses the previous state $h_{t-1}$; Luong uses the current state $h_t$.\n• Score function: Bahdanau uses an MLP (additive) score; Luong uses a bilinear score.\n• How the context is used: Bahdanau feeds $c^{(t)}$ (with $h_{t-1}$) into the next decoder step; Luong combines $c^{(t)}$ and $h_t$ ($\\tilde{h}_t = \\tanh(W_c[h_t, c^{(t)}])$) to make the prediction.\nThe lecturer framed them as two variants of the same general mechanism, differing mainly in the score function and in $h_t$ vs $h_{t-1}$.",
           "rubric": [
             {
               "point": "Encoder: bidirectional (Bahdanau) vs unidirectional (Luong)",
               "marks": 1
             },
             {
-              "point": "Attending state: hₜ₋₁ (Bahdanau) vs hₜ (Luong)",
+              "point": "Attending state: $h_{t-1}$ (Bahdanau) vs $h_t$ (Luong)",
               "marks": 1
             },
             {
@@ -13040,7 +13040,7 @@ window.QUIZY_DATA = {
               "marks": 1
             },
             {
-              "point": "Use of the context: fed into the next step vs combined with hₜ for the prediction",
+              "point": "Use of the context: fed into the next step vs combined with $h_t$ for the prediction",
               "marks": 1
             }
           ],
@@ -13053,10 +13053,10 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 2,
           "question": "Explain why greedy decoding does not necessarily produce the most probable output sentence. (2 Marks)",
-          "modelAnswer": "Greedy picks argmax at each step, i.e. it maximises ∏ₜ max p(yₜ | y<ₜ, x) step by step, which is not the same as argmax over whole sequences of ∏ₜ p(yₜ | y<ₜ, x). A locally most probable token can lead into a continuation where every later token has low probability ('The Sistine Chapel is in London…'), so the overall sentence probability ends up lower than an alternative that started with a less probable token.",
+          "modelAnswer": "Greedy picks argmax at each step, i.e. it maximises $\\prod_t \\max p(y_t \\mid y_{<t}, x)$ step by step, which is not the same as the argmax over whole sequences of $\\prod_t p(y_t \\mid y_{<t}, x)$. A locally most probable token can lead into a continuation where every later token has low probability ('The Sistine Chapel is in London…'), so the overall sentence probability ends up lower than an alternative that started with a less probable token.",
           "rubric": [
             {
-              "point": "Greedy is a local choice per step; the product of local maxima ≠ the global maximum over sequences",
+              "point": "Greedy is a local choice per step; the product of local maxima $\\neq$ the global maximum over sequences",
               "marks": 1
             },
             {
@@ -13072,7 +13072,7 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 4,
           "question": "Explain the roles of the query, key and value vectors in self-attention, and why a Transformer uses three separate projections instead of one vector per token. (4 Marks)",
-          "modelAnswer": "Each token's embedding x is projected three ways: q = W_Q x, k = W_K x, v = W_V x.\n• Query: what this token is looking for ('do you have this information?').\n• Key: what each token offers, compared against the query to get the score ('I have this information, give me a large weight').\n• Value: the information actually passed on: the output is the softmax-weighted sum of the values.\nWhy separate: in RNN attention one vector had to do everything at once (encode meaning, be easy to find, and supply the information). Decoupling 'where to look' (Q·K) from 'what to take' (V) lets each be learned for its own job. The cost is more parameters, so more data is needed.",
+          "modelAnswer": "Each token's embedding x is projected three ways: $q = W_Q x,\\ k = W_K x,\\ v = W_V x$.\n• Query: what this token is looking for ('do you have this information?').\n• Key: what each token offers, compared against the query to get the score ('I have this information, give me a large weight').\n• Value: the information actually passed on: the output is the softmax-weighted sum of the values.\nWhy separate: in RNN attention one vector had to do everything at once (encode meaning, be easy to find, and supply the information). Decoupling 'where to look' ($Q \\cdot K$) from 'what to take' ($V$) lets each be learned for its own job. The cost is more parameters, so more data is needed.",
           "rubric": [
             {
               "point": "Query: the vector the current token uses to look for information",
@@ -13098,11 +13098,11 @@ window.QUIZY_DATA = {
           "concept": "Scaled dot-product",
           "type": "written",
           "marks": 2,
-          "question": "Why does scaled dot-product attention divide QKᵀ by √dₖ? (2 Marks)",
-          "modelAnswer": "For vectors with dₖ roughly independent components, the variance of q·k grows with dₖ, so large dimensions give very large scores. Large scores push the softmax into saturation (almost one-hot weights) where its gradients are tiny, which hurts training. Dividing by √dₖ keeps the variance of the scores around 1 whatever the dimension.",
+          "question": "Why does scaled dot-product attention divide $QK^T$ by $\\sqrt{d_k}$? (2 Marks)",
+          "modelAnswer": "For vectors with $d_k$ roughly independent components, the variance of $q \\cdot k$ grows with $d_k$, so large dimensions give very large scores. Large scores push the softmax into saturation (almost one-hot weights) where its gradients are tiny, which hurts training. Dividing by $\\sqrt{d_k}$ keeps the variance of the scores around 1 whatever the dimension.",
           "rubric": [
             {
-              "point": "The dot product's magnitude/variance grows with dₖ",
+              "point": "The dot product's magnitude/variance grows with $d_k$",
               "marks": 1
             },
             {
@@ -13118,7 +13118,7 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 3,
           "question": "Explain why the Transformer decoder uses masked self-attention and how the mask is applied. (3 Marks)",
-          "modelAnswer": "At inference time the decoder generates left to right, so it can't see future tokens. During training the whole target sentence is processed in parallel, so without a mask each position could attend to the tokens it is supposed to predict (cheating), and training would not match inference.\nThe mask sets the scores for future positions (j > i) to −∞ before the softmax, so their weights are exactly 0 and each position only attends to itself and earlier positions. The allowed weights form a lower-triangular matrix.",
+          "modelAnswer": "At inference time the decoder generates left to right, so it can't see future tokens. During training the whole target sentence is processed in parallel, so without a mask each position could attend to the tokens it is supposed to predict (cheating), and training would not match inference.\nThe mask sets the scores for future positions ($j > i$) to $-\\infty$ before the softmax, so their weights are exactly 0 and each position only attends to itself and earlier positions. The allowed weights form a lower-triangular matrix.",
           "rubric": [
             {
               "point": "Future tokens are unknown at generation time",
@@ -13129,7 +13129,7 @@ window.QUIZY_DATA = {
               "marks": 1
             },
             {
-              "point": "Future scores set to −∞ before softmax, giving zero weight (lower-triangular)",
+              "point": "Future scores set to $-\\infty$ before softmax, giving zero weight (lower-triangular)",
               "marks": 1
             }
           ],
@@ -13169,7 +13169,7 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 4,
           "question": "Why does a Transformer need positional encodings, and how do the original sinusoidal encodings represent position? (4 Marks)",
-          "modelAnswer": "Self-attention has no recurrence or convolution and treats the input as a set: it is permutation equivariant, so without extra information 'dog bites man' and 'man bites dog' would give the same token representations, just permuted. Word order matters, so position must be injected.\nA position vector is added to each token embedding. In the original Transformer, dimension 2i is sin(pos/10000^(2i/d_model)) and dimension 2i+1 is cos(…). Each pair of dimensions is a wave with its own frequency: early dimensions change quickly (fine position), later ones slowly (coarse position), so together they give every position a distinct pattern, and nearby positions get similar vectors. (Learned position embeddings are the common alternative.)",
+          "modelAnswer": "Self-attention has no recurrence or convolution and treats the input as a set: it is permutation equivariant, so without extra information 'dog bites man' and 'man bites dog' would give the same token representations, just permuted. Word order matters, so position must be injected.\nA position vector is added to each token embedding. In the original Transformer, dimension $2i$ is $\\sin(pos/10000^{2i/d_{model}})$ and dimension $2i+1$ is $\\cos(\\ldots)$. Each pair of dimensions is a wave with its own frequency: early dimensions change quickly (fine position), later ones slowly (coarse position), so together they give every position a distinct pattern, and nearby positions get similar vectors. (Learned position embeddings are the common alternative.)",
           "rubric": [
             {
               "point": "Self-attention is order-agnostic (permutation equivariant), so order must be added",
@@ -13180,7 +13180,7 @@ window.QUIZY_DATA = {
               "marks": 1
             },
             {
-              "point": "sin for even dimensions, cos for odd, with pos/10000^(2i/d_model)",
+              "point": "sin for even dimensions, cos for odd, with $pos/10000^{2i/d_{model}}$",
               "marks": 1
             },
             {
@@ -13196,7 +13196,7 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 3,
           "question": "Why does a Transformer use multiple attention heads, and how are the heads' outputs combined? (3 Marks)",
-          "modelAnswer": "A single attention distribution can only focus on one kind of relationship at a time, but a token may need several kinds of information at once (e.g. its subject, its object, agreement, nearby words). Each head has its own W_Q, W_K, W_V, so it can learn a different relation (positional, syntactic, rare-token heads…). Gradient descent decides what each head does.\nThe heads run in parallel; their outputs are concatenated and multiplied by an output matrix W_O, which projects back to d_model so the result can be added to the residual and the layers stacked.",
+          "modelAnswer": "A single attention distribution can only focus on one kind of relationship at a time, but a token may need several kinds of information at once (e.g. its subject, its object, agreement, nearby words). Each head has its own $W_Q$, $W_K$, $W_V$, so it can learn a different relation (positional, syntactic, rare-token heads…). Gradient descent decides what each head does.\nThe heads run in parallel; their outputs are concatenated and multiplied by an output matrix $W_O$, which projects back to $d_{model}$ so the result can be added to the residual and the layers stacked.",
           "rubric": [
             {
               "point": "One head can only capture one attention pattern; several relations are needed at once",
@@ -13207,7 +13207,7 @@ window.QUIZY_DATA = {
               "marks": 1
             },
             {
-              "point": "Outputs concatenated and projected by W_O back to d_model",
+              "point": "Outputs concatenated and projected by $W_O$ back to $d_{model}$",
               "marks": 1
             }
           ]
@@ -13219,10 +13219,10 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 3,
           "question": "Explain why Transformers can be trained much faster than RNNs, and state what is still sequential in a Transformer. (3 Marks)",
-          "modelAnswer": "An RNN must process tokens one after another (O(N) sequential steps), because hₜ depends on hₜ₋₁; it can't be parallelised over the sequence and long-range information has to pass through many steps.\nA Transformer computes self-attention for all tokens at once with matrix multiplications: a constant number of sequential steps per layer, fully parallel on a GPU, so it can be trained on far more data. Every token can also see every other token directly.\nStill sequential: autoregressive generation at inference: the decoder produces one token at a time and feeds it back in.",
+          "modelAnswer": "An RNN must process tokens one after another ($O(N)$ sequential steps), because $h_t$ depends on $h_{t-1}$; it can't be parallelised over the sequence and long-range information has to pass through many steps.\nA Transformer computes self-attention for all tokens at once with matrix multiplications: a constant number of sequential steps per layer, fully parallel on a GPU, so it can be trained on far more data. Every token can also see every other token directly.\nStill sequential: autoregressive generation at inference: the decoder produces one token at a time and feeds it back in.",
           "rubric": [
             {
-              "point": "RNN: hₜ depends on hₜ₋₁, so O(N) sequential steps, not parallelisable",
+              "point": "RNN: $h_t$ depends on $h_{t-1}$, so $O(N)$ sequential steps, not parallelisable",
               "marks": 1
             },
             {
@@ -13242,7 +13242,7 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 4,
           "question": "Contrast ELMo representations with Word2Vec embeddings. Give four differences. (4 Marks)",
-          "modelAnswer": "• Context: Word2Vec gives one static vector per word type; ELMo gives a contextual vector that depends on the whole sentence ('bank' differs by context).\n• Input: Word2Vec looks up word vectors (no vector for unseen words); ELMo builds words from characters with a char-CNN + highway layers, so it is open-vocabulary.\n• Model: Word2Vec is a shallow predictor of context words; ELMo uses deep forward and backward 2-layer LSTM language models.\n• Use: Word2Vec vectors are fed in directly; ELMo gives several layers and each task learns its own weighted sum (λ₀, λ₁, λ₂), so it transfers 'how to process text', not just word meanings.",
+          "modelAnswer": "• Context: Word2Vec gives one static vector per word type; ELMo gives a contextual vector that depends on the whole sentence ('bank' differs by context).\n• Input: Word2Vec looks up word vectors (no vector for unseen words); ELMo builds words from characters with a char-CNN + highway layers, so it is open-vocabulary.\n• Model: Word2Vec is a shallow predictor of context words; ELMo uses deep forward and backward 2-layer LSTM language models.\n• Use: Word2Vec vectors are fed in directly; ELMo gives several layers and each task learns its own weighted sum ($\\lambda_0, \\lambda_1, \\lambda_2$), so it transfers 'how to process text', not just word meanings.",
           "rubric": [
             {
               "point": "Static vs contextual representations",
@@ -13384,7 +13384,7 @@ window.QUIZY_DATA = {
             "Global max-pooling",
             "Beam search"
           ],
-          "explanation": "Bottom up. Encoder (left): input embedding + positional encoding → [multi-head self-attention → add & norm → feed forward → add & norm] × N. Decoder (right): output embedding + positional encoding → masked multi-head self-attention → add & norm → multi-head encoder–decoder (cross) attention, where Q comes from the decoder and K, V from the encoder → add & norm → feed forward → add & norm, × N → linear → softmax over the vocabulary."
+          "explanation": "Bottom up. Encoder (left): input embedding + positional encoding → [multi-head self-attention → add & norm → feed forward → add & norm] $\\times N$. Decoder (right): output embedding + positional encoding → masked multi-head self-attention → add & norm → multi-head encoder–decoder (cross) attention, where Q comes from the decoder and K, V from the encoder → add & norm → feed forward → add & norm, $\\times N$ → linear → softmax over the vocabulary."
         },
         {
           "id": "nlp-lab-encoder-decoder",
@@ -13652,7 +13652,7 @@ window.QUIZY_DATA = {
             "Self-attention",
             "Average pooling"
           ],
-          "explanation": "Characters → convolution (several filters over character n-grams) → global max-pooling over positions (fixed-size vector) → 2 highway blocks (gate g = σ(Wx + b) mixes a linear transform with the input: g·Linear(x) + (1 − g)·x) → a final linear projection. Because it works from characters, ELMo is open-vocabulary."
+          "explanation": "Characters → convolution (several filters over character n-grams) → global max-pooling over positions (fixed-size vector) → 2 highway blocks (gate $g = \\sigma(Wx + b)$ mixes a linear transform with the input: $g \\cdot \\mathrm{Linear}(x) + (1 - g) \\cdot x$) → a final linear projection. Because it works from characters, ELMo is open-vocabulary."
         },
         {
           "id": "nlp-lab-elmo",
@@ -13688,7 +13688,7 @@ window.QUIZY_DATA = {
             "Word2Vec embedding lookup",
             "Bidirectional GRU"
           ],
-          "explanation": "ELMo: char-CNN + highway layers give a context-independent token representation; a 2-layer forward LSTM language model and a separate 2-layer backward LSTM LM read the sentence; the ELMo representation is a task-specific weighted sum (λ₀, λ₁, λ₂) of the layers. No self-attention."
+          "explanation": "ELMo: char-CNN + highway layers give a context-independent token representation; a 2-layer forward LSTM language model and a separate 2-layer backward LSTM LM read the sentence; the ELMo representation is a task-specific weighted sum ($\\lambda_0, \\lambda_1, \\lambda_2$) of the layers. No self-attention."
         },
         {
           "id": "nlp-lab-lora",
@@ -13729,7 +13729,7 @@ window.QUIZY_DATA = {
             "Layer Norm",
             "Softmax"
           ],
-          "explanation": "LoRA freezes W₀ and learns ΔW = BA with rank r ≪ d, so h = W₀x + BAx. After training, BA can be merged into W₀, so unlike adapters there's no extra inference latency."
+          "explanation": "LoRA freezes $W_0$ and learns $\\Delta W = BA$ with rank $r \\ll d$, so $h = W_0 x + BAx$. After training, $BA$ can be merged into $W_0$, so unlike adapters there's no extra inference latency."
         },
         {
           "id": "nlp-lab-bert-input",
@@ -13872,7 +13872,7 @@ window.QUIZY_DATA = {
             "(dot product with W_V)",
             "(layer norm)"
           ],
-          "explanation": "Input: all encoder states s₁…s_m and one decoder state h_t → scores score(h_t, s_k) → softmax → attention weights a_k^(t) → weighted sum → attention output c^(t) = Σ a_k^(t) s_k, the source context for decoder step t."
+          "explanation": "Input: all encoder states $s_1, \\ldots, s_m$ and one decoder state $h_t$ → scores $\\mathrm{score}(h_t, s_k)$ → softmax → attention weights $a_k^{(t)}$ → weighted sum → attention output $c^{(t)} = \\sum_k a_k^{(t)} s_k$, the source context for decoder step $t$."
         },
         {
           "id": "nlp-lab-score-functions",
@@ -13907,7 +13907,7 @@ window.QUIZY_DATA = {
             "Softmax",
             "Euclidean distance"
           ],
-          "explanation": "Dot-product: h_tᵀ s_k. Bilinear: h_tᵀ W s_k (learned W; W = I gives the dot product). MLP (additive): w₂ᵀ tanh(W₁[h_t, s_k]). Bahdanau used MLP, Luong used bilinear."
+          "explanation": "Dot-product: $h_t^T s_k$. Bilinear: $h_t^T W s_k$ (learned $W$; $W = I$ gives the dot product). MLP (additive): $w_2^T \\tanh(W_1[h_t, s_k])$. Bahdanau used MLP, Luong used bilinear."
         },
         {
           "id": "nlp-lab-bahdanau",
@@ -13953,7 +13953,7 @@ window.QUIZY_DATA = {
             "Unidirectional encoder",
             "Dot-product (score function)"
           ],
-          "explanation": "Bahdanau: bidirectional encoder; attention uses the previous decoder state h_{t−1}; MLP score function; the context c^(t) is fed into the next decoder step together with h_{t−1}."
+          "explanation": "Bahdanau: bidirectional encoder; attention uses the previous decoder state $h_{t-1}$; MLP score function; the context $c^{(t)}$ is fed into the next decoder step together with $h_{t-1}$."
         },
         {
           "id": "nlp-lab-luong",
@@ -13994,7 +13994,7 @@ window.QUIZY_DATA = {
             "Bidirectional encoder: concatenate states from forward and backward RNNs",
             "Dot-product (score function)"
           ],
-          "explanation": "Luong: unidirectional encoder; attention uses the current decoder state h_t; bilinear score function; then h̃_t = tanh(W_c[h_t, c^(t)]) combines context and state to predict the next token."
+          "explanation": "Luong: unidirectional encoder; attention uses the current decoder state $h_t$; bilinear score function; then $\\tilde{h}_t = \\tanh(W_c[h_t, c^{(t)}])$ combines context and state to predict the next token."
         }
       ]
     }

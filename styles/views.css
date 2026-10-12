@@ -1,4 +1,4 @@
-/* body[data-view] is set by src/ui/views.js ("setup", "quiz" or "summary").
+/* body[data-view] is set by src/ui/views.js ("setup", "quiz", "browse" or "summary").
    During a round: hide hero + stats and compact the header so the question is on the first screen. */
 [data-view=quiz] .hero,
 [data-view=quiz] .stats {
@@ -55,4 +55,15 @@
   [data-view=quiz] #quiz {
     margin-top: 14px;
   }
+}
+
+/* Browsing the question bank (body[data-view=browse], also for the answer view): no hero or stats.
+   The subject switcher stays enabled. */
+[data-view=browse] .hero,
+[data-view=browse] .stats {
+  display: none;
+}
+
+[data-view=browse] .subjects {
+  margin-bottom: 0;
 }

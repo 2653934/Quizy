@@ -8,7 +8,8 @@
   const {$, el, plural, formatMarks, marksOf, isFull, state} = Quizy;
 
   const percent = (score, marks) => `${Math.round(score / marks * 100)}%`;
-  const snippet = text => text.length > 90 ? text.slice(0, 88).trimEnd() + '…' : text;
+  // A short plain-text line (maths as plain text, so a cut never lands inside a formula).
+  const snippet = text => (text = Quizy.mathToPlain(text)).length > 90 ? text.slice(0, 88).trimEnd() + '…' : text;
 
   // "Not enough theory questions in L5 only: pick more lectures."
   function notEnough(paper) {

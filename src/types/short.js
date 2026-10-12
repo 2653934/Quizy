@@ -11,6 +11,8 @@
   };
   const isRight = (q, text) => q.accept.some(answer => normalise(q, answer) === normalise(q, text));
   const accepted = q => q.accept.join('\n');
+  const reference = q => `Accepted answer${q.accept.length === 1 ? '' : 's'}${q.caseSensitive ? ' (case-sensitive)' : ''}:\n${accepted(q)}`;
+  const answerBlock = q => textBlock('answer-key', q.accept.length === 1 ? 'Accepted answer' : 'Accepted answers', accepted(q));
 
   Quizy.registerType('short', {
     validate(q, set, fail) {
@@ -21,10 +23,8 @@
     makeOrder: () => ({choiceOrder: [], pairOrder: [], optionOrder: []}),
     // response: the typed text.
     score: (q, response) => isRight(q, response) ? Quizy.marksOf(q) : 0,
-    askClaude: (q, response) => ({
-      answer: response.trim() || '(no answer)',
-      reference: `Accepted answer${q.accept.length === 1 ? '' : 's'}${q.caseSensitive ? ' (case-sensitive)' : ''}:\n${accepted(q)}`
-    }),
+    askClaude: (q, response) => ({answer: response.trim() || '(no answer)', reference: reference(q)}),
+    reference,
 
     needsCheckButton: true,
     hints: () => [Quizy.el('p', 'hint', 'Type your answer, then check it.')],
@@ -41,8 +41,9 @@
       const input = container.querySelector('input');
       input.readOnly = true;
       input.classList.add(isRight(q, response) ? 'correct' : 'wrong');
-      container.append(textBlock('answer-key', q.accept.length === 1 ? 'Accepted answer' : 'Accepted answers', accepted(q)));
-    }
+      container.append(answerBlock(q));
+    },
+    answerKey: q => [answerBlock(q)]
   });
 
   if (typeof module !== 'undefined') module.exports = Quizy;

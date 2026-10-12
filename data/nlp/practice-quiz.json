@@ -118,7 +118,7 @@
         "softmax"
       ],
       "caseSensitive": false,
-      "explanation": "Softmax turns the linear layer's scores (logits) into a probability distribution: exp(xᵢ)/Σⱼ exp(xⱼ). For two classes a sigmoid does the same job."
+      "explanation": "Softmax turns the linear layer's scores (logits) into a probability distribution: $\\frac{\\exp(x_i)}{\\sum_j \\exp(x_j)}$. For two classes a sigmoid does the same job."
     },
     {
       "id": "nlp-pq-3-2",
@@ -154,7 +154,7 @@
       "answer": [
         1
       ],
-      "explanation": "Without smoothing, a word never seen with a class has count 0, so P(word|class) = 0 and the whole product becomes 0. Adding δ to every count prevents that."
+      "explanation": "Without smoothing, a word never seen with a class has count 0, so P(word|class) = 0 and the whole product becomes 0. Adding $\\delta$ to every count prevents that."
     },
     {
       "id": "nlp-pq-3-4",
@@ -188,7 +188,7 @@
       "answer": [
         0
       ],
-      "explanation": "A CNN lays the sequence out as positions and slides filters across them, so order becomes a spatial axis. An RNN represents order temporally: step t depends on step t−1. (Tutorial 4.3 asks you to explain exactly this.)"
+      "explanation": "A CNN lays the sequence out as positions and slides filters across them, so order becomes a spatial axis. An RNN represents order temporally: step $t$ depends on step $t-1$. (Tutorial 4.3 asks you to explain exactly this.)"
     },
     {
       "id": "nlp-pq-4-1",
@@ -226,7 +226,8 @@
       "explanation": "Long N-grams are sparse, so many have zero counts. Backoff falls back to shorter contexts (trigram → bigram → unigram) when the longer one hasn't been seen."
     },
     {
-      "id": "nlp-pq-4-3", "variantOf": "nucleus-adaptive",
+      "id": "nlp-pq-4-3",
+      "variantOf": "nucleus-adaptive",
       "number": "4.3",
       "lecture": 5,
       "concept": "Generation strategies",
@@ -247,7 +248,7 @@
         3,
         4
       ],
-      "explanation": "Temperature divides the logits before the softmax (a hyperparameter). τ < 1 sharpens the distribution: more coherent, less diverse. τ > 1 flattens it: more diverse, less coherent. Top-p adapts the candidate set to the distribution (2 words for 'the light was…', many for 'the dress colour was…')."
+      "explanation": "Temperature divides the logits before the softmax (a hyperparameter). $\\tau < 1$ sharpens the distribution: more coherent, less diverse. $\\tau > 1$ flattens it: more diverse, less coherent. Top-p adapts the candidate set to the distribution (2 words for 'the light was…', many for 'the dress colour was…')."
     },
     {
       "id": "nlp-pq-5-1",
@@ -323,7 +324,8 @@
       "keyDispute": "Toss-up, no official key. Strictly, softmax never outputs exact zeros, so it is not sparse in the mathematical sense (sparsemax would be), which would make the answer False. True is chosen here because of how the lecturer described it in class."
     },
     {
-      "id": "nlp-pq-5-5", "variantOf": "score-fn-not",
+      "id": "nlp-pq-5-5",
+      "variantOf": "score-fn-not",
       "number": "5.5",
       "lecture": 6,
       "concept": "Attention score functions",
@@ -345,7 +347,8 @@
       "explanation": "The three score functions are dot-product, bilinear and MLP. Softmax turns the scores into weights; it isn't a score function. (Same idea as 2025 Quiz 2, Q1.)"
     },
     {
-      "id": "nlp-pq-6-1", "variantOf": "decoder-only",
+      "id": "nlp-pq-6-1",
+      "variantOf": "decoder-only",
       "number": "6.1",
       "lecture": 8,
       "concept": "Decoder-only models",
@@ -362,7 +365,8 @@
       "explanation": "Decoder-only Transformers (the GPT family) drop the encoder and cross-attention and work as large left-to-right language models."
     },
     {
-      "id": "nlp-pq-6-2", "variantOf": "bert-masking",
+      "id": "nlp-pq-6-2",
+      "variantOf": "bert-masking",
       "number": "6.2",
       "lecture": 8,
       "concept": "BERT masking",
@@ -398,7 +402,8 @@
       "explanation": "ELMo's representations come from a bidirectional LSTM language model, so the same word gets a different vector in different sentences. BPE/SentencePiece only segment text; they produce no contextual vectors."
     },
     {
-      "id": "nlp-pq-6-4", "variantOf": "elmo-facts",
+      "id": "nlp-pq-6-4",
+      "variantOf": "elmo-facts",
       "number": "6.4",
       "lecture": 8,
       "concept": "ELMo open vocabulary",

@@ -2,7 +2,7 @@
 
 // single: one correct option. Tapping an option reveals the answer straight away. Full marks or 0.
 (function (Quizy) {
-  const {where, checkChoices, checkEmphasisInChoices, choiceText, markChoices} = Quizy.typeHelpers;
+  const {where, checkChoices, checkEmphasisInChoices, choiceText, markChoices, choiceKey, choiceReference} = Quizy.typeHelpers;
 
   Quizy.registerType('single', {
     validate(q, set, fail) {
@@ -26,7 +26,9 @@
         container.append(button);
       });
     },
-    showResult(container, q, item, response) { markChoices(container, q, response, ['correct', '✓ Answer']); }
+    showResult(container, q, item, response) { markChoices(container, q, response, ['correct', '✓ Answer']); },
+    reference: choiceReference,
+    answerKey: q => choiceKey(q)
   });
 
   if (typeof module !== 'undefined') module.exports = Quizy;

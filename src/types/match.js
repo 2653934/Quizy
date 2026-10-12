@@ -2,7 +2,7 @@
 
 // match: one <select> per prompt; prompts and options are both shuffled. Marks × (correct pairs / pairs).
 (function (Quizy) {
-  const {isText, where} = Quizy.typeHelpers;
+  const {isText, where, answerRows, option} = Quizy.typeHelpers;
 
   // True when the option index picked for a pair gives that pair's answer.
   const isRight = (q, pair, picked) => picked !== null && q.options[picked] === pair.answer;
@@ -28,12 +28,12 @@
         const row = Quizy.el('div', 'match-row');
         row.dataset.original = original;
         const id = `match-${i}`;
-        const prompt = Quizy.el('label', 'match-prompt', q.pairs[original].prompt);
+        const prompt = Quizy.richEl('label', 'match-prompt', q.pairs[original].prompt);
         prompt.htmlFor = id;
         const select = Quizy.el('select');
         select.id = id;
         select.add(new Option('Choose…', ''));
-        for (const o of item.optionOrder) select.add(new Option(q.options[o], String(o)));
+        for (const o of item.optionOrder) select.add(option(q.options[o], String(o)));
         select.addEventListener('change', () => onReady(![...container.querySelectorAll('select')].some(s => !s.value)));
         row.append(prompt, select);
         container.append(row);
@@ -53,9 +53,11 @@
         const correct = isRight(q, pair, response[Number(row.dataset.original)]);
         row.querySelector('select').disabled = true;
         row.classList.add(correct ? 'correct' : 'wrong');
-        if (!correct) row.append(Quizy.el('p', 'match-answer', `Answer: ${pair.answer}`));
+        if (!correct) row.append(Quizy.richEl('p', 'match-answer', `Answer: ${pair.answer}`));
       }
-    }
+    },
+    reference: q => 'Correct matches:\n' + q.pairs.map(pair => `- ${pair.prompt} → ${pair.answer}`).join('\n'),
+    answerKey: q => [answerRows(q.pairs.map(pair => [pair.prompt, pair.answer]))]
   });
 
   if (typeof module !== 'undefined') module.exports = Quizy;

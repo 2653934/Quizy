@@ -10,62 +10,119 @@
   "transcriptionNotes": "Wording, spelling and typos are copied exactly as they appear in the PDF (e.g. 'Bilnear', 'capture by', 'called then classification token'). Maths that appeared as rendered equations is written in Unicode. The 'explanation' fields are NOT part of the paper; they are study notes added afterwards. Answers come from the 'The correct answer is:' lines in the attempt review (not the student's own selections); where that answer looks wrong it is kept but marked with 'keyDispute'.",
   "questions": [
     {
-      "id": "nlp-pq2-01", "variantOf": "score-fn-not", "number": 1, "lecture": 6, "concept": "Attention score functions", "marks": 1,
+      "id": "nlp-pq2-01",
+      "variantOf": "score-fn-not",
+      "number": 1,
+      "lecture": 6,
+      "concept": "Attention score functions",
+      "marks": 1,
       "type": "single",
       "question": "Which of the following is not a typical attention score function.",
-      "emphasis": ["not"],
-      "choices": ["Dot-product attention", "Softmax attention", "Bilinear attention", "Multi-Layer Perceptron attention"],
-      "answer": [1],
+      "emphasis": [
+        "not"
+      ],
+      "choices": [
+        "Dot-product attention",
+        "Softmax attention",
+        "Bilinear attention",
+        "Multi-Layer Perceptron attention"
+      ],
+      "answer": [
+        1
+      ],
       "explanation": "The three score functions are dot-product, bilinear and MLP. The softmax is applied to the scores afterwards to turn them into weights; it is not a score function."
     },
     {
-      "id": "nlp-pq2-02", "number": 2, "lecture": 6, "concept": "Beam search", "marks": 1,
+      "id": "nlp-pq2-02",
+      "number": 2,
+      "lecture": 6,
+      "concept": "Beam search",
+      "marks": 1,
       "type": "truefalse",
       "question": "True or False. Beam search improves both the coherence and diversity of generated text by allowing the model to consider multiple viable sentences at once.",
-      "choices": ["True", "False"],
-      "answer": [0],
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
       "explanation": "Correct answer per the review: True. Beam search keeps several hypotheses at once instead of committing greedily to one token at each step.",
       "keyDispute": "Questionable: beam search mainly targets the most probable (coherent) sentence and in practice tends to reduce diversity. This is the answer the review gives, but don't rely on it as a general principle."
     },
     {
-      "id": "nlp-pq2-03", "number": 3, "lecture": 6, "concept": "Seq2seq encoder initialisation", "marks": 4,
-      "type": "multi", "negativeMarking": true,
+      "id": "nlp-pq2-03",
+      "number": 3,
+      "lecture": 6,
+      "concept": "Seq2seq encoder initialisation",
+      "marks": 4,
+      "type": "multi",
+      "negativeMarking": true,
       "question": "Which of the following options are True about the use of an RNN as the encoder for a Seq2Seq Model.",
-      "emphasis": ["True"],
+      "emphasis": [
+        "True"
+      ],
       "choices": [
         "You can initialise the recurrent layer of an encoding RNN as a vector of zeros because the input context will provide the necessary variability to produce an appropriate output",
         "You must initialise the recurrent layer of an encoding RNN as a vector of zeros because or else the forward propagation will become unstable",
         "You can initialise the recurrent layer of an encoding RNN as a random vector of values other than zero to improve the diversity of the language generation from the decoder",
         "You can initialise the recurrent layer of an encoding RNN as a random vector of values other than zero to improve the coherence of the language generation from the decoder"
       ],
-      "answer": [0, 2],
+      "answer": [
+        0,
+        2
+      ],
       "explanation": "A zero initial state is fine because the source sentence already provides the variation. A random (noisy) initial state is optional and adds diversity, not coherence. Nothing forces zeros."
     },
     {
-      "id": "nlp-pq2-04", "number": 4, "lecture": 7, "concept": "Transformer architecture", "marks": 4,
-      "type": "multi", "negativeMarking": true,
+      "id": "nlp-pq2-04",
+      "number": 4,
+      "lecture": 7,
+      "concept": "Transformer architecture",
+      "marks": 4,
+      "type": "multi",
+      "negativeMarking": true,
       "question": "Which of the following statements about transformers are True",
-      "emphasis": ["True"],
+      "emphasis": [
+        "True"
+      ],
       "choices": [
         "Transformers use residual connections to ensure that attention weights are distributed across tokens.",
         "Transformers do not have dense network layers in their architecture as \"Attention is All You Need\".",
         "Transformers use attention to pass information between the encoder and decoder portions of the architecture.",
         "Transformers update the embeddings of each token at each layer of the architecture using all words in the context."
       ],
-      "answer": [2, 3],
+      "answer": [
+        2,
+        3
+      ],
       "explanation": "Cross-attention carries information from the encoder to the decoder, and every layer updates every token using the context. Residual connections add the input back to a block's output; they have nothing to do with how attention weights are spread. Every block also contains a feed-forward (dense) layer."
     },
     {
-      "id": "nlp-pq2-05", "number": 5, "lecture": 6, "concept": "Seq2seq decoder", "marks": 1,
+      "id": "nlp-pq2-05",
+      "number": 5,
+      "lecture": 6,
+      "concept": "Seq2seq decoder",
+      "marks": 1,
       "type": "truefalse",
       "question": "True or False, it is possible to use a bi-directional RNN as the decoder of a Seq2Seq model and this will help the model remember the encoded context when producing longer sentences",
-      "choices": ["True", "False"],
-      "answer": [1],
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        1
+      ],
       "explanation": "The decoder generates text left to right and the future tokens don't exist yet, so it can't run a backward pass over them. A bidirectional RNN only makes sense in the encoder (as in Bahdanau)."
     },
     {
-      "id": "nlp-pq2-06", "number": 6, "lecture": 6, "concept": "Final encoder state", "marks": 4,
-      "type": "multi", "negativeMarking": true,
+      "id": "nlp-pq2-06",
+      "number": 6,
+      "lecture": 6,
+      "concept": "Final encoder state",
+      "marks": 4,
+      "type": "multi",
+      "negativeMarking": true,
       "question": "Which of the following statements are True about the representations capture by the final encoder state when using a standard RNN (reading input tokens from left to right only):",
       "choices": [
         "The representation will be dominated by tokens at the start of the sentence because of the encoder reads token in one direction",
@@ -73,147 +130,306 @@
         "If the encoder is trained from scratch then it will form a semantic space that is specific to the type of language it must produce with the decoder, and not language in general",
         "The final encoder state does not provide a good initialisation for the decoder recurrent state and so the recurrent state of the decoder should be initialised to a vector of zeros"
       ],
-      "answer": [1, 2],
+      "answer": [
+        1,
+        2
+      ],
       "explanation": "Without attention, the encoder has to squeeze in everything it can because it doesn't know what the decoder will need. An encoder trained from scratch learns a semantic space shaped by the task. Recent tokens dominate (early ones get forgotten), not the start. The final encoder state is exactly what initialises the decoder."
     },
     {
-      "id": "nlp-pq2-07", "number": 7, "lecture": 6, "concept": "Greedy decoding", "marks": 1,
+      "id": "nlp-pq2-07",
+      "number": 7,
+      "lecture": 6,
+      "concept": "Greedy decoding",
+      "marks": 1,
       "type": "truefalse",
       "question": "True or False, picking the most probable token at each step of the decoding will also maximise the probability of the entire sentence",
-      "choices": ["True", "False"],
-      "answer": [1],
-      "explanation": "∏ argmax p(y_t|y<t,x) ≠ argmax ∏ p(y_t|y<t,x). Greedy autoregressive decoding is not the same as finding the most probable whole sentence, which is why beam search exists."
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "$\\prod_t \\arg\\max_{y_t} p(y_t|y_{<t},x) \\neq \\arg\\max_y \\prod_t p(y_t|y_{<t},x)$. Greedy autoregressive decoding is not the same as finding the most probable whole sentence, which is why beam search exists."
     },
     {
-      "id": "nlp-pq2-08", "variantOf": "score-fn-not", "number": 8, "lecture": 6, "concept": "Attention score functions", "marks": 1,
+      "id": "nlp-pq2-08",
+      "variantOf": "score-fn-not",
+      "number": 8,
+      "lecture": 6,
+      "concept": "Attention score functions",
+      "marks": 1,
       "type": "single",
       "question": "Which one of the following is not a type of score function used in attention for RNNs.",
-      "emphasis": ["not"],
-      "choices": ["Bilnear", "Multi-layer perceptron", "Dot product", "Cosine"],
-      "answer": [3],
+      "emphasis": [
+        "not"
+      ],
+      "choices": [
+        "Bilnear",
+        "Multi-layer perceptron",
+        "Dot product",
+        "Cosine"
+      ],
+      "answer": [
+        3
+      ],
       "explanation": "The three score functions from the lecture are dot product, bilinear and MLP. Cosine is a similarity measure used elsewhere (for example comparing word vectors) but isn't one of them."
     },
     {
-      "id": "nlp-pq2-09", "number": 9, "lecture": 6, "concept": "Bahdanau model", "marks": 1,
+      "id": "nlp-pq2-09",
+      "number": 9,
+      "lecture": 6,
+      "concept": "Bahdanau model",
+      "marks": 1,
       "type": "truefalse",
       "question": "True or False, the Bahdanau model uses a bi-directional RNN in its encoder.",
-      "choices": ["True", "False"],
-      "answer": [0],
-      "explanation": "Bahdanau uses a bidirectional encoder, attends from the previous decoder state h_{t-1}, and uses an MLP score function."
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Bahdanau uses a bidirectional encoder, attends from the previous decoder state $h_{t-1}$, and uses an MLP score function."
     },
     {
-      "id": "nlp-pq2-10", "number": 10, "lecture": 6, "concept": "Luong model", "marks": 1,
+      "id": "nlp-pq2-10",
+      "number": 10,
+      "lecture": 6,
+      "concept": "Luong model",
+      "marks": 1,
       "type": "truefalse",
       "question": "True or False, the Luong model uses a bi-directional RNN in its encoder.",
-      "choices": ["True", "False"],
-      "answer": [1],
-      "explanation": "Luong uses a unidirectional (forward) encoder, attends from the current decoder state h_t, and uses a bilinear score function."
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Luong uses a unidirectional (forward) encoder, attends from the current decoder state $h_t$, and uses a bilinear score function."
     },
     {
-      "id": "nlp-pq2-11", "number": 11, "lecture": 7, "concept": "Transformers vs RNNs", "marks": 1,
+      "id": "nlp-pq2-11",
+      "number": 11,
+      "lecture": 7,
+      "concept": "Transformers vs RNNs",
+      "marks": 1,
       "type": "truefalse",
       "question": "True or False, a sentence can be processed by a Transformer in constant time on a GPU.",
-      "choices": ["True", "False"],
-      "answer": [0],
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
       "explanation": "Slides: a Transformer needs a constant number of steps for any sentence because all tokens are processed in parallel."
     },
     {
-      "id": "nlp-pq2-12", "number": 12, "lecture": 7, "concept": "Transformers vs RNNs", "marks": 1,
+      "id": "nlp-pq2-12",
+      "number": 12,
+      "lecture": 7,
+      "concept": "Transformers vs RNNs",
+      "marks": 1,
       "type": "truefalse",
       "question": "True or False, a sentence can be processed by an RNN in constant time on a GPU.",
-      "choices": ["True", "False"],
-      "answer": [1],
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        1
+      ],
       "explanation": "An RNN needs O(N) sequential steps because each hidden state depends on the previous one."
     },
     {
-      "id": "nlp-pq2-13", "variantOf": "attn-weights-eq", "number": 13, "lecture": 7, "concept": "Scaled dot-product attention", "marks": 2,
+      "id": "nlp-pq2-13",
+      "variantOf": "attn-weights-eq",
+      "number": 13,
+      "lecture": 7,
+      "concept": "Scaled dot-product attention",
+      "marks": 2,
       "type": "single",
-      "question": "Which of the following is the correct equation to compute attention weights in a Transformer's attention layer. Note that v is a value vector, q is a query vector and k is a key vector with dimension dₖ.",
-      "choices": ["softmax(kkᵀ / √dₖ)", "softmax(qvᵀ / √dₖ)", "softmax(vkᵀ / √dₖ)", "softmax(qkᵀ / √dₖ)"],
-      "answer": [3],
-      "explanation": "Attention weights = softmax(qkᵀ/√dₖ): query against key. The lecturer stressed that the weights do NOT include multiplying by V."
+      "question": "Which of the following is the correct equation to compute attention weights in a Transformer's attention layer. Note that $v$ is a value vector, $q$ is a query vector and $k$ is a key vector with dimension $d_k$.",
+      "choices": [
+        "$\\mathrm{softmax}\\left(\\dfrac{kk^T}{\\sqrt{d_k}}\\right)$",
+        "$\\mathrm{softmax}\\left(\\dfrac{qv^T}{\\sqrt{d_k}}\\right)$",
+        "$\\mathrm{softmax}\\left(\\dfrac{vk^T}{\\sqrt{d_k}}\\right)$",
+        "$\\mathrm{softmax}\\left(\\dfrac{qk^T}{\\sqrt{d_k}}\\right)$"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Attention weights = $\\mathrm{softmax}(qk^T/\\sqrt{d_k})$: query against key. The lecturer stressed that the weights do NOT include multiplying by $V$."
     },
     {
-      "id": "nlp-pq2-14", "number": 14, "lecture": 7, "concept": "Where each attention type lives", "marks": 3,
+      "id": "nlp-pq2-14",
+      "number": 14,
+      "lecture": 7,
+      "concept": "Where each attention type lives",
+      "marks": 3,
       "type": "match",
       "question": "For each of the following types of attention, pick from the choices where you would find that type of attention in the Transformer architecture.\nNote there are more choices than necessary and some will be unused. A choice should only be used once, if multiple places seem valid then pick the one which seems most appropriate.",
       "pairs": [
-        {"prompt": "Standard attention (also called Cross-attention where a module is not attending to itself)", "answer": "Second layer of decoder block"},
-        {"prompt": "Self-attention (not masked)", "answer": "Encoder block"},
-        {"prompt": "Feed-forward layer", "answer": "Both encoder and decoder"},
-        {"prompt": "Masked self-attention", "answer": "Start of decoder block"}
+        {
+          "prompt": "Standard attention (also called Cross-attention where a module is not attending to itself)",
+          "answer": "Second layer of decoder block"
+        },
+        {
+          "prompt": "Self-attention (not masked)",
+          "answer": "Encoder block"
+        },
+        {
+          "prompt": "Feed-forward layer",
+          "answer": "Both encoder and decoder"
+        },
+        {
+          "prompt": "Masked self-attention",
+          "answer": "Start of decoder block"
+        }
       ],
-      "options": ["Second layer of decoder block", "Encoder block", "Both encoder and decoder", "Start of decoder block"],
+      "options": [
+        "Second layer of decoder block",
+        "Encoder block",
+        "Both encoder and decoder",
+        "Start of decoder block"
+      ],
       "optionsNote": "The paper says there were more choices than necessary, but the attempt review only shows the four that were selected. The unused distractors aren't recoverable, so only these four are listed.",
       "explanation": "In the decoder, masked self-attention comes first and cross-attention second (Q from the decoder, K and V from the encoder). The encoder uses unmasked self-attention. Both encoder and decoder have a feed-forward layer."
     },
     {
-      "id": "nlp-pq2-15", "number": 15, "lecture": 7, "concept": "Multi-head attention", "marks": 1,
+      "id": "nlp-pq2-15",
+      "number": 15,
+      "lecture": 7,
+      "concept": "Multi-head attention",
+      "marks": 1,
       "type": "truefalse",
       "question": "True or False, the different heads in a multi-head attention block share their weight matrices.",
-      "choices": ["True", "False"],
-      "answer": [1],
-      "explanation": "Each head i has its own W_i^Q, W_i^K and W_i^V and works independently. The outputs are concatenated and projected with W_O."
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Each head $i$ has its own $W_i^Q$, $W_i^K$ and $W_i^V$ and works independently. The outputs are concatenated and projected with $W_O$."
     },
     {
-      "id": "nlp-pq2-16", "number": 16, "lecture": 7, "concept": "Self-attention", "marks": 1,
+      "id": "nlp-pq2-16",
+      "number": 16,
+      "lecture": 7,
+      "concept": "Self-attention",
+      "marks": 1,
       "type": "truefalse",
       "question": "True or False, the term \"self-attention\" used in the transformer architecture refers to the ability of tokens to attend to themselves using the dot product of their own key and query vectors.",
-      "choices": ["True", "False"],
-      "answer": [1],
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        1
+      ],
       "explanation": "'Self' means each token attends to all the other states in the SAME sequence (encoder to encoder, or decoder to decoder), not just to itself."
     },
     {
-      "id": "nlp-pq2-17", "number": 17, "lecture": 7, "concept": "Residual connections", "marks": 4,
-      "type": "multi", "negativeMarking": true,
+      "id": "nlp-pq2-17",
+      "number": 17,
+      "lecture": 7,
+      "concept": "Residual connections",
+      "marks": 4,
+      "type": "multi",
+      "negativeMarking": true,
       "question": "Which of the following statements are True about residual connections in a Transformer architecture",
-      "emphasis": ["True"],
+      "emphasis": [
+        "True"
+      ],
       "choices": [
         "The residual connections of a transformer are only present in the decoder portion of the architecture",
         "Residual connections are used to add the original value of a token back to the output of a block of other network layers",
         "Residual connections learn to correct the mistakes of the transformer called its \"residual\" error",
         "Residual connections have activation functions on them so that the neural network is able to ignore the attention layers if it wants to"
       ],
-      "answer": [1],
+      "answer": [
+        1
+      ],
       "explanation": "A residual connection computes x + F(x): the block learns an update to the token. Residuals appear in both encoder and decoder, and they are plain additions with no activation function."
     },
     {
-      "id": "nlp-pq2-18", "number": 18, "lecture": 7, "concept": "Positional encodings", "marks": 1,
+      "id": "nlp-pq2-18",
+      "number": 18,
+      "lecture": 7,
+      "concept": "Positional encodings",
+      "marks": 1,
       "type": "truefalse",
       "question": "True or False, the strategy used to obtain position embeddings in a transformer with two interleaving sinusoid functions is able to handle arbitrarily long sentences without ever giving two tokens the same position embedding.",
-      "choices": ["True", "False"],
-      "answer": [1],
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        1
+      ],
       "explanation": "Sinusoids are periodic, so with a finite number of dimensions, positions eventually repeat or come arbitrarily close. The lecturer showed two positions ending up with the same vector."
     },
     {
-      "id": "nlp-pq2-19", "number": 19, "lecture": 7, "concept": "Positional encodings", "marks": 2,
-      "type": "multi", "negativeMarking": true,
-      "question": "Using the notation from the lecture slides, the functions used to obtain position embeddings in transformers are:\nPE(pos, 2i) = sin(pos / 10000^(2i/d_model))\nand\nPE(pos, 2i+1) = cos(pos / 10000^(2i/d_model))\nwhere pos is the position of the token in the sentence, d_model is the dimension of the token embeddings and i is a dimension of the token vector.\nGiven this definition, which of the following are True about position embeddings in Transformer.",
-      "emphasis": ["True"],
+      "id": "nlp-pq2-19",
+      "number": 19,
+      "lecture": 7,
+      "concept": "Positional encodings",
+      "marks": 2,
+      "type": "multi",
+      "negativeMarking": true,
+      "question": "Using the notation from the lecture slides, the functions used to obtain position embeddings in transformers are:\n$$PE_{pos,2i} = \\sin(pos/10000^{2i/d_{model}})$$\nand\n$$PE_{pos,2i+1} = \\cos(pos/10000^{2i/d_{model}})$$\nwhere $pos$ is the position of the token in the sentence, $d_{model}$ is the dimension of the token embeddings and $i$ is a dimension of the token vector.\nGiven this definition, which of the following are True about position embeddings in Transformer.",
+      "emphasis": [
+        "True"
+      ],
       "choices": [
         "Position embeddings use two functions, one with sin and one with cos so that every second token in the sentence is embedded with a different period",
         "The period of the sin or cos function changes with the i value so that each dimension of the token embedding vector will have a different period and be able to encode different information about space."
       ],
-      "emphasisInChoices": {"0": ["token"]},
-      "answer": [1],
+      "emphasisInChoices": {
+        "0": [
+          "token"
+        ]
+      },
+      "answer": [
+        1
+      ],
       "explanation": "sin and cos alternate across embedding DIMENSIONS (even vs odd), not across tokens. The period grows with i, so each dimension encodes position at a different frequency."
     },
     {
-      "id": "nlp-pq2-20", "number": 20, "lecture": 7, "concept": "Interpreting attention maps", "marks": 4,
-      "type": "multi", "negativeMarking": true,
+      "id": "nlp-pq2-20",
+      "number": 20,
+      "lecture": 7,
+      "concept": "Interpreting attention maps",
+      "marks": 4,
+      "type": "multi",
+      "negativeMarking": true,
       "question": "Consider the attention weights shown below for a particular attention layer of a transformer architecture. Which of the following statements is True, given these attention maps.",
-      "image": {"src": "data/nlp/img/q20-attention-map.png", "alt": "Attention heat map over the sentence 'you might have heard of them . <eos>' (rows = token being updated, columns = other tokens). A red arrow goes from the row 'you' to the column 'heard'; the 'you' and 'might' rows put most weight on 'heard', and later rows put most weight on <eos>."},
+      "image": {
+        "src": "data/nlp/img/q20-attention-map.png",
+        "alt": "Attention heat map over the sentence 'you might have heard of them . <eos>' (rows = token being updated, columns = other tokens). A red arrow goes from the row 'you' to the column 'heard'; the 'you' and 'might' rows put most weight on 'heard', and later rows put most weight on <eos>."
+      },
       "choices": [
         "The arrows shown in red on the attention weights show that the network is performing subject-verb tracking in the sentence (note each row depicts the token being updated while columns are the other tokens in the sentence)",
         "Analysing attention heads is a form of extrinsic evaluation",
         "Analysing attention heads is a form of intrinsic evaluation",
         "The attention map shown is guaranteed to be from a deep layer within the decoder as it is also attending to the end of sentence token (<eos>)"
       ],
-      "answer": [0, 2],
+      "answer": [
+        0,
+        2
+      ],
       "explanation": "The subject 'you' attends to its verb 'heard', which is a syntactic (subject-verb) head. Looking inside the model is intrinsic evaluation; extrinsic evaluation measures performance on a downstream task. Attending to <eos> is common and doesn't guarantee a deep layer (or even the decoder)."
     },
     {
-      "id": "nlp-pq2-21", "number": 21, "lecture": 8, "concept": "Token embeddings in Transformers", "marks": 1,
+      "id": "nlp-pq2-21",
+      "number": 21,
+      "lecture": 8,
+      "concept": "Token embeddings in Transformers",
+      "marks": 1,
       "type": "single",
       "question": "Which of the following is not a standard strategy to obtain token embeddings in a Transformer",
       "choices": [
@@ -222,47 +438,94 @@
         "Use pretrained embeddings from Word2Vec and then freeze them",
         "Train a neural network to produce the embeddings for us since we do not know the right approach for all datasets"
       ],
-      "answer": [3],
+      "answer": [
+        3
+      ],
       "explanation": "The standard options are to train from scratch, take pretrained embeddings and fine-tune them, or take pretrained embeddings and freeze them. A separate network that 'produces embeddings' is not a standard strategy."
     },
     {
-      "id": "nlp-pq2-22", "variantOf": "elmo-facts", "number": 22, "lecture": 8, "concept": "ELMo architecture", "marks": 4,
-      "type": "multi", "negativeMarking": true,
+      "id": "nlp-pq2-22",
+      "variantOf": "elmo-facts",
+      "number": 22,
+      "lecture": 8,
+      "concept": "ELMo architecture",
+      "marks": 4,
+      "type": "multi",
+      "negativeMarking": true,
       "question": "Which of the following is not a component of the neural network architecture used by ELMo to obtain word embeddings.",
-      "emphasis": ["not"],
-      "choices": ["Highway block", "Recurrent network layer", "Self-attention", "Character-level CNN"],
-      "answer": [1, 2],
+      "emphasis": [
+        "not"
+      ],
+      "choices": [
+        "Highway block",
+        "Recurrent network layer",
+        "Self-attention",
+        "Character-level CNN"
+      ],
+      "answer": [
+        1,
+        2
+      ],
       "explanation": "ELMo is char-CNN → highway layers → (bi)LSTM language model. It has no self-attention.",
       "keyDispute": "Likely key error: the review's correct answer lists BOTH 'Self-attention' and 'Recurrent network layer' as not components. But ELMo's LSTM-LM layers ARE recurrent (the Lecture 8 slides show 'char-CNN+Highway' feeding 'LSTM-LM'). The defensible answer is Self-attention only."
     },
     {
-      "id": "nlp-pq2-23", "variantOf": "cls", "number": 23, "lecture": 8, "concept": "BERT", "marks": 1,
+      "id": "nlp-pq2-23",
+      "variantOf": "cls",
+      "number": 23,
+      "lecture": 8,
+      "concept": "BERT",
+      "marks": 1,
       "type": "truefalse",
       "question": "True or False, the BERT architecture uses a special input token which allows it to perform classification tasks as well as language modelling. This token is called then classification token (denoted as [CLS])",
-      "choices": ["True", "False"],
-      "answer": [0],
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
       "explanation": "BERT puts [CLS] at the start of the input. Its final representation is used for classification tasks (and [SEP] separates segments)."
     },
     {
-      "id": "nlp-pq2-24", "number": 24, "lecture": 8, "concept": "BERT", "marks": 1,
+      "id": "nlp-pq2-24",
+      "number": 24,
+      "lecture": 8,
+      "concept": "BERT",
+      "marks": 1,
       "type": "truefalse",
       "question": "True or False, the BERT architecture is proposed as a general-purpose model since the classification and separator tokens allow for a wide-range of tasks being completed by the model (usually with fine-tuning)",
-      "choices": ["True", "False"],
-      "answer": [0],
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
       "explanation": "The [CLS] and [SEP] tokens let one pretrained BERT be fine-tuned for single-sentence, sentence-pair and token-level tasks."
     },
     {
-      "id": "nlp-pq2-25", "variantOf": "adapters", "number": 25, "lecture": 8, "concept": "Adapters and LoRA", "marks": 4,
-      "type": "multi", "negativeMarking": true,
+      "id": "nlp-pq2-25",
+      "variantOf": "adapters",
+      "number": 25,
+      "lecture": 8,
+      "concept": "Adapters and LoRA",
+      "marks": 4,
+      "type": "multi",
+      "negativeMarking": true,
       "question": "Which of the following are True about adapter layers or blocks in neural networks",
-      "emphasis": ["True"],
+      "emphasis": [
+        "True"
+      ],
       "choices": [
         "Low-rank adapters can only be used on natural language tasks as they require semantic input tokens to be able to determine the appropriate rank for the embedding",
         "Adapter layers allow for a neural network to be fine-tuned while adjusting very few parameters of the network",
         "Adapter blocks typically have large hidden layer sizes since the task of adapting for the rest of the network is difficult",
         "Low-rank adapters are used to decrease the rank of the hidden layer of a neural network which makes it more compute efficient"
       ],
-      "answer": [1],
+      "answer": [
+        1
+      ],
       "explanation": "Adapters and LoRA are parameter-efficient: the original weights are frozen and only a few new parameters are trained. Adapters use a small bottleneck. LoRA adds a low-rank update (W + BA); it doesn't reduce the rank of the original layer, and it isn't limited to NLP."
     }
   ]

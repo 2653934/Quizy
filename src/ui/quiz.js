@@ -4,13 +4,15 @@
 // Everything type-specific is delegated to Quizy.types[q.type] (see src/types/registry.js).
 (function (Quizy) {
   const ui = Quizy.ui = Quizy.ui || {};
-  const {$, el, richText, shuffle, plural, formatMarks, marksOf, isFull, state, storage} = Quizy;
+  const {$, el, richEl, richText, shuffle, plural, formatMarks, marksOf, isFull, state, storage} = Quizy;
 
   const typeOf = q => Quizy.types[q.type];
 
   // Question order and option order are shuffled on every new round. Each item keeps the set its
   // question comes from (a round can mix sets: "Everything in …", a mock paper, a retry round).
+  // ui.returnTo is null here; the browse view sets it to 'browse' for "Practise this question".
   ui.startRound = function (set, questions) {
+    ui.returnTo = null;
     Quizy.beginRound(set, shuffle(questions).map(q => ({q, set: state.setOf.get(q.id) || set, ...typeOf(q).makeOrder(q, shuffle)})));
     ui.show('quiz');
     drawQuestion();
@@ -19,6 +21,7 @@
   // A mock paper from Quizy.makePaper: its sections in order, the options shuffled with the paper's own
   // generator so that replaying the code gives the same paper.
   ui.startPaper = function (paper) {
+    ui.returnTo = null;
     const random = list => shuffle(list, paper.random);
     let start = 0;
     const sections = paper.sections.map(s => ({key: s.key, letter: s.letter, name: s.name, marks: s.marks, start: (start += s.items.length) - s.items.length, count: s.items.length}));
@@ -114,20 +117,27 @@
     if (showsMarks(item) || marks !== 1 || (score > 0 && !full)) heading.append(el('span', 'score', `${formatMarks(score)} / ${formatMarks(marks)} ${marks === 1 ? 'mark' : 'marks'}`));
     feedback.append(heading);
     if (typeOf(q).resultNotes) feedback.append(...typeOf(q).resultNotes(q, response));
+    feedback.append(...ui.studyNotes(q, set));
+    feedback.hidden = false;
+  }
+
+  // The study note and any doubt about the official answer (also used by the browse view).
+  ui.studyNotes = function (q, set) {
+    const nodes = [];
     if (q.explanation || q.optionsNote) {
       const note = el('div', 'study-note');
       note.append(el('div', 'eyebrow', set.unofficialAnswers ? 'Study note (unofficial answer)' : 'Study note'));
-      if (q.explanation) note.append(el('p', '', q.explanation));
-      if (q.optionsNote) note.append(el('p', 'small', q.optionsNote));
-      feedback.append(note);
+      if (q.explanation) note.append(richEl('p', '', q.explanation));
+      if (q.optionsNote) note.append(richEl('p', 'small', q.optionsNote));
+      nodes.push(note);
     }
     if (q.keyDispute) {
       const caution = el('div', 'caution');
-      caution.append(el('div', 'eyebrow', '⚠ About the official answer'), el('p', '', q.keyDispute));
-      feedback.append(caution);
+      caution.append(el('div', 'eyebrow', '⚠ About the official answer'), richEl('p', '', q.keyDispute));
+      nodes.push(caution);
     }
-    feedback.hidden = false;
-  }
+    return nodes;
+  };
 
   // "Check answer", for types that need it. Types with a reveal() step (written) show more first
   // and call grade() themselves once the user is done.
