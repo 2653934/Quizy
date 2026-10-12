@@ -11,13 +11,14 @@ node smoke.cjs <path-to-Quizy> candidate    # after the change
 node compare.cjs baseline candidate         # identical text, scores and screenshots?
 ALL=1 node smoke.cjs <path-to-Quizy> out    # also: every NLP question, every non-single DVE question, a partial-marks round
 node newtypes.cjs <repo-with-new-sets> nt   # short / numeric / written end to end (see below)
+node paper.cjs <repo-with-new-sets> pp       # mock papers, label, practise by style, lecture chips (see below)
 ```
 
 ## What it does
 
 For `file://` and a local HTTP server, at 375×667 and 1280×800:
 
-- Screenshots the setup screen of every subject (DVE, NLP, DO's "No quizzes yet") and records its text, theme tokens, theme colour and favicon.
+- Screenshots the setup screen of every subject (DVE, NLP, DO's "No quizzes yet") and records its text, sets, lecture chips, styles, theme tokens, theme colour and favicon.
 - Plays seeded rounds (`index.html?seed=7`, see `src/core/random.js`): NLP all correct (expected **50 / 50 marks**), NLP all wrong with every multi option ticked (expected **0 / 50 marks**), then DVE all correct (**421 out of 421 correct**) and all wrong. The same seed replays the same order, so the two rounds can be compared question by question. For every question it records the source line, question, hints and options HTML before and after answering, the feedback, the "Next" label and the stats.
 - Screenshots the first answered `multi`, the first answered `match`, NLP Q20 (with the image) and the summary, both viewport-only and full page.
 - At 375×667 it measures, after each question's scroll has settled, that the question text, progress bar and "End round" are on the first screen (last result: the question starts at most 301px from the top, on question 1).
@@ -26,6 +27,8 @@ For `file://` and a local HTTP server, at 375×667 and 1280×800:
 - Checks that without `?seed` two loads give different orders (Math.random is still used).
 
 Things to know when changing it:
+- The lecture chips are remembered per subject, so after picking "L3" the script taps "All" again before the full DVE rounds.
+- The 2026-10-12 setup screen (lecture chips, style select, mock-test block) changed the setup text and the 8 full-page setup screenshots; the baseline was retaken then. Everything else stayed byte-identical.
 - After every navigation, wait for `.subject-tab[aria-pressed=true]`: over HTTP the data loads asynchronously.
 - Wait for smooth scrolling to finish before screenshots or measurements by polling `scrollY` inside `page.evaluate` until it stops changing. Don't return a Promise from `page.waitForFunction`; it counts as truthy straight away.
 - Let the scroll settle before clicking "See results". Otherwise two smooth scrolls overlap and the summary can stop a few pixels short of the top, which makes screenshots flaky.
@@ -94,10 +97,10 @@ const pageHelpers = () => {
     layout() {
       const doc = document.documentElement;
       const small = [];
-      for (const node of document.querySelectorAll('button, select, .choice, input[type=checkbox]')) {
+      for (const node of document.querySelectorAll('button, select, .choice, input[type=checkbox], input[type=text]')) {
         const box = node.getBoundingClientRect();
         if (!box.width || !box.height || node.closest('[hidden]')) continue;
-        const target = node.matches('input') ? node.closest('label').getBoundingClientRect() : box;
+        const target = node.matches('input[type=checkbox]') ? node.closest('label').getBoundingClientRect() : box;
         if (target.height < 47.5) small.push(`${node.tagName}#${node.id}.${node.className} ${target.height}`);
       }
       return {hScroll: doc.scrollWidth > doc.clientWidth, small};
@@ -236,19 +239,21 @@ async function playRound(page, cfg, subjectKey, setId, right, shots) {
           icon: document.querySelector('link[rel=icon]').href,
           tokens: document.documentElement.getAttribute('style'),
           sets: [...document.getElementById('set').options].map(o => o.value + '|' + o.text),
-          lectures: [...document.getElementById('lecture').options].map(o => o.value + '|' + o.text)
+          lectures: [...document.querySelectorAll('#lectures .chip')].map(c => c.dataset.lecture + '|' + c.textContent + '|' + c.getAttribute('aria-pressed') + (c.classList.contains('none') ? '|none' : '')),
+          styles: [...document.getElementById('style').options].map(o => o.value + '|' + o.text)
         }));
         cfg.layout.push({where: `${key} setup`, ...(await page.evaluate(() => window.__smoke.layout()))});
       }
       // Lecture filter + review mode note text on DVE.
       await page.click('.subject-tab[data-key=dve]');
-      await page.selectOption('#lecture', '3');
+      await page.click('#lectures .chip[data-lecture="3"]');
       r['dve-note-l3'] = await page.textContent('#bank-note');
       await page.selectOption('#mode', 'review');
       await page.click('#start');
       r['dve-review-empty'] = await page.textContent('#setup-message');
       await page.selectOption('#mode', 'all');
       r['dve-note-back'] = await page.textContent('#bank-note') + '|' + await page.textContent('#setup-message');
+      await page.click('#lectures .chip[data-lecture="all"]'); // the chips are remembered per subject
 
       // NLP: right round (with screenshots), then wrong round, same seed => same order.
       r['nlp-right'] = await playRound(page, cfg, 'nlp', 'nlp-past-quiz-2-2025', true, true);
@@ -569,5 +574,296 @@ const text = (page, sel) => page.evaluate(s => { const n = document.querySelecto
   server.close();
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 1));
   console.log(problems.length ? 'PROBLEMS:\n' + problems.join('\n') : 'All new-type checks passed.');
+})().catch(e => { console.error(e); process.exit(1); });
+```
+
+## paper.cjs
+
+Mock papers and the other features added with them, over `file://` and HTTP at 375×667 and 1280×800. It needs `nlp-new-questions` and `nlp-label-diagrams` in `data/subjects.json`; until the content author adds them, run it on a scratch copy with the two ids appended to NLP's `sets` and `node tools/build-data.cjs` rerun there.
+
+It checks:
+- Setup: "Everything in NLP" at the top of Quiz set with the past paper still the default; lecture chips L5–L8 stay chosen after a reload (`quizy-lectures-v1-nlp`).
+- Practise by style: Everything in NLP + L7 + "Label the diagram" counts every L7 labelling question; "Label the diagram" alone gives a round of only `label` questions with the rows in number order, the diagram edge to edge at 375px, partial marks with "Answer: …" under wrong rows, and no "Copy for Claude".
+- Mock papers for L5–L8: four generated papers differ; a paper's sections add up to exactly 30 and 20; the section bar, "Finish Section A ↗", the interlude (score, "On to theory →", tabs locked), Section B's bar, the summary (total, paper code and lectures, seen / new line, the missed list), "Retry the ones I missed" (a normal round of exactly those) and tapping one missed question to redo it.
+- "Replay paper code" (Enter) gives the same questions, order and option orders; a bad code and a selection that can't be filled show messages ("Not enough quiz questions in L1 only: pick more lectures."), as does DVE (no theory questions).
+- No sideways scroll, tap targets ≥ 48px (chips and inputs included) and no console errors.
+
+It writes full-page screenshots of each state for a visual check.
+
+```js
+// node paper.cjs <repoDir with the new NLP sets registered> <outDir>
+// Mock papers, practise-by-style, "Everything in NLP", lecture chips and the label type, end to end
+// over file:// and HTTP at 375x667 and 1280x800.
+const http = require('node:http');
+const fs = require('node:fs');
+const path = require('node:path');
+const {chromium} = require('playwright-core');
+
+const repo = path.resolve(process.argv[2]);
+const out = path.resolve(process.argv[3]);
+fs.mkdirSync(out, {recursive: true});
+const TYPES = {'.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.svg': 'image/svg+xml'};
+const serve = () => new Promise(resolve => {
+  const server = http.createServer((req, res) => {
+    const file = path.join(repo, decodeURIComponent(new URL(req.url, 'http://x').pathname));
+    if (!file.startsWith(repo) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) { res.writeHead(404); return res.end(); }
+    res.writeHead(200, {'content-type': TYPES[path.extname(file)] || 'application/octet-stream'});
+    res.end(fs.readFileSync(file));
+  });
+  server.listen(0, () => resolve(server));
+});
+const ready = page => page.waitForSelector('.subject-tab[aria-pressed=true]', {state: 'attached'});
+const settle = page => page.evaluate(async () => {
+  let last = -1, same = 0;
+  for (let i = 0; i < 100 && same < 6; i++) { await new Promise(r => setTimeout(r, 50)); if (scrollY === last) same++; else { same = 0; last = scrollY; } }
+});
+const layout = page => page.evaluate(() => {
+  const doc = document.documentElement;
+  const small = [];
+  for (const node of document.querySelectorAll('button, select, .choice, input, textarea, .rubric-point, .chip')) {
+    const box = node.getBoundingClientRect();
+    if (!box.width || !box.height || node.closest('[hidden]') || getComputedStyle(node).opacity === '0') continue;
+    const target = node.matches('input[type=checkbox]') ? node.closest('label').getBoundingClientRect() : box;
+    if (target.height < 47.5) small.push(`${node.tagName}#${node.id}.${node.className} ${target.height}`);
+  }
+  return {hScroll: doc.scrollWidth > doc.clientWidth, small};
+});
+
+// Answers the current question in the page. mode: 'right', 'wrong' or 'half' (some parts right).
+const answerHelper = () => {
+  window.__answer = function (mode) {
+    const item = Quizy.currentItem();
+    const q = item.q;
+    const box = document.getElementById('choices');
+    const right = mode === 'right';
+    const fire = (node, type) => node.dispatchEvent(new Event(type, {bubbles: true}));
+    const check = () => document.getElementById('check').click();
+    switch (q.type) {
+      case 'single': case 'truefalse':
+        [...box.children].find(b => q.answer.includes(Number(b.dataset.original)) === right).click(); break;
+      case 'multi':
+        for (const input of box.querySelectorAll('input')) if (q.answer.includes(Number(input.value)) === right || mode === 'wrong') { input.checked = true; fire(input, 'change'); }
+        check(); break;
+      case 'match': case 'label': {
+        const list = q.type === 'match' ? q.pairs : q.labels;
+        [...box.children].forEach((row, i) => {
+          const want = list[Number(row.dataset.original)].answer;
+          const ok = right || (mode === 'half' && i === 0);
+          const select = row.querySelector('select');
+          select.value = [...select.options].find(o => o.value !== '' && (q.options[Number(o.value)] === want) === ok).value;
+          fire(select, 'change');
+        });
+        check(); break;
+      }
+      case 'short': {
+        const input = box.querySelector('input');
+        input.value = right ? q.accept[0] : 'zzz'; fire(input, 'input'); check(); break;
+      }
+      case 'numeric':
+        box.querySelectorAll('input').forEach((input, i) => { input.value = right || (mode === 'half' && i === 0) ? String(q.parts[i].answer) : '12345'; fire(input, 'input'); });
+        check(); break;
+      case 'written': {
+        box.querySelector('textarea').value = 'An answer.'; fire(box.querySelector('textarea'), 'input');
+        check();
+        const ticks = [...box.querySelectorAll('.rubric input')];
+        ticks.forEach((t, i) => { if (right || (mode === 'half' && i === 0)) t.click(); });
+        box.querySelector('.rubric-submit').click(); break;
+      }
+      default: throw new Error('unknown type ' + q.type);
+    }
+    return {id: q.id, type: q.type, section: item.section, score: item.score, verdict: document.querySelector('#feedback .verdict')?.innerText};
+  };
+};
+
+(async () => {
+  const server = await serve();
+  const fileUrl = 'file:///' + path.join(repo, 'index.html').replace(/\\/g, '/');
+  const httpUrl = `http://localhost:${server.address().port}/index.html`;
+  const browser = await chromium.launch({channel: 'msedge'});
+  const problems = [];
+  const report = {};
+  const expect = (cond, msg) => { if (!cond) problems.push(msg); };
+  for (const [mode, url] of [['file', fileUrl], ['http', httpUrl]]) {
+    for (const [w, h] of [[375, 667], [1280, 800]]) {
+      const name = `${mode}-${w}`;
+      const context = await browser.newContext({viewport: {width: w, height: h}, deviceScaleFactor: 1});
+      const page = await context.newPage();
+      const errors = [];
+      page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
+      page.on('pageerror', e => errors.push(String(e)));
+      const r = report[name] = {};
+      const shot = async (tag, full = true) => {
+        await settle(page);
+        await page.waitForFunction(() => [...document.images].every(img => img.complete));
+        await page.screenshot({path: path.join(out, `${name}-${tag}.png`), fullPage: full});
+        const l = await layout(page);
+        if (l.hScroll || l.small.length) problems.push(`${name} ${tag}: hScroll=${l.hScroll} small=${l.small.join('; ')}`);
+      };
+      const text = sel => page.evaluate(s => { const n = document.querySelector(s); return n && !n.closest('[hidden]') ? n.innerText : null; }, sel);
+
+      await page.goto(url); await ready(page);
+      await page.evaluate(answerHelper);
+      await page.click('.subject-tab[data-key=nlp]');
+      r.sets = await page.$$eval('#set option', os => os.map(o => o.value + '|' + o.text));
+      r.setValue = await page.inputValue('#set');
+      r.chips = await page.$$eval('#lectures .chip', cs => cs.map(c => c.textContent + (c.classList.contains('none') ? '(none)' : '') + (c.getAttribute('aria-pressed') === 'true' ? '*' : '')));
+      r.styles = await page.$$eval('#style option', os => os.map(o => o.value));
+      await shot('setup-nlp');
+      expect(r.sets[0] === 'all|Everything in NLP' && r.setValue === 'nlp-past-quiz-2-2025', `${name} sets ${r.sets}`);
+
+      // Lecture chips L5–L8, remembered after a reload.
+      await page.click('#lectures .chip[data-lecture="5"]');
+      for (const l of ['6', '7', '8']) await page.click(`#lectures .chip[data-lecture="${l}"]`);
+      r.chipsAfter = await page.$$eval('#lectures .chip[aria-pressed=true]', cs => cs.map(c => c.textContent));
+      r.storedLectures = await page.evaluate(() => localStorage.getItem('quizy-lectures-v1-nlp'));
+      await page.reload(); await ready(page);
+      await page.evaluate(answerHelper);
+      r.chipsReloaded = await page.$$eval('#lectures .chip[aria-pressed=true]', cs => cs.map(c => c.textContent));
+      expect(r.chipsReloaded.join() === 'L5,L6,L7,L8' && r.storedLectures === '["5","6","7","8"]', `${name} chips ${r.chipsReloaded} ${r.storedLectures}`);
+
+      // Everything in NLP + L7 + Label the diagram = every L7 labelling question.
+      await page.selectOption('#set', 'all');
+      await page.click('#lectures .chip[data-lecture="all"]');
+      await page.click('#lectures .chip[data-lecture="7"]');
+      r.stylesAllL7 = await page.$$eval('#style option', os => os.map(o => o.text));
+      await page.selectOption('#style', 'label');
+      r.noteLabelL7 = await page.textContent('#bank-note');
+      const expectL7 = await page.evaluate(() => Quizy.state.sets.flatMap(s => s.questions).filter(q => q.lecture === 7 && q.type === 'label').length);
+      expect(r.noteLabelL7.startsWith(`${expectL7} question`), `${name} label L7 note ${r.noteLabelL7} want ${expectL7}`);
+      await shot('setup-all-l7-label');
+      // Practise a single style: Label the diagram, all lectures.
+      await page.click('#lectures .chip[data-lecture="all"]');
+      await page.selectOption('#style', 'label');
+      r.noteLabel = await page.textContent('#bank-note');
+      await page.click('#start');
+      await settle(page);
+      const labelCount = await page.evaluate(() => Quizy.state.round.length);
+      r.labelRound = await page.evaluate(() => Quizy.state.round.every(i => i.q.type === 'label'));
+      r.labelFigure = await page.evaluate(() => { const f = document.getElementById('figure'); const img = document.getElementById('figure-img'); const p = document.getElementById('quiz').getBoundingClientRect(); const b = img.getBoundingClientRect(); return {wide: f.classList.contains('wide'), imgW: Math.round(b.width), panelW: Math.round(p.width), left: Math.round(b.left - p.left)}; });
+      r.labelRows = await page.$$eval('#choices .label-row', rows => rows.map(row => row.querySelector('.label-number').textContent));
+      r.labelCheckDisabled = await page.isDisabled('#check');
+      expect(r.labelRound && labelCount === 14, `${name} label round ${labelCount}`);
+      expect(r.labelRows.join() === r.labelRows.map((_, i) => i + 1).join(), `${name} label rows in order ${r.labelRows}`);
+      if (w === 375) expect(r.labelFigure.wide && r.labelFigure.left <= 2 && r.labelFigure.imgW >= r.labelFigure.panelW - 4, `${name} label figure ${JSON.stringify(r.labelFigure)}`);
+      await shot('label-question');
+      r.labelHalf = await page.evaluate(() => window.__answer('half'));
+      r.labelAnswers = await page.$$eval('.label-answer', ns => ns.length);
+      expect(r.labelHalf.verdict.startsWith('Partly right.') && r.labelAnswers === r.labelRows.length - 1, `${name} label half ${JSON.stringify(r.labelHalf)}`);
+      expect(await page.evaluate(() => document.getElementById('ask').hidden), `${name} label: no Copy for Claude`);
+      await shot('label-answered');
+      await page.click('#quit');
+
+      // Mock paper for L5–L8.
+      await page.selectOption('#set', 'nlp-past-quiz-2-2025');
+      await page.selectOption('#style', 'all');
+      for (const l of ['5', '6', '7', '8']) await page.click(`#lectures .chip[data-lecture="${l}"]`);
+      const papers = [];
+      for (let i = 0; i < 4; i++) {
+        await page.click('#generate');
+        papers.push(await page.evaluate(() => ({code: Quizy.state.paper.code, ids: Quizy.state.round.map(x => x.q.id), sections: Quizy.state.paper.sections.map(s => s.count)})));
+        await page.click('#quit');
+      }
+      r.papers = papers.map(p => p.code + ':' + p.sections.join('+'));
+      expect(new Set(papers.map(p => p.ids.join())).size === 4, `${name} four different papers`);
+      await page.click('#generate');
+      await settle(page);
+      const paper = await page.evaluate(() => ({code: Quizy.state.paper.code, ids: Quizy.state.round.map(x => x.q.id), choices: Quizy.state.round.map(x => [x.choiceOrder, x.pairOrder, x.optionOrder].join('/')),
+        marks: Quizy.state.paper.sections.map(s => Quizy.state.round.slice(s.start, s.start + s.count).reduce((a, x) => a + Quizy.marksOf(x.q), 0))}));
+      expect(paper.marks.join() === '30,20', `${name} paper marks ${paper.marks}`);
+      r.paperBar = await text('#paper-bar');
+      r.position = await text('#position');
+      expect(r.paperBar === `Paper ${paper.code} · Section A · Quiz (30 marks)`, `${name} paper bar ${r.paperBar}`);
+      await shot('paper-q1', false);
+      const answers = [];
+      let interlude = null;
+      for (let i = 0; i < paper.ids.length; i++) {
+        const modeFor = ['right', 'half', 'wrong', 'right', 'right'][i % 5];
+        answers.push(await page.evaluate(m => window.__answer(m), modeFor));
+        if (answers.length === 1) await shot('paper-q1-answered');
+        if (await page.evaluate(() => Quizy.currentSection().start + Quizy.currentSection().count - 1 === Quizy.state.index && Quizy.state.index < Quizy.state.round.length - 1)) {
+          r.finishLabel = await page.textContent('#next');
+        }
+        await settle(page);
+        await page.click('#next');
+        if (await page.isVisible('#interlude')) {
+          interlude = {title: await text('#interlude-title'), detail: await text('#interlude-detail'), code: await text('#interlude-code'), button: await text('#continue'),
+            view: await page.evaluate(() => document.body.dataset.view), tabsLocked: await page.evaluate(() => [...document.querySelectorAll('.subject-tab')].every(t => t.disabled))};
+          await shot('paper-interlude');
+          await page.click('#continue');
+          r.paperBarB = await text('#paper-bar');
+          r.positionB = await text('#position');
+        }
+      }
+      r.interlude = interlude;
+      const quizScore = answers.filter(a => a.section === 'quiz').reduce((s, a) => s + a.score, 0);
+      expect(interlude && interlude.title === `Section A done: ${Math.round(quizScore * 100) / 100} / 30.` && interlude.button === 'On to theory →' && interlude.view === 'quiz' && interlude.tabsLocked, `${name} interlude ${JSON.stringify(interlude)}`);
+      expect(r.finishLabel === 'Finish Section A ↗', `${name} finish label ${r.finishLabel}`);
+      expect(r.paperBarB === `Paper ${paper.code} · Section B · Theory (20 marks)` && /^question 1 of/i.test(r.positionB), `${name} section B bar ${r.paperBarB} ${r.positionB}`);
+      r.summary = {eyebrow: await text('#summary-eyebrow'), title: await text('#summary-title'), detail: await text('#summary-detail'), scores: await text('#paper-scores'),
+        origin: await text('#paper-origin'), missedTitle: await text('#missed-title'), missed: await page.$$eval('.missed-item', ns => ns.length)};
+      const total = answers.reduce((s, a) => s + a.score, 0);
+      r.summary.expectedTotal = Math.round(total * 100) / 100;
+      expect(r.summary.title.startsWith(`${Math.round(total * 100) / 100} / 50 marks`), `${name} summary title ${r.summary.title}`);
+      expect(r.summary.detail.startsWith(`Paper ${paper.code} · NLP · L5–L8.`), `${name} summary detail ${r.summary.detail}`);
+      expect(/Seen questions: [\d.]+ \/ [\d.]+ marks · New questions: [\d.]+ \/ [\d.]+ marks/.test(r.summary.origin), `${name} origin ${r.summary.origin}`);
+      await shot('paper-summary');
+      const missedIds = await page.evaluate(() => Quizy.state.round.filter(i => !Quizy.isFull(i.score, i.q)).map(i => i.q.id).sort());
+      expect(r.summary.missed === missedIds.length && missedIds.length > 0, `${name} missed ${r.summary.missed} vs ${missedIds.length}`);
+      // Retry the ones I missed: a normal round with exactly those.
+      await page.click('#retry-missed');
+      r.retry = await page.evaluate(() => ({ids: Quizy.state.round.map(i => i.q.id).sort(), paper: Quizy.state.paper, bar: document.getElementById('paper-bar').hidden}));
+      expect(r.retry.ids.join() === missedIds.join() && r.retry.paper === null && r.retry.bar, `${name} retry round`);
+      for (let i = 0; i < r.retry.ids.length; i++) { await page.evaluate(() => window.__answer('right')); await page.evaluate(() => document.getElementById('next').click()); }
+      await settle(page);
+      r.retrySummary = [await text('#summary-eyebrow'), await text('#summary-title'), await page.isHidden('#paper-result')];
+      expect(r.retrySummary[0] === 'ROUND COMPLETE' && r.retrySummary[2], `${name} retry summary ${r.retrySummary}`);
+      // Redo a single missed question from the paper summary: replay the paper, finish it quickly, tap one.
+      await page.click('#again');
+      await page.fill('#paper-code', String(paper.code));
+      await page.press('#paper-code', 'Enter');
+      const replay = await page.evaluate(() => ({code: Quizy.state.paper.code, ids: Quizy.state.round.map(x => x.q.id), choices: Quizy.state.round.map(x => [x.choiceOrder, x.pairOrder, x.optionOrder].join('/'))}));
+      expect(replay.code === paper.code && replay.ids.join() === paper.ids.join() && replay.choices.join() === paper.choices.join(), `${name} replay same paper`);
+      for (let i = 0; i < replay.ids.length; i++) {
+        await page.evaluate(() => window.__answer('wrong'));
+        await page.evaluate(() => document.getElementById('next').click());
+        if (await page.isVisible('#interlude')) await page.click('#continue');
+      }
+      await settle(page);
+      r.zeroSummary = await text('#summary-title');
+      expect(r.zeroSummary.startsWith('0 / 50 marks · 0%'), `${name} zero ${r.zeroSummary}`);
+      const firstMissed = await page.$eval('.missed-item .missed-text', n => n.textContent);
+      await page.click('.missed-item >> nth=0');
+      r.redoOne = await page.evaluate(() => [Quizy.state.round.length, Quizy.state.round[0].q.question.slice(0, 40)]);
+      expect(r.redoOne[0] === 1 && firstMissed.startsWith(r.redoOne[1].slice(0, 30)), `${name} redo one ${r.redoOne}`);
+      await page.click('#quit');
+      // Bad code, and a selection that can't be filled.
+      await page.fill('#paper-code', 'abc');
+      await page.click('#replay');
+      r.badCode = await text('#setup-message');
+      for (const l of ['5', '6', '7', '8']) await page.click(`#lectures .chip[data-lecture="${l}"]`); // back to all
+      await page.click('#lectures .chip[data-lecture="1"]');
+      await page.click('#generate');
+      r.notEnough = await text('#setup-message');
+      await shot('setup-not-enough');
+      expect(r.notEnough === 'Not enough quiz questions in L1 only: pick more lectures.', `${name} not enough ${r.notEnough}`);
+      expect(r.badCode?.startsWith('Type the paper’s code'), `${name} bad code ${r.badCode}`);
+      // DVE: no theory questions.
+      await page.click('.subject-tab[data-key=dve]');
+      r.dveSets = await page.$$eval('#set option', os => os.map(o => o.value));
+      await page.click('#generate');
+      r.dveMessage = await text('#setup-message');
+      await shot('setup-dve');
+      expect(r.dveSets.join() === 'dve-lecture-bank', `${name} dve sets ${r.dveSets}`);
+
+      r.errors = errors;
+      if (errors.length) problems.push(`${name} console: ${errors.join(' | ')}`);
+      console.log(name, 'papers', r.papers.join(' '), '| interlude', interlude?.title, '|', r.summary.title, '|', r.summary.origin, '| dve:', r.dveMessage);
+      await context.close();
+    }
+  }
+  await browser.close();
+  server.close();
+  fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 1));
+  console.log(problems.length ? 'PROBLEMS:\n' + problems.join('\n') : 'All paper checks passed.');
 })().catch(e => { console.error(e); process.exit(1); });
 ```
