@@ -10,7 +10,7 @@
   "transcriptionNotes": "Wording, spelling and typos are copied exactly as they appear in the PDF (e.g. 'Bilnear', 'capture by', 'called then classification token'). Maths that appeared as rendered equations is written in Unicode. The 'explanation' fields are NOT part of the paper; they are study notes added afterwards. Answers come from the 'The correct answer is:' lines in the attempt review (not the student's own selections); where that answer looks wrong it is kept but marked with 'keyDispute'.",
   "questions": [
     {
-      "id": "nlp-pq2-01", "number": 1, "lecture": 6, "concept": "Attention score functions", "marks": 1,
+      "id": "nlp-pq2-01", "variantOf": "score-fn-not", "number": 1, "lecture": 6, "concept": "Attention score functions", "marks": 1,
       "type": "single",
       "question": "Which of the following is not a typical attention score function.",
       "emphasis": ["not"],
@@ -85,7 +85,7 @@
       "explanation": "∏ argmax p(y_t|y<t,x) ≠ argmax ∏ p(y_t|y<t,x). Greedy autoregressive decoding is not the same as finding the most probable whole sentence, which is why beam search exists."
     },
     {
-      "id": "nlp-pq2-08", "number": 8, "lecture": 6, "concept": "Attention score functions", "marks": 1,
+      "id": "nlp-pq2-08", "variantOf": "score-fn-not", "number": 8, "lecture": 6, "concept": "Attention score functions", "marks": 1,
       "type": "single",
       "question": "Which one of the following is not a type of score function used in attention for RNNs.",
       "emphasis": ["not"],
@@ -126,7 +126,7 @@
       "explanation": "An RNN needs O(N) sequential steps because each hidden state depends on the previous one."
     },
     {
-      "id": "nlp-pq2-13", "number": 13, "lecture": 7, "concept": "Scaled dot-product attention", "marks": 2,
+      "id": "nlp-pq2-13", "variantOf": "attn-weights-eq", "number": 13, "lecture": 7, "concept": "Scaled dot-product attention", "marks": 2,
       "type": "single",
       "question": "Which of the following is the correct equation to compute attention weights in a Transformer's attention layer. Note that v is a value vector, q is a query vector and k is a key vector with dimension dₖ.",
       "choices": ["softmax(kkᵀ / √dₖ)", "softmax(qvᵀ / √dₖ)", "softmax(vkᵀ / √dₖ)", "softmax(qkᵀ / √dₖ)"],
@@ -226,7 +226,7 @@
       "explanation": "The standard options are to train from scratch, take pretrained embeddings and fine-tune them, or take pretrained embeddings and freeze them. A separate network that 'produces embeddings' is not a standard strategy."
     },
     {
-      "id": "nlp-pq2-22", "number": 22, "lecture": 8, "concept": "ELMo architecture", "marks": 4,
+      "id": "nlp-pq2-22", "variantOf": "elmo-facts", "number": 22, "lecture": 8, "concept": "ELMo architecture", "marks": 4,
       "type": "multi", "negativeMarking": true,
       "question": "Which of the following is not a component of the neural network architecture used by ELMo to obtain word embeddings.",
       "emphasis": ["not"],
@@ -236,7 +236,7 @@
       "keyDispute": "Likely key error: the review's correct answer lists BOTH 'Self-attention' and 'Recurrent network layer' as not components. But ELMo's LSTM-LM layers ARE recurrent (the Lecture 8 slides show 'char-CNN+Highway' feeding 'LSTM-LM'). The defensible answer is Self-attention only."
     },
     {
-      "id": "nlp-pq2-23", "number": 23, "lecture": 8, "concept": "BERT", "marks": 1,
+      "id": "nlp-pq2-23", "variantOf": "cls", "number": 23, "lecture": 8, "concept": "BERT", "marks": 1,
       "type": "truefalse",
       "question": "True or False, the BERT architecture uses a special input token which allows it to perform classification tasks as well as language modelling. This token is called then classification token (denoted as [CLS])",
       "choices": ["True", "False"],
@@ -252,7 +252,7 @@
       "explanation": "The [CLS] and [SEP] tokens let one pretrained BERT be fine-tuned for single-sentence, sentence-pair and token-level tasks."
     },
     {
-      "id": "nlp-pq2-25", "number": 25, "lecture": 8, "concept": "Adapters and LoRA", "marks": 4,
+      "id": "nlp-pq2-25", "variantOf": "adapters", "number": 25, "lecture": 8, "concept": "Adapters and LoRA", "marks": 4,
       "type": "multi", "negativeMarking": true,
       "question": "Which of the following are True about adapter layers or blocks in neural networks",
       "emphasis": ["True"],

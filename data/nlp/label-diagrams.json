@@ -1,0 +1,689 @@
+{
+  "id": "nlp-label-diagrams",
+  "subject": "nlp",
+  "title": "Label the diagram",
+  "kind": "generated",
+  "origin": "new",
+  "description": "Diagrams from the lecture slides (Lectures 5–8) with labels hidden and numbered. Pick the right label for each number. Made by Claude from your notes images, so they're new, not from the lecturer.",
+  "unofficialAnswers": true,
+  "totalMarks": 77,
+  "questions": [
+    {
+      "id": "nlp-lab-transformer",
+      "lecture": 7,
+      "concept": "Transformer architecture",
+      "type": "label",
+      "marks": 9,
+      "question": "Label the parts of the Transformer architecture marked 1–9.",
+      "image": {
+        "src": "data/nlp/img/labels/transformer.png",
+        "alt": "The Transformer (encoder on the left, decoder on the right) with nine component labels hidden and numbered 1–9."
+      },
+      "labels": [
+        {
+          "number": 1,
+          "answer": "Input Embedding"
+        },
+        {
+          "number": 2,
+          "answer": "Positional Encoding"
+        },
+        {
+          "number": 3,
+          "answer": "Multi-Head Attention (encoder self-attention)"
+        },
+        {
+          "number": 4,
+          "answer": "Add & Norm"
+        },
+        {
+          "number": 5,
+          "answer": "Feed Forward"
+        },
+        {
+          "number": 6,
+          "answer": "Masked Multi-Head Attention (decoder self-attention)"
+        },
+        {
+          "number": 7,
+          "answer": "Multi-Head Attention (encoder–decoder / cross-attention)"
+        },
+        {
+          "number": 8,
+          "answer": "Linear"
+        },
+        {
+          "number": 9,
+          "answer": "Softmax"
+        }
+      ],
+      "options": [
+        "Input Embedding",
+        "Positional Encoding",
+        "Multi-Head Attention (encoder self-attention)",
+        "Add & Norm",
+        "Feed Forward",
+        "Masked Multi-Head Attention (decoder self-attention)",
+        "Multi-Head Attention (encoder–decoder / cross-attention)",
+        "Linear",
+        "Softmax",
+        "Output Embedding",
+        "Concatenate heads",
+        "Bidirectional LSTM",
+        "Global max-pooling",
+        "Beam search"
+      ],
+      "explanation": "Bottom up. Encoder (left): input embedding + positional encoding → [multi-head self-attention → add & norm → feed forward → add & norm] × N. Decoder (right): output embedding + positional encoding → masked multi-head self-attention → add & norm → multi-head encoder–decoder (cross) attention, where Q comes from the decoder and K, V from the encoder → add & norm → feed forward → add & norm, × N → linear → softmax over the vocabulary."
+    },
+    {
+      "id": "nlp-lab-encoder-decoder",
+      "lecture": 6,
+      "concept": "Encoder–decoder framework",
+      "type": "label",
+      "marks": 7,
+      "question": "Label the seq2seq (encoder–decoder) pipeline marked 1–7.",
+      "image": {
+        "src": "data/nlp/img/labels/encoder-decoder.png",
+        "alt": "Seq2seq encoder–decoder pipeline with seven labels hidden and numbered 1–7."
+      },
+      "labels": [
+        {
+          "number": 1,
+          "answer": "Encoder"
+        },
+        {
+          "number": 2,
+          "answer": "Decoder"
+        },
+        {
+          "number": 3,
+          "answer": "Linear layer"
+        },
+        {
+          "number": 4,
+          "answer": "Softmax"
+        },
+        {
+          "number": 5,
+          "answer": "h: vector representation of the context (source and previous history)"
+        },
+        {
+          "number": 6,
+          "answer": "Source sentence"
+        },
+        {
+          "number": 7,
+          "answer": "Previous history (target tokens generated so far)"
+        }
+      ],
+      "options": [
+        "Encoder",
+        "Decoder",
+        "Linear layer",
+        "Softmax",
+        "h: vector representation of the context (source and previous history)",
+        "Source sentence",
+        "Previous history (target tokens generated so far)",
+        "Attention",
+        "Beam search",
+        "Output word embeddings",
+        "Global max-pooling"
+      ],
+      "explanation": "The encoder reads the source; the decoder reads the previous target history and, conditioned on the encoder, produces h. A linear layer projects h from size d to |V| and softmax gives the distribution over the next token. It's a conditional language model."
+    },
+    {
+      "id": "nlp-lab-nnlm",
+      "lecture": 5,
+      "concept": "Neural language model pipeline",
+      "type": "label",
+      "marks": 7,
+      "question": "Label the high-level pipeline of a neural language model marked 1–7.",
+      "image": {
+        "src": "data/nlp/img/labels/nnlm.png",
+        "alt": "High-level neural language model pipeline with seven labels hidden and numbered 1–7."
+      },
+      "labels": [
+        {
+          "number": 1,
+          "answer": "Neural network (processes the context)"
+        },
+        {
+          "number": 2,
+          "answer": "Linear layer (d → |V|)"
+        },
+        {
+          "number": 3,
+          "answer": "Softmax"
+        },
+        {
+          "number": 4,
+          "answer": "h: vector representation of the context"
+        },
+        {
+          "number": 5,
+          "answer": "Input word embeddings"
+        },
+        {
+          "number": 6,
+          "answer": "Get probability distribution for the next token"
+        },
+        {
+          "number": 7,
+          "answer": "Process context (previous history)"
+        }
+      ],
+      "options": [
+        "Neural network (processes the context)",
+        "Linear layer (d → |V|)",
+        "Softmax",
+        "h: vector representation of the context",
+        "Input word embeddings",
+        "Get probability distribution for the next token",
+        "Process context (previous history)",
+        "Output word embeddings",
+        "Temperature",
+        "Encoder",
+        "Beam search"
+      ],
+      "explanation": "Two halves: (1) process the context with a model-specific network (RNN, CNN…) into a d-sized vector h; (2) a model-agnostic part: a linear layer d → |V| and softmax give P(next token | context). Equivalently, take dot products of h with the output word embeddings."
+    },
+    {
+      "id": "nlp-lab-rnn-encoder-decoder",
+      "lecture": 6,
+      "concept": "RNN encoder–decoder",
+      "type": "label",
+      "marks": 8,
+      "question": "Label the simplest RNN encoder–decoder model marked 1–8.",
+      "image": {
+        "src": "data/nlp/img/labels/rnn-encoder-decoder.png",
+        "alt": "Simplest RNN encoder–decoder model with eight labels hidden and numbered 1–8."
+      },
+      "labels": [
+        {
+          "number": 1,
+          "answer": "Vector representation of the source – used as the initial decoder state"
+        },
+        {
+          "number": 2,
+          "answer": "Initial RNN state (e.g. zero vector)"
+        },
+        {
+          "number": 3,
+          "answer": "Input word embeddings"
+        },
+        {
+          "number": 4,
+          "answer": "Source sentence"
+        },
+        {
+          "number": 5,
+          "answer": "Target sentence"
+        },
+        {
+          "number": 6,
+          "answer": "Output word embeddings"
+        },
+        {
+          "number": 7,
+          "answer": "Encoder RNN"
+        },
+        {
+          "number": 8,
+          "answer": "Decoder RNN"
+        }
+      ],
+      "options": [
+        "Vector representation of the source – used as the initial decoder state",
+        "Initial RNN state (e.g. zero vector)",
+        "Input word embeddings",
+        "Source sentence",
+        "Target sentence",
+        "Output word embeddings",
+        "Encoder RNN",
+        "Decoder RNN",
+        "Attention weights",
+        "Context vector c(t)",
+        "Softmax"
+      ],
+      "explanation": "The encoder RNN starts from an initial state (e.g. zeros), reads the source embeddings, and its final state becomes the decoder's initial state. The decoder RNN reads <bos> + the target tokens (output embeddings) and predicts the next target token at each step. That single vector is the bottleneck attention fixes."
+    },
+    {
+      "id": "nlp-lab-taxonomy",
+      "lecture": 8,
+      "concept": "Taxonomy of transfer learning",
+      "type": "label",
+      "marks": 6,
+      "question": "Complete the taxonomy of transfer learning in NLP: label the nodes marked 1–6.",
+      "image": {
+        "src": "data/nlp/img/labels/taxonomy.png",
+        "alt": "Tree diagram 'A Taxonomy of Transfer Learning in NLP' with six node labels hidden and numbered 1–6; the grey hints are also hidden."
+      },
+      "labels": [
+        {
+          "number": 1,
+          "answer": "Transductive"
+        },
+        {
+          "number": 2,
+          "answer": "Inductive"
+        },
+        {
+          "number": 3,
+          "answer": "Domain Adaptation"
+        },
+        {
+          "number": 4,
+          "answer": "Cross-lingual learning"
+        },
+        {
+          "number": 5,
+          "answer": "Multi-Task Learning"
+        },
+        {
+          "number": 6,
+          "answer": "Sequential Transfer Learning"
+        }
+      ],
+      "options": [
+        "Transductive",
+        "Inductive",
+        "Domain Adaptation",
+        "Cross-lingual learning",
+        "Multi-Task Learning",
+        "Sequential Transfer Learning",
+        "Fine-tuning",
+        "Zero-shot learning",
+        "Knowledge distillation",
+        "Self-supervised learning"
+      ],
+      "explanation": "Transductive: same task, labels only for the source → domain adaptation (different domains) or cross-lingual learning (different languages). Inductive: different tasks, labels for the target task → multi-task learning (tasks learned simultaneously) or sequential transfer learning (tasks learned sequentially: pretrain, then fine-tune)."
+    },
+    {
+      "id": "nlp-lab-char-cnn",
+      "lecture": 8,
+      "concept": "ELMo character-level CNN",
+      "type": "label",
+      "marks": 5,
+      "question": "This is the character-level CNN that ELMo uses to build a word representation for 'kitten'. Label the parts marked 1–5.",
+      "image": {
+        "src": "data/nlp/img/labels/character-level-cnn.png",
+        "alt": "ELMo's character-level CNN with a highway block; five labels hidden and numbered 1–5."
+      },
+      "labels": [
+        {
+          "number": 1,
+          "answer": "Linear"
+        },
+        {
+          "number": 2,
+          "answer": "Highway block"
+        },
+        {
+          "number": 3,
+          "answer": "Linear"
+        },
+        {
+          "number": 4,
+          "answer": "Global max-pooling"
+        },
+        {
+          "number": 5,
+          "answer": "Convolution"
+        }
+      ],
+      "options": [
+        "Linear",
+        "Highway block",
+        "Global max-pooling",
+        "Convolution",
+        "Softmax",
+        "LSTM",
+        "Self-attention",
+        "Average pooling"
+      ],
+      "explanation": "Characters → convolution (several filters over character n-grams) → global max-pooling over positions (fixed-size vector) → 2 highway blocks (gate g = σ(Wx + b) mixes a linear transform with the input: g·Linear(x) + (1 − g)·x) → a final linear projection. Because it works from characters, ELMo is open-vocabulary."
+    },
+    {
+      "id": "nlp-lab-elmo",
+      "lecture": 8,
+      "concept": "ELMo architecture",
+      "type": "label",
+      "marks": 3,
+      "question": "Label the three components of the ELMo architecture marked 1–3.",
+      "image": {
+        "src": "data/nlp/img/labels/elmo.png",
+        "alt": "ELMo architecture with three labels hidden and numbered 1–3."
+      },
+      "labels": [
+        {
+          "number": 1,
+          "answer": "2-layer forward LSTM-LM"
+        },
+        {
+          "number": 2,
+          "answer": "2-layer backward LSTM-LM"
+        },
+        {
+          "number": 3,
+          "answer": "char-CNN + Highway"
+        }
+      ],
+      "options": [
+        "2-layer forward LSTM-LM",
+        "2-layer backward LSTM-LM",
+        "char-CNN + Highway",
+        "Transformer encoder",
+        "Self-attention",
+        "Word2Vec embedding lookup",
+        "Bidirectional GRU"
+      ],
+      "explanation": "ELMo: char-CNN + highway layers give a context-independent token representation; a 2-layer forward LSTM language model and a separate 2-layer backward LSTM LM read the sentence; the ELMo representation is a task-specific weighted sum (λ₀, λ₁, λ₂) of the layers. No self-attention."
+    },
+    {
+      "id": "nlp-lab-lora",
+      "lecture": 8,
+      "concept": "LoRA",
+      "type": "label",
+      "marks": 4,
+      "question": "This diagram shows how LoRA changes a layer. Label the parts marked 1–4.",
+      "image": {
+        "src": "data/nlp/img/labels/before-lora.png",
+        "alt": "LoRA diagram: input feeds a frozen weight block and a weight-update block whose outputs are added; four labels hidden and numbered 1–4."
+      },
+      "labels": [
+        {
+          "number": 1,
+          "answer": "W: frozen pre-trained weights"
+        },
+        {
+          "number": 2,
+          "answer": "ΔW: trainable weight update (low-rank, ΔW = BA)"
+        },
+        {
+          "number": 3,
+          "answer": "x: input"
+        },
+        {
+          "number": 4,
+          "answer": "Output: W·x + ΔW·x"
+        }
+      ],
+      "options": [
+        "W: frozen pre-trained weights",
+        "ΔW: trainable weight update (low-rank, ΔW = BA)",
+        "x: input",
+        "Output: W·x + ΔW·x",
+        "Adapter layer (bottleneck)",
+        "Prefix tokens",
+        "Layer Norm",
+        "Softmax"
+      ],
+      "explanation": "LoRA freezes W₀ and learns ΔW = BA with rank r ≪ d, so h = W₀x + BAx. After training, BA can be merged into W₀, so unlike adapters there's no extra inference latency."
+    },
+    {
+      "id": "nlp-lab-bert-input",
+      "lecture": 8,
+      "concept": "BERT input representation",
+      "type": "label",
+      "marks": 5,
+      "question": "Label the BERT input representation: the three embedding rows (1–3) and the special tokens (4–5).",
+      "image": {
+        "src": "data/nlp/img/labels/bert-input.png",
+        "alt": "BERT input representation for '[CLS] my dog is cute [SEP] he likes play ##ing [SEP]' with row names and the special tokens hidden; labels 1–5."
+      },
+      "labels": [
+        {
+          "number": 1,
+          "answer": "Token embeddings"
+        },
+        {
+          "number": 2,
+          "answer": "Segment embeddings"
+        },
+        {
+          "number": 3,
+          "answer": "Position embeddings"
+        },
+        {
+          "number": 4,
+          "answer": "[CLS]"
+        },
+        {
+          "number": 5,
+          "answer": "[SEP]"
+        }
+      ],
+      "options": [
+        "Token embeddings",
+        "Segment embeddings",
+        "Position embeddings",
+        "[CLS]",
+        "[SEP]",
+        "[MASK]",
+        "<eos>",
+        "Word2Vec embeddings",
+        "[PAD]"
+      ],
+      "explanation": "Each input vector = token embedding + segment (sentence A/B) embedding + position embedding. [CLS] starts the input, and its final vector is used for classification / NSP; [SEP] separates and ends the segments. '##ing' is a WordPiece subword."
+    },
+    {
+      "id": "nlp-lab-adapters",
+      "lecture": 8,
+      "concept": "Adapter layers",
+      "type": "label",
+      "marks": 5,
+      "question": "Label the adapter diagram: the components in the Transformer layer (1–2) and inside the adapter layer (3–5).",
+      "image": {
+        "src": "data/nlp/img/labels/adaptors.png",
+        "alt": "Transformer layer with adapters (left) and the inside of an adapter layer (right); labels 1–5 hidden."
+      },
+      "labels": [
+        {
+          "number": 1,
+          "answer": "Adapter"
+        },
+        {
+          "number": 2,
+          "answer": "Layer Norm"
+        },
+        {
+          "number": 3,
+          "answer": "Feedforward up-project"
+        },
+        {
+          "number": 4,
+          "answer": "Nonlinearity"
+        },
+        {
+          "number": 5,
+          "answer": "Feedforward down-project"
+        }
+      ],
+      "options": [
+        "Adapter",
+        "Layer Norm",
+        "Feedforward up-project",
+        "Nonlinearity",
+        "Feedforward down-project",
+        "Multi-head attention",
+        "Softmax",
+        "LoRA update BA",
+        "Positional encoding"
+      ],
+      "explanation": "Adapters are inserted after the attention and feed-forward sublayers; only adapters (and layer norms) are trained, everything else is frozen and shared across tasks. Inside: down-project to a small hidden size → nonlinearity → up-project, plus a residual connection (few parameters)."
+    },
+    {
+      "id": "nlp-lab-attention-flow",
+      "lecture": 6,
+      "concept": "Attention computation pipeline",
+      "type": "label",
+      "marks": 6,
+      "question": "Label the attention computation pipeline marked 1–6 (stages and the operations between them).",
+      "image": {
+        "src": "data/nlp/img/labels/attention-flow.png",
+        "alt": "Attention computation pipeline with the stage names and the operations between stages hidden; labels 1–6."
+      },
+      "labels": [
+        {
+          "number": 1,
+          "answer": "Attention output"
+        },
+        {
+          "number": 2,
+          "answer": "(weighted sum)"
+        },
+        {
+          "number": 3,
+          "answer": "Attention weights"
+        },
+        {
+          "number": 4,
+          "answer": "(softmax)"
+        },
+        {
+          "number": 5,
+          "answer": "Attention scores"
+        },
+        {
+          "number": 6,
+          "answer": "Attention input"
+        }
+      ],
+      "options": [
+        "Attention output",
+        "(weighted sum)",
+        "Attention weights",
+        "(softmax)",
+        "Attention scores",
+        "Attention input",
+        "Attention mask",
+        "Positional encoding",
+        "(dot product with W_V)",
+        "(layer norm)"
+      ],
+      "explanation": "Input: all encoder states s₁…s_m and one decoder state h_t → scores score(h_t, s_k) → softmax → attention weights a_k^(t) → weighted sum → attention output c^(t) = Σ a_k^(t) s_k, the source context for decoder step t."
+    },
+    {
+      "id": "nlp-lab-score-functions",
+      "lecture": 6,
+      "concept": "Attention score functions",
+      "type": "label",
+      "marks": 3,
+      "question": "Name the three attention score functions marked 1–3.",
+      "image": {
+        "src": "data/nlp/img/labels/attention-score-functions.png",
+        "alt": "The three attention score functions with their names hidden; labels 1–3."
+      },
+      "labels": [
+        {
+          "number": 1,
+          "answer": "Dot-product"
+        },
+        {
+          "number": 2,
+          "answer": "Bilinear"
+        },
+        {
+          "number": 3,
+          "answer": "Multi-Layer Perceptron"
+        }
+      ],
+      "options": [
+        "Dot-product",
+        "Bilinear",
+        "Multi-Layer Perceptron",
+        "Cosine",
+        "Softmax",
+        "Euclidean distance"
+      ],
+      "explanation": "Dot-product: h_tᵀ s_k. Bilinear: h_tᵀ W s_k (learned W; W = I gives the dot product). MLP (additive): w₂ᵀ tanh(W₁[h_t, s_k]). Bahdanau used MLP, Luong used bilinear."
+    },
+    {
+      "id": "nlp-lab-bahdanau",
+      "lecture": 6,
+      "concept": "Bahdanau attention",
+      "type": "label",
+      "marks": 5,
+      "question": "This is the Bahdanau attention model. Label the parts marked 1–5.",
+      "image": {
+        "src": "data/nlp/img/labels/bahdanau.png",
+        "alt": "Bahdanau attention model with five labels hidden and numbered 1–5."
+      },
+      "labels": [
+        {
+          "number": 1,
+          "answer": "Multi-Layer Perceptron (score function)"
+        },
+        {
+          "number": 2,
+          "answer": "Bidirectional encoder: concatenate states from forward and backward RNNs"
+        },
+        {
+          "number": 3,
+          "answer": "Softmax"
+        },
+        {
+          "number": 4,
+          "answer": "\"Source context for decoder step t\""
+        },
+        {
+          "number": 5,
+          "answer": "Pass source context c(t) and previous decoder state h(t−1) to the next step"
+        }
+      ],
+      "options": [
+        "Multi-Layer Perceptron (score function)",
+        "Bidirectional encoder: concatenate states from forward and backward RNNs",
+        "Softmax",
+        "\"Source context for decoder step t\"",
+        "Pass source context c(t) and previous decoder state h(t−1) to the next step",
+        "Bilinear (score function)",
+        "Combine source context c(t) and decoder state h(t) to make a prediction",
+        "Unidirectional encoder",
+        "Dot-product (score function)"
+      ],
+      "explanation": "Bahdanau: bidirectional encoder; attention uses the previous decoder state h_{t−1}; MLP score function; the context c^(t) is fed into the next decoder step together with h_{t−1}."
+    },
+    {
+      "id": "nlp-lab-luong",
+      "lecture": 6,
+      "concept": "Luong attention",
+      "type": "label",
+      "marks": 4,
+      "question": "This is the Luong attention model. Label the parts marked 1–4.",
+      "image": {
+        "src": "data/nlp/img/labels/luong.png",
+        "alt": "Luong attention model with four labels hidden and numbered 1–4."
+      },
+      "labels": [
+        {
+          "number": 1,
+          "answer": "Bilinear (score function)"
+        },
+        {
+          "number": 2,
+          "answer": "Softmax"
+        },
+        {
+          "number": 3,
+          "answer": "Combine source context c(t) and decoder state h(t) to make a prediction"
+        },
+        {
+          "number": 4,
+          "answer": "\"Source context for decoder step t\""
+        }
+      ],
+      "options": [
+        "Bilinear (score function)",
+        "Softmax",
+        "Combine source context c(t) and decoder state h(t) to make a prediction",
+        "\"Source context for decoder step t\"",
+        "Multi-Layer Perceptron (score function)",
+        "Pass source context c(t) and previous decoder state h(t−1) to the next step",
+        "Bidirectional encoder: concatenate states from forward and backward RNNs",
+        "Dot-product (score function)"
+      ],
+      "explanation": "Luong: unidirectional encoder; attention uses the current decoder state h_t; bilinear score function; then h̃_t = tanh(W_c[h_t, c^(t)]) combines context and state to predict the next token."
+    }
+  ]
+}

@@ -226,7 +226,7 @@
       "explanation": "Long N-grams are sparse, so many have zero counts. Backoff falls back to shorter contexts (trigram → bigram → unigram) when the longer one hasn't been seen."
     },
     {
-      "id": "nlp-pq-4-3",
+      "id": "nlp-pq-4-3", "variantOf": "nucleus-adaptive",
       "number": "4.3",
       "lecture": 5,
       "concept": "Generation strategies",
@@ -323,7 +323,7 @@
       "keyDispute": "Toss-up, no official key. Strictly, softmax never outputs exact zeros, so it is not sparse in the mathematical sense (sparsemax would be), which would make the answer False. True is chosen here because of how the lecturer described it in class."
     },
     {
-      "id": "nlp-pq-5-5",
+      "id": "nlp-pq-5-5", "variantOf": "score-fn-not",
       "number": "5.5",
       "lecture": 6,
       "concept": "Attention score functions",
@@ -345,7 +345,7 @@
       "explanation": "The three score functions are dot-product, bilinear and MLP. Softmax turns the scores into weights; it isn't a score function. (Same idea as 2025 Quiz 2, Q1.)"
     },
     {
-      "id": "nlp-pq-6-1",
+      "id": "nlp-pq-6-1", "variantOf": "decoder-only",
       "number": "6.1",
       "lecture": 8,
       "concept": "Decoder-only models",
@@ -362,7 +362,7 @@
       "explanation": "Decoder-only Transformers (the GPT family) drop the encoder and cross-attention and work as large left-to-right language models."
     },
     {
-      "id": "nlp-pq-6-2",
+      "id": "nlp-pq-6-2", "variantOf": "bert-masking",
       "number": "6.2",
       "lecture": 8,
       "concept": "BERT masking",
@@ -398,7 +398,7 @@
       "explanation": "ELMo's representations come from a bidirectional LSTM language model, so the same word gets a different vector in different sentences. BPE/SentencePiece only segment text; they produce no contextual vectors."
     },
     {
-      "id": "nlp-pq-6-4",
+      "id": "nlp-pq-6-4", "variantOf": "elmo-facts",
       "number": "6.4",
       "lecture": 8,
       "concept": "ELMo open vocabulary",

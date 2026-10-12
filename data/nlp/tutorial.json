@@ -355,7 +355,7 @@
       ]
     },
     {
-      "id": "nlp-tut-4-2",
+      "id": "nlp-tut-4-2", "variantOf": "laplace-calc",
       "number": "4.2",
       "lecture": 5,
       "concept": "Laplace-smoothed n-gram",
@@ -552,7 +552,7 @@
       ]
     },
     {
-      "id": "nlp-tut-5-4",
+      "id": "nlp-tut-5-4", "variantOf": "attn-calc",
       "number": "5.4",
       "lecture": 7,
       "concept": "Self-attention calculation",
@@ -666,7 +666,7 @@
       ]
     },
     {
-      "id": "nlp-tut-6-2",
+      "id": "nlp-tut-6-2", "variantOf": "bert-pretrain",
       "number": "6.2",
       "lecture": 8,
       "concept": "BERT output and pre-training",
@@ -750,7 +750,7 @@
       ]
     },
     {
-      "id": "nlp-tut-6-5",
+      "id": "nlp-tut-6-5", "variantOf": "lora-benefits",
       "number": "6.5",
       "lecture": 8,
       "concept": "LoRA vs adapters",
@@ -778,7 +778,7 @@
       ]
     },
     {
-      "id": "nlp-tut-6-6",
+      "id": "nlp-tut-6-6", "variantOf": "lora-mem",
       "number": "6.6",
       "lecture": 8,
       "concept": "LoRA memory calculation",
