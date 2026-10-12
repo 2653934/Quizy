@@ -36,6 +36,7 @@
     $('question').classList.toggle('long', q.question.length > 160);
 
     $('figure').hidden = !q.image;
+    $('figure').classList.toggle('wide', !!type.wideFigure);
     if (q.image) {
       $('figure-img').src = q.image.src;
       $('figure-img').alt = q.image.alt;

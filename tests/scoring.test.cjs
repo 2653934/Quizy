@@ -157,6 +157,18 @@ test('written: score is the sum of the ticked rubric marks', () => {
   assert.equal(Quizy.isFull(written.score(q, {text: '', ticked: [0, 1]}), q), true);
 });
 
+test('label: marks × correct labels / labels', () => {
+  const q = fx('fx-label'); // 6 marks; labels 3 Softmax, 1 Add & Norm, 2 Add & Norm; options Add & Norm, Feed Forward, Softmax, Linear
+  const {label} = Quizy.types;
+  assert.equal(label.score(q, [2, 0, 0]), 6);
+  assert.equal(label.score(q, [2, 0, 1]), 4);
+  assert.equal(label.score(q, [null, 0, null]), 2);
+  assert.equal(label.score(q, [0, 2, 3]), 0);
+  assert.equal(label.score(q, [3, 3, 3]), 0);
+  close(label.score({...q, marks: 1}, [2, 1, 1]), 1 / 3);
+  assert.equal(Quizy.isFull(label.score(q, [2, 0, 1]), q), false);
+});
+
 test('Copy for Claude prompt', () => {
   const subject = {code: 'COMS4054A', name: 'Natural Language Processing'};
   const prompt = (id, response) => Quizy.claudePrompt({subject, set: fixture, q: fx(id), ...Quizy.types[fx(id).type].askClaude(fx(id), response)});

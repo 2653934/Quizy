@@ -13,6 +13,7 @@
 //     // Browser only:
 //     needsCheckButton           true: the answer is submitted with "Check answer"
 //     checkLabel                 optional text for that button (default "Check answer")
+//     wideFigure                 optional: true shows the question's image at full panel width (label)
 //     hints(q, set)              hint nodes shown above the inputs ([] for none)
 //     render(container, q, item, onReady, submit)
 //                                draw the inputs into container. Check-button types call onReady(true/false)

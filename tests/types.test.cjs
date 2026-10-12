@@ -17,8 +17,8 @@ const errorsFor = q => {
   return errors;
 };
 
-test('the seven types are registered with the full contract', () => {
-  assert.deepEqual(Object.keys(Quizy.types).sort(), ['match', 'multi', 'numeric', 'short', 'single', 'truefalse', 'written']);
+test('the eight types are registered with the full contract', () => {
+  assert.deepEqual(Object.keys(Quizy.types).sort(), ['label', 'match', 'multi', 'numeric', 'short', 'single', 'truefalse', 'written']);
   for (const [name, type] of Object.entries(Quizy.types)) {
     for (const fn of ['validate', 'makeOrder', 'score', 'hints', 'render', 'showResult']) assert.equal(typeof type[fn], 'function', `${name}.${fn}`);
     assert.equal(typeof type.needsCheckButton, 'boolean', `${name}.needsCheckButton`);
@@ -30,6 +30,8 @@ test('the seven types are registered with the full contract', () => {
   assert.equal(typeof Quizy.types.written.reveal, 'function');
   assert.equal(Quizy.types.written.checkLabel, 'Reveal model answer');
   assert.equal(typeof Quizy.types.numeric.resultNotes, 'function');
+  assert.equal(Quizy.types.label.askClaude, undefined);
+  assert.equal(Quizy.types.label.wideFigure, true);
 });
 
 test('every real question passes its type validation', () => {
@@ -154,6 +156,23 @@ test('written rejects broken questions', () => {
   assert.deepEqual(errorsFor({...ok, marks: undefined, rubric: [{point: 'a', marks: 1}]}), []); // marks default to 1
 });
 
+test('label rejects broken questions', () => {
+  const ok = fixture.questions.find(q => q.id === 'fx-label');
+  const at = 'test-set / fx-label';
+  assert.deepEqual(errorsFor(ok), []);
+  assert.deepEqual(errorsFor({...ok, image: undefined}), [`${at}: label needs an image`]);
+  assert.deepEqual(errorsFor({...ok, labels: []}), [`${at}: label needs labels`]);
+  assert.deepEqual(errorsFor({...ok, labels: undefined}), [`${at}: label needs labels`]);
+  assert.deepEqual(errorsFor({...ok, options: ['Softmax']}), [`${at}: label needs at least two text options`]);
+  assert.deepEqual(errorsFor({...ok, options: ['Add & Norm', 'Softmax', '']}), [`${at}: label needs at least two text options`]);
+  assert.deepEqual(errorsFor({...ok, options: [...ok.options, 'Softmax']}), [`${at}: label options must not repeat`]);
+  assert.deepEqual(errorsFor({...ok, labels: [{number: 1, answer: 'Softmax'}, {number: 1, answer: 'Linear'}]}), [`${at} label 2: number 1 is used twice`]);
+  for (const number of [0, -1, 1.5, '1', undefined]) {
+    assert.deepEqual(errorsFor({...ok, labels: [{number, answer: 'Softmax'}]}), [`${at} label 1: number must be a positive whole number`], String(number));
+  }
+  assert.deepEqual(errorsFor({...ok, labels: [{number: 1, answer: 'Encoder'}]}), [`${at} label 1: answer "Encoder" is not in options`]);
+});
+
 test('makeOrder: truefalse never shuffles, the others are permutations', () => {
   const sorted = list => [...list].sort((a, b) => a - b);
   Quizy.seedRandom(3);
@@ -168,6 +187,14 @@ test('makeOrder: truefalse never shuffles, the others are permutations', () => {
   assert.deepEqual(sorted(m.pairOrder), [0, 1, 2]);
   assert.deepEqual(sorted(m.optionOrder), [0, 1, 2, 3]);
   assert.deepEqual(m.choiceOrder, []);
-  for (const q of fixture.questions) assert.deepEqual(Quizy.types[q.type].makeOrder(q, Quizy.shuffle), {choiceOrder: [], pairOrder: [], optionOrder: []}, q.id);
+  for (const q of fixture.questions.filter(q => q.type !== 'label')) assert.deepEqual(Quizy.types[q.type].makeOrder(q, Quizy.shuffle), {choiceOrder: [], pairOrder: [], optionOrder: []}, q.id);
+  // label: rows in number order (never shuffled), options shuffled.
+  const l = fixture.questions.find(q => q.id === 'fx-label');
+  for (let i = 0; i < 5; i++) {
+    const o = Quizy.types.label.makeOrder(l, Quizy.shuffle);
+    assert.deepEqual(o.pairOrder, [1, 2, 0]);
+    assert.deepEqual(sorted(o.optionOrder), [0, 1, 2, 3]);
+    assert.deepEqual(o.choiceOrder, []);
+  }
   Quizy.seedRandom(null);
 });
