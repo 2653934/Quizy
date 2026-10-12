@@ -55,6 +55,9 @@ test('mathToPlain: simple LaTeX as Unicode, delimiters removed', () => {
     '$\\frac{a+b}{2}$': '(a+b)/2',
     '$\\text{softmax}(x)_i$': 'softmax(x)ᵢ',
     '$x^{-1}$': 'x⁻¹',
+    '$\\mathbb{R}^{n \\times n}$': 'R^(n × n)',
+    '$W^{(1)}$': 'W⁽¹⁾',
+    '$x_{ab}$': 'x_(ab)',
     'Costs \\$5': 'Costs $5',
     'Let $\\{a, b\\}$ be': 'Let {a, b} be',
     '$\\hat{y}$': '\\haty' // not handled: the LaTeX source, without braces
@@ -77,6 +80,18 @@ test('shownFields lists every text field the app shows', () => {
     explanation: 'e', keyDispute: 'k', optionsNote: 'n'};
   assert.deepEqual(Quizy.shownFields(q).map(([name]) => name), ['question', 'choices[0]', 'choices[1]', 'pairs[0]', 'pairs.answer[0]', 'options[0]',
     'labels.answer[0]', 'accept[0]', 'parts.label[0]', 'parts.unit[0]', 'inputHint', 'solution', 'modelAnswer', 'rubric[0]', 'explanation', 'keyDispute', 'optionsNote']);
+});
+
+test('the browser maths fixture (tests/maths-check.json) passes the type and maths checks', () => {
+  const set = JSON.parse(fs.readFileSync(path.join(__dirname, 'maths-check.json'), 'utf8'));
+  const problems = [];
+  problems.push(...Quizy.checkMath(set.description, katex));
+  for (const q of set.questions) {
+    Quizy.types[q.type].validate(q, set, message => problems.push(message));
+    for (const [field, text] of Quizy.shownFields(q)) problems.push(...Quizy.checkMath(text, katex).map(p => `${q.id} ${field}: ${p}`));
+  }
+  assert.deepEqual(problems, []);
+  assert.deepEqual([...new Set(set.questions.map(q => q.type))].sort(), Object.keys(Quizy.types).sort());
 });
 
 // A scratch folder laid out like the repo, with one set whose explanation is `explanation`.

@@ -57,15 +57,16 @@
     ldots: '…', dots: '…', cdots: '⋯', partial: '∂', nabla: '∇', propto: '∝', sim: '∼', top: 'ᵀ',
     log: 'log', ln: 'ln', exp: 'exp', max: 'max', min: 'min', arg: 'arg', sin: 'sin', cos: 'cos', tanh: 'tanh'
   };
-  const SUPER = {0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴', 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹', '+': '⁺', '-': '⁻', T: 'ᵀ', 'ᵀ': 'ᵀ', n: 'ⁿ', i: 'ⁱ', k: 'ᵏ', t: 'ᵗ'};
-  const SUB = {0: '₀', 1: '₁', 2: '₂', 3: '₃', 4: '₄', 5: '₅', 6: '₆', 7: '₇', 8: '₈', 9: '₉', '+': '₊', '-': '₋',
+  const SUPER = {0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴', 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹', '+': '⁺', '-': '⁻', '(': '⁽', ')': '⁾', '=': '⁼', T: 'ᵀ', 'ᵀ': 'ᵀ', n: 'ⁿ', i: 'ⁱ', k: 'ᵏ', t: 'ᵗ'};
+  const SUB = {0: '₀', 1: '₁', 2: '₂', 3: '₃', 4: '₄', 5: '₅', 6: '₆', 7: '₇', 8: '₈', 9: '₉', '+': '₊', '-': '₋', '(': '₍', ')': '₎', '=': '₌',
     a: 'ₐ', e: 'ₑ', h: 'ₕ', i: 'ᵢ', j: 'ⱼ', k: 'ₖ', l: 'ₗ', m: 'ₘ', n: 'ₙ', o: 'ₒ', p: 'ₚ', r: 'ᵣ', s: 'ₛ', t: 'ₜ', u: 'ᵤ', v: 'ᵥ', x: 'ₓ'};
   const GROUP = '\\{([^{}]*)\\}';
 
-  // ^{12} → ¹², _k → ₖ; when a character has no small form the LaTeX stays as it is.
+  // ^{12} → ¹², _k → ₖ; when a character has no small form the LaTeX stays, with a group in brackets: ^{n × n} → ^(n × n).
   const script = map => (whole, braced, single) => {
     const chars = [...(braced ?? single)];
-    return chars.every(c => map[c]) ? chars.map(c => map[c]).join('') : whole;
+    if (chars.every(c => map[c])) return chars.map(c => map[c]).join('');
+    return braced !== undefined && chars.length > 1 ? `${whole[0]}(${braced})` : whole;
   };
 
   function latexToPlain(tex) {

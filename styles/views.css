@@ -1,4 +1,4 @@
-/* body[data-view] is set by src/ui/views.js ("setup", "quiz" or "summary").
+/* body[data-view] is set by src/ui/views.js ("setup", "quiz", "browse" or "summary").
    During a round: hide hero + stats and compact the header so the question is on the first screen. */
 [data-view=quiz] .hero,
 [data-view=quiz] .stats {

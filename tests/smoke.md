@@ -12,6 +12,7 @@ node compare.cjs baseline candidate         # identical text, scores and screens
 ALL=1 node smoke.cjs <path-to-Quizy> out    # also: every NLP question, every non-single DVE question, a partial-marks round
 node newtypes.cjs <repo-with-new-sets> nt   # short / numeric / written end to end (see below)
 node paper.cjs <repo-with-new-sets> pp       # mock papers, label, practise by style, lecture chips (see below)
+node maths.cjs <repo-with-maths-check> mx    # maths rendering and Browse & search (see below)
 ```
 
 ## What it does
@@ -29,6 +30,7 @@ For `file://` and a local HTTP server, at 375×667 and 1280×800:
 Things to know when changing it:
 - The lecture chips are remembered per subject, so after picking "L3" the script taps "All" again before the full DVE rounds.
 - The 2026-10-12 setup screen (lecture chips, style select, mock-test block) changed the setup text and the 8 full-page setup screenshots; the baseline was retaken then. Everything else stayed byte-identical.
+- The "Browse all questions" button (added after the mock papers) changed the setup text by that one line and the same 8 full-page setup screenshots; the baseline was retaken then. Everything else stayed byte-identical.
 - After every navigation, wait for `.subject-tab[aria-pressed=true]`: over HTTP the data loads asynchronously.
 - Wait for smooth scrolling to finish before screenshots or measurements by polling `scrollY` inside `page.evaluate` until it stops changing. Don't return a Promise from `page.waitForFunction`; it counts as truthy straight away.
 - Let the scroll settle before clicking "See results". Otherwise two smooth scrolls overlap and the summary can stop a few pixels short of the top, which makes screenshots flaky.
@@ -866,4 +868,322 @@ const answerHelper = () => {
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 1));
   console.log(problems.length ? 'PROBLEMS:\n' + problems.join('\n') : 'All paper checks passed.');
 })().catch(e => { console.error(e); process.exit(1); });
+```
+
+## maths.cjs
+
+Maths rendering (KaTeX from `vendor/katex/`) and "Browse all questions", over `file://` and HTTP at 375×667 and 1280×800, with every request outside the app blocked (so it also proves the app and the KaTeX fonts work offline). It needs the fixture set `tests/maths-check.json` (`nlp-maths-check`: maths in the description and in every field of every question type, including a display matrix too wide for a phone). Run it on a scratch copy of the repo: copy `tests/maths-check.json` to `data/nlp/maths-check.json`, append `"nlp-maths-check"` to NLP's `sets` in `data/subjects.json` and run `node tools/build-data.cjs` there. Never add the fixture to the real `data/`.
+
+It checks:
+- Maths: the set description, question text (inline and display), choices, hints, numeric labels and units, the worked solution, the study note, `optionsNote`, `keyDispute`, the written model answer and rubric all contain KaTeX output; `<select>` options of match and label show plain text (`R^(n × n)`, `√dₖ scaling`) with no `$`; the wide matrix scrolls inside its own box at 375px; no raw LaTeX is shown.
+- Fonts: every `.woff2` request is to `vendor/katex/fonts/` and succeeds, `KaTeX_Main` is loaded, and nothing outside the app was requested.
+- Browse: 179 questions in 40-card chunks ("Show more"), search "attention matrix" (terms highlighted), Written / theory + L7 (every card is a written L7 question), open the maths written question (`#q=mx-written` in the URL, model answer, rubric, unofficial study note), "Copy for Claude", "Practise this question" (a one-question round), then "Back to browse ↗" on the summary returns to the list with the search, style, chip, count and scroll position intact and the card showing the last result. "End round" from a practised question also goes back to browse. The subject switcher stays enabled and switching shows DVE's 421 questions.
+- Deep link: opening `index.html#q=mx-numeric` shows that question's answer (parts and worked solution).
+- Fallback: with `katex.min.js` blocked, the maths shows as LaTeX source in `<code>` and there are no page errors.
+- No sideways scroll, tap targets ≥ 48px and no console errors or warnings in every state.
+
+It writes full-page screenshots of each question, the browse list, the answer view, the deep link and the fallback at 375px for a visual check. Playwright scrolls an element into view before clicking it, so the script opens the answer with a DOM click to compare the list's scroll position fairly.
+
+```js
+// Maths rendering and "Browse all questions": node maths.cjs <repo-with-nlp-maths-check> <outDir>
+// The repo copy must register the nlp-maths-check set (maths in every field). Over file:// and HTTP,
+// at 375x667 and 1280x800, with every request outside the app blocked (offline):
+// plays the maths set (every type), checks KaTeX output, fonts from vendor/, no sideways scroll, tap targets,
+// then browses (search, filters, answer view, practise, back with filters intact, show more, subject switch,
+// deep link, Copy for Claude) and finally checks the raw-LaTeX fallback when KaTeX is blocked.
+const http = require('node:http');
+const fs = require('node:fs');
+const path = require('node:path');
+const assert = require('node:assert/strict');
+const {chromium} = require('playwright-core');
+
+const repo = path.resolve(process.argv[2]);
+const out = path.resolve(process.argv[3]);
+fs.mkdirSync(out, {recursive: true});
+const TYPES = {'.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.svg': 'image/svg+xml', '.woff2': 'font/woff2'};
+
+function serve() {
+  return new Promise(resolve => {
+    const server = http.createServer((req, res) => {
+      let file = path.join(repo, decodeURIComponent(new URL(req.url, 'http://x').pathname));
+      if (fs.existsSync(file) && fs.statSync(file).isDirectory()) file = path.join(file, 'index.html');
+      if (!file.startsWith(repo) || !fs.existsSync(file)) { res.writeHead(404); return res.end('not found'); }
+      res.writeHead(200, {'content-type': TYPES[path.extname(file)] || 'application/octet-stream'});
+      res.end(fs.readFileSync(file));
+    });
+    server.listen(0, () => resolve(server));
+  });
+}
+
+const ready = page => page.waitForSelector('.subject-tab[aria-pressed=true]', {state: 'attached'});
+async function settle(page) {
+  await page.evaluate(async () => {
+    let last = -1, same = 0;
+    for (let i = 0; i < 100 && same < 6; i++) {
+      await new Promise(r => setTimeout(r, 50));
+      if (window.scrollY === last) same++; else { same = 0; last = window.scrollY; }
+    }
+  });
+}
+// Layout rules on the visible page: no sideways scroll, visible controls ≥ 48px tall.
+async function layout(page, where, problems) {
+  const r = await page.evaluate(() => {
+    const small = [];
+    for (const n of document.querySelectorAll('button, select, input[type=search], input[type=text], .browse-wrong, .choice, .rubric-point')) {
+      const b = n.getBoundingClientRect();
+      if (b.width && b.height && getComputedStyle(n).visibility !== 'hidden' && b.height < 47.5) small.push(`${n.tagName}#${n.id}.${n.className} ${b.height.toFixed(1)}`);
+    }
+    return {sideways: document.documentElement.scrollWidth - document.documentElement.clientWidth, small};
+  });
+  if (r.sideways > 0) problems.push(`${where}: page scrolls sideways by ${r.sideways}px`);
+  for (const s of r.small) problems.push(`${where}: small tap target ${s}`);
+}
+
+// Answers whatever question is shown (first option / every select's first option / typed values), then grades it.
+async function answer(page) {
+  const kind = await page.evaluate(() => {
+    const c = document.getElementById('choices');
+    if (c.querySelector('button.choice')) return 'tap';
+    if (c.querySelector('input[type=checkbox]')) return 'multi';
+    if (c.querySelector('select')) return 'select';
+    if (c.querySelector('textarea')) return 'written';
+    if (c.querySelector('.numeric-input')) return 'numeric';
+    return 'short';
+  });
+  if (kind === 'tap') await page.click('#choices button.choice');
+  if (kind === 'multi') { await page.click('#choices label.choice'); await page.click('#check'); }
+  if (kind === 'select') {
+    for (const s of await page.$$('#choices select')) await s.selectOption({index: 1});
+    await page.click('#check');
+  }
+  if (kind === 'numeric') {
+    const inputs = await page.$$('#choices .numeric-input');
+    for (const [i, input] of inputs.entries()) await input.fill(['0.67', '0.5'][i] || '1');
+    await page.click('#check');
+  }
+  if (kind === 'short') { await page.fill('#choices input', 'softmax'); await page.click('#check'); }
+  if (kind === 'written') {
+    await page.fill('#choices textarea', 'Row i attends to j.');
+    await page.click('#check');
+    await page.click('#choices .rubric-point');
+    await page.click('#choices .rubric-submit');
+  }
+  await page.waitForSelector('#next:not([hidden])');
+  return kind;
+}
+
+async function run(browser, base, label, viewport) {
+  const problems = [];
+  const context = await browser.newContext({viewport});
+  await context.grantPermissions(['clipboard-read', 'clipboard-write']).catch(() => {});
+  const external = [];
+  const fonts = [];
+  await context.route('**/*', route => {
+    const url = route.request().url();
+    if (url.startsWith('file:') || url.startsWith('http://localhost') || url.startsWith('http://127.0.0.1')) return route.continue();
+    external.push(url);
+    return route.abort();
+  });
+  const page = await context.newPage();
+  const errors = [];
+  page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') errors.push(`${m.type()}: ${m.text()}`); });
+  page.on('pageerror', e => errors.push(`pageerror: ${e.message}`));
+  page.on('requestfinished', async req => { if (req.url().endsWith('.woff2')) fonts.push([req.url(), (await req.response())?.status() ?? 'file']); });
+  page.on('requestfailed', req => { if (req.url().endsWith('.woff2')) fonts.push([req.url(), 'FAILED']); });
+  const small = viewport.width < 500;
+
+  await page.goto(base + 'index.html');
+  await ready(page);
+  await page.evaluate(() => localStorage.clear());
+  await page.goto(base + 'index.html');
+  await ready(page);
+  await page.click('.subject-tab[data-key=nlp]');
+
+  // 1. Play the maths set: every type, maths in every field.
+  await page.selectOption('#set', 'nlp-maths-check');
+  assert.ok(await page.$eval('#set-description', n => !!n.querySelector('.katex') && n.textContent.includes('$5')), 'description maths');
+  await page.click('#start');
+  const seen = {};
+  for (let i = 0; i < 8; i++) {
+    await settle(page);
+    const before = await page.evaluate(() => ({
+      text: document.getElementById('question').textContent.slice(0, 40),
+      katex: document.querySelectorAll('#question .katex').length,
+      display: document.querySelectorAll('#question .math-display').length,
+      hints: document.querySelectorAll('#hints .katex').length,
+      choices: document.querySelectorAll('#choices .katex').length,
+      options: [...document.querySelectorAll('#choices option')].map(o => o.textContent)
+    }));
+    await layout(page, `${label} q${i + 1} before`, problems);
+    const kind = await answer(page);
+    await settle(page);
+    const after = await page.evaluate(() => ({
+      feedbackKatex: document.querySelectorAll('#feedback .katex, #choices .katex').length,
+      raw: document.querySelectorAll('.math-raw').length,
+      wide: [...document.querySelectorAll('.math-display')].filter(n => n.scrollWidth > n.clientWidth + 1).length
+    }));
+    await layout(page, `${label} q${i + 1} after`, problems);
+    seen[before.text] = {kind, ...before, ...after};
+    if (small) await page.screenshot({path: path.join(out, `${label}-q${i + 1}-${kind}.png`), fullPage: true});
+    if (after.raw) problems.push(`${label}: raw LaTeX shown on "${before.text}"`);
+    await page.click('#next');
+  }
+  await page.waitForSelector('#summary:not([hidden])');
+  const byStart = start => Object.values(seen).find(s => s.text.startsWith(start));
+  const single = byStart('In scaled');
+  assert.ok(single.katex >= 2 && single.display === 1 && single.choices >= 4 && single.feedbackKatex >= 6, `single ${JSON.stringify(single)}`);
+  const numeric = byStart('With');
+  assert.ok(numeric.hints >= 1 && numeric.feedbackKatex >= 5, `numeric ${JSON.stringify(numeric)}`);
+  if (small) assert.ok(numeric.wide >= 1, 'the wide matrix scrolls inside its own box');
+  const match = byStart('Match');
+  assert.ok(match.options.every(o => !o.includes('$')) && match.options.some(o => o.includes('R^(n × n)')), `match options ${match.options}`);
+  const labelQ = byStart('Label');
+  assert.ok(labelQ.options.includes('√dₖ scaling'), `label options ${labelQ.options}`);
+  assert.equal(byStart('Explain').kind, 'written');
+
+  // KaTeX fonts: all from vendor/katex/fonts, all loaded, nothing fetched from outside.
+  assert.ok(fonts.length > 0, 'KaTeX fonts requested');
+  for (const [url, status] of fonts) {
+    assert.ok(url.includes('/vendor/katex/fonts/'), url);
+    assert.ok(status === 200 || status === 'file' || status === 0, `${url} ${status}`);
+  }
+  assert.ok(await page.evaluate(() => document.fonts.check('16px KaTeX_Main')), 'KaTeX_Main loaded');
+  assert.deepEqual(external, []);
+
+  // 2. Browse: search, written + L7, open an answer, practise it, come back with filters intact.
+  await page.click('#again');
+  await page.click('#browse-open');
+  await page.waitForSelector('#browse:not([hidden])');
+  const total = await page.textContent('#browse-count');
+  assert.match(total, /^179 of 179 questions$/);
+  assert.equal(await page.$$eval('#browse-list > li', l => l.length), 40);
+  await page.click('#browse-more');
+  assert.equal(await page.$$eval('#browse-list > li', l => l.length), 80);
+  await layout(page, `${label} browse`, problems);
+  if (small) await page.screenshot({path: path.join(out, `${label}-browse.png`)});
+  await page.fill('#browse-search', 'attention matrix');
+  await page.waitForTimeout(400);
+  const searched = await page.textContent('#browse-count');
+  assert.ok(await page.$$eval('.browse-text mark', m => m.length) > 0, 'search terms highlighted');
+  await page.selectOption('#browse-style', 'written');
+  await page.click('#browse-lectures .chip[data-lecture="7"]');
+  const filtered = await page.textContent('#browse-count');
+  const cards = await page.$$eval('.browse-card', cs => cs.map(c => c.textContent));
+  assert.ok(cards.length > 0 && cards.every(c => c.includes('L7') && c.startsWith('Written')), `cards ${cards}`);
+  await layout(page, `${label} browse filtered`, problems);
+  if (small) await page.screenshot({path: path.join(out, `${label}-browse-filtered.png`), fullPage: true});
+  const target = cards.findIndex(c => c.includes('self-attention matrix'));
+  assert.ok(target >= 0, 'the maths written question is listed');
+  await page.evaluate(() => window.scrollBy(0, 120));
+  await settle(page);
+  const listTop = await page.evaluate(() => window.scrollY);
+  // a DOM click, so Playwright doesn't scroll the card into view first
+  await page.$$eval('.browse-card', (cs, i) => cs[i].click(), target);
+  await page.waitForSelector('#answer:not([hidden])');
+  await settle(page);
+  const answerView = await page.evaluate(() => ({
+    hash: location.hash, katex: document.querySelectorAll('#answer .katex').length,
+    model: document.querySelector('#answer-key .written-model')?.textContent.slice(0, 40),
+    rubric: document.querySelectorAll('#answer-key .rubric-point').length,
+    note: document.querySelector('#answer-notes .study-note .eyebrow')?.textContent
+  }));
+  assert.equal(answerView.hash, '#q=mx-written');
+  assert.ok(answerView.katex >= 5 && answerView.rubric === 3 && answerView.note === 'Study note (unofficial answer)', JSON.stringify(answerView));
+  await layout(page, `${label} answer`, problems);
+  if (small) await page.screenshot({path: path.join(out, `${label}-answer.png`), fullPage: true});
+  await page.click('#answer-copy');
+  await page.waitForFunction(() => /Copied|Couldn/.test(document.getElementById('answer-copy').textContent));
+  const copied = await page.textContent('#answer-copy');
+  if (copied.startsWith('Copied') && base.startsWith('http')) {
+    const clip = await page.evaluate(() => navigator.clipboard.readText()).catch(() => '');
+    if (clip) assert.ok(clip.includes('Please explain') && clip.includes('$A_{ij}$') && clip.includes('Model answer:'), clip.slice(0, 200));
+  }
+  await page.click('#answer-practise');
+  await page.waitForSelector('#quiz:not([hidden])');
+  assert.equal(await page.textContent('#position'), 'Question 1 of 1');
+  assert.equal(await page.evaluate(() => location.hash), '');
+  await answer(page);
+  await settle(page);
+  await page.click('#next');
+  await page.waitForSelector('#summary:not([hidden])');
+  assert.ok(await page.isVisible('#to-browse') && !(await page.isVisible('#again')), 'summary offers Back to browse');
+  await settle(page);
+  await page.click('#to-browse');
+  await page.waitForSelector('#browse:not([hidden])');
+  await page.waitForTimeout(100);
+  const back = await page.evaluate(() => ({
+    search: document.getElementById('browse-search').value, style: document.getElementById('browse-style').value,
+    chip: document.querySelector('#browse-lectures .chip[data-lecture="7"]').getAttribute('aria-pressed'),
+    count: document.getElementById('browse-count').textContent, top: window.scrollY,
+    result: [...document.querySelectorAll('.browse-card')].find(c => c.textContent.includes('self-attention matrix'))?.querySelector('.browse-result')?.textContent
+  }));
+  assert.deepEqual([back.search, back.style, back.chip, back.count], ['attention matrix', 'written', 'true', filtered]);
+  assert.ok(Math.abs(back.top - listTop) <= 1, `scroll restored ${back.top} vs ${listTop}`);
+  assert.ok(back.result, 'last result shown on the card');
+  // End round from a practised question also comes back to browse.
+  await (await page.$$('.browse-card'))[0].click();
+  await page.click('#answer-practise');
+  await page.click('#quit');
+  await page.waitForSelector('#browse:not([hidden])');
+  // The subject switcher stays enabled while browsing and shows the other subject's bank.
+  assert.equal(await page.isDisabled('.subject-tab[data-key=dve]'), false);
+  await page.click('.subject-tab[data-key=dve]');
+  await page.waitForSelector('#browse:not([hidden])');
+  assert.equal(await page.textContent('#browse-count'), '421 of 421 questions');
+  await page.click('#browse-close');
+  await page.waitForSelector('#setup:not([hidden])');
+
+  // 3. Deep link.
+  await page.goto(base + 'index.html#q=mx-numeric');
+  await ready(page);
+  await page.waitForSelector('#answer:not([hidden])');
+  assert.ok((await page.textContent('#answer-question')).startsWith('With'));
+  assert.ok(await page.$$eval('#answer-key .answer-rows dd', d => d.length) === 2);
+  if (small) await page.screenshot({path: path.join(out, `${label}-deeplink.png`), fullPage: true});
+  await layout(page, `${label} deep link`, problems);
+
+  const consoleErrors = errors.filter(e => !/Failed to load resource/.test(e) || true);
+  await context.close();
+  return {problems, errors: consoleErrors, searched, filtered, fonts: fonts.length};
+}
+
+// KaTeX blocked: maths shows as LaTeX code, no page errors.
+async function fallback(browser, base) {
+  const context = await browser.newContext({viewport: {width: 375, height: 667}});
+  await context.route('**/katex.min.js', route => route.abort());
+  const page = await context.newPage();
+  const errors = [];
+  page.on('pageerror', e => errors.push(e.message));
+  await page.goto(base + 'index.html#q=mx-single');
+  await ready(page);
+  await page.waitForSelector('#answer:not([hidden])');
+  const raw = await page.$$eval('#answer .math-raw', n => n.map(x => x.textContent));
+  await page.screenshot({path: path.join(out, 'fallback.png'), fullPage: true});
+  await context.close();
+  assert.ok(raw.includes('$\\sqrt{d_k}$') && raw.some(r => r.startsWith('$$')), raw.join(' | '));
+  assert.deepEqual(errors, []);
+}
+
+(async () => {
+  const server = await serve();
+  const browser = await chromium.launch({channel: 'msedge'});
+  const bases = {file: 'file:///' + repo.replace(/\\/g, '/') + '/', http: `http://localhost:${server.address().port}/`};
+  let failed = false;
+  for (const [mode, base] of Object.entries(bases)) {
+    for (const viewport of [{width: 375, height: 667}, {width: 1280, height: 800}]) {
+      const label = `${mode}-${viewport.width}`;
+      try {
+        const r = await run(browser, base, label, viewport);
+        console.log(label, '|', r.searched, '|', r.filtered, '| fonts', r.fonts, '| problems', r.problems.length, '| console', r.errors.length);
+        for (const p of [...r.problems, ...r.errors]) console.log('  ', p);
+        if (r.problems.length || r.errors.length) failed = true;
+      } catch (e) { failed = true; console.log(label, 'FAILED', e.stack); }
+    }
+    try { await fallback(browser, base); console.log(mode, 'fallback ok'); } catch (e) { failed = true; console.log(mode, 'fallback FAILED', e.message); }
+  }
+  await browser.close();
+  server.close();
+  console.log(failed ? 'Some maths/browse checks FAILED.' : 'All maths/browse checks passed.');
+  process.exitCode = failed ? 1 : 0;
+})();
 ```

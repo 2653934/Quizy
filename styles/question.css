@@ -10,6 +10,11 @@
   white-space: pre-line;
 }
 
+/* Display formulas in the large question text are a little smaller, so more of them fits on a phone. */
+.question .math-display {
+  font-size: .8em;
+}
+
 .question.long {
   font-size: 22px;
   line-height: 1.35;
