@@ -3,7 +3,7 @@
   "subject": "dve",
   "title": "Lecture bank",
   "kind": "lecture-bank",
-  "description": "Practice questions written from the lecture slides (lectures 1-8). Each one points back to its lecture and slide.",
+  "description": "Practice questions written from the lecture slides (lectures 1-9). Each one points back to its lecture and slide.",
   "questions": [
     {
       "id": "L1-001",
@@ -15380,6 +15380,3246 @@
         0
       ],
       "explanation": "Removing the bridge separates the graph into two connected components, and the multiplicity of the zero eigenvalue equals the number of connected components."
+    },
+    {
+      "id": "L9-001",
+      "lecture": 9,
+      "concept": "t-SNE purpose",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the primary purpose of t-SNE?",
+      "choices": [
+        "Visualising nonlinear high-dimensional data in two or three dimensions",
+        "Maximising the variance retained in every original feature",
+        "Training a reusable classifier for unseen observations",
+        "Replacing all clustering algorithms with a deterministic method"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture presents t-SNE as a two- or three-dimensional visualisation method for nonlinear high-dimensional data."
+    },
+    {
+      "id": "L9-002",
+      "lecture": 9,
+      "concept": "t-SNE and PCA",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Compared with PCA, which pairwise relationships does t-SNE primarily preserve?",
+      "choices": [
+        "Only the largest pairwise distances",
+        "All pairwise distances exactly",
+        "Only distances between cluster centroids",
+        "Small pairwise distances or local similarities"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "t-SNE focuses on nearby observations, whereas PCA preserves large pairwise distances as part of maximising variance."
+    },
+    {
+      "id": "L9-003",
+      "lecture": 9,
+      "concept": "t-SNE and PCA",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which statement correctly contrasts PCA and t-SNE?",
+      "choices": [
+        "PCA is iterative, while t-SNE has a closed-form map for new points",
+        "PCA preserves only class labels, while t-SNE preserves only feature names",
+        "PCA emphasises large pairwise distances, while t-SNE emphasises local similarities",
+        "PCA is nonlinear, while t-SNE is strictly linear"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The stated contrast is between PCA preserving large-scale variance and t-SNE preserving small, local relationships."
+    },
+    {
+      "id": "L9-004",
+      "lecture": 9,
+      "concept": "t-SNE similarities",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does t-SNE compare during optimisation?",
+      "choices": [
+        "The number of features with the number of clusters",
+        "Pairwise similarities in the high-dimensional and low-dimensional spaces",
+        "Only the marginal mean of each feature",
+        "The class accuracy before and after projection"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "t-SNE defines similarities in both spaces and optimises the low-dimensional arrangement so that they agree."
+    },
+    {
+      "id": "L9-005",
+      "lecture": 9,
+      "concept": "t-SNE structure",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which structure is t-SNE designed to preserve most strongly?",
+      "choices": [
+        "Local neighbourhood structure",
+        "Exact global geometry",
+        "The original coordinate axes",
+        "The ordering of feature columns"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "t-SNE is a manifold-learning method that focuses on local rather than global structure."
+    },
+    {
+      "id": "L9-006",
+      "lecture": 9,
+      "concept": "t-SNE clusters",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What can be inferred reliably from points lying close together within a t-SNE cluster?",
+      "choices": [
+        "The cluster is exactly twice as important as a smaller cluster",
+        "The cluster centre is the global mean of the original data",
+        "The points must have identical original feature values",
+        "The points are highly related under the high-dimensional similarity measure"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Nearby points within a t-SNE cluster represent locally similar observations, not necessarily identical observations."
+    },
+    {
+      "id": "L9-007",
+      "lecture": 9,
+      "concept": "t-SNE clusters",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which interpretation of distances between separate t-SNE clusters is appropriate?",
+      "choices": [
+        "They always equal the difference between class means",
+        "They are meaningful only when the clusters have equal sizes",
+        "They do not provide a reliable measure of similarity between the clusters",
+        "They are exact Euclidean distances from the original space"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The lecture explicitly warns that between-cluster distances are not an actual indication of cluster similarity."
+    },
+    {
+      "id": "L9-008",
+      "lecture": 9,
+      "concept": "t-SNE iteration",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why can a fitted t-SNE map not normally be reused directly for new data?",
+      "choices": [
+        "Every new observation must already have a class label",
+        "Adding new data requires rebuilding the entire iterative map",
+        "t-SNE deletes the original observations after fitting",
+        "The method accepts categorical values only once"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "t-SNE is iterative and does not provide the reusable transformation described for methods such as PCA."
+    },
+    {
+      "id": "L9-009",
+      "lecture": 9,
+      "concept": "t-SNE use",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "For which task does the lecture recommend t-SNE most strongly?",
+      "choices": [
+        "Visualisation",
+        "Learning a general-purpose reusable embedding",
+        "Forecasting a time series",
+        "Estimating missing values"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture recommends t-SNE for visualisation and urges care if it is treated as a learned embedding."
+    },
+    {
+      "id": "L9-010",
+      "lecture": 9,
+      "concept": "t-SNE stability",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why can two t-SNE runs on the same data produce different layouts?",
+      "choices": [
+        "The input features are automatically renamed between runs",
+        "t-SNE always changes the requested number of dimensions",
+        "The high-dimensional similarities are discarded before optimisation",
+        "The result depends strongly on parameters and initialisation, and the method is not deterministic"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The output is parameter-dependent and stochastic, so repeated runs need not match."
+    },
+    {
+      "id": "L9-011",
+      "lecture": 9,
+      "concept": "t-SNE interpretation",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "A t-SNE plot has two clusters that are far apart. Which conclusion is NOT justified?",
+      "choices": [
+        "The layout may change with another initialisation",
+        "The plot is primarily a visualisation of local structure",
+        "The original groups are separated by that same large global distance",
+        "Points close together within a cluster are locally similar"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The spacing of separate t-SNE clusters should not be read as faithful global distance."
+    },
+    {
+      "id": "L9-012",
+      "lecture": 9,
+      "concept": "t-SNE interpretation",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which statement about t-SNE output is TRUE?",
+      "choices": [
+        "It preserves all original distances exactly",
+        "It can show highly related points within clusters without explaining differences between separate clusters",
+        "It guarantees a globally optimal layout",
+        "It creates a deterministic projection matrix for future observations"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "t-SNE is strong at local grouping but does not support detailed global comparisons between clusters."
+    },
+    {
+      "id": "L9-013",
+      "lecture": 9,
+      "concept": "t-SNE objective",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which divergence does t-SNE minimise between high- and low-dimensional joint probabilities?",
+      "choices": [
+        "Kullback-Leibler divergence",
+        "Jensen-Shannon distance only",
+        "Mean absolute feature error",
+        "The Gini impurity"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The algorithm minimises Kullback-Leibler divergence between the two probability distributions."
+    },
+    {
+      "id": "L9-014",
+      "lecture": 9,
+      "concept": "t-SNE objective",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What are the similarities between data points converted into in the t-SNE overview?",
+      "choices": [
+        "Binary class labels",
+        "Principal-component loadings",
+        "Graph colours",
+        "Joint probabilities"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The overview describes converting similarities into joint probabilities before optimisation."
+    },
+    {
+      "id": "L9-015",
+      "lecture": 9,
+      "concept": "t-SNE optimisation",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why may different t-SNE initialisations yield different results?",
+      "choices": [
+        "It uses a fixed closed-form eigendecomposition",
+        "It always starts from the same global optimum",
+        "Its cost function is non-convex",
+        "Its cost function has no variables"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "A non-convex objective can have different locally optimal solutions."
+    },
+    {
+      "id": "L9-016",
+      "lecture": 9,
+      "concept": "High-dimensional similarity",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the conditional probability p(i|j) represent in the lecture?",
+      "choices": [
+        "The chance that a point receives the correct class label",
+        "How close one high-dimensional point is to another under a Gaussian centred on the conditioning point",
+        "The probability that two low-dimensional clusters have equal sizes",
+        "The variance explained by a principal component"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The high-dimensional conditional similarity is computed using a Gaussian neighbourhood around a point."
+    },
+    {
+      "id": "L9-017",
+      "lecture": 9,
+      "concept": "High-dimensional similarity",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which distribution is used to model neighbourhood similarity in the original high-dimensional space?",
+      "choices": [
+        "A Gaussian distribution",
+        "A uniform distribution over the whole map",
+        "A Student t-distribution with a long tail",
+        "A Poisson distribution over cluster counts"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The high-dimensional conditional similarities use a Gaussian kernel."
+    },
+    {
+      "id": "L9-018",
+      "lecture": 9,
+      "concept": "Adaptive bandwidth",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why does each high-dimensional point have its own sigma value?",
+      "choices": [
+        "To assign every point a different output dimension",
+        "To force every point into a separate cluster",
+        "To encode its class label in the variance",
+        "To adapt the Gaussian neighbourhood width to local density"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Point-specific bandwidths allow t-SNE to adapt similarity calculations to different local densities."
+    },
+    {
+      "id": "L9-019",
+      "lecture": 9,
+      "concept": "Adaptive bandwidth",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does the Gaussian variance behave in denser regions?",
+      "choices": [
+        "It is identical to the number of dimensions",
+        "It becomes negative",
+        "It is smaller",
+        "It is always infinite"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The lecture states that denser areas use a smaller variance."
+    },
+    {
+      "id": "L9-020",
+      "lecture": 9,
+      "concept": "Perplexity",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the t-SNE perplexity parameter set?",
+      "choices": [
+        "The learning rate of a classifier trained afterward",
+        "The effective number of neighbours attracting each point",
+        "The exact number of output clusters",
+        "The number of principal components retained"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Perplexity controls the effective neighbourhood size used for attractive relationships."
+    },
+    {
+      "id": "L9-021",
+      "lecture": 9,
+      "concept": "Attractive and repulsive forces",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "During t-SNE optimisation, which pairs experience a repulsive force?",
+      "choices": [
+        "All pairs of points",
+        "Only pairs in the same labelled class",
+        "Only the single nearest-neighbour pair",
+        "No pairs when perplexity is below 50"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "All pairs repel, while only a smaller set of pairs has an attractive force."
+    },
+    {
+      "id": "L9-022",
+      "lecture": 9,
+      "concept": "Attractive and repulsive forces",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which pairs experience attractive force in the t-SNE description?",
+      "choices": [
+        "Every possible pair equally",
+        "Only pairs from different datasets",
+        "Only the two most distant points",
+        "A relatively small number of neighbour pairs"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Perplexity determines a small effective neighbourhood whose pairs attract one another."
+    },
+    {
+      "id": "L9-023",
+      "lecture": 9,
+      "concept": "Small perplexity",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What tends to happen when t-SNE perplexity is too small?",
+      "choices": [
+        "The method becomes deterministic",
+        "The low-dimensional similarity becomes Gaussian",
+        "Repulsion dominates and the map can inflate into a poorly separated bubble-like shape",
+        "All clusters collapse to one exact coordinate"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Too few attractive pairs allow repulsive forces to dominate the layout."
+    },
+    {
+      "id": "L9-024",
+      "lecture": 9,
+      "concept": "Small perplexity",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why can a very small perplexity produce poor separation?",
+      "choices": [
+        "The KL objective is replaced by cross-entropy",
+        "Too few pairs experience attraction",
+        "Every point is attracted to every other point",
+        "The high-dimensional variance becomes identical everywhere"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "A very small effective neighbourhood reduces attractive constraints."
+    },
+    {
+      "id": "L9-025",
+      "lecture": 9,
+      "concept": "Large perplexity",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is a typical effect of increasing t-SNE perplexity?",
+      "choices": [
+        "Clusters tend to shrink into denser structures",
+        "Clusters are guaranteed to match true labels",
+        "The embedding gains more output dimensions",
+        "The algorithm stops using pairwise similarities"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture associates larger perplexity with denser, more compact clusters."
+    },
+    {
+      "id": "L9-026",
+      "lecture": 9,
+      "concept": "Large perplexity",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What kind of information is retained more as perplexity increases?",
+      "choices": [
+        "Less information about any neighbours",
+        "Only class-label information",
+        "Only the signs of feature values",
+        "More non-local information"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "A larger effective neighbourhood incorporates relationships beyond the closest local points."
+    },
+    {
+      "id": "L9-027",
+      "lecture": 9,
+      "concept": "Choosing perplexity",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Who chooses the perplexity value used to determine local bandwidths?",
+      "choices": [
+        "The class labels in every case",
+        "The low-dimensional coordinates after optimisation",
+        "The user",
+        "The nearest-neighbour graph alone with no parameter choice"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Perplexity is a user-selected hyperparameter."
+    },
+    {
+      "id": "L9-028",
+      "lecture": 9,
+      "concept": "Choosing perplexity",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which range is suggested as a low t-SNE perplexity to explore for a good mapping?",
+      "choices": [
+        "Any negative value",
+        "Approximately 5 to 50",
+        "Exactly 0 to 1",
+        "Approximately 500 to 5,000 only"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The lecture suggests searching for a useful low perplexity in the 5-50 range."
+    },
+    {
+      "id": "L9-029",
+      "lecture": 9,
+      "concept": "Choosing perplexity",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is the same perplexity target used for all points?",
+      "choices": [
+        "So that no single point has more influence merely through a larger effective neighbour count",
+        "So that every point receives the same sigma",
+        "So that all high-dimensional distances become equal",
+        "So that the map always contains one cluster"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A common perplexity equalises the target effective neighbourhood size, although bandwidths can differ."
+    },
+    {
+      "id": "L9-030",
+      "lecture": 9,
+      "concept": "Perplexity and bandwidth",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How is a suitable sigma for each point found after perplexity is chosen?",
+      "choices": [
+        "By sorting the class labels alphabetically",
+        "By running k-means exactly once",
+        "By setting sigma equal to the output dimension",
+        "By binary search"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "A binary search adjusts each local bandwidth to match the target perplexity."
+    },
+    {
+      "id": "L9-031",
+      "lecture": 9,
+      "concept": "Perplexity and bandwidth",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the relationship between perplexity and the fitted sigma values?",
+      "choices": [
+        "They are negatively infinite",
+        "They are unrelated by definition",
+        "They are positively correlated",
+        "They are always identical"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Higher target perplexity generally requires a broader Gaussian bandwidth."
+    },
+    {
+      "id": "L9-032",
+      "lecture": 9,
+      "concept": "Perplexity scenario",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "A t-SNE plot is an inflated, round bubble with weak separation. Which parameter issue best matches the lecture?",
+      "choices": [
+        "The high-dimensional kernel has a long t tail",
+        "Perplexity may be too small",
+        "Perplexity must be exactly equal to the sample size",
+        "The output has too many class labels"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The bubble-like failure is associated with too little attraction under small perplexity."
+    },
+    {
+      "id": "L9-033",
+      "lecture": 9,
+      "concept": "t-SNE similarity",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How is the symmetric high-dimensional similarity p(i,j) formed?",
+      "choices": [
+        "By combining the two directional conditional similarities",
+        "By using only p(i|j) and discarding p(j|i)",
+        "By counting output clusters",
+        "By applying the low-dimensional t kernel to original features"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The joint similarity symmetrises the two conditional probabilities."
+    },
+    {
+      "id": "L9-034",
+      "lecture": 9,
+      "concept": "t-SNE similarity",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is fixed while t-SNE searches for low-dimensional coordinates?",
+      "choices": [
+        "The low-dimensional similarities q(i,j)",
+        "The random initial coordinates after every gradient step",
+        "The number of input observations",
+        "The high-dimensional similarities p(i,j)"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The original-space similarities are computed from the data and treated as the target distribution."
+    },
+    {
+      "id": "L9-035",
+      "lecture": 9,
+      "concept": "t-SNE similarity",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does t-SNE try to make q(i,j) match?",
+      "choices": [
+        "The class confusion matrix",
+        "The PCA loading matrix",
+        "The corresponding fixed p(i,j)",
+        "The number of original features"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Optimisation adjusts low-dimensional positions so their similarities q approximate p."
+    },
+    {
+      "id": "L9-036",
+      "lecture": 9,
+      "concept": "Low-dimensional similarity",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which distribution is assumed for similarity in the low-dimensional t-SNE space?",
+      "choices": [
+        "A uniform distribution with no distance dependence",
+        "A Student t-distribution",
+        "A Gaussian distribution identical to the high-dimensional kernel",
+        "A Bernoulli distribution over labels"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The low-dimensional kernel uses a heavy-tailed t-distribution."
+    },
+    {
+      "id": "L9-037",
+      "lecture": 9,
+      "concept": "High- and low-dimensional kernels",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which pairing of t-SNE similarity distributions is correct?",
+      "choices": [
+        "Gaussian in high dimensions and t-distribution in low dimensions",
+        "t-distribution in high dimensions and Gaussian in low dimensions",
+        "Gaussian in both spaces",
+        "Uniform in both spaces"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The deliberate change from Gaussian to a heavy-tailed t kernel addresses overcrowding."
+    },
+    {
+      "id": "L9-038",
+      "lecture": 9,
+      "concept": "Low-dimensional similarity",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "If two low-dimensional points move farther apart, what happens to their t-SNE similarity q(i,j)?",
+      "choices": [
+        "It must increase",
+        "It becomes the high-dimensional variance",
+        "It stays exactly one for all distances",
+        "It decreases"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The low-dimensional kernel assigns smaller similarity to more widely separated points."
+    },
+    {
+      "id": "L9-039",
+      "lecture": 9,
+      "concept": "Overcrowding",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why does t-SNE use a t-distribution in the low-dimensional space?",
+      "choices": [
+        "To turn the algorithm into PCA",
+        "To eliminate the need for optimisation",
+        "To reduce the overcrowding problem",
+        "To make every cluster the same size"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The heavy-tailed kernel creates room to separate moderately or strongly dissimilar points."
+    },
+    {
+      "id": "L9-040",
+      "lecture": 9,
+      "concept": "Overcrowding",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "If p(i,j) is large, what should a faithful low-dimensional map make q(i,j)?",
+      "choices": [
+        "Independent of the point locations",
+        "Large",
+        "Exactly zero",
+        "Negative"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "A high original-space similarity should correspond to high low-dimensional similarity."
+    },
+    {
+      "id": "L9-041",
+      "lecture": 9,
+      "concept": "Overcrowding",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "If p(i,j) is small, what relationship is desired for q(i,j)?",
+      "choices": [
+        "It should also be small",
+        "It must be the largest similarity in the map",
+        "It must equal the number of dimensions",
+        "It should be replaced by a class probability"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Dissimilar high-dimensional pairs should remain dissimilar in the map."
+    },
+    {
+      "id": "L9-042",
+      "lecture": 9,
+      "concept": "Overcrowding",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why are moderate distances difficult to represent when moving to fewer dimensions?",
+      "choices": [
+        "Every moderate distance becomes negative",
+        "The number of observations is reduced automatically",
+        "The algorithm removes all non-neighbour points",
+        "There is less geometric space available for all points in the lower-dimensional representation"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Compressing dimension leaves less room to preserve all pairwise spacing."
+    },
+    {
+      "id": "L9-043",
+      "lecture": 9,
+      "concept": "t-distribution effect",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Compared with a Gaussian low-dimensional kernel, how does the t-distribution place dissimilar points?",
+      "choices": [
+        "Closer than the most similar points",
+        "On a fixed straight line only",
+        "Farther apart",
+        "At the exact same coordinate"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The heavier tail permits dissimilar observations to be separated more strongly."
+    },
+    {
+      "id": "L9-044",
+      "lecture": 9,
+      "concept": "t-distribution effect",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Compared with a Gaussian low-dimensional kernel, how are similar points treated by the t-distribution?",
+      "choices": [
+        "They are projected back to the original dimension",
+        "They are forced closer together",
+        "They are assigned random labels",
+        "They are always moved farther apart"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The lecture contrasts closer placement for similar points with wider separation for dissimilar ones."
+    },
+    {
+      "id": "L9-045",
+      "lecture": 9,
+      "concept": "Overcrowding example",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "In the sphere example, why can equally distant 3D neighbours overlap when mapped to 2D?",
+      "choices": [
+        "A plane has insufficient space to preserve all of their equal radial relationships",
+        "The points lose their feature values before mapping",
+        "The 2D map is required to contain only one point",
+        "The Gaussian similarity assigns every pair zero probability"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Many points distributed around a sphere cannot all occupy equivalent positions around the centre in a plane without crowding."
+    },
+    {
+      "id": "L9-046",
+      "lecture": 9,
+      "concept": "Overcrowding example",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "In the illustrated concentric-neighbourhood example, which points should remain closest to the central point X?",
+      "choices": [
+        "Only the farthest outer-ring points",
+        "A random half of all points",
+        "Every point at the same distance",
+        "Its original nearest neighbours"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The mapping should preserve the closest neighbourhood around X."
+    },
+    {
+      "id": "L9-047",
+      "lecture": 9,
+      "concept": "Overcrowding example",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What should happen to moderate and far points when the sphere example is mapped to 2D?",
+      "choices": [
+        "They should replace the nearest neighbours",
+        "They should be deleted from the visualisation",
+        "They should be kept apart from one another while neighbours remain close to X",
+        "They should all overlap X"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The goal is local compactness together with enough room for more distant points."
+    },
+    {
+      "id": "L9-048",
+      "lecture": 9,
+      "concept": "Heavy tails",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What property of the t-distribution gives moderately distant points more room in the map?",
+      "choices": [
+        "Its use of a linear projection matrix",
+        "Its longer tail",
+        "Its zero variance",
+        "Its finite set of class labels"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "A longer tail allows moderate original distances to correspond to wider low-dimensional separation."
+    },
+    {
+      "id": "L9-049",
+      "lecture": 9,
+      "concept": "Gaussian overcrowding",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is keeping a Gaussian similarity model in 2D inadequate in the overcrowding example?",
+      "choices": [
+        "Moderately close points are not given enough space to separate",
+        "Nearest neighbours become infinitely far apart",
+        "The output gains extra dimensions",
+        "The method becomes supervised"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A Gaussian tail decays too quickly to allocate adequate low-dimensional separation to moderate distances."
+    },
+    {
+      "id": "L9-050",
+      "lecture": 9,
+      "concept": "KL minimisation",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which optimisation method is used to minimise the t-SNE KL objective?",
+      "choices": [
+        "A single matrix inversion with no iteration",
+        "Breadth-first graph search",
+        "Hierarchical agglomeration",
+        "Gradient descent"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The low-dimensional coordinates are iteratively updated with gradient descent."
+    },
+    {
+      "id": "L9-051",
+      "lecture": 9,
+      "concept": "KL objective",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How many KL divergences form the stated t-SNE objective?",
+      "choices": [
+        "Exactly two divergences per cluster",
+        "None, because t-SNE uses cross-entropy instead",
+        "One KL divergence between the complete p and q distributions",
+        "One independent KL divergence per input feature only"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The objective is one divergence between the high- and low-dimensional pairwise similarity distributions."
+    },
+    {
+      "id": "L9-052",
+      "lecture": 9,
+      "concept": "KL asymmetry",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What happens when a pair has large high-dimensional similarity but small low-dimensional similarity?",
+      "choices": [
+        "The pair is removed from both distributions",
+        "The objective applies a large penalty",
+        "The pair contributes no penalty",
+        "The algorithm treats the points as correctly placed"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Separating points that should be neighbours is strongly penalised."
+    },
+    {
+      "id": "L9-053",
+      "lecture": 9,
+      "concept": "KL asymmetry",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the large penalty for large p and small q help t-SNE preserve?",
+      "choices": [
+        "Local structure",
+        "Exact global cluster spacing",
+        "The original coordinate axes",
+        "Feature names and units"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The asymmetric penalty strongly discourages breaking high-dimensional neighbourhoods."
+    },
+    {
+      "id": "L9-054",
+      "lecture": 9,
+      "concept": "KL asymmetry",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "If a pair has very small high-dimensional similarity, how strongly does its low-dimensional placement affect the objective?",
+      "choices": [
+        "It must be placed at zero distance",
+        "It receives the largest possible penalty in every case",
+        "It determines the output dimensionality",
+        "Only weakly, so it can be placed almost anywhere on the map"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Small p makes the KL contribution small across a broad range of q values."
+    },
+    {
+      "id": "L9-055",
+      "lecture": 9,
+      "concept": "Global structure limitation",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why can originally distant points appear in many different relative positions on a t-SNE map?",
+      "choices": [
+        "The map preserves only feature order",
+        "Gradient descent ignores nearby points",
+        "Pairs with small p receive only small penalties for their low-dimensional placement",
+        "All original distances are first rounded to zero"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The objective is much more sensitive to missed neighbours than to the exact placement of distant pairs."
+    },
+    {
+      "id": "L9-056",
+      "lecture": 9,
+      "concept": "Computational cost",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is t-SNE optimisation described as time-consuming and complex?",
+      "choices": [
+        "It stops before calculating the objective",
+        "It must compute directional similarities in both spaces across point pairs",
+        "It uses only one scalar summary of the whole dataset",
+        "It never computes pairwise relationships"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The pairwise conditional and joint similarities create substantial computation."
+    },
+    {
+      "id": "L9-057",
+      "lecture": 9,
+      "concept": "Objective interpretation",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which error is t-SNE more concerned about?",
+      "choices": [
+        "Placing true high-dimensional neighbours far apart",
+        "Placing originally distant points at any particular global angle",
+        "Changing the names of output axes",
+        "Producing unequal cluster sizes"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The KL direction strongly penalises false separation of neighbours."
+    },
+    {
+      "id": "L9-058",
+      "lecture": 9,
+      "concept": "MNIST comparison",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which methods are compared on MNIST in the lecture?",
+      "choices": [
+        "PCA, linear regression, ARIMA and k-means only",
+        "UMAP, random forest and SVM only",
+        "Factor analysis and ICA only",
+        "LLE, Sammon mapping, ISOMAP and t-SNE"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The slide reproduces a comparison of these four nonlinear visualisation methods."
+    },
+    {
+      "id": "L9-059",
+      "lecture": 9,
+      "concept": "MNIST comparison",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What dataset is used for the handwritten-digit method comparison?",
+      "choices": [
+        "The penguin dataset",
+        "A world-map coordinate set",
+        "MNIST",
+        "Olivetti faces"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The comparison slide uses the MNIST handwritten-digit dataset."
+    },
+    {
+      "id": "L9-060",
+      "lecture": 9,
+      "concept": "Olivetti comparison",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which dataset is visualised with t-SNE, Sammon mapping, ISOMAP and LLE on slide 11?",
+      "choices": [
+        "The penguin dataset",
+        "The Olivetti faces dataset",
+        "MNIST digits",
+        "Fashion MNIST only"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The slide compares projections of the Olivetti faces dataset."
+    },
+    {
+      "id": "L9-061",
+      "lecture": 9,
+      "concept": "Olivetti comparison",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the purpose of the Olivetti slide?",
+      "choices": [
+        "To visually compare several nonlinear embedding methods on the same face data",
+        "To prove that PCA is always superior",
+        "To define the UMAP cross-entropy equation",
+        "To demonstrate supervised classification accuracy"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The slide shows how different methods arrange the same face observations."
+    },
+    {
+      "id": "L9-062",
+      "lecture": 9,
+      "concept": "t-SNE strengths",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which is a stated strength of t-SNE?",
+      "choices": [
+        "It guarantees preservation of exact global distances",
+        "It scales instantly to every dataset size",
+        "It provides a reusable deterministic transformation",
+        "It separates clusters well"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The summary highlights strong cluster separation."
+    },
+    {
+      "id": "L9-063",
+      "lecture": 9,
+      "concept": "t-SNE strengths",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What kind of data can t-SNE handle well according to the summary?",
+      "choices": [
+        "Only a single categorical feature",
+        "Only stationary time series",
+        "Nonlinear data",
+        "Only perfectly linear data"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "t-SNE is designed as a nonlinear manifold-learning approach."
+    },
+    {
+      "id": "L9-064",
+      "lecture": 9,
+      "concept": "t-SNE visualisation",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is a two- or three-dimensional t-SNE mapping useful?",
+      "choices": [
+        "It removes the need to choose parameters",
+        "It supports visualisation of high-dimensional structure",
+        "It retains every original metric exactly",
+        "It automatically labels all clusters"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Two or three dimensions can be plotted and inspected directly."
+    },
+    {
+      "id": "L9-065",
+      "lecture": 9,
+      "concept": "t-SNE weaknesses",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which concern about t-SNE is identified in the original paper?",
+      "choices": [
+        "Its performance on general dimensionality-reduction tasks is unclear",
+        "It is unable to produce two-dimensional output",
+        "It requires every dataset to be linearly separable",
+        "It has a convex objective with a unique solution"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The paper lists uncertainty about general dimensionality reduction as its first potential weakness."
+    },
+    {
+      "id": "L9-066",
+      "lecture": 9,
+      "concept": "Intrinsic dimensionality",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why can the local nature of t-SNE be problematic?",
+      "choices": [
+        "It forces intrinsic dimensionality to equal one",
+        "It removes all local relationships",
+        "It converts nonlinear data into labels",
+        "It is sensitive to the curse of the intrinsic dimensionality of the data"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The original paper lists sensitivity to high intrinsic dimensionality as a weakness."
+    },
+    {
+      "id": "L9-067",
+      "lecture": 9,
+      "concept": "Optimisation limitation",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What convergence guarantee does t-SNE lack?",
+      "choices": [
+        "Convergence when the data contain neighbours",
+        "Convergence of PCA preprocessing",
+        "Convergence to the global optimum of its cost function",
+        "Convergence to any two-dimensional representation"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The non-convex objective is not guaranteed to reach its global optimum."
+    },
+    {
+      "id": "L9-068",
+      "lecture": 9,
+      "concept": "t-SNE properties",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which statement about t-SNE is TRUE?",
+      "choices": [
+        "It uses no iterative optimisation",
+        "It is probabilistic and focuses mainly on local distances",
+        "It is deterministic and preserves every global distance",
+        "It is a supervised classifier by default"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The lecture lists t-SNE as probabilistic and locally focused."
+    },
+    {
+      "id": "L9-069",
+      "lecture": 9,
+      "concept": "t-SNE scalability",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What practical limitation is highlighted for large datasets?",
+      "choices": [
+        "t-SNE is slow and does not scale well",
+        "t-SNE cannot use numerical features",
+        "t-SNE produces no plots",
+        "t-SNE requires exactly three observations"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Its pairwise and iterative computation make scaling difficult."
+    },
+    {
+      "id": "L9-070",
+      "lecture": 9,
+      "concept": "PCA preprocessing",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What preprocessing step is recommended before t-SNE?",
+      "choices": [
+        "Duplicate every input feature",
+        "Convert every value to a class label",
+        "Run t-SNE once per observation",
+        "Apply PCA or a similar dimensionality-reduction method first"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Reducing dimensionality before t-SNE can make the process more practical."
+    },
+    {
+      "id": "L9-071",
+      "lecture": 9,
+      "concept": "PCA preprocessing",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What must be checked when using PCA before t-SNE?",
+      "choices": [
+        "PCA makes perplexity unnecessary",
+        "PCA guarantees a global optimum",
+        "The preliminary reduction retains enough relevant information",
+        "PCA creates the same clusters as t-SNE"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Aggressive linear reduction could remove structure that t-SNE would otherwise visualise."
+    },
+    {
+      "id": "L9-072",
+      "lecture": 9,
+      "concept": "New data",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which t-SNE limitation matters when new observations arrive?",
+      "choices": [
+        "The class labels are automatically erased",
+        "The iterative map cannot simply be reused for them",
+        "The new observations must have fewer features",
+        "The existing plot becomes a PCA loading matrix"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Standard t-SNE requires rebuilding the map rather than applying a reusable transform."
+    },
+    {
+      "id": "L9-073",
+      "lecture": 9,
+      "concept": "UMAP motivation",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What major practical advantage does UMAP claim over t-SNE?",
+      "choices": [
+        "It is much faster",
+        "It always produces a deterministic map",
+        "It requires more pairwise computation",
+        "It can only process small datasets"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Speed is one of the main improvements attributed to UMAP."
+    },
+    {
+      "id": "L9-074",
+      "lecture": 9,
+      "concept": "UMAP global structure",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How should the claim that UMAP preserves more global structure be treated?",
+      "choices": [
+        "As mathematically guaranteed for every initialisation",
+        "As false because UMAP preserves no structure",
+        "As relevant only to labelled data",
+        "As a contentious claim rather than an unconditional guarantee"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The slide explicitly notes disagreement about the global-structure claim."
+    },
+    {
+      "id": "L9-075",
+      "lecture": 9,
+      "concept": "UMAP preprocessing",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the lecture say about applying UMAP to large datasets?",
+      "choices": [
+        "It first requires exact global-distance preservation",
+        "It accepts only two original features",
+        "It can run without prior PCA preprocessing",
+        "It must always follow t-SNE"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "UMAP is presented as practical on large data without compulsory preliminary PCA."
+    },
+    {
+      "id": "L9-076",
+      "lecture": 9,
+      "concept": "UMAP transform",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does UMAP handle new data differently from standard t-SNE?",
+      "choices": [
+        "New data can only be shown if it has a label",
+        "New data can be added to the model without retraining the whole embedding",
+        "New data always requires rebuilding every neighbourhood",
+        "New data must be discarded"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "A reusable transformation for new observations is listed as a UMAP advantage."
+    },
+    {
+      "id": "L9-077",
+      "lecture": 9,
+      "concept": "UMAP hyperparameters",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which UMAP parameter plays a role similar to t-SNE perplexity?",
+      "choices": [
+        "The number of nearest neighbours",
+        "The number of output class labels",
+        "The PCA explained-variance ratio",
+        "The graph colouring scheme"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "n_neighbors controls the expected local neighbourhood size."
+    },
+    {
+      "id": "L9-078",
+      "lecture": 9,
+      "concept": "UMAP hyperparameters",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does UMAP min_dist primarily control?",
+      "choices": [
+        "The number of original features",
+        "The exact number of clusters",
+        "Whether the input is supervised",
+        "How tightly nearby points are packed in the embedding"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Minimum distance controls the compactness of nearby embedded observations."
+    },
+    {
+      "id": "L9-079",
+      "lecture": 9,
+      "concept": "Supervised UMAP",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which capability is explicitly available with UMAP?",
+      "choices": [
+        "Exact recovery of every original distance",
+        "A guarantee of meaningful cluster sizes",
+        "Supervised embedding learning",
+        "Only unsupervised linear regression"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "UMAP can incorporate labels to learn a supervised embedding."
+    },
+    {
+      "id": "L9-080",
+      "lecture": 9,
+      "concept": "t-SNE and UMAP parameters",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which parameter pairing is most appropriate?",
+      "choices": [
+        "t-SNE uses class labels; UMAP uses output cluster count",
+        "t-SNE uses perplexity; UMAP uses n_neighbors and min_dist",
+        "t-SNE uses min_dist; UMAP uses only PCA variance",
+        "Both methods have no hyperparameters"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The lecture contrasts perplexity with UMAP neighbourhood size and minimum distance."
+    },
+    {
+      "id": "L9-081",
+      "lecture": 9,
+      "concept": "UMAP high-dimensional similarity",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does rho_i represent in the UMAP high-dimensional probability function?",
+      "choices": [
+        "The distance from point i to its nearest neighbour",
+        "The total number of features",
+        "The low-dimensional cluster radius",
+        "The global mean of all distances"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "rho_i provides a local connectivity offset based on the nearest neighbour."
+    },
+    {
+      "id": "L9-082",
+      "lecture": 9,
+      "concept": "UMAP distance metric",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Must the distance function d(x_i, x_j) used by UMAP be Euclidean?",
+      "choices": [
+        "Yes, Euclidean distance is mandatory",
+        "Yes, but only after supervised learning",
+        "No distance function is used",
+        "No, it is not always Euclidean"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The lecture explicitly notes that UMAP can use non-Euclidean distance functions."
+    },
+    {
+      "id": "L9-083",
+      "lecture": 9,
+      "concept": "UMAP normalisation",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does UMAP high-dimensional similarity differ from t-SNE in normalisation?",
+      "choices": [
+        "UMAP first converts all distances to labels",
+        "There is no mathematical difference",
+        "UMAP does not include the global denominator summation used by t-SNE",
+        "UMAP normalises twice as many times as t-SNE"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The lack of the t-SNE-style normalising sum is linked to UMAP speed."
+    },
+    {
+      "id": "L9-084",
+      "lecture": 9,
+      "concept": "UMAP speed",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why does the unnormalised UMAP probability function improve speed?",
+      "choices": [
+        "It guarantees a closed-form output",
+        "It avoids computing a global denominator over all candidate neighbours",
+        "It removes every nearest-neighbour search",
+        "It prevents any optimisation"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Avoiding global normalisation reduces computational work."
+    },
+    {
+      "id": "L9-085",
+      "lecture": 9,
+      "concept": "UMAP symmetrisation",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which expression combines the two directional UMAP similarities?",
+      "choices": [
+        "p(i|j) + p(j|i) - p(i|j)p(j|i)",
+        "p(i|j) - p(j|i)",
+        "p(i|j)p(j|i) only",
+        "p(i|j) divided by p(j|i)"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "UMAP uses a probabilistic union to form a symmetric edge strength."
+    },
+    {
+      "id": "L9-086",
+      "lecture": 9,
+      "concept": "UMAP symmetrisation",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why does the UMAP combination subtract the product of the directional probabilities?",
+      "choices": [
+        "It guarantees every similarity is negative",
+        "It converts the result into a Gaussian variance",
+        "It removes the nearest-neighbour relationship",
+        "It forms their probabilistic union without double-counting overlap"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The sum-minus-product formula is the standard union of two probabilistic memberships."
+    },
+    {
+      "id": "L9-087",
+      "lecture": 9,
+      "concept": "UMAP neighbours",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which information-theoretic quantity is mentioned when determining the UMAP neighbour count?",
+      "choices": [
+        "Mutual information with class labels only",
+        "The PCA scree slope",
+        "Shannon entropy",
+        "Gini impurity only"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The slide links the neighbour-count relation to Shannon entropy."
+    },
+    {
+      "id": "L9-088",
+      "lecture": 9,
+      "concept": "UMAP low-dimensional similarity",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What determines the general values of a and b in the UMAP low-dimensional similarity?",
+      "choices": [
+        "The t-SNE perplexity",
+        "The chosen min_dist value",
+        "The number of class labels only",
+        "The original feature names"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The curve parameters a and b are normally fitted from min_dist."
+    },
+    {
+      "id": "L9-089",
+      "lecture": 9,
+      "concept": "UMAP objective",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which objective function does UMAP use instead of t-SNE's KL divergence?",
+      "choices": [
+        "Cross-entropy",
+        "Mean squared reconstruction error only",
+        "The PCA variance ratio",
+        "Silhouette score"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "UMAP optimises cross-entropy between high- and low-dimensional fuzzy relationships."
+    },
+    {
+      "id": "L9-090",
+      "lecture": 9,
+      "concept": "UMAP local scaling",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "In the UMAP high-dimensional kernel, what is the role of sigma_i?",
+      "choices": [
+        "It fixes the number of output dimensions",
+        "It stores the class label",
+        "It is the global cluster count",
+        "It locally scales distances for point i"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Like an adaptive bandwidth, sigma_i controls how distances translate into local membership strength."
+    },
+    {
+      "id": "L9-091",
+      "lecture": 9,
+      "concept": "UMAP examples",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the penguin example illustrate?",
+      "choices": [
+        "UMAP removes all within-species variation",
+        "UMAP converts the data into a time series",
+        "UMAP can separate observations belonging to different penguin species",
+        "UMAP always needs species labels to run"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The shown projection gives a visually useful separation of penguin species."
+    },
+    {
+      "id": "L9-092",
+      "lecture": 9,
+      "concept": "UMAP examples",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How are the MNIST clusters described in the UMAP example?",
+      "choices": [
+        "Unavailable without supervised labels",
+        "Tighter and more separated than in the earlier t-SNE, Sammon, LLE or ISOMAP examples",
+        "More overlapped than every earlier method",
+        "Identical to a PCA projection"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The slide highlights compact, well-separated digit clusters."
+    },
+    {
+      "id": "L9-093",
+      "lecture": 9,
+      "concept": "Supervised UMAP",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What additional information is supplied in the supervised Fashion MNIST example?",
+      "choices": [
+        "Fashion class labels",
+        "Exact global pairwise distances",
+        "A precomputed t-SNE plot",
+        "A time index for every image"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Supervised UMAP incorporates the known fashion labels."
+    },
+    {
+      "id": "L9-094",
+      "lecture": 9,
+      "concept": "Supervised UMAP",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What happens to Fashion MNIST clusters when labels are supplied?",
+      "choices": [
+        "They collapse into one point",
+        "They lose all class structure",
+        "They become a linear time series",
+        "They become more clearly separated"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The supervised plot shows especially strong separation between labelled fashion classes."
+    },
+    {
+      "id": "L9-095",
+      "lecture": 9,
+      "concept": "EDA limitations",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why may supervised UMAP not be available during exploratory data analysis?",
+      "choices": [
+        "EDA always requires a deterministic method",
+        "Supervision removes all dimensions",
+        "The dataset may not have labels",
+        "UMAP cannot accept numerical features"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Exploration often occurs before reliable labels exist."
+    },
+    {
+      "id": "L9-096",
+      "lecture": 9,
+      "concept": "UMAP hyperparameter sensitivity",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the 3D-shape example demonstrate about UMAP?",
+      "choices": [
+        "It always needs class labels",
+        "Its embedding changes substantially with n_neighbors and min_dist",
+        "Its result is independent of every hyperparameter",
+        "It can represent only linear shapes"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The example shows visibly different unrollings under different parameter settings."
+    },
+    {
+      "id": "L9-097",
+      "lecture": 9,
+      "concept": "UMAP hyperparameter sensitivity",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which two parameters are varied in the illustrated UMAP shape example?",
+      "choices": [
+        "Number of neighbours and minimum distance",
+        "Number of classes and PCA loadings",
+        "Learning labels and time lags",
+        "Histogram bins and kernel type"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The slide changes n_neighbors and min_dist to show their effect."
+    },
+    {
+      "id": "L9-098",
+      "lecture": 9,
+      "concept": "UMAP manifolds",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What capability is shown by embedding the illustrated 3D animal shape?",
+      "choices": [
+        "UMAP can only rotate a linear plane",
+        "UMAP exactly reconstructs every pixel",
+        "UMAP determines the true class labels automatically",
+        "UMAP can unfold a nonlinear three-dimensional manifold into two dimensions"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The example uses a nonlinear 3D shape to demonstrate manifold embedding."
+    },
+    {
+      "id": "L9-099",
+      "lecture": 9,
+      "concept": "UMAP versus t-SNE",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "In the illustrated 3D-shape comparison, which method finds the more recognisable embedding?",
+      "choices": [
+        "PCA only",
+        "Ordinary k-means",
+        "UMAP",
+        "t-SNE at every perplexity"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The lecture notes that t-SNE does not approach the UMAP embedding in this example."
+    },
+    {
+      "id": "L9-100",
+      "lecture": 9,
+      "concept": "Perplexity comparison",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Does increasing t-SNE perplexity make it match UMAP on the illustrated shape?",
+      "choices": [
+        "No, because t-SNE stops producing coordinates",
+        "No, it still performs worse in that example",
+        "Yes, it becomes exactly identical",
+        "Yes, because perplexity removes all nonlinearity"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Even the higher-perplexity t-SNE projection remains less successful on the example."
+    },
+    {
+      "id": "L9-101",
+      "lecture": 9,
+      "concept": "Runtime comparison",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What runtime comparison is highlighted between t-SNE and UMAP?",
+      "choices": [
+        "UMAP is faster by orders of magnitude in the example",
+        "t-SNE is faster by orders of magnitude",
+        "Their runtimes are guaranteed to be identical",
+        "Neither method requires computation"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The displayed times are used to emphasise a very large speed difference."
+    },
+    {
+      "id": "L9-102",
+      "lecture": 9,
+      "concept": "World map example",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does PCA project the world map in the lecture example?",
+      "choices": [
+        "It condenses Australia into a tiny cluster",
+        "It exactly matches the UMAP map",
+        "It produces no recognisable geography",
+        "It preserves the shapes reasonably well but flips the image"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The slide describes PCA as getting the shapes right with a flipped orientation."
+    },
+    {
+      "id": "L9-103",
+      "lecture": 9,
+      "concept": "World map example",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What problem appears in the t-SNE projection of the world map?",
+      "choices": [
+        "It only flips the complete image",
+        "It produces a reusable linear projection",
+        "It condenses the clusters and severely distorts relative shape, such as shrinking Australia",
+        "It preserves every continent shape exactly"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The t-SNE view finds clusters but distorts their sizes and geometry."
+    },
+    {
+      "id": "L9-104",
+      "lecture": 9,
+      "concept": "World map example",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does UMAP compare with t-SNE on the world-map projection?",
+      "choices": [
+        "It can only display one continent",
+        "It better preserves shapes and gives more accurate relative continent spacing",
+        "It destroys all continent structure",
+        "It is identical to the t-SNE projection"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The example gives UMAP the more faithful overall geometry, while later cautions still limit distance interpretation."
+    },
+    {
+      "id": "L9-105",
+      "lecture": 9,
+      "concept": "t-SNE summary",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is direct two-dimensional t-SNE described as too extreme in general?",
+      "choices": [
+        "Reducing all the way to 2D can lose too much information about the metric",
+        "It always increases dimensionality",
+        "It creates too many reusable dimensions",
+        "It exactly preserves every global relationship"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A visual two-dimensional map can discard substantial information from high-dimensional data."
+    },
+    {
+      "id": "L9-106",
+      "lecture": 9,
+      "concept": "PCA plus t-SNE",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What compromise is suggested before applying t-SNE?",
+      "choices": [
+        "Delete all distant observations first",
+        "Set perplexity to zero",
+        "Replace the input with class labels",
+        "Use PCA or a similar method first, while ensuring enough information is retained"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Pre-reduction can improve practicality but must not discard important structure."
+    },
+    {
+      "id": "L9-107",
+      "lecture": 9,
+      "concept": "UMAP improvement",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which pair of advantages is attributed to UMAP in the summary?",
+      "choices": [
+        "No hyperparameters and deterministic output",
+        "Only linear mappings and no new-data transform",
+        "Greater speed and better preservation of broader structure",
+        "Guaranteed meaningful cluster sizes and exact distances"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The summary presents speed and broader structural preservation as UMAP improvements."
+    },
+    {
+      "id": "L9-108",
+      "lecture": 9,
+      "concept": "Multi-stage reduction",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What workflow is proposed as a compromise for clustering high-dimensional data?",
+      "choices": [
+        "Use PCA only after assigning labels",
+        "Use UMAP to reduce to more than three dimensions, then cluster the resulting embedding",
+        "Run t-SNE to one dimension and treat each point as a cluster",
+        "Cluster only the raw feature names"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "An intermediate UMAP embedding can reduce complexity without forcing an overly lossy 2D view before clustering."
+    },
+    {
+      "id": "L9-109",
+      "lecture": 9,
+      "concept": "UMAP use cases",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which biological use case is listed for UMAP?",
+      "choices": [
+        "Single-cell data visualisation",
+        "Forecasting planetary motion",
+        "Encrypting genome files",
+        "Generating class labels from no data"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Single-cell biological data is one of the listed successful application domains."
+    },
+    {
+      "id": "L9-110",
+      "lecture": 9,
+      "concept": "UMAP use cases",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which cybersecurity use case is listed for UMAP?",
+      "choices": [
+        "Replacing all malware scanners with PCA",
+        "Encrypting every nearest-neighbour graph",
+        "Detecting only linear correlations in packet counts",
+        "Mapping malware from behavioural data"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Behaviour-based malware mapping is named as a successful application."
+    },
+    {
+      "id": "L9-111",
+      "lecture": 9,
+      "concept": "UMAP use cases",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How can UMAP support text clustering?",
+      "choices": [
+        "By discarding semantic embeddings",
+        "By using continent distances as labels",
+        "By preprocessing phrase vectors before clustering",
+        "By converting every phrase to the same vector"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Preprocessing phrase embeddings for clustering is one listed use case."
+    },
+    {
+      "id": "L9-112",
+      "lecture": 9,
+      "concept": "UMAP use cases",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How can UMAP support image clustering?",
+      "choices": [
+        "By requiring every image to be two-dimensional input",
+        "By preprocessing image embeddings before clustering",
+        "By replacing images with random labels",
+        "By retaining only image filenames"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The slide mentions reducing image embeddings before clustering."
+    },
+    {
+      "id": "L9-113",
+      "lecture": 9,
+      "concept": "Disconnected manifold gotcha",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What assumption causes trouble for a point maximally far from every other observation?",
+      "choices": [
+        "UMAP assumes all points lie on a connected manifold",
+        "UMAP assumes every point has a class label",
+        "UMAP assumes the input is a time series",
+        "UMAP assumes all features are binary"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A completely isolated point conflicts with UMAP's connected-manifold assumption."
+    },
+    {
+      "id": "L9-114",
+      "lecture": 9,
+      "concept": "Disconnected manifold gotcha",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "For an isolated point whose candidates are all at the same maximal distance, which neighbours can its k-nearest-neighbour query return?",
+      "choices": [
+        "No neighbours under any circumstances",
+        "Only observations with the same label",
+        "Every point in a fixed global order guaranteed by geometry",
+        "An effectively random selection among the tied candidates"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "When all candidate distances tie, the neighbour selection need not represent meaningful structure."
+    },
+    {
+      "id": "L9-115",
+      "lecture": 9,
+      "concept": "Disconnected manifold gotcha",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why can the isolated-point case pull unrelated points together?",
+      "choices": [
+        "The point creates supervised labels",
+        "Cross-entropy is not used",
+        "Local normalisation treats its selected equally distant neighbours as maximally similar",
+        "The algorithm changes every distance to zero before neighbour search"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "UMAP's local kernel promotes the selected nearest neighbours even when all are actually very far away."
+    },
+    {
+      "id": "L9-116",
+      "lecture": 9,
+      "concept": "Disconnected manifold gotcha",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What can happen if a dataset contains many maximally isolated points?",
+      "choices": [
+        "UMAP becomes deterministic",
+        "The embedding can be pulled together and its desired structure destroyed",
+        "The embedding becomes an exact PCA rotation",
+        "Cluster distances become guaranteed"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Many misleading local connections can distort the entire low-dimensional optimisation."
+    },
+    {
+      "id": "L9-117",
+      "lecture": 9,
+      "concept": "UMAP hyperparameters",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is UMAP well suited to trying many n_neighbors and min_dist combinations?",
+      "choices": [
+        "Its speed makes a grid search or near-grid search practical",
+        "Its result never changes with the parameters",
+        "It has no optimisation step",
+        "It automatically knows the one correct pair"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "UMAP's relative speed allows more extensive hyperparameter exploration than t-SNE."
+    },
+    {
+      "id": "L9-118",
+      "lecture": 9,
+      "concept": "UMAP hyperparameters",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What should guide the choice of n_neighbors and min_dist?",
+      "choices": [
+        "Only the number of class labels",
+        "A universal parameter pair for every dataset",
+        "The original feature names",
+        "Both the data and the intended outcome of the projection"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Useful settings depend on structure in the data and the desired compactness or scale of the view."
+    },
+    {
+      "id": "L9-119",
+      "lecture": 9,
+      "concept": "UMAP cluster interpretation",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What do relative cluster sizes in a UMAP plot mean?",
+      "choices": [
+        "They give the variance of every input feature",
+        "They determine the number of neighbours",
+        "Essentially nothing reliable about original group size or importance",
+        "They exactly equal original class frequencies"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Local distance construction can greatly distort apparent cluster extent."
+    },
+    {
+      "id": "L9-120",
+      "lecture": 9,
+      "concept": "UMAP cluster interpretation",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why should cluster size not be over-interpreted in UMAP?",
+      "choices": [
+        "It displays class labels instead of coordinates",
+        "Its high-dimensional graph is constructed using local notions of distance",
+        "It uses only a global linear rotation",
+        "Every cluster is forced to have an equal area"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The local graph objective does not preserve relative cluster area."
+    },
+    {
+      "id": "L9-121",
+      "lecture": 9,
+      "concept": "UMAP distance interpretation",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Are distances between UMAP clusters necessarily meaningful?",
+      "choices": [
+        "No; global positions may be better preserved, but precise inter-cluster distances can still be meaningless",
+        "Yes; they are exact original-space distances",
+        "Yes, but only when cluster sizes differ",
+        "No, because UMAP produces no coordinates"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "UMAP may improve broad organisation without making plotted gaps quantitatively trustworthy."
+    },
+    {
+      "id": "L9-122",
+      "lecture": 9,
+      "concept": "Spurious clustering",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "When is random noise especially likely to show spurious clusters in UMAP?",
+      "choices": [
+        "Only when min_dist is exactly one",
+        "Only in supervised mode",
+        "Never, because noise always looks uniform",
+        "At low n_neighbors values"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "A very local graph can turn random fluctuations into apparent groups."
+    },
+    {
+      "id": "L9-123",
+      "lecture": 9,
+      "concept": "UMAP stochasticity",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why should a UMAP projection be run more than once with the same hyperparameters?",
+      "choices": [
+        "To convert it into a deterministic PCA model",
+        "To assign labels automatically",
+        "To check whether the visible structure is stable across stochastic runs",
+        "To increase the number of original observations"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Repeated runs reveal whether clusters or geometry depend heavily on random variation."
+    },
+    {
+      "id": "L9-124",
+      "lecture": 9,
+      "concept": "UMAP stochasticity",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which statement about repeated UMAP runs is TRUE?",
+      "choices": [
+        "They never depend on randomness",
+        "They can differ even when the hyperparameters are unchanged",
+        "They must be pixel-for-pixel identical",
+        "They can differ only if labels are changed"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "UMAP is stochastic, so the random state can affect the map."
+    },
+    {
+      "id": "L9-125",
+      "lecture": 9,
+      "concept": "UMAP validation",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "A striking cluster appears in only one of several UMAP runs. How should it be treated?",
+      "choices": [
+        "As potentially unstable rather than immediate evidence of a real group",
+        "As guaranteed ground truth",
+        "As proof that all other runs are invalid",
+        "As an exact measure of global distance"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Instability across repeated runs is a warning against over-interpreting the pattern."
+    },
+    {
+      "id": "L9-126",
+      "lecture": 9,
+      "concept": "Dimensionality reduction",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the goal of dimensionality reduction in the lecture summary?",
+      "choices": [
+        "Assign every observation to a cluster without changing dimensions",
+        "Increase the number of features until all points separate",
+        "Replace the dataset with class labels",
+        "Move data to a much lower-dimensional space while preserving relationships and original structure as faithfully as possible"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Dimensionality reduction seeks a compact representation that retains important geometry."
+    },
+    {
+      "id": "L9-127",
+      "lecture": 9,
+      "concept": "Clustering",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does clustering do to high-dimensional data?",
+      "choices": [
+        "It preserves every distance exactly",
+        "It converts nonlinear data into a PCA loading matrix",
+        "It finds similar groupings without itself reducing the number of dimensions",
+        "It always creates a two-dimensional map"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Clustering assigns groups; dimensionality reduction changes the representation."
+    },
+    {
+      "id": "L9-128",
+      "lecture": 9,
+      "concept": "Reduction and clustering",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which workflow combines dimensionality reduction and clustering?",
+      "choices": [
+        "Increase dimensionality after every cluster assignment",
+        "First find an appropriate lower-dimensional manifold, then cluster observations in that representation",
+        "Cluster feature names, then delete all observations",
+        "Run a visualisation and treat every visible gap as exact"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "A reduced embedding can be used as the feature space for later clustering."
+    },
+    {
+      "id": "L9-129",
+      "lecture": 9,
+      "concept": "Spectral clustering",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does spectral clustering fit the combined workflow described in the lecture?",
+      "choices": [
+        "It forms a lower-dimensional spectral representation and clusters within it",
+        "It performs only a raw high-dimensional k-means step",
+        "It visualises data without any clustering",
+        "It uses class labels to train t-SNE"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Spectral clustering uses an embedding derived from graph structure before grouping the embedded rows."
+    },
+    {
+      "id": "L9-130",
+      "lecture": 9,
+      "concept": "Repeated reduction",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which multi-stage process is considered possible?",
+      "choices": [
+        "Cluster first and forbid any later reduction",
+        "Apply only one method because embeddings cannot be transformed",
+        "Repeat clustering without using data coordinates",
+        "Reduce once to an embedding, reduce that embedding again, then cluster the second output"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The lecture allows multiple dimensionality-reduction stages before the final clustering."
+    },
+    {
+      "id": "L9-131",
+      "lecture": 9,
+      "concept": "Visualisation loss",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is t-SNE described as mainly a visualisation method?",
+      "choices": [
+        "It always preserves exact global geometry",
+        "It produces only class labels",
+        "Moving to two or three dimensions is likely to lose substantial metric information",
+        "It cannot place points in two dimensions"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "A useful picture does not imply a faithful general-purpose metric embedding."
+    },
+    {
+      "id": "L9-132",
+      "lecture": 9,
+      "concept": "UMAP and t-SNE",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which broad comparison between UMAP and t-SNE closes the lecture?",
+      "choices": [
+        "UMAP is a linear PCA method",
+        "UMAP uses a different distance model and is faster, while serving a similar visualisation role",
+        "UMAP and t-SNE are mathematically identical",
+        "t-SNE is always faster and more reusable"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The final slide positions UMAP as related in purpose but different in metric construction and speed."
+    },
+    {
+      "id": "L9-133",
+      "lecture": 9,
+      "concept": "Method selection",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "You need only similar group assignments and do not need a lower-dimensional representation. Which operation directly addresses that goal?",
+      "choices": [
+        "Clustering in the original high-dimensional data",
+        "Two-dimensional t-SNE visualisation",
+        "Repeated manifold reduction only",
+        "PCA followed by no further analysis"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Clustering can discover groups without reducing dimensionality."
+    },
+    {
+      "id": "L9-134",
+      "lecture": 9,
+      "concept": "Method selection",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "You need a plot for exploring local neighbourhoods, not a reusable metric embedding. Which method best matches the lecture?",
+      "choices": [
+        "Ordinary least squares",
+        "ARIMA",
+        "A histogram of one feature only",
+        "t-SNE"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The lecture repeatedly identifies t-SNE as effective for low-dimensional visualisation of local structure."
+    },
+    {
+      "id": "L9-135",
+      "lecture": 9,
+      "concept": "Method selection",
+      "source": {
+        "file": "IDVE_Lecture_9_2026.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "You want a faster nonlinear reduction that can also transform new observations. Which method is the better match?",
+      "choices": [
+        "A cluster-size measurement from a t-SNE plot",
+        "A Gaussian histogram",
+        "UMAP",
+        "Standard t-SNE"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "UMAP is presented as faster than t-SNE and able to add new data without refitting the whole map."
     }
   ]
 }
