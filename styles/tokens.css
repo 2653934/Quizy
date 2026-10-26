@@ -1,11 +1,15 @@
-/* Theme tokens. src/ui/theme.js overwrites these per subject (accent/paper/light/aside come from
-   data/subjects.json; the rest are derived). These are the DVE values, used for the first paint.
-   --ink, --muted, --green, --bad and --warn are shared by every theme. */
+/* Theme tokens. src/ui/theme.js overwrites the subject-dependent ones per subject and colour mode
+   (accent/paper/light/aside come from data/subjects.json; the rest are mixed in src/core/colors.js).
+   The values here are DVE's, used for the first paint. --ink, --muted, --edge, --green, --bad, --warn and the
+   field and feedback colours below are shared by every subject and only change with the colour mode.
+   src/ui/theme.js sets html[data-mode] to "light" or "dark" before the page is drawn. */
 :root {
+  color-scheme: light;
   --paper: #f2f5f4;
   --ink: #213438;
   --muted: #586e72;
   --accent: #147d83;
+  --accent-text: var(--accent); /* accent-coloured text; lighter than the accent in dark mode */
   --light: #dbefee;
   --aside: #e8f0ef;
   --accent-dark: #116a6f;
@@ -19,4 +23,49 @@
   --green: #3c735a;
   --bad: #9a463a;
   --warn: #8a5a00;
+  --edge: #213438; /* ink borders and offset shadows */
+  --field-bg: #ffffff;
+  --good-bg: #dceee2;
+  --bad-bg: #f8e6e0;
+  --good-soft: #ecf5ef;
+  --partial-soft: #faf3e3;
+  --bad-soft: #fbefec;
+  --caution-bg: #fff6dd;
+  --mark-bg: #fff0b3;
+}
+
+/* Dark mode. The first block is shared by every subject; the second is DVE's dark theme for the first paint
+   (the same values src/core/colors.js derives; tests/prefs.test.cjs checks they match). */
+:root[data-mode=dark] {
+  color-scheme: dark;
+  --ink: #e3eaeb;
+  --muted: #a7b5b8;
+  --edge: #7f8f93;
+  --green: #74c69d;
+  --bad: #f2917f;
+  --warn: #e5b45f;
+  --good-bg: #1f3a2d;
+  --bad-bg: #432421;
+  --good-soft: #1a2e24;
+  --partial-soft: #352b19;
+  --bad-soft: #341f1c;
+  --caution-bg: #352b19;
+  --mark-bg: #594810;
+}
+
+:root[data-mode=dark] {
+  --accent: #147d83;
+  --paper: #121f21;
+  --aside: #0f1e20;
+  --surface: #1a282c;
+  --choice-bg: #1d2e31;
+  --field-bg: #162325;
+  --light: #1b4044;
+  --accent-dark: #116a6f;
+  --accent-text: #72b1b5;
+  --seal: #183d41;
+  --line: #325155;
+  --track: #254549;
+  --shadow: #133b3f;
+  --field-line: #5e8488;
 }

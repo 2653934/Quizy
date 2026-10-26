@@ -12,12 +12,12 @@
 }
 
 .choice.check:has(input:checked):not(.done) {
-  border-color: var(--accent);
+  border-color: var(--accent-text);
   background: var(--light);
 }
 
 .choice.missed {
-  background: #fff;
+  background: var(--field-bg);
   border: 2px dashed var(--green);
 }
 

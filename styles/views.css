@@ -1,5 +1,6 @@
 /* body[data-view] is set by src/ui/views.js ("setup", "quiz", "browse" or "summary").
-   During a round: hide hero + stats and compact the header so the question is on the first screen. */
+   During a round: hide hero + stats and compact the header so the question is on the first screen.
+   The sidebar's subject list is disabled meanwhile (src/ui/subjects.js). */
 [data-view=quiz] .hero,
 [data-view=quiz] .stats {
   display: none;
@@ -9,28 +10,15 @@
   margin-bottom: 12px;
 }
 
-[data-view=quiz] .subjects {
-  margin-bottom: 0;
-  box-shadow: 2px 2px 0 var(--ink);
-}
-
-[data-view=quiz] .subject-tab small {
-  display: none;
-}
-
-[data-view=quiz] .subject-tab {
-  min-height: 48px;
-  padding: 4px 6px;
-}
-
 /* "Next question" scrolls the quiz panel into view with this gap above it. */
 #quiz {
   scroll-margin-top: 12px;
 }
 
 @media (max-width: 700px) {
+  /* The top bar keeps its 48px menu button; only the padding and the brand shrink. */
   [data-view=quiz] aside {
-    padding: 8px 16px;
+    padding: 4px 16px;
   }
 
   [data-view=quiz] .brand {
@@ -58,12 +46,8 @@
 }
 
 /* Browsing the question bank (body[data-view=browse], also for the answer view): no hero or stats.
-   The subject switcher stays enabled. */
+   The subject list stays enabled. */
 [data-view=browse] .hero,
 [data-view=browse] .stats {
   display: none;
-}
-
-[data-view=browse] .subjects {
-  margin-bottom: 0;
 }

@@ -49,7 +49,7 @@ Plain HTML, CSS and JavaScript (plus the vendored KaTeX) with no build step, so 
 ```
 src/core/      helpers, maths ($…$ splitting, plain-text fallback), search, seeded random (?seed=N, for tests), storage, data loading, scoring, app state, the mock-paper generator
 src/types/     one file per question type (single, truefalse, multi, match, short, numeric, written, label) + registry.js
-src/ui/        theme, subject tabs, setup panel, quiz panel, "Copy for Claude", summary, mock papers, browse & search, view switching
+src/ui/        theme and colour mode, sidebar and subject list, setup panel, quiz panel, "Copy for Claude", summary, mock papers, browse & search, view switching
 src/main.js    boot
 styles/        tokens, base, layout, components, question, paper, browse, types/<type>.css, views
 vendor/katex/  KaTeX 0.19.0 (MIT), the only third-party code: maths rendering, also used by the build to check formulas

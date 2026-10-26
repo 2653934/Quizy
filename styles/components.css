@@ -1,71 +1,19 @@
-/* Reusable pieces: subject tabs, seal, cards/panels, setup text, empty state, quiz header,
+/* Reusable pieces: seal, cards/panels, setup text, empty state, quiz header,
    progress bar, figure, hints and the caution box. */
-
-/* Subject switcher */
-.subjects {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
-  max-width: 480px;
-  border: 1.5px solid var(--ink);
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 3px 3px 0 var(--ink);
-  margin-bottom: 34px;
-  background: var(--surface);
-}
-
-.subject-tab {
-  border: 0;
-  border-radius: 0;
-  border-left: 1.5px solid var(--ink);
-  display: grid;
-  place-content: center;
-  line-height: 1.2;
-  padding: 8px 6px;
-  min-height: 52px;
-  background: var(--surface);
-}
-
-.subject-tab:first-child {
-  border-left: 0;
-}
-
-.subject-tab b {
-  font: 18px Georgia, serif;
-}
-
-.subject-tab small {
-  font-size: 10px;
-  letter-spacing: .8px;
-  color: var(--muted);
-}
-
-.subject-tab[aria-pressed=true] {
-  background: var(--accent);
-  color: #fff;
-}
-
-.subject-tab[aria-pressed=true] small {
-  color: #fff;
-}
-
-.subject-tab:disabled:not([aria-pressed=true]) {
-  opacity: .45;
-}
 
 /* Seal (question count in the hero) */
 .seal {
   flex-shrink: 0;
   width: 122px;
   height: 122px;
-  border: 1.5px solid var(--ink);
+  border: 1.5px solid var(--edge);
   border-radius: 50%;
   display: grid;
   place-content: center;
   text-align: center;
   transform: rotate(8deg);
   background: var(--seal);
-  box-shadow: 4px 4px 0 var(--ink);
+  box-shadow: 4px 4px 0 var(--edge);
 }
 
 .seal b {
@@ -80,7 +28,7 @@
 /* Cards: stats and panels */
 .stat,
 .panel {
-  border: 1.5px solid var(--ink);
+  border: 1.5px solid var(--edge);
   border-radius: 10px;
   background: var(--surface);
   box-shadow: 3px 3px 0 var(--shadow);
@@ -128,13 +76,13 @@
   padding: 9px 14px;
   border: 1px solid var(--field-line);
   border-radius: 6px;
-  background: #fff;
+  background: var(--field-bg);
   font-weight: 650;
 }
 
 .chip[aria-pressed=true] {
   background: var(--accent);
-  border-color: var(--ink);
+  border-color: var(--edge);
   color: #fff;
 }
 
@@ -247,9 +195,9 @@ progress::-moz-progress-bar {
   display: block;
   max-width: min(100%, 640px);
   height: auto;
-  border: 1.5px solid var(--ink);
+  border: 1.5px solid var(--edge);
   border-radius: 6px;
-  background: #fff;
+  background: #fff; /* diagrams are drawn for white paper, so they stay on white in dark mode too */
 }
 
 .figure figcaption {
@@ -277,7 +225,7 @@ progress::-moz-progress-bar {
 .caution {
   margin-top: 12px;
   padding: 12px 14px;
-  background: #fff6dd;
+  background: var(--caution-bg);
   border: 1.5px solid var(--warn);
   border-radius: 6px;
 }
@@ -298,11 +246,6 @@ progress::-moz-progress-bar {
 }
 
 @media (max-width: 700px) {
-  .subjects {
-    max-width: none;
-    margin-bottom: 24px;
-  }
-
   .panel {
     padding: 20px 16px;
   }

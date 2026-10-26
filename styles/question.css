@@ -65,7 +65,7 @@
 
 .choice .letter {
   font-weight: 700;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .choice .text {
@@ -80,7 +80,7 @@
 }
 
 .choice.correct {
-  background: #dceee2;
+  background: var(--good-bg);
   border-color: var(--green);
 }
 
@@ -89,7 +89,7 @@
 }
 
 .choice.wrong {
-  background: #f8e6e0;
+  background: var(--bad-bg);
   border-color: var(--bad);
 }
 
@@ -104,7 +104,7 @@
   padding: 11px 12px;
   border: 1px solid var(--field-line);
   border-radius: 6px;
-  background: #fff;
+  background: var(--field-bg);
   font: inherit;
   font-size: 16px; /* 16px or more stops phones zooming in on focus */
   color: inherit;
@@ -115,12 +115,12 @@
 }
 
 .answer-input.correct {
-  background: #dceee2;
+  background: var(--good-bg);
   border-color: var(--green);
 }
 
 .answer-input.wrong {
-  background: #f8e6e0;
+  background: var(--bad-bg);
   border-color: var(--bad);
 }
 
@@ -132,19 +132,19 @@
 /* Feedback after answering */
 .feedback {
   border-left: 4px solid var(--green);
-  background: #ecf5ef;
+  background: var(--good-soft);
   padding: 12px 16px;
   margin: 18px 0;
 }
 
 .feedback.partial {
   border-color: var(--warn);
-  background: #faf3e3;
+  background: var(--partial-soft);
 }
 
 .feedback.incorrect {
   border-color: var(--bad);
-  background: #fbefec;
+  background: var(--bad-soft);
 }
 
 .verdict {

@@ -23,7 +23,7 @@ h1 {
 }
 
 h1 em {
-  color: var(--accent);
+  color: var(--accent-text);
   font-weight: normal;
 }
 
@@ -55,7 +55,7 @@ input {
 
 button {
   cursor: pointer;
-  border: 1.5px solid var(--ink);
+  border: 1.5px solid var(--edge);
   border-radius: 7px;
   background: var(--surface);
   padding: 9px 15px;
@@ -73,7 +73,7 @@ button:disabled {
 button.primary {
   background: var(--accent);
   color: white;
-  box-shadow: 3px 3px 0 var(--ink);
+  box-shadow: 3px 3px 0 var(--edge);
   font-weight: 650;
 }
 
@@ -114,7 +114,7 @@ button.primary:disabled {
 .form-row select {
   padding: 11px 12px;
   border: 1px solid var(--field-line);
-  background: #fff;
+  background: var(--field-bg);
   border-radius: 6px;
   min-height: 48px;
   max-width: 100%;

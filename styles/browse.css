@@ -5,7 +5,7 @@
   padding-left: 4px;
   font-size: 14px;
   font-weight: 650;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 /* Filters: search and lectures span the row; quiz set and style sit side by side when there is room. */
@@ -72,9 +72,9 @@
   display: inline-block;
   margin-right: 8px;
   padding: 0 6px;
-  border: 1px solid var(--accent);
+  border: 1px solid var(--accent-text);
   border-radius: 4px;
-  color: var(--accent);
+  color: var(--accent-text);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: .3px;
@@ -99,7 +99,7 @@
 }
 
 .browse-text mark {
-  background: #fff0b3;
+  background: var(--mark-bg);
   color: inherit;
   border-radius: 2px;
 }
@@ -139,7 +139,7 @@
   padding: 12px 14px;
   border: 1px solid var(--green);
   border-radius: 7px;
-  background: #ecf5ef;
+  background: var(--good-soft);
 }
 
 .answer-rows dt {

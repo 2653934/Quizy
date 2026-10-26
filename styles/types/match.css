@@ -17,19 +17,19 @@
 .match-row select {
   padding: 11px 12px;
   border: 1px solid var(--field-line);
-  background: #fff;
+  background: var(--field-bg);
   border-radius: 6px;
   min-height: 48px;
   width: 100%;
 }
 
 .match-row.correct {
-  background: #dceee2;
+  background: var(--good-bg);
   border-color: var(--green);
 }
 
 .match-row.wrong {
-  background: #f8e6e0;
+  background: var(--bad-bg);
   border-color: var(--bad);
 }
 
