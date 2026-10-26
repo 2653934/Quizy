@@ -162,8 +162,73 @@
   font-weight: 700;
 }
 
+.rapid-pop ~ .rapid-advance {
+  margin-left: 0;
+}
+
 .verdict strong {
   font: 20px Georgia, serif;
+}
+
+/* Rapid mode, fully correct: a comic burst beside "Correct!" (src/ui/quiz.js). It sits in the verdict
+   line, so it never covers the answer; only transforms animate, so nothing around it moves. */
+.rapid-pop {
+  --tilt: -6deg;
+  position: relative;
+  display: inline-block;
+  padding: 1px 9px 2px;
+  border: 2px solid var(--edge);
+  border-radius: 4px;
+  background: var(--pop-bg);
+  color: var(--pop-ink);
+  box-shadow: 2px 2px 0 var(--edge);
+  font: italic 900 15px/1.25 "Arial Black", Impact, system-ui, sans-serif;
+  letter-spacing: .5px;
+  white-space: nowrap;
+  margin-right: auto; /* stays beside "Correct!"; the marks and "Next question…" keep to the right */
+  transform: rotate(var(--tilt));
+  animation: rapid-pop 380ms cubic-bezier(.2, 1.6, .4, 1) both;
+}
+
+.rapid-pop.pop-1 {
+  --tilt: 4deg;
+  background: var(--accent);
+  color: #fff;
+}
+
+.rapid-pop.pop-2 {
+  --tilt: -3deg;
+  background: var(--pop-alt);
+}
+
+.rapid-pop::after {
+  content: '✦';
+  position: absolute;
+  top: -11px;
+  right: -10px;
+  font-size: 13px;
+  font-style: normal;
+  color: var(--edge);
+  animation: rapid-spark 520ms ease-out both;
+}
+
+@keyframes rapid-pop {
+  0% { opacity: 0; transform: scale(.2) rotate(calc(var(--tilt) - 24deg)); }
+  60% { opacity: 1; transform: scale(1.18) rotate(var(--tilt)); }
+  100% { transform: scale(1) rotate(var(--tilt)); }
+}
+
+@keyframes rapid-spark {
+  0%, 30% { opacity: 0; transform: scale(.2) rotate(-90deg); }
+  70% { opacity: 1; transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rapid-pop,
+  .rapid-pop::after {
+    animation: none;
+  }
 }
 
 .verdict .score {
@@ -223,5 +288,92 @@
 
   .question.long {
     font-size: 19px;
+  }
+
+  /* The question view on phones: tighter spacing and a slightly smaller question, so a typical question,
+     its options and the button under them fit on one screen (375×667). Options stay ≥ 48px tall and the
+     text stays at its normal size. */
+  #quiz progress {
+    margin: 2px 0 10px;
+  }
+
+  #quiz .source {
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+
+  #quiz .question {
+    font-size: 21px;
+    line-height: 1.3;
+    margin: 0 0 12px;
+  }
+
+  #quiz .question.long {
+    font-size: 18px;
+    line-height: 1.35;
+  }
+
+  /* Top and bottom only: label diagrams keep their edge-to-edge side margins (styles/types/label.css). */
+  #quiz .figure {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  #quiz .hints .hint {
+    margin: 2px 0;
+  }
+
+  #quiz .hints .warn {
+    margin-top: 4px;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  #quiz .choices {
+    gap: 8px;
+    margin: 10px 0 12px;
+  }
+
+  #quiz .choice {
+    padding: 11px 12px;
+    min-height: 48px;
+    line-height: 1.45;
+  }
+
+  #quiz .feedback {
+    margin: 12px 0;
+    padding: 10px 12px;
+  }
+
+  #quiz .verdict strong {
+    font-size: 19px;
+  }
+
+  #quiz .study-note,
+  #quiz .caution {
+    margin-top: 8px;
+    padding: 9px 11px;
+  }
+
+  /* Check / Next stay reachable when the options or the study note run past the screen: they stick to
+     the bottom edge (above the home indicator) and settle into place at the end of the question. */
+  #check,
+  #next {
+    position: sticky;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    z-index: 2;
+  }
+
+  /* Opaque while disabled, so options scrolling under it stay hidden. */
+  #check:disabled {
+    opacity: 1;
+    background: var(--light);
+    border-color: var(--field-line);
+    color: var(--muted);
+  }
+
+  /* After answering, the verdict is scrolled into view clear of the sticky "Next". */
+  #quiz .verdict {
+    scroll-margin-bottom: 84px;
   }
 }

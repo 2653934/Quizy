@@ -238,6 +238,155 @@ progress::-moz-progress-bar {
   margin: 6px 0 0;
 }
 
+/* "Reset wrong answers" under the "Needs another look" count */
+.stat-reset {
+  display: block;
+  margin: 4px 0 -8px -8px;
+  padding: 0 8px;
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--bad);
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* The confirmation dialog (native <dialog>: modal, Escape cancels, focus stays inside) */
+.dialog {
+  width: min(440px, calc(100vw - 32px));
+  padding: 22px;
+  border: 1.5px solid var(--edge);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 4px 4px 0 var(--edge);
+}
+
+.dialog::backdrop {
+  background: rgb(0 0 0 / .45);
+}
+
+.dialog h2 {
+  font-size: 24px;
+  margin: 0 0 12px;
+}
+
+.dialog p {
+  margin: 0 0 10px;
+}
+
+.dialog-keep {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.dialog-actions button {
+  min-width: 104px;
+}
+
+button.danger,
+button.danger:hover {
+  background: var(--bad);
+  color: var(--paper);
+}
+
+button.danger:hover {
+  filter: brightness(.92);
+}
+
+/* "Think first. Then tap.": the one-time cue over the top of the first question (src/ui/quiz.js).
+   Fixed and pointer-events: none, so it moves nothing and never takes a tap. */
+.intro-cue {
+  position: fixed;
+  z-index: 20;
+  top: max(10px, env(safe-area-inset-top));
+  left: 50%;
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  padding: 9px 26px 9px 18px;
+  border: 1.5px solid var(--edge);
+  border-radius: 30px;
+  background: var(--surface);
+  box-shadow: 3px 3px 0 var(--edge);
+  font: 20px/1.2 Georgia, serif;
+  white-space: nowrap;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.intro-tap {
+  position: relative;
+  color: var(--accent-text);
+  font-style: italic;
+}
+
+/* A fingertip "tap": a dot with a ring that pings out from it. */
+.intro-dot {
+  position: absolute;
+  top: 50%;
+  right: -16px;
+  width: 9px;
+  height: 9px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.intro-dot::after {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.intro-cue.play {
+  animation: intro-cue 3.4s ease both;
+}
+
+.intro-cue.play .intro-tap {
+  animation: intro-tap 3.4s ease both;
+}
+
+.intro-cue.play .intro-dot::after {
+  animation: intro-ping 1s .95s ease-out 2;
+}
+
+@keyframes intro-cue {
+  0% { opacity: 0; transform: translate(-50%, -18px) scale(.94); }
+  9%, 86% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -12px); }
+}
+
+@keyframes intro-tap {
+  0%, 18% { opacity: 0; transform: translateY(6px); }
+  28%, 100% { opacity: 1; transform: none; }
+}
+
+@keyframes intro-ping {
+  0% { opacity: .9; transform: scale(1); }
+  100% { opacity: 0; transform: scale(3.2); }
+}
+
+/* Reduced motion: the cue simply shows, then goes (the timer in src/ui/quiz.js hides it). */
+@media (prefers-reduced-motion: reduce) {
+  .intro-cue.play,
+  .intro-cue.play .intro-tap,
+  .intro-cue.play .intro-dot::after {
+    animation: none;
+  }
+}
+
 /* Responsive */
 @media (max-width: 900px) {
   .seal {

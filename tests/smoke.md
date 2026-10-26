@@ -14,6 +14,8 @@ node newtypes.cjs <repo-with-new-sets> nt   # short / numeric / written end to e
 node paper.cjs <repo-with-new-sets> pp       # mock papers, label, practise by style, lecture chips (see below)
 node maths.cjs <repo-with-maths-check> mx    # maths rendering and Browse & search (see below)
 node sidebar.cjs <path-to-Quizy> sb          # sidebar, phone menu and dark mode (see below)
+node mobile.cjs <path-to-Quizy> mb           # intro cue, rapid-mode burst, reset wrong answers, sticky Check / Next (see below)
+MISSES=1 node fit.cjs <path-to-Quizy> now    # how many questions fit on one phone screen, at four sizes (see below)
 ```
 
 ## What it does
@@ -36,6 +38,7 @@ Things to know when changing it:
 - Choose subjects with `pickSubject(page, key)`: the subject list is in the sidebar, and at 375px it is inside the menu panel, so the helper opens the menu first when the menu button is visible (it also works on older versions without one).
 - `findQuestion` takes the question in play from `Quizy.state` by id, because question text with maths no longer equals the rendered text.
 - The sidebar (2026-10-26) changed the setup text, the side-panel text and every screenshot; the baseline was retaken then.
+- The phone question view was tightened on 2026-10-26 (`feature/mobile-quiz-polish`): every 375px question screenshot, the question tops (now at most 181px) and the hero heading in the setup and summary text changed; `storage-after` also lists `quizy-intro-v1` (the one-time intro cue), and once a wrong answer is saved the stats text includes "Reset wrong answers". The intro cue only shows until the first question is answered, so it is not in the screenshots taken after answering.
 - Wait for smooth scrolling to finish before screenshots or measurements by polling `scrollY` inside `page.evaluate` until it stops changing. Don't return a Promise from `page.waitForFunction`; it counts as truthy straight away.
 - Let the scroll settle before clicking "See results". Otherwise two smooth scrolls overlap and the summary can stop a few pixels short of the top, which makes screenshots flaky.
 - Don't run two smoke runs at once: images can then differ by a pixel or so.
@@ -1423,4 +1426,515 @@ const mode = page => page.evaluate(() => ({
   server.close();
   console.log(problems.length ? 'PROBLEMS:\n' + problems.join('\n') : 'No layout/console problems.');
 })().catch(e => { console.error(e); process.exit(1); });
+```
+
+## mobile.cjs
+
+The phone quiz extras, over `file://` and HTTP at 375×667 and 1280×800. It checks:
+- Intro cue: on a fresh profile the first question shows "Think first. Then tap." (fixed, `aria-hidden`, `pointer-events: none`, animating) and stores `quizy-intro-v1`; the question can be answered at once and the cue then goes; hiding it moves nothing on the page; it doesn't come back in the same page or after a reload, and hides itself after its run. With reduced motion it shows without animation. With `localStorage` throwing, the app still works and the cue plays once per page, with no page errors.
+- Rapid mode: six correct Multiple choice answers each get a burst from the list, never the same word twice in a row, inside the verdict line beside "Correct!", `aria-hidden`, overlapping no option, with the study note still shown during the pause; the round then moves on by itself. With reduced motion the burst doesn't animate and the pause is the same. A wrong answer, a typed (Calculation) answer and a correct answer without rapid mode get no burst.
+- Reset wrong answers: with 2 wrong NLP attempts (one partly right), 1 correct, 1 for an id no longer in the bank and other keys in storage, the stats read 2 / 1 and the button (≥ 44px) shows. The dialog names "2 NLP questions", focuses Cancel, and Cancel and Escape change nothing (focus returns to the button). Reset removes exactly those two attempts (everything else in storage is byte-identical), the stats read 0, the button hides, "Reset 2 wrong answers." is announced, focus is on the stat card and "Only ones I got wrong" counts 0 questions. DVE's wrong answer is untouched and everything survives a reload. The button also appears and works on the summary screen after a round with a wrong answer.
+- Check / Next: on phones both are `position: sticky`; across 8 Select all questions "Check answer" is on screen before answering, and afterwards "Next" is on screen with the verdict visible above it. On desktop they stay static.
+
+It writes screenshots of the cue, a burst (with and without reduced motion) and the dialog.
+
+```js
+// Quizy phone quiz extras: node mobile.cjs <repoDir> <outDir>
+// The one-time intro cue (motion, reduced motion, blocked storage), the rapid-mode celebration,
+// "Reset wrong answers" with its dialog, and the sticky Check / Next on phones. file:// and HTTP,
+// 375x667 and 1280x800.
+const http = require('node:http');
+const fs = require('node:fs');
+const path = require('node:path');
+const assert = require('node:assert/strict');
+const {chromium} = require('playwright-core');
+
+const repo = path.resolve(process.argv[2]);
+const out = path.resolve(process.argv[3] || 'mobile-out');
+fs.mkdirSync(out, {recursive: true});
+const TYPES = {'.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.svg': 'image/svg+xml', '.woff2': 'font/woff2'};
+
+function serve() {
+  return new Promise(resolve => {
+    const server = http.createServer((req, res) => {
+      let file = path.join(repo, decodeURIComponent(new URL(req.url, 'http://x').pathname));
+      if (fs.existsSync(file) && fs.statSync(file).isDirectory()) file = path.join(file, 'index.html');
+      if (!file.startsWith(repo) || !fs.existsSync(file)) { res.writeHead(404); return res.end('not found'); }
+      res.writeHead(200, {'content-type': TYPES[path.extname(file)] || 'application/octet-stream'});
+      res.end(fs.readFileSync(file));
+    });
+    server.listen(0, () => resolve(server));
+  });
+}
+
+const ready = page => page.waitForSelector('.subject-tab[aria-pressed=true]', {state: 'attached'});
+const pickSubject = async (page, key) => {
+  if (await page.isVisible('#menu-toggle')) await page.click('#menu-toggle');
+  await page.click(`.subject-tab[data-key=${key}]`);
+};
+async function settle(page) {
+  await page.evaluate(async () => {
+    let last = -1, same = 0;
+    for (let i = 0; i < 100 && same < 6; i++) {
+      await new Promise(r => setTimeout(r, 50));
+      if (window.scrollY === last) same++; else { same = 0; last = window.scrollY; }
+    }
+  });
+}
+// Answer the question in play (choice types by tapping; others through their inputs).
+const answer = (page, right) => page.evaluate(right => {
+  const item = Quizy.state.round[Quizy.state.index];
+  const q = item.q;
+  const c = document.getElementById('choices');
+  if (q.type === 'single' || q.type === 'truefalse') return [...c.children].find(b => q.answer.includes(Number(b.dataset.original)) === right).click();
+  if (q.type === 'multi') for (const box of c.querySelectorAll('input')) if (q.answer.includes(Number(box.value)) === right) { box.checked = true; box.dispatchEvent(new Event('change')); }
+  if (q.type === 'numeric') c.querySelectorAll('input').forEach((i, k) => { i.value = String(right ? q.parts[k].answer : q.parts[k].answer + 1000); i.dispatchEvent(new Event('input')); });
+  document.getElementById('check').click();
+}, right);
+const typeNow = page => page.evaluate(() => Quizy.state.round[Quizy.state.index]?.q.type);
+const overlaps = (a, b) => a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom;
+
+async function checkIntro(browser, url, size, tag) {
+  const r = {};
+  // Fresh profile: the cue plays over the first question, the question can be answered straight away.
+  const page = await browser.newPage({viewport: size});
+  const errors = [];
+  page.on('pageerror', e => errors.push(String(e)));
+  page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
+  await page.goto(url);
+  await ready(page);
+  await pickSubject(page, 'nlp');
+  await page.selectOption('#style', 'single');
+  await page.click('#start');
+  await settle(page);
+  const cue = await page.evaluate(() => {
+    const n = document.getElementById('intro-cue');
+    const s = getComputedStyle(n);
+    return {visible: !n.hidden, play: n.classList.contains('play'), ariaHidden: n.getAttribute('aria-hidden'), pointer: s.pointerEvents, position: s.position,
+      animation: s.animationName, top: document.getElementById('progress').getBoundingClientRect().top, stored: localStorage.getItem('quizy-intro-v1'), text: n.textContent.replace(/\s+/g, ' ').trim()};
+  });
+  await page.screenshot({path: path.join(out, `${tag}-intro.png`)});
+  assert.equal(cue.visible, true, 'cue shows on the first question');
+  assert.equal(cue.play, true);
+  assert.equal(cue.ariaHidden, 'true');
+  assert.equal(cue.pointer, 'none');
+  assert.equal(cue.position, 'fixed');
+  assert.equal(cue.animation, 'intro-cue');
+  assert.equal(cue.stored, 'seen');
+  assert.equal(cue.text, 'Think first. Then tap.');
+  // No layout shift: hiding the cue in place moves nothing on the page.
+  const layout = () => page.evaluate(() => ['progress', 'question', 'choices', 'quit'].map(id => document.getElementById(id).getBoundingClientRect().toJSON()));
+  const withCue = await layout();
+  await page.evaluate(() => Quizy.ui.hideIntro());
+  assert.deepEqual(await layout(), withCue, 'the cue shifts nothing');
+  await page.evaluate(() => { const n = document.getElementById('intro-cue'); n.hidden = false; n.classList.add('play'); });
+  // Answering is not delayed: tap at once (through the cue's area too, when a target is under it).
+  await answer(page, true);
+  r.answeredAt = await page.evaluate(() => Quizy.state.answered);
+  assert.equal(r.answeredAt, true, 'answer accepted while the cue plays');
+  assert.equal(await page.evaluate(() => document.getElementById('intro-cue').hidden), true, 'cue goes once answered');
+  // The question did not move when the cue went (no layout shift).
+  await page.click('#quit');
+  await page.click('#start');
+  assert.equal(await page.evaluate(() => document.getElementById('intro-cue').hidden), true, 'cue does not repeat in the same page');
+  // A reload (same profile): no cue.
+  await page.reload();
+  await ready(page);
+  await page.click('#start');
+  assert.equal(await page.evaluate(() => document.getElementById('intro-cue').hidden), true, 'cue does not repeat after a reload');
+  // The cue hides itself after its run.
+  await page.evaluate(() => localStorage.removeItem('quizy-intro-v1'));
+  await page.reload();
+  await ready(page);
+  await page.click('#start');
+  await page.waitForTimeout(3600);
+  assert.equal(await page.evaluate(() => document.getElementById('intro-cue').hidden), true, 'cue hides after ~3.4 s');
+  assert.deepEqual(errors, []);
+  await page.close();
+
+  // Reduced motion: shown without animation.
+  const calm = await browser.newPage({viewport: size, reducedMotion: 'reduce'});
+  await calm.goto(url);
+  await ready(calm);
+  await calm.selectOption('#style', 'single');
+  await calm.click('#start');
+  r.reduced = await calm.evaluate(() => {
+    const n = document.getElementById('intro-cue');
+    return {visible: !n.hidden, animation: getComputedStyle(n).animationName, tap: getComputedStyle(n.querySelector('.intro-tap')).animationName,
+      ping: getComputedStyle(n.querySelector('.intro-dot'), '::after').animationName};
+  });
+  assert.deepEqual(r.reduced, {visible: true, animation: 'none', tap: 'none', ping: 'none'});
+  await calm.close();
+
+  // Blocked storage: the app still works and the cue plays once per page.
+  const blocked = await browser.newPage({viewport: size});
+  const blockedErrors = [];
+  blocked.on('pageerror', e => blockedErrors.push(String(e)));
+  await blocked.addInitScript(() => Object.defineProperty(window, 'localStorage', {get() { throw new DOMException('blocked', 'SecurityError'); }}));
+  await blocked.goto(url);
+  await ready(blocked);
+  await blocked.selectOption('#style', 'single');
+  await blocked.click('#start');
+  assert.equal(await blocked.evaluate(() => !document.getElementById('intro-cue').hidden), true, 'blocked storage: cue shows');
+  await answer(blocked, true);
+  await blocked.click('#quit');
+  await blocked.click('#start');
+  assert.equal(await blocked.evaluate(() => document.getElementById('intro-cue').hidden), true, 'blocked storage: not again in this page');
+  assert.deepEqual(blockedErrors, []);
+  await blocked.close();
+  return r;
+}
+
+async function checkRapid(browser, url, size, tag, reducedMotion) {
+  const page = await browser.newPage({viewport: size, reducedMotion: reducedMotion ? 'reduce' : 'no-preference'});
+  const errors = [];
+  page.on('pageerror', e => errors.push(String(e)));
+  await page.goto(url);
+  await page.evaluate(() => { localStorage.clear(); localStorage.setItem('quizy-intro-v1', 'seen'); });
+  await page.reload();
+  await ready(page);
+  await pickSubject(page, 'nlp');
+  await page.selectOption('#set', 'all');
+  // Choice questions only for the first part.
+  await page.selectOption('#style', 'single');
+  await page.check('#rapid-mode');
+  await page.click('#start');
+  const words = [];
+  let shot = false;
+  for (let n = 0; n < 6; n++) {
+    await settle(page);
+    const index = await page.evaluate(() => Quizy.state.index);
+    await answer(page, true);
+    const pop = await page.evaluate(() => {
+      const p = document.querySelector('#feedback .rapid-pop');
+      if (!p) return null;
+      const box = p.getBoundingClientRect();
+      const verdict = document.querySelector('#feedback .verdict');
+      const choices = [...document.querySelectorAll('#choices .choice')].map(c => c.getBoundingClientRect().toJSON());
+      return {text: p.textContent, ariaHidden: p.getAttribute('aria-hidden'), box: box.toJSON(), choices, animation: getComputedStyle(p).animationName,
+        inVerdict: verdict.contains(p), verdictText: document.querySelector('#feedback .verdict strong').textContent,
+        note: !!document.querySelector('#feedback .study-note'), feedbackVisible: !document.getElementById('feedback').hidden,
+        onScreen: box.top >= 0 && box.bottom <= innerHeight, hscroll: document.documentElement.scrollWidth > document.documentElement.clientWidth};
+    });
+    assert.ok(pop, 'pop on a correct rapid answer');
+    assert.equal(pop.ariaHidden, 'true');
+    assert.equal(pop.inVerdict, true);
+    assert.equal(pop.verdictText, 'Correct!');
+    assert.equal(pop.feedbackVisible, true);
+    assert.equal(pop.hscroll, false);
+    assert.equal(pop.animation, reducedMotion ? 'none' : 'rapid-pop');
+    for (const c of pop.choices) assert.ok(!overlaps(pop.box, c), 'pop covers no option');
+    words.push(pop.text);
+    if (!shot) { await page.screenshot({path: path.join(out, `${tag}-rapid${reducedMotion ? '-reduced' : ''}.png`)}); shot = true; }
+    // The feedback stays for the pause, then the round moves on by itself.
+    await page.waitForTimeout(250);
+    assert.equal(await page.evaluate(i => Quizy.state.index === i && !document.getElementById('feedback').hidden, index), true, 'feedback still shown during the pause');
+    await page.waitForFunction(i => Quizy.state.index > i || !document.getElementById('summary').hidden, index, {timeout: 3000});
+  }
+  for (let i = 1; i < words.length; i++) assert.notEqual(words[i], words[i - 1], 'no word twice in a row');
+
+  // A wrong answer in rapid mode: no pop, "Next" shown.
+  await settle(page);
+  await answer(page, false);
+  assert.equal(await page.evaluate(() => !!document.querySelector('#feedback .rapid-pop')), false, 'no pop for a wrong answer');
+  assert.equal(await page.isVisible('#next'), true);
+  await page.click('#quit');
+
+  // Rapid mode on, typed question answered correctly: no pop (rapid mode skips typed questions).
+  await page.selectOption('#style', 'numeric');
+  await page.click('#start');
+  await answer(page, true);
+  assert.equal(await page.evaluate(() => !!document.querySelector('#feedback .rapid-pop')), false, 'no pop for typed questions');
+  await page.click('#quit');
+
+  // Rapid mode off: no pop for a correct answer.
+  await page.selectOption('#style', 'single');
+  await page.uncheck('#rapid-mode');
+  await page.click('#start');
+  await answer(page, true);
+  assert.equal(await page.evaluate(() => !!document.querySelector('#feedback .rapid-pop')), false, 'no pop outside rapid mode');
+  assert.deepEqual(errors, []);
+  await page.close();
+  return words;
+}
+
+async function checkReset(browser, url, size, tag) {
+  const page = await browser.newPage({viewport: size});
+  const errors = [];
+  page.on('pageerror', e => errors.push(String(e)));
+  await page.goto(url);
+  await ready(page);
+  const ids = await page.evaluate(() => {
+    const nlp = QUIZY_DATA.subjects.find(s => s.key === 'nlp').sets.flatMap(id => QUIZY_DATA.sets[id].questions.map(q => q.id));
+    const dve = QUIZY_DATA.subjects.find(s => s.key === 'dve').sets.flatMap(id => QUIZY_DATA.sets[id].questions.map(q => q.id));
+    return {nlp: nlp.slice(0, 4), dve: dve.slice(0, 2)};
+  });
+  const seed = {
+    nlp: {[ids.nlp[0]]: {correct: false, score: 0, at: 'a'}, [ids.nlp[1]]: {correct: false, score: 0.5, at: 'b'}, [ids.nlp[2]]: {correct: true, score: 1, at: 'c'}, 'no-longer-here': {correct: false, score: 0, at: 'd'}},
+    dve: {[ids.dve[0]]: {correct: false, score: 0, at: 'e'}, [ids.dve[1]]: {correct: true, score: 1, at: 'f'}}
+  };
+  await page.evaluate(seed => {
+    localStorage.clear();
+    localStorage.setItem('quizy-attempts-v2-nlp', JSON.stringify(seed.nlp));
+    localStorage.setItem('quizy-attempts-v2-dve', JSON.stringify(seed.dve));
+    localStorage.setItem('quizy-written-v1-nlp', JSON.stringify({x: 'draft'}));
+    localStorage.setItem('quizy-lectures-v1-nlp', '["5"]');
+    localStorage.setItem('quizy-color-mode-v1', 'light');
+    localStorage.setItem('quizy-intro-v1', 'seen');
+    localStorage.setItem('quizy-last-subject', 'nlp');
+  }, seed);
+  await page.reload();
+  await ready(page);
+  const snapshot = () => page.evaluate(() => Object.fromEntries(Object.keys(localStorage).sort().map(k => [k, localStorage.getItem(k)])));
+  const before = await snapshot();
+  const stat = () => page.evaluate(() => ({count: document.getElementById('review-count').textContent, correct: document.getElementById('correct-count').textContent,
+    button: !document.getElementById('reset-wrong').hidden, open: document.getElementById('reset-dialog').open}));
+  assert.deepEqual(await stat(), {count: '2', correct: '1', button: true, open: false});
+  const button = await page.evaluate(() => document.getElementById('reset-wrong').getBoundingClientRect().toJSON());
+  assert.ok(button.height >= 44 && button.width >= 44, `reset button ${button.width}x${button.height}`);
+
+  // Cancel (button), then Escape: nothing changes.
+  await page.click('#reset-wrong');
+  const dialog = await page.evaluate(() => ({open: document.getElementById('reset-dialog').open, title: document.getElementById('reset-title').textContent,
+    detail: document.getElementById('reset-detail').textContent, focus: document.activeElement.textContent,
+    buttons: [...document.querySelectorAll('#reset-dialog button')].map(b => ({text: b.textContent, h: b.getBoundingClientRect().height, w: b.getBoundingClientRect().width}))}));
+  await page.screenshot({path: path.join(out, `${tag}-reset-dialog.png`)});
+  assert.equal(dialog.open, true);
+  assert.equal(dialog.title, 'Reset wrong answers?');
+  assert.match(dialog.detail, /2 NLP questions you got wrong or only partly right/);
+  assert.equal(dialog.focus, 'Cancel', 'Cancel has focus first');
+  assert.deepEqual(dialog.buttons.map(b => b.text), ['Cancel', 'Reset']);
+  for (const b of dialog.buttons) assert.ok(b.h >= 44 && b.w >= 44, `${b.text} ${b.w}x${b.h}`);
+  await page.click('#reset-dialog button[value=cancel]');
+  assert.deepEqual(await stat(), {count: '2', correct: '1', button: true, open: false});
+  assert.equal(await page.evaluate(() => document.activeElement.id), 'reset-wrong', 'focus back on the button');
+  await page.click('#reset-wrong');
+  await page.keyboard.press('Escape');
+  assert.deepEqual(await stat(), {count: '2', correct: '1', button: true, open: false});
+  assert.deepEqual(await snapshot(), before, 'cancel and Escape change nothing');
+
+  // Reset: only NLP's two wrong attempts go; everything else in storage stays.
+  await page.click('#reset-wrong');
+  await page.click('#reset-dialog button[value=reset]');
+  await page.waitForTimeout(100);
+  assert.deepEqual(await stat(), {count: '0', correct: '1', button: false, open: false});
+  const after = await snapshot();
+  const expected = {...before, 'quizy-attempts-v2-nlp': JSON.stringify({[ids.nlp[2]]: seed.nlp[ids.nlp[2]], 'no-longer-here': seed.nlp['no-longer-here']})};
+  assert.deepEqual(after, expected);
+  const status = await page.evaluate(() => ({text: document.getElementById('reset-status').textContent, focus: document.activeElement.id}));
+  assert.deepEqual(status, {text: 'Reset 2 wrong answers.', focus: 'review-stat'});
+  // "Only ones I got wrong" now has nothing to start.
+  await page.selectOption('#mode', 'review');
+  assert.match(await page.textContent('#bank-note'), /^0 questions/);
+  await page.selectOption('#mode', 'all');
+
+  // DVE still has its wrong answer; after a reload it is all still saved.
+  await pickSubject(page, 'dve');
+  assert.deepEqual(await stat(), {count: '1', correct: '1', button: true, open: false});
+  await page.reload();
+  await ready(page);
+  await pickSubject(page, 'nlp');
+  assert.deepEqual(await stat(), {count: '0', correct: '1', button: false, open: false});
+
+  // On the summary screen: a wrong answer in a round shows the button there too, and it works.
+  await page.selectOption('#set', 'all');
+  await page.selectOption('#style', 'single');
+  await page.click('#start');
+  const n = await page.evaluate(() => Quizy.state.round.length);
+  for (let i = 0; i < n; i++) {
+    await answer(page, i > 0);
+    await page.click('#next');
+  }
+  await settle(page);
+  assert.equal(await page.isVisible('#summary'), true);
+  const onSummary = await stat();
+  assert.equal(onSummary.button, true);
+  await page.click('#reset-wrong');
+  await page.click('#reset-dialog button[value=reset]');
+  await page.waitForTimeout(100); // the dialog's close event is fired asynchronously
+  assert.equal((await stat()).button, false);
+  assert.deepEqual(errors, []);
+  await page.close();
+}
+
+// Sticky Check / Next and the scroll to the verdict on phones; static on desktop.
+async function checkSticky(browser, url, size, phone) {
+  const page = await browser.newPage({viewport: size});
+  await page.goto(url);
+  await page.evaluate(() => { localStorage.clear(); localStorage.setItem('quizy-intro-v1', 'seen'); });
+  await page.reload();
+  await ready(page);
+  await pickSubject(page, 'nlp');
+  await page.selectOption('#set', 'all');
+  await page.selectOption('#style', 'multi');
+  await page.click('#start');
+  const pos = await page.evaluate(() => getComputedStyle(document.getElementById('check')).position);
+  assert.equal(pos, phone ? 'sticky' : 'static');
+  let checked = 0;
+  for (let i = 0; i < 8; i++) {
+    await settle(page);
+    const view = await page.evaluate(() => ({check: document.getElementById('check').getBoundingClientRect().toJSON(), vh: innerHeight}));
+    if (phone) assert.ok(view.check.bottom <= view.vh, 'Check answer on screen');
+    await answer(page, true);
+    await settle(page);
+    const after = await page.evaluate(() => ({verdict: document.querySelector('#feedback .verdict').getBoundingClientRect().toJSON(),
+      next: document.getElementById('next').getBoundingClientRect().toJSON(), vh: innerHeight}));
+    if (phone) {
+      assert.ok(after.next.bottom <= after.vh && after.next.top >= 0, 'Next on screen');
+      assert.ok(after.verdict.top >= 0 && after.verdict.bottom <= after.next.top, 'verdict on screen, above Next');
+    }
+    checked++;
+    if (!(await page.evaluate(() => document.getElementById('next').textContent.startsWith('Next')))) break;
+    await page.click('#next');
+  }
+  await page.close();
+  return checked;
+}
+
+(async () => {
+  const browser = await chromium.launch({channel: 'msedge'});
+  const server = await serve();
+  const fileUrl = 'file:///' + repo.replace(/\\/g, '/') + '/index.html';
+  const httpUrl = `http://localhost:${server.address().port}/`;
+  for (const [scheme, url] of [['file', fileUrl], ['http', httpUrl]]) {
+    for (const [w, h] of [[375, 667], [1280, 800]]) {
+      const tag = `${scheme}-${w}`;
+      const size = {width: w, height: h};
+      await checkIntro(browser, url, size, tag);
+      const words = await checkRapid(browser, url, size, tag, false);
+      await checkRapid(browser, url, size, tag, true);
+      await checkReset(browser, url, size, tag);
+      const sticky = await checkSticky(browser, url, size, w < 700);
+      console.log(`${tag}: intro ✓ · rapid ✓ (${words.join(' ')}) · reduced motion ✓ · reset ✓ · check/next (${sticky} multi) ✓`);
+    }
+  }
+  server.close();
+  await browser.close();
+  console.log('mobile checks passed');
+})().catch(e => { console.error(e); process.exit(1); });
+```
+
+## fit.cjs
+
+How much of each question fits on one phone screen, over `file://` at 360×640, 375×667, 390×844 and 412×915: every question of "Everything in NLP" and the first 60 DVE questions (`?seed=7`). For each question, after the scroll settles, it counts it as fitting when every option or input is above "Check answer" (or above the bottom edge for tap types) and the button is on screen; it then answers correctly and counts whether the verdict is on screen above "Next". `MISSES=1` lists the questions that don't fit with how many pixels they run over. It is a measurement, not a pass/fail check: compare the numbers before and after a layout change.
+
+Results on 2026-10-26 (`main` → `feature/mobile-quiz-polish`), options + button on one screen / verdict + Next on screen after answering:
+
+| Size | NLP (171) | DVE (60) |
+|---|---|---|
+| 360×640 | 96 → 127 / 0 → 171 | 54 → 60 / 0 → 60 |
+| 375×667 | 118 → 133 / 0 → 171 | 58 → 60 / 0 → 60 |
+| 390×844 | 140 → 146 / 34 → 171 | 60 → 60 / 0 → 60 |
+| 412×915 | 146 → 152 / 47 → 171 | 60 → 60 / 26 → 60 |
+
+The questions that still need scrolling at 375×667 are `label` diagrams (the image alone is most of a screen), long `match` questions, multi-part `numeric` questions and `multi` questions with long options or an image; "Check answer" stays reachable on all of them because it is sticky.
+
+```js
+// Phone fit audit: node fit.cjs <repoDir> [label]   (MISSES=1 lists the questions that don't fit)
+// For every question of NLP (Everything in NLP) and the first 60 DVE questions, at four phone sizes,
+// measures after the scroll settles whether the question, its inputs and the primary control fit in the
+// viewport, then answers it correctly and checks whether the verdict and "Next" fit too.
+const path = require('node:path');
+const {chromium} = require('playwright-core');
+const repo = path.resolve(process.argv[2]);
+const label = process.argv[3] || 'run';
+const SIZES = [[360, 640], [375, 667], [390, 844], [412, 915]];
+
+async function settle(page) {
+  await page.evaluate(async () => {
+    let last = -1, same = 0;
+    for (let i = 0; i < 100 && same < 6; i++) {
+      await new Promise(r => setTimeout(r, 50));
+      if (window.scrollY === last) same++; else { same = 0; last = window.scrollY; }
+    }
+  });
+}
+
+const measure = () => {
+  const r = id => { const n = document.getElementById(id); if (!n || n.hidden || !n.offsetParent) return null; const b = n.getBoundingClientRect(); return {top: b.top, bottom: b.bottom}; };
+  const choices = document.getElementById('choices');
+  const last = choices.lastElementChild ? choices.lastElementChild.getBoundingClientRect().bottom : null;
+  const item = Quizy.state.round[Quizy.state.index];
+  return {id: item.q.id, type: item.q.type, len: item.q.question.length, img: !!item.q.image, vh: innerHeight,
+    quiz: r('quiz'), question: r('question'), choicesBottom: last, check: r('check'), feedback: r('feedback'), next: r('next'),
+    verdict: document.querySelector('#feedback:not([hidden]) .verdict')?.getBoundingClientRect().bottom ?? null,
+    hscroll: document.documentElement.scrollWidth > document.documentElement.clientWidth, scrollY};
+};
+
+const answer = () => {
+  const item = Quizy.state.round[Quizy.state.index];
+  const q = item.q;
+  const c = document.getElementById('choices');
+  if (q.type === 'single' || q.type === 'truefalse') return [...c.children].find(b => q.answer.includes(Number(b.dataset.original))).click();
+  if (q.type === 'multi') { for (const box of c.querySelectorAll('input')) if (q.answer.includes(Number(box.value))) { box.checked = true; box.dispatchEvent(new Event('change')); } }
+  else if (q.type === 'match' || q.type === 'label') {
+    const list = q.type === 'match' ? q.pairs : q.labels;
+    for (const row of c.querySelectorAll('[data-original]')) {
+      const s = row.querySelector('select');
+      s.value = String(q.options.indexOf(list[Number(row.dataset.original)].answer));
+      s.dispatchEvent(new Event('change'));
+    }
+  } else if (q.type === 'short') { const i = c.querySelector('input'); i.value = q.accept[0]; i.dispatchEvent(new Event('input')); }
+  else if (q.type === 'numeric') { c.querySelectorAll('input').forEach((i, k) => { i.value = String(q.parts[k].answer); i.dispatchEvent(new Event('input')); }); }
+  else if (q.type === 'written') { /* reveal step */ }
+  const check = document.getElementById('check');
+  check.disabled = false;
+  check.click();
+  if (q.type === 'written') document.querySelector('#choices button, #choices .primary')?.click();
+};
+
+(async () => {
+  const browser = await chromium.launch({channel: 'msedge'});
+  const results = {};
+  for (const [w, h] of SIZES) {
+    const page = await browser.newPage({viewport: {width: w, height: h}, isMobile: true, hasTouch: true});
+    const errors = [];
+    page.on('pageerror', e => errors.push(String(e)));
+    for (const subject of ['nlp', 'dve']) {
+      await page.goto('file:///' + repo.replace(/\\/g, '/') + '/index.html?seed=7');
+      await page.evaluate(() => { localStorage.clear(); localStorage.setItem('quizy-intro-v1', 'seen'); });
+      await page.reload();
+      await page.waitForSelector('.subject-tab[aria-pressed=true]', {state: 'attached'});
+      if (await page.isVisible('#menu-toggle')) await page.click('#menu-toggle');
+      await page.click(`.subject-tab[data-key=${subject}]`);
+      if (subject === 'nlp') await page.selectOption('#set', 'all');
+      await page.click('#start');
+      const rows = [];
+      const limit = subject === 'dve' ? 60 : 1000;
+      for (let n = 0; n < limit; n++) {
+        await settle(page);
+        const before = await page.evaluate(measure);
+        await page.evaluate(answer);
+        await page.waitForTimeout(30);
+        await settle(page);
+        const after = await page.evaluate(measure);
+        rows.push({before, after});
+        const more = await page.evaluate(() => !document.getElementById('next').hidden && document.getElementById('next').textContent.startsWith('Next'));
+        if (!more) break;
+        await page.click('#next');
+      }
+      results[`${subject}@${w}x${h}`] = rows;
+    }
+    if (errors.length) console.log('errors', w, errors);
+    await page.close();
+  }
+  await browser.close();
+  // Summary per size/subject.
+  for (const [key, rows] of Object.entries(results)) {
+    let fitAsk = 0, fitAfter = 0, hs = 0, qTopMax = 0;
+    const misses = [];
+    for (const {before: b, after: a} of rows) {
+      // Every option above the (possibly sticky) check button, and the button on screen.
+      const control = b.check ? Math.max(b.check.bottom, b.choicesBottom + (b.check.bottom - b.check.top)) : b.choicesBottom;
+      const fits = b.check ? b.choicesBottom <= b.check.top + .5 && b.check.bottom <= b.vh + .5 : b.choicesBottom <= b.vh + .5;
+      if (fits) fitAsk++; else misses.push(`${b.id}(${b.type},${b.len}${b.img ? ',img' : ''}) +${Math.max(0, Math.round(control - b.vh))}`);
+      if (a.verdict !== null && a.verdict <= (a.next ? a.next.top : a.vh) && (!a.next || a.next.bottom <= a.vh)) fitAfter++;
+      if (b.hscroll || a.hscroll) hs++;
+      qTopMax = Math.max(qTopMax, b.question.top);
+    }
+    console.log(`${label} ${key}: ${rows.length} q · inputs+control fit ${fitAsk}/${rows.length} · verdict+next fit after answering ${fitAfter}/${rows.length} · question top max ${Math.round(qTopMax)} · hscroll ${hs}`);
+    if (process.env.MISSES) console.log('  misses:', misses.slice(0, 40).join(' '));
+  }
+  require('node:fs').writeFileSync(`fit-${label}.json`, JSON.stringify(results));
+})();
 ```

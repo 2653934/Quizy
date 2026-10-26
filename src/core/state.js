@@ -65,6 +65,24 @@
     };
   };
 
+  // The comic burst shown on a rapid-mode correct answer: any word but the one shown last.
+  // Decoration only, so it uses Math.random and never draws from a seeded round's generator.
+  Quizy.CELEBRATIONS = ['BAM!', 'BOOM!', 'WOW!', 'AWESOME!', 'KAPOW!', 'NAILED IT!', 'ZING!', 'YES!'];
+  Quizy.pickCelebration = function (previous, random = Math.random) {
+    const words = Quizy.CELEBRATIONS.filter(word => word !== previous);
+    return words[Math.min(words.length - 1, Math.floor(random() * words.length))];
+  };
+
+  // "Reset wrong answers": the subject's questions whose latest attempt was not fully correct
+  // (the "Needs another look" count). Removing those attempts makes the questions unanswered again;
+  // correct attempts, and attempts for questions no longer in the bank, are kept.
+  Quizy.wrongQuestionIds = (questions, attempts) => questions.filter(q => attempts[q.id]?.correct === false).map(q => q.id);
+  Quizy.resetWrong = function () {
+    const ids = Quizy.wrongQuestionIds(Quizy.allQuestions(), state.attempts);
+    for (const id of ids) delete state.attempts[id];
+    return ids;
+  };
+
   Quizy.currentItem = () => state.round[state.index];
 
   // During a mock paper, the section the current question is in; otherwise null.

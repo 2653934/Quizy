@@ -33,15 +33,23 @@
   }
 
   [data-view=quiz] main {
-    padding-top: 10px;
+    padding-top: 8px;
   }
 
+  /* The top bar already names the subject, so the course line would only repeat it. */
   [data-view=quiz] .topline {
-    margin-bottom: 8px;
+    display: none;
   }
 
+  [data-view=quiz] #quiz,
+  [data-view=quiz] #interlude {
+    margin-top: 0;
+  }
+
+  /* Only the top and bottom shrink: label diagrams bleed edge to edge with the 16px side padding. */
   [data-view=quiz] #quiz {
-    margin-top: 14px;
+    padding-top: 6px;
+    padding-bottom: 14px;
   }
 }
 

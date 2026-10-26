@@ -19,6 +19,7 @@
     const mode = MODES[view] || view;
     ui.lockSubjectTabs(mode === 'quiz');
     ui.closeMenu(false);
+    if (mode !== 'quiz') ui.hideIntro?.();
     // styles/views.css hides the hero and stats and compacts the header while body[data-view=quiz] (and browse).
     document.body.dataset.view = mode;
     if (top === undefined) window.scrollTo({top: 0, behavior: scrollBehavior()});
