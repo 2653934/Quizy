@@ -236,4 +236,27 @@ test('rapid mode is opt-in and only recognises choice-based questions', () => {
   assert.equal(Quizy.shouldRapidAdvance({type: 'multi', marks: 2}, 1, true), false, 'partial answers pause');
   assert.equal(Quizy.shouldRapidAdvance({type: 'single'}, 1, false), false, 'mode is opt-in');
   assert.equal(Quizy.shouldRapidAdvance({type: 'short'}, 1, true), false, 'typed answers pause');
+  assert.equal(Quizy.shouldRapidAdvance({type: 'single'}, 0, true), false, 'wrong answers pause');
+  assert.equal(Quizy.shouldRapidAdvance({type: 'truefalse'}, 1, true), true);
+});
+
+test('rapid advance ticket is single-use and invalid after navigation or another round', () => {
+  const gate = Quizy.createRapidAdvanceGate();
+  const first = {round: [{}], index: 0, answered: true};
+  const ticket = gate.begin(first);
+  assert.equal(gate.isCurrent(ticket, first), true);
+  assert.equal(gate.consume(ticket, first), true);
+  assert.equal(gate.consume(ticket, first), false, 'a repeated callback cannot skip a question');
+
+  const staleIndex = gate.begin(first);
+  assert.equal(gate.isCurrent(staleIndex, {...first, index: 1}), false);
+  assert.equal(gate.isCurrent(staleIndex, {...first, answered: false}), false);
+  assert.equal(gate.isCurrent(staleIndex, {...first, round: [{}]}), false, 'a new round at the same index is different');
+
+  gate.cancel();
+  assert.equal(gate.consume(staleIndex, first), false, 'quitting invalidates the timer');
+  const previous = gate.begin(first);
+  const latest = gate.begin(first);
+  assert.equal(gate.consume(previous, first), false, 'a later transition supersedes the old one');
+  assert.equal(gate.consume(latest, first), true);
 });

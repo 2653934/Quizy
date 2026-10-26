@@ -20,6 +20,24 @@
   line-height: 1.35;
 }
 
+#question-stage, #summary {
+  transition: opacity 240ms ease, transform 240ms ease;
+}
+
+#question-stage.rapid-exit {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+#question-stage.rapid-enter, #summary.rapid-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #question-stage, #summary { transition: none; }
+}
+
 /* Choices (single, truefalse, multi) */
 .choices {
   display: grid;

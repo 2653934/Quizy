@@ -139,11 +139,12 @@
         <textarea id="answer-fallback" class="ask-fallback" readonly rows="6" aria-label="Prompt for Claude" hidden></textarea>
       </section>
       <section id="quiz" class="panel" hidden>
+        <div id="question-stage">
         <div id="paper-bar" class="paper-bar" hidden></div>
-        <div class="quiz-top"><span id="position" class="eyebrow"></span><button id="quit" class="quiet">End round</button></div>
+        <div class="quiz-top"><span id="position" class="eyebrow" role="status" aria-live="polite"></span><button id="quit" class="quiet">End round</button></div>
         <progress id="progress" value="0" max="1" aria-label="Quiz progress"></progress>
         <div id="source" class="source"></div>
-        <h2 id="question" class="question"></h2>
+        <h2 id="question" class="question" tabindex="-1"></h2>
         <figure id="figure" class="figure" hidden><a id="figure-link" target="_blank" rel="noopener"><img id="figure-img" alt=""></a><figcaption>Tap the image to open it full size.</figcaption></figure>
         <div id="hints" class="hints"></div>
         <div id="choices" class="choices"></div>
@@ -155,10 +156,11 @@
           <textarea id="ask-fallback" class="ask-fallback" readonly rows="6" aria-label="Prompt for Claude" hidden></textarea>
         </div>
         <button id="next" class="primary" hidden>Next question ↗</button>
+        </div>
       </section>
       <section id="interlude" class="panel" hidden>
         <div id="interlude-code" class="eyebrow"></div>
-        <h2 id="interlude-title"></h2>
+        <h2 id="interlude-title" tabindex="-1"></h2>
         <p id="interlude-detail"></p>
         <div class="start-row">
           <button id="continue" class="primary"></button>
@@ -167,7 +169,7 @@
       </section>
       <section id="summary" class="panel" hidden>
         <div id="summary-eyebrow" class="eyebrow">Round complete</div>
-        <h2 id="summary-title"></h2>
+        <h2 id="summary-title" tabindex="-1"></h2>
         <p id="summary-detail"></p>
         <div id="paper-result" class="paper-result" hidden>
           <dl id="paper-scores" class="paper-scores"></dl>

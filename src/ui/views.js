@@ -8,6 +8,7 @@
   // body[data-view] for each panel: the interlude is still part of the round, so it looks like the quiz view,
   // and the answer view is part of browsing.
   const MODES = {interlude: 'quiz', answer: 'browse'};
+  const scrollBehavior = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
 
   ui.view = 'setup';
 
@@ -19,7 +20,7 @@
     ui.lockSubjectTabs(mode === 'quiz');
     // styles/views.css hides the hero and stats and compacts the header while body[data-view=quiz] (and browse).
     document.body.dataset.view = mode;
-    if (top === undefined) window.scrollTo({top: 0, behavior: 'smooth'});
+    if (top === undefined) window.scrollTo({top: 0, behavior: scrollBehavior()});
     else window.scrollTo({top, behavior: 'instant'});
   };
 })(window.Quizy = window.Quizy || {});

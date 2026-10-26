@@ -5,8 +5,11 @@
 (function (Quizy) {
   const ui = Quizy.ui = Quizy.ui || {};
   const {$, el, richEl, richText, shuffle, plural, formatMarks, marksOf, isFull, state, storage} = Quizy;
-  const RAPID_ADVANCE_MS = 650;
+  const RAPID_FEEDBACK_MS = 420;
+  const RAPID_PHASE_MS = 240;
+  const rapidGate = Quizy.createRapidAdvanceGate();
   let rapidTimer = null;
+  let rapidRun = 0;
 
   const typeOf = q => Quizy.types[q.type];
 
@@ -16,7 +19,73 @@
   ui.cancelRapidAdvance = function () {
     clearTimeout(rapidTimer);
     rapidTimer = null;
+    rapidGate.cancel();
+    rapidRun++;
+    $('question-stage').classList.remove('rapid-exit', 'rapid-enter');
+    $('summary').classList.remove('rapid-enter');
   };
+
+  const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function bringQuizIntoView() {
+    const top = $('quiz').getBoundingClientRect().top;
+    if (top < 0 || top > window.innerHeight * .4) {
+      $('quiz').scrollIntoView({behavior: reducedMotion() ? 'instant' : 'smooth', block: 'start'});
+    }
+  }
+
+  function focusQuestion() { $('question').focus({preventScroll: true}); }
+
+  function advanceQuestion(rapid = false) {
+    if (!Quizy.nextItem()) {
+      ui.showSummary();
+      if (rapid) {
+        $('summary').classList.add('rapid-enter');
+        void $('summary').offsetHeight;
+        $('summary').classList.remove('rapid-enter');
+      }
+      $('summary-title').focus({preventScroll: true});
+      return false;
+    }
+    // A mock paper pauses between sections.
+    if (Quizy.currentSection()?.start === state.index) {
+      ui.showInterlude();
+      $('interlude-title').focus({preventScroll: true});
+      return false;
+    }
+    drawQuestion();
+    bringQuizIntoView();
+    if (!rapid) focusQuestion();
+    return true;
+  }
+
+  function rapidAdvance() {
+    const ticket = rapidGate.begin(state);
+    const run = ++rapidRun;
+    const active = () => run === rapidRun && ui.view === 'quiz' && rapidGate.isCurrent(ticket, state);
+    // Leave the marked answer visible long enough to register before moving the whole area.
+    rapidTimer = setTimeout(() => {
+      if (!active()) return;
+      if (reducedMotion()) {
+        if (rapidGate.consume(ticket, state)) advanceQuestion();
+        return;
+      }
+      $('question-stage').classList.add('rapid-exit');
+      rapidTimer = setTimeout(() => {
+        if (!active() || !rapidGate.consume(ticket, state)) return;
+        $('question-stage').classList.remove('rapid-exit');
+        const hasQuestion = advanceQuestion(true);
+        if (!hasQuestion) return;
+        $('question-stage').classList.add('rapid-enter');
+        void $('question-stage').offsetHeight;
+        $('question-stage').classList.remove('rapid-enter');
+        rapidTimer = setTimeout(() => {
+          if (run === rapidRun && ui.view === 'quiz') focusQuestion();
+          rapidTimer = null;
+        }, RAPID_PHASE_MS);
+      }, RAPID_PHASE_MS);
+    }, RAPID_FEEDBACK_MS);
+  }
 
   ui.startRound = function (set, questions, options = {rapidMode: $('rapid-mode').checked}) {
     ui.cancelRapidAdvance();
@@ -55,7 +124,6 @@
   }
 
   function drawQuestion() {
-    ui.cancelRapidAdvance();
     const {round, index} = state;
     const item = Quizy.currentItem();
     const q = item.q;
@@ -115,12 +183,11 @@
     if (!rapid) return $('next').focus({preventScroll: true});
 
     $('feedback').querySelector('.verdict').append(el('span', 'rapid-advance', state.index === state.round.length - 1 ? 'Showing results…' : 'Next question…'));
-    const answeredIndex = state.index;
-    rapidTimer = setTimeout(() => {
-      rapidTimer = null;
-      // Quitting or starting another round during the short pause must not advance that new view.
-      if (ui.view === 'quiz' && state.answered && state.index === answeredIndex) ui.next();
-    }, RAPID_ADVANCE_MS);
+    if (reducedMotion()) {
+      advanceQuestion();
+    } else {
+      rapidAdvance();
+    }
   }
 
   // Verdict and marks, then any type-specific notes (e.g. a worked solution), the study note,
@@ -174,11 +241,7 @@
   ui.next = function () {
     if (!state.answered) return;
     ui.cancelRapidAdvance();
-    if (!Quizy.nextItem()) return ui.showSummary();
-    // A mock paper pauses between sections.
-    if (Quizy.currentSection()?.start === state.index) return ui.showInterlude();
-    drawQuestion();
-    $('quiz').scrollIntoView({behavior: 'smooth', block: 'start'});
+    advanceQuestion();
   };
 
   // "On to theory" after the interlude.

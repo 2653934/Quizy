@@ -43,6 +43,28 @@
   Quizy.isRapidQuestion = q => ['single', 'truefalse', 'multi'].includes(q?.type);
   Quizy.shouldRapidAdvance = (q, score, enabled) => enabled === true && Quizy.isRapidQuestion(q) && Quizy.isFull(score, q);
 
+  // A delayed transition belongs to one answered question in one round. Invalidate it on
+  // navigation, and allow its advance step to be consumed only once.
+  Quizy.createRapidAdvanceGate = function () {
+    let generation = 0;
+    return {
+      cancel() { generation++; },
+      begin(current) {
+        const ticket = {generation: ++generation, round: current.round, index: current.index, used: false};
+        return ticket;
+      },
+      isCurrent(ticket, current) {
+        return ticket.generation === generation && ticket.round === current.round
+          && ticket.index === current.index && current.answered && !ticket.used;
+      },
+      consume(ticket, current) {
+        if (!this.isCurrent(ticket, current)) return false;
+        ticket.used = true;
+        return true;
+      }
+    };
+  };
+
   Quizy.currentItem = () => state.round[state.index];
 
   // During a mock paper, the section the current question is in; otherwise null.
