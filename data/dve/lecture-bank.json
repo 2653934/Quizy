@@ -22436,6 +22436,3489 @@
         2
       ],
       "explanation": "The conclusion returns to careful exploration and baseline comparison."
+    },
+    {
+      "id": "L1-021",
+      "lecture": 1,
+      "concept": "Exploration motivation",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why has data exploration become increasingly important in a data-driven world?",
+      "choices": [
+        "Large volumes of collected data must be made understandable",
+        "All collected data is already ready for modelling",
+        "Visualisation removes the need for analysis",
+        "Every dataset has a natural cluster"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Bulk collection creates a need to make sense of the resulting data."
+    },
+    {
+      "id": "L1-022",
+      "lecture": 1,
+      "concept": "Exploration motivation",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which method is presented as especially effective for exploring collected data?",
+      "choices": [
+        "Random deletion",
+        "Feature duplication",
+        "Ignoring the distribution",
+        "Visualisation"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The lecture describes visualisation as probably the best exploration method."
+    },
+    {
+      "id": "L1-023",
+      "lecture": 1,
+      "concept": "Data preparation effort",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What activity does the lecture suggest may occupy most of a data practitioner’s work?",
+      "choices": [
+        "Writing only final reports",
+        "Collecting class labels after deployment",
+        "Cleaning and exploring data",
+        "Choosing a model name"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The motivation slide emphasises the large practical effort spent preparing and understanding data."
+    },
+    {
+      "id": "L1-024",
+      "lecture": 1,
+      "concept": "Machine-learning definition",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Under Tom Mitchell’s definition, when is a program said to learn?",
+      "choices": [
+        "It uses more features than observations",
+        "Its performance on tasks improves with experience",
+        "It stores a dataset without changing performance",
+        "It produces a visualisation"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Learning is defined through improvement on a task and performance measure with experience."
+    },
+    {
+      "id": "L1-025",
+      "lecture": 1,
+      "concept": "Machine-learning definition",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which three elements appear in the formal definition of machine learning?",
+      "choices": [
+        "Experience, tasks and a performance measure",
+        "Mean, median and mode",
+        "Latitude, longitude and altitude",
+        "Encoder, decoder and bottleneck"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The definition uses experience E, tasks T and performance measure P."
+    },
+    {
+      "id": "L1-026",
+      "lecture": 1,
+      "concept": "Exploration checks",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why should outliers be investigated before modelling?",
+      "choices": [
+        "They always prove the data is fraudulent",
+        "They must always be removed",
+        "They guarantee a better model",
+        "They can alter an algorithm’s behaviour and conclusions"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Exploration asks both whether outliers exist and how they may affect the algorithm."
+    },
+    {
+      "id": "L1-027",
+      "lecture": 1,
+      "concept": "Exploration checks",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is checking missing values part of data exploration?",
+      "choices": [
+        "They can always be replaced with zero safely",
+        "They reveal the target label automatically",
+        "Their pattern and treatment can affect later analysis",
+        "Missing values never influence an algorithm"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Missingness can change the usable sample and bias analysis."
+    },
+    {
+      "id": "L1-028",
+      "lecture": 1,
+      "concept": "Exploration checks",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What additional question does the lecture suggest asking about observed patterns?",
+      "choices": [
+        "Whether the model has the maximum number of layers",
+        "Whether they are statistically significant",
+        "Whether every feature can be renamed",
+        "Whether all plots use the same colour"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Apparent patterns should be evaluated rather than accepted visually without evidence."
+    },
+    {
+      "id": "L1-029",
+      "lecture": 1,
+      "concept": "Visualisation goals",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What can visual patterns help an analyst understand?",
+      "choices": [
+        "How variables behave and what may be predictable",
+        "The guaranteed causal mechanism",
+        "The exact future value of every observation",
+        "Only the number of rows"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Plots can reveal structure in variables and possible predictive relationships."
+    },
+    {
+      "id": "L1-030",
+      "lecture": 1,
+      "concept": "Visualisation goals",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Besides understanding data, what broader goals are listed for visualisation?",
+      "choices": [
+        "Guaranteeing causation and accuracy",
+        "Deleting outliers and labels",
+        "Replacing all statistical tests",
+        "Motivating and capturing ideas"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The stated goal is to make sense of data, motivate, and capture ideas."
+    },
+    {
+      "id": "L1-031",
+      "lecture": 1,
+      "concept": "Curse of dimensionality",
+      "source": {
+        "file": "IDVE_Lecture_1_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which pair of difficulties is linked to thousands of dimensions?",
+      "choices": [
+        "Every feature becomes strongly relevant",
+        "Models no longer require data",
+        "Visualisation becomes difficult and overfitting becomes easier",
+        "Visualisation becomes exact and overfitting disappears"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The curse of dimensionality affects both human inspection and generalisation."
+    },
+    {
+      "id": "L2-112",
+      "lecture": 2,
+      "concept": "Descriptive statistics",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which limitation can descriptive statistics have even when their values are correct?",
+      "choices": [
+        "They can hide the shape of the distribution",
+        "They always reveal multimodality",
+        "They guarantee normality",
+        "They remove special values"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Summary numbers can conceal skew, multiple modes and other distributional structure."
+    },
+    {
+      "id": "L2-113",
+      "lecture": 2,
+      "concept": "Descriptive statistics",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which assumption about real data does the lecture warn against?",
+      "choices": [
+        "That it can contain missing values",
+        "That plots may help interpretation",
+        "That statistics offer a quick overview",
+        "That it is usually normally distributed"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Real distributions are often skewed or otherwise non-normal."
+    },
+    {
+      "id": "L2-114",
+      "lecture": 2,
+      "concept": "Descriptive statistics",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the range of a numerical feature describe?",
+      "choices": [
+        "Its middle-ranked value only",
+        "Its number of categories",
+        "Its minimum-to-maximum span",
+        "Its most frequent value"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The range runs from the observed minimum to the maximum."
+    },
+    {
+      "id": "L2-115",
+      "lecture": 2,
+      "concept": "Skewness",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "For the lecture’s unimodal negatively skewed example, how are mean and mode ordered?",
+      "choices": [
+        "Neither can be defined",
+        "Mean is less than mode",
+        "Mean equals mode in every case",
+        "Mean is greater than mode"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "A long left tail pulls the mean below the mode."
+    },
+    {
+      "id": "L2-116",
+      "lecture": 2,
+      "concept": "Skewness",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "For the lecture’s unimodal positively skewed example, how are mean and mode ordered?",
+      "choices": [
+        "Mean is greater than mode",
+        "Mean is less than mode",
+        "Mean must equal mode",
+        "Mode must be zero"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A long right tail pulls the mean above the mode."
+    },
+    {
+      "id": "L2-117",
+      "lecture": 2,
+      "concept": "Kurtosis",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does kurtosis describe relative to a normal distribution?",
+      "choices": [
+        "Only left-right asymmetry",
+        "The direction of correlation",
+        "The number of histogram bins",
+        "Tail heaviness and the presence or lack of extreme values"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Kurtosis concerns heavy or light tails and associated outliers."
+    },
+    {
+      "id": "L2-118",
+      "lecture": 2,
+      "concept": "Plots",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why should a distribution visualisation accompany body-mass summary statistics?",
+      "choices": [
+        "It removes all unusual observations",
+        "It makes the mean equal the median",
+        "It reveals the distribution’s shape as well as its location and spread",
+        "It proves the species causes body mass"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "A distribution view exposes structure that a list of descriptive values can obscure."
+    },
+    {
+      "id": "L2-119",
+      "lecture": 2,
+      "concept": "Dendrograms",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the x-axis of a dendrogram usually identify?",
+      "choices": [
+        "Time in seconds",
+        "The individual dataset entries",
+        "The distance at which clusters join",
+        "The probability density"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Leaves along the x-axis correspond to explicit observations."
+    },
+    {
+      "id": "L2-120",
+      "lecture": 2,
+      "concept": "Charts",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What addition can a bar chart use to communicate uncertainty or variation?",
+      "choices": [
+        "Error bars",
+        "A spatial lag",
+        "A Fourier transform",
+        "A bottleneck layer"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The charts slide explicitly notes that bar charts can display error bars."
+    },
+    {
+      "id": "L2-121",
+      "lecture": 2,
+      "concept": "Penguin example",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          27
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which two penguin measurements are described as providing useful linear separation?",
+      "choices": [
+        "Body mass and row number",
+        "Island name and record ID",
+        "Sex and filename",
+        "Flipper length and bill length"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The lecture identifies flipper length and bill length as linearly separable."
+    },
+    {
+      "id": "L2-122",
+      "lecture": 2,
+      "concept": "Penguin example",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          27
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why does the lecture suggest clustering may work on the penguin data?",
+      "choices": [
+        "The data contains no categories",
+        "Every point lies at the same coordinate",
+        "Several feature relationships visibly separate groups",
+        "All variables have identical distributions"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Visible group structure indicates that clustering could recover meaningful groupings."
+    },
+    {
+      "id": "L2-123",
+      "lecture": 2,
+      "concept": "Mean imputation",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          33
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What statistic remains unchanged when missing values are replaced with the observed variable mean?",
+      "choices": [
+        "The number of observed values",
+        "The sample mean of that variable",
+        "The variable’s variance",
+        "Every correlation with other variables"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Mean substitution preserves the mean but distorts spread and relationships."
+    },
+    {
+      "id": "L2-124",
+      "lecture": 2,
+      "concept": "Outlier-method trade-offs",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          37,
+          38
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which limitation applies to a Z-score outlier method?",
+      "choices": [
+        "It is unsuitable for non-Gaussian data and does not work well in high dimensions",
+        "It requires no distributional assumption",
+        "It is designed only for images",
+        "It automatically scales to every dataset"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The method relies on Gaussian structure and is weak in high-dimensional settings."
+    },
+    {
+      "id": "L2-125",
+      "lecture": 2,
+      "concept": "Outlier-method trade-offs",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          38
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is an advantage of nearest-neighbour outlier detection?",
+      "choices": [
+        "It requires every feature to be Gaussian",
+        "It has no distance calculations",
+        "It always scales cheaply to huge datasets",
+        "It can work well in high-dimensional data without a normality assumption"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The overview lists distributional flexibility and high-dimensional usefulness as advantages."
+    },
+    {
+      "id": "L2-126",
+      "lecture": 2,
+      "concept": "Outlier-method trade-offs",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          38
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is a drawback of nearest-neighbour outlier detection?",
+      "choices": [
+        "It assumes no neighbours exist",
+        "It only produces histograms",
+        "It can be expensive and sensitive to feature scale and distance choice",
+        "It cannot use distances"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Distance calculations and scaling make it computationally and methodologically sensitive."
+    },
+    {
+      "id": "L2-127",
+      "lecture": 2,
+      "concept": "Outlier-method trade-offs",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          38
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is an advantage of isolation forests for outlier detection?",
+      "choices": [
+        "They are always cheap regardless of optimisation",
+        "They need no scaling and can work when the distribution is unknown",
+        "They require a known Gaussian distribution",
+        "They use no model parameters"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Isolation forests are presented as distribution-flexible with no scaling requirement."
+    },
+    {
+      "id": "L2-128",
+      "lecture": 2,
+      "concept": "Outlier-method trade-offs",
+      "source": {
+        "file": "IDVE_Lecture_2_2026.pdf",
+        "pages": [
+          38
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What limitation is listed for histogram-based outlier detection?",
+      "choices": [
+        "It does not work well in high dimensions",
+        "It is difficult to implement",
+        "It requires labelled anomalies",
+        "It cannot identify extremes"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Histograms are easy to understand but do not extend well to many dimensions."
+    },
+    {
+      "id": "L3-067",
+      "lecture": 3,
+      "concept": "Engineering workflow",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What order does the lecture recommend for engineering and selection?",
+      "choices": [
+        "Generate candidate features, then remove irrelevant, redundant or highly correlated ones",
+        "Select the target first, then derive features from it",
+        "Delete all raw features before engineering",
+        "Perform no selection after engineering"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Engineering expands the representation and selection prunes it."
+    },
+    {
+      "id": "L3-068",
+      "lecture": 3,
+      "concept": "Transformations",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why might a skewed variable be transformed before calculating confidence intervals?",
+      "choices": [
+        "The transform guarantees the target label",
+        "Confidence intervals require categorical data",
+        "The transform removes every observation",
+        "A more normal shape can make the calculation easier to interpret and apply"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Normal-like structure can simplify statistical procedures."
+    },
+    {
+      "id": "L3-069",
+      "lecture": 3,
+      "concept": "Preprocessing requirements",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What preprocessing is generally recommended for neural-network inputs?",
+      "choices": [
+        "Remove all nonlinear features",
+        "Leave arbitrary scales unchanged in every case",
+        "Centre and scale the variables",
+        "Convert every value to a string"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Neural networks have some robustness but commonly benefit from centred, scaled inputs."
+    },
+    {
+      "id": "L3-070",
+      "lecture": 3,
+      "concept": "Transformation types",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which pair is listed as multivariate transformation methods?",
+      "choices": [
+        "Mean and median substitution",
+        "PCA and ICA",
+        "Log and square root only",
+        "Binarisation and pivoting"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "PCA and ICA transform several variables together."
+    },
+    {
+      "id": "L3-071",
+      "lecture": 3,
+      "concept": "Grouping and aggregation",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why might second-level bus arrival times be grouped into five- or ten-minute periods?",
+      "choices": [
+        "The original timestamps may be too granular for the question being asked",
+        "Grouping increases temporal precision",
+        "It creates target labels",
+        "It guarantees no buses are late"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Aggregation can expose useful patterns at an appropriate time scale."
+    },
+    {
+      "id": "L3-072",
+      "lecture": 3,
+      "concept": "Grouping and aggregation",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How can categorical data be grouped and summarised according to the lecture?",
+      "choices": [
+        "Only with PCA",
+        "Only by taking logarithms",
+        "With a Fourier transform",
+        "With a pivot table"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Pivot tables aggregate categories into useful summaries."
+    },
+    {
+      "id": "L3-073",
+      "lecture": 3,
+      "concept": "Grouping and aggregation",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is aggregation itself considered feature engineering?",
+      "choices": [
+        "It always removes the target",
+        "It is only a plotting choice",
+        "It creates a new representation at a more useful level of detail",
+        "It leaves the data completely unchanged"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Grouped counts or summaries become new modelling features."
+    },
+    {
+      "id": "L3-074",
+      "lecture": 3,
+      "concept": "Feature binarisation",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does feature binarisation do?",
+      "choices": [
+        "Estimate missing values by regression",
+        "Apply a threshold to a numerical value to create a Boolean feature",
+        "Expand a category into one column per value",
+        "Standardise a feature to zero mean"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Binarisation converts a numerical condition into true/false or 0/1."
+    },
+    {
+      "id": "L3-075",
+      "lecture": 3,
+      "concept": "Feature binarisation",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "For which model assumption can binarised inputs be useful?",
+      "choices": [
+        "A multivariate Bernoulli input distribution",
+        "A Gaussian process with continuous outputs only",
+        "A spatial contiguity matrix",
+        "A Fourier frequency spectrum"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The slide links binarisation to probabilistic estimators using Bernoulli inputs."
+    },
+    {
+      "id": "L3-076",
+      "lecture": 3,
+      "concept": "Feature binarisation",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How can image pixels be binarised for classification?",
+      "choices": [
+        "Convert addresses to coordinates",
+        "Calculate a spatial lag",
+        "Estimate a moving average",
+        "Threshold their intensities into Boolean foreground/background values"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Pixel intensities can be converted into foreground/background values."
+    },
+    {
+      "id": "L3-077",
+      "lecture": 3,
+      "concept": "Feature engineering motivation",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why can sparse data encourage overfitting?",
+      "choices": [
+        "Every sparse feature is strongly relevant",
+        "It creates unlimited observations",
+        "A model can fit the few available examples instead of a general pattern",
+        "Sparse data guarantees low variance"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Limited evidence makes model estimates unstable."
+    },
+    {
+      "id": "L3-078",
+      "lecture": 3,
+      "concept": "Domain-specific engineering",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which feature type is suggested for time-series data?",
+      "choices": [
+        "A chi-square expected count",
+        "Seasonality or Fourier coefficients",
+        "Latitude from an address only",
+        "A shapefile index"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Time-series engineering can encode periodic structure."
+    },
+    {
+      "id": "L3-079",
+      "lecture": 3,
+      "concept": "Domain-specific engineering",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which feature type is suggested for geospatial data?",
+      "choices": [
+        "Geocoded positions or distances",
+        "Fourier coefficients only",
+        "Word embeddings only",
+        "Target-derived ratios"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Coordinates and distances are natural spatial features."
+    },
+    {
+      "id": "L3-080",
+      "lecture": 3,
+      "concept": "Variable decomposition",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why might the exact microsecond in a timestamp be discarded?",
+      "choices": [
+        "Microseconds are never numeric",
+        "Removing it creates class labels",
+        "It guarantees a normal distribution",
+        "A coarser component such as hour or fifteen-minute interval may better match the task"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Decomposition retains the temporal components relevant to modelling."
+    },
+    {
+      "id": "L3-081",
+      "lecture": 3,
+      "concept": "Variable decomposition",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          14,
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What useful attribute can be extracted from a Titanic passenger’s name?",
+      "choices": [
+        "The passenger’s exact survival target",
+        "A GPS coordinate",
+        "A Fourier frequency",
+        "A title such as Mr, Mrs or Miss"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Titles provide social and demographic information embedded in the name."
+    },
+    {
+      "id": "L3-082",
+      "lecture": 3,
+      "concept": "High-cardinality encoding",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why might a supervised category score be preferable to one-hot encoding for ZIP codes?",
+      "choices": [
+        "It guarantees every ZIP code is frequent",
+        "It represents many categories in one target-related continuous feature",
+        "It creates more columns than categories",
+        "It removes the need to avoid leakage"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "A single score avoids the dimensional explosion of thousands of dummy columns."
+    },
+    {
+      "id": "L3-083",
+      "lecture": 3,
+      "concept": "Discretisation",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does a decision tree perform discretisation implicitly?",
+      "choices": [
+        "It repeatedly creates threshold splits at its nodes",
+        "It one-hot encodes every numerical value",
+        "It applies a log transform to every feature",
+        "It groups only by equal frequency"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Each split partitions a continuous range into regions."
+    },
+    {
+      "id": "L3-084",
+      "lecture": 3,
+      "concept": "Discretisation",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why can equal-frequency bins be preferable to equal-width bins for uneven data?",
+      "choices": [
+        "They always use identical numeric widths",
+        "They ignore the observed distribution",
+        "They require class labels",
+        "They distribute observations more evenly across bins"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Equal-frequency binning avoids nearly empty and overcrowded bins."
+    },
+    {
+      "id": "L3-085",
+      "lecture": 3,
+      "concept": "Data augmentation",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does reverse geocoding produce from latitude and longitude?",
+      "choices": [
+        "A one-hot encoded vector",
+        "A target label",
+        "A street address or place description",
+        "A Fourier spectrum"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Reverse geocoding maps coordinates back to human-readable locations."
+    },
+    {
+      "id": "L3-086",
+      "lecture": 3,
+      "concept": "Data augmentation",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How can clustering augment a dataset?",
+      "choices": [
+        "Guarantee causal groups",
+        "Use the synthetic cluster assignment as an additional feature",
+        "Delete all cluster information",
+        "Treat each raw value as a label"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Cluster membership can summarise structure as a new categorical attribute."
+    },
+    {
+      "id": "L3-087",
+      "lecture": 3,
+      "concept": "Text features",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which methods are named as sources of text embeddings?",
+      "choices": [
+        "Word2Vec and BERT",
+        "PCA and ADF",
+        "Moran’s I and LISA",
+        "Rook and Queen contiguity"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The slide names Word2Vec and BERT-like language models."
+    },
+    {
+      "id": "L3-088",
+      "lecture": 3,
+      "concept": "Text features",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How can sentence embeddings become a categorical feature?",
+      "choices": [
+        "Take the mean of the target labels",
+        "Convert every sentence to the same number",
+        "Discard the embeddings before clustering",
+        "Cluster the embeddings and use cluster membership"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Embedding clusters can represent types of text."
+    },
+    {
+      "id": "L3-089",
+      "lecture": 3,
+      "concept": "Feature checks",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why should a new feature be intuitive or explainable?",
+      "choices": [
+        "Only unexplained features can be predictive",
+        "It allows use of the unavailable target",
+        "Its meaning and use should be defensible to people evaluating the model",
+        "Explainability guarantees perfect accuracy"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Interpretability helps validate and communicate the engineered feature."
+    },
+    {
+      "id": "L3-090",
+      "lecture": 3,
+      "concept": "Feature checks",
+      "source": {
+        "file": "IDVE_Lecture_3_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What evidence should motivate a new feature?",
+      "choices": [
+        "The desire to maximise column count",
+        "Domain knowledge or exploratory analysis",
+        "The target value of the future case",
+        "A random column name"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Features should have a reason grounded in the problem or observed data."
+    },
+    {
+      "id": "L4-071",
+      "lecture": 4,
+      "concept": "Feature-selection methods",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which method selects features automatically as part of fitting a model?",
+      "choices": [
+        "An embedded method",
+        "A wrapper that never trains a model",
+        "A plot-only method",
+        "A random deletion rule"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Embedded selectors choose features during training."
+    },
+    {
+      "id": "L4-072",
+      "lecture": 4,
+      "concept": "Embedded methods",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          6,
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which set contains only embedded-method examples from the lecture?",
+      "choices": [
+        "Decision trees, autoencoders and LASSO",
+        "Forward selection, histograms and KDE",
+        "PCA, ADF and STFT",
+        "Hot deck, cold deck and interpolation"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "These algorithms incorporate representation or feature selection into fitting."
+    },
+    {
+      "id": "L4-073",
+      "lecture": 4,
+      "concept": "Search procedures",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the hybrid search approach combine?",
+      "choices": [
+        "Only forward and backward plots",
+        "A neural network and a histogram",
+        "A greedy search algorithm and a filter method",
+        "Two exhaustive searches"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The hybrid approach uses a fast filter alongside greedy subset search."
+    },
+    {
+      "id": "L4-074",
+      "lecture": 4,
+      "concept": "Backward selection",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which feature is removed at each backward-selection step?",
+      "choices": [
+        "Every feature at once",
+        "The one whose removal gives the greatest model-performance improvement",
+        "The strongest feature regardless of performance",
+        "A random target value"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Backward search evaluates removal effects iteratively."
+    },
+    {
+      "id": "L4-075",
+      "lecture": 4,
+      "concept": "Search validation",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why should forward or backward feature sets be cross-validated?",
+      "choices": [
+        "Different search paths can produce subsets that do not generalise equally",
+        "Cross-validation makes both paths identical",
+        "It eliminates the need for a scoring metric",
+        "It guarantees all features are relevant"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Validation checks whether a chosen path is stable beyond one sample."
+    },
+    {
+      "id": "L4-076",
+      "lecture": 4,
+      "concept": "Selection criteria",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which criteria explicitly penalise model complexity while assessing fit?",
+      "choices": [
+        "Mean and median",
+        "Latitude and longitude",
+        "KDE and histogram width",
+        "AIC and BIC"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "AIC and BIC balance goodness of fit against complexity."
+    },
+    {
+      "id": "L4-077",
+      "lecture": 4,
+      "concept": "Selection criteria",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is choosing a feature-selection criterion a multi-objective problem?",
+      "choices": [
+        "Feature count can never matter",
+        "Only p-values are permitted",
+        "Predictive performance must often be balanced against the number of selected features",
+        "Every metric measures exactly the same thing"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "A useful subset should perform well without unnecessary complexity."
+    },
+    {
+      "id": "L4-078",
+      "lecture": 4,
+      "concept": "Filter methods",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which methods are listed for regression-oriented filtering?",
+      "choices": [
+        "HDBSCAN and LISA",
+        "ANOVA and mutual information",
+        "Only chi-squared",
+        "Only random forests"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The slide names ANOVA and mutual information for regression."
+    },
+    {
+      "id": "L4-079",
+      "lecture": 4,
+      "concept": "Filter methods",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why can a univariate filter miss a useful feature interaction?",
+      "choices": [
+        "It scores each feature with the target separately",
+        "It trains every possible feature subset",
+        "It always models feature pairs",
+        "It removes the target before scoring"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Individual scoring ignores joint effects among inputs."
+    },
+    {
+      "id": "L4-080",
+      "lecture": 4,
+      "concept": "Chi-square test",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Under the chi-square null hypothesis, what relationship is assumed?",
+      "choices": [
+        "The variables are perfectly correlated",
+        "All observed counts are zero",
+        "The target is continuous",
+        "The variables are independent"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Expected counts are calculated under independence."
+    },
+    {
+      "id": "L4-081",
+      "lecture": 4,
+      "concept": "Chi-square test",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How is an expected count for one contingency-table cell calculated?",
+      "choices": [
+        "Row total plus column total",
+        "Grand total divided by the number of features",
+        "Row total multiplied by column total, divided by the grand total",
+        "Observed count divided by the p-value"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "This formula gives the count expected if the categories are independent."
+    },
+    {
+      "id": "L4-082",
+      "lecture": 4,
+      "concept": "Chi-square test",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which chi-square results favour selecting a categorical feature?",
+      "choices": [
+        "No observations",
+        "A high test statistic or low p-value",
+        "A zero statistic and high p-value",
+        "Identical observed and expected counts"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Stronger evidence against independence indicates greater target association."
+    },
+    {
+      "id": "L4-083",
+      "lecture": 4,
+      "concept": "Feature importance tests",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "For a categorical input and numerical target with normal group distributions, which test is suggested?",
+      "choices": [
+        "A t-test on category target means",
+        "Moran’s I",
+        "ADF",
+        "A Fourier transform"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The slide suggests comparing category target means with a t-test."
+    },
+    {
+      "id": "L4-084",
+      "lecture": 4,
+      "concept": "Feature importance tests",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What alternative is suggested when those category target distributions are not normal?",
+      "choices": [
+        "Only Pearson correlation",
+        "AIC",
+        "Rook contiguity",
+        "Wilcoxon rank-sum test"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "A rank-based test avoids the normality assumption."
+    },
+    {
+      "id": "L4-085",
+      "lecture": 4,
+      "concept": "Feature importance tests",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "For a categorical target and categorical input with two classes, which options are suggested?",
+      "choices": [
+        "A moving average",
+        "PCA reconstruction error",
+        "Fisher’s exact test or an odds ratio",
+        "Only Spearman correlation"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "These assess association in a two-class contingency setting."
+    },
+    {
+      "id": "L4-086",
+      "lecture": 4,
+      "concept": "Entropy",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is joint entropy?",
+      "choices": [
+        "The number of selected features",
+        "The uncertainty associated with two jointly distributed variables",
+        "The uncertainty in a target after all features are removed",
+        "The difference between two means"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Joint entropy extends uncertainty to a pair of variables."
+    },
+    {
+      "id": "L4-087",
+      "lecture": 4,
+      "concept": "Mutual information",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "When is mutual information maximal in the lecture’s conceptual description?",
+      "choices": [
+        "When one variable is deterministically related to the other",
+        "When the variables are independent",
+        "When both variables are constant and unrelated",
+        "When Pearson correlation is always zero"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Knowing one variable removes the most uncertainty under a deterministic dependency."
+    },
+    {
+      "id": "L4-088",
+      "lecture": 4,
+      "concept": "Mutual information",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why can mutual information handle more cases than linear correlation?",
+      "choices": [
+        "It requires both variables to be Gaussian",
+        "It only detects straight lines",
+        "It ignores categorical variables",
+        "It detects general dependence across linear or nonlinear, numerical or categorical variables"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Mutual information is defined through uncertainty rather than a linear slope."
+    },
+    {
+      "id": "L4-089",
+      "lecture": 4,
+      "concept": "mRMR procedure",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "When does the iterative mRMR procedure stop?",
+      "choices": [
+        "When every feature is duplicated",
+        "Before considering redundancy",
+        "When the predefined number K of features has been selected",
+        "After selecting only the first relevant feature"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The subset grows one feature at a time until size K."
+    },
+    {
+      "id": "L4-090",
+      "lecture": 4,
+      "concept": "mRMR configuration",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why can mRMR relevance and redundancy use different formulas across problems?",
+      "choices": [
+        "The formulas are random",
+        "Their definitions depend on the data types and task",
+        "They must always use Pearson correlation",
+        "The target is never considered"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Mutual information or correlation variants can suit different numerical and categorical data."
+    },
+    {
+      "id": "L4-091",
+      "lecture": 4,
+      "concept": "Decision trees",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "When can decision-tree splitting stop according to the lecture?",
+      "choices": [
+        "When no features remain or a region contains one class",
+        "Only after a fixed Fourier transform",
+        "Before choosing a root",
+        "Whenever entropy is maximal at every node"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Pure terminal regions or exhausted features provide stopping conditions."
+    },
+    {
+      "id": "L4-092",
+      "lecture": 4,
+      "concept": "Decision trees",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why are decision trees described as sensitive to the root attribute?",
+      "choices": [
+        "The root is never used for prediction",
+        "Every root produces an identical tree",
+        "The root contains the target labels only",
+        "The first split shapes all subsequent partitions"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Early partitioning choices affect the entire learned structure."
+    },
+    {
+      "id": "L4-093",
+      "lecture": 4,
+      "concept": "Random forests",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How is a feature’s importance accumulated within one tree?",
+      "choices": [
+        "By its original column position",
+        "By assigning every feature equal importance",
+        "By its weighted reductions in entropy when used for splits",
+        "By counting its missing values only"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Split improvements are weighted by the number of observations reaching the node."
+    },
+    {
+      "id": "L4-094",
+      "lecture": 4,
+      "concept": "Random forests",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How is overall random-forest feature importance formed?",
+      "choices": [
+        "Use the class frequency",
+        "Average the feature’s importance across the trees",
+        "Use only the final tree",
+        "Use the largest raw feature value"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The ensemble aggregates importances from its component trees."
+    },
+    {
+      "id": "L4-095",
+      "lecture": 4,
+      "concept": "Random-forest selection",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is the feature-importance threshold itself a hyperparameter?",
+      "choices": [
+        "Changing it changes which variables are retained",
+        "It is fixed by the PDF format",
+        "It never affects the subset",
+        "It is the same as the target label"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A cutoff determines how aggressively low-importance features are removed."
+    },
+    {
+      "id": "L4-096",
+      "lecture": 4,
+      "concept": "LASSO extensions",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Can L1-based selection be used for classification?",
+      "choices": [
+        "No, L1 is restricted to time series",
+        "Only after HDBSCAN",
+        "Only for categorical inputs with no target",
+        "Yes, with models such as logistic regression or LinearSVC"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The lecture names classification models that accept an L1 penalty."
+    },
+    {
+      "id": "L4-097",
+      "lecture": 4,
+      "concept": "Feature-selection practice",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          29
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why should features be normalised or standardised before some selectors?",
+      "choices": [
+        "It creates additional labels",
+        "It makes every coefficient zero",
+        "Comparable scales prevent magnitude alone from dominating",
+        "Scaling guarantees independence"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Scale-sensitive criteria and penalties need comparable feature units."
+    },
+    {
+      "id": "L4-098",
+      "lecture": 4,
+      "concept": "Feature-selection practice",
+      "source": {
+        "file": "IDVE_Lecture_4_2026.pdf",
+        "pages": [
+          29
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why should linearity be checked before choosing a selector?",
+      "choices": [
+        "The check replaces cross-validation",
+        "Some selection scores capture only linear relationships",
+        "All selectors require nonlinear data",
+        "Linearity determines the number of rows"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "A linear association measure can miss nonlinear relevance."
+    },
+    {
+      "id": "L5-089",
+      "lecture": 5,
+      "concept": "Time-series modelling",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why are recent observations often weighted more heavily in time-series modelling?",
+      "choices": [
+        "Temporal order makes recent history especially relevant to the future",
+        "Every historical value is always equally useful",
+        "Older observations are not numerical",
+        "Time series never contain long-term patterns"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Unlike an unordered dataset, recency can carry predictive information."
+    },
+    {
+      "id": "L5-090",
+      "lecture": 5,
+      "concept": "Time-series methods",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which set contains only forecasting approaches named in the lecture?",
+      "choices": [
+        "KDE, LISA and choropleths",
+        "PCA, chi-square and hot deck",
+        "HDBSCAN, Moran’s I and boxplots",
+        "SARIMA, moving averages, LSTMs and Transformers"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The introduction lists these as possible forecasting models."
+    },
+    {
+      "id": "L5-091",
+      "lecture": 5,
+      "concept": "Time and frequency domains",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What are the two domains from which a time series can be viewed?",
+      "choices": [
+        "Training and test only",
+        "Vector and raster",
+        "Time and frequency",
+        "Latitude and longitude"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Fourier analysis relates time-domain signals to frequency-domain representations."
+    },
+    {
+      "id": "L5-092",
+      "lecture": 5,
+      "concept": "Resampling",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What issue must be decided when assigning downsampled observations to bins?",
+      "choices": [
+        "Whether the data has labels",
+        "Which bin edge is inclusive and how the bin is labelled",
+        "Whether the target is categorical",
+        "Which datum is used"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Boundary conventions determine which period receives an observation."
+    },
+    {
+      "id": "L5-093",
+      "lecture": 5,
+      "concept": "Financial resampling",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which summary format is named for financial downsampling?",
+      "choices": [
+        "Open, High, Low, Close",
+        "Mean, median, mode, range",
+        "HH, HL, LH, LL",
+        "Latitude, longitude, altitude, time"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "OHLC preserves important within-period price information."
+    },
+    {
+      "id": "L5-094",
+      "lecture": 5,
+      "concept": "Resampling choice",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "A very noisy energy series needs a clearer long-term pattern. Which two approaches are suggested?",
+      "choices": [
+        "Upsampling and adding noise",
+        "One-hot encoding or geocoding",
+        "Clustering or classification only",
+        "Downsampling or smoothing"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Both aggregation and smoothing can suppress short-term noise."
+    },
+    {
+      "id": "L5-095",
+      "lecture": 5,
+      "concept": "Exponential smoothing",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "In exponential smoothing, which observations receive greater weight?",
+      "choices": [
+        "Every observation with identical weight",
+        "Only missing observations",
+        "The most recent observations",
+        "Only the oldest observations"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Weights decay into the past."
+    },
+    {
+      "id": "L5-096",
+      "lecture": 5,
+      "concept": "Exponential smoothing",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does a larger smoothing factor alpha generally do in the simple update?",
+      "choices": [
+        "Set the series frequency",
+        "Place more weight on the current observation",
+        "Ignore the current observation",
+        "Make all weights equal"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Alpha controls the balance between the new value and prior smoothed value."
+    },
+    {
+      "id": "L5-097",
+      "lecture": 5,
+      "concept": "Advanced smoothing",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What can double or triple exponential smoothing additionally address?",
+      "choices": [
+        "Trend and seasonality",
+        "Geospatial coordinates",
+        "Categorical labels",
+        "Shapefile geometry"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Higher-order exponential methods can model systematic components beyond level."
+    },
+    {
+      "id": "L5-098",
+      "lecture": 5,
+      "concept": "Missing time-series data",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which fill directions are described as especially typical for time-series gaps?",
+      "choices": [
+        "Using only the global median",
+        "Using a random class label",
+        "Using a spatial lag",
+        "Using the prior or next value"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Forward or backward filling preserves nearby temporal context."
+    },
+    {
+      "id": "L5-099",
+      "lecture": 5,
+      "concept": "Seasonal imputation",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What workflow is suggested when strong seasonality complicates gap filling?",
+      "choices": [
+        "Delete the entire dataset",
+        "Convert time to a category and stop",
+        "Remove seasonality, impute the residual series, then add seasonality back",
+        "Ignore seasonality and draw a straight line"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Separating the seasonal component avoids interpolation across recurring structure."
+    },
+    {
+      "id": "L5-100",
+      "lecture": 5,
+      "concept": "Stationarity types",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What defines strict stationarity in the lecture’s simplified description?",
+      "choices": [
+        "A first difference has been taken",
+        "Mean, variance and covariance are not functions of time",
+        "Only the mean is constant",
+        "The series contains a trend"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "All listed statistical properties remain invariant over time."
+    },
+    {
+      "id": "L5-101",
+      "lecture": 5,
+      "concept": "Stationarity types",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is difference stationarity?",
+      "choices": [
+        "A non-stationary series becomes stationary after differencing",
+        "A stationary series becomes a map",
+        "The variance is replaced by a class label",
+        "The series has no temporal order"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Differencing removes an evolving level such as a unit-root trend."
+    },
+    {
+      "id": "L5-102",
+      "lecture": 5,
+      "concept": "Stationarity types",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is trend stationarity?",
+      "choices": [
+        "The series has a unit root by definition",
+        "The series has no trend or variation",
+        "Every value repeats at fixed periods",
+        "The series has a deterministic trend but no unit root"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Removing the trend can expose a stationary process."
+    },
+    {
+      "id": "L5-103",
+      "lecture": 5,
+      "concept": "ADF outputs",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which information is returned by an ADF test?",
+      "choices": [
+        "Only the series mean",
+        "Latitude and longitude",
+        "Test statistic, p-value, lag count and critical values",
+        "Only a cluster label"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The test output supports comparison with significance thresholds."
+    },
+    {
+      "id": "L5-104",
+      "lecture": 5,
+      "concept": "ADF example",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does p = 0.422367 imply for the log-transformed airline series at 5 percent?",
+      "choices": [
+        "The test is automatically invalid",
+        "Fail to reject the unit-root null; it remains non-stationary",
+        "Reject the null and declare stationarity",
+        "The series has no observations"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The p-value is far above 0.05 and the statistic is not below the 5% critical value."
+    },
+    {
+      "id": "L5-105",
+      "lecture": 5,
+      "concept": "ADF example",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "After removing the airline trend, what conclusion follows from an ADF p-value of 0.022235 at 5 percent?",
+      "choices": [
+        "The unit-root null can be rejected",
+        "The series must be non-stationary",
+        "No lag was used",
+        "The p-value is above 0.05"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The detrended result passes the stated 5% ADF criterion."
+    },
+    {
+      "id": "L5-106",
+      "lecture": 5,
+      "concept": "ADF example",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "The airline series has ADF p-values of 0.422 after a log transform, 0.022 after detrending, and 0.000064 after removing trend and seasonality. Which version gives the strongest evidence of stationarity?",
+      "choices": [
+        "The log-transformed version",
+        "The raw version regardless of its test",
+        "The upsampled timestamps",
+        "The version with trend and seasonality removed"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The trend-and-seasonality-removed series has the smallest p-value."
+    },
+    {
+      "id": "L5-107",
+      "lecture": 5,
+      "concept": "Towards stationarity",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which three broad approaches are listed for making a series stationary?",
+      "choices": [
+        "Only deleting rows",
+        "Only increasing frequency",
+        "Transformations, decomposition and differencing",
+        "Clustering, geocoding and one-hot encoding"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "These approaches address changing scale, systematic components and unit-root behaviour."
+    },
+    {
+      "id": "L5-108",
+      "lecture": 5,
+      "concept": "Time-series components",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is trend called a low-frequency component?",
+      "choices": [
+        "It always has the highest amplitude",
+        "It changes slowly over long periods",
+        "It repeats at every observation",
+        "It contains only random noise"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Slow variation corresponds to low frequency."
+    },
+    {
+      "id": "L5-109",
+      "lecture": 5,
+      "concept": "Time-series components",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Can a time series contain more than one seasonal period?",
+      "choices": [
+        "Yes, multiple seasons can coexist",
+        "No, seasonality is unique by definition",
+        "Only if the series is unordered",
+        "Only after deleting trend"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Daily, weekly and annual patterns may all appear."
+    },
+    {
+      "id": "L5-110",
+      "lecture": 5,
+      "concept": "Seasonality workflow",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which checks should precede removing an estimated seasonal component?",
+      "choices": [
+        "Assume the first visible period is correct",
+        "Delete the trend and target",
+        "Run only a spatial correlation test",
+        "Inspect the plot, run a stationarity test and examine autocorrelation"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Several views help verify that a seasonal pattern is real and useful."
+    },
+    {
+      "id": "L5-111",
+      "lecture": 5,
+      "concept": "Walking example",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          32
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "At what sampling rate were the phone gyroscope readings collected?",
+      "choices": [
+        "0.6 Hz",
+        "15 Hz",
+        "50 Hz",
+        "1 Hz"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The walking signals were recorded at 50 readings per second."
+    },
+    {
+      "id": "L5-112",
+      "lecture": 5,
+      "concept": "Walking example",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          32
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is a roughly 50-sample repetition consistent with a 1 Hz walking cadence?",
+      "choices": [
+        "The data was sampled once per hour",
+        "At 50 Hz, 50 samples span about one second",
+        "At 50 Hz, 50 samples span one minute",
+        "Frequency and period are unrelated"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "A one-second period corresponds to one cycle per second."
+    },
+    {
+      "id": "L5-113",
+      "lecture": 5,
+      "concept": "Walking example",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          32
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does walking upstairs differ from level walking in the gyroscope example?",
+      "choices": [
+        "It has lower cadence and amplitude",
+        "It has no periodic motion",
+        "It always has the highest amplitude",
+        "It is identical to walking downstairs"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The example associates upstairs movement with slower, smaller oscillations."
+    },
+    {
+      "id": "L5-114",
+      "lecture": 5,
+      "concept": "Walking power spectrum",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          34
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which peak frequency is associated with level walking?",
+      "choices": [
+        "Approximately 0.6 Hz",
+        "Approximately 100 Hz",
+        "Approximately 5 Hz",
+        "Approximately 1.3 Hz"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The power spectrum shows the level-walking peak near 1.3 Hz."
+    },
+    {
+      "id": "L5-115",
+      "lecture": 5,
+      "concept": "Walking power spectrum",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          34
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which peak frequency is associated with walking upstairs?",
+      "choices": [
+        "Approximately 5 Hz",
+        "Approximately 100 Hz",
+        "Approximately 0.6 Hz",
+        "Approximately 1.3 Hz"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The slower upstairs cadence appears near 0.6 Hz."
+    },
+    {
+      "id": "L5-116",
+      "lecture": 5,
+      "concept": "Walking power spectrum",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          34
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which peak frequency is associated with walking downstairs?",
+      "choices": [
+        "Approximately 100 Hz",
+        "Approximately 1.1 Hz",
+        "Approximately 0.1 Hz",
+        "Approximately 50 Hz"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The downstairs signal has a principal peak near 1.1 Hz."
+    },
+    {
+      "id": "L5-117",
+      "lecture": 5,
+      "concept": "Frequency features",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          34
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How could the three walking activities be classified using the example?",
+      "choices": [
+        "Use their distinct dominant frequency as a feature",
+        "Use only the timestamp format",
+        "Ignore the signal spectrum",
+        "Assign random labels"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The peak frequencies differ enough to support discrimination."
+    },
+    {
+      "id": "L5-118",
+      "lecture": 5,
+      "concept": "Bearing fault example",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          35
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What spectrum is expected from a normally operating bearing in the example?",
+      "choices": [
+        "Many strong frequencies across the spectrum",
+        "No frequency content",
+        "A single peak at 0.6 Hz",
+        "A fairly flat spectrum with a spike near 100 Hz"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Normal operation has limited, concentrated frequency structure."
+    },
+    {
+      "id": "L5-119",
+      "lecture": 5,
+      "concept": "Bearing fault example",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          35
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What spectral change suggests a bearing problem?",
+      "choices": [
+        "Removal of every peak",
+        "A change in timestamp format",
+        "More frequency components and clearer periodic structure",
+        "A perfectly flat spectrum"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Fault vibrations introduce additional periodic signals."
+    },
+    {
+      "id": "L5-120",
+      "lecture": 5,
+      "concept": "Walking spectrogram",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          37
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What extra information does the walking spectrogram provide beyond a whole-recording PSD?",
+      "choices": [
+        "The class labels",
+        "When frequency behaviour changes during the recording",
+        "Only the overall average frequency",
+        "The geographic position"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The spectrogram retains temporal localisation."
+    },
+    {
+      "id": "L5-121",
+      "lecture": 5,
+      "concept": "Wind and solar example",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          38
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What relationship is noted between wind and solar signals?",
+      "choices": [
+        "They interact but are not in phase",
+        "They are identical at every time",
+        "They contain no annual pattern",
+        "They are both stationary constants"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The slide notes interaction and phase difference."
+    },
+    {
+      "id": "L5-122",
+      "lecture": 5,
+      "concept": "Wind and solar example",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          38
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What recurring structure remains visible in the wind-and-solar spectrogram?",
+      "choices": [
+        "A 100 Hz bearing spike",
+        "A 5 Hz engine peak",
+        "No pattern at all",
+        "Annual resonances"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Despite complexity, the plot still reveals yearly frequency structure."
+    },
+    {
+      "id": "L5-123",
+      "lecture": 5,
+      "concept": "Vehicle acceleration",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          39
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which events create prominent g-force spikes in vehicle data?",
+      "choices": [
+        "Changing a file name",
+        "Geocoding an address",
+        "Acceleration and braking",
+        "Constant parking"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Changes in vehicle velocity create transient forces."
+    },
+    {
+      "id": "L5-124",
+      "lecture": 5,
+      "concept": "Vehicle acceleration",
+      "source": {
+        "file": "IDVE_Lecture_5_2026.pdf",
+        "pages": [
+          39
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What might an unexplained peak near 5 Hz represent in the vehicle example?",
+      "choices": [
+        "A class imbalance",
+        "Engine noise or a damaged tyre",
+        "Annual seasonality",
+        "A latitude error"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The slide proposes mechanical sources for the frequency peak."
+    },
+    {
+      "id": "L6-067",
+      "lecture": 6,
+      "concept": "GIS tools",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which tools are named for processing geospatial data?",
+      "choices": [
+        "GeoPandas and PostGIS",
+        "Word2Vec and BERT",
+        "ADF and KPSS",
+        "LASSO and RFE"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "GeoPandas is a Python library and PostGIS adds spatial capabilities to PostgreSQL."
+    },
+    {
+      "id": "L6-068",
+      "lecture": 6,
+      "concept": "Coordinate systems",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does a datum specify?",
+      "choices": [
+        "The number of map layers",
+        "The colour of a choropleth",
+        "The sampling frequency",
+        "The spheroid’s position relative to Earth’s centre"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "A datum anchors a model of Earth."
+    },
+    {
+      "id": "L6-069",
+      "lecture": 6,
+      "concept": "Coordinate systems",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does a prime meridian define?",
+      "choices": [
+        "The radius of every polygon",
+        "The number of pixels in a raster",
+        "The zero-degree reference for longitude",
+        "The zero-degree reference for latitude"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Longitude is measured east or west from the prime meridian."
+    },
+    {
+      "id": "L6-070",
+      "lecture": 6,
+      "concept": "Coordinate systems",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why might a local datum be preferred within its intended region?",
+      "choices": [
+        "It makes Earth perfectly flat",
+        "It can approximate Earth more accurately there",
+        "It is always the global standard",
+        "It removes coordinate units"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Local datums are fitted to particular geographic regions."
+    },
+    {
+      "id": "L6-071",
+      "lecture": 6,
+      "concept": "Coordinate formats",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which format represents degrees, minutes and seconds?",
+      "choices": [
+        "Sexagesimal degrees",
+        "Decimal degrees only",
+        "A projected raster index",
+        "A spatial-weight matrix"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The format uses degree, minute and second components."
+    },
+    {
+      "id": "L6-072",
+      "lecture": 6,
+      "concept": "Shapefiles",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is a shapefile useful as an additional map layer?",
+      "choices": [
+        "It stores only time-series frequencies",
+        "It guarantees coordinates are correct",
+        "It replaces all raster imagery",
+        "It can supply boundaries such as municipalities or cities"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Vector boundaries provide geographic context and aggregation regions."
+    },
+    {
+      "id": "L6-073",
+      "lecture": 6,
+      "concept": "Map layers",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What kinds of data can be combined as layers on a map?",
+      "choices": [
+        "Only textual addresses",
+        "Only model predictions without locations",
+        "Vector features, raster imagery and attributes",
+        "Only one point at a time"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Layering provides both geographic context and thematic information."
+    },
+    {
+      "id": "L6-074",
+      "lecture": 6,
+      "concept": "Spatial data quality",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which common missing-coordinate placeholder can mapping reveal immediately?",
+      "choices": [
+        "A 1 Hz frequency",
+        "A cluster at (0, 0)",
+        "A p-value of 0.05",
+        "A zero neural-network weight"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Invalid coordinates often appear at the intersection of the equator and prime meridian."
+    },
+    {
+      "id": "L6-075",
+      "lecture": 6,
+      "concept": "LAPD example",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What percentage of uploaded crimes were incorrectly concentrated in one block in the LAPD example?",
+      "choices": [
+        "About 4 percent",
+        "About 40 percent",
+        "Exactly 0 percent",
+        "About 90 percent"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The slide reports 1,380 records, or 4 percent."
+    },
+    {
+      "id": "L6-076",
+      "lecture": 6,
+      "concept": "LAPD example",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why were many crimes placed at LAPD headquarters?",
+      "choices": [
+        "All crimes occurred there",
+        "The map used the wrong hemisphere",
+        "The records had no timestamps",
+        "Unparseable locations defaulted to the headquarters coordinate"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "A software fallback created an artificial hotspot."
+    },
+    {
+      "id": "L6-077",
+      "lecture": 6,
+      "concept": "Choropleths",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is a choropleth compared to a histogram on a map?",
+      "choices": [
+        "It shows only time-frequency cells",
+        "It contains no spatial boundaries",
+        "It aggregates a statistic within geographic bins or areas",
+        "It plots every raw observation as a line"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Areas play the role of bins and are shaded by a summary value."
+    },
+    {
+      "id": "L6-078",
+      "lecture": 6,
+      "concept": "Spatial heatmaps",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How can a spatial heatmap change as the user zooms?",
+      "choices": [
+        "Every point is deleted",
+        "The displayed intensity aggregation can adjust to the scale",
+        "The coordinates switch hemispheres",
+        "The raster becomes a shapefile"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Heatmaps can recompute or redraw density at different spatial scales."
+    },
+    {
+      "id": "L6-079",
+      "lecture": 6,
+      "concept": "Combined visualisation",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How is time encoded in the taxi scatter plot example?",
+      "choices": [
+        "Marker colour represents the timestamp",
+        "Polygon size represents the target label",
+        "Road width represents the p-value",
+        "Latitude is replaced by time"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Colour adds temporal information to the spatial markers."
+    },
+    {
+      "id": "L6-080",
+      "lecture": 6,
+      "concept": "Combined visualisation",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the histogram below the taxi map summarise?",
+      "choices": [
+        "Road incline by segment",
+        "Moran’s I by province",
+        "GPS error by latitude",
+        "The number of trips by hour of day"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The linked chart shows when trips occur."
+    },
+    {
+      "id": "L6-081",
+      "lecture": 6,
+      "concept": "Geofencing",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which is an example of geofencing named in the lecture?",
+      "choices": [
+        "A Fourier decomposition",
+        "A feature-selection threshold",
+        "A location-based reminder triggered on entering an area",
+        "A histogram of body mass"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Virtual boundaries can trigger actions tied to places."
+    },
+    {
+      "id": "L6-082",
+      "lecture": 6,
+      "concept": "Range queries",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What spatial question underlies a safety zone around a home?",
+      "choices": [
+        "Which categories are sparse",
+        "Which points lie within a chosen distance of the home",
+        "Which variables have high mutual information",
+        "Which timestamps have a unit root"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "A buffer or range query identifies nearby coordinates."
+    },
+    {
+      "id": "L6-083",
+      "lecture": 6,
+      "concept": "ESDA",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does exploratory spatial data analysis differ from conventional EDA?",
+      "choices": [
+        "It explicitly relates attribute values to locations and neighbouring areas",
+        "It ignores all feature values",
+        "It uses no correlations",
+        "It can analyse only raster images"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "ESDA incorporates spatial arrangement into exploratory relationships."
+    },
+    {
+      "id": "L6-084",
+      "lecture": 6,
+      "concept": "Spatial weights",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What are the two main ingredients of spatial autocorrelation?",
+      "choices": [
+        "Time and frequency",
+        "Precision and recall",
+        "Mean and mode",
+        "Spatial similarity and attribute similarity"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Spatial weights define neighbourhoods and attributes define values being compared."
+    },
+    {
+      "id": "L6-085",
+      "lecture": 6,
+      "concept": "Spatial rate smoothing",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What distinguishes spatial rate smoothing from a simple spatial lag?",
+      "choices": [
+        "It uses only raw coordinates",
+        "It always returns a class label",
+        "It relates neighbouring event counts to their populations",
+        "It ignores neighbouring values"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Rates account for exposure or population as well as counts."
+    },
+    {
+      "id": "L6-086",
+      "lecture": 6,
+      "concept": "Spatial rate smoothing",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is an effect of spatial rate smoothing?",
+      "choices": [
+        "It guarantees no clusters",
+        "It smooths local value similarity using neighbouring information",
+        "It removes all geographic context",
+        "It converts polygons into text"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Neighbouring counts and populations stabilise local rates."
+    },
+    {
+      "id": "L6-087",
+      "lecture": 6,
+      "concept": "Significance testing",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How is the reference distribution for global spatial randomness constructed?",
+      "choices": [
+        "Generate hundreds or thousands of random spatial distributions",
+        "Use only the observed map once",
+        "Assume Moran’s I is always significant",
+        "Sort areas alphabetically"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Permutation-style randomisations show what statistics arise under the null."
+    },
+    {
+      "id": "L6-088",
+      "lecture": 6,
+      "concept": "London Airbnb example",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does Moran’s I of 0.54 indicate in the London Airbnb example?",
+      "choices": [
+        "No spatial pattern",
+        "Perfect negative autocorrelation",
+        "A time-series unit root",
+        "Positive spatial autocorrelation in rental prices"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Nearby areas tend to have more similar prices than expected randomly."
+    },
+    {
+      "id": "L6-089",
+      "lecture": 6,
+      "concept": "Local Moran statistic",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          27
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does a positive local Moran value indicate?",
+      "choices": [
+        "The global pattern is random",
+        "The area has no neighbours",
+        "The area resembles its neighbours, as in HH or LL",
+        "The area is necessarily an outlier"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Positive local association corresponds to similar local values."
+    },
+    {
+      "id": "L6-090",
+      "lecture": 6,
+      "concept": "Local Moran statistic",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          27
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does a negative local Moran value indicate?",
+      "choices": [
+        "The weights matrix is empty",
+        "The area differs from its neighbours, as in HL or LH",
+        "The area always belongs to an HH cluster",
+        "The whole dataset is stationary"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Negative local association marks a local spatial outlier."
+    },
+    {
+      "id": "L6-091",
+      "lecture": 6,
+      "concept": "HDBSCAN",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          29
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does HDBSCAN stand for?",
+      "choices": [
+        "Hierarchical Density-Based Spatial Clustering of Applications with Noise",
+        "High-Dimensional Bayesian Scaling and Classification of Numeric data",
+        "Hierarchical Data Binning for Standard Correlation Analysis",
+        "Hybrid Density Bootstrap Sampling and Cluster Averaging Network"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The expanded name describes its hierarchical density-based approach."
+    },
+    {
+      "id": "L6-092",
+      "lecture": 6,
+      "concept": "HDBSCAN",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          29
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does HDBSCAN reduce sensitivity to one DBSCAN parameter choice?",
+      "choices": [
+        "It fixes every parameter to zero",
+        "It requires the number of clusters beforehand",
+        "It replaces density with linear regression",
+        "It integrates clusterings across many parameter settings and favours stable structure"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Stability across density scales guides the final clustering."
+    },
+    {
+      "id": "L6-093",
+      "lecture": 6,
+      "concept": "HDBSCAN",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          29
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why can HDBSCAN find clusters of varying density?",
+      "choices": [
+        "It uses only k-means centroids",
+        "It assigns every point to one rigid shape",
+        "It examines a hierarchy across density settings",
+        "It assumes all clusters have identical variance"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Multiple density levels allow different groups to persist at different scales."
+    },
+    {
+      "id": "L6-094",
+      "lecture": 6,
+      "concept": "Density clustering",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          29
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the first high-level step in the lecture’s density-clustering summary?",
+      "choices": [
+        "Create a choropleth",
+        "Estimate local densities",
+        "Choose the target labels",
+        "Compute a Fourier transform"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Density estimates identify candidate high-density regions."
+    },
+    {
+      "id": "L6-095",
+      "lecture": 6,
+      "concept": "Density clustering",
+      "source": {
+        "file": "IDVE_Lecture_6_2026.pdf",
+        "pages": [
+          29
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "After identifying high-density regions, what does the simplified process do?",
+      "choices": [
+        "Combine points within the selected regions",
+        "Delete every dense point",
+        "Convert them to raster pixels only",
+        "Assign random cluster counts"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Connected dense points form clusters."
     }
   ]
 }
