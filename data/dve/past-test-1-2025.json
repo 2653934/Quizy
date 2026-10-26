@@ -1,0 +1,524 @@
+{
+  "id": "dve-past-test-1-2025",
+  "subject": "dve",
+  "title": "Past paper: Test 1 (2025)",
+  "kind": "past-paper",
+  "description": "All 30 multiple-choice questions from the 2025 Test 1 memo (19 Sep 2025), transcribed word for word. Only the order of questions and options is randomised.",
+  "sourceFile": "04 Past Papers/Test_1_2025_Memo.pdf",
+  "totalMarks": 60,
+  "negativeMarkingNote": "There is no negative marking.",
+  "transcriptionNotes": "Wording is copied exactly as it appears in the PDF. Line-break hyphenation introduced by the typesetting has been joined back into whole words. The 'explanation' fields are NOT part of the paper; they are study notes added afterwards. Answers are taken from the bold options in the memo.",
+  "questions": [
+    {
+      "id": "dve-pt1-01",
+      "number": 1,
+      "lecture": 1,
+      "concept": "Why visualise data",
+      "marks": 2,
+      "type": "single",
+      "question": "What is the primary purpose of data visualization?",
+      "choices": [
+        "To create visually appealing graphs",
+        "To make sense of large data, identify patterns and capture insights",
+        "To evaluate data storage requirements",
+        "To increase the dimensionality of data"
+      ],
+      "answer": [1],
+      "explanation": "Data visualisation helps people make sense of large datasets by revealing patterns and useful insights."
+    },
+    {
+      "id": "dve-pt1-02",
+      "number": 2,
+      "lecture": 2,
+      "concept": "Descriptive statistics",
+      "marks": 2,
+      "type": "single",
+      "question": "Which of the following statements are FALSE about descriptive statistics?",
+      "choices": [
+        "They can effectively hide the shape of the data distribution",
+        "They are primarily used for complex inferential analysis",
+        "They include measures like mean, standard deviation and variance",
+        "They are useful for getting a quick overview of the data"
+      ],
+      "answer": [1],
+      "explanation": "Descriptive statistics summarise and give a quick overview of data; complex inferential analysis is not their primary purpose."
+    },
+    {
+      "id": "dve-pt1-03",
+      "number": 3,
+      "lecture": 2,
+      "concept": "Skewness and kurtosis",
+      "marks": 2,
+      "type": "single",
+      "question": "In a distribution with negative skewness, which of the following statements are TRUE?",
+      "choices": [
+        "The tail on the left side is longer than the tail on the right side",
+        "The tail on the right side is longer than the tail on the left side",
+        "The tails on either side are equal",
+        "The mean is greater than the mode"
+      ],
+      "answer": [0],
+      "explanation": "Negative skew means the distribution has a longer tail on the left."
+    },
+    {
+      "id": "dve-pt1-04",
+      "number": 4,
+      "lecture": 2,
+      "concept": "Correlation",
+      "marks": 2,
+      "type": "single",
+      "question": "If the correlation coefficient between 2 random variables X and Y is -0.8, which of the following statements are TRUE?",
+      "choices": [
+        "As X increases, Y increases with a strong relationship",
+        "As X increases, Y decreases with a weak relationship",
+        "As X increases, Y decreases with a strong relationship",
+        "X and Y have no relationship with each other"
+      ],
+      "answer": [2],
+      "explanation": "A coefficient of -0.8 indicates a strong negative relationship: as X increases, Y tends to decrease."
+    },
+    {
+      "id": "dve-pt1-05",
+      "number": 5,
+      "lecture": 2,
+      "concept": "Histogram and KDE",
+      "marks": 2,
+      "type": "single",
+      "question": "What is the primary difference between a Kernel Density Estimation (KDE) and a traditional histogram?",
+      "choices": [
+        "KDE uses only discrete data points, while histograms use continuous data",
+        "KDE shows exact probabilities while histograms show density",
+        "KDE represents each data point as a continuous curve and combines them for a smoothed estimation",
+        "KDE can only be used on Gaussian distributions"
+      ],
+      "answer": [2],
+      "explanation": "A KDE places a continuous kernel at each observation and combines the kernels into a smooth density estimate."
+    },
+    {
+      "id": "dve-pt1-06",
+      "number": 6,
+      "lecture": 3,
+      "concept": "Standardisation and normalisation",
+      "marks": 2,
+      "type": "single",
+      "question": "Which of the following statements are TRUE about basic data preprocessing techniques?",
+      "choices": [
+        "Standardisation scales data to have a mean of 1, and a variance of 0",
+        "Normalisation scales features to have a fixed range",
+        "Normalisation transforms data to have 0 mean and unit variance",
+        "None of the above"
+      ],
+      "answer": [1],
+      "explanation": "Normalisation commonly rescales a feature to a fixed range. Standardisation, not normalisation, targets zero mean and unit variance."
+    },
+    {
+      "id": "dve-pt1-07",
+      "number": 7,
+      "lecture": 2,
+      "concept": "Outliers",
+      "marks": 2,
+      "type": "single",
+      "question": "What is the phenomenon called when removing outliers causes previously normal values to become new outliers?",
+      "choices": [
+        "Masking",
+        "Variance reduction effect",
+        "Nested outliers",
+        "None of the above"
+      ],
+      "answer": [0],
+      "explanation": "The memo identifies this phenomenon as masking."
+    },
+    {
+      "id": "dve-pt1-08",
+      "number": 8,
+      "lecture": 3,
+      "concept": "Sparse categories and encoding",
+      "marks": 2,
+      "type": "single",
+      "question": "When dealing with categorical features in machine learning, which of the following statements is FALSE?",
+      "choices": [
+        "Label encoding converts categorical values into a single column of numeric values",
+        "Label encoding should always be used over one-hot encoding as it is more memory-efficient",
+        "One-hot encoding creates multiple new columns with binary values (0/1) for each category",
+        "One-hot encoding avoids the assumption of ordinal relationships between categories"
+      ],
+      "answer": [1],
+      "explanation": "Memory efficiency alone does not make label encoding universally preferable; it can introduce an artificial ordering."
+    },
+    {
+      "id": "dve-pt1-09",
+      "number": 9,
+      "lecture": 2,
+      "concept": "Descriptive statistics",
+      "marks": 2,
+      "type": "single",
+      "question": "Which of the following statistical measures is most resistant to the influence of outliers?",
+      "choices": [
+        "Mean",
+        "Standard Deviation",
+        "Variance",
+        "Median"
+      ],
+      "answer": [3],
+      "explanation": "The median is robust because its value depends on order rather than the magnitude of extreme observations."
+    },
+    {
+      "id": "dve-pt1-10",
+      "number": 10,
+      "lecture": 2,
+      "concept": "Outliers",
+      "marks": 2,
+      "type": "single",
+      "question": "Which outlier detection method is most appropriate when the data follows a Gaussian distribution, and you want to identify values based on their distance from the mean?",
+      "choices": [
+        "Isolation forest",
+        "Histogram-based detection",
+        "Z-score method",
+        "Percentile-based removal"
+      ],
+      "answer": [0],
+      "explanation": "The memo marks Isolation forest as the correct answer.",
+      "keyDispute": "Questionable: the Z-score method directly measures distance from the mean in standard deviations and is normally the natural choice for Gaussian data. Isolation forest is the answer shown in the memo, so it is retained here."
+    },
+    {
+      "id": "dve-pt1-11",
+      "number": 11,
+      "lecture": 5,
+      "concept": "Time-series basics",
+      "marks": 2,
+      "type": "single",
+      "question": "When working with time-series data, which of the following statements is TRUE?",
+      "choices": [
+        "There is always a correlation between adjacent data points",
+        "Future values can always be perfectly predicted from past values",
+        "The mean and variance change over time",
+        "The order of observations contains important information"
+      ],
+      "answer": [3],
+      "explanation": "Time-series observations are ordered in time, and that ordering carries information."
+    },
+    {
+      "id": "dve-pt1-12",
+      "number": 12,
+      "lecture": 5,
+      "concept": "Differencing and decomposition",
+      "marks": 2,
+      "type": "single",
+      "question": "Which of the following operations is commonly applied to make a non-stationary series stationary?",
+      "choices": [
+        "Exponentiation of the data",
+        "Differencing successive observations",
+        "Randomly shuffling the data",
+        "Adding a constant to every observation"
+      ],
+      "answer": [1],
+      "explanation": "Differencing can remove trend and stabilise the mean of a time series."
+    },
+    {
+      "id": "dve-pt1-13",
+      "number": 13,
+      "lecture": 5,
+      "concept": "Stationarity and tests",
+      "marks": 2,
+      "type": "single",
+      "question": "Why is stationarity an important assumption when building a machine learning model on time-series data?",
+      "choices": [
+        "Because it guarantees that the series has no noise",
+        "Because non-stationary data cannot be visualized in a meaningful way",
+        "Because machine learning models rely on the data having a constant mean and variance",
+        "Because stationarity directly ensure seasonality is present"
+      ],
+      "answer": [2],
+      "explanation": "Many time-series models assume stable statistical properties such as a constant mean and variance."
+    },
+    {
+      "id": "dve-pt1-14",
+      "number": 14,
+      "lecture": 5,
+      "concept": "Seasonality and cycles",
+      "marks": 2,
+      "type": "single",
+      "question": "Which of the following best describes seasonality in time-series data?",
+      "choices": [
+        "A random fluctuation around the mean that has no pattern",
+        "A repeating pattern in the data that occurs at fixed and predictable intervals",
+        "A long-term upward or downward movement in the mean level of the series",
+        "A transformation applied to make the data stationary"
+      ],
+      "answer": [1],
+      "explanation": "Seasonality is a repeating pattern tied to fixed, predictable intervals."
+    },
+    {
+      "id": "dve-pt1-15",
+      "number": 15,
+      "lecture": 5,
+      "concept": "Stationarity and tests",
+      "marks": 2,
+      "type": "single",
+      "question": "When testing stationarity, what conditions must be met to conclude that a process is stationary using the Augmented Dickey-Fuller (ADF) test?",
+      "choices": [
+        "Only the test statistic must be lower than the critical value",
+        "Only the p-value must be less than 0.05",
+        "Either A OR B must be true",
+        "Both A AND B must be true"
+      ],
+      "answer": [3],
+      "explanation": "The memo requires both a test statistic below the critical value and a p-value below 0.05."
+    },
+    {
+      "id": "dve-pt1-16",
+      "number": 16,
+      "lecture": 5,
+      "concept": "Time-series basics",
+      "marks": 2,
+      "type": "single",
+      "question": "When looking at time-series data, what does autocorrelation primarily measure?",
+      "choices": [
+        "The similarity between observations at different time lags",
+        "The absolute values of observations over time",
+        "The correlation between time-dependent variables",
+        "The seasonal temperature variations"
+      ],
+      "answer": [0],
+      "explanation": "Autocorrelation compares a series with lagged versions of itself."
+    },
+    {
+      "id": "dve-pt1-17",
+      "number": 17,
+      "lecture": 4,
+      "concept": "Filter selection",
+      "marks": 2,
+      "type": "single",
+      "question": "While selecting features using the Chi-Squared test, what is the correct interpretation when we “fail to reject” the null hypothesis?",
+      "choices": [
+        "The feature is definitely independent of the target variable and should be kept",
+        "The feature is definitely dependent on the target variable and should be kept",
+        "There is not enough evidence to suggest that the feature is useful, so we should discard it",
+        "We have enough evidence to indicate that the feature is useful, so we should keep it"
+      ],
+      "answer": [2],
+      "explanation": "Failing to reject independence means there is insufficient evidence that the feature is associated with the target."
+    },
+    {
+      "id": "dve-pt1-18",
+      "number": 18,
+      "lecture": 3,
+      "concept": "High-cardinality categorical data",
+      "marks": 2,
+      "type": "single",
+      "question": "When dealing with categorical high-cardinality data, which of the following approaches are valid?",
+      "choices": [
+        "One-hot encoding the categorical data",
+        "Encoding the categories by assigning sequential integers (1, 2, 3,...)",
+        "Replacing categories with continuous transform like supervised ratios or Weight of Evidence",
+        "Removing categories from the data until the cardinality becomes manageable"
+      ],
+      "answer": [2],
+      "explanation": "Supervised ratios or Weight of Evidence can replace many categories with informative continuous values."
+    },
+    {
+      "id": "dve-pt1-19",
+      "number": 19,
+      "lecture": 5,
+      "concept": "Differencing and decomposition",
+      "marks": 2,
+      "type": "single",
+      "question": "Which of the following statements about time-series decomposition is TRUE?",
+      "choices": [
+        "Seasonality refers to unpredictable and irregular fluctuations in the data",
+        "Cyclical patterns occur at fixed and predictable intervals, such as every month or quarter",
+        "Trend captures the long-term progression in the data, either upward or downward",
+        "Noise is a repeating component that occurs at regular intervals"
+      ],
+      "answer": [2],
+      "explanation": "Trend is the long-term direction or progression of a time series."
+    },
+    {
+      "id": "dve-pt1-20",
+      "number": 20,
+      "lecture": 5,
+      "concept": "Stationarity and tests",
+      "marks": 2,
+      "type": "single",
+      "question": "Which of the following statements about random walks is TRUE?",
+      "choices": [
+        "A random walk is simply a series of unrelated random numbers",
+        "A random walk is stationary because its mean and variance remain constant over time",
+        "A random walk is generally non-stationary and shows strong autocorrelation at small time lags",
+        "Random walks are best modeled using seasonality and trend components"
+      ],
+      "answer": [2],
+      "explanation": "A random walk inherits each value from the preceding value plus a random change, producing non-stationarity and strong short-lag autocorrelation."
+    },
+    {
+      "id": "dve-pt1-21",
+      "number": 21,
+      "lecture": 3,
+      "concept": "Transformations",
+      "marks": 2,
+      "type": "single",
+      "question": "Which of the following statements about preprocessing transformations is TRUE?",
+      "choices": [
+        "Tree-based algorithms require features to be normally distributed before training",
+        "The Box–Cox transformation can be applied to any dataset, including those with negative values",
+        "Distance-based algorithms, such as nearest neighbours, are highly sensitive to feature scaling",
+        "Log transformations are mainly used to reduce seasonality in time-series data"
+      ],
+      "answer": [2],
+      "explanation": "Distance-based methods are sensitive to feature scale because large-scale features can dominate computed distances."
+    },
+    {
+      "id": "dve-pt1-22",
+      "number": 22,
+      "lecture": 5,
+      "concept": "Stationarity and tests",
+      "marks": 2,
+      "type": "single",
+      "question": "Which of the following indicates a non-stationary time-series?",
+      "choices": [
+        "Autocorrelation decays quickly to zero",
+        "The mean remains constant over time",
+        "The variance changes over time or shows a trend",
+        "Data is normally distributed"
+      ],
+      "answer": [2],
+      "explanation": "Changing variance or a trend shows that the series' statistical properties are not stable over time."
+    },
+    {
+      "id": "dve-pt1-23",
+      "number": 23,
+      "lecture": 4,
+      "concept": "Entropy and mutual information",
+      "marks": 2,
+      "type": "single",
+      "question": "Which of the following statements about entropy are TRUE?",
+      "choices": [
+        "A skewed probability distribution indicates high entropy",
+        "A balanced probability distribution indicates low entropy",
+        "A balanced probability distribution indicates high entropy",
+        "None of the above statements are true"
+      ],
+      "answer": [2],
+      "explanation": "Entropy is highest when outcomes have a balanced, uniform probability distribution."
+    },
+    {
+      "id": "dve-pt1-24",
+      "number": 24,
+      "lecture": 4,
+      "concept": "Filter selection",
+      "marks": 2,
+      "type": "single",
+      "question": "Which of the following statements correctly describes a type of feature selection method?",
+      "choices": [
+        "Filter methods evaluate features independently of any machine learning model, usually using statistical measures like correlation or chi-square",
+        "Wrapper methods remove features randomly without considering model performance",
+        "Embedded methods are applied after the model has been trained and do not affect training",
+        "All feature selection methods always require deep learning models to function"
+      ],
+      "answer": [0],
+      "explanation": "Filter methods use model-independent statistical criteria to assess features."
+    },
+    {
+      "id": "dve-pt1-25",
+      "number": 25,
+      "lecture": 4,
+      "concept": "mRMR",
+      "marks": 2,
+      "type": "single",
+      "question": "Which of the following statements correctly describes the Minimum-Redundancy-Maximum-Relevance (mRMR) feature selection method?",
+      "choices": [
+        "It selects features randomly and then measures model performance",
+        "It iteratively selects features that are highly relevant to the target while minimizing redundancy with already selected features",
+        "It selects features purely based on their correlation with each other",
+        "It is similar to filter methods, evaluating each feature independently of others"
+      ],
+      "answer": [1],
+      "explanation": "mRMR balances high relevance to the target with low redundancy among selected features."
+    },
+    {
+      "id": "dve-pt1-26",
+      "number": 26,
+      "lecture": 6,
+      "concept": "Local patterns and clustering",
+      "marks": 2,
+      "type": "single",
+      "question": "What is the key advantage of HDBSCAN over traditional clustering approaches like k-means?",
+      "choices": [
+        "It requires fewer computational resources",
+        "It requires a predefined number of clusters",
+        "It works well with irregularly shaped clusters and noisy data",
+        "It performs better with clean, well-structured data"
+      ],
+      "answer": [2],
+      "explanation": "HDBSCAN can discover irregular cluster shapes and identify noisy points without requiring a fixed cluster count."
+    },
+    {
+      "id": "dve-pt1-27",
+      "number": 27,
+      "lecture": 6,
+      "concept": "Spatial autocorrelation",
+      "marks": 2,
+      "type": "single",
+      "question": "Which of the following best describes spatial autocorrelation?",
+      "choices": [
+        "It ignores the location of observations and only examines feature correlations",
+        "It measures the degree to which a variable is similar or dissimilar to nearby locations",
+        "It is only applicable to time-series data",
+        "It transforms categorical data into numerical features for machine learning"
+      ],
+      "answer": [1],
+      "explanation": "Spatial autocorrelation measures whether nearby locations tend to have similar or dissimilar values."
+    },
+    {
+      "id": "dve-pt1-28",
+      "number": 28,
+      "lecture": 6,
+      "concept": "Spatial autocorrelation",
+      "marks": 2,
+      "type": "single",
+      "question": "Moran’s I is a statistic used to measure global spatial autocorrelation. Which of the following statements is TRUE?",
+      "choices": [
+        "A Moran’s I value of 0 indicates strong positive spatial correlation",
+        "A Moran’s I value of 1 indicates perfect positive spatial correlation, 0 indicates no spatial correlation, and -1 indicates perfect negative correlation",
+        "Moran’s I can only take positive values",
+        "Moran’s I does not consider the spatial arrangement of observations"
+      ],
+      "answer": [1],
+      "explanation": "The stated interpretation maps positive, zero and negative values to positive, absent and negative spatial autocorrelation respectively."
+    },
+    {
+      "id": "dve-pt1-29",
+      "number": 29,
+      "lecture": 2,
+      "concept": "Skewness and kurtosis",
+      "marks": 2,
+      "type": "single",
+      "question": "Which of the following statements about skewness and kurtosis are TRUE?",
+      "choices": [
+        "Skewness measures the asymmetry of a distribution; a value of 0 indicates symmetry",
+        "Kurtosis measures the heaviness of the tails of a distribution; higher kurtosis indicates more extreme values (outliers)",
+        "A and B are true",
+        "None of the above"
+      ],
+      "answer": [2],
+      "explanation": "Skewness describes asymmetry, while kurtosis describes tail heaviness; both statements are true."
+    },
+    {
+      "id": "dve-pt1-30",
+      "number": 30,
+      "lecture": 5,
+      "concept": "Fourier and spectrograms",
+      "marks": 2,
+      "type": "single",
+      "question": "Which of the following statements about Fourier Transforms in time series analysis is TRUE?",
+      "choices": [
+        "A Fourier Transform converts a time series into a series of cumulative sums",
+        "A Fourier Transform decomposes a time series into its constituent frequencies and their amplitudes, revealing periodic patterns such as seasonality",
+        "Fourier Transforms can only be applied to non-stationary data",
+        "The frequency domain representation shows the data in units of time rather than cycles per unit time"
+      ],
+      "answer": [1],
+      "explanation": "The Fourier Transform exposes the frequencies and amplitudes that compose a signal, making periodic structure visible."
+    }
+  ]
+}
