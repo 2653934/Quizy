@@ -13,7 +13,8 @@
     round: [],         // round items in play order: {q, set, choiceOrder, pairOrder, optionOrder, section (mock paper), score once answered}
     paper: null,       // during a mock paper: {code, lectures, sections: [{key, letter, name, marks, start, count}]}
     index: 0,          // position in round
-    answered: false    // whether round[index] has been answered
+    answered: false,   // whether round[index] has been answered
+    rapidMode: false   // fully correct choice-based answers advance automatically
   };
 
   // loadAttempts(subjectKey) returns that subject's saved progress.
@@ -28,13 +29,19 @@
 
   Quizy.allQuestions = () => state.sets.flatMap(s => s.questions);
 
-  Quizy.beginRound = function (set, items, paper = null) {
+  Quizy.beginRound = function (set, items, paper = null, options = {}) {
     state.roundSet = set;
     state.round = items;
     state.paper = paper;
     state.index = 0;
     state.answered = false;
+    state.rapidMode = options.rapidMode === true;
   };
+
+  // These types are multiple-choice interactions. Rapid mode deliberately excludes typed,
+  // matching and labelling questions, even when they happen to receive full marks.
+  Quizy.isRapidQuestion = q => ['single', 'truefalse', 'multi'].includes(q?.type);
+  Quizy.shouldRapidAdvance = (q, score, enabled) => enabled === true && Quizy.isRapidQuestion(q) && Quizy.isFull(score, q);
 
   Quizy.currentItem = () => state.round[state.index];
 

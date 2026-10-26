@@ -156,6 +156,38 @@
   gap: 12px 14px;
 }
 
+/* Optional fast flow for choice-based questions. The whole row is the tap target. */
+.rapid-mode {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 480px;
+  min-height: 56px;
+  margin: 16px 0;
+  padding: 10px 12px;
+  border: 1px solid var(--field-line);
+  border-radius: 6px;
+  background: var(--choice-bg);
+  cursor: pointer;
+}
+
+.rapid-mode input {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  accent-color: var(--accent);
+}
+
+.rapid-mode span {
+  display: grid;
+  gap: 2px;
+}
+
+.rapid-mode small {
+  color: var(--muted);
+  line-height: 1.35;
+}
+
 /* "No quizzes yet" */
 .empty {
   border: 1.5px dashed var(--field-line);

@@ -56,7 +56,8 @@
   // A normal round with exactly these questions (from the paper's summary).
   function retry(questions) {
     const marks = questions.reduce((sum, q) => sum + marksOf(q), 0);
-    ui.startRound({id: `${state.subject.key}-retry`, subject: state.subject.key, title: 'Questions to retry', kind: 'retry', totalMarks: marks}, questions);
+    ui.startRound({id: `${state.subject.key}-retry`, subject: state.subject.key, title: 'Questions to retry', kind: 'retry', totalMarks: marks}, questions,
+      {rapidMode: state.rapidMode});
   }
   let missed = [];
   ui.retryMissed = () => retry(missed);

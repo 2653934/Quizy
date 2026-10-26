@@ -5,15 +5,23 @@
 (function (Quizy) {
   const ui = Quizy.ui = Quizy.ui || {};
   const {$, el, richEl, richText, shuffle, plural, formatMarks, marksOf, isFull, state, storage} = Quizy;
+  const RAPID_ADVANCE_MS = 650;
+  let rapidTimer = null;
 
   const typeOf = q => Quizy.types[q.type];
 
   // Question order and option order are shuffled on every new round. Each item keeps the set its
   // question comes from (a round can mix sets: "Everything in …", a mock paper, a retry round).
   // ui.returnTo is null here; the browse view sets it to 'browse' for "Practise this question".
-  ui.startRound = function (set, questions) {
+  ui.cancelRapidAdvance = function () {
+    clearTimeout(rapidTimer);
+    rapidTimer = null;
+  };
+
+  ui.startRound = function (set, questions, options = {rapidMode: $('rapid-mode').checked}) {
+    ui.cancelRapidAdvance();
     ui.returnTo = null;
-    Quizy.beginRound(set, shuffle(questions).map(q => ({q, set: state.setOf.get(q.id) || set, ...typeOf(q).makeOrder(q, shuffle)})));
+    Quizy.beginRound(set, shuffle(questions).map(q => ({q, set: state.setOf.get(q.id) || set, ...typeOf(q).makeOrder(q, shuffle)})), null, options);
     ui.show('quiz');
     drawQuestion();
   };
@@ -21,6 +29,7 @@
   // A mock paper from Quizy.makePaper: its sections in order, the options shuffled with the paper's own
   // generator so that replaying the code gives the same paper.
   ui.startPaper = function (paper) {
+    ui.cancelRapidAdvance();
     ui.returnTo = null;
     const random = list => shuffle(list, paper.random);
     let start = 0;
@@ -28,7 +37,7 @@
     const items = paper.sections.flatMap(s => s.items.map(({q, set}) => ({q, set, section: s.key, ...typeOf(q).makeOrder(q, random)})));
     const set = {id: `${state.subject.key}-paper`, subject: state.subject.key, title: `Mock test · Paper ${paper.code}`, kind: 'mock-paper',
       totalMarks: paper.sections.reduce((sum, s) => sum + s.marks, 0)};
-    Quizy.beginRound(set, items, {code: paper.code, lectures: paper.lectures, sections});
+    Quizy.beginRound(set, items, {code: paper.code, lectures: paper.lectures, sections}, {rapidMode: $('rapid-mode').checked});
     ui.show('quiz');
     drawQuestion();
   };
@@ -46,6 +55,7 @@
   }
 
   function drawQuestion() {
+    ui.cancelRapidAdvance();
     const {round, index} = state;
     const item = Quizy.currentItem();
     const q = item.q;
@@ -100,8 +110,17 @@
     ui.updateStats();
     showFeedback(item, score, response);
     ui.showAsk(q, response);
-    $('next').hidden = false;
-    $('next').focus({preventScroll: true});
+    const rapid = Quizy.shouldRapidAdvance(q, score, state.rapidMode);
+    $('next').hidden = rapid;
+    if (!rapid) return $('next').focus({preventScroll: true});
+
+    $('feedback').querySelector('.verdict').append(el('span', 'rapid-advance', state.index === state.round.length - 1 ? 'Showing results…' : 'Next question…'));
+    const answeredIndex = state.index;
+    rapidTimer = setTimeout(() => {
+      rapidTimer = null;
+      // Quitting or starting another round during the short pause must not advance that new view.
+      if (ui.view === 'quiz' && state.answered && state.index === answeredIndex) ui.next();
+    }, RAPID_ADVANCE_MS);
   }
 
   // Verdict and marks, then any type-specific notes (e.g. a worked solution), the study note,
@@ -154,6 +173,7 @@
 
   ui.next = function () {
     if (!state.answered) return;
+    ui.cancelRapidAdvance();
     if (!Quizy.nextItem()) return ui.showSummary();
     // A mock paper pauses between sections.
     if (Quizy.currentSection()?.start === state.index) return ui.showInterlude();

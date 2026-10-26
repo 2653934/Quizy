@@ -223,3 +223,17 @@ test('state: recordAnswer feeds attempts and roundTotals', () => {
   assert.deepEqual(Quizy.state.attempts.q2.correct, true);
   assert.deepEqual(Quizy.roundTotals(Quizy.state.round), {score: 2, full: 1, marks: 3, count: 2});
 });
+
+test('rapid mode is opt-in and only recognises choice-based questions', () => {
+  const set = {id: 'x-rapid', questions: [{id: 'q1', type: 'single'}]};
+  Quizy.beginRound(set, [{q: set.questions[0]}]);
+  assert.equal(Quizy.state.rapidMode, false);
+  Quizy.beginRound(set, [{q: set.questions[0]}], null, {rapidMode: true});
+  assert.equal(Quizy.state.rapidMode, true);
+  for (const type of ['single', 'truefalse', 'multi']) assert.equal(Quizy.isRapidQuestion({type}), true, type);
+  for (const type of ['match', 'short', 'numeric', 'written', 'label']) assert.equal(Quizy.isRapidQuestion({type}), false, type);
+  assert.equal(Quizy.shouldRapidAdvance({type: 'single', marks: 2}, 2, true), true);
+  assert.equal(Quizy.shouldRapidAdvance({type: 'multi', marks: 2}, 1, true), false, 'partial answers pause');
+  assert.equal(Quizy.shouldRapidAdvance({type: 'single'}, 1, false), false, 'mode is opt-in');
+  assert.equal(Quizy.shouldRapidAdvance({type: 'short'}, 1, true), false, 'typed answers pause');
+});

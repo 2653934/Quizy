@@ -143,16 +143,20 @@
       $('setup-message').textContent = $('mode').value === 'review' ? 'No missed questions here yet. Try “All questions” first.' : 'No questions in this selection yet.';
       return;
     }
-    ui.startRound(ui.roundSet(selected), selected);
+    ui.startRound(ui.roundSet(selected), selected, {rapidMode: $('rapid-mode').checked});
   };
 
   // Back from a round or the summary.
   ui.backToSetup = function () {
+    ui.cancelRapidAdvance?.();
     ui.returnTo = null;
     ui.show('setup');
     ui.updateNote();
   };
 
   // "End round": back to where the round was started (setup, or the browse list for "Practise this question").
-  ui.endRound = () => ui.returnTo === 'browse' ? ui.backToBrowse() : ui.backToSetup();
+  ui.endRound = function () {
+    ui.cancelRapidAdvance?.();
+    return ui.returnTo === 'browse' ? ui.backToBrowse() : ui.backToSetup();
+  };
 })(window.Quizy = window.Quizy || {});

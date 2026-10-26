@@ -137,6 +137,13 @@
   align-items: baseline;
 }
 
+.rapid-advance {
+  margin-left: auto;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 700;
+}
+
 .verdict strong {
   font: 20px Georgia, serif;
 }
