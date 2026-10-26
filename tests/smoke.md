@@ -13,6 +13,7 @@ ALL=1 node smoke.cjs <path-to-Quizy> out    # also: every NLP question, every no
 node newtypes.cjs <repo-with-new-sets> nt   # short / numeric / written end to end (see below)
 node paper.cjs <repo-with-new-sets> pp       # mock papers, label, practise by style, lecture chips (see below)
 node maths.cjs <repo-with-maths-check> mx    # maths rendering and Browse & search (see below)
+node sidebar.cjs <path-to-Quizy> sb          # sidebar, phone menu and dark mode (see below)
 ```
 
 ## What it does
@@ -22,7 +23,7 @@ For `file://` and a local HTTP server, at 375×667 and 1280×800:
 - Screenshots the setup screen of every subject (DVE, NLP, DO's "No quizzes yet") and records its text, sets, lecture chips, styles, theme tokens, theme colour and favicon.
 - Plays seeded rounds (`index.html?seed=7`, see `src/core/random.js`): NLP all correct (expected **50 / 50 marks**), NLP all wrong with every multi option ticked (expected **0 / 50 marks**), then DVE all correct (**421 out of 421 correct**) and all wrong. The same seed replays the same order, so the two rounds can be compared question by question. For every question it records the source line, question, hints and options HTML before and after answering, the feedback, the "Next" label and the stats.
 - Screenshots the first answered `multi`, the first answered `match`, NLP Q20 (with the image) and the summary, both viewport-only and full page.
-- At 375×667 it measures, after each question's scroll has settled, that the question text, progress bar and "End round" are on the first screen (last result: the question starts at most 301px from the top, on question 1).
+- At 375×667 it measures, after each question's scroll has settled, that the question text, progress bar and "End round" are on the first screen (last result: the question starts at most 272px from the top, on question 1).
 - Checks that nothing scrolls sideways, that visible buttons, selects, options and checkbox rows are ≥ 48px tall, and that there are no console errors.
 - Checks storage: the last subject is remembered; seeding `quizy-dve-attempts-v1` with 2 correct + 1 wrong gives 2 / 1 in the DVE stats and copies the value to `quizy-attempts-v2-dve` while keeping the old key; existing v2 data is never overwritten; broken JSON in storage is ignored.
 - Checks that without `?seed` two loads give different orders (Math.random is still used).
@@ -32,6 +33,9 @@ Things to know when changing it:
 - The 2026-10-12 setup screen (lecture chips, style select, mock-test block) changed the setup text and the 8 full-page setup screenshots; the baseline was retaken then. Everything else stayed byte-identical.
 - The "Browse all questions" button (added after the mock papers) changed the setup text by that one line and the same 8 full-page setup screenshots; the baseline was retaken then. Everything else stayed byte-identical.
 - After every navigation, wait for `.subject-tab[aria-pressed=true]`: over HTTP the data loads asynchronously.
+- Choose subjects with `pickSubject(page, key)`: the subject list is in the sidebar, and at 375px it is inside the menu panel, so the helper opens the menu first when the menu button is visible (it also works on older versions without one).
+- `findQuestion` takes the question in play from `Quizy.state` by id, because question text with maths no longer equals the rendered text.
+- The sidebar (2026-10-26) changed the setup text, the side-panel text and every screenshot; the baseline was retaken then.
 - Wait for smooth scrolling to finish before screenshots or measurements by polling `scrollY` inside `page.evaluate` until it stops changing. Don't return a Promise from `page.waitForFunction`; it counts as truthy straight away.
 - Let the scroll settle before clicking "See results". Otherwise two smooth scrolls overlap and the summary can stop a few pixels short of the top, which makes screenshots flaky.
 - Don't run two smoke runs at once: images can then differ by a pixel or so.
@@ -70,6 +74,11 @@ function serve() {
 }
 
 const ready = page => page.waitForSelector('.subject-tab[aria-pressed=true]', {state: 'attached'});
+// The subject list is in the sidebar; on phones it is inside the menu panel, which closes after a choice.
+const pickSubject = async (page, key) => {
+  if (await page.isVisible('#menu-toggle')) await page.click('#menu-toggle');
+  await page.click(`.subject-tab[data-key=${key}]`);
+};
 
 async function settle(page) {
   // Wait until scrollY stops changing (smooth scrolling has finished).
@@ -87,6 +96,10 @@ const pageHelpers = () => {
   window.__smoke = {
     findQuestion(setId) {
       const set = window.QUIZY_DATA.sets[setId];
+      // The item in play (question text with maths no longer equals the rendered text).
+      const item = window.Quizy.state.round[window.Quizy.state.index];
+      const playing = item && set.questions.find(q => q.id === item.q.id);
+      if (playing) return playing;
       const text = document.getElementById('question').textContent;
       const items = document.getElementById('choices').children;
       const candidates = set.questions.filter(q => q.question === text);
@@ -159,7 +172,7 @@ const pageHelpers = () => {
 async function playRound(page, cfg, subjectKey, setId, right, shots) {
   await page.goto(cfg.url + '?seed=' + SEED); await ready(page);
   await page.evaluate(pageHelpers);
-  await page.click(`.subject-tab[data-key=${subjectKey}]`);
+  await pickSubject(page, subjectKey);
   await page.selectOption('#set', setId);
   await page.click('#start');
   await settle(page);
@@ -230,7 +243,7 @@ async function playRound(page, cfg, subjectKey, setId, right, shots) {
       await page.goto(url); await ready(page);
       await page.evaluate(pageHelpers);
       for (const key of ['dve', 'nlp', 'do']) {
-        await page.click(`.subject-tab[data-key=${key}]`);
+        await pickSubject(page, key);
         await settle(page);
         await page.screenshot({path: path.join(out, `${name}-${key}-setup-view.png`)});
         await page.screenshot({path: path.join(out, `${name}-${key}-setup-full.png`), fullPage: true});
@@ -247,7 +260,7 @@ async function playRound(page, cfg, subjectKey, setId, right, shots) {
         cfg.layout.push({where: `${key} setup`, ...(await page.evaluate(() => window.__smoke.layout()))});
       }
       // Lecture filter + review mode note text on DVE.
-      await page.click('.subject-tab[data-key=dve]');
+      await pickSubject(page, 'dve');
       await page.click('#lectures .chip[data-lecture="3"]');
       r['dve-note-l3'] = await page.textContent('#bank-note');
       await page.selectOption('#mode', 'review');
@@ -312,7 +325,7 @@ async function playRound(page, cfg, subjectKey, setId, right, shots) {
   const orders = [];
   for (let i = 0; i < 2; i++) {
     await page.goto(fileUrl); await ready(page);
-    await page.click('.subject-tab[data-key=nlp]');
+    await pickSubject(page, 'nlp');
     await page.click('#start');
     orders.push(await page.evaluate(() => document.getElementById('question').textContent + document.getElementById('choices').innerText));
   }
@@ -389,6 +402,11 @@ const serve = () => new Promise(resolve => {
   server.listen(0, () => resolve(server));
 });
 const ready = page => page.waitForSelector('.subject-tab[aria-pressed=true]', {state: 'attached'});
+// The subject list is in the sidebar; on phones it is inside the menu panel, which closes after a choice.
+const pickSubject = async (page, key) => {
+  if (await page.isVisible('#menu-toggle')) await page.click('#menu-toggle');
+  await page.click(`.subject-tab[data-key=${key}]`);
+};
 const settle = page => page.evaluate(async () => {
   let last = -1, same = 0;
   for (let i = 0; i < 100 && same < 6; i++) { await new Promise(r => setTimeout(r, 50)); if (scrollY === last) same++; else { same = 0; last = scrollY; } }
@@ -433,7 +451,7 @@ const text = (page, sel) => page.evaluate(s => { const n = document.querySelecto
 
       // Setup: unofficial note and the paper-style count line.
       await page.goto(url); await ready(page);
-      await page.click('.subject-tab[data-key=nlp]');
+      await pickSubject(page, 'nlp');
       await page.selectOption('#set', 'nlp-practice-quiz');
       r.unofficial = await text(page, '#set-unofficial');
       r.notePractice = await page.textContent('#bank-note');
@@ -535,7 +553,7 @@ const text = (page, sel) => page.evaluate(s => { const n = document.querySelecto
       await page.fill('#choices textarea', 'Tokenisation splits text into tokens.\nAgglutinative words glue morphemes together.');
       await shot('written-typing');
       await page.reload(); await ready(page);
-      await page.click('.subject-tab[data-key=nlp]');
+      await pickSubject(page, 'nlp');
       await play(page, 'nlp-tutorial', 'nlp-tut-1-1');
       r.writtenRestored = await page.inputValue('#choices textarea');
       expect(r.writtenRestored.startsWith('Tokenisation splits text') && r.writtenCheck[0] === 'Reveal model answer' && !r.writtenCheck[1], `${name} written restore/check ${JSON.stringify(r.writtenCheck)}`);
@@ -615,6 +633,11 @@ const serve = () => new Promise(resolve => {
   server.listen(0, () => resolve(server));
 });
 const ready = page => page.waitForSelector('.subject-tab[aria-pressed=true]', {state: 'attached'});
+// The subject list is in the sidebar; on phones it is inside the menu panel, which closes after a choice.
+const pickSubject = async (page, key) => {
+  if (await page.isVisible('#menu-toggle')) await page.click('#menu-toggle');
+  await page.click(`.subject-tab[data-key=${key}]`);
+};
 const settle = page => page.evaluate(async () => {
   let last = -1, same = 0;
   for (let i = 0; i < 100 && same < 6; i++) { await new Promise(r => setTimeout(r, 50)); if (scrollY === last) same++; else { same = 0; last = scrollY; } }
@@ -705,7 +728,7 @@ const answerHelper = () => {
 
       await page.goto(url); await ready(page);
       await page.evaluate(answerHelper);
-      await page.click('.subject-tab[data-key=nlp]');
+      await pickSubject(page, 'nlp');
       r.sets = await page.$$eval('#set option', os => os.map(o => o.value + '|' + o.text));
       r.setValue = await page.inputValue('#set');
       r.chips = await page.$$eval('#lectures .chip', cs => cs.map(c => c.textContent + (c.classList.contains('none') ? '(none)' : '') + (c.getAttribute('aria-pressed') === 'true' ? '*' : '')));
@@ -850,12 +873,12 @@ const answerHelper = () => {
       expect(r.notEnough === 'Not enough quiz questions in L1 only: pick more lectures.', `${name} not enough ${r.notEnough}`);
       expect(r.badCode?.startsWith('Type the paper’s code'), `${name} bad code ${r.badCode}`);
       // DVE: no theory questions.
-      await page.click('.subject-tab[data-key=dve]');
+      await pickSubject(page, 'dve');
       r.dveSets = await page.$$eval('#set option', os => os.map(o => o.value));
       await page.click('#generate');
       r.dveMessage = await text('#setup-message');
       await shot('setup-dve');
-      expect(r.dveSets.join() === 'dve-lecture-bank', `${name} dve sets ${r.dveSets}`);
+      expect(r.dveSets.join() === 'all,dve-lecture-bank,dve-past-test-1-2025', `${name} dve sets ${r.dveSets}`);
 
       r.errors = errors;
       if (errors.length) problems.push(`${name} console: ${errors.join(' | ')}`);
@@ -916,6 +939,11 @@ function serve() {
 }
 
 const ready = page => page.waitForSelector('.subject-tab[aria-pressed=true]', {state: 'attached'});
+// The subject list is in the sidebar; on phones it is inside the menu panel, which closes after a choice.
+const pickSubject = async (page, key) => {
+  if (await page.isVisible('#menu-toggle')) await page.click('#menu-toggle');
+  await page.click(`.subject-tab[data-key=${key}]`);
+};
 async function settle(page) {
   await page.evaluate(async () => {
     let last = -1, same = 0;
@@ -997,7 +1025,7 @@ async function run(browser, base, label, viewport) {
   await page.evaluate(() => localStorage.clear());
   await page.goto(base + 'index.html');
   await ready(page);
-  await page.click('.subject-tab[data-key=nlp]');
+  await pickSubject(page, 'nlp');
 
   // 1. Play the maths set: every type, maths in every field.
   await page.selectOption('#set', 'nlp-maths-check');
@@ -1127,7 +1155,7 @@ async function run(browser, base, label, viewport) {
   await page.waitForSelector('#browse:not([hidden])');
   // The subject switcher stays enabled while browsing and shows the other subject's bank.
   assert.equal(await page.isDisabled('.subject-tab[data-key=dve]'), false);
-  await page.click('.subject-tab[data-key=dve]');
+  await pickSubject(page, 'dve');
   await page.waitForSelector('#browse:not([hidden])');
   assert.equal(await page.textContent('#browse-count'), '421 of 421 questions');
   await page.click('#browse-close');
@@ -1186,4 +1214,213 @@ async function fallback(browser, base) {
   console.log(failed ? 'Some maths/browse checks FAILED.' : 'All maths/browse checks passed.');
   process.exitCode = failed ? 1 : 0;
 })();
+```
+
+## sidebar.cjs
+
+The sidebar, the phone menu and the colour mode, over `file://` and HTTP at 375×667 and 1280×800, each with the system set to light and to dark (`colorScheme` in the browser context). It checks:
+- Without a saved choice the page follows the system, and over HTTP (with the data delayed) `html[data-mode]` and the page background are already right before the data has loaded (no light flash).
+- The subject list comes from `data/subjects.json`, the main column has no switcher, switching subject changes the theme colour and the course text; on phones the menu closes after a choice.
+- Phone menu: `aria-expanded`, Escape closes it and puts focus back on the menu button, no desktop collapse button.
+- Desktop: collapsing gives an ≤ 84px rail that doesn't cover `main`, the button label and `aria-expanded` change, abbreviated subject buttons keep their full accessible name, the state survives a reload; Tab goes collapse button → subjects → "Dark mode" with a visible focus ring.
+- Switching subject from browse and from the answer view shows the new subject's bank.
+- During a round every subject button is disabled (also inside the menu) while "Dark mode" still switches mode, theme colour and background; the explicit choice survives a reload, beats the system and is stored in `quizy-color-mode-v1`.
+- No sideways scroll, 48px targets (sidebar buttons also 48px wide) and no console errors. It writes full-page screenshots of each state (setup, menu, collapsed, browse, answer, a question answered in the other mode) for a visual check.
+
+```js
+// node sidebar.cjs <repoDir> <outDir>
+// The sidebar, the phone menu and the colour mode over file:// and HTTP at 375x667 and 1280x800, with the
+// system in light and in dark mode: subject switching from setup, browse and the answer view, locked during a
+// round; collapsing (desktop) and the menu panel (phone); saved preferences; no light flash before the data loads.
+const http = require('node:http');
+const fs = require('node:fs');
+const path = require('node:path');
+const assert = require('node:assert/strict');
+const {chromium} = require('playwright-core');
+
+const repo = path.resolve(process.argv[2]);
+const out = path.resolve(process.argv[3]);
+fs.mkdirSync(out, {recursive: true});
+const TYPES = {'.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.svg': 'image/svg+xml', '.woff2': 'font/woff2'};
+const serve = () => new Promise(resolve => {
+  const server = http.createServer((req, res) => {
+    const file = path.join(repo, decodeURIComponent(new URL(req.url, 'http://x').pathname));
+    if (!file.startsWith(repo) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) { res.writeHead(404); return res.end(); }
+    res.writeHead(200, {'content-type': TYPES[path.extname(file)] || 'application/octet-stream'});
+    res.end(fs.readFileSync(file));
+  });
+  server.listen(0, () => resolve(server));
+});
+const ready = page => page.waitForSelector('.subject-tab[aria-pressed=true]', {state: 'attached'});
+const settle = page => page.evaluate(async () => {
+  let last = -1, same = 0;
+  for (let i = 0; i < 100 && same < 6; i++) { await new Promise(r => setTimeout(r, 50)); if (scrollY === last) same++; else { same = 0; last = scrollY; } }
+});
+const layout = page => page.evaluate(() => {
+  const doc = document.documentElement;
+  const small = [];
+  for (const node of document.querySelectorAll('button, select, .choice, input, textarea')) {
+    const box = node.getBoundingClientRect();
+    if (!box.width || !box.height || node.closest('[hidden]')) continue;
+    const target = node.matches('input[type=checkbox]') ? node.closest('label').getBoundingClientRect() : box;
+    if (target.height < 47.5 || (node.matches('.side-button, .subject-tab') && target.width < 47.5)) small.push(`${node.tagName}#${node.id}.${node.className} ${Math.round(target.width)}x${Math.round(target.height)}`);
+  }
+  return {hScroll: doc.scrollWidth > doc.clientWidth, small};
+});
+const pressed = page => page.evaluate(() => document.querySelector('.subject-tab[aria-pressed=true]').dataset.key);
+const mode = page => page.evaluate(() => ({
+  mode: document.documentElement.dataset.mode, scheme: getComputedStyle(document.documentElement).colorScheme,
+  themeColor: document.querySelector('meta[name=theme-color]').content, bg: getComputedStyle(document.body).backgroundColor,
+  toggle: document.getElementById('theme-toggle').getAttribute('aria-pressed')
+}));
+
+(async () => {
+  const server = await serve();
+  const fileUrl = 'file:///' + path.join(repo, 'index.html').replace(/\\/g, '/');
+  const httpUrl = `http://localhost:${server.address().port}/index.html`;
+  const data = JSON.parse(fs.readFileSync(path.join(repo, 'data', 'subjects.json'))).subjects;
+  const browser = await chromium.launch({channel: 'msedge'});
+  const problems = [];
+  for (const [where, url] of [['file', fileUrl], ['http', httpUrl]]) {
+    for (const [w, h] of [[375, 667], [1280, 800]]) {
+      for (const scheme of ['light', 'dark']) {
+        const name = `${where}-${w}-${scheme}`;
+        const phone = w <= 700;
+        const context = await browser.newContext({viewport: {width: w, height: h}, deviceScaleFactor: 1, colorScheme: scheme});
+        const page = await context.newPage();
+        const errors = [];
+        page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
+        page.on('pageerror', e => errors.push(String(e)));
+        const check = async label => {
+          const l = await layout(page);
+          if (l.hScroll || l.small.length) problems.push(`${name} ${label}: hScroll=${l.hScroll} small=${l.small.join('; ')}`);
+        };
+        const shot = label => page.screenshot({path: path.join(out, `${name}-${label}.png`), fullPage: true});
+        const pick = async key => {
+          if (phone) await page.click('#menu-toggle');
+          await page.click(`.subject-tab[data-key=${key}]`);
+        };
+
+        // No saved choice: follow the system; html[data-mode] is set before the data has loaded.
+        if (where === 'http') {
+          await page.route('**/generated/quizy-data.js', async r => { await new Promise(res => setTimeout(res, 800)); r.continue(); });
+          await page.route('**/data/subjects.json', async r => { await new Promise(res => setTimeout(res, 800)); r.continue(); });
+          await page.goto(url, {waitUntil: 'commit'});
+          await page.waitForSelector('main');
+          const early = await page.evaluate(() => ({mode: document.documentElement.dataset.mode, bg: getComputedStyle(document.body).backgroundColor, loaded: !!document.querySelector('.subject-tab')}));
+          assert.equal(early.loaded, false, 'data should still be loading');
+          assert.equal(early.mode, scheme, `${name} first paint mode`);
+          assert.equal(early.bg, scheme === 'dark' ? 'rgb(18, 31, 33)' : 'rgb(242, 245, 244)', `${name} first paint background`);
+          await ready(page);
+          await page.unrouteAll({behavior: "wait"});
+        }
+        await page.goto(url); await ready(page);
+        let m = await mode(page);
+        assert.equal(m.mode, scheme); assert.equal(m.scheme, scheme); assert.equal(m.toggle, String(scheme === 'dark'));
+
+        // The sidebar lists every subject from the data, with its code and name in the accessible name.
+        const tabs = await page.$$eval('.subject-tab', t => t.map(b => ({key: b.dataset.key, title: b.title, name: b.textContent})));
+        assert.deepEqual(tabs.map(t => t.key), data.map(s => s.key));
+        for (const s of data) assert.ok(tabs.find(t => t.key === s.key).title.includes(s.code));
+        assert.equal(await page.isVisible('#subjects'), !phone, 'subject list visible only on desktop until the menu opens');
+        assert.equal(await page.$('main .subject-tab'), null, 'no subject switcher left in the main column');
+        await page.evaluate(() => localStorage.clear());
+
+        // Setup: switch subject; the theme colour follows.
+        await pick('dve'); await settle(page);
+        const dveColor = (await mode(page)).themeColor;
+        await pick('nlp'); await settle(page);
+        assert.equal(await pressed(page), 'nlp');
+        assert.notEqual((await mode(page)).themeColor, dveColor);
+        assert.equal(await page.textContent('#side-name'), 'Natural Language Processing');
+        if (phone) assert.equal(await page.getAttribute('#menu-toggle', 'aria-expanded'), 'false', 'menu closes after a choice');
+        await check('setup'); await shot('setup');
+
+        // Phone menu: opens, Escape closes it and returns focus, targets are 48px.
+        if (phone) {
+          await page.click('#menu-toggle');
+          assert.equal(await page.getAttribute('#menu-toggle', 'aria-expanded'), 'true');
+          assert.ok(await page.isVisible('#theme-toggle'));
+          await check('menu open'); await shot('menu');
+          await page.keyboard.press('Escape');
+          assert.equal(await page.getAttribute('#menu-toggle', 'aria-expanded'), 'false');
+          assert.equal(await page.isVisible('#subjects'), false);
+          assert.equal(await page.evaluate(() => document.activeElement.id), 'menu-toggle');
+          assert.equal(await page.isVisible('#sidebar-toggle'), false, 'no desktop rail button on phones');
+        }
+
+        // Desktop: collapse to a rail and back; the label and aria-expanded follow; the main column isn't covered.
+        if (!phone) {
+          assert.equal(await page.getAttribute('#sidebar-toggle', 'aria-label'), 'Collapse sidebar');
+          await page.click('#sidebar-toggle');
+          await page.waitForTimeout(300);
+          assert.equal(await page.getAttribute('#sidebar-toggle', 'aria-expanded'), 'false');
+          assert.equal(await page.getAttribute('#sidebar-toggle', 'aria-label'), 'Expand sidebar');
+          const rail = await page.evaluate(() => ({aside: document.querySelector('aside').getBoundingClientRect().right, main: document.querySelector('main').getBoundingClientRect().left}));
+          assert.ok(rail.aside <= 90 && rail.main >= rail.aside, JSON.stringify(rail));
+          assert.ok(await page.getByRole('button', {name: /Natural Language Processing/}).isVisible(), 'abbreviated button keeps its full name');
+          await check('collapsed'); await shot('collapsed');
+          await page.reload(); await ready(page);
+          assert.equal(await page.getAttribute('#sidebar-toggle', 'aria-expanded'), 'false', 'collapsed after reload');
+          await pick('dve'); assert.equal(await pressed(page), 'dve');
+          await pick('nlp');
+          await page.click('#sidebar-toggle');
+          assert.equal(await page.getAttribute('#sidebar-toggle', 'aria-label'), 'Collapse sidebar');
+          // Keyboard: Tab reaches the sidebar controls in order, with a visible focus ring.
+          await page.keyboard.press('Shift+Tab'); await page.keyboard.press('Tab'); // keyboard focus on the toggle
+          const order = [];
+          for (let i = 0; i < data.length + 2; i++) { if (i) await page.keyboard.press('Tab'); order.push(await page.evaluate(() => (document.activeElement.id || document.activeElement.dataset.key) + '|' + getComputedStyle(document.activeElement).outlineStyle)); }
+          assert.deepEqual(order.map(o => o.split('|')[0]), ['sidebar-toggle', ...data.map(s => s.key), 'theme-toggle']);
+          for (const o of order) assert.notEqual(o.split('|')[1], 'none', 'focus ring ' + o);
+        }
+
+        // Browse and answer views: switching subject shows the new subject's bank.
+        await page.click('#browse-open'); await settle(page);
+        await pick('dve'); await settle(page);
+        assert.equal(await page.evaluate(() => Quizy.ui.view), 'browse');
+        assert.match(await page.textContent('#browse-count'), /DVE|questions/);
+        await check('browse'); await shot('browse');
+        await page.click('#browse-list .browse-card'); await settle(page);
+        assert.equal(await page.evaluate(() => Quizy.ui.view), 'answer');
+        await shot('answer');
+        await pick('nlp'); await settle(page);
+        assert.equal(await page.evaluate(() => Quizy.ui.view), 'browse');
+        assert.equal(await pressed(page), 'nlp');
+        await page.click('#browse-close'); await settle(page);
+
+        // During a round the subject list is locked (also inside the phone menu); the colour mode still switches.
+        await page.click('#start'); await settle(page);
+        assert.ok(await page.$$eval('.subject-tab', t => t.every(b => b.disabled)));
+        if (phone) await page.click('#menu-toggle');
+        const before = await mode(page);
+        await page.click('#theme-toggle');
+        m = await mode(page);
+        assert.notEqual(m.mode, before.mode); assert.notEqual(m.themeColor, before.themeColor); assert.notEqual(m.bg, before.bg);
+        await check('quiz menu');
+        await page.click('.subject-tab[data-key=dve]', {force: true}).catch(() => {});
+        assert.equal(await pressed(page), 'nlp', 'still NLP during the round');
+        if (phone) await page.keyboard.press('Escape');
+        await shot('quiz-other-mode');
+        // An answered question in the other mode, for a visual check of the feedback colours.
+        const first = await page.$('#choices .choice');
+        if (first) { await first.click(); if (await page.isVisible('#check') && await page.isEnabled('#check')) await page.click('#check'); }
+        await settle(page); await shot('quiz-answered');
+        // The explicit choice survives a reload and beats the system.
+        await page.reload(); await ready(page);
+        m = await mode(page);
+        assert.equal(m.mode, scheme === 'dark' ? 'light' : 'dark', 'saved colour mode after reload');
+        assert.equal(await page.evaluate(() => localStorage.getItem('quizy-color-mode-v1')), m.mode);
+        assert.equal(await pressed(page), 'nlp', 'last subject kept');
+        await check('reloaded');
+
+        if (errors.length) problems.push(`${name} console: ${errors.join(' | ')}`);
+        console.log(name, 'ok');
+        await context.close();
+      }
+    }
+  }
+  await browser.close();
+  server.close();
+  console.log(problems.length ? 'PROBLEMS:\n' + problems.join('\n') : 'No layout/console problems.');
+})().catch(e => { console.error(e); process.exit(1); });
 ```

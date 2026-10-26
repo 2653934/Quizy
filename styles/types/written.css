@@ -74,12 +74,12 @@
 }
 
 .rubric-point:has(input:checked):not(.ticked) {
-  border-color: var(--accent);
+  border-color: var(--accent-text);
   background: var(--light);
 }
 
 .rubric-point.ticked {
-  background: #dceee2;
+  background: var(--good-bg);
   border-color: var(--green);
   cursor: default;
 }

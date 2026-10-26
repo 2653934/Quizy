@@ -1,8 +1,11 @@
 'use strict';
 
-// Boot: load data → migrate storage → build the subject tabs → wire events → show the last subject.
+// Boot: load data → migrate storage → build the subject list → wire events → show the last subject.
+// (src/ui/theme.js and src/ui/sidebar.js already set the colour mode and sidebar state from <head>.)
 (async function (Quizy) {
   const {$, ui, state, storage} = Quizy;
+  ui.wireColorMode();
+  ui.wireSidebar();
 
   const data = await Quizy.loadData();
   if (!data || !Array.isArray(data.subjects) || !data.subjects.length) {

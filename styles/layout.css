@@ -1,13 +1,21 @@
 /* Page shell: side panel, main column, header/hero, stats row, footer and the responsive breakpoints for them. */
 .shell {
+  --side-width: 248px;
   display: grid;
-  grid-template-columns: 248px 1fr;
+  grid-template-columns: var(--side-width) 1fr;
   min-height: 100vh;
+  transition: grid-template-columns 160ms ease;
 }
 
-/* Side panel */
+/* Collapsed desktop sidebar (html[data-sidebar], src/ui/sidebar.js): a narrow rail. Phones ignore it. */
+[data-sidebar=collapsed] .shell {
+  --side-width: 84px;
+}
+
+/* Side panel: brand and collapse button, the subject list, the current course, then the colour mode
+   and the storage note at the bottom. */
 aside {
-  padding: 32px 22px;
+  padding: 26px 18px 22px;
   border-right: 1px solid var(--line);
   background: var(--aside);
   position: sticky;
@@ -15,10 +23,20 @@ aside {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 26px;
+  overflow: hidden auto;
+}
+
+.side-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .brand {
+  display: flex;
+  align-items: center;
   font: 27px Georgia, serif;
   letter-spacing: -1px;
 }
@@ -28,33 +46,178 @@ aside {
   color: #fff;
   display: inline-grid;
   place-items: center;
+  flex-shrink: 0;
   width: 39px;
   height: 39px;
-  border: 1.5px solid var(--ink);
+  border: 1.5px solid var(--edge);
   border-radius: 9px;
   margin-right: 9px;
-  box-shadow: 2px 2px 0 var(--ink);
+  box-shadow: 2px 2px 0 var(--edge);
   font: 28px Georgia;
+  letter-spacing: 0;
 }
 
-.aside-middle p,
-.sidefoot {
+/* The current subject beside the brand: phones only (the sidebar shows it otherwise). */
+.side-current {
+  display: none;
+}
+
+/* Square icon buttons (collapse, colour mode in the rail) and the phone menu button */
+.side-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 48px;
+  padding: 0 12px;
+  flex-shrink: 0;
+}
+
+.side-button svg {
+  flex-shrink: 0;
+}
+
+.collapse-toggle {
+  padding: 0;
+}
+
+.collapse-toggle svg {
+  transition: transform 160ms ease;
+}
+
+.menu-toggle {
+  display: none;
+}
+
+.side-body {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  flex: 1;
+}
+
+.side-label {
+  margin-bottom: 8px;
+}
+
+/* Subject list */
+.subjects {
+  display: grid;
+  gap: 8px;
+}
+
+.subject-tab {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 52px;
+  padding: 6px 10px 6px 6px;
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  text-align: left;
+  line-height: 1.25;
+}
+
+.subject-tab b {
+  font: 18px Georgia, serif;
+  text-align: center;
+}
+
+.subject-text {
+  display: grid;
+  gap: 1px;
+}
+
+.subject-name {
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.subject-tab small {
+  font-size: 10px;
+  letter-spacing: .8px;
   color: var(--muted);
 }
 
-.side-link {
+.subject-tab[aria-pressed=true] {
+  background: var(--accent);
+  border-color: var(--edge);
+  box-shadow: 2px 2px 0 var(--edge);
+  color: #fff;
+}
+
+.subject-tab[aria-pressed=true] small {
+  color: #fff;
+}
+
+.subject-tab:disabled:not([aria-pressed=true]) {
+  opacity: .45;
+}
+
+.subject-tab:disabled:hover:not([aria-pressed=true]) {
+  background: var(--surface);
+}
+
+/* Current course */
+.side-course {
+  display: grid;
+  gap: 2px;
   border-top: 1px solid var(--line);
-  margin-top: 30px;
   padding-top: 16px;
   font-size: 12px;
 }
 
-.side-link strong {
+.side-course strong {
   font-size: 14px;
 }
 
+.side-sets,
 .sidefoot {
+  color: var(--muted);
+}
+
+/* Colour mode and the storage note */
+.side-bottom {
   margin-top: auto;
+  display: grid;
+  gap: 14px;
+}
+
+.theme-toggle {
+  justify-content: flex-start;
+  width: 100%;
+  font-size: 14px;
+}
+
+.theme-state {
+  margin-left: auto;
+  padding: 1px 8px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.theme-state::after {
+  content: 'Off';
+}
+
+.theme-toggle[aria-pressed=true] .theme-state {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.theme-toggle[aria-pressed=true] .theme-state::after {
+  content: 'On';
+}
+
+.sidefoot {
+  margin: 0;
   font-size: 12px;
 }
 
@@ -126,10 +289,66 @@ footer {
   padding-top: 20px;
 }
 
+/* The collapsed rail: logo, subject badges (full names as tooltips), colour mode and the expand button.
+   Text that disappears stays readable to screen readers. */
+@media (min-width: 701px) {
+  [data-sidebar=collapsed] aside {
+    padding: 22px 14px;
+  }
+
+  [data-sidebar=collapsed] .side-top {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  [data-sidebar=collapsed] .brand b {
+    margin-right: 0;
+  }
+
+  [data-sidebar=collapsed] .brand-name,
+  [data-sidebar=collapsed] .subject-text,
+  [data-sidebar=collapsed] .theme-toggle .side-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  [data-sidebar=collapsed] .collapse-toggle svg {
+    transform: rotate(180deg);
+  }
+
+  [data-sidebar=collapsed] .side-nav > .side-label,
+  [data-sidebar=collapsed] .side-course,
+  [data-sidebar=collapsed] .theme-state,
+  [data-sidebar=collapsed] .sidefoot {
+    display: none;
+  }
+
+  [data-sidebar=collapsed] .subject-tab {
+    grid-template-columns: 1fr;
+    padding: 6px 0;
+  }
+
+  [data-sidebar=collapsed] .theme-toggle {
+    justify-content: center;
+    padding: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shell,
+  .collapse-toggle svg {
+    transition: none;
+  }
+}
+
 /* Responsive */
 @media (max-width: 900px) {
   .shell {
-    grid-template-columns: 205px 1fr;
+    --side-width: 205px;
   }
 
   main {
@@ -150,22 +369,61 @@ footer {
     display: block;
   }
 
+  /* A compact top bar: brand, the current subject and a menu button that opens the sidebar's
+     content as a panel underneath (src/ui/sidebar.js). */
   aside {
     position: static;
     height: auto;
-    padding: 16px 20px;
-    gap: 7px;
+    padding: 8px 16px;
+    gap: 0;
+    overflow: visible;
     border-right: 0;
     border-bottom: 1px solid var(--line);
+  }
+
+  .side-top {
+    justify-content: flex-start;
   }
 
   .brand {
     font-size: 23px;
   }
 
-  .aside-middle,
-  .sidefoot {
+  .brand b {
+    width: 34px;
+    height: 34px;
+    font-size: 24px;
+  }
+
+  .side-current {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    color: var(--muted);
+  }
+
+  .collapse-toggle {
     display: none;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    margin-left: auto;
+  }
+
+  .side-body {
+    display: none;
+    gap: 18px;
+    padding: 14px 0 10px;
+  }
+
+  .menu-open .side-body {
+    display: flex;
+  }
+
+  .side-course {
+    padding-top: 14px;
   }
 
   main {

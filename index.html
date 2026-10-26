@@ -23,21 +23,48 @@
   <link rel="stylesheet" href="styles/types/written.css">
   <link rel="stylesheet" href="styles/types/label.css">
   <link rel="stylesheet" href="styles/views.css">
+  <script src="src/core/storage.js"></script>
+  <script src="src/core/colors.js"></script>
+  <script src="src/ui/theme.js"></script>
+  <script src="src/ui/sidebar.js"></script>
 </head>
 <body data-view="setup">
   <div class="shell">
-    <aside>
-      <div class="brand"><b>q</b> Quizy</div>
-      <div class="aside-middle">
-        <div class="eyebrow">Your practice space</div>
-        <p>One question at a time. No answer patterns to memorise.</p>
-        <div class="side-link"><span id="side-code"></span><br><strong id="side-name"></strong></div>
+    <aside id="sidebar">
+      <div class="side-top">
+        <div class="brand"><b aria-hidden="true">q</b><span class="brand-name">Quizy</span></div>
+        <span id="side-current" class="side-current"></span>
+        <button id="sidebar-toggle" class="side-button collapse-toggle" type="button" aria-controls="sidebar-body" aria-expanded="true" aria-label="Collapse sidebar" title="Collapse sidebar">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M14.5 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button id="menu-toggle" class="side-button menu-toggle" type="button" aria-controls="sidebar-body" aria-expanded="false">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+          <span>Menu</span>
+        </button>
       </div>
-      <div class="sidefoot">Your results stay on this device. The question order and answer positions shuffle each new round.</div>
+      <div id="sidebar-body" class="side-body">
+        <nav class="side-nav" aria-labelledby="subjects-label">
+          <div id="subjects-label" class="eyebrow side-label">Subjects</div>
+          <div id="subjects" class="subjects"></div>
+        </nav>
+        <div class="side-course">
+          <div class="eyebrow side-label">Now studying</div>
+          <span id="side-code"></span>
+          <strong id="side-name"></strong>
+          <span id="side-sets" class="side-sets"></span>
+        </div>
+        <div class="side-bottom">
+          <button id="theme-toggle" class="side-button theme-toggle" type="button" aria-pressed="false" title="Dark mode">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            <span class="side-text">Dark mode</span>
+            <span class="theme-state" aria-hidden="true"></span>
+          </button>
+          <p class="sidefoot">Your results stay on this device. The question order and answer positions shuffle each new round.</p>
+        </div>
+      </div>
     </aside>
     <main>
       <div class="topline"><span id="topline-label">QUIZY / TEST PRACTICE</span><span id="topline-pill" class="date"></span></div>
-      <nav id="subjects" class="subjects" aria-label="Subject"></nav>
       <header class="hero">
         <div>
           <div class="eyebrow" id="hero-eyebrow">The study room, quiz edition</div>
@@ -191,7 +218,6 @@
   <script src="src/core/math.js" defer></script>
   <script src="src/core/search.js" defer></script>
   <script src="src/core/scoring.js" defer></script>
-  <script src="src/core/storage.js" defer></script>
   <script src="src/core/data.js" defer></script>
   <script src="src/core/state.js" defer></script>
   <script src="src/core/prompt.js" defer></script>
@@ -205,7 +231,6 @@
   <script src="src/types/numeric.js" defer></script>
   <script src="src/types/written.js" defer></script>
   <script src="src/types/label.js" defer></script>
-  <script src="src/ui/theme.js" defer></script>
   <script src="src/ui/views.js" defer></script>
   <script src="src/ui/subjects.js" defer></script>
   <script src="src/ui/setup.js" defer></script>

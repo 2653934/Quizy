@@ -16,12 +16,12 @@
 }
 
 .numeric-parts .numeric-part.correct {
-  background: #dceee2;
+  background: var(--good-bg);
   border-color: var(--green);
 }
 
 .numeric-parts .numeric-part.wrong {
-  background: #f8e6e0;
+  background: var(--bad-bg);
   border-color: var(--bad);
 }
 
