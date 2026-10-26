@@ -3,7 +3,7 @@
   "subject": "dve",
   "title": "Lecture bank",
   "kind": "lecture-bank",
-  "description": "Practice questions written from the lecture slides for the 30 Sep 2026 quiz (lectures 1–6). Each one points back to its lecture and slide.",
+  "description": "Practice questions written from the lecture slides (lectures 1–7). Each one points back to its lecture and slide.",
   "questions": [
     {
       "id": "L1-001",
@@ -9754,6 +9754,2431 @@
         2
       ],
       "explanation": "Density-based methods can leave sparse or isolated points unclustered instead of forcing them into a group."
+    },
+    {
+      "id": "L7-001",
+      "lecture": 7,
+      "concept": "Dimensionality reduction motivation",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the primary goal of dimensionality reduction?",
+      "choices": [
+        "To retain useful information while representing the data with fewer dimensions",
+        "To duplicate every original feature in a new coordinate system",
+        "To guarantee that every machine-learning model is perfectly accurate",
+        "To remove all variation from the data"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Dimensionality reduction seeks a smaller representation that preserves as much useful information as possible while discarding less useful structure."
+    },
+    {
+      "id": "L7-002",
+      "lecture": 7,
+      "concept": "Dimensionality reduction motivation",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is high-dimensional data difficult for people to interpret directly?",
+      "choices": [
+        "People can only calculate covariance for one variable",
+        "People can readily visualise two or three dimensions, but not many dimensions",
+        "High-dimensional data never contains patterns",
+        "Every high-dimensional dataset is categorical"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The lecture contrasts the ease of visualising two or three dimensions with the difficulty of interpreting many dimensions directly."
+    },
+    {
+      "id": "L7-003",
+      "lecture": 7,
+      "concept": "Dimensionality reduction motivation",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which of the following is a computational reason to reduce dimensionality?",
+      "choices": [
+        "More features always require less memory and less processing",
+        "Computations can become expensive when a dataset has many features",
+        "Dimensionality reduction converts every algorithm into a linear one",
+        "Fewer features guarantee that no data cleaning is needed"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Working with many features can increase computational cost, so a smaller representation can make later processing more efficient."
+    },
+    {
+      "id": "L7-004",
+      "lecture": 7,
+      "concept": "Dimensionality reduction motivation",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which modelling problem becomes easier to encounter as the number of features grows?",
+      "choices": [
+        "Underflow in every covariance calculation",
+        "Overfitting",
+        "Perfect linear separability",
+        "Guaranteed independence between variables"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The lecture lists overfitting as one of the risks associated with high-dimensional data."
+    },
+    {
+      "id": "L7-005",
+      "lecture": 7,
+      "concept": "Dimensionality reduction motivation",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is randomly dropping variables a poor dimensionality-reduction strategy?",
+      "choices": [
+        "It may discard variables containing important information",
+        "It always increases the number of dimensions",
+        "It forces the covariance matrix to become rectangular",
+        "It makes every remaining feature categorical"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Random removal provides no protection against losing important information carried by the discarded variables."
+    },
+    {
+      "id": "L7-006",
+      "lecture": 7,
+      "concept": "Feature elimination and extraction",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which of the following best describes feature elimination?",
+      "choices": [
+        "Removing explicit features from the dataset",
+        "Replacing every feature with a class label",
+        "Creating only nonlinear latent variables",
+        "Sorting observations by their target value"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Feature elimination removes original features directly, which can also remove the information those features contributed."
+    },
+    {
+      "id": "L7-007",
+      "lecture": 7,
+      "concept": "Feature elimination and extraction",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is a central difference between feature elimination and dimensionality reduction by feature extraction?",
+      "choices": [
+        "Feature elimination removes original variables, while extraction forms new variables from combinations of them",
+        "Feature elimination is supervised, while extraction is always unsupervised",
+        "Feature elimination adds dimensions, while extraction preserves the exact original dimensions",
+        "Feature elimination uses covariance, while extraction cannot use covariance"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture distinguishes dropping explicit variables from forming new extracted variables that combine information from the originals."
+    },
+    {
+      "id": "L7-008",
+      "lecture": 7,
+      "concept": "Feature elimination and extraction",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "In the lecture's description of dimensionality reduction, how are extracted features selected?",
+      "choices": [
+        "A subset is retained after ranking the new features by predictive power",
+        "Every extracted feature is retained regardless of usefulness",
+        "The features are selected alphabetically",
+        "Only the original feature with the largest name is retained"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture describes keeping a subset of newly engineered or extracted features ranked by their predictive power."
+    },
+    {
+      "id": "L7-009",
+      "lecture": 7,
+      "concept": "Feature elimination and extraction",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why can an extracted feature preserve useful parts of several original variables?",
+      "choices": [
+        "It can be a combination of multiple original variables",
+        "It must be identical to one original variable",
+        "It removes all covariance before it is calculated",
+        "It assigns the same value to every observation"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "An extracted feature can combine contributions from multiple original variables instead of retaining or dropping each one as a whole."
+    },
+    {
+      "id": "L7-010",
+      "lecture": 7,
+      "concept": "Variance and covariance",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does a larger variance indicate about a variable?",
+      "choices": [
+        "Its observations are more spread out",
+        "Its observations are all identical",
+        "It is necessarily independent of every other variable",
+        "It has a negative correlation with the target"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Variance measures spread; larger variance indicates that the observations are more dispersed."
+    },
+    {
+      "id": "L7-011",
+      "lecture": 7,
+      "concept": "Variance and covariance",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does a positive covariance between two variables suggest?",
+      "choices": [
+        "They tend to change in similar directions",
+        "They must have identical means",
+        "One is categorical and the other is continuous",
+        "They are guaranteed to have a causal relationship"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Positive covariance indicates similar directional behaviour: as one variable changes, the other tends to change in the same direction."
+    },
+    {
+      "id": "L7-012",
+      "lecture": 7,
+      "concept": "Variance and covariance",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          5,
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is the magnitude of covariance difficult to interpret by itself?",
+      "choices": [
+        "Covariance is not normalised and depends on the scales of the variables",
+        "Covariance can only equal zero or one",
+        "Covariance is defined only for class labels",
+        "Covariance always has the same units as correlation"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Because covariance is not normalised, its magnitude is scale-dependent; correlation is easier to interpret as a standardised measure."
+    },
+    {
+      "id": "L7-013",
+      "lecture": 7,
+      "concept": "Covariance matrix",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          5,
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does an entry in a covariance matrix represent?",
+      "choices": [
+        "The covariance between the variables named by its row and column",
+        "The number of missing values in one observation",
+        "The predicted class of a single observation",
+        "The rank of an eigenvalue after sorting"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Rows and columns correspond to features, and each entry gives the covariance of the associated pair."
+    },
+    {
+      "id": "L7-014",
+      "lecture": 7,
+      "concept": "Independence and correlation",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          5,
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which of the following statements about independence and correlation is TRUE?",
+      "choices": [
+        "Independence implies no correlation, but no correlation does not necessarily imply independence",
+        "No correlation always proves that two variables are independent",
+        "Correlation proves that one variable causes the other",
+        "Independent variables must have identical distributions"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture stresses the one-way implication: independence implies no correlation, but uncorrelated variables need not be independent."
+    },
+    {
+      "id": "L7-015",
+      "lecture": 7,
+      "concept": "Eigenvectors and eigenvalues",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          5,
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which equation defines an eigenvector $v$ of a matrix $A$ with eigenvalue $\\lambda$?",
+      "choices": [
+        "$Av = \\lambda v$",
+        "$A + v = \\lambda$",
+        "$A = v + \\lambda$",
+        "$vA = v - \\lambda$"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "An eigenvector keeps its direction under the matrix transformation, with the eigenvalue giving its scale factor."
+    },
+    {
+      "id": "L7-016",
+      "lecture": 7,
+      "concept": "Linear separability",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          5,
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does linear separability mean for a two-class, two-dimensional dataset?",
+      "choices": [
+        "A straight line can completely separate the two classes",
+        "Every variable has zero variance",
+        "The classes have identical centroids",
+        "A curved boundary is required to separate the classes"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "In two dimensions, linear separability means a straight line can separate the classes; in higher dimensions the boundary is a hyperplane."
+    },
+    {
+      "id": "L7-017",
+      "lecture": 7,
+      "concept": "Linear separability",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          5,
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the higher-dimensional equivalent of a separating line?",
+      "choices": [
+        "A hyperplane",
+        "A histogram",
+        "A covariance scalar",
+        "A scree point"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A hyperplane generalises a separating line to higher-dimensional spaces."
+    },
+    {
+      "id": "L7-018",
+      "lecture": 7,
+      "concept": "Linearity checks",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          6,
+          7
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which approach is most direct for checking linear separation when there are only two features?",
+      "choices": [
+        "Plot the data and inspect whether a line separates the classes",
+        "Apply blind source separation without looking at labels",
+        "Increase the data to ten dimensions",
+        "Assume the data is linear without checking"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "With very few dimensions, a plot can make linear separation directly visible."
+    },
+    {
+      "id": "L7-019",
+      "lecture": 7,
+      "concept": "Linearity checks",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          6,
+          7
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "For labelled classification data, why can a support vector machine be useful as a linearity check?",
+      "choices": [
+        "It attempts to separate classes using a hyperplane",
+        "It guarantees that all features are independent",
+        "It computes only the mean of each feature",
+        "It converts nonlinear data into survey factors"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A linear support vector machine looks for a separating hyperplane, which directly relates to linear separability."
+    },
+    {
+      "id": "L7-020",
+      "lecture": 7,
+      "concept": "Linearity checks",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          6,
+          7
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How can a simple classifier act as a sanity check before applying linear dimensionality reduction?",
+      "choices": [
+        "Good performance can indicate that useful linear structure is present",
+        "Poor performance proves that no pattern of any kind exists",
+        "It makes standardisation unnecessary",
+        "It calculates the latent survey factors directly"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture suggests that a basic linear model can reveal whether it can exploit linear structure, while noting that one can also apply PCA and inspect the result."
+    },
+    {
+      "id": "L7-021",
+      "lecture": 7,
+      "concept": "Correlation types",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which correlation measure is associated with linear correlation in the lecture?",
+      "choices": [
+        "Pearson correlation",
+        "Spearman correlation",
+        "Moran's I",
+        "Factor loading"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture associates Pearson correlation with linear correlation and Spearman correlation with non-linear or rank-based association."
+    },
+    {
+      "id": "L7-022",
+      "lecture": 7,
+      "concept": "Correlation types",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which correlation measure is suggested for a non-linear monotonic relationship?",
+      "choices": [
+        "Spearman correlation",
+        "Pearson correlation only",
+        "An eigenvalue",
+        "A scree plot"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture lists Spearman's measure for non-linear relationships."
+    },
+    {
+      "id": "L7-023",
+      "lecture": 7,
+      "concept": "Correlation and causation",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which of the following statements about correlation is TRUE?",
+      "choices": [
+        "Correlation does not by itself imply causation",
+        "A strong correlation always identifies the causal direction",
+        "Only negatively correlated variables can be independent",
+        "Correlation and covariance are identical without any scaling difference"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A relationship between variables does not establish that one causes the other."
+    },
+    {
+      "id": "L7-024",
+      "lecture": 7,
+      "concept": "Eigendecomposition and SVD",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the purpose of eigendecomposition in the lecture's description?",
+      "choices": [
+        "To factor a matrix into eigenvalues and eigenvectors",
+        "To sort observations by their class label",
+        "To replace all features with their means",
+        "To turn a rectangular matrix into a text label"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Eigendecomposition represents a matrix through its eigenvectors and eigenvalues."
+    },
+    {
+      "id": "L7-025",
+      "lecture": 7,
+      "concept": "Eigendecomposition and SVD",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the magnitude of an eigenvalue indicate about its eigenvector component?",
+      "choices": [
+        "How strongly the matrix stretches or shrinks that direction",
+        "The number of class labels in the dataset",
+        "The feature's original measurement unit only",
+        "Whether the variable is categorical"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The eigenvalue is the scale factor applied to its eigenvector direction; a larger value generally indicates a larger contribution."
+    },
+    {
+      "id": "L7-026",
+      "lecture": 7,
+      "concept": "Eigendecomposition and SVD",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which statement correctly distinguishes singular value decomposition from eigendecomposition?",
+      "choices": [
+        "SVD does not require the matrix to be diagonalizable",
+        "SVD can only be used on one-dimensional data",
+        "Eigendecomposition works only with class labels",
+        "SVD produces no matrix factors"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture notes that SVD provides a decomposition without requiring diagonalizability in the way eigendecomposition does."
+    },
+    {
+      "id": "L7-027",
+      "lecture": 7,
+      "concept": "Eigendecomposition and SVD",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which expression represents the singular value decomposition shown in the lecture?",
+      "choices": [
+        "$A = U\\Sigma V^T$",
+        "$A = X + Y$",
+        "$A = \\lambda + v$",
+        "$A = F/A$"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "SVD factors a matrix into left singular vectors, a diagonal singular-value matrix, and transposed right singular vectors."
+    },
+    {
+      "id": "L7-028",
+      "lecture": 7,
+      "concept": "PCA purpose",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does Principal Component Analysis primarily seek?",
+      "choices": [
+        "Linear combinations of variables that explain as much variance as possible",
+        "Class labels that have identical covariance matrices",
+        "A nonlinear boundary that perfectly classifies every observation",
+        "A random subset of unchanged original features"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "PCA projects the data onto linear combinations chosen to capture maximum variance."
+    },
+    {
+      "id": "L7-029",
+      "lecture": 7,
+      "concept": "PCA purpose",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which of the following best describes PCA?",
+      "choices": [
+        "A projection-based method that transforms data into a lower-dimensional space",
+        "A method that deletes observations with small target values",
+        "A supervised classifier designed only for binary labels",
+        "A method that preserves every original feature unchanged"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "PCA is a projection method: it changes the coordinate system and can retain a lower-dimensional subset of the resulting components."
+    },
+    {
+      "id": "L7-030",
+      "lecture": 7,
+      "concept": "Principal components",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How are the first and second principal components related?",
+      "choices": [
+        "The first captures maximum variance, and the second captures remaining variance while being uncorrelated with the first",
+        "The second always captures more variance than the first",
+        "They are required to be identical",
+        "Both are chosen using class labels"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Principal components are ordered by captured variance, and later components are uncorrelated with earlier ones."
+    },
+    {
+      "id": "L7-031",
+      "lecture": 7,
+      "concept": "Principal components",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What do the direction and magnitude of a principal component represent?",
+      "choices": [
+        "Direction gives the principal axis, while magnitude reflects the variance captured along it",
+        "Direction gives the class label, while magnitude gives the number of observations",
+        "Direction gives the feature name, while magnitude gives its measurement unit",
+        "Direction gives the survey question, while magnitude gives the response text"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A principal component defines a direction in feature space and an amount of variance captured when the data is projected onto it."
+    },
+    {
+      "id": "L7-032",
+      "lecture": 7,
+      "concept": "PCA supervision",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          10,
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is PCA considered an unsupervised method?",
+      "choices": [
+        "It finds variance directions without using class labels",
+        "It requires a labelled target for every observation",
+        "It maximises separation between known classes",
+        "It can only run after fitting a classifier"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "PCA uses the structure of the feature data and does not use class membership when choosing components."
+    },
+    {
+      "id": "L7-033",
+      "lecture": 7,
+      "concept": "Choosing PCA components",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          10,
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "If the main goal is to visualise a high-dimensional dataset, how many principal components are usually retained?",
+      "choices": [
+        "Two or three",
+        "Exactly one hundred",
+        "All components without exception",
+        "Zero components"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Two or three components are practical for visualisation because people can directly view two- or three-dimensional plots."
+    },
+    {
+      "id": "L7-034",
+      "lecture": 7,
+      "concept": "Choosing PCA components",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          10,
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the primary purpose of a scree plot in PCA?",
+      "choices": [
+        "To compare the variance explained by successive components",
+        "To display the original class labels in alphabetical order",
+        "To prove that every feature is independent",
+        "To detect missing values in each observation"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A scree plot shows how much variance is associated with each component and helps choose how many to retain."
+    },
+    {
+      "id": "L7-035",
+      "lecture": 7,
+      "concept": "PCA assumptions",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What assumption motivates PCA's focus on high-variance directions?",
+      "choices": [
+        "High variability often represents signal, while low variability often represents noise",
+        "Low variability always identifies the target class perfectly",
+        "Every high-variance feature is causal",
+        "Variance is unrelated to information"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "PCA treats directions with more variability as more likely to contain important signal, while recognising this is an assumption."
+    },
+    {
+      "id": "L7-036",
+      "lecture": 7,
+      "concept": "PCA standardisation",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          10,
+          13,
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why should features be standardised before PCA?",
+      "choices": [
+        "Features measured on larger numerical scales could otherwise dominate the variance",
+        "PCA can only accept values between zero and one",
+        "Standardisation supplies the missing class labels",
+        "Standardisation guarantees that the data is nonlinear"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Because PCA maximises variance, scale differences can make a feature appear important simply because of its units."
+    },
+    {
+      "id": "L7-037",
+      "lecture": 7,
+      "concept": "PCA and regression",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does the fitting criterion illustrated for PCA differ from ordinary regression?",
+      "choices": [
+        "PCA considers orthogonal distances to the fitted direction",
+        "PCA minimises only vertical prediction errors for a chosen dependent variable",
+        "PCA requires the response variable to be categorical",
+        "PCA fits no direction through the data"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The slide contrasts regressing one variable on another with PCA's orthogonal projection relative to the principal direction."
+    },
+    {
+      "id": "L7-038",
+      "lecture": 7,
+      "concept": "PCA mathematical steps",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "In the PCA procedure, what should be done to the columns of the original matrix $X$ first?",
+      "choices": [
+        "Centre them to mean zero and, for full standardisation, scale them to variance one",
+        "Sort them alphabetically by feature name",
+        "Replace them with class labels",
+        "Delete every column with non-zero variance"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The first stated step is to standardise the feature columns so that scale does not distort the variance comparison."
+    },
+    {
+      "id": "L7-039",
+      "lecture": 7,
+      "concept": "PCA mathematical steps",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "For centred data with observations in rows and variables in columns, what does $X^T X$ represent up to the factor $1/(n-1)$?",
+      "choices": [
+        "The covariance matrix",
+        "The class-confusion matrix",
+        "The vector of target labels",
+        "The matrix of survey text responses"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture identifies $X^T X/(n-1)$ as the covariance matrix for centred data."
+    },
+    {
+      "id": "L7-040",
+      "lecture": 7,
+      "concept": "PCA mathematical steps",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "After decomposing the covariance matrix, how are its eigenvalues used in PCA?",
+      "choices": [
+        "They are sorted in descending order together with their corresponding eigenvectors",
+        "They are discarded before the components are calculated",
+        "They are sorted by the names of the original variables",
+        "They are converted into class labels"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Sorting eigenvalues from largest to smallest orders the directions by the variance they capture, while the eigenvectors must remain aligned with them."
+    },
+    {
+      "id": "L7-041",
+      "lecture": 7,
+      "concept": "PCA mathematical steps",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "If $P^*$ is the matrix of sorted eigenvectors, how are the principal-component scores calculated?",
+      "choices": [
+        "$X^* = XP^*$",
+        "$X^* = X + P^*$",
+        "$X^* = P^*/X$",
+        "$X^* = X - \\lambda$"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Multiplying the standardised data by the sorted eigenvector matrix projects each observation into principal-component coordinates."
+    },
+    {
+      "id": "L7-042",
+      "lecture": 7,
+      "concept": "PCA outputs",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which property of PCA output makes it useful for decorrelation or whitening?",
+      "choices": [
+        "The principal components are uncorrelated",
+        "The original features remain duplicated",
+        "Every component has the same eigenvalue",
+        "The class labels are evenly balanced"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "PCA produces orthogonal, uncorrelated component directions, which can be used as a decorrelated representation."
+    },
+    {
+      "id": "L7-043",
+      "lecture": 7,
+      "concept": "PCA caveats",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which data problem can strongly distort PCA?",
+      "choices": [
+        "Outliers",
+        "Balanced class labels",
+        "A descriptive feature name",
+        "A fixed random seed"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "PCA is highly susceptible to outliers because extreme observations can dominate variance and therefore the selected directions."
+    },
+    {
+      "id": "L7-044",
+      "lecture": 7,
+      "concept": "PCA caveats",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why can ordinary PCA be difficult to apply to a massive dataset?",
+      "choices": [
+        "It reads all of the data into memory at once",
+        "It requires every feature to be text",
+        "It cannot calculate more than two components",
+        "It must use a labelled target"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture identifies the need to load the full data as a limitation for very large datasets."
+    },
+    {
+      "id": "L7-045",
+      "lecture": 7,
+      "concept": "PCA caveats",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the role of Randomised SVD in the lecture?",
+      "choices": [
+        "It provides an approximate, iterative decomposition for large data",
+        "It guarantees an exact nonlinear separation",
+        "It replaces standardisation with class labels",
+        "It converts PCA into Factor Analysis"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Randomised SVD is presented as an approximate iterative alternative whose principal components are updated during iterations."
+    },
+    {
+      "id": "L7-046",
+      "lecture": 7,
+      "concept": "PCA caveats",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What happens if ordinary linear PCA is applied to data whose important separation is nonlinear?",
+      "choices": [
+        "It may fail to find the separation",
+        "It always converts the data into perfectly separated classes",
+        "It automatically becomes a nonlinear classifier",
+        "It guarantees a higher target accuracy"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "PCA is a linear transformation, so nonlinear structure may not be captured by its component directions."
+    },
+    {
+      "id": "L7-047",
+      "lecture": 7,
+      "concept": "PCA Iris example",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          16,
+          17
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why was PCA useful for visualising the Iris dataset in the lecture?",
+      "choices": [
+        "It reduced four measured dimensions to a small number of components that could be plotted",
+        "It added four new class labels to every flower",
+        "It removed all variation between flower species",
+        "It changed every measurement into a survey response"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The Iris data has four measurement features, which are hard to picture directly; PCA provides a two-dimensional projection."
+    },
+    {
+      "id": "L7-048",
+      "lecture": 7,
+      "concept": "PCA Iris example",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Approximately how much variance did two principal components capture in the lecture's Iris example?",
+      "choices": [
+        "95%",
+        "25%",
+        "50%",
+        "100%"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The slide reports that two principal components captured about 95% of the variance in the Iris dataset."
+    },
+    {
+      "id": "L7-049",
+      "lecture": 7,
+      "concept": "PCA Iris example",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which Iris measurement mainly influenced the second principal component in the lecture example?",
+      "choices": [
+        "Sepal width",
+        "Petal width only",
+        "The flower class label",
+        "The observation number"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture notes that the first component was influenced by sepal length and petal measurements, while the second was mostly influenced by sepal width."
+    },
+    {
+      "id": "L7-050",
+      "lecture": 7,
+      "concept": "PCA Boston example",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "In the Boston housing example, what happened to cumulative explained variance as more components were added?",
+      "choices": [
+        "It increased",
+        "It immediately became zero",
+        "It became a class label",
+        "It decreased below the variance of the first component"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Adding components retains additional variance, so cumulative explained variance increases."
+    },
+    {
+      "id": "L7-051",
+      "lecture": 7,
+      "concept": "PCA Boston example",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which set of explained-variance values matches the Boston housing example?",
+      "choices": [
+        "One component: 45%; two components: 58%; five components: 80%",
+        "One component: 80%; two components: 58%; five components: 45%",
+        "One component: 10%; two components: 20%; five components: 30%",
+        "One component: 100%; two components: 100%; five components: 100%"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The slide reports 45% for the first component, 58% cumulatively for two, and 80% cumulatively for five."
+    },
+    {
+      "id": "L7-052",
+      "lecture": 7,
+      "concept": "PCA Boston example",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What did the colours represent in the Boston housing principal-component plot?",
+      "choices": [
+        "A sliding scale of median house prices",
+        "Three known flower classes",
+        "The order in which rows were loaded",
+        "The number of missing values in each feature"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Because the target was continuous rather than categorical, colour represented median house price on a continuous scale."
+    },
+    {
+      "id": "L7-053",
+      "lecture": 7,
+      "concept": "PCA Boston example",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What did the lecture suggest doing to make the Boston PCA plot easier to interpret by target group?",
+      "choices": [
+        "Bin the continuous house prices to create target categories",
+        "Remove the target variable permanently",
+        "Duplicate every observation",
+        "Replace the principal components with random values"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Binning the continuous target into categories was suggested as a way to make group patterns clearer."
+    },
+    {
+      "id": "L7-054",
+      "lecture": 7,
+      "concept": "PCA for machine learning",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How can PCA reduce the training cost of a machine-learning model?",
+      "choices": [
+        "Use a smaller set of principal components as the model inputs",
+        "Increase the number of original pixels used by the model",
+        "Train a separate model for every original feature",
+        "Replace the training data with class names only"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A model can train on fewer component features than the original high-dimensional representation."
+    },
+    {
+      "id": "L7-055",
+      "lecture": 7,
+      "concept": "PCA for machine learning",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "In the MNIST example, what original dimensionality was reduced by PCA?",
+      "choices": [
+        "784 pixel features",
+        "Four flower measurements",
+        "Three survey factors",
+        "Two audio sources"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The handwritten-image representation used 784 pixels, which PCA compressed into fewer component inputs."
+    },
+    {
+      "id": "L7-056",
+      "lecture": 7,
+      "concept": "PCA for machine learning",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why could classification accuracy decrease when all variance was retained instead of retaining 80% in the MNIST example?",
+      "choices": [
+        "Additional components could reintroduce noise or spurious correlations",
+        "PCA cannot produce more than one component",
+        "The class labels were removed from the test set",
+        "Standardisation makes accuracy decrease by definition"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture uses this result to show that discarded low-value directions may contain noise or spurious signal rather than useful predictive information."
+    },
+    {
+      "id": "L7-057",
+      "lecture": 7,
+      "concept": "Factor Analysis purpose",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the fundamental aim of Factor Analysis?",
+      "choices": [
+        "To identify latent variables that help explain observed variables",
+        "To maximise class separation using labelled data",
+        "To select the observations with the largest targets",
+        "To retain only the original variable with the highest variance"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Factor Analysis models observed measurements as arising from one or more unobserved latent factors."
+    },
+    {
+      "id": "L7-058",
+      "lecture": 7,
+      "concept": "PCA and Factor Analysis",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which statement correctly compares PCA and Factor Analysis?",
+      "choices": [
+        "PCA forms components from observed variables, while Factor Analysis explains observed variables using latent factors",
+        "PCA and Factor Analysis use class labels in exactly the same way",
+        "Factor Analysis can only be applied to image pixels",
+        "PCA assumes every observed variable is a survey response"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "PCA expresses components as weighted combinations of observations' features; Factor Analysis models observed features as effects of latent factors."
+    },
+    {
+      "id": "L7-059",
+      "lecture": 7,
+      "concept": "Factor Analysis model",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "In the Factor Analysis expression $X = AF$, what does $A$ represent?",
+      "choices": [
+        "A mixing matrix describing the relationship between variables and factors",
+        "The vector of class labels",
+        "The sorted list of observation names",
+        "The covariance error for one feature only"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The mixing matrix contains the weights or loadings connecting the latent factors to the observed variables."
+    },
+    {
+      "id": "L7-060",
+      "lecture": 7,
+      "concept": "Factor Analysis assumptions",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which property does the lecture assign to the factors in Factor Analysis?",
+      "choices": [
+        "They are uncorrelated",
+        "They must be class labels",
+        "They must equal the original features",
+        "They must be ordered by observation time"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture describes the latent factors in the Factor Analysis model as uncorrelated."
+    },
+    {
+      "id": "L7-061",
+      "lecture": 7,
+      "concept": "PCA and Factor Analysis",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          21,
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does Factor Analysis explain, in contrast with PCA's focus on maximum variance?",
+      "choices": [
+        "Covariance shared among observed variables",
+        "The exact target value for every observation",
+        "Only the largest original feature",
+        "The nonlinear decision boundary of a classifier"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Factor Analysis looks for latent structure that accounts for covariance among observed variables, whereas PCA focuses on total variance."
+    },
+    {
+      "id": "L7-062",
+      "lecture": 7,
+      "concept": "PCA and Factor Analysis",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which statement about orthogonality is TRUE according to the lecture?",
+      "choices": [
+        "Factor Analysis does not require the same orthogonality condition as PCA",
+        "Factor Analysis requires every observed variable to be perpendicular to its factor",
+        "PCA allows all components to be correlated",
+        "Neither method uses linear combinations"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture identifies the lack of a required orthogonality constraint as a mathematical distinction for Factor Analysis."
+    },
+    {
+      "id": "L7-063",
+      "lecture": 7,
+      "concept": "Factor Analysis uses",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          21,
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is a major practical benefit of Factor Analysis over PCA?",
+      "choices": [
+        "Its factors can be interpretable as underlying constructs",
+        "It guarantees perfect classification accuracy",
+        "It never requires any assumptions",
+        "It always retains every original variable"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Latent factors can correspond to interpretable constructs, which is why Factor Analysis is widely used with survey data."
+    },
+    {
+      "id": "L7-064",
+      "lecture": 7,
+      "concept": "Factor Analysis uses",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "When is Factor Analysis more appropriate than PCA?",
+      "choices": [
+        "When testing whether latent factors may be causing patterns in observed variables",
+        "When the only goal is to rank class labels alphabetically",
+        "When every observed variable must remain unchanged",
+        "When there are no correlations among any variables"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Factor Analysis is suited to hypotheses about unobserved constructs that produce correlations among measured variables."
+    },
+    {
+      "id": "L7-065",
+      "lecture": 7,
+      "concept": "PCA and Factor Analysis uses",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "If the goal is simply to reduce dimensionality into uncorrelated component variables, which method does the lecture recommend?",
+      "choices": [
+        "PCA",
+        "Factor Analysis only",
+        "Linear Discriminant Analysis using no labels",
+        "A random feature deletion"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture recommends PCA when the goal is straightforward dimensionality reduction into uncorrelated components rather than identifying latent constructs."
+    },
+    {
+      "id": "L7-066",
+      "lecture": 7,
+      "concept": "Survey Factor Analysis",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          23,
+          24
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What was the purpose of applying Factor Analysis to the airline survey responses?",
+      "choices": [
+        "To find common latent themes across ratings of different service aspects",
+        "To predict the flight number from passenger names",
+        "To replace every rating with the overall mean",
+        "To create a nonlinear image classifier"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The survey example searches for common underlying constructs that explain groups of correlated service ratings."
+    },
+    {
+      "id": "L7-067",
+      "lecture": 7,
+      "concept": "Survey Factor Analysis",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Based on the steep drop in eigenvalues in the survey example, how many factors were considered reasonable?",
+      "choices": [
+        "Three or four",
+        "Exactly fourteen",
+        "Zero",
+        "At least one hundred"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The slide suggests three or four factors because the eigenvalue curve drops steeply through that region."
+    },
+    {
+      "id": "L7-068",
+      "lecture": 7,
+      "concept": "Factor loadings",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "In the survey loading matrix, what do the rows and columns represent?",
+      "choices": [
+        "Rows are survey variables and columns are latent factors",
+        "Rows are class labels and columns are observations",
+        "Rows are eigenvalues and columns are file names",
+        "Rows are principal components and columns are target bins"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Each row corresponds to an observed survey question, and each column gives the loadings for one factor."
+    },
+    {
+      "id": "L7-069",
+      "lecture": 7,
+      "concept": "Factor loadings",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which ratings loaded strongly together on the first survey factor?",
+      "choices": [
+        "Food and drink, seat comfort, inflight entertainment and cleanliness",
+        "Flight number, passenger surname, ticket barcode and gate code",
+        "Only departure time and arrival time",
+        "Only baggage weight and aircraft speed"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Those four service ratings had large loadings on the first factor and were interpreted as a possible hospitality or comfort construct."
+    },
+    {
+      "id": "L7-070",
+      "lecture": 7,
+      "concept": "Latent factor interpretation",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why was a label such as “hospitality” or “comfort” proposed for the first survey factor?",
+      "choices": [
+        "Several strongly loaded service ratings shared that underlying theme",
+        "The factor was explicitly asked as one survey question",
+        "The factor had the smallest possible eigenvalue",
+        "The factor was the passenger's class label"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The latent construct was inferred from the common meaning of the observed variables with large loadings, not measured directly."
+    },
+    {
+      "id": "L7-071",
+      "lecture": 7,
+      "concept": "Linear Discriminant Analysis",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which of the following best describes Linear Discriminant Analysis (LDA)?",
+      "choices": [
+        "A supervised linear method that can be used for classification and dimensionality reduction",
+        "An unsupervised method that ignores all class labels",
+        "A nonlinear clustering method for arbitrary shapes",
+        "A method used only to standardise feature scales"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "LDA was developed as a classifier and is also used as a supervised linear transformation for dimensionality reduction."
+    },
+    {
+      "id": "L7-072",
+      "lecture": 7,
+      "concept": "LDA and PCA",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          26,
+          27
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the key objective difference between LDA and PCA?",
+      "choices": [
+        "LDA maximises separation between classes, while PCA maximises variance without using class labels",
+        "LDA maximises total variance, while PCA maximises class separation",
+        "Both methods ignore class labels and optimise the same objective",
+        "PCA is a classifier, while LDA cannot classify"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "LDA uses labels to find discriminant directions that separate classes; PCA finds high-variance directions regardless of labels."
+    },
+    {
+      "id": "L7-073",
+      "lecture": 7,
+      "concept": "LDA outputs",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What form do LDA's reduced features take?",
+      "choices": [
+        "Linear combinations of the input features",
+        "Copies of the target labels only",
+        "Randomly selected unchanged observations",
+        "Nonlinear clusters with no class information"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Like PCA, LDA outputs linear combinations of input features, but it chooses them using a class-separation objective."
+    },
+    {
+      "id": "L7-074",
+      "lecture": 7,
+      "concept": "LDA use",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "According to the lecture, why should LDA not be used as an input transformation for a later regression problem?",
+      "choices": [
+        "LDA is itself a classification technique built around class separation",
+        "LDA produces only missing values",
+        "LDA cannot form linear combinations",
+        "LDA always increases dimensionality"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture cautions that LDA's discriminants are tied to classification rather than a continuous regression objective."
+    },
+    {
+      "id": "L7-075",
+      "lecture": 7,
+      "concept": "LDA preprocessing",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which statement about standardisation before LDA is TRUE?",
+      "choices": [
+        "It is not strictly required, but it is generally a good idea",
+        "It is forbidden because LDA requires raw units",
+        "It replaces the need for class labels",
+        "It guarantees identical class covariance matrices"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture says standardisation is not mandatory for LDA, although applying it is generally advisable."
+    },
+    {
+      "id": "L7-076",
+      "lecture": 7,
+      "concept": "LDA assumptions",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which collection lists the assumptions stated for LDA classification?",
+      "choices": [
+        "Normally distributed data, statistically independent features and identical covariance matrices across classes",
+        "Non-Gaussian sources, nonlinear mixing and dependent components",
+        "No labels, arbitrary cluster shapes and unequal feature lengths",
+        "Only binary features, zero variance and no covariance"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Those are the three assumptions listed for LDA when used as a classifier."
+    },
+    {
+      "id": "L7-077",
+      "lecture": 7,
+      "concept": "LDA and PCA",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "When might PCA outperform LDA on a multiclass problem according to the lecture?",
+      "choices": [
+        "When there are few samples per class",
+        "When every class has infinitely many samples",
+        "When the data contains no measured features",
+        "When the only goal is blind source separation"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture notes that PCA can outperform LDA when the number of samples available for each class is small."
+    },
+    {
+      "id": "L7-078",
+      "lecture": 7,
+      "concept": "Combining PCA and LDA",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How are PCA and LDA often combined?",
+      "choices": [
+        "PCA first reduces dimensionality, and its outputs are then fed into LDA",
+        "LDA first removes all labels, and PCA recreates them",
+        "Both are run only to increase the number of features",
+        "PCA replaces every LDA discriminant with a random value"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "PCA can first compress the feature space before LDA finds class-separating directions."
+    },
+    {
+      "id": "L7-079",
+      "lecture": 7,
+      "concept": "LDA caveats",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which limitation does LDA share with PCA according to the lecture?",
+      "choices": [
+        "It relies on linear structure and may struggle to converge on very large data",
+        "It can only process survey responses",
+        "It cannot produce any reduced features",
+        "It requires every variable to be categorical"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture highlights linearity and convergence on very large datasets as limitations, with regularised variants as possible alternatives."
+    },
+    {
+      "id": "L7-080",
+      "lecture": 7,
+      "concept": "Evaluating LDA",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which measures can be used to inspect an LDA dimensionality-reduction result?",
+      "choices": [
+        "Scree plots, eigenvalues, eigenvectors and explained variance",
+        "Only file size and row order",
+        "Only the names of the class labels",
+        "Only the number of missing strings"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture says the same kinds of component diagnostics used with PCA can also help assess LDA."
+    },
+    {
+      "id": "L7-081",
+      "lecture": 7,
+      "concept": "LDA and PCA examples",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          27,
+          28
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why can PCA fail to separate classes even when it captures directions of high variance?",
+      "choices": [
+        "The largest variance may occur within every class in a similar way and therefore be useless for class separation",
+        "PCA always uses class labels incorrectly",
+        "PCA removes every high-variance direction",
+        "Class separation is identical to total variance by definition"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A feature can vary greatly overall yet have similar variation in every class, so it contributes little to distinguishing those classes."
+    },
+    {
+      "id": "L7-082",
+      "lecture": 7,
+      "concept": "LDA and PCA examples",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          27,
+          28
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What did the Iris and wine examples illustrate about LDA?",
+      "choices": [
+        "Its leading discriminant can find an axis that separates labelled classes",
+        "It always finds the same axes as PCA",
+        "It ignores all class information",
+        "It is designed to maximise variance within each class only"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The examples show LDA choosing directions for class separation, which can differ sharply from PCA's high-variance directions."
+    },
+    {
+      "id": "L7-083",
+      "lecture": 7,
+      "concept": "Independent Component Analysis",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          29
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does Independent Component Analysis (ICA) do to a multivariate signal?",
+      "choices": [
+        "Decomposes it into additive components while maximising their independence",
+        "Assigns every observation to a known class",
+        "Keeps only the variable with the largest variance",
+        "Sorts the samples by time without transforming them"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "ICA seeks additive source components that are as statistically independent as possible."
+    },
+    {
+      "id": "L7-084",
+      "lecture": 7,
+      "concept": "ICA uses",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          29,
+          31
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which task is most strongly associated with ICA?",
+      "choices": [
+        "Blind source separation of superimposed signals",
+        "Choosing the number of clusters for k-means",
+        "Calculating a class-confusion matrix",
+        "Binning a continuous house-price target"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "ICA is commonly used to recover underlying sources from observed mixtures, as in the cocktail-party example."
+    },
+    {
+      "id": "L7-085",
+      "lecture": 7,
+      "concept": "ICA sources",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          29
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which of the following could be a source signal in an ICA problem?",
+      "choices": [
+        "An image, an audio signal or an EEG time series",
+        "Only a categorical class name",
+        "Only a covariance scalar",
+        "Only the row count of a dataset"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture lists images, audio and time-series signals such as EEG as possible sources for ICA."
+    },
+    {
+      "id": "L7-086",
+      "lecture": 7,
+      "concept": "ICA and Factor Analysis",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          29
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does ICA's latent-factor criterion differ from the Factor Analysis criterion described in the lecture?",
+      "choices": [
+        "ICA seeks statistically independent factors rather than merely uncorrelated factors",
+        "ICA requires every factor to be a class label",
+        "ICA permits only one observed variable",
+        "ICA maximises total variance without considering independence"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "ICA strengthens the requirement from lack of correlation to statistical independence between recovered sources."
+    },
+    {
+      "id": "L7-087",
+      "lecture": 7,
+      "concept": "ICA preprocessing",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          29
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is whitening applied before ICA?",
+      "choices": [
+        "To remove correlations as a necessary step toward statistical independence",
+        "To create class labels from continuous targets",
+        "To make all source signals Gaussian",
+        "To increase the number of observed mixtures"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Whitening removes correlations, which is necessary but not sufficient for the stronger goal of independence."
+    },
+    {
+      "id": "L7-088",
+      "lecture": 7,
+      "concept": "ICA assumptions",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          29
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which set lists the three main ICA assumptions from the lecture?",
+      "choices": [
+        "Linear mixing, mutually independent sources and non-Gaussian sources",
+        "Nonlinear mixing, identical sources and Gaussian sources",
+        "Labelled classes, equal covariance matrices and zero variance",
+        "Random feature removal, categorical inputs and fixed cluster count"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "ICA assumes a linear mixture of independent, non-Gaussian source signals."
+    },
+    {
+      "id": "L7-089",
+      "lecture": 7,
+      "concept": "ICA distributions",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          29,
+          30
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why would ICA be ineffective if the latent source factors were normally distributed?",
+      "choices": [
+        "ICA relies on the sources being non-Gaussian to identify independent components",
+        "Gaussian sources always have class labels",
+        "Normal distributions make matrix multiplication impossible",
+        "ICA requires every source to have zero observations"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Non-Gaussianity is a core identifiability assumption for ICA; the lecture contrasts long-tailed ICA components with more Gaussian PCA components."
+    },
+    {
+      "id": "L7-090",
+      "lecture": 7,
+      "concept": "Cocktail-party problem",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          31,
+          32
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the cocktail-party example demonstrate about ICA?",
+      "choices": [
+        "It can recover separate source signals from observed mixtures",
+        "It can maximise class separation without any signals",
+        "It always produces the same components as PCA",
+        "It can only reduce survey data to one factor"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The example illustrates blind source separation: ICA attempts to recover the individual conversations or signals that were mixed together."
+    },
+    {
+      "id": "L7-091",
+      "lecture": 7,
+      "concept": "Linearity checks",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "When does the lecture suggest logistic regression as a possible linearity check?",
+      "choices": [
+        "When the data has relatively low dimensionality and model accuracy can be inspected",
+        "When the data contains no target labels",
+        "Only after ICA has recovered non-Gaussian sources",
+        "Only when every feature has zero variance"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "For lower-dimensional labelled data, the performance of a simple logistic regression model can provide evidence of useful linear structure."
+    },
+    {
+      "id": "L7-092",
+      "lecture": 7,
+      "concept": "Linearity checks",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What property makes a simple perceptron relevant to checking linearity?",
+      "choices": [
+        "It converges when the training data is linearly separable",
+        "It always discovers latent survey factors",
+        "It measures only nonlinear rank correlation",
+        "It guarantees convergence for every non-linear dataset"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The perceptron convergence property links successful convergence to linear separability, although the lecture cautions about using this idea in high dimensions."
+    },
+    {
+      "id": "L7-093",
+      "lecture": 7,
+      "concept": "Linearity checks",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Under what condition does the lecture suggest clustering might help inspect structure before linear reduction?",
+      "choices": [
+        "When there are relatively few features, such as fewer than ten",
+        "Only when there are millions of features",
+        "Only when every observation has the same value",
+        "When the number of classes is unknown but every feature is text"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture lists clustering as a possible exploratory check when the feature count is relatively small."
+    },
+    {
+      "id": "L7-094",
+      "lecture": 7,
+      "concept": "Covariance matrix",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which expression for the covariance of a random vector $X$ appears in the lecture?",
+      "choices": [
+        "$E[XX^T] - E[X]E[X^T]$",
+        "$E[X] + E[X^T]$",
+        "$X^T/X$",
+        "$E[X]E[X^T] - E[XX^T]^2$"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The covariance matrix is expressed as $E[XX^T] - E[X]E[X^T]$, with the centred-data calculation often abbreviated using $XX^T$."
+    },
+    {
+      "id": "L7-095",
+      "lecture": 7,
+      "concept": "Eigendecomposition and SVD",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the diagonal matrix $\\Sigma$ contain in the SVD description from the lecture?",
+      "choices": [
+        "Singular values related to square roots of eigenvalues",
+        "The original class labels",
+        "Only the means of the input columns",
+        "The names of the latent factors"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture describes $\\Sigma$ as a diagonal matrix of singular values related to square roots of eigenvalues."
+    },
+    {
+      "id": "L7-096",
+      "lecture": 7,
+      "concept": "Factor Analysis assumptions",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What distributional assumption does the lecture associate with the latent variable in Factor Analysis?",
+      "choices": [
+        "A Gaussian distribution",
+        "A distribution that must have no variance",
+        "A categorical distribution with exactly two labels",
+        "A distribution that must match every observed feature exactly"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture presents the unobserved factor as an underlying Gaussian variable influencing the observed measurements."
+    },
+    {
+      "id": "L7-097",
+      "lecture": 7,
+      "concept": "PCA and Factor Analysis",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "From the mathematical perspective stated in the lecture, how can PCA be classified relative to Factor Analysis?",
+      "choices": [
+        "PCA can be viewed as a specific type of factor analysis",
+        "PCA and Factor Analysis have no mathematical relationship",
+        "Factor Analysis is a supervised form of LDA",
+        "PCA is a nonlinear form of ICA"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture notes that, despite their conceptual differences, PCA can technically be viewed as a specific type of factor analysis."
+    },
+    {
+      "id": "L7-098",
+      "lecture": 7,
+      "concept": "LDA assumptions",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "When are LDA's classification assumptions described as less critical in the lecture?",
+      "choices": [
+        "When LDA is being used for dimensionality reduction rather than classification",
+        "When LDA is being used with no measured features",
+        "When every class label is deleted",
+        "When LDA is replaced by a random projection"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture says the assumptions, particularly feature independence, are less of an issue when LDA is used as a dimensionality-reduction technique."
+    },
+    {
+      "id": "L7-099",
+      "lecture": 7,
+      "concept": "LDA and PCA examples",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          28
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "In the sports-team analogy, why could player height be emphasised by PCA but be useless for separating teams?",
+      "choices": [
+        "Height could vary greatly overall while having the same range within every team",
+        "PCA can only process team names",
+        "Height would necessarily have zero variance",
+        "LDA and PCA always select identical directions"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "High total variance does not guarantee between-class differences; the same height variation in every team would provide little discriminatory information."
+    },
+    {
+      "id": "L7-100",
+      "lecture": 7,
+      "concept": "ICA distributions",
+      "source": {
+        "file": "IDVE_Lecture_7_2026.pdf",
+        "pages": [
+          30,
+          32
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which visual contrast between PCA and ICA components is highlighted in the handwritten-digit example?",
+      "choices": [
+        "PCA components appear more multivariate normal, while ICA components have longer tails",
+        "PCA components are always categorical, while ICA components are always binary",
+        "PCA components have no variance, while ICA components are identical",
+        "PCA and ICA components have exactly the same distributions"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture contrasts the more Gaussian appearance of PCA components with the long-tailed, non-Gaussian character sought by ICA."
     }
   ]
 }
