@@ -3,7 +3,7 @@
   "subject": "dve",
   "title": "Lecture bank",
   "kind": "lecture-bank",
-  "description": "Practice questions written from the lecture slides (lectures 1–7). Each one points back to its lecture and slide.",
+  "description": "Practice questions written from the lecture slides (lectures 1-8). Each one points back to its lecture and slide.",
   "questions": [
     {
       "id": "L1-001",
@@ -12179,6 +12179,3207 @@
         0
       ],
       "explanation": "The lecture contrasts the more Gaussian appearance of PCA components with the long-tailed, non-Gaussian character sought by ICA."
+    },
+    {
+      "id": "L8-001",
+      "lecture": 8,
+      "concept": "Nonlinear dimensionality reduction",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What implicit assumption allows a linear method such as PCA to give a useful low-dimensional representation?",
+      "choices": [
+        "Every feature is categorical",
+        "All observations have identical values",
+        "The class labels form a nonlinear boundary",
+        "The data can be represented well in a lower-dimensional linear subspace"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "PCA searches for a flat linear projection, so it works best when the important structure can be represented by a lower-dimensional linear subspace."
+    },
+    {
+      "id": "L8-002",
+      "lecture": 8,
+      "concept": "Nonlinear dimensionality reduction",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why can PCA give a poor approximation of nonlinear data?",
+      "choices": [
+        "PCA always deletes the largest eigenvalue",
+        "PCA requires every point to be an outlier",
+        "No line or plane may represent the curved structure well",
+        "PCA can only process text features"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "PCA produces a linear approximation; a curved structure may not be captured by any flat line or plane."
+    },
+    {
+      "id": "L8-003",
+      "lecture": 8,
+      "concept": "Nonlinear dimensionality reduction",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does the manifold hypothesis generalise the assumption used by linear dimensionality reduction?",
+      "choices": [
+        "It requires the lower-dimensional space to contain more dimensions than the input",
+        "It allows the lower-dimensional space to be curved and embedded in the higher-dimensional feature space",
+        "It assumes all pairwise distances are zero",
+        "It removes the need for any relationship between nearby points"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The manifold hypothesis assumes that high-dimensional observations lie on or near a lower-dimensional curved space embedded in the original feature space."
+    },
+    {
+      "id": "L8-004",
+      "lecture": 8,
+      "concept": "Nonlinear dimensionality reduction",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which method illustrates making a linear dimensionality-reduction method nonlinear?",
+      "choices": [
+        "Kernel PCA",
+        "Ordinary least-squares regression",
+        "K-means with no features",
+        "A covariance table"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecture names Kernel PCA as an example of taking a linear method and nonlinearising it."
+    },
+    {
+      "id": "L8-005",
+      "lecture": 8,
+      "concept": "Nonlinear dimensionality reduction",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the second broad non-parametric approach to nonlinear dimensionality reduction described in the lecture?",
+      "choices": [
+        "Randomly remove original variables",
+        "Force the manifold to be globally flat",
+        "Replace all observations with their mean",
+        "Estimate the manifold and use properties measured along it"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Instead of modifying a linear method, one can estimate the underlying manifold and work with its geometry."
+    },
+    {
+      "id": "L8-006",
+      "lecture": 8,
+      "concept": "Nonlinear dimensionality reduction",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which distinction is made between nonlinear dimensionality-reduction methods?",
+      "choices": [
+        "Some require data and others require no input",
+        "Some calculate variance and others cannot use numbers",
+        "Some provide a reusable mapping to an embedding, while others mainly provide a visualisation",
+        "Some preserve all dimensions and others add class labels"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The lecture distinguishes methods that map new high-dimensional points into an embedding from methods used mainly for visualisation."
+    },
+    {
+      "id": "L8-007",
+      "lecture": 8,
+      "concept": "Nonlinear dimensionality reduction",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which method is mentioned as an example that may provide a visualisation rather than a general mapping?",
+      "choices": [
+        "Kernel PCA",
+        "t-SNE",
+        "Ordinary PCA",
+        "Linear regression"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The lecture uses t-SNE as the example of a method that is primarily able to provide a visualisation."
+    },
+    {
+      "id": "L8-008",
+      "lecture": 8,
+      "concept": "Swiss roll example",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the Swiss roll example demonstrate about PCA?",
+      "choices": [
+        "A flat PCA projection can fail to separate data that lies on a curved manifold",
+        "PCA always preserves curved geodesic distances",
+        "PCA turns every manifold into a similarity graph",
+        "PCA requires a hexagonal output grid"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The rolled surface is nonlinear, so flattening it with a linear projection does not preserve its structure well."
+    },
+    {
+      "id": "L8-009",
+      "lecture": 8,
+      "concept": "Swiss roll example",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the intended advantage of a manifold method on the Swiss roll?",
+      "choices": [
+        "It assigns random class labels to the points",
+        "It maximises only the largest original coordinate",
+        "It makes all high-dimensional distances equal",
+        "It can unfold the curved surface while preserving meaningful distances along it"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "A manifold method seeks an embedding that respects the geometry of the curved surface."
+    },
+    {
+      "id": "L8-010",
+      "lecture": 8,
+      "concept": "Nonlinear dimensionality reduction",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          4,
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the main focus of Lecture 8?",
+      "choices": [
+        "Supervised regression diagnostics only",
+        "Database storage and indexing",
+        "The underlying theory of nonlinear dimensionality-reduction methods",
+        "Image labelling with no dimensionality reduction"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The lecture introduces theory and intuition for several nonlinear dimensionality-reduction techniques."
+    },
+    {
+      "id": "L8-011",
+      "lecture": 8,
+      "concept": "Manifolds",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does it mean for a manifold to be locally Euclidean?",
+      "choices": [
+        "The entire manifold must be globally flat",
+        "A sufficiently small neighbourhood around a point behaves like a flat Euclidean space",
+        "Every point must have the same coordinates",
+        "The manifold must contain only straight lines"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "A nonlinear manifold may be curved globally while looking flat in a small enough neighbourhood."
+    },
+    {
+      "id": "L8-012",
+      "lecture": 8,
+      "concept": "Manifolds",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which statement about the global shape of a manifold is TRUE?",
+      "choices": [
+        "It may be nonlinear even though each small neighbourhood is approximately Euclidean",
+        "It must be a single straight line",
+        "It must have zero curvature everywhere",
+        "It cannot be embedded in another space"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Local flatness does not require the full manifold to be globally flat."
+    },
+    {
+      "id": "L8-013",
+      "lecture": 8,
+      "concept": "Manifolds",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What continuity assumption is made about data points on a manifold?",
+      "choices": [
+        "Every pair of points has identical coordinates",
+        "Only points with class labels can be connected",
+        "All connections must cross at right angles",
+        "The points can be connected in a continuous way"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The manifold model assumes a continuous underlying space connecting the observations."
+    },
+    {
+      "id": "L8-014",
+      "lecture": 8,
+      "concept": "Manifold embeddings",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the goal when choosing low-dimensional points for a manifold embedding?",
+      "choices": [
+        "Maximise the number of dimensions",
+        "Discard every local relationship",
+        "Optimally preserve a chosen property of the original high-dimensional points",
+        "Make all points equally distant"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "A low-dimensional embedding is judged by how well it preserves a selected property of the original data."
+    },
+    {
+      "id": "L8-015",
+      "lecture": 8,
+      "concept": "Manifold embeddings",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which property is most commonly used to evaluate a manifold embedding in the lecture?",
+      "choices": [
+        "The alphabetical order of feature names",
+        "Pairwise distances between points",
+        "The number of source files",
+        "The colour used to draw each point"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Pairwise distances are a common basis for comparing the geometry before and after embedding."
+    },
+    {
+      "id": "L8-016",
+      "lecture": 8,
+      "concept": "Manifold embeddings",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "If two points are close in the high-dimensional space, what should a distance-preserving manifold embedding do?",
+      "choices": [
+        "Place them close together in the low-dimensional space",
+        "Force them into different components",
+        "Place them at the maximum possible distance",
+        "Remove one of the points"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Nearby high-dimensional observations should remain neighbours in the embedding."
+    },
+    {
+      "id": "L8-017",
+      "lecture": 8,
+      "concept": "Global manifold methods",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How do global manifold methods treat pairwise distances?",
+      "choices": [
+        "They ignore every non-neighbour distance by definition",
+        "They use only distances to the origin",
+        "They replace distances with class labels",
+        "They treat all pairwise distances as important"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Global methods try to fit both near and far pairwise relationships in the low-dimensional representation."
+    },
+    {
+      "id": "L8-018",
+      "lecture": 8,
+      "concept": "Global manifold methods",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What should happen to points that are far apart under a global distance-preserving method?",
+      "choices": [
+        "They must be merged into one point",
+        "They should become nearest neighbours",
+        "They should remain far apart in the low-dimensional embedding",
+        "Their distance should be set to zero"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Global methods attempt to preserve far as well as near relationships."
+    },
+    {
+      "id": "L8-019",
+      "lecture": 8,
+      "concept": "Local manifold methods",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What key assumption is made by local manifold methods?",
+      "choices": [
+        "All long-range distances must be preserved exactly",
+        "Only local distances in the high-dimensional space are considered reliably meaningful",
+        "The manifold is globally flat",
+        "Every point belongs to a known class"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Local methods prioritise trustworthy neighbourhood relationships instead of trying to preserve every distance."
+    },
+    {
+      "id": "L8-020",
+      "lecture": 8,
+      "concept": "Local manifold methods",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why may two distant high-dimensional points appear closer after a local manifold embedding?",
+      "choices": [
+        "The method focuses on neighbourhoods and the manifold is only an approximation",
+        "The method explicitly sets every distance to zero",
+        "The input data has been duplicated",
+        "Local methods preserve all long-range distances exactly"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Long-range relationships can be distorted when the optimisation concentrates on preserving local structure."
+    },
+    {
+      "id": "L8-021",
+      "lecture": 8,
+      "concept": "Local manifold methods",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What information are local manifold methods primarily trying to preserve?",
+      "choices": [
+        "Only global means",
+        "The original feature names",
+        "The order in which rows were read",
+        "Neighbourhood information"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Local methods model the relationships among nearby observations."
+    },
+    {
+      "id": "L8-022",
+      "lecture": 8,
+      "concept": "Local and global methods",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which scenario best suits a local manifold objective?",
+      "choices": [
+        "Requiring every pairwise distance to match exactly",
+        "Ignoring all nearby relationships",
+        "Preserving which observations are immediate neighbours while allowing long-range distortion",
+        "Mapping every observation to the same location"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "A local objective protects small-scale neighbourhood structure rather than the complete global geometry."
+    },
+    {
+      "id": "L8-023",
+      "lecture": 8,
+      "concept": "Principal curves and surfaces",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How can a principal component be interpreted geometrically?",
+      "choices": [
+        "As a discrete hexagonal map only",
+        "As a linear manifold approximating high-dimensional data",
+        "As a graph cut with no projection",
+        "As a class label predicted by regression"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "A principal component gives a straight low-dimensional direction through the data."
+    },
+    {
+      "id": "L8-024",
+      "lecture": 8,
+      "concept": "PCA geometry",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What quantity is minimised when fitting the principal-component line described in the lecture?",
+      "choices": [
+        "The total squared distance from points to their orthogonal projections on the line",
+        "Only the vertical response error",
+        "The number of graph vertices",
+        "The count of non-zero class labels"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "PCA fits a line by minimising orthogonal least-squares reconstruction error."
+    },
+    {
+      "id": "L8-025",
+      "lecture": 8,
+      "concept": "PCA geometry",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What mapping was produced when the first two principal components were retained from p-dimensional data?",
+      "choices": [
+        "A mapping from $\\mathbb{R}^2$ to no dimensions",
+        "A mapping from class labels to file names",
+        "A mapping from a graph to a single edge",
+        "A mapping from $\\mathbb{R}^p$ to $\\mathbb{R}^2$"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Two retained components provide a two-dimensional coordinate for each p-dimensional observation."
+    },
+    {
+      "id": "L8-026",
+      "lecture": 8,
+      "concept": "Principal curves and surfaces",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How do principal curves generalise principal components?",
+      "choices": [
+        "They require the data to be globally flat",
+        "They remove every distance calculation",
+        "They replace the straight approximating line with a smooth curve",
+        "They force all points onto a rectangular grid"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Principal curves extend the linear principal-component idea to a nonlinear one-dimensional manifold."
+    },
+    {
+      "id": "L8-027",
+      "lecture": 8,
+      "concept": "Principal curves and surfaces",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          9,
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How is a principal surface obtained conceptually from a principal curve?",
+      "choices": [
+        "Replace the curve with a class label",
+        "Extend the curve idea to a higher-dimensional continuous surface",
+        "Use no parameters at all",
+        "Restrict the representation to one isolated point"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "A principal surface uses more than one manifold coordinate to model a continuous higher-dimensional surface."
+    },
+    {
+      "id": "L8-028",
+      "lecture": 8,
+      "concept": "Principal curves and surfaces",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What common objective links principal components, principal curves and principal surfaces?",
+      "choices": [
+        "Estimate a continuous low-dimensional manifold representation of the data",
+        "Create a supervised classifier",
+        "Maximise the number of original features",
+        "Make all observations independent"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "All three approximate data using a lower-dimensional geometric object, differing mainly in its flexibility."
+    },
+    {
+      "id": "L8-029",
+      "lecture": 8,
+      "concept": "Principal curves",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the main geometric objective of a principal curve $f(\\lambda)$?",
+      "choices": [
+        "Pass through only the most extreme outlier",
+        "Maximise every point-to-curve distance",
+        "Create disconnected graph components",
+        "Pass through the middle of the data while minimising point-to-curve distances"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "A principal curve is fitted as a smooth central path through the observations."
+    },
+    {
+      "id": "L8-030",
+      "lecture": 8,
+      "concept": "Principal curves",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How is $f(\\lambda)$ described mathematically?",
+      "choices": [
+        "A scalar class label with no coordinates",
+        "A square adjacency matrix",
+        "A smooth parameterised vector curve in $\\mathbb{R}^p$",
+        "A list of unrelated feature names"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The curve returns a p-coordinate point for each value of its parameter."
+    },
+    {
+      "id": "L8-031",
+      "lecture": 8,
+      "concept": "Principal curves",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How many coordinate functions does a principal curve in $\\mathbb{R}^p$ contain?",
+      "choices": [
+        "Exactly one coordinate regardless of p",
+        "p coordinate functions",
+        "N squared coordinate functions",
+        "No coordinate functions"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The vector-valued curve has one coordinate function for each of the p input dimensions."
+    },
+    {
+      "id": "L8-032",
+      "lecture": 8,
+      "concept": "Principal curves",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the parameter $\\lambda$ usually represent for a principal curve?",
+      "choices": [
+        "Position along the curve, usually measured by arc length",
+        "The number of class labels",
+        "The graph degree matrix",
+        "The learning rate of a neural network"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The parameter indexes location along the fitted curve and is commonly interpreted as arc length."
+    },
+    {
+      "id": "L8-033",
+      "lecture": 8,
+      "concept": "Principal curves",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is smoothing applied between computed values of a principal curve?",
+      "choices": [
+        "The curve must be converted into class labels",
+        "Smoothing creates more input dimensions",
+        "The graph Laplacian cannot contain decimals",
+        "The parameter values are discrete, but the desired manifold is continuous"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Smoothing connects discrete fitted curve points into a continuous path."
+    },
+    {
+      "id": "L8-034",
+      "lecture": 8,
+      "concept": "Principal curves",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What self-consistency property does a principal curve satisfy?",
+      "choices": [
+        "Every curve point equals the most distant observation",
+        "The curve contains only observations with zero variance",
+        "Each point on the curve is the average of data points that project to it",
+        "Every projection is chosen randomly"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The fitted curve passes through the conditional mean of the observations assigned to each curve location."
+    },
+    {
+      "id": "L8-035",
+      "lecture": 8,
+      "concept": "Principal curve algorithm",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does $\\lambda_f(x)$ identify for a data point x?",
+      "choices": [
+        "The class label of x",
+        "The closest point or parameter location on the current curve",
+        "The largest eigenvalue of x",
+        "The degree of a graph vertex"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The projection index associates each observation with its nearest location on the curve."
+    },
+    {
+      "id": "L8-036",
+      "lecture": 8,
+      "concept": "Principal curve algorithm",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does $f(\\lambda)=E(X\\mid\\lambda_f(X)=\\lambda)$ express?",
+      "choices": [
+        "The curve point is the mean of observations projected to that location",
+        "The curve point is the farthest observation",
+        "Every observation has the same projection",
+        "The curve is an adjacency matrix"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "This conditional-expectation equation states the self-consistency condition for a principal curve."
+    },
+    {
+      "id": "L8-037",
+      "lecture": 8,
+      "concept": "Principal curve algorithm",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What happens in the curve-update step of the principal-curve algorithm?",
+      "choices": [
+        "All coordinates are discarded",
+        "Only the response variable is minimised",
+        "The similarity graph is made fully disconnected",
+        "Each coordinate function is replaced by the average of observations assigned to each curve location"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The expectation step smooths or averages the observations associated with each part of the curve."
+    },
+    {
+      "id": "L8-038",
+      "lecture": 8,
+      "concept": "Principal curve algorithm",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What happens in the projection step of the principal-curve algorithm?",
+      "choices": [
+        "The input data is replaced by random weights",
+        "The number of variables is doubled",
+        "The curve is fixed and each data point is assigned to its closest curve location",
+        "The response variable is predicted from one feature"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The projection step minimises the squared distance between each observation and the current curve."
+    },
+    {
+      "id": "L8-039",
+      "lecture": 8,
+      "concept": "Principal curve algorithm",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "When does the iterative principal-curve procedure stop?",
+      "choices": [
+        "After exactly one observation",
+        "When the chosen convergence change falls below a threshold",
+        "Only when every distance becomes infinite",
+        "When all class labels are removed"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The update and projection steps repeat until the improvement or change is sufficiently small."
+    },
+    {
+      "id": "L8-040",
+      "lecture": 8,
+      "concept": "Principal surfaces",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does the parameterisation of a principal surface differ from that of a principal curve?",
+      "choices": [
+        "A principal surface can use two manifold parameters instead of one",
+        "A principal surface has no coordinates",
+        "A principal curve always uses more parameters than a surface",
+        "A surface requires a class label as its only parameter"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Two parameters allow the mapping to sweep out a two-dimensional surface rather than a one-dimensional curve."
+    },
+    {
+      "id": "L8-041",
+      "lecture": 8,
+      "concept": "Principal surfaces",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why can a principal surface represent half-sphere data better than ordinary PCA?",
+      "choices": [
+        "It forces the data onto a single straight line",
+        "It removes all local distances",
+        "It requires the classes to have identical coordinates",
+        "It can bend to follow the curved two-dimensional structure"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "A curved surface can follow the nonlinear geometry, while a flat PCA plane is only a linear approximation."
+    },
+    {
+      "id": "L8-042",
+      "lecture": 8,
+      "concept": "Regression and principal curves",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What error does ordinary regression minimise in the comparison shown in the lecture?",
+      "choices": [
+        "Orthogonal deviations in every variable",
+        "The number of graph edges",
+        "Deviations in the response variable",
+        "The distance between SOM nodes only"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Regression treats one variable as the response and minimises errors measured in that response direction."
+    },
+    {
+      "id": "L8-043",
+      "lecture": 8,
+      "concept": "Regression and principal curves",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What error does a principal component or principal curve minimise?",
+      "choices": [
+        "Only errors in a chosen response variable",
+        "Deviations involving all variables through projection distance",
+        "Only the class-label error",
+        "Only the number of observations"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Principal methods are symmetric across variables and minimise reconstruction or projection distances."
+    },
+    {
+      "id": "L8-044",
+      "lecture": 8,
+      "concept": "Principal curve considerations",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which is an advantage of principal curves?",
+      "choices": [
+        "They provide a smooth, continuous manifold approximation",
+        "They require a universally fixed definition",
+        "They cannot process large datasets",
+        "They are immune to parameter choices"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Smoothness and continuity let the curve model a nonlinear path through the data."
+    },
+    {
+      "id": "L8-045",
+      "lecture": 8,
+      "concept": "Principal curve considerations",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does it mean that principal curves use non-parametric coordinate functions?",
+      "choices": [
+        "The curve contains no coordinates",
+        "The method requires labelled classes",
+        "The output must be a rectangular grid",
+        "The curve shape is learned flexibly from the data rather than fixed to a predetermined form"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Non-parametric functions allow the data to determine the fitted curve shape."
+    },
+    {
+      "id": "L8-046",
+      "lecture": 8,
+      "concept": "Principal curve considerations",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why can principal curves be used on large datasets according to the lecture?",
+      "choices": [
+        "They never calculate a distance",
+        "They use only one observation",
+        "Their minimisation procedure is computationally efficient",
+        "They replace the dataset with a constant"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The lecture lists computationally efficient minimisation as an advantage."
+    },
+    {
+      "id": "L8-047",
+      "lecture": 8,
+      "concept": "Principal curve considerations",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What can heavily affect the result of a principal-curve analysis?",
+      "choices": [
+        "The spelling of the file name only",
+        "The choice of algorithm parameters",
+        "The colour of the plotted points only",
+        "The order of answer choices"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The fitted manifold can change substantially when smoothing and other parameters change."
+    },
+    {
+      "id": "L8-048",
+      "lecture": 8,
+      "concept": "Principal curve considerations",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which theoretical limitation of principal curves is identified in the lecture?",
+      "choices": [
+        "There is no single universally agreed mathematical definition",
+        "They cannot represent a curve",
+        "They are always supervised",
+        "They require a graph with no edges"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Different formulations exist, so the exact definition is not completely universal."
+    },
+    {
+      "id": "L8-049",
+      "lecture": 8,
+      "concept": "Principal curve considerations",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why are principal curves prone to overfitting?",
+      "choices": [
+        "They always use too few parameters",
+        "They discard all nonlinear structure",
+        "They prohibit smoothing",
+        "The observed data directly defines the fitted curve"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "A flexible curve can follow noise or sample-specific irregularities when it is learned directly from the data."
+    },
+    {
+      "id": "L8-050",
+      "lecture": 8,
+      "concept": "Spectral methods",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the spectrum refer to in a spectral method?",
+      "choices": [
+        "The colours used in a plot",
+        "The list of class names",
+        "The eigenvalues of the system or matrix being analysed",
+        "The order of input rows"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Spectral methods use eigenvalues and their eigenvectors to reveal structure."
+    },
+    {
+      "id": "L8-051",
+      "lecture": 8,
+      "concept": "Spectral clustering",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does spectral clustering generalise a method such as k-means?",
+      "choices": [
+        "It requires all clusters to be spherical",
+        "It can reveal cluster structures beyond simple spherical or elliptical groups",
+        "It removes the need for any similarity measure",
+        "It assigns clusters from feature names"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The spectral embedding can make complex cluster geometry separable before a simple clustering step."
+    },
+    {
+      "id": "L8-052",
+      "lecture": 8,
+      "concept": "Spectral clustering",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the broad sequence used by spectral clustering?",
+      "choices": [
+        "Build a similarity matrix, find its spectral representation, then cluster the eigenvector coordinates",
+        "Run regression, remove the response, then sort file names",
+        "Choose random labels, calculate a mean, then duplicate points",
+        "Create a SOM grid, delete its weights, then fit PCA"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Spectral clustering converts pairwise similarities into eigenvector features and clusters those features."
+    },
+    {
+      "id": "L8-053",
+      "lecture": 8,
+      "concept": "Similarity matrices",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What are the dimensions of the similarity matrix for N data points?",
+      "choices": [
+        "$p \\times 1$ regardless of N",
+        "$2 \\times 2$ for every dataset",
+        "$N \\times 0$",
+        "$N \\times N$"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The matrix contains one pairwise similarity entry for each ordered pair of N observations."
+    },
+    {
+      "id": "L8-054",
+      "lecture": 8,
+      "concept": "Similarity matrices",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What restriction is placed on pairwise similarities $s_{ij}$?",
+      "choices": [
+        "They must all be negative",
+        "They must all equal one",
+        "They are non-negative",
+        "They must be class labels"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The lecture defines the similarity weights as values greater than or equal to zero."
+    },
+    {
+      "id": "L8-055",
+      "lecture": 8,
+      "concept": "Similarity matrices",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which expression represents the radial-basis similarity used in the lecture?",
+      "choices": [
+        "$s_{ij}=x_i+x_j+c$",
+        "$s_{ij}=\\exp(-\\lVert x_i-x_j\\rVert^2/c)$",
+        "$s_{ij}=\\lVert x_i\\rVert/0$",
+        "$s_{ij}=c-\\exp(x_i)$"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The RBF similarity decreases exponentially as squared distance grows."
+    },
+    {
+      "id": "L8-056",
+      "lecture": 8,
+      "concept": "Similarity matrices",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What role does the positive parameter c play in the RBF similarity?",
+      "choices": [
+        "It scales how quickly similarity decreases with distance",
+        "It gives the number of input rows",
+        "It is the class label",
+        "It forces every similarity to zero"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Changing c changes the locality or width of the similarity function."
+    },
+    {
+      "id": "L8-057",
+      "lecture": 8,
+      "concept": "Similarity graphs",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How many vertices does the similarity graph have for N observations?",
+      "choices": [
+        "Exactly two vertices",
+        "One vertex for each feature name only",
+        "No vertices",
+        "N vertices, one for each observation"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Each data point becomes one vertex in the graph."
+    },
+    {
+      "id": "L8-058",
+      "lecture": 8,
+      "concept": "Similarity graphs",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Under the threshold rule, when are two vertices connected?",
+      "choices": [
+        "When their similarity is negative",
+        "Only when they are the same observation",
+        "When their similarity is greater than a chosen threshold $\\epsilon$",
+        "When their feature names match"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Thresholding keeps edges only for pairs considered sufficiently similar."
+    },
+    {
+      "id": "L8-059",
+      "lecture": 8,
+      "concept": "Adjacency matrices",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the adjacency matrix W store?",
+      "choices": [
+        "The original class labels only",
+        "The edge weights between connected data points",
+        "The names of all features",
+        "The principal-curve parameters"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "W is the matrix representation of weighted connections in the similarity graph."
+    },
+    {
+      "id": "L8-060",
+      "lecture": 8,
+      "concept": "Degree matrices",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is stored on the diagonal of the degree matrix G?",
+      "choices": [
+        "The sum of edge weights connected to each vertex",
+        "The class label of each vertex",
+        "The smallest feature value",
+        "The number of source documents"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Each degree value measures the total connection weight of its vertex."
+    },
+    {
+      "id": "L8-061",
+      "lecture": 8,
+      "concept": "Graph Laplacian",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How is the unnormalised graph Laplacian defined?",
+      "choices": [
+        "$L=G+W$",
+        "$L=W/G$",
+        "$L=I+G^{-1}W$",
+        "$L=G-W$"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Subtracting the adjacency matrix from the degree matrix produces the unnormalised Laplacian."
+    },
+    {
+      "id": "L8-062",
+      "lecture": 8,
+      "concept": "Graph Laplacian",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which expression is given as an example of a normalised graph Laplacian?",
+      "choices": [
+        "$L=G-W^2$",
+        "$L=I+G+W$",
+        "$L=I-G^{-1}W$",
+        "$L=W^{-1}G^{-1}$"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The normalised form adjusts adjacency weights by node degree."
+    },
+    {
+      "id": "L8-063",
+      "lecture": 8,
+      "concept": "Graph Laplacian",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the graph Laplacian provide?",
+      "choices": [
+        "A list of response-variable errors",
+        "A matrix representation of the similarity graph",
+        "A rectangular SOM grid only",
+        "A replacement for all input observations"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The Laplacian encodes the graph structure in a form suitable for spectral analysis."
+    },
+    {
+      "id": "L8-064",
+      "lecture": 8,
+      "concept": "Graph partitioning",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does the Laplacian reformulate the original clustering task?",
+      "choices": [
+        "As a graph-partitioning problem",
+        "As a supervised regression problem",
+        "As a file-sorting problem",
+        "As a random feature-deletion problem"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Clusters become connected graph regions separated by weak or absent connections."
+    },
+    {
+      "id": "L8-065",
+      "lecture": 8,
+      "concept": "Graph partitioning",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What do clusters represent in the similarity graph?",
+      "choices": [
+        "Random collections of feature names",
+        "Only vertices with zero degree",
+        "Response variables with identical spelling",
+        "Connected or strongly connected local neighbourhoods"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "A cluster corresponds to a graph region whose vertices are connected more strongly to one another than to other regions."
+    },
+    {
+      "id": "L8-066",
+      "lecture": 8,
+      "concept": "Graph partitioning",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is the graph Laplacian useful when an exact graph cut is difficult?",
+      "choices": [
+        "It guarantees the exact cut without computation",
+        "It deletes all graph edges",
+        "It provides a spectral approximation to an NP-hard partitioning problem",
+        "It converts the graph into labels directly"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The continuous spectral formulation makes it possible to approximate a hard discrete graph-cut problem."
+    },
+    {
+      "id": "L8-067",
+      "lecture": 8,
+      "concept": "Local similarity graphs",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does mutual k-nearest-neighbour graph construction require?",
+      "choices": [
+        "Only one point must know the other exists",
+        "Each of two connected points must be among the other point's nearest neighbours",
+        "Every point must connect to every other point",
+        "All points must have identical coordinates"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Mutual neighbourhoods create a more selective local graph than one-way nearest-neighbour links."
+    },
+    {
+      "id": "L8-068",
+      "lecture": 8,
+      "concept": "Local similarity graphs",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What happens to $w_{ij}$ when two points are not mutual nearest neighbours under the stated rule?",
+      "choices": [
+        "It is set to zero",
+        "It is set to infinity",
+        "It becomes a class label",
+        "It is replaced by the mean target value"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Non-neighbour pairs are disconnected in the local adjacency matrix."
+    },
+    {
+      "id": "L8-069",
+      "lecture": 8,
+      "concept": "Local similarity graphs",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How can repeated choices of the RBF parameter c be used?",
+      "choices": [
+        "To change the number of observations",
+        "To create response labels",
+        "To remove the adjacency matrix",
+        "To control how local or broad the similarity behaviour is"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Different scale values change which distances produce meaningful similarities."
+    },
+    {
+      "id": "L8-070",
+      "lecture": 8,
+      "concept": "Laplacian eigenvalues",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the number of zero eigenvalues of a graph Laplacian indicate?",
+      "choices": [
+        "The number of original features",
+        "The number of response variables",
+        "The number of connected components in the graph",
+        "The number of SOM iterations"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Each disconnected connected component contributes a zero eigenvalue."
+    },
+    {
+      "id": "L8-071",
+      "lecture": 8,
+      "concept": "Laplacian eigenvalues",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is always true about the smallest eigenvalue of a graph Laplacian?",
+      "choices": [
+        "It is always negative",
+        "There is at least one eigenvalue equal to zero",
+        "It always equals the number of features",
+        "It is always greater than one"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Even a fully connected graph has the trivial zero eigenvalue."
+    },
+    {
+      "id": "L8-072",
+      "lecture": 8,
+      "concept": "Laplacian eigenvalues",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What would it mean if every Laplacian eigenvalue were zero?",
+      "choices": [
+        "Every vertex is disconnected from every other vertex",
+        "The graph is one dense connected component",
+        "All edge weights are infinite",
+        "The graph has only one observation"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A graph with no edges consists of isolated connected components, yielding zero eigenvalues throughout."
+    },
+    {
+      "id": "L8-073",
+      "lecture": 8,
+      "concept": "Laplacian eigenvalues",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does a Laplacian eigenvalue close to zero indicate?",
+      "choices": [
+        "A very strong connection",
+        "A missing input feature",
+        "A supervised class boundary",
+        "A weak connection between parts of the graph"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Small non-zero eigenvalues correspond to graph regions joined only weakly."
+    },
+    {
+      "id": "L8-074",
+      "lecture": 8,
+      "concept": "Laplacian eigenvalues",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          17,
+          18
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does a large Laplacian eigenvalue indicate in the lecture?",
+      "choices": [
+        "A fully disconnected component",
+        "No similarity information",
+        "Strongly connected structure",
+        "A failed file load"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Large eigenvalues are associated with strong internal graph connections or finer connected structure."
+    },
+    {
+      "id": "L8-075",
+      "lecture": 8,
+      "concept": "Spectral gap",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the spectral gap as defined on the Laplacian eigenvalue slide?",
+      "choices": [
+        "The largest class label",
+        "The first non-zero eigenvalue",
+        "The difference between input dimensions",
+        "The final SOM learning rate"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The first non-zero eigenvalue reflects how densely the graph is connected."
+    },
+    {
+      "id": "L8-076",
+      "lecture": 8,
+      "concept": "Fiedler value",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What information does the Fiedler value provide?",
+      "choices": [
+        "The minimum cut that divides the graph into two connected components",
+        "The average response error",
+        "The number of original features",
+        "The final principal-curve parameter"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The second eigenvalue identifies the weakest division that can split a connected graph into two parts."
+    },
+    {
+      "id": "L8-077",
+      "lecture": 8,
+      "concept": "Laplacian Eigenmaps",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which eigenvectors are used to form a Laplacian Eigenmap embedding?",
+      "choices": [
+        "Only the eigenvector with the largest negative eigenvalue",
+        "Randomly selected feature columns",
+        "Only vectors of class labels",
+        "Those associated with the first m relevant eigenvalues after excluding the trivial zero eigenvalue"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The low-frequency non-trivial Laplacian eigenvectors provide the embedding coordinates."
+    },
+    {
+      "id": "L8-078",
+      "lecture": 8,
+      "concept": "Laplacian Eigenmaps",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "In the embedding matrix Z, what does each row represent?",
+      "choices": [
+        "One source document",
+        "One class name",
+        "One original data point",
+        "One graph-cut algorithm"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The row for $x_i$ contains that observation's coordinates in the selected eigenvector space."
+    },
+    {
+      "id": "L8-079",
+      "lecture": 8,
+      "concept": "Laplacian Eigenmaps",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "In the embedding matrix Z, what does each column represent?",
+      "choices": [
+        "One original file name",
+        "One selected Laplacian eigenvector",
+        "One response-variable error",
+        "One SOM neighbourhood radius only"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Each chosen eigenvector supplies one coordinate dimension of the spectral embedding."
+    },
+    {
+      "id": "L8-080",
+      "lecture": 8,
+      "concept": "Laplacian Eigenmaps",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          20,
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How should the number m of Laplacian eigenvectors be chosen?",
+      "choices": [
+        "Inspect the eigenvalues for a large spectral gap",
+        "Always choose every eigenvector",
+        "Always choose exactly one",
+        "Use the alphabetic order of the features"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A pronounced eigenvalue gap suggests a natural number of meaningful embedding dimensions or clusters."
+    },
+    {
+      "id": "L8-081",
+      "lecture": 8,
+      "concept": "Laplacian Eigenmaps",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What can be done with the resulting low-dimensional eigenmap coordinates?",
+      "choices": [
+        "Use them only as file names",
+        "Discard them immediately",
+        "Convert them back into identical high-dimensional points",
+        "Plot them or provide them to another learning algorithm"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The eigenvectors form useful reduced features for visualisation or downstream modelling."
+    },
+    {
+      "id": "L8-082",
+      "lecture": 8,
+      "concept": "MNIST spectral embedding",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What did each row of the MNIST input matrix represent?",
+      "choices": [
+        "One class label only",
+        "One graph edge",
+        "Pixel intensities for one handwritten-digit image",
+        "One SOM learning rate"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Each image was flattened into a high-dimensional vector of pixel intensities."
+    },
+    {
+      "id": "L8-083",
+      "lecture": 8,
+      "concept": "MNIST spectral embedding",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What was used as the two-dimensional coordinate for each MNIST image?",
+      "choices": [
+        "Its file name and row number",
+        "Its values in the two leading selected eigenvectors",
+        "Its maximum and minimum class label",
+        "Two random pixel positions"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Two spectral eigenvector components give each image a point in the plotted embedding."
+    },
+    {
+      "id": "L8-084",
+      "lecture": 8,
+      "concept": "Choosing spectral dimensions",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What can the first large gap in the ordered eigenvalues indicate?",
+      "choices": [
+        "A plausible number of clusters",
+        "The number of input files",
+        "The exact learning rate",
+        "The number of response variables"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A large separation after the first few eigenvalues suggests that those earlier modes represent the main connected groups."
+    },
+    {
+      "id": "L8-085",
+      "lecture": 8,
+      "concept": "Choosing spectral dimensions",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "If there is a large gap between the fourth and fifth eigenvalues, what cluster count does the lecture suggest?",
+      "choices": [
+        "Five hundred clusters",
+        "One cluster regardless of the graph",
+        "No clusters",
+        "Four clusters"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The slide interprets the first large gap after the fourth eigenvalue as evidence for four connected groups."
+    },
+    {
+      "id": "L8-086",
+      "lecture": 8,
+      "concept": "Spectral clustering",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does spectral clustering go beyond Laplacian Eigenmaps?",
+      "choices": [
+        "It removes all eigenvectors",
+        "It replaces similarities with response errors",
+        "It clusters the rows of the spectral embedding with k-means",
+        "It requires the original clusters to be spherical"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "After producing eigenvector coordinates, spectral clustering applies a clustering method to those new features."
+    },
+    {
+      "id": "L8-087",
+      "lecture": 8,
+      "concept": "Spectral clustering",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What feature vector is clustered for data point $x_i$ in spectral clustering?",
+      "choices": [
+        "Its original file path",
+        "The row containing its components across the selected eigenvectors",
+        "Its response label only",
+        "The diagonal of the degree matrix only"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Each row of Z describes one observation in spectral space and is the input to k-means."
+    },
+    {
+      "id": "L8-088",
+      "lecture": 8,
+      "concept": "Spectral clustering considerations",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why can spectral clustering be relatively insensitive to outliers?",
+      "choices": [
+        "It preserves local neighbourhood structure",
+        "It deletes every point far from the mean",
+        "It forces every graph to be fully connected",
+        "It uses only response labels"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The similarity graph emphasises local relationships, limiting the influence of isolated distant points."
+    },
+    {
+      "id": "L8-089",
+      "lecture": 8,
+      "concept": "Spectral clustering considerations",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does stability with respect to embedding mean in this context?",
+      "choices": [
+        "The method always returns the same random seed",
+        "The input coordinates never change",
+        "Every cluster has identical size",
+        "The method aims to recover the same underlying manifold structure"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Spectral coordinates are derived from the same graph geometry rather than an arbitrary visual projection."
+    },
+    {
+      "id": "L8-090",
+      "lecture": 8,
+      "concept": "Spectral clustering considerations",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which design choice must be made before spectral clustering?",
+      "choices": [
+        "Whether to remove all observations",
+        "How to name the source file",
+        "How to construct the similarity graph",
+        "Whether to use any numerical values"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "A fully connected, thresholded or nearest-neighbour graph can lead to different results."
+    },
+    {
+      "id": "L8-091",
+      "lecture": 8,
+      "concept": "Spectral clustering considerations",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which set contains hyperparameters mentioned for spectral clustering?",
+      "choices": [
+        "Only the spelling of feature names",
+        "Neighbour count k and the RBF scale c",
+        "Only the page number",
+        "Only the response-variable name"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Neighbourhood and similarity-scale choices control the graph and therefore the embedding."
+    },
+    {
+      "id": "L8-092",
+      "lecture": 8,
+      "concept": "Spectral clustering considerations",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is a limitation when a new data point arrives after spectral clustering?",
+      "choices": [
+        "The spectral procedure generally has to be repeated to include it",
+        "The point is always mapped without computation",
+        "The point automatically receives the largest eigenvalue",
+        "The graph cannot contain new vertices"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The basic method does not directly provide the same simple out-of-sample mapping as some parametric transformations."
+    },
+    {
+      "id": "L8-093",
+      "lecture": 8,
+      "concept": "Spectral clustering considerations",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which eigenvector-related decision can be unclear in spectral clustering?",
+      "choices": [
+        "Whether eigenvectors contain letters",
+        "Whether every eigenvector is a class name",
+        "Whether eigenvectors should be deleted before use",
+        "How many eigenvectors to extract and whether they can be computed efficiently"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The correct embedding dimension and computational feasibility may both be uncertain."
+    },
+    {
+      "id": "L8-094",
+      "lecture": 8,
+      "concept": "Spectral clustering considerations",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which Laplacian choice may require judgement?",
+      "choices": [
+        "Whether to use a negative number of observations",
+        "Whether to remove the similarity matrix",
+        "Whether to use a normalised or unnormalised Laplacian",
+        "Whether to use no graph vertices"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Different Laplacian normalisations encode graph structure differently and can change results."
+    },
+    {
+      "id": "L8-095",
+      "lecture": 8,
+      "concept": "Spectral clustering example",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is the concentric-circles example difficult for ordinary k-means in the original space?",
+      "choices": [
+        "The data has no numerical coordinates",
+        "The clusters are non-convex rings rather than spherical groups around centroids",
+        "Every point is identical",
+        "There is only one observation"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Centroid-based Euclidean partitions do not naturally separate nested rings."
+    },
+    {
+      "id": "L8-096",
+      "lecture": 8,
+      "concept": "Spectral clustering example",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which eigenvectors are plotted in the toy spectral-clustering example?",
+      "choices": [
+        "Those corresponding to the smallest non-zero eigenvalues",
+        "Only those with negative infinite eigenvalues",
+        "Random feature columns",
+        "Only the trivial zero eigenvector"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The non-trivial low-frequency eigenvectors reveal the large-scale connected groups."
+    },
+    {
+      "id": "L8-097",
+      "lecture": 8,
+      "concept": "Spectral clustering example",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What final step produced clear class separation in the concentric-circles example?",
+      "choices": [
+        "Regression on the original y-coordinate",
+        "Random deletion of graph edges",
+        "Sorting points by file name",
+        "K-means clustering of the rows of the selected eigenvectors"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The spectral transformation makes the ring structure separable in the eigenvector coordinate space."
+    },
+    {
+      "id": "L8-098",
+      "lecture": 8,
+      "concept": "Self-organising maps",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How are self-organising maps related to k-means?",
+      "choices": [
+        "They are supervised regression models",
+        "They contain no distance calculations",
+        "They are a constrained form of k-means with a topology-preserving output map",
+        "They always produce a continuous curve"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "SOMs add neighbourhood and map-topology constraints to competitive prototype learning."
+    },
+    {
+      "id": "L8-099",
+      "lecture": 8,
+      "concept": "Self-organising maps",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the usual dimensionality of a SOM output space?",
+      "choices": [
+        "The same p dimensions as the input in every case",
+        "Two dimensions",
+        "Zero dimensions",
+        "Exactly one hundred dimensions"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "SOMs commonly map high-dimensional observations onto a two-dimensional lattice for interpretation and visualisation."
+    },
+    {
+      "id": "L8-100",
+      "lecture": 8,
+      "concept": "Self-organising maps",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What property does a SOM try to preserve in its output map?",
+      "choices": [
+        "Topological neighbourhood structure, usually based on Euclidean distance",
+        "The exact original feature names",
+        "Only the response-variable error",
+        "A fully disconnected graph"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Nearby or similar inputs should map to nearby nodes on the organised grid."
+    },
+    {
+      "id": "L8-101",
+      "lecture": 8,
+      "concept": "Self-organising maps",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How do SOMs differ from principal curves and surfaces?",
+      "choices": [
+        "SOMs cannot reduce dimensionality",
+        "Principal curves use only class labels",
+        "SOMs require a response variable",
+        "SOMs use a discrete lattice instead of a continuous manifold"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Both seek a lower-dimensional organisation, but SOM output positions are discrete grid nodes."
+    },
+    {
+      "id": "L8-102",
+      "lecture": 8,
+      "concept": "Self-organising maps",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "In what sense is a SOM an artificial neural network?",
+      "choices": [
+        "It must be trained with backpropagation",
+        "It contains only response labels",
+        "Its map nodes act as neurons with adaptable weight vectors",
+        "It has no parameters to update"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The nodes are neuron-like prototypes positioned in input space by learned weight vectors."
+    },
+    {
+      "id": "L8-103",
+      "lecture": 8,
+      "concept": "SOM learning",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What learning style is used to train a SOM?",
+      "choices": [
+        "Supervised error-correction learning only",
+        "Competitive learning",
+        "Ordinary least-squares regression",
+        "Random graph cutting"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Nodes compete to be the closest prototype to each input instead of learning from a labelled target error."
+    },
+    {
+      "id": "L8-104",
+      "lecture": 8,
+      "concept": "SOM learning",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which node wins when an input is presented to a SOM?",
+      "choices": [
+        "The node whose weight vector is closest to the input",
+        "The node with the longest name",
+        "The node farthest from the input",
+        "A node chosen from the class label"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The best matching unit is selected using a distance measure such as Euclidean distance."
+    },
+    {
+      "id": "L8-105",
+      "lecture": 8,
+      "concept": "SOM learning",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which weights are adjusted after a SOM selects a winning node?",
+      "choices": [
+        "Only the most distant node",
+        "Every input feature name",
+        "No weights are adjusted",
+        "The winner and its map neighbours"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Updating a neighbourhood around the winner is what preserves map topology."
+    },
+    {
+      "id": "L8-106",
+      "lecture": 8,
+      "concept": "SOM map structure",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          27
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which shapes are commonly used to initialise a SOM map?",
+      "choices": [
+        "Only a continuous sphere",
+        "Only a single straight regression line",
+        "Rectangular or hexagonal grids",
+        "A graph with no vertices"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The discrete map is usually arranged as a rectangular or hexagonal lattice."
+    },
+    {
+      "id": "L8-107",
+      "lecture": 8,
+      "concept": "SOM map structure",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          27
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does each SOM node weight vector represent?",
+      "choices": [
+        "A class label that never changes",
+        "A position in the original input-data space",
+        "The number of iterations completed",
+        "The page number of the lecture"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Node weights are prototypes in the p-dimensional input space."
+    },
+    {
+      "id": "L8-108",
+      "lecture": 8,
+      "concept": "SOM map structure",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          27
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does it mean to bend the SOM grid during training?",
+      "choices": [
+        "Iteratively move node prototypes so the grid follows the structure of the input data",
+        "Add more original features at every step",
+        "Make all node weights identical",
+        "Remove neighbourhood relationships"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Training adapts the grid in input space while retaining neighbourhood relationships in map space."
+    },
+    {
+      "id": "L8-109",
+      "lecture": 8,
+      "concept": "SOM algorithm",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          28
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What must be chosen before SOM training begins?",
+      "choices": [
+        "The final class label of every point",
+        "A graph cut with no data",
+        "The exact winning node for every future input",
+        "The map size and whether its grid is rectangular or hexagonal"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Map dimensions and topology are core configuration choices."
+    },
+    {
+      "id": "L8-110",
+      "lecture": 8,
+      "concept": "SOM algorithm",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          28
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How are SOM weight vectors initially set in the stated algorithm?",
+      "choices": [
+        "They are all fixed permanently at zero",
+        "They are copied from class labels",
+        "They are assigned random initial values",
+        "They are removed before training"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Training begins from initial prototype weights that are then adapted."
+    },
+    {
+      "id": "L8-111",
+      "lecture": 8,
+      "concept": "SOM algorithm",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          28
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What happens after an input vector is sampled during SOM training?",
+      "choices": [
+        "It is immediately deleted",
+        "Its distance to every node weight is computed to find the closest node",
+        "It becomes the learning rate",
+        "Its feature names are alphabetised"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The best matching unit is the node minimising the chosen input-space distance."
+    },
+    {
+      "id": "L8-112",
+      "lecture": 8,
+      "concept": "SOM algorithm",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          28
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the neighbourhood function h control in a SOM update?",
+      "choices": [
+        "How strongly nodes are updated according to their map distance from the winner",
+        "The number of source files",
+        "The response-variable error",
+        "The original feature names"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Nodes nearer the winning location receive a larger update than distant nodes."
+    },
+    {
+      "id": "L8-113",
+      "lecture": 8,
+      "concept": "SOM algorithm",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          28
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What happens if the SOM neighbourhood is reduced so that only the winner is updated?",
+      "choices": [
+        "The map becomes a principal surface",
+        "The graph becomes fully disconnected by definition",
+        "The method becomes supervised regression",
+        "The method essentially reverts to k-means"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Without neighbour updates, prototype competition behaves like centroid updates in k-means."
+    },
+    {
+      "id": "L8-114",
+      "lecture": 8,
+      "concept": "SOM algorithm",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          28
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How should the SOM learning rate $\\alpha$ change during training?",
+      "choices": [
+        "It must increase without limit",
+        "It must always equal the number of features",
+        "It should decrease over iterations",
+        "It should be replaced by a class label"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "A decaying learning rate allows large early adjustments and smaller refinements later."
+    },
+    {
+      "id": "L8-115",
+      "lecture": 8,
+      "concept": "SOM algorithm",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          28
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "When does SOM training stop?",
+      "choices": [
+        "Immediately after initialising weights",
+        "At convergence or after the maximum number of iterations",
+        "Only when every input is identical",
+        "When the output becomes continuous"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The iterative update runs until a stability or iteration stopping condition is reached."
+    },
+    {
+      "id": "L8-116",
+      "lecture": 8,
+      "concept": "SOM outputs",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          28
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is distinctive about the two-dimensional SOM output space?",
+      "choices": [
+        "It takes only discrete node locations",
+        "It contains every possible continuous coordinate",
+        "It always has the same dimension as the input",
+        "It contains no representation of new inputs"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A SOM maps observations to positions on a finite lattice rather than an arbitrary continuous plane."
+    },
+    {
+      "id": "L8-117",
+      "lecture": 8,
+      "concept": "SOM outputs",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          28
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How is a new observation mapped after the SOM has been trained?",
+      "choices": [
+        "The entire SOM must be deleted",
+        "It is assigned randomly",
+        "It is placed at the largest eigenvalue",
+        "It is assigned to the node with the closest learned weight vector"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The learned prototypes define an out-of-sample mapping through nearest-node assignment."
+    },
+    {
+      "id": "L8-118",
+      "lecture": 8,
+      "concept": "SOM process",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          29
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the first of the four SOM process components summarised in the lecture?",
+      "choices": [
+        "Delete losing nodes",
+        "Choose a response variable",
+        "Initialise the map weights",
+        "Compute a graph cut"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The process begins by assigning starting weight vectors to map nodes."
+    },
+    {
+      "id": "L8-119",
+      "lecture": 8,
+      "concept": "SOM process",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          29
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What determines the neighbourhood updated for a particular input?",
+      "choices": [
+        "The input file name",
+        "The location of the winning node in map space",
+        "The number of class labels",
+        "The page on which the method is described"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Nearby nodes on the map are updated because the winner defines the local output neighbourhood."
+    },
+    {
+      "id": "L8-120",
+      "lecture": 8,
+      "concept": "SOM process",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          29
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How are nodes far from the winner treated in the lecture's four-part summary?",
+      "choices": [
+        "Their weights are lowered or left less likely to match similar inputs",
+        "They receive the largest positive update",
+        "They become class labels",
+        "They replace the winning node"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The competitive update favours the winner and its neighbours over distant losing nodes."
+    },
+    {
+      "id": "L8-121",
+      "lecture": 8,
+      "concept": "SOM considerations",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          30
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which set lists advantages of SOMs given in the lecture?",
+      "choices": [
+        "Supervised only, no visual output and slow training",
+        "No parameters, no data requirements and exact mappings",
+        "Guaranteed perfect clustering and zero reconstruction error",
+        "Unsupervised, interpretable visualisations, scalable to large data and generally fast training"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The lecture highlights unsupervised learning, visual interpretability, scalability and speed as advantages."
+    },
+    {
+      "id": "L8-122",
+      "lecture": 8,
+      "concept": "SOM considerations",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          30
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why should SOM and k-means reconstruction errors sometimes be compared?",
+      "choices": [
+        "K-means contains no centroids",
+        "SOMs cannot calculate distances",
+        "The topology constraint imposed by the SOM may not be appropriate for the data",
+        "Reconstruction error is always zero"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The added map constraint can worsen representation, so empirical comparison can show whether it is justified."
+    },
+    {
+      "id": "L8-123",
+      "lecture": 8,
+      "concept": "SOM considerations",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          30
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which SOM settings are identified as parameters that must be chosen?",
+      "choices": [
+        "Only the source-file name",
+        "Learning rate, neighbourhood-distance threshold and number of iterations",
+        "Only the class-label spelling",
+        "Only the graph Laplacian normalisation"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "SOM behaviour depends on several training and neighbourhood hyperparameters."
+    },
+    {
+      "id": "L8-124",
+      "lecture": 8,
+      "concept": "SOM considerations",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          30
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What mapping problem can occur with SOMs?",
+      "choices": [
+        "Clusters may be divided too many times and a perfect mapping may be difficult to find",
+        "Every cluster is guaranteed to remain intact",
+        "The method always returns one node",
+        "All observations become identical"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The discrete topology may split natural groups or fail to represent them perfectly."
+    },
+    {
+      "id": "L8-125",
+      "lecture": 8,
+      "concept": "SOM use cases",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          31
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How can SOMs support document organisation and retrieval?",
+      "choices": [
+        "Use raw text without any encoding",
+        "Sort documents only by file size",
+        "Replace every document with the same vector",
+        "Map vectorised documents so clusters of terms and representative words can be identified"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "After text is encoded numerically, nearby map regions can reveal recurring term patterns and document groups."
+    },
+    {
+      "id": "L8-126",
+      "lecture": 8,
+      "concept": "SOM use cases",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          31
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which SOM use case treats unusual observations as important?",
+      "choices": [
+        "Ordinary response-variable regression only",
+        "Graph normalisation only",
+        "Fraud or outlier detection",
+        "Feature-name sorting"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Inputs that map unusually or far from established map regions can signal anomalous behaviour."
+    },
+    {
+      "id": "L8-127",
+      "lecture": 8,
+      "concept": "SOM use cases",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          31
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which image-processing use case is listed for SOMs?",
+      "choices": [
+        "Increasing every image to infinite dimensions",
+        "Colour quantisation",
+        "Removing all pixel values",
+        "Assigning random captions"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Colour quantisation uses a limited set of representative colours learned from image pixels."
+    },
+    {
+      "id": "L8-128",
+      "lecture": 8,
+      "concept": "SOM use cases",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          31
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which pair contains additional SOM applications listed in the lecture?",
+      "choices": [
+        "Clustering and visualisation",
+        "Supervised language translation and database joins",
+        "Only linear regression and hypothesis testing",
+        "Graph deletion and file compression only"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "SOMs are widely used for exploratory clustering and low-dimensional visualisation."
+    },
+    {
+      "id": "L8-129",
+      "lecture": 8,
+      "concept": "Lecture 8 method comparison",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          5,
+          9,
+          20,
+          26
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which method produces a discrete topology-preserving lattice rather than a continuous curve or eigenvector embedding?",
+      "choices": [
+        "A principal curve",
+        "A Laplacian Eigenmap",
+        "Ordinary PCA",
+        "A self-organising map"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "SOMs represent the output as nodes on a discrete grid; the other methods use continuous curves, linear projections or spectral coordinates."
+    },
+    {
+      "id": "L8-130",
+      "lecture": 8,
+      "concept": "Lecture 8 method comparison",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          8,
+          20,
+          23
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which pair of methods both begin from local similarity structure encoded by a graph Laplacian?",
+      "choices": [
+        "PCA and linear regression",
+        "Principal curves and ordinary k-means only",
+        "Laplacian Eigenmaps and spectral clustering",
+        "Factor Analysis and ICA"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Both methods use Laplacian eigenvectors; spectral clustering adds clustering of the resulting row coordinates."
+    },
+    {
+      "id": "L8-131",
+      "lecture": 8,
+      "concept": "Similarity graph example",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why does the graph drawn in the worked example suggest two natural clusters?",
+      "choices": [
+        "It contains two densely connected groups joined by a relatively weak bridge",
+        "Every vertex is disconnected",
+        "All vertices occupy the same position",
+        "The graph has no internal edges"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The drawing contains two tightly connected groups with only a limited connection between them, which is the structure spectral methods seek to expose."
+    },
+    {
+      "id": "L8-132",
+      "lecture": 8,
+      "concept": "Similarity graph example",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What feature of the Laplacian spectrum would reflect the weak bridge between the two groups in the worked example?",
+      "choices": [
+        "A small non-zero eigenvalue after the trivial zero eigenvalue",
+        "No zero eigenvalue at all",
+        "Only negative infinite eigenvalues",
+        "An eigenvalue equal to the number of input features by definition"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A weak connection between otherwise cohesive graph regions produces a small non-zero Laplacian eigenvalue."
+    },
+    {
+      "id": "L8-133",
+      "lecture": 8,
+      "concept": "Similarity graph example",
+      "source": {
+        "file": "IDVE_Lecture_8_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "If the single bridge between the two dense groups were removed, what would happen to the number of zero Laplacian eigenvalues?",
+      "choices": [
+        "It would indicate two connected components",
+        "It would indicate that every vertex is still in one component",
+        "It would become negative",
+        "It would no longer be related to graph connectivity"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Removing the bridge separates the graph into two connected components, and the multiplicity of the zero eigenvalue equals the number of connected components."
     }
   ]
 }
