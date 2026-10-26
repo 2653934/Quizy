@@ -3,7 +3,7 @@
   "subject": "dve",
   "title": "Lecture bank",
   "kind": "lecture-bank",
-  "description": "Practice questions written from the lecture slides (lectures 1-9). Each one points back to its lecture and slide.",
+  "description": "Practice questions written from the lecture slides (lectures 1-10). Each one points back to its lecture and slide.",
   "questions": [
     {
       "id": "L1-001",
@@ -18620,6 +18620,3822 @@
         2
       ],
       "explanation": "UMAP is presented as faster than t-SNE and able to add new data without refitting the whole map."
+    },
+    {
+      "id": "L10-001",
+      "lecture": 10,
+      "concept": "Understanding data",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which activity should precede choosing how to model a dataset?",
+      "choices": [
+        "Understanding what the data represents and how it is structured",
+        "Selecting the largest possible neural network",
+        "Removing every nonlinear feature",
+        "Assuming the data is already suitable"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The recap stresses understanding the data before deciding on a model."
+    },
+    {
+      "id": "L10-002",
+      "lecture": 10,
+      "concept": "Understanding data",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which question helps establish the nature of a new dataset?",
+      "choices": [
+        "Whether every feature has the same name",
+        "Whether a neural network has already been trained",
+        "Whether all observations can be deleted",
+        "Whether the data is labelled"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Knowing whether labels exist helps determine whether supervised learning is possible."
+    },
+    {
+      "id": "L10-003",
+      "lecture": 10,
+      "concept": "Understanding data",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why should the number of observations and features be examined?",
+      "choices": [
+        "They guarantee that the data is linear",
+        "They remove the need for exploration",
+        "They affect modelling choices, computational demands and dimensionality",
+        "They determine the colour of every plot"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Dataset size and dimensionality directly influence feasible modelling approaches."
+    },
+    {
+      "id": "L10-004",
+      "lecture": 10,
+      "concept": "Understanding data",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is checking whether data is linear or nonlinear important?",
+      "choices": [
+        "The check determines whether labels exist",
+        "Different modelling and reduction methods make different structural assumptions",
+        "Nonlinear data cannot be represented numerically",
+        "Linear data never needs preprocessing"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Methods such as PCA suit linear structure, while other methods can model nonlinear relationships."
+    },
+    {
+      "id": "L10-005",
+      "lecture": 10,
+      "concept": "Understanding data",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is a likely consequence of modelling data that has not been understood?",
+      "choices": [
+        "It becomes difficult to explain why the method succeeded or failed",
+        "The model is guaranteed to generalise",
+        "The number of features automatically decreases",
+        "All human bias is removed"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Without exploration, model behaviour and failures are harder to interpret."
+    },
+    {
+      "id": "L10-006",
+      "lecture": 10,
+      "concept": "Model selection",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What decision can be made after exploring and understanding the data?",
+      "choices": [
+        "Whether all features should be duplicated",
+        "Whether the dataset should always be treated as linear",
+        "Whether accuracy can be guaranteed",
+        "Whether supervised or unsupervised modelling is appropriate"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The presence of labels and the task determine the learning setup."
+    },
+    {
+      "id": "L10-007",
+      "lecture": 10,
+      "concept": "Curse of dimensionality",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which problem is associated with having too many features?",
+      "choices": [
+        "Elimination of overfitting risk",
+        "Automatic discovery of useful features",
+        "Greater computational demands",
+        "Guaranteed perfect visualisation"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "High dimensionality increases computational cost."
+    },
+    {
+      "id": "L10-008",
+      "lecture": 10,
+      "concept": "Curse of dimensionality",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does high dimensionality affect overfitting risk?",
+      "choices": [
+        "It has no relationship to model complexity",
+        "It can increase the risk of overfitting",
+        "It guarantees that overfitting cannot occur",
+        "It forces every model to underfit"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Many features create more opportunities to fit noise."
+    },
+    {
+      "id": "L10-009",
+      "lecture": 10,
+      "concept": "Curse of dimensionality",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why does the curse of dimensionality obstruct visualisation?",
+      "choices": [
+        "Data with many features cannot be displayed directly in a simple two- or three-dimensional view",
+        "All high-dimensional data is categorical",
+        "Visualisations require class labels",
+        "Every high-dimensional dataset has only one point"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Human-readable plots generally require reducing many dimensions."
+    },
+    {
+      "id": "L10-010",
+      "lecture": 10,
+      "concept": "Feature selection",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What key question arises when a dataset has many features?",
+      "choices": [
+        "Which features should all be given identical values",
+        "How to make the feature count infinite",
+        "How to remove every correlation",
+        "Which features are actually useful"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Dimensionality reduction seeks to retain useful information while discarding redundancy."
+    },
+    {
+      "id": "L10-011",
+      "lecture": 10,
+      "concept": "Feature engineering",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How can feature engineering help with the curse of dimensionality?",
+      "choices": [
+        "It guarantees a labelled dataset",
+        "It removes the need to understand the domain",
+        "It can construct a smaller, more useful feature representation",
+        "It always adds as many features as possible"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Feature engineering can reduce the number of dimensions."
+    },
+    {
+      "id": "L10-012",
+      "lecture": 10,
+      "concept": "PCA limitation",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "For what type of structure is PCA presented as suitable?",
+      "choices": [
+        "Time series anomalies only",
+        "Linear structure",
+        "Only unlabelled images",
+        "Arbitrary nonlinear manifolds with no approximation"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The recap contrasts PCA as a method for linear data."
+    },
+    {
+      "id": "L10-013",
+      "lecture": 10,
+      "concept": "Manual feature engineering",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is a disadvantage of building features by hand?",
+      "choices": [
+        "It is time-consuming and can introduce human bias",
+        "It prevents domain knowledge from being used",
+        "It always increases accuracy",
+        "It automatically discovers every latent attribute"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Manual feature design depends on human choices and effort."
+    },
+    {
+      "id": "L10-014",
+      "lecture": 10,
+      "concept": "Manual feature engineering",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          3
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is one benefit of hand-crafted features despite their drawbacks?",
+      "choices": [
+        "They eliminate all modelling decisions",
+        "They guarantee nonlinear compression",
+        "They require no human judgement",
+        "They can incorporate domain knowledge"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Human expertise can encode problem-specific information."
+    },
+    {
+      "id": "L10-015",
+      "lecture": 10,
+      "concept": "Autoencoder definition",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is an autoencoder?",
+      "choices": [
+        "A clustering score with no learned parameters",
+        "A linear histogram transformation",
+        "An unsupervised neural-network technique for learning a data representation",
+        "A supervised decision tree for class prediction only"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "An autoencoder learns a representation from unlabelled inputs using a neural network."
+    },
+    {
+      "id": "L10-016",
+      "lecture": 10,
+      "concept": "Autoencoder compression",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does an autoencoder learn a compressed representation?",
+      "choices": [
+        "It removes the decoder",
+        "It introduces a bottleneck and learns to reconstruct the input",
+        "It duplicates every feature at the output",
+        "It assigns a class label at the bottleneck"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The bottleneck restricts information flow, forcing compression."
+    },
+    {
+      "id": "L10-017",
+      "lecture": 10,
+      "concept": "Identity function",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What function is a basic autoencoder attempting to learn?",
+      "choices": [
+        "An identity mapping from input to reconstructed input",
+        "A mapping from labels to unrelated inputs",
+        "A function that always returns zero",
+        "A fixed PCA loading matrix"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Its target output is the original input itself."
+    },
+    {
+      "id": "L10-018",
+      "lecture": 10,
+      "concept": "Autoencoder stages",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which two stages form an autoencoder?",
+      "choices": [
+        "Clustering and classification",
+        "Sampling and labelling only",
+        "Sorting and filtering",
+        "Encoding and decoding"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The encoder compresses and the decoder reconstructs."
+    },
+    {
+      "id": "L10-019",
+      "lecture": 10,
+      "concept": "Encoder",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the role of the encoder?",
+      "choices": [
+        "Measure only the final test accuracy",
+        "Expand the input into more raw features",
+        "Compress the input into a latent representation",
+        "Convert the output into class labels"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The encoding path maps the input to the bottleneck."
+    },
+    {
+      "id": "L10-020",
+      "lecture": 10,
+      "concept": "Decoder",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the role of the decoder?",
+      "choices": [
+        "Remove all correlation from the input",
+        "Reconstruct the original data from the bottleneck representation",
+        "Choose the learning rate",
+        "Create labels for unlabelled data"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The decoder maps the latent code back toward the original input."
+    },
+    {
+      "id": "L10-021",
+      "lecture": 10,
+      "concept": "Bottleneck",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the bottleneck contain?",
+      "choices": [
+        "A compressed latent representation",
+        "The original labels only",
+        "A copy of every training row with no constraint",
+        "The final anomaly threshold"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The bottleneck is the lower-dimensional internal code."
+    },
+    {
+      "id": "L10-022",
+      "lecture": 10,
+      "concept": "Feature correlation",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why do autoencoders rely on some correlation among input features?",
+      "choices": [
+        "Correlation guarantees every observation is identical",
+        "Uncorrelated features cannot be numerical",
+        "Correlation supplies target labels",
+        "Redundancy allows combinations of features to represent the data compactly"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Relationships among inputs make compression and reconstruction possible."
+    },
+    {
+      "id": "L10-023",
+      "lecture": 10,
+      "concept": "Autoencoder combinations",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What kinds of feature combinations can an autoencoder identify?",
+      "choices": [
+        "Only class frequencies",
+        "Only pairwise correlations with labels",
+        "Linear or nonlinear combinations",
+        "Only exact copies of individual features"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Neural nonlinearities let autoencoders learn nonlinear as well as linear combinations."
+    },
+    {
+      "id": "L10-024",
+      "lecture": 10,
+      "concept": "Autoencoders and PCA",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What type of combinations does PCA find in the lecture comparison?",
+      "choices": [
+        "Activation sparsity patterns",
+        "Linear combinations",
+        "Only nonlinear combinations",
+        "Random class labels"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "PCA constructs linear combinations of the original variables."
+    },
+    {
+      "id": "L10-025",
+      "lecture": 10,
+      "concept": "Autoencoders and PCA",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What lower-dimensional structure does PCA find?",
+      "choices": [
+        "A hyperplane",
+        "A nonlinear manifold only",
+        "A set of anomaly labels",
+        "A decoder network"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "PCA projects onto a lower-dimensional linear subspace."
+    },
+    {
+      "id": "L10-026",
+      "lecture": 10,
+      "concept": "Autoencoders and PCA",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What lower-dimensional structure can an autoencoder find?",
+      "choices": [
+        "Only a flat linear hyperplane",
+        "Only a histogram bin",
+        "A fixed class confusion matrix",
+        "A nonlinear manifold"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Nonlinear activations allow a curved latent representation."
+    },
+    {
+      "id": "L10-027",
+      "lecture": 10,
+      "concept": "Unsupervised learning",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why are labels not required to train a basic autoencoder?",
+      "choices": [
+        "The decoder predicts random labels",
+        "All inputs are assigned the same class",
+        "The input itself supplies the reconstruction target",
+        "The network never computes a loss"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Training compares the reconstruction with the original input."
+    },
+    {
+      "id": "L10-028",
+      "lecture": 10,
+      "concept": "Latent attributes",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How are latent attributes obtained in an autoencoder?",
+      "choices": [
+        "They are chosen from the anomaly threshold",
+        "They are discovered automatically during representation learning",
+        "They must all be entered as labels",
+        "They are copied from PCA without training"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The bottleneck learns useful internal attributes from the data."
+    },
+    {
+      "id": "L10-029",
+      "lecture": 10,
+      "concept": "Architecture interpretation",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "In the autoencoder diagram, which component lies between the encoder and decoder?",
+      "choices": [
+        "The latent bottleneck representation",
+        "The final class label",
+        "The fraud threshold",
+        "The learning-rate schedule"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The encoder maps into the central latent code, which the decoder uses."
+    },
+    {
+      "id": "L10-030",
+      "lecture": 10,
+      "concept": "Compression scenario",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "An autoencoder has an input of 100 features and a bottleneck of 10 units. What is the bottleneck intended to provide?",
+      "choices": [
+        "A set of 100 class labels",
+        "A guarantee of perfect reconstruction",
+        "A 110-feature expanded input",
+        "A 10-dimensional compressed representation"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The narrower hidden layer constrains the representation to fewer dimensions."
+    },
+    {
+      "id": "L10-031",
+      "lecture": 10,
+      "concept": "ANN structure",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is an artificial neural network fundamentally made of?",
+      "choices": [
+        "A single unweighted class label",
+        "Only a nearest-neighbour lookup table",
+        "Interconnected neurons or nodes with weighted connections",
+        "Independent histogram bins with no connections"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Neural networks consist of connected computational units whose weights are learned."
+    },
+    {
+      "id": "L10-032",
+      "lecture": 10,
+      "concept": "ANN learning",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What changes as a neural network learns?",
+      "choices": [
+        "The existence of the output layer",
+        "The weights on its connections",
+        "The number of training observations",
+        "The original feature names"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Training adjusts connection weights to reduce error."
+    },
+    {
+      "id": "L10-033",
+      "lecture": 10,
+      "concept": "ANN function",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How is a neural network described mathematically in the lecture?",
+      "choices": [
+        "As linear combinations of nonlinear basis functions fitted to training data",
+        "As a single fixed linear average with no parameters",
+        "As a table that memorises only feature names",
+        "As a loss function with no outputs"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Layers combine weighted inputs with nonlinear activations to approximate a function."
+    },
+    {
+      "id": "L10-034",
+      "lecture": 10,
+      "concept": "ANN nonlinear relationships",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What relationships is an ANN intended to identify among dataset attributes?",
+      "choices": [
+        "Only identical feature values",
+        "Only alphabetical relationships",
+        "No relationships between inputs",
+        "Complex nonlinear relationships"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Nonlinear activation functions give neural networks flexible modelling capacity."
+    },
+    {
+      "id": "L10-035",
+      "lecture": 10,
+      "concept": "ANN training data",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "On what is an ANN trained?",
+      "choices": [
+        "A random output with no input",
+        "The final test set exclusively",
+        "Features from a training dataset",
+        "Only the names of target classes"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Training data supplies inputs used to fit the network function."
+    },
+    {
+      "id": "L10-036",
+      "lecture": 10,
+      "concept": "ANN mapping",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the typical goal of a neural network mapping?",
+      "choices": [
+        "Reduce every dataset to one cluster",
+        "Map an input vector x to an output vector y that approximates target values",
+        "Map every input to the same output regardless of weights",
+        "Replace targets with feature names"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The network learns g(x,W)=y so predictions approach targets."
+    },
+    {
+      "id": "L10-037",
+      "lecture": 10,
+      "concept": "Weight vector",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What determines the learned mapping from inputs to outputs?",
+      "choices": [
+        "An adjustable weight vector W",
+        "A fixed anomaly percentile only",
+        "The number of plot colours",
+        "The order of filenames"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Weights parameterise the function and are updated during training."
+    },
+    {
+      "id": "L10-038",
+      "lecture": 10,
+      "concept": "Target matching",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What should the neural-network output y match as closely as possible?",
+      "choices": [
+        "The input feature names",
+        "The hidden-layer count",
+        "The random initial weights",
+        "The target output values t"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Supervised training minimises the difference between outputs and targets."
+    },
+    {
+      "id": "L10-039",
+      "lecture": 10,
+      "concept": "Network layers",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does L denote in the neural-network description?",
+      "choices": [
+        "The reconstruction threshold",
+        "The number of latent samples only",
+        "The number of layers of neurons",
+        "The number of anomaly classes"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The network is described as having L layers."
+    },
+    {
+      "id": "L10-040",
+      "lecture": 10,
+      "concept": "Layer connections",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How are neurons in one layer connected in a feedforward network?",
+      "choices": [
+        "They have no connections",
+        "To one or more neurons in the subsequent layer",
+        "Only back to themselves",
+        "Directly to every training label with no weights"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Information moves forward through weighted inter-layer connections."
+    },
+    {
+      "id": "L10-041",
+      "lecture": 10,
+      "concept": "Input layer",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which layer is the left-most layer in the diagram?",
+      "choices": [
+        "The input layer",
+        "The output layer",
+        "The anomaly layer",
+        "The reconstruction threshold"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Input features enter through the left-most layer."
+    },
+    {
+      "id": "L10-042",
+      "lecture": 10,
+      "concept": "Hidden layers",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What are the intermediate neural-network layers called?",
+      "choices": [
+        "Target layers",
+        "Percentile layers",
+        "Histogram layers",
+        "Hidden layers"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Layers between input and output are hidden layers."
+    },
+    {
+      "id": "L10-043",
+      "lecture": 10,
+      "concept": "Layer parameters",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          6
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What parameterises the input to each layer?",
+      "choices": [
+        "The data filename",
+        "The final accuracy alone",
+        "A variable weight vector updated during training",
+        "A fixed class label"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Layer computations use learned weights."
+    },
+    {
+      "id": "L10-044",
+      "lecture": 10,
+      "concept": "Activation functions",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is applied to the weighted linear combination entering a neuron?",
+      "choices": [
+        "A PCA scree plot",
+        "An activation function",
+        "An anomaly threshold only",
+        "A class-frequency table"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The activation transforms the weighted sum."
+    },
+    {
+      "id": "L10-045",
+      "lecture": 10,
+      "concept": "Activation examples",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which is an example of an activation function named in the lecture?",
+      "choices": [
+        "ReLU",
+        "MSE percentile",
+        "PCA loading",
+        "K-means inertia"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "ReLU, tanh and softmax are listed examples."
+    },
+    {
+      "id": "L10-046",
+      "lecture": 10,
+      "concept": "Activation examples",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which set contains only activation functions mentioned in the lecture?",
+      "choices": [
+        "PCA, MSE and sigmoid threshold",
+        "K-means, UMAP and LLE",
+        "Mean, median and mode",
+        "Softmax, tanh and ReLU"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The slide names softmax, tanh and ReLU."
+    },
+    {
+      "id": "L10-047",
+      "lecture": 10,
+      "concept": "Differentiability",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why should the activation function be differentiable?",
+      "choices": [
+        "It guarantees zero training error",
+        "It fixes the number of layers",
+        "Training relies on derivatives during back-propagation",
+        "Differentiability creates labels automatically"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Gradients must pass through activations to update weights."
+    },
+    {
+      "id": "L10-048",
+      "lecture": 10,
+      "concept": "Nonlinearity",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Where is nonlinearity introduced into the network?",
+      "choices": [
+        "By removing hidden layers",
+        "Through nonlinear activation functions",
+        "Only through the input feature names",
+        "Through the number of observations"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Without nonlinear activations, stacked linear layers remain linear."
+    },
+    {
+      "id": "L10-049",
+      "lecture": 10,
+      "concept": "Neuron output",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What forms the input to a neuron in the next layer?",
+      "choices": [
+        "A weighted combination of preceding activations",
+        "The unmodified dataset filename",
+        "Only the final target label",
+        "The anomaly threshold"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Each unit combines outputs from connected units using weights."
+    },
+    {
+      "id": "L10-050",
+      "lecture": 10,
+      "concept": "Final layer",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What can values from the final layer be used for?",
+      "choices": [
+        "Choosing the source PDF",
+        "Setting every weight to zero",
+        "Counting hidden layers only",
+        "Classification or prediction"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The output layer produces task-specific predictions."
+    },
+    {
+      "id": "L10-051",
+      "lecture": 10,
+      "concept": "Loss function",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How is a neural network fitted to training data?",
+      "choices": [
+        "By deleting the target outputs",
+        "By avoiding all derivatives",
+        "By minimising an error or loss function",
+        "By maximising every weight"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Training seeks weights that reduce prediction error."
+    },
+    {
+      "id": "L10-052",
+      "lecture": 10,
+      "concept": "Back-propagation",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which two mechanisms adjust the weights during training?",
+      "choices": [
+        "Sampling and labelling only",
+        "Back-propagation and gradient descent",
+        "PCA and histogram binning",
+        "Clustering and sorting"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Back-propagation computes gradients and gradient descent applies the updates."
+    },
+    {
+      "id": "L10-053",
+      "lecture": 10,
+      "concept": "Gradient",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the gradient of the error indicate?",
+      "choices": [
+        "The direction of greatest increase in error",
+        "The exact number of hidden neurons",
+        "The class label of every input",
+        "The reconstruction threshold"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Moving opposite the gradient reduces the loss locally."
+    },
+    {
+      "id": "L10-054",
+      "lecture": 10,
+      "concept": "Gradient descent",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "In which direction are weights moved by gradient descent?",
+      "choices": [
+        "Along the direction of greatest error increase",
+        "Toward random class labels",
+        "Only toward larger values",
+        "Opposite the gradient of the error"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The update subtracts a learning-rate-scaled gradient."
+    },
+    {
+      "id": "L10-055",
+      "lecture": 10,
+      "concept": "Learning rate",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the learning rate eta control?",
+      "choices": [
+        "The width of the input data",
+        "The anomaly percentile",
+        "The rate or step size at which weights are updated",
+        "The number of target classes"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The learning rate scales each gradient update."
+    },
+    {
+      "id": "L10-056",
+      "lecture": 10,
+      "concept": "Learning rate",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What condition is stated for the learning rate?",
+      "choices": [
+        "It is always exactly one",
+        "It is greater than zero",
+        "It must be negative",
+        "It must equal the number of layers"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The slide specifies eta > 0."
+    },
+    {
+      "id": "L10-057",
+      "lecture": 10,
+      "concept": "Neuron error",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          8
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does an individual neuron contribute to training error?",
+      "choices": [
+        "Each neuron has an error term that contributes to the overall error",
+        "Only the input layer has an error term",
+        "Neuron errors are unrelated to the loss",
+        "Every neuron is assigned the same target label"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Back-propagation associates error contributions with units."
+    },
+    {
+      "id": "L10-058",
+      "lecture": 10,
+      "concept": "Back-propagation sequence",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the first step of back-propagation training?",
+      "choices": [
+        "Update weights before computing outputs",
+        "Stop training immediately",
+        "Choose the anomaly threshold",
+        "Feed training data forward through all activations"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "A forward pass is needed before the loss and gradients can be calculated."
+    },
+    {
+      "id": "L10-059",
+      "lecture": 10,
+      "concept": "Back-propagation sequence",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "When is the error function E(W) calculated?",
+      "choices": [
+        "Only after training has stopped",
+        "Before the network has weights",
+        "After the forward propagation step",
+        "Before any data enters the network"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Predictions from the forward pass are compared with targets to get the loss."
+    },
+    {
+      "id": "L10-060",
+      "lecture": 10,
+      "concept": "Back-propagation sequence",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "In what direction are error terms propagated?",
+      "choices": [
+        "Randomly between nonadjacent observations",
+        "From the output layer back toward the input layer",
+        "From the input directly to the dataset file",
+        "Only within the output layer"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Back-propagation moves error information backward through the layers."
+    },
+    {
+      "id": "L10-061",
+      "lecture": 10,
+      "concept": "Back-propagation sequence",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is calculated before the weight vector is updated?",
+      "choices": [
+        "The derivatives of the error with respect to the weights",
+        "A new set of input features from labels",
+        "The final test accuracy only",
+        "A random cluster assignment"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The gradient provides the quantities needed for weight updates."
+    },
+    {
+      "id": "L10-062",
+      "lecture": 10,
+      "concept": "Training stopping",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which is a valid stopping condition for neural-network training?",
+      "choices": [
+        "The first forward pass begins",
+        "Every weight becomes positive",
+        "The input layer is removed",
+        "The error falls below a chosen threshold"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Training may stop once the loss is sufficiently low."
+    },
+    {
+      "id": "L10-063",
+      "lecture": 10,
+      "concept": "Training stopping",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What alternative stopping condition is given besides an error threshold?",
+      "choices": [
+        "The network has no hidden layers",
+        "The output is unlabelled",
+        "A set number of iterations is reached",
+        "All features have identical values"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "A maximum iteration count can terminate training."
+    },
+    {
+      "id": "L10-064",
+      "lecture": 10,
+      "concept": "Autoencoder target",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the target output x-prime of a standard autoencoder?",
+      "choices": [
+        "The anomaly threshold",
+        "A reconstruction of the original input x",
+        "A class label unrelated to x",
+        "A random latent sample"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The training target is the input itself."
+    },
+    {
+      "id": "L10-065",
+      "lecture": 10,
+      "concept": "Self-supervision",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does reconstruction make autoencoder training resemble supervised learning?",
+      "choices": [
+        "The original input supplies a known target for the output",
+        "The data must first be manually labelled",
+        "A classifier replaces the decoder",
+        "The model receives fraud labels"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Although representation learning is unsupervised, input-target pairs are formed as x to x."
+    },
+    {
+      "id": "L10-066",
+      "lecture": 10,
+      "concept": "Undercomplete autoencoder",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What makes an autoencoder undercomplete?",
+      "choices": [
+        "It has more bottleneck units than input features",
+        "It omits the loss function",
+        "It has no encoder",
+        "Intermediate layers contain fewer neurons than the input and output"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "A narrower hidden representation constrains capacity."
+    },
+    {
+      "id": "L10-067",
+      "lecture": 10,
+      "concept": "Compression constraint",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why are the intermediate layers limited in size?",
+      "choices": [
+        "To add more raw features",
+        "To remove the need for a decoder",
+        "To force the network to learn a compressed representation",
+        "To guarantee memorisation"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The bottleneck prevents a trivial unrestricted copy."
+    },
+    {
+      "id": "L10-068",
+      "lecture": 10,
+      "concept": "Autoencoder training",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How is an autoencoder loss minimised?",
+      "choices": [
+        "By sorting the inputs",
+        "Using back-propagation",
+        "Using only k-means",
+        "By fixing all weights"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Autoencoders are neural networks trained through the same gradient-based mechanism."
+    },
+    {
+      "id": "L10-069",
+      "lecture": 10,
+      "concept": "Regularisation",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why are regularisation terms important for autoencoders?",
+      "choices": [
+        "They help prevent the network from overfitting or memorising the data",
+        "They guarantee an exact copy for every training row",
+        "They create class labels",
+        "They make the bottleneck wider"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Even constrained networks can learn overly specific reconstructions."
+    },
+    {
+      "id": "L10-070",
+      "lecture": 10,
+      "concept": "Memorisation",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Can an autoencoder with a single hidden node still overfit?",
+      "choices": [
+        "No, overfitting requires at least 100 hidden nodes",
+        "No, autoencoders cannot overfit",
+        "Only if the data has labels",
+        "Yes, memorisation remains possible"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The lecture explicitly warns that even one hidden node does not remove the risk."
+    },
+    {
+      "id": "L10-071",
+      "lecture": 10,
+      "concept": "Generalisation",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What balance must a useful autoencoder achieve?",
+      "choices": [
+        "Perfect memorisation with no generalisation",
+        "A decoder with no encoder",
+        "Accurate reconstruction without merely memorising the training data",
+        "Maximum training error and minimum compression"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The model must capture general structure while reconstructing well."
+    },
+    {
+      "id": "L10-072",
+      "lecture": 10,
+      "concept": "Underfitting",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What would indicate an underfitted autoencoder?",
+      "choices": [
+        "It discovers robust latent features",
+        "It cannot reconstruct the general data structure accurately",
+        "It reproduces every training detail but fails on similar data",
+        "It has low error on all relevant inputs"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Insufficient capacity leads to poor reconstruction."
+    },
+    {
+      "id": "L10-073",
+      "lecture": 10,
+      "concept": "Overfitting",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          10
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What would indicate an overfitted autoencoder?",
+      "choices": [
+        "It memorises training examples rather than learning a general representation",
+        "It reconstructs unseen similar data well",
+        "It learns stable latent factors",
+        "It uses an appropriate bottleneck"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Memorisation harms generalisation."
+    },
+    {
+      "id": "L10-074",
+      "lecture": 10,
+      "concept": "Hidden features",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What kinds of visual features can image autoencoder neurons detect?",
+      "choices": [
+        "Only complete class labels",
+        "Only image filenames",
+        "Only the mean pixel value",
+        "Edges, straight lines and curves"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The middle-layer visualisation shows detectors for simple shapes and boundaries."
+    },
+    {
+      "id": "L10-075",
+      "lecture": 10,
+      "concept": "Reconstruction settings",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the image example illustrate?",
+      "choices": [
+        "Autoencoders cannot process images",
+        "The bottleneck stores only labels",
+        "Different autoencoder settings can change the reconstruction",
+        "Every setting gives an identical image"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Reconstruction quality and learned filters depend on the architecture and settings."
+    },
+    {
+      "id": "L10-076",
+      "lecture": 10,
+      "concept": "Latent features",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "For dimensionality reduction, what part of an autoencoder is retained as the new representation?",
+      "choices": [
+        "The target labels",
+        "The hidden-layer output",
+        "The final reconstruction error only",
+        "The original feature matrix unchanged"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The bottleneck activations serve as compressed features."
+    },
+    {
+      "id": "L10-077",
+      "lecture": 10,
+      "concept": "Downstream modelling",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What can be done with hidden-layer features?",
+      "choices": [
+        "Feed them into a new predictive model",
+        "Use them only to redraw the original network",
+        "Discard them before training",
+        "Treat them as anomaly labels automatically"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The learned representation can become input to another model."
+    },
+    {
+      "id": "L10-078",
+      "lecture": 10,
+      "concept": "Training efficiency",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How can autoencoder-derived features affect downstream training time?",
+      "choices": [
+        "They must always increase it",
+        "They make training impossible",
+        "They have no relation to feature count",
+        "They can reduce it significantly"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "A smaller feature space reduces computational work."
+    },
+    {
+      "id": "L10-079",
+      "lecture": 10,
+      "concept": "Accuracy benefit",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why can compressed features sometimes improve downstream accuracy?",
+      "choices": [
+        "They duplicate noisy inputs",
+        "They force a linear decision boundary",
+        "They may reduce overfitting by removing redundant dimensions",
+        "They guarantee every target is known"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "A compact representation can improve generalisation."
+    },
+    {
+      "id": "L10-080",
+      "lecture": 10,
+      "concept": "Feature engineering",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is an autoencoder a feature-engineering method?",
+      "choices": [
+        "It preserves all raw dimensions unchanged",
+        "Its hidden layer supplies learned new features",
+        "It manually assigns every feature name",
+        "It uses only the final target labels"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Representation learning automatically constructs features."
+    },
+    {
+      "id": "L10-081",
+      "lecture": 10,
+      "concept": "Model pipeline",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          13
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which pipeline matches the lecture?",
+      "choices": [
+        "Train an autoencoder, extract hidden features, then train a downstream model",
+        "Train a classifier, delete its inputs, then create a bottleneck",
+        "Cluster labels before collecting data",
+        "Use the reconstruction as the only possible output"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The latent code is used as the reduced input for another learner."
+    },
+    {
+      "id": "L10-082",
+      "lecture": 10,
+      "concept": "MNIST dimensionality",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How many input features does a 28 by 28 MNIST image effectively contain?",
+      "choices": [
+        "28",
+        "56",
+        "10",
+        "784"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Each pixel is treated as a feature, giving 28 times 28 = 784."
+    },
+    {
+      "id": "L10-083",
+      "lecture": 10,
+      "concept": "MNIST compression",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How are MNIST images reduced in the example?",
+      "choices": [
+        "Every image is reduced to its filename",
+        "The pixels are sorted without learning",
+        "An autoencoder compresses the pixels and its hidden layer becomes the new input",
+        "The digit labels replace all pixels"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The bottleneck provides a lower-dimensional image representation."
+    },
+    {
+      "id": "L10-084",
+      "lecture": 10,
+      "concept": "Downstream classifier",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which simple downstream model is suggested after MNIST compression?",
+      "choices": [
+        "Anomaly thresholding only",
+        "Logistic regression",
+        "A second raw image dataset only",
+        "A histogram with no classifier"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The slide notes that even logistic regression can use the learned features."
+    },
+    {
+      "id": "L10-085",
+      "lecture": 10,
+      "concept": "MNIST outcome",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What was the reported effect of compression on MNIST training time?",
+      "choices": [
+        "Training time decreased significantly",
+        "Training time became infinite",
+        "Training time was guaranteed unchanged",
+        "No downstream model could be trained"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Fewer features made model fitting much faster."
+    },
+    {
+      "id": "L10-086",
+      "lecture": 10,
+      "concept": "MNIST outcome",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What happened to accuracy after the MNIST dimensionality reduction?",
+      "choices": [
+        "Accuracy always fell to zero",
+        "Accuracy was guaranteed to become perfect",
+        "Accuracy could not be measured",
+        "There was little effect on accuracy"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The example retains similar predictive performance while reducing training time."
+    },
+    {
+      "id": "L10-087",
+      "lecture": 10,
+      "concept": "Variance trade-off",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why might retaining every possible component or feature hurt a downstream model?",
+      "choices": [
+        "The model loses access to pixels",
+        "The targets become unlabelled",
+        "Noise and redundant dimensions can increase overfitting and training cost",
+        "More features always guarantee better generalisation"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The example motivates retaining enough information without unnecessary dimensions."
+    },
+    {
+      "id": "L10-088",
+      "lecture": 10,
+      "concept": "Deep learning",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does deep learning mean in the lecture context?",
+      "choices": [
+        "Applying PCA without a network",
+        "Adding more hidden layers and neurons to a neural network",
+        "Removing all hidden layers",
+        "Using only a linear input-output mapping"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Depth and capacity increase through more intermediate units."
+    },
+    {
+      "id": "L10-089",
+      "lecture": 10,
+      "concept": "Model capacity",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why add layers and neurons?",
+      "choices": [
+        "To model richer and more complex relationships",
+        "To guarantee that gradients vanish",
+        "To reduce every network to a linear map",
+        "To remove all parameters"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Additional parameters expand the class of functions the network can represent."
+    },
+    {
+      "id": "L10-090",
+      "lecture": 10,
+      "concept": "Universal approximation",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the motivation behind creating a potential universal approximator?",
+      "choices": [
+        "To store only one training observation",
+        "To prevent any nonlinear behaviour",
+        "To eliminate the decoder",
+        "To emulate a very broad range of functions"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "A sufficiently expressive network aims to approximate complex functions."
+    },
+    {
+      "id": "L10-091",
+      "lecture": 10,
+      "concept": "Deep computation",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why did very deep networks become practical relatively recently?",
+      "choices": [
+        "Datasets lost most of their features",
+        "All networks became linear",
+        "Suitable computational hardware such as GPUs became available",
+        "Training no longer requires calculations"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Deep models demand substantial computation."
+    },
+    {
+      "id": "L10-092",
+      "lecture": 10,
+      "concept": "Vanishing gradients",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the vanishing-gradient problem?",
+      "choices": [
+        "The reconstruction error is always large",
+        "Error derivatives approach zero before reaching early layers",
+        "The training dataset disappears",
+        "The output layer gains infinite neurons"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Tiny back-propagated gradients prevent early layers from learning effectively."
+    },
+    {
+      "id": "L10-093",
+      "lecture": 10,
+      "concept": "Deep training",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why are special training techniques needed for many-layer networks?",
+      "choices": [
+        "To keep useful gradients flowing through early layers",
+        "To remove all nonlinear activations",
+        "To guarantee class labels",
+        "To replace training data with noise"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Deep chains can weaken gradient signals."
+    },
+    {
+      "id": "L10-094",
+      "lecture": 10,
+      "concept": "Feature growth",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What can happen as the number of input features grows in a deep network?",
+      "choices": [
+        "The network always becomes easier to train",
+        "The model automatically becomes sparse",
+        "The output is guaranteed correct",
+        "Training can become computationally intractable"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "High-dimensional input compounds the network computation."
+    },
+    {
+      "id": "L10-095",
+      "lecture": 10,
+      "concept": "Stacked autoencoders",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is a stacked autoencoder?",
+      "choices": [
+        "Several unrelated classifiers with no shared representation",
+        "An autoencoder without hidden layers",
+        "Multiple autoencoders joined and trained layer by layer",
+        "A single PCA component followed by a histogram"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Stacking builds a deeper representation from successive autoencoders."
+    },
+    {
+      "id": "L10-096",
+      "lecture": 10,
+      "concept": "Greedy layer-wise training",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does greedy layer-wise training mean for stacked autoencoders?",
+      "choices": [
+        "Skip reconstruction at every layer",
+        "Train one autoencoder layer, then use its code to train the next",
+        "Train all possible architectures simultaneously",
+        "Update only the output label"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Layers are pretrained sequentially rather than all from scratch at once."
+    },
+    {
+      "id": "L10-097",
+      "lecture": 10,
+      "concept": "Stacked inputs",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What becomes the input to the second autoencoder?",
+      "choices": [
+        "The hidden representation from the first autoencoder",
+        "The first autoencoder loss value only",
+        "The original class labels only",
+        "A random anomaly threshold"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Each stage compresses the representation learned by the previous stage."
+    },
+    {
+      "id": "L10-098",
+      "lecture": 10,
+      "concept": "Stacked benefit",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is a key benefit of stacked autoencoders?",
+      "choices": [
+        "Guaranteed zero error on all future data",
+        "No need for any computation",
+        "Exact preservation of every raw feature",
+        "A deeper representation with much lower dimensionality than the original input"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Successive bottlenecks learn hierarchical compact features."
+    },
+    {
+      "id": "L10-099",
+      "lecture": 10,
+      "concept": "Stacked architecture",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the first autoencoder in the diagram reconstruct?",
+      "choices": [
+        "The second hidden representation",
+        "The anomaly score",
+        "The original input x",
+        "The final class label"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The first stage learns h(1) while reconstructing x."
+    },
+    {
+      "id": "L10-100",
+      "lecture": 10,
+      "concept": "Stacked architecture",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the second autoencoder reconstruct?",
+      "choices": [
+        "The original dataset filename",
+        "The first hidden representation h(1)",
+        "The raw class labels only",
+        "The final softmax probabilities"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The second stage learns h(2) from h(1) and reconstructs h(1)."
+    },
+    {
+      "id": "L10-101",
+      "lecture": 10,
+      "concept": "Stacked classifier",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is used as input to the softmax classifier in the combined diagram?",
+      "choices": [
+        "The first learned hidden representation after stacking and pretraining",
+        "The reconstruction threshold only",
+        "The original target labels without features",
+        "The MSE percentile"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The diagram combines learned encoder layers with a classifier."
+    },
+    {
+      "id": "L10-102",
+      "lecture": 10,
+      "concept": "Pretraining",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          16
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why can stacked autoencoders be useful for pretraining?",
+      "choices": [
+        "They remove the need for any later task",
+        "They guarantee gradients are exactly one",
+        "They replace inputs with labels",
+        "They initialise deeper layers with representations learned one stage at a time"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Layer-wise representation learning supplies useful starting weights."
+    },
+    {
+      "id": "L10-103",
+      "lecture": 10,
+      "concept": "Anomaly detection",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What reconstruction error should an autoencoder produce for data similar to its training set?",
+      "choices": [
+        "A random class label",
+        "The maximum possible error",
+        "A low error",
+        "An infinite error"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "It learns to reconstruct patterns represented in its training distribution."
+    },
+    {
+      "id": "L10-104",
+      "lecture": 10,
+      "concept": "Anomaly detection",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why does unusual input tend to have a large reconstruction error?",
+      "choices": [
+        "Every unusual input has a label",
+        "The autoencoder has not learned to represent that different pattern well",
+        "The decoder is disabled for all new data",
+        "The input automatically gains more features"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Out-of-distribution structure is reconstructed poorly."
+    },
+    {
+      "id": "L10-105",
+      "lecture": 10,
+      "concept": "Anomaly threshold",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How can reconstruction error be converted into an anomaly decision?",
+      "choices": [
+        "Mark observations above a chosen error threshold as anomalous",
+        "Mark every low-error observation as anomalous",
+        "Use the input feature count as the label",
+        "Ignore the reconstruction completely"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Thresholding separates expected and unexpectedly poor reconstructions."
+    },
+    {
+      "id": "L10-106",
+      "lecture": 10,
+      "concept": "Training distribution",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What determines what an anomaly-detection autoencoder regards as normal?",
+      "choices": [
+        "The order of output class names",
+        "The plotting colour scheme",
+        "The number of source pages",
+        "The distribution of data used to train it"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The model learns the patterns present in its training examples."
+    },
+    {
+      "id": "L10-107",
+      "lecture": 10,
+      "concept": "Credit-card example",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How many input features are described in the credit-card fraud example?",
+      "choices": [
+        "784",
+        "2",
+        "29",
+        "5"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The dataset has 29 features plus a fraud/not-fraud target."
+    },
+    {
+      "id": "L10-108",
+      "lecture": 10,
+      "concept": "Credit-card example",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How many hidden layers are used in the fraud autoencoder example?",
+      "choices": [
+        "Ninety-nine",
+        "Five",
+        "One",
+        "Twenty-nine"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The architecture has two encoder layers, a bottleneck, and two decoder layers."
+    },
+    {
+      "id": "L10-109",
+      "lecture": 10,
+      "concept": "Credit-card example",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "On which events is the fraud-detection autoencoder trained?",
+      "choices": [
+        "Normal transactions",
+        "Fraud transactions only",
+        "An equal random mixture with no distinction",
+        "Fashion-MNIST images"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Normal examples define the reconstruction pattern."
+    },
+    {
+      "id": "L10-110",
+      "lecture": 10,
+      "concept": "Fraud threshold",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How is the fraud threshold chosen in the example?",
+      "choices": [
+        "Use the mean number of features",
+        "Use zero reconstruction error",
+        "Use the number of hidden layers",
+        "Use the 99th percentile of training-set MSE"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The dotted threshold is based on the upper tail of normal reconstruction errors."
+    },
+    {
+      "id": "L10-111",
+      "lecture": 10,
+      "concept": "Fraud scoring",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What error measure is computed for fraud observations?",
+      "choices": [
+        "PCA explained variance only",
+        "The number of active neurons",
+        "Mean squared reconstruction error",
+        "Classification entropy only"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "MSE measures the discrepancy between input and reconstruction."
+    },
+    {
+      "id": "L10-112",
+      "lecture": 10,
+      "concept": "Fraud decision",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "When is a transaction labelled as fraud in the example?",
+      "choices": [
+        "The bottleneck has five nodes",
+        "Its reconstruction MSE exceeds the chosen threshold",
+        "Its MSE is below every normal transaction",
+        "It has exactly 29 features"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "High error signals that the event differs from learned normal behaviour."
+    },
+    {
+      "id": "L10-113",
+      "lecture": 10,
+      "concept": "Threshold trade-off",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          18
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does using the 99th percentile of normal MSE imply?",
+      "choices": [
+        "Only the highest-error tail of normal training events lies beyond the threshold",
+        "Exactly 99 percent of fraud is guaranteed detected",
+        "All normal events have zero error",
+        "The feature count is reduced by 99 percent"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The percentile sets a high cutoff based on the normal-error distribution."
+    },
+    {
+      "id": "L10-114",
+      "lecture": 10,
+      "concept": "Image anomaly example",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which two image datasets are used in the anomaly example?",
+      "choices": [
+        "MNIST and the penguin dataset",
+        "Olivetti and credit-card data",
+        "CIFAR and a world map",
+        "MNIST and Fashion-MNIST"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Digits are treated as normal training data and fashion images as anomalous inputs."
+    },
+    {
+      "id": "L10-115",
+      "lecture": 10,
+      "concept": "Image anomaly training",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "On which image dataset is the autoencoder trained?",
+      "choices": [
+        "Both datasets with labels",
+        "Neither dataset",
+        "MNIST",
+        "Fashion-MNIST"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The network learns to reconstruct handwritten digits."
+    },
+    {
+      "id": "L10-116",
+      "lecture": 10,
+      "concept": "Image anomaly testing",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which data is then passed through the MNIST-trained autoencoder?",
+      "choices": [
+        "World-map coordinates",
+        "Fashion-MNIST images",
+        "More credit-card transactions",
+        "Only the MNIST labels"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Different image structure should produce higher reconstruction error."
+    },
+    {
+      "id": "L10-117",
+      "lecture": 10,
+      "concept": "Image anomaly architecture",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How deep is the network in the image anomaly example?",
+      "choices": [
+        "Seven layers",
+        "Two layers",
+        "Twenty-nine layers",
+        "Seven hundred and eighty-four layers"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The slide specifies a seven-layer network."
+    },
+    {
+      "id": "L10-118",
+      "lecture": 10,
+      "concept": "Image anomaly result",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What accuracy is reported for the image anomaly example?",
+      "choices": [
+        "50 percent",
+        "7 percent",
+        "29 percent",
+        "99.8 percent"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The slide reports 99.8% accuracy."
+    },
+    {
+      "id": "L10-119",
+      "lecture": 10,
+      "concept": "Sparse autoencoders",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What problem is sparsity intended to mitigate?",
+      "choices": [
+        "A lack of class labels only",
+        "The absence of an output layer",
+        "Overfitting and memorisation",
+        "Insufficient input features"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Restricting active units reduces the network capacity to copy examples."
+    },
+    {
+      "id": "L10-120",
+      "lecture": 10,
+      "concept": "Sparse regularisation",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Where is regularisation applied in a sparse autoencoder?",
+      "choices": [
+        "To the number of source documents",
+        "To neuron activations",
+        "Only to feature names",
+        "Only to the anomaly threshold"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Sparse penalties encourage most activations to be inactive."
+    },
+    {
+      "id": "L10-121",
+      "lecture": 10,
+      "concept": "Weight versus activation penalty",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does sparse regularisation differ from ordinary weight regularisation in the slide?",
+      "choices": [
+        "It penalises activations rather than only model weights",
+        "It removes the loss function",
+        "It increases every activation equally",
+        "It fixes all weights to one"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The sparsity constraint acts on whether neurons fire."
+    },
+    {
+      "id": "L10-122",
+      "lecture": 10,
+      "concept": "Sparse activation",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What happens to neurons under a sparse encoding?",
+      "choices": [
+        "Every neuron must be active for every input",
+        "All neurons are permanently deleted",
+        "The output layer has no values",
+        "Only a subset is active for a given input"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Different inputs recruit limited groups of units."
+    },
+    {
+      "id": "L10-123",
+      "lecture": 10,
+      "concept": "Specialised neurons",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why are certain neurons activated only for specific inputs?",
+      "choices": [
+        "They provide target labels",
+        "They set the learning rate",
+        "They specialise in characterising particular input attributes",
+        "They store the entire dataset identically"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Sparse representations encourage attribute-specific detectors."
+    },
+    {
+      "id": "L10-124",
+      "lecture": 10,
+      "concept": "Sparse representation",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the encoder and decoder rely on in a sparse autoencoder?",
+      "choices": [
+        "A PCA hyperplane with no network",
+        "A subset of available neurons",
+        "Every neuron at maximum activation",
+        "Only the original labels"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Sparsity restricts the active pathway for each observation."
+    },
+    {
+      "id": "L10-125",
+      "lecture": 10,
+      "concept": "Memorisation limit",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How does sparsity limit memorisation?",
+      "choices": [
+        "It prevents the network from using all units to encode every detail of each input",
+        "It gives the network unlimited active capacity",
+        "It duplicates the training data",
+        "It removes the bottleneck constraint"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Restricted activations force more selective, reusable features."
+    },
+    {
+      "id": "L10-126",
+      "lecture": 10,
+      "concept": "Multiple representations",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is a sparse autoencoder described as almost having multiple autoencoders in one?",
+      "choices": [
+        "It contains separate datasets for every label",
+        "It trains with several unrelated loss functions",
+        "It has no shared weights",
+        "Different subsets of neurons represent different input attributes"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Distinct active subnetworks can respond to different patterns."
+    },
+    {
+      "id": "L10-127",
+      "lecture": 10,
+      "concept": "L1 sparsity",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which regularisation is suggested for penalising activations?",
+      "choices": [
+        "Only L2 on the output labels",
+        "A 99th-percentile threshold",
+        "L1 regularisation",
+        "No regularisation"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "An L1 activation penalty encourages many activations toward zero."
+    },
+    {
+      "id": "L10-128",
+      "lecture": 10,
+      "concept": "Sparse loss",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Where is the L1 activation penalty added?",
+      "choices": [
+        "As the output reconstruction itself",
+        "As an optional term in the loss function",
+        "As a new input feature",
+        "As a class label"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The training objective combines reconstruction with a sparsity penalty."
+    },
+    {
+      "id": "L10-129",
+      "lecture": 10,
+      "concept": "Denoising autoencoder",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What data is supplied as input to a denoising autoencoder during training?",
+      "choices": [
+        "A noise-corrupted version of the original data",
+        "Only perfectly clean labels",
+        "A random class name",
+        "The final latent mean only"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Noise is deliberately added before encoding."
+    },
+    {
+      "id": "L10-130",
+      "lecture": 10,
+      "concept": "Denoising target",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the target output of a denoising autoencoder?",
+      "choices": [
+        "The noisy input unchanged",
+        "A fraud label",
+        "A random latent sample",
+        "The original clean input"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The network learns to remove corruption while reconstructing."
+    },
+    {
+      "id": "L10-131",
+      "lecture": 10,
+      "concept": "Denoising purpose",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is noise added during training?",
+      "choices": [
+        "To increase the number of labels",
+        "To eliminate the decoder",
+        "To prevent simple memorisation and encourage robust features",
+        "To guarantee larger reconstruction error forever"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The model cannot solve the task by copying the corrupted input directly."
+    },
+    {
+      "id": "L10-132",
+      "lecture": 10,
+      "concept": "Robust decoder",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What property does denoising encourage in the decoder?",
+      "choices": [
+        "A fixed linear identity only",
+        "Robustness to small input perturbations",
+        "Sensitivity to every tiny noise value",
+        "Dependence on class labels"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The reconstruction should remain stable despite modest corruption."
+    },
+    {
+      "id": "L10-133",
+      "lecture": 10,
+      "concept": "Meaningful features",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What information does a denoising autoencoder learn to emphasise?",
+      "choices": [
+        "Features containing meaningful structure rather than noise",
+        "Every random perturbation",
+        "Only the filenames of images",
+        "The anomaly threshold"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Recovering clean inputs rewards stable signal."
+    },
+    {
+      "id": "L10-134",
+      "lecture": 10,
+      "concept": "Denoising manifold",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What representation can a denoising autoencoder learn?",
+      "choices": [
+        "A table of random noise values only",
+        "A set of target labels with no features",
+        "An unchanged copy of every corrupt input",
+        "A lower-dimensional manifold capturing meaningful data structure"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Robust reconstruction supports a compact manifold representation."
+    },
+    {
+      "id": "L10-135",
+      "lecture": 10,
+      "concept": "Denoising and overfitting",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          21
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How is denoising related to overfitting control?",
+      "choices": [
+        "It removes all training variation",
+        "It guarantees zero loss",
+        "Input corruption makes memorising exact training examples less useful",
+        "It gives the network more capacity to memorise"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The task requires generalising from corrupted versions to clean patterns."
+    },
+    {
+      "id": "L10-136",
+      "lecture": 10,
+      "concept": "Standard versus variational",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the primary focus of a standard autoencoder?",
+      "choices": [
+        "Finding a fraud percentile",
+        "Accurate reconstruction",
+        "Generating random new samples",
+        "Learning class labels only"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "A conventional autoencoder separates and reproduces observed examples."
+    },
+    {
+      "id": "L10-137",
+      "lecture": 10,
+      "concept": "Generative limitation",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is an ordinary autoencoder not naturally suited to random generation?",
+      "choices": [
+        "Its latent representations can be distinct and contain gaps between observed types",
+        "It has no decoder",
+        "It cannot process images",
+        "Its input must be labelled"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Sampling arbitrary points in an irregular latent space may not yield meaningful outputs."
+    },
+    {
+      "id": "L10-138",
+      "lecture": 10,
+      "concept": "VAE encoder output",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What two quantities does a VAE encoder produce for each latent dimension?",
+      "choices": [
+        "A class label and an anomaly threshold",
+        "A PCA loading and an eigenvalue",
+        "An input and a target name",
+        "A mean and a standard deviation"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "These parameters define a latent probability distribution."
+    },
+    {
+      "id": "L10-139",
+      "lecture": 10,
+      "concept": "VAE sampling",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is passed to the VAE decoder?",
+      "choices": [
+        "Only the original class label",
+        "The reconstruction error threshold",
+        "A sample drawn using the encoder-produced distribution parameters",
+        "The mean alone with no sampling"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Sampling creates a latent code that can vary smoothly."
+    },
+    {
+      "id": "L10-140",
+      "lecture": 10,
+      "concept": "VAE latent space",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What organisation is desired in a VAE latent space?",
+      "choices": [
+        "A fixed PCA line",
+        "Encodings that are close but distinct enough for smooth interpolation",
+        "Completely isolated points with empty space between all classes",
+        "One memorised coordinate per training observation only"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "A continuous latent space supports meaningful transitions and new samples."
+    },
+    {
+      "id": "L10-141",
+      "lecture": 10,
+      "concept": "VAE generation",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How can a VAE generate something new?",
+      "choices": [
+        "Sample a latent point and decode it into a new output",
+        "Copy a training input without change",
+        "Choose the largest reconstruction error",
+        "Remove the decoder after training"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The decoder converts sampled latent codes into generated observations."
+    },
+    {
+      "id": "L10-142",
+      "lecture": 10,
+      "concept": "Latent comparison",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "How do ordinary autoencoder encodings differ from VAE encodings in the shown plots?",
+      "choices": [
+        "They are guaranteed to be identical",
+        "VAE encodings contain no structure",
+        "Ordinary encodings always form one Gaussian cluster",
+        "Ordinary encodings are more distinctly separated, while VAE encodings are arranged for continuity"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The VAE trades strict separation for a smoother, sampleable latent space."
+    },
+    {
+      "id": "L10-143",
+      "lecture": 10,
+      "concept": "Smooth interpolation",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Why is smooth interpolation valuable in a VAE?",
+      "choices": [
+        "It removes randomness",
+        "It guarantees classification accuracy",
+        "Nearby latent samples decode into plausible gradual variations",
+        "It forces every output to be identical"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Continuity lets generated outputs change coherently across latent space."
+    },
+    {
+      "id": "L10-144",
+      "lecture": 10,
+      "concept": "VAE diagram",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does the encoder output represent in the VAE attribute diagram?",
+      "choices": [
+        "The final class confusion matrix",
+        "Latent probability distributions for learned attributes",
+        "A single deterministic bottleneck activation only",
+        "The anomaly threshold"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The diagram shows distributions for attributes such as appearance characteristics."
+    },
+    {
+      "id": "L10-145",
+      "lecture": 10,
+      "concept": "VAE diagram",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What happens after latent attribute distributions are produced?",
+      "choices": [
+        "Values are sampled and sent through the decoder",
+        "They are discarded before decoding",
+        "They become target labels",
+        "They are converted into PCA components only"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Sampled latent values specify a new point for reconstruction or generation."
+    },
+    {
+      "id": "L10-146",
+      "lecture": 10,
+      "concept": "VAE diagram",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What should different samples from the latent distributions produce?",
+      "choices": [
+        "The exact same output in every case",
+        "Only anomaly scores",
+        "No decoder output",
+        "Different plausible reconstructions"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Changing sampled attributes changes the generated instance."
+    },
+    {
+      "id": "L10-147",
+      "lecture": 10,
+      "concept": "VAE latent geometry",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What do the clusters in the VAE latent-space diagram represent?",
+      "choices": [
+        "Only reconstruction thresholds",
+        "Unconnected neural-network layers",
+        "Organised regions of related latent encodings",
+        "The original input feature names"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Related inputs occupy neighbouring regions in the learned latent space."
+    },
+    {
+      "id": "L10-148",
+      "lecture": 10,
+      "concept": "VAE mapping",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which sequence matches the VAE diagram?",
+      "choices": [
+        "Input space to PCA only",
+        "Input space to latent space to output space",
+        "Output space to labels to no input",
+        "Latent space directly to a loss with no decoder"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The encoder maps inputs into latent distributions and the decoder maps samples to outputs."
+    },
+    {
+      "id": "L10-149",
+      "lecture": 10,
+      "concept": "VAE sampling",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          24
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Where can a new point be sampled to produce a generated output?",
+      "choices": [
+        "Within the learned latent space",
+        "Only from the source filename",
+        "Only above the fraud threshold",
+        "Outside every representation"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A latent sample is decoded into output space."
+    },
+    {
+      "id": "L10-150",
+      "lecture": 10,
+      "concept": "Autoencoder applications",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which application is associated with stacked autoencoders?",
+      "choices": [
+        "Only choosing histogram bins",
+        "Setting t-SNE perplexity",
+        "Computing time-series seasonality",
+        "Pretraining models and dimensionality reduction"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "The summary lists pretraining and dimensionality reduction."
+    },
+    {
+      "id": "L10-151",
+      "lecture": 10,
+      "concept": "Autoencoder variants",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which autoencoder variant intentionally limits active neurons?",
+      "choices": [
+        "Standard PCA",
+        "LSTM classifier only",
+        "Sparse autoencoder",
+        "Variational autoencoder only"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "Sparse autoencoders regularise activations."
+    },
+    {
+      "id": "L10-152",
+      "lecture": 10,
+      "concept": "Autoencoder variants",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which autoencoder variant reconstructs clean data from corrupted input?",
+      "choices": [
+        "Contractive PCA",
+        "Denoising autoencoder",
+        "Stacked classifier",
+        "Ordinary k-means"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Denoising training pairs noisy inputs with clean targets."
+    },
+    {
+      "id": "L10-153",
+      "lecture": 10,
+      "concept": "Generative applications",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which capability is associated with variational autoencoders?",
+      "choices": [
+        "Generating new images",
+        "Guaranteeing exact global distances",
+        "Removing the decoder",
+        "Using only labelled data"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "VAEs support generative tasks through latent sampling."
+    },
+    {
+      "id": "L10-154",
+      "lecture": 10,
+      "concept": "Generative applications",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which image task is listed for variational approaches?",
+      "choices": [
+        "Sorting feature names",
+        "Computing histogram medians",
+        "Setting fraud percentiles only",
+        "Image colourisation"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Colourisation is listed among generative applications."
+    },
+    {
+      "id": "L10-155",
+      "lecture": 10,
+      "concept": "Generative applications",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "Which potentially deceptive application is mentioned for variational generative models?",
+      "choices": [
+        "Linear regression residuals",
+        "Nearest-neighbour search",
+        "Deep fakes",
+        "PCA scree plots"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The summary explicitly names deep fakes."
+    },
+    {
+      "id": "L10-156",
+      "lecture": 10,
+      "concept": "Contractive autoencoders",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What does a contractive autoencoder penalise?",
+      "choices": [
+        "Only the output class count",
+        "Sensitivity of the hidden representation to small input changes",
+        "Every nonzero target label",
+        "The number of training observations"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The penalty encourages robust, stable features."
+    },
+    {
+      "id": "L10-157",
+      "lecture": 10,
+      "concept": "Contractive autoencoders",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What is the goal of a contractive autoencoder?",
+      "choices": [
+        "Learn robust and stable feature representations",
+        "Maximise sensitivity to noise",
+        "Memorise every exact input",
+        "Produce only time-series forecasts"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Insensitivity to small perturbations promotes stability."
+    },
+    {
+      "id": "L10-158",
+      "lecture": 10,
+      "concept": "LSTM autoencoders",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "For what task are LSTM autoencoders mentioned?",
+      "choices": [
+        "Static image colourisation only",
+        "PCA on linear data only",
+        "Choosing neural-network activations",
+        "Time-series anomaly detection"
+      ],
+      "answer": [
+        3
+      ],
+      "explanation": "Recurrent autoencoders can model sequential patterns and reconstruction anomalies."
+    },
+    {
+      "id": "L10-159",
+      "lecture": 10,
+      "concept": "Modelling workflow",
+      "source": {
+        "file": "IDVE_Lecture_10_2026.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "marks": 2,
+      "type": "single",
+      "question": "What final workflow recommendation does the lecture make?",
+      "choices": [
+        "Skip exploration whenever an autoencoder is available",
+        "Assume dimensionality reduction always improves results",
+        "Understand the data and establish a baseline before applying a complex model",
+        "Begin with the largest possible neural network"
+      ],
+      "answer": [
+        2
+      ],
+      "explanation": "The conclusion returns to careful exploration and baseline comparison."
     }
   ]
 }
