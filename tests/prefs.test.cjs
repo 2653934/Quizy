@@ -108,6 +108,9 @@ for (const mode of Quizy.COLOR_MODES) {
       check('--bad', '--bad-bg', 4.5);                         // "Your answer" tags
       check('--warn', '--caution-bg', 4.5);                    // disputed-answer heading
       check('--warn', '--surface', 4.5);                       // "Answers on this set are unofficial"
+      check('--pop-ink', '--pop-bg', 7);                       // rapid-mode "BAM!" bursts
+      check('--pop-ink', '--pop-alt', 7);
+      check('--paper', '--bad', 4.5);                          // the "Reset" button in the reset dialog
       for (const bg of ['--good-bg', '--bad-bg', '--good-soft', '--partial-soft', '--bad-soft', '--caution-bg', '--mark-bg']) check('--ink', bg, 7);
       check('--edge', '--paper', 3);                           // ink borders and offset shadows
       check('--edge', '--surface', 3);

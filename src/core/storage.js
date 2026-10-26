@@ -9,6 +9,7 @@
 //   quizy-lectures-v1-<subject>  ["5", "6"]: the lecture chips chosen last ([] for all lectures)
 //   quizy-color-mode-v1          "light" or "dark" once chosen with the sidebar control (missing: follow the system)
 //   quizy-sidebar-v1             "collapsed" or "expanded": the desktop sidebar
+//   quizy-intro-v1               "seen" once the "Think first, then tap" cue has played on a first question
 // src/ui/theme.js and src/ui/sidebar.js read the last two before the page is drawn, so this file loads in <head>.
 (function (Quizy) {
   const store = {
@@ -51,7 +52,9 @@
     },
     setColorMode(mode) { store.set('quizy-color-mode-v1', mode); },
     sidebarCollapsed() { return store.get('quizy-sidebar-v1') === 'collapsed'; },
-    setSidebarCollapsed(collapsed) { store.set('quizy-sidebar-v1', collapsed ? 'collapsed' : 'expanded'); }
+    setSidebarCollapsed(collapsed) { store.set('quizy-sidebar-v1', collapsed ? 'collapsed' : 'expanded'); },
+    introSeen() { return store.get('quizy-intro-v1') === 'seen'; },
+    setIntroSeen() { store.set('quizy-intro-v1', 'seen'); }
   };
 
   if (typeof module !== 'undefined') module.exports = Quizy;

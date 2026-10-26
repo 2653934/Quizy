@@ -68,7 +68,7 @@
       <header class="hero">
         <div>
           <div class="eyebrow" id="hero-eyebrow">The study room, quiz edition</div>
-          <h1>Think first.<br><em>Then tap.</em></h1>
+          <h1>Ready when<br><em>you are.</em></h1>
           <p>Short questions tied to the lectures and past papers. The bank grows as we cover more concepts.</p>
         </div>
         <div class="seal"><span>THE QUESTION BANK</span><b id="bank-count">0</b><span>QUESTIONS</span></div>
@@ -76,7 +76,10 @@
       <section class="stats" aria-label="Study progress">
         <div class="stat"><div class="eyebrow">Questions available</div><strong id="total-count">0</strong><small id="total-label">In this subject</small></div>
         <div class="stat"><div class="eyebrow">Answered correctly</div><strong id="correct-count">0</strong><small>Across your latest attempts</small></div>
-        <div class="stat"><div class="eyebrow">Needs another look</div><strong id="review-count">0</strong><small>Try these again</small></div>
+        <div id="review-stat" class="stat" tabindex="-1">
+          <div class="eyebrow">Needs another look</div><strong id="review-count">0</strong><small>Try these again</small>
+          <button id="reset-wrong" class="quiet stat-reset" type="button" aria-haspopup="dialog" hidden>Reset wrong answers</button>
+        </div>
       </section>
       <section id="setup" class="panel">
         <div class="eyebrow">Start a round</div>
@@ -208,8 +211,25 @@
         <button id="to-browse" class="primary" hidden>Back to browse ↗</button>
         <button id="again" class="primary">Choose another round ↗</button>
       </section>
+      <p id="reset-status" class="sr-only" role="status"></p>
       <footer>Questions are for practice, not a prediction of the actual test. Check explanations against your lecture slides when unsure.</footer>
     </main>
+  </div>
+  <dialog id="reset-dialog" class="dialog" aria-labelledby="reset-title" aria-describedby="reset-detail">
+    <form method="dialog">
+      <h2 id="reset-title">Reset wrong answers?</h2>
+      <p id="reset-detail"></p>
+      <p class="dialog-keep">Your correct answers, other subjects, settings and the questions themselves are not changed. This can’t be undone.</p>
+      <div class="dialog-actions">
+        <button value="cancel" autofocus>Cancel</button>
+        <button value="reset" class="primary danger">Reset</button>
+      </div>
+    </form>
+  </dialog>
+  <!-- The one-time "Think first, then tap" cue on the first question shown (src/ui/quiz.js): decorative, never in the way of a tap. -->
+  <div id="intro-cue" class="intro-cue" aria-hidden="true" hidden>
+    <span class="intro-think">Think first.</span>
+    <span class="intro-tap">Then tap.<i class="intro-dot"></i></span>
   </div>
   <script src="generated/quizy-data.js" defer></script>
   <script src="vendor/katex/katex.min.js" defer></script>

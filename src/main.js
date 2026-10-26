@@ -35,6 +35,8 @@
   $('copy-claude').addEventListener('click', ui.copyForClaude);
   $('quit').addEventListener('click', ui.endRound);
   $('again').addEventListener('click', ui.backToSetup);
+  $('reset-wrong').addEventListener('click', ui.confirmResetWrong);
+  $('reset-dialog').addEventListener('close', ui.closeResetDialog);
   ui.wireBrowse();
 
   ui.chooseSubject(storage.lastSubject());

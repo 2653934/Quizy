@@ -7,9 +7,14 @@
   const {$, el, richEl, richText, shuffle, plural, formatMarks, marksOf, isFull, state, storage} = Quizy;
   const RAPID_FEEDBACK_MS = 420;
   const RAPID_PHASE_MS = 240;
+  const INTRO_MS = 3400;
   const rapidGate = Quizy.createRapidAdvanceGate();
   let rapidTimer = null;
   let rapidRun = 0;
+  let lastCelebration = null;
+  let verdictScrolled = false; // revealVerdict() scrolled for the current question
+  let introTimer = null;
+  let introPlayed = false; // also stops a replay in this page when storage is blocked
 
   const typeOf = q => Quizy.types[q.type];
 
@@ -27,7 +32,32 @@
 
   const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // "Think first, then tap": played once per browser profile over the first question shown. It is a
+  // fixed, aria-hidden overlay that ignores taps, so it never moves the layout or delays an answer.
+  function playIntro() {
+    if (introPlayed || storage.introSeen()) return;
+    introPlayed = true;
+    storage.setIntroSeen();
+    const cue = $('intro-cue');
+    cue.hidden = false;
+    cue.classList.remove('play');
+    void cue.offsetWidth;
+    cue.classList.add('play');
+    clearTimeout(introTimer);
+    introTimer = setTimeout(ui.hideIntro, INTRO_MS);
+  }
+
+  ui.hideIntro = function () {
+    clearTimeout(introTimer);
+    $('intro-cue').hidden = true;
+    $('intro-cue').classList.remove('play');
+  };
+
+  // After revealVerdict() the page may still be smooth-scrolling down when "Next" is tapped. Stop it where
+  // it is first: a smooth scroll to where the page already is would not cancel it.
   function bringQuizIntoView() {
+    if (verdictScrolled) window.scrollTo({top: window.scrollY, behavior: 'instant'});
+    verdictScrolled = false;
     const top = $('quiz').getBoundingClientRect().top;
     if (top < 0 || top > window.innerHeight * .4) {
       $('quiz').scrollIntoView({behavior: reducedMotion() ? 'instant' : 'smooth', block: 'start'});
@@ -93,6 +123,7 @@
     Quizy.beginRound(set, shuffle(questions).map(q => ({q, set: state.setOf.get(q.id) || set, ...typeOf(q).makeOrder(q, shuffle)})), null, options);
     ui.show('quiz');
     drawQuestion();
+    playIntro();
   };
 
   // A mock paper from Quizy.makePaper: its sections in order, the options shuffled with the paper's own
@@ -109,6 +140,7 @@
     Quizy.beginRound(set, items, {code: paper.code, lectures: paper.lectures, sections}, {rapidMode: $('rapid-mode').checked});
     ui.show('quiz');
     drawQuestion();
+    playIntro();
   };
 
   // Marks are shown on every question of a mock paper and of sets that have a total.
@@ -178,16 +210,39 @@
     ui.updateStats();
     showFeedback(item, score, response);
     ui.showAsk(q, response);
+    ui.hideIntro();
     const rapid = Quizy.shouldRapidAdvance(q, score, state.rapidMode);
     $('next').hidden = rapid;
-    if (!rapid) return $('next').focus({preventScroll: true});
-
-    $('feedback').querySelector('.verdict').append(el('span', 'rapid-advance', state.index === state.round.length - 1 ? 'Showing results…' : 'Next question…'));
-    if (reducedMotion()) {
-      advanceQuestion();
-    } else {
-      rapidAdvance();
+    if (!rapid) {
+      revealVerdict();
+      return $('next').focus({preventScroll: true});
     }
+
+    const verdict = $('feedback').querySelector('.verdict');
+    verdict.querySelector('strong').after(celebration());
+    verdict.append(el('span', 'rapid-advance', state.index === state.round.length - 1 ? 'Showing results…' : 'Next question…'));
+    // With reduced motion the pause is the same; only the transitions are left out (see rapidAdvance).
+    rapidAdvance();
+  }
+
+  // On phones, scroll just far enough that the verdict is on screen above the sticky "Next"
+  // (styles/question.css gives it the margin); nothing moves when it is already visible.
+  function revealVerdict() {
+    if (!window.matchMedia('(max-width: 700px)').matches) return;
+    const verdict = $('feedback').querySelector('.verdict');
+    if (verdict.getBoundingClientRect().bottom > window.innerHeight - 84) {
+      verdictScrolled = true;
+      verdict.scrollIntoView({behavior: reducedMotion() ? 'instant' : 'smooth', block: 'nearest'});
+    }
+  }
+
+  // Rapid mode, fully correct: a comic burst beside "Correct!" in the verdict line (in the flow, so it
+  // never covers the answer or the study note). It is aria-hidden: the verdict already says "Correct!".
+  function celebration() {
+    lastCelebration = Quizy.pickCelebration(lastCelebration);
+    const pop = el('span', `rapid-pop pop-${Math.floor(Math.random() * 3)}`, lastCelebration);
+    pop.setAttribute('aria-hidden', 'true');
+    return pop;
   }
 
   // Verdict and marks, then any type-specific notes (e.g. a worked solution), the study note,

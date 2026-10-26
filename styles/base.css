@@ -15,6 +15,17 @@ body {
   display: none !important;
 }
 
+/* Read by screen readers only (e.g. the reset announcement). */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 /* Typography */
 h1 {
   font: clamp(38px, 4vw, 59px)/1.1 Georgia, serif;

@@ -32,6 +32,9 @@
   --bad-soft: #fbefec;
   --caution-bg: #fff6dd;
   --mark-bg: #fff0b3;
+  --pop-bg: #ffd84d;  /* the rapid-mode "BAM!" burst */
+  --pop-alt: #ffb8d2;
+  --pop-ink: #213438;
 }
 
 /* Dark mode. The first block is shared by every subject; the second is DVE's dark theme for the first paint
@@ -51,6 +54,9 @@
   --bad-soft: #341f1c;
   --caution-bg: #352b19;
   --mark-bg: #594810;
+  --pop-bg: #f2c94c;
+  --pop-alt: #f29bbd;
+  --pop-ink: #14191a;
 }
 
 :root[data-mode=dark] {

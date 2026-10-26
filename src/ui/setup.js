@@ -45,7 +45,33 @@
     $('bank-count').textContent = questions.length;
     $('total-count').textContent = questions.length;
     $('correct-count').textContent = questions.filter(q => attempts[q.id]?.correct === true).length;
-    $('review-count').textContent = questions.filter(q => attempts[q.id]?.correct === false).length;
+    const wrong = Quizy.wrongQuestionIds(questions, attempts).length;
+    $('review-count').textContent = wrong;
+    $('reset-wrong').hidden = wrong === 0;
+  };
+
+  // "Reset wrong answers" (under "Needs another look"): confirm first, then remove only the wrong
+  // attempts of the current subject (Quizy.resetWrong) and redraw the stats and the count line.
+  ui.confirmResetWrong = function () {
+    const wrong = Quizy.wrongQuestionIds(Quizy.allQuestions(), state.attempts).length;
+    if (!wrong) return;
+    $('reset-detail').textContent = `This clears your saved result for the ${plural(wrong, `${subjectName()} question`)} you got wrong or only partly right, `
+      + 'so they count as unanswered again and leave “Only ones I got wrong”.';
+    $('reset-dialog').returnValue = '';
+    $('reset-dialog').showModal();
+  };
+
+  ui.closeResetDialog = function () {
+    if ($('reset-dialog').returnValue !== 'reset') return;
+    const removed = Quizy.resetWrong();
+    storage.saveAttempts(state.subject.key, state.attempts);
+    ui.updateStats();
+    ui.updateNote();
+    // Cleared first, so the same message is announced again after another reset.
+    $('reset-status').textContent = '';
+    setTimeout(() => { $('reset-status').textContent = `Reset ${plural(removed.length, 'wrong answer')}.`; }, 50);
+    // The reset button is hidden now, so keep focus on its card.
+    $('review-stat').focus();
   };
 
   // The questions the current setup choices select, in set order.
