@@ -37,7 +37,7 @@ window.QUIZY_DATA = {
     {
       "key": "do",
       "code": "COMS4050A",
-      "name": "DO",
+      "name": "Discrete Optimisation",
       "theme": {
         "accent": "#9a5c15",
         "paper": "#f7f4ef",

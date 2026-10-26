@@ -11,6 +11,7 @@
 
 - Write commit subjects as short, sentence-case imperative phrases with no type prefix and no trailing period.
 - Describe the change directly, for example: `Add banana`, `Fix quiz scoring`, or `Update content guidelines`.
+- Never use AI assistant, company, or model brand names in commit messages or branch names. Use neutral, purpose-specific wording instead.
 
 ## Project constraints
 

@@ -9,7 +9,7 @@ It is a multi-subject app. Each subject has its own theme and a list of quiz set
 |---|---|---|
 | `dve` | COMS4060A Data Visualisation & Exploration | `dve-lecture-bank` (421 questions, lectures 1–6) |
 | `nlp` | COMS4054A Natural Language Processing | `nlp-past-quiz-2-2025` (25 questions / 50 marks), `nlp-practice-quiz`, `nlp-tutorial`, `nlp-new-questions` (new exam-style questions) and `nlp-label-diagrams` (`label` questions, images in `data/nlp/img/labels/`); the last two are kind `generated` and written by the content author (Claude in the owner's Cowork chat), who also maintains the LaTeX in `data/nlp/` |
-| `do`  | COMS4050A DO (full name not given yet; the owner calls it "DO") | none yet, so the app shows a "No quizzes yet" state |
+| `do`  | COMS4050A Discrete Optimisation (the owner calls it "DO") | none yet, so the app shows a "No quizzes yet" state |
 
 There is no in-app editing, no accounts and no backend. Content is changed by editing JSON under `data/` and rebuilding.
 
@@ -251,7 +251,7 @@ Last full verification before that: 2026-10-12 (after adding maths rendering and
 - In-app editing, accounts, sync, analytics.
 
 ## Open questions
-- DO's full course name, if the owner wants it shown. The code `COMS4050A` is confirmed correct; the name is currently just `"DO"`.
+- None at the moment. (DO's full name, Discrete Optimisation, was confirmed on 2026-10-26.)
 
 ## Note on publishing
 GitHub Pages sites are public. University past-paper questions in a public repo may be against course rules. Mention this to the owner before pushing and don't push unless asked.
