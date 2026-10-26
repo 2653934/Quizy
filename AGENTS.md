@@ -7,6 +7,11 @@
 - Use a dedicated feature branch for changes unless the user explicitly requests otherwise.
 - Do not commit, merge, push, publish, or alter GitHub Pages unless the user explicitly asks.
 
+## Commit message convention
+
+- Write commit subjects as short, sentence-case imperative phrases with no type prefix and no trailing period.
+- Describe the change directly, for example: `Add banana`, `Fix quiz scoring`, or `Update content guidelines`.
+
 ## Project constraints
 
 - Quizy is a static, phone-first app built with plain HTML, CSS, and JavaScript.
