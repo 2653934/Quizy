@@ -9,6 +9,6 @@
     {"key": "do", "code": "COMS4050A", "name": "Discrete Optimisation",
      "theme": {"accent": "#9a5c15", "paper": "#f7f4ef", "light": "#f3e6d3", "aside": "#efe9df"},
      "topics": {"1": "Network flow", "2": "Genetic algorithm", "3": "Simulated annealing", "4": "B&B and relaxation", "5": "Assignment", "6": "Clique", "7": "Bisection & max-cut", "8": "Facility location", "9": "TSP", "10": "Approximation", "11": "Covering", "12": "Out of scope"},
-     "sets": ["do-2024-exam", "do-pt-2022", "do-pt-2021", "do-exam-2021", "do-escience-2021", "do-pt-2019", "do-pt-2017", "do-pt-2016", "do-tut-1", "do-tut-2", "do-tut-3"]}
+     "sets": ["do-2024-exam", "do-pt-2022", "do-pt-2021", "do-exam-2021", "do-escience-2021", "do-pt-2019", "do-pt-2017", "do-pt-2016", "do-tut-1", "do-tut-2", "do-tut-3", "do-older-papers"]}
   ]
 }

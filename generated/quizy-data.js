@@ -69,7 +69,8 @@ window.QUIZY_DATA = {
         "do-pt-2016",
         "do-tut-1",
         "do-tut-2",
-        "do-tut-3"
+        "do-tut-3",
+        "do-older-papers"
       ]
     }
   ],
@@ -33324,6 +33325,435 @@ window.QUIZY_DATA = {
           ],
           "solution": "Penalty function (maximisation): $F(x; R) = \\sum_i v_ix_i - 20\\max\\{0, \\sum_i w_ix_i - 100\\}$, $x \\in \\{0,1\\}^6$.\nRules: each epoch flips every unlocked bit of the current point one at a time and evaluates $F$; the best flip is kept and its bit locked. As soon as a flip beats the overall best, that point becomes the new overall best and a new pass starts from it (hint b). A pass that locks every bit without beating the overall best ends the search.\nStart: $x^0 = (101010)$: $F = 7 + 8 + 3 = 18$ (cost 65).\nPass 1, epoch 1: $(001010)$: 11; $(111010)$: $7 + 5 + 8 + 3 = 23 > 18$ (cost 95) → new overall best.\nPass 2 from $(111010)$, 23. Epoch 1: $(011010)$: 16, $(101010)$: 18, $(110010)$: 15, $(111110)$: $27 - 20 \\cdot 5 = -73$, $(111000)$: 20, $(111011)$: $32 - 20 \\cdot 20 = -368$. Best is $(101010)$, 18: lock bit 2. Epoch 2: $(001010)$: 11, $(100010)$: 10, $(101110)$: 22, $(101000)$: 15, $(101011)$: $7 + 8 + 3 + 9 = 27 > 23$ (cost 90) → new overall best.\nPass 3 from $(101011)$, 27. Epoch 1: $(001011)$: 20, $(111011)$: −368, $(100011)$: 19, $(101111)$: $7 + 8 + 4 + 3 + 9 = 31 > 27$ (cost 100) → new overall best.\nPass 4 from $(101111)$, 31. Epoch 1: $(001111)$: 24, $(111111)$: $36 - 20 \\cdot 30 = -564$, $(100111)$: 23, $(101011)$: 27, $(101101)$: 28, $(101110)$: 22. Best $(101101)$, 28: lock bit 5. Epoch 2: $(001101)$: 21, $(111101)$: $7 + 5 + 8 + 4 + 9 = 33 > 31$ (cost 100) → new overall best.\nPass 5 from $(111101)$, 33. Epoch 1: best flip $(111001)$, 29 (others 26, 28, 25, −564, 24): lock bit 4. Epoch 2: best $(101001)$, 24: lock bit 2. Epoch 3: best $(101011)$, 27: lock bit 5. Epoch 4: best $(001011)$, 20: lock bit 1. Epoch 5: best $(000011)$, 12: lock bit 3. Epoch 6: $(000010)$, 3. All bits locked and nothing beat 33, so the search stops.\n$$x^* = (111101), \\qquad F(x^*; R) = f(x^*) = 33,$$\nwith cost $20 + 30 + 15 + 10 + 25 = 100 \\le 100$ (feasible, no penalty). Checking all 64 binary vectors confirms 33 is the true optimum.",
           "explanation": "Follows the lecturer's handwritten solution in Tut2&3.pdf pp. 9–13 (same passes, $x^* = (111101)$, $f(x^*) = 33$). Course notes: the FM pass/epoch scheme and IILS, DisCopt.pdf PDF pp. 42–45 (with the penalty function in footnote 8). The penalty values and the optimum were checked with a short script. In the exam, show each pass and epoch, not just the number."
+        }
+      ]
+    },
+    "do-older-papers": {
+      "id": "do-older-papers",
+      "title": "Older papers (2008–2013)",
+      "kind": "past-paper",
+      "description": "Questions from 2008–2013 tests and exams (TSP route counts, max-cut, GA operators, tournament selection, inversion/translation/switching), copied word for word from the extracts in the scope question pack. Only papers that are not already a set are included. Write or think your answer, reveal the model answer, then tick the marking points you covered. Answers are written from the course notes and are unofficial.",
+      "sourceFile": "04 Prep/Scope_Questions.pdf (items 10–12, 27, 30–35, 39–41)",
+      "unofficialAnswers": true,
+      "transcriptionNotes": "The original 2008–2013 papers are not in the folder; the text is the typed extract in Scope_Questions.pdf, kept as printed (\"why one uses this\", \"What is the main features\", \"explained them\"). Each question's source gives the paper and question number. Items 34 and 35 are partial extracts (the real-coded GA and cooling-schedule clauses are left out there), so their marks (6 and 4) are assigned here. In item 12 the permutation symbol and arrow did not survive in the PDF and are written as $\\pi : \\{1, ..., n\\} \\to \\{1, ..., n\\}$. Questions repeated across papers share a variantOf group. Items from papers that already have a set (2016, 2017, 2019, 2021, 2022) are skipped. Model answers and rubrics were written by an AI assistant from the course notes.",
+      "subject": "do",
+      "questions": [
+        {
+          "id": "do-old-apr13-3",
+          "source": {
+            "paper": "April 2013 test",
+            "number": "3"
+          },
+          "lecture": 9,
+          "concept": "Counting STSP routes",
+          "type": "written",
+          "marks": 2,
+          "question": "Explain why there are (n - 1)! / 2 possible distinct routes in a TSP with n cities. [2 marks]",
+          "modelAnswer": "Fix the home city (a tour is a cycle, so its starting point does not matter). The other $n - 1$ cities can then be visited in any order: $(n-1)(n-2)\\cdots 1 = (n-1)!$ sequences. In the (symmetric) TSP, $c_{ij} = c_{ji}$, so a sequence and its reverse are the same tour with the same length (e.g. $1 \\to 2 \\to 3 \\to 4 \\to 1$ and $1 \\to 4 \\to 3 \\to 2 \\to 1$). Every tour is therefore counted exactly twice, giving\n$$\\frac{(n-1)!}{2}$$\ndistinct routes. (For the asymmetric TSP the reverse has a different length, so all $(n-1)!$ are distinct.)",
+          "rubric": [
+            {
+              "point": "Fix the start city: $(n-1)!$ orders of the other cities",
+              "marks": 1
+            },
+            {
+              "point": "Each tour and its reverse have the same length (symmetric), so divide by 2",
+              "marks": 1
+            }
+          ],
+          "explanation": "Question text from Scope_Questions.pdf item 10 (TSP part only). Course notes: DisCopt.pdf PDF p. 21 (\"½(n − 1)! for the symmetric TSP with home city being fixed\").",
+          "variantOf": "tsp-half-count"
+        },
+        {
+          "id": "do-old-oct11-3",
+          "source": {
+            "paper": "October 2011 test",
+            "number": "3"
+          },
+          "lecture": 9,
+          "concept": "Counting STSP routes",
+          "type": "written",
+          "marks": 3,
+          "question": "Explain why there are (n - 1)! / 2 possible distinct routes in a TSP with n cities. [3 marks]",
+          "modelAnswer": "Fix the home city (a tour is a cycle, so its starting point does not matter). The other $n - 1$ cities can then be visited in any order: $(n-1)(n-2)\\cdots 1 = (n-1)!$ sequences. In the (symmetric) TSP, $c_{ij} = c_{ji}$, so a sequence and its reverse are the same tour with the same length (e.g. $1 \\to 2 \\to 3 \\to 4 \\to 1$ and $1 \\to 4 \\to 3 \\to 2 \\to 1$). Every tour is therefore counted exactly twice, giving\n$$\\frac{(n-1)!}{2}$$\ndistinct routes. (For the asymmetric TSP the reverse has a different length, so all $(n-1)!$ are distinct.)",
+          "rubric": [
+            {
+              "point": "Fix the start city (a tour is a cycle)",
+              "marks": 1
+            },
+            {
+              "point": "$(n-1)!$ orders of the remaining cities",
+              "marks": 1
+            },
+            {
+              "point": "Symmetric: a tour and its reverse are the same, so divide by 2",
+              "marks": 1
+            }
+          ],
+          "explanation": "Question text from Scope_Questions.pdf item 11 (TSP part only). Course notes: DisCopt.pdf PDF p. 21 (\"½(n − 1)! for the symmetric TSP with home city being fixed\").",
+          "variantOf": "tsp-half-count"
+        },
+        {
+          "id": "do-old-nov11-2b",
+          "source": {
+            "paper": "November 2011 exam",
+            "number": "2(b)"
+          },
+          "lecture": 9,
+          "concept": "TSP cost over permutations",
+          "type": "written",
+          "marks": 2,
+          "question": "Let $S$ be the set of all permutations $\\pi : \\{1, ..., n\\} \\to \\{1, ..., n\\}$. Use $S$ to write the cost function for the Travelling Salesman problem. [2 marks]",
+          "modelAnswer": "A permutation $\\pi \\in S$ lists the cities in the order they are visited: $\\pi(1), \\pi(2), \\dots, \\pi(n)$, then back to $\\pi(1)$. With distances $c_{ij}$, the length of that tour is\n$$f(\\pi) = \\sum_{k=1}^{n-1} c_{\\pi(k)\\pi(k+1)} + c_{\\pi(n)\\pi(1)},$$\nand the TSP is $\\min_{\\pi \\in S} f(\\pi)$. The last term closes the cycle back to the start city.",
+          "rubric": [
+            {
+              "point": "Sum of $c_{\\pi(k)\\pi(k+1)}$ over consecutive cities",
+              "marks": 1
+            },
+            {
+              "point": "Plus the return edge $c_{\\pi(n)\\pi(1)}$, minimised over $\\pi \\in S$",
+              "marks": 1
+            }
+          ],
+          "explanation": "Question text from Scope_Questions.pdf item 12. The notes write the QAP over permutations the same way (DisCopt.pdf PDF pp. 33–34, eq. 69) and the TSP as a minimum-length Hamiltonian circuit (PDF p. 21)."
+        },
+        {
+          "id": "do-old-jun13-1d",
+          "source": {
+            "paper": "June 2013 exam",
+            "number": "1(d)"
+          },
+          "lecture": 7,
+          "concept": "Max-cut as graph partitioning",
+          "type": "written",
+          "marks": 4,
+          "question": "Give an example of an undirected edge-weighted (incomplete) graph $(G, w)$ by drawing, where $G = (V, E)$ is the graph and $w$ is the weight function. Use $V = \\{1, 2, ..., 5\\}$. Do you think that the max-cut problem is a graph partitioning problem? Why? [4 marks]",
+          "modelAnswer": "Example: $V = \\{1, 2, 3, 4, 5\\}$, $E = \\{(1,2), (1,3), (2,3), (2,4), (3,5), (4,5)\\}$ with weights $w_{12} = 3$, $w_{13} = 1$, $w_{23} = 2$, $w_{24} = 4$, $w_{35} = 5$, $w_{45} = 2$. It is incomplete: e.g. $(1,4)$, $(1,5)$, $(2,5)$, $(3,4)$ are missing (a complete graph on 5 vertices has 10 edges; this one has 6). Missing edges can be treated as weight 0.\nYes, max-cut is a graph partitioning problem: it partitions $V$ into two disjoint sets $S$ and $V \\setminus S$ (of any sizes) so that the total weight of the edges with one end in each set (the cut) is maximised:\n$$\\text{Max-Cut} = \\max_{S \\subseteq V} \\sum_{i \\in S,\\ j \\in V \\setminus S} w_{ij}.$$\nThe decision is exactly how to split the vertex set, which is what a partitioning problem is. On the example, $S = \\{2, 5\\}$ cuts every edge except $(1,3)$: value $3 + 2 + 4 + 5 + 2 = 16$, the maximum (checked over all splits).",
+          "rubric": [
+            {
+              "point": "A drawn undirected graph on $V = \\{1, \\dots, 5\\}$ with edge weights",
+              "marks": 1
+            },
+            {
+              "point": "It is incomplete (some pairs not joined)",
+              "marks": 1
+            },
+            {
+              "point": "Yes: max-cut splits $V$ into two disjoint parts",
+              "marks": 1
+            },
+            {
+              "point": "…maximising the total weight of the edges between the parts",
+              "marks": 1
+            }
+          ],
+          "explanation": "Question text from Scope_Questions.pdf item 27. Course notes: max-cut, DisCopt.pdf PDF pp. 41–42 (\"partition the set of vertices … into two subsets, such that the sum of the weights … is maximum\"); graph partitioning, PDF p. 40. The example and its maximum cut were checked by brute force.",
+          "answerImage": {
+            "src": "data/do/img/older-papers/do-old-jun13-1d-answer.png",
+            "alt": "Graph on vertices 1–5 with edges 1–2 (3), 1–3 (1), 2–3 (2), 2–4 (4), 3–5 (5), 4–5 (2). Vertices 2 and 5 are shaded; the five cut edges (all except 1–3) are highlighted, cut value 16."
+          }
+        },
+        {
+          "id": "do-old-apr13-2",
+          "source": {
+            "paper": "April 2013 test",
+            "number": "2"
+          },
+          "lecture": 2,
+          "concept": "GA operators and tournament selection",
+          "type": "written",
+          "marks": 6,
+          "question": "What are the main features of GA for creating a new generation of population? What is a tournament selection and why one uses this in GA? [4 + 2 marks]",
+          "modelAnswer": "A new generation $G(t+1)$ is created from $G(t)$ with these operations:\n1. Fitness evaluation: every chromosome (solution) is scored with the fitness function.\n2. Elitism: a small share of the best chromosomes (e.g. 10%) is copied unchanged into the next generation.\n3. Selection: parents are chosen with a preference for fitter chromosomes (e.g. tournament selection).\n4. Crossover: pairs of parents exchange parts of their strings to make two children (single- or double-point).\n5. Mutation: each gene of a child is changed with a small probability $p_\\mu$, which keeps diversity.\nChildren replace the rest of the population, and the loop repeats until the fitness values are close (small standard deviation) or a maximum number of generations is reached.\nTournament selection picks parents for crossover. Choose two members of the current population at random (different indices) and compare their fitness; the fitter one becomes parent A. Repeat with another random pair (members may be picked again) to get parent B. It favours fitter solutions, so good genes are passed on, but weaker solutions still have some chance (they win when paired with even weaker ones), which keeps diversity. It is simple and only needs fitness comparisons, not a scaled or sorted fitness.",
+          "rubric": [
+            {
+              "point": "Elitism (best solutions copied)",
+              "marks": 1
+            },
+            {
+              "point": "Selection of fitter parents",
+              "marks": 1
+            },
+            {
+              "point": "Crossover",
+              "marks": 1
+            },
+            {
+              "point": "Mutation",
+              "marks": 1
+            },
+            {
+              "point": "Tournament: two random members compared, the fitter becomes a parent (repeat for the second)",
+              "marks": 1
+            },
+            {
+              "point": "Why: favours fit solutions while keeping diversity; simple",
+              "marks": 1
+            }
+          ],
+          "explanation": "Question text from Scope_Questions.pdf item 30. Course notes: DisCopt.pdf PDF pp. 52–56 (elitism, selection, crossover, mutation and the GA steps); DiscreteGAcode.pdf pp. 1–2. Course notes: tournament selection, DisCopt.pdf PDF pp. 53–54; the lecturer's pseudocode DiscreteGAcode.pdf p. 1 (two random indices, the fitter one kept).",
+          "variantOf": "ga-features-tournament"
+        },
+        {
+          "id": "do-old-oct11-2",
+          "source": {
+            "paper": "October 2011 test",
+            "number": "2"
+          },
+          "lecture": 2,
+          "concept": "GA operators and tournament selection",
+          "type": "written",
+          "marks": 6,
+          "question": "What are the main features of GA for creating a new generation of population? What is a tournament selection and why one uses this in GA?",
+          "modelAnswer": "A new generation $G(t+1)$ is created from $G(t)$ with these operations:\n1. Fitness evaluation: every chromosome (solution) is scored with the fitness function.\n2. Elitism: a small share of the best chromosomes (e.g. 10%) is copied unchanged into the next generation.\n3. Selection: parents are chosen with a preference for fitter chromosomes (e.g. tournament selection).\n4. Crossover: pairs of parents exchange parts of their strings to make two children (single- or double-point).\n5. Mutation: each gene of a child is changed with a small probability $p_\\mu$, which keeps diversity.\nChildren replace the rest of the population, and the loop repeats until the fitness values are close (small standard deviation) or a maximum number of generations is reached.\nTournament selection picks parents for crossover. Choose two members of the current population at random (different indices) and compare their fitness; the fitter one becomes parent A. Repeat with another random pair (members may be picked again) to get parent B. It favours fitter solutions, so good genes are passed on, but weaker solutions still have some chance (they win when paired with even weaker ones), which keeps diversity. It is simple and only needs fitness comparisons, not a scaled or sorted fitness.",
+          "rubric": [
+            {
+              "point": "Elitism (best solutions copied)",
+              "marks": 1
+            },
+            {
+              "point": "Selection of fitter parents",
+              "marks": 1
+            },
+            {
+              "point": "Crossover",
+              "marks": 1
+            },
+            {
+              "point": "Mutation",
+              "marks": 1
+            },
+            {
+              "point": "Tournament: two random members compared, the fitter becomes a parent (repeat for the second)",
+              "marks": 1
+            },
+            {
+              "point": "Why: favours fit solutions while keeping diversity; simple",
+              "marks": 1
+            }
+          ],
+          "explanation": "Question text from Scope_Questions.pdf item 34 (relevant parts only: the real-coded GA clause is left out there). The original mark split is not given; 6 is assigned here, as in the April 2013 version. Course notes: DisCopt.pdf PDF pp. 52–56 (elitism, selection, crossover, mutation and the GA steps); DiscreteGAcode.pdf pp. 1–2. Course notes: tournament selection, DisCopt.pdf PDF pp. 53–54; the lecturer's pseudocode DiscreteGAcode.pdf p. 1 (two random indices, the fitter one kept).",
+          "variantOf": "ga-features-tournament"
+        },
+        {
+          "id": "do-old-nov12-3b",
+          "source": {
+            "paper": "November 2012 exam",
+            "number": "3(b)"
+          },
+          "lecture": 2,
+          "concept": "Tournament selection",
+          "type": "written",
+          "marks": 2,
+          "question": "Describe the tournament selection process in GA (Genetic Algorithm). [2 marks]",
+          "modelAnswer": "Tournament selection picks parents for crossover. Choose two members of the current population at random (different indices) and compare their fitness; the fitter one becomes parent A. Repeat with another random pair (members may be picked again) to get parent B. It favours fitter solutions, so good genes are passed on, but weaker solutions still have some chance (they win when paired with even weaker ones), which keeps diversity. It is simple and only needs fitness comparisons, not a scaled or sorted fitness.",
+          "rubric": [
+            {
+              "point": "Two members chosen at random and the fitter one becomes a parent",
+              "marks": 1
+            },
+            {
+              "point": "Repeated (independently) for the second parent",
+              "marks": 1
+            }
+          ],
+          "explanation": "Question text from Scope_Questions.pdf item 31. Course notes: tournament selection, DisCopt.pdf PDF pp. 53–54; the lecturer's pseudocode DiscreteGAcode.pdf p. 1 (two random indices, the fitter one kept).",
+          "variantOf": "ga-tournament"
+        },
+        {
+          "id": "do-old-nov11-3b",
+          "source": {
+            "paper": "November 2011 exam",
+            "number": "3(b)"
+          },
+          "lecture": 2,
+          "concept": "Tournament selection",
+          "type": "written",
+          "marks": 2,
+          "question": "Describe the tournament selection process in GA (Genetic Algorithm). [2 marks]",
+          "modelAnswer": "Tournament selection picks parents for crossover. Choose two members of the current population at random (different indices) and compare their fitness; the fitter one becomes parent A. Repeat with another random pair (members may be picked again) to get parent B. It favours fitter solutions, so good genes are passed on, but weaker solutions still have some chance (they win when paired with even weaker ones), which keeps diversity. It is simple and only needs fitness comparisons, not a scaled or sorted fitness.",
+          "rubric": [
+            {
+              "point": "Two members chosen at random and the fitter one becomes a parent",
+              "marks": 1
+            },
+            {
+              "point": "Repeated (independently) for the second parent",
+              "marks": 1
+            }
+          ],
+          "explanation": "Question text from Scope_Questions.pdf item 32. Course notes: tournament selection, DisCopt.pdf PDF pp. 53–54; the lecturer's pseudocode DiscreteGAcode.pdf p. 1 (two random indices, the fitter one kept).",
+          "variantOf": "ga-tournament"
+        },
+        {
+          "id": "do-old-mar10-3b",
+          "source": {
+            "paper": "March 2010 exam",
+            "number": "3(b)"
+          },
+          "lecture": 2,
+          "concept": "Tournament selection",
+          "type": "written",
+          "marks": 2,
+          "question": "Describe the tournament selection process in GA. [2 marks]",
+          "modelAnswer": "Tournament selection picks parents for crossover. Choose two members of the current population at random (different indices) and compare their fitness; the fitter one becomes parent A. Repeat with another random pair (members may be picked again) to get parent B. It favours fitter solutions, so good genes are passed on, but weaker solutions still have some chance (they win when paired with even weaker ones), which keeps diversity. It is simple and only needs fitness comparisons, not a scaled or sorted fitness.",
+          "rubric": [
+            {
+              "point": "Two members chosen at random and the fitter one becomes a parent",
+              "marks": 1
+            },
+            {
+              "point": "Repeated (independently) for the second parent",
+              "marks": 1
+            }
+          ],
+          "explanation": "Question text from Scope_Questions.pdf item 33. Course notes: tournament selection, DisCopt.pdf PDF pp. 53–54; the lecturer's pseudocode DiscreteGAcode.pdf p. 1 (two random indices, the fitter one kept).",
+          "variantOf": "ga-tournament"
+        },
+        {
+          "id": "do-old-mar08-1",
+          "source": {
+            "paper": "March 2008 test",
+            "number": "1"
+          },
+          "lecture": 2,
+          "concept": "Binary GA operators",
+          "type": "written",
+          "marks": 4,
+          "question": "What is the main features of GA for creating a new generation of population? For a binary coded GA explained them using strings of length 5.",
+          "modelAnswer": "A new generation $G(t+1)$ is created from $G(t)$ with these operations:\n1. Fitness evaluation: every chromosome (solution) is scored with the fitness function.\n2. Elitism: a small share of the best chromosomes (e.g. 10%) is copied unchanged into the next generation.\n3. Selection: parents are chosen with a preference for fitter chromosomes (e.g. tournament selection).\n4. Crossover: pairs of parents exchange parts of their strings to make two children (single- or double-point).\n5. Mutation: each gene of a child is changed with a small probability $p_\\mu$, which keeps diversity.\nChildren replace the rest of the population, and the loop repeats until the fitness values are close (small standard deviation) or a maximum number of generations is reached.\nBinary example (strings of length 5, maximising some fitness $f$):\n• Population: e.g. $10110$, $01011$, $11100$, $00111$, … each string is one solution.\n• Elitism: the fittest string, say $11100$, is copied straight into $G(t+1)$.\n• Selection (tournament): $10110$ vs $00111$ → the fitter, $10110$, is parent A; $01011$ vs $11100$… → parent B, say $01011$.\n• Single-point crossover after gene 2: $10|110$ and $01|011$ → children $10011$ and $01110$.\n• Mutation with small $p_\\mu$ per gene: e.g. gene 4 of $10011$ flips → $10001$.\nThe children join the elite strings in $G(t+1)$.",
+          "rubric": [
+            {
+              "point": "Selection of fitter parents (shown on strings)",
+              "marks": 1
+            },
+            {
+              "point": "Crossover shown on two length-5 strings",
+              "marks": 1
+            },
+            {
+              "point": "Mutation shown as a bit flip with small probability",
+              "marks": 1
+            },
+            {
+              "point": "Elitism / forming the new generation",
+              "marks": 1
+            }
+          ],
+          "explanation": "Question text from Scope_Questions.pdf item 35 (binary GA part only: the cooling-schedule clause is left out there; the original mixed question is worth 6 marks, 4 is assigned here). Course notes: DisCopt.pdf PDF pp. 52–56 (elitism, selection, crossover, mutation and the GA steps); DiscreteGAcode.pdf pp. 1–2. The crossover children were checked with a short script."
+        },
+        {
+          "id": "do-old-nov11-2a",
+          "source": {
+            "paper": "November 2011 exam",
+            "number": "2(a)"
+          },
+          "lecture": 9,
+          "concept": "TSP route count; inversion, translation, switching",
+          "type": "written",
+          "marks": 4,
+          "question": "Explain why there are (n - 1)! / 2 possible distinct routes in a Travelling Salesman problem with n cities. Take an example of 10 cities and explain how one can generate different solutions (routes) by Inversion, Translation and Switching processes. [4 marks]",
+          "modelAnswer": "Fix the home city (a tour is a cycle, so its starting point does not matter). The other $n - 1$ cities can then be visited in any order: $(n-1)(n-2)\\cdots 1 = (n-1)!$ sequences. In the (symmetric) TSP, $c_{ij} = c_{ji}$, so a sequence and its reverse are the same tour with the same length (e.g. $1 \\to 2 \\to 3 \\to 4 \\to 1$ and $1 \\to 4 \\to 3 \\to 2 \\to 1$). Every tour is therefore counted exactly twice, giving\n$$\\frac{(n-1)!}{2}$$\ndistinct routes. (For the asymmetric TSP the reverse has a different length, so all $(n-1)!$ are distinct.)\nWith 10 cities: $(10-1)!/2 = 181\\,440$.\nInversion: choose two positions and reverse the order of the cities between them (this is the 2-opt move).\nTranslation: remove a block of consecutive cities and re-insert it, in the same order, somewhere else in the tour.\nSwitching: exchange the positions of two cities.\nEach operation turns a permutation into another permutation, so every city is still visited exactly once: each gives a new feasible route (a neighbour), which a local search, SA or GA can use.\nExample with 10 cities, current tour $x = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)$ (then back to 1):\n• Inversion of the segment 3, 4, 5: $x' = (1, 2, 5, 4, 3, 6, 7, 8, 9, 10)$.\n• Translation of the block 3, 4, 5 to after city 8: $x' = (1, 2, 6, 7, 8, 3, 4, 5, 9, 10)$.\n• Switching cities 3 and 8: $x' = (1, 2, 8, 4, 5, 6, 7, 3, 9, 10)$.",
+          "rubric": [
+            {
+              "point": "$(n-1)!$: fix the start city, order the other $n - 1$",
+              "marks": 1
+            },
+            {
+              "point": "Divide by 2: a tour and its reverse are the same (symmetric)",
+              "marks": 1
+            },
+            {
+              "point": "Inversion shown on the example tour",
+              "marks": 0.5
+            },
+            {
+              "point": "Translation shown",
+              "marks": 0.75
+            },
+            {
+              "point": "Switching shown",
+              "marks": 0.75
+            }
+          ],
+          "explanation": "Question text from Scope_Questions.pdf item 39. Course notes: DisCopt.pdf PDF p. 21 (\"½(n − 1)! for the symmetric TSP with home city being fixed\"). The counts and example tours were checked with a short script.",
+          "keyDispute": "Inversion, translation and switching are not defined in DisCopt.pdf (the 2-opt move on PDF pp. 26–27 is the closest: it is an inversion). The answer uses the usual definitions for permutation-coded TSP: check them against your own lecture notes.",
+          "variantOf": "tsp-operators"
+        },
+        {
+          "id": "do-old-mar10-2",
+          "source": {
+            "paper": "March 2010 exam",
+            "number": "2"
+          },
+          "lecture": 9,
+          "concept": "TSP route count; inversion, translation, switching",
+          "type": "written",
+          "marks": 5,
+          "question": "Explain why there are (n - 1)! / 2 possible distinct routes in a Travelling Salesman problem with n cities. Take an example of 8 cities and explain how one can generate different solutions (routes) by Inversion, Translation and Switching processes. [5 marks]",
+          "modelAnswer": "Fix the home city (a tour is a cycle, so its starting point does not matter). The other $n - 1$ cities can then be visited in any order: $(n-1)(n-2)\\cdots 1 = (n-1)!$ sequences. In the (symmetric) TSP, $c_{ij} = c_{ji}$, so a sequence and its reverse are the same tour with the same length (e.g. $1 \\to 2 \\to 3 \\to 4 \\to 1$ and $1 \\to 4 \\to 3 \\to 2 \\to 1$). Every tour is therefore counted exactly twice, giving\n$$\\frac{(n-1)!}{2}$$\ndistinct routes. (For the asymmetric TSP the reverse has a different length, so all $(n-1)!$ are distinct.)\nWith 8 cities: $(8-1)!/2 = 2\\,520$.\nInversion: choose two positions and reverse the order of the cities between them (this is the 2-opt move).\nTranslation: remove a block of consecutive cities and re-insert it, in the same order, somewhere else in the tour.\nSwitching: exchange the positions of two cities.\nEach operation turns a permutation into another permutation, so every city is still visited exactly once: each gives a new feasible route (a neighbour), which a local search, SA or GA can use.\nExample with 8 cities, current tour $x = (1, 2, 3, 4, 5, 6, 7, 8)$ (then back to 1):\n• Inversion of the segment 3, 4, 5: $x' = (1, 2, 5, 4, 3, 6, 7, 8)$.\n• Translation of the block 3, 4, 5 to after city 6: $x' = (1, 2, 6, 3, 4, 5, 7, 8)$.\n• Switching cities 3 and 6: $x' = (1, 2, 6, 4, 5, 3, 7, 8)$.",
+          "rubric": [
+            {
+              "point": "$(n-1)!$: fix the start city, order the other $n - 1$",
+              "marks": 1
+            },
+            {
+              "point": "Divide by 2: a tour and its reverse are the same (symmetric)",
+              "marks": 1
+            },
+            {
+              "point": "Inversion shown on the example tour",
+              "marks": 1
+            },
+            {
+              "point": "Translation shown",
+              "marks": 1
+            },
+            {
+              "point": "Switching shown",
+              "marks": 1
+            }
+          ],
+          "explanation": "Question text from Scope_Questions.pdf item 40. Course notes: DisCopt.pdf PDF p. 21 (\"½(n − 1)! for the symmetric TSP with home city being fixed\"). The counts and example tours were checked with a short script.",
+          "keyDispute": "Inversion, translation and switching are not defined in DisCopt.pdf (the 2-opt move on PDF pp. 26–27 is the closest: it is an inversion). The answer uses the usual definitions for permutation-coded TSP: check them against your own lecture notes.",
+          "variantOf": "tsp-operators"
+        },
+        {
+          "id": "do-old-jun09-3",
+          "source": {
+            "paper": "June 2009 exam",
+            "number": "3"
+          },
+          "lecture": 9,
+          "concept": "TSP route count; inversion, translation, switching",
+          "type": "written",
+          "marks": 5,
+          "question": "Explain why there are (n - 1)! / 2 possible distinct routes in a Travelling Salesman problem with n cities. Take an example of 12 cities and explain how one can generate different solutions (routes) by Inversion, Translation and Switching processes. [5 marks]",
+          "modelAnswer": "Fix the home city (a tour is a cycle, so its starting point does not matter). The other $n - 1$ cities can then be visited in any order: $(n-1)(n-2)\\cdots 1 = (n-1)!$ sequences. In the (symmetric) TSP, $c_{ij} = c_{ji}$, so a sequence and its reverse are the same tour with the same length (e.g. $1 \\to 2 \\to 3 \\to 4 \\to 1$ and $1 \\to 4 \\to 3 \\to 2 \\to 1$). Every tour is therefore counted exactly twice, giving\n$$\\frac{(n-1)!}{2}$$\ndistinct routes. (For the asymmetric TSP the reverse has a different length, so all $(n-1)!$ are distinct.)\nWith 12 cities: $(12-1)!/2 = 19\\,958\\,400$.\nInversion: choose two positions and reverse the order of the cities between them (this is the 2-opt move).\nTranslation: remove a block of consecutive cities and re-insert it, in the same order, somewhere else in the tour.\nSwitching: exchange the positions of two cities.\nEach operation turns a permutation into another permutation, so every city is still visited exactly once: each gives a new feasible route (a neighbour), which a local search, SA or GA can use.\nExample with 12 cities, current tour $x = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)$ (then back to 1):\n• Inversion of the segment 3, 4, 5: $x' = (1, 2, 5, 4, 3, 6, 7, 8, 9, 10, 11, 12)$.\n• Translation of the block 3, 4, 5 to after city 10: $x' = (1, 2, 6, 7, 8, 9, 10, 3, 4, 5, 11, 12)$.\n• Switching cities 3 and 10: $x' = (1, 2, 10, 4, 5, 6, 7, 8, 9, 3, 11, 12)$.",
+          "rubric": [
+            {
+              "point": "$(n-1)!$: fix the start city, order the other $n - 1$",
+              "marks": 1
+            },
+            {
+              "point": "Divide by 2: a tour and its reverse are the same (symmetric)",
+              "marks": 1
+            },
+            {
+              "point": "Inversion shown on the example tour",
+              "marks": 1
+            },
+            {
+              "point": "Translation shown",
+              "marks": 1
+            },
+            {
+              "point": "Switching shown",
+              "marks": 1
+            }
+          ],
+          "explanation": "Question text from Scope_Questions.pdf item 41. Course notes: DisCopt.pdf PDF p. 21 (\"½(n − 1)! for the symmetric TSP with home city being fixed\"). The counts and example tours were checked with a short script.",
+          "keyDispute": "Inversion, translation and switching are not defined in DisCopt.pdf (the 2-opt move on PDF pp. 26–27 is the closest: it is an inversion). The answer uses the usual definitions for permutation-coded TSP: check them against your own lecture notes.",
+          "variantOf": "tsp-operators"
         }
       ]
     }
