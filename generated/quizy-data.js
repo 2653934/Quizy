@@ -65,7 +65,8 @@ window.QUIZY_DATA = {
         "do-exam-2021",
         "do-escience-2021",
         "do-pt-2019",
-        "do-pt-2017"
+        "do-pt-2017",
+        "do-pt-2016"
       ]
     }
   ],
@@ -32690,6 +32691,332 @@ window.QUIZY_DATA = {
             }
           ],
           "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF p. 19 (eqs. 26–29). Knapsack is outside the 2026 exam scope (topic 12)."
+        }
+      ]
+    },
+    "do-pt-2016": {
+      "id": "do-pt-2016",
+      "title": "Test 1 2016",
+      "kind": "past-paper",
+      "description": "COMS4050 Test I, 21 September 2016 (35 marks), transcribed word for word, one sub-part per question. Write or think your answer, reveal the model answer, then tick the marking points you covered. 1(d) follows the handwritten past-paper solutions; the rest is answered from the course notes. All answers are unofficial.",
+      "sourceFile": "03 Past Papers/DOPT2016.pdf",
+      "unofficialAnswers": true,
+      "totalMarks": 35,
+      "transcriptionNotes": "Question text copied from the PDF; words split by hyphenation are joined (\"Problem\"). Kept as printed: \"have four workers\", \"Described what do you mean\", \"Described the meaning\". Table 1 of 1(d) is shown as a cropped image. Model answers and rubrics were written by an AI assistant from the handwritten solution (Past Paper Solutions 2024 Exam.pdf p. 14, for 1(d)) and the course notes; rubric marks follow the printed mark split.",
+      "subject": "do",
+      "questions": [
+        {
+          "id": "do-pt16-1a",
+          "source": {
+            "number": "1(a)"
+          },
+          "lecture": 9,
+          "concept": "Hamiltonian vs Eulerian cycle",
+          "type": "written",
+          "marks": 4,
+          "question": "Describe the difference between the Hamiltonian and the Eulerian cycle in graph theory. Use an example graph for each concept. [4 Marks ]",
+          "modelAnswer": "Hamiltonian cycle: a cycle that visits every vertex exactly once and returns to the start (it need not use every edge).\nEulerian cycle: a closed walk that uses every edge exactly once and returns to the start (vertices may be visited several times). An undirected connected graph has one if and only if every vertex has even degree.\nSo the difference is vertices versus edges: Hamiltonian = each vertex once, Eulerian = each edge once. (The TSP looks for a minimum-cost Hamiltonian cycle.)\nExample 1 (Hamiltonian, not Eulerian): square 1–2–5–4–1 with a centre vertex 3 joined to 1, 2, 4, 5. The cycle 1–2–3–5–4–1 visits every vertex once. It is not Eulerian: vertices 1, 2, 4, 5 have odd degree 3.\nExample 2 (Eulerian, not Hamiltonian): a \"bow-tie\", two triangles 1–3–4 and 2–3–5 sharing vertex 3. The closed walk 1–3–2–5–3–4–1 uses all 6 edges once (degrees 2, 2, 4, 2, 2 are all even). It is not Hamiltonian: any cycle through all vertices must pass through 3 twice.",
+          "rubric": [
+            {
+              "point": "Hamiltonian cycle: visits every vertex exactly once and returns to the start",
+              "marks": 1
+            },
+            {
+              "point": "Eulerian cycle: uses every edge exactly once and returns to the start",
+              "marks": 1
+            },
+            {
+              "point": "Example graph with a Hamiltonian cycle shown",
+              "marks": 1
+            },
+            {
+              "point": "Example graph with an Eulerian cycle shown",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. The same question (DOPT2021 Q2(b)) is answered in Past Paper Solutions 2024 Exam.pdf p. 9. Course notes: Euler and Hamilton paths and circuits, DisCopt.pdf PDF pp. 4–5 (with the even-degree condition and Figures 7–8).",
+          "answerImage": {
+            "src": "data/do/img/pt-2016/do-pt16-1a-answer.png",
+            "alt": "Two example graphs. Left (Hamiltonian): square 1–2–5–4 with centre 3 joined to all four corners; the Hamiltonian cycle 1–2–3–5–4–1 is highlighted. Right (Eulerian): bow-tie of triangles 1–3–4 and 2–3–5 sharing vertex 3; the Eulerian circuit 1–3–2–5–3–4–1 uses all six edges."
+          }
+        },
+        {
+          "id": "do-pt16-1b",
+          "source": {
+            "number": "1(b)"
+          },
+          "lecture": 1,
+          "concept": "Node balance (flow conservation)",
+          "type": "written",
+          "marks": 2,
+          "question": "Consider the max-flow problem of a directed network with a source node $s$ and the sink node $t$. Let $x_{ij}$ denote the amount of flow between the node $i$ and node $j$. Write the node balanced equation of a node $i$ where $i \\ne s$ and $i \\ne t$. [2 Marks ]",
+          "modelAnswer": "For an intermediate node $i$ the flow out equals the flow in:\n$$\\sum_{j} x_{ij} - \\sum_{j} x_{ji} = 0, \\qquad i \\ne s,\\ i \\ne t,$$\nwhere $x_{ij}$ is the flow on arc $(i,j)$ (leaving $i$) and $x_{ji}$ the flow on arc $(j,i)$ (entering $i$), with $0 \\le x_{ij} \\le u_{ij}$. (At the source the difference is $+F$ and at the sink $-F$, the flow value.)",
+          "rubric": [
+            {
+              "point": "Outflow $\\sum_j x_{ij}$ minus inflow $\\sum_j x_{ji}$",
+              "marks": 1
+            },
+            {
+              "point": "…equals 0 for every intermediate node",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF p. 8 (eqs. 7–9); NetworkFlowP.pdf p. 2 (eq. 2)."
+        },
+        {
+          "id": "do-pt16-1c",
+          "source": {
+            "number": "1(c)"
+          },
+          "lecture": 1,
+          "concept": "Augmenting path and residual network",
+          "type": "written",
+          "marks": 4,
+          "question": "Define the following concepts in the Ford Fulkerson algorithm for max-flow problem: (a) An Augmenting Path; (b) the Residual Network corresponding to a feasible flow of amount $x$. Be brief in your answer. [4 Marks ]",
+          "modelAnswer": "(a) An augmenting path $P$ is a simple directed path from the source $s$ to the sink $t$ in the residual network $G_x$, i.e. every arc on it still has positive residual capacity $r_{ij} > 0$. Its capacity is the bottleneck\n$$\\delta(P) = \\min_{(i,j) \\in P} r_{ij},$$\nand the flow from $s$ to $t$ can be increased by $\\delta(P)$ by sending that much along every arc of $P$ (then $r_{ij} \\leftarrow r_{ij} - \\delta(P)$, $r_{ji} \\leftarrow r_{ji} + \\delta(P)$). Ford–Fulkerson stops when no augmenting path exists; the flow is then maximum.\n(b) Given a feasible flow $x$ with capacities $u_{ij}$, the residual network $G_x = (V, E_x)$ has the same nodes, and each arc $(i,j)$ of the network is replaced by two arcs:\n• forward arc $(i,j)$ with residual capacity $r_{ij} = u_{ij} - x_{ij}$ (how much more flow can still be sent from $i$ to $j$);\n• backward arc $(j,i)$ with residual capacity $r_{ji} = x_{ij}$ (how much of the existing flow can be cancelled by sending it back).\n$E_x$ keeps only the arcs with $r_{ij} > 0$. So the residual network shows where extra flow can still be pushed (or undone), and augmenting paths are searched for in it.",
+          "rubric": [
+            {
+              "point": "Augmenting path: a directed $s$–$t$ path in the residual network, every arc with positive residual capacity",
+              "marks": 1
+            },
+            {
+              "point": "Its bottleneck $\\delta(P) = \\min r_{ij}$ is the amount the flow can be increased by",
+              "marks": 1
+            },
+            {
+              "point": "Residual network: forward arcs with $r_{ij} = u_{ij} - x_{ij}$ (remaining capacity)",
+              "marks": 1
+            },
+            {
+              "point": "Backward arcs with $r_{ji} = x_{ij}$ (flow that can be cancelled); only positive residual arcs kept",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 15–17 (residual network, augmenting path, $\\delta(P)$, the algorithm); NetworkFlowP.pdf pp. 7–8 (sections 4.1–4.2); FordFulkerson.pdf pp. 1–3 (worked example)."
+        },
+        {
+          "id": "do-pt16-1d",
+          "source": {
+            "number": "1(d)"
+          },
+          "lecture": 5,
+          "concept": "Linear assignment model",
+          "type": "written",
+          "marks": 4,
+          "question": "The manager of Hotel in Johannesburg have four workers: Agness, Rose, Joyce and Zainab. The manager needs to have one of them clean the bathroom of the hotel, another sweeps the floor of the hotel, the third to be a receptionist and the last person to cook food for the guests and management, but they each demand different pay for their different tasks. The table below represents the costs $c_{ij}$ of the workers $i$ doing the jobs (tasks) $j$, where ZAR is the South African Rand. Formulate the linear assignment problem. [4 Marks ]",
+          "modelAnswer": "Index the workers $i = 1, 2, 3, 4$ (Agness, Rose, Joyce, Zainab) and the jobs $j = 1, 2, 3, 4$ (Cleaning, Sweeping, Receptionist, Cooking); $c_{ij}$ is the table entry (in rand).\nVariables: $x_{ij} = 1$ if worker $i$ is assigned to job $j$, 0 otherwise.\n$$\\min \\sum_{i=1}^{4}\\sum_{j=1}^{4} c_{ij}x_{ij} = 9000x_{11} + 7500x_{12} + 7500x_{13} + 800x_{14} + 3500x_{21} + \\dots + 11000x_{44}$$\n$$\\text{s.t.}\\quad \\sum_{j=1}^{4} x_{ij} = 1 \\ \\ (i = 1, \\dots, 4), \\qquad \\sum_{i=1}^{4} x_{ij} = 1 \\ \\ (j = 1, \\dots, 4), \\qquad x_{ij} \\in \\{0, 1\\}.$$\nThe first set says each worker does exactly one job; the second that each job is done by exactly one worker.\n(Not asked, but useful: the cheapest assignment is Agness → Cooking (800), Rose → Receptionist (5500), Joyce → Sweeping (9500), Zainab → Cleaning (4500), total ZAR20 300; found by checking all $4! = 24$ assignments.)",
+          "rubric": [
+            {
+              "point": "Binary variables $x_{ij}$ (worker $i$ to job $j$) defined, with the indices matched to the table",
+              "marks": 1
+            },
+            {
+              "point": "Objective $\\min \\sum_i\\sum_j c_{ij}x_{ij}$ using the table costs",
+              "marks": 1
+            },
+            {
+              "point": "Each worker exactly one job: $\\sum_j x_{ij} = 1$ for every $i$",
+              "marks": 1
+            },
+            {
+              "point": "Each job exactly one worker: $\\sum_i x_{ij} = 1$ for every $j$, and $x_{ij} \\in \\{0,1\\}$",
+              "marks": 1
+            }
+          ],
+          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 14 (\"2016 paper\"). Course notes: the same hotel example, DisCopt.pdf PDF pp. 10–12 (eqs. 14–17, Table 1). The optimal assignment was checked by enumeration.",
+          "image": {
+            "src": "data/do/img/pt-2016/do-pt16-1d.png",
+            "alt": "Table 1: Data showing the cost of workers doing different jobs. Rows are workers, columns are the jobs Cleaning, Sweeping, Receptionist, Cooking. Agness: ZAR9000, ZAR7500, ZAR7500, ZAR800. Rose: ZAR3500, ZAR8500, ZAR5500, ZAR6500. Joyce: ZAR12500, ZAR9500, ZAR9000, ZAR10500. Zainab: ZAR4500, ZAR11000, ZAR9500, ZAR11000."
+          }
+        },
+        {
+          "id": "do-pt16-2a",
+          "source": {
+            "number": "2(a)"
+          },
+          "lecture": 4,
+          "concept": "LP vs ILP",
+          "type": "written",
+          "marks": 3,
+          "question": "Differentiate between a Linear Programming (LP) Problem and an integer Linear Programming (ILP) Problem. Which of the problems in your view is most difficult to solve? Why? [3 Marks ]",
+          "modelAnswer": "LP: linear objective and linear constraints, and the variables are continuous (real numbers, e.g. $x \\ge 0$).\nILP: the same linear objective and constraints, but some or all variables must take integer values (e.g. $x_j \\in \\mathbb{Z}$ or $x_j \\in \\{0, 1\\}$).\nThe ILP is the harder one. The LP feasible set is a convex polyhedron and an optimum is at a vertex, so the simplex or interior-point methods solve it efficiently (in polynomial time). The ILP feasible set is a discrete set of points, not convex, so those methods cannot be used directly; in general ILP is NP-hard and the number of candidate solutions grows exponentially. It is solved with methods such as branch and bound, which solve many LP relaxations, and simply rounding the LP solution can be infeasible or far from optimal.",
+          "rubric": [
+            {
+              "point": "LP: continuous variables (linear objective and constraints)",
+              "marks": 1
+            },
+            {
+              "point": "ILP: the variables (some or all) are restricted to integers",
+              "marks": 1
+            },
+            {
+              "point": "ILP is harder: discrete/non-convex feasible set, NP-hard, needs B&B (LP solved in polynomial time)",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF p. 19 (combinatorial problems formulated as integer programs), PDF p. 7 (LP relaxation of an ILP) and PDF pp. 46–48 (B&B solves ILPs through LP relaxations)."
+        },
+        {
+          "id": "do-pt16-2b",
+          "source": {
+            "number": "2(b)"
+          },
+          "lecture": 9,
+          "concept": "TSP routes and subtour elimination",
+          "type": "written",
+          "marks": 4,
+          "question": "Explain why there are $(n-1)!$ possible distinct routes in a Traveling Salesman Problem (TSP) with $n$ cities. Described what do you mean by the sub-tour elimination constraints in the mathematical model of the TSP? [2 + 2 Marks ]",
+          "modelAnswer": "Fix the home (starting) city: a tour is a cycle, so where it starts does not matter. The second city can then be any of the remaining $n - 1$ cities, the third any of the remaining $n - 2$, and so on until the last city is forced:\n$$1 \\times (n-1) \\times (n-2) \\times \\cdots \\times 2 \\times 1 = (n-1)!$$\nEach order is a different route (this count treats a tour and its reverse as different, which is right for the asymmetric TSP; in the symmetric TSP they have the same length, so there are $\\tfrac{1}{2}(n-1)!$ distinct tours).\nSub-tour elimination constraints: the degree/assignment constraints alone (each city entered once and left once) allow solutions that are several separate cycles (sub-tours), e.g. $1 \\to 2 \\to 3 \\to 1$ and $4 \\to 5 \\to \\dots \\to n \\to 4$, which are not one tour. The sub-tour elimination constraints forbid any proper subset $S$ of cities from forming a closed cycle on its own, by allowing at most $|S| - 1$ selected edges inside $S$:\n$$\\text{ATSP: } \\sum_{i \\in S}\\sum_{j \\in S, j \\ne i} x_{ij} \\le |S| - 1,\\ 2 \\le |S| \\le n-2; \\qquad \\text{STSP: } \\sum_{e \\in E(S)} x_e \\le |S| - 1,\\ 3 \\le |S| \\le n-3.$$\nSo every feasible solution is a single tour through all $n$ cities.",
+          "rubric": [
+            {
+              "point": "Fix the starting city",
+              "marks": 1
+            },
+            {
+              "point": "Remaining $n - 1$ cities ordered in $(n-1)!$ ways",
+              "marks": 1
+            },
+            {
+              "point": "Sub-tours: separate cycles that satisfy the degree constraints but are not one tour",
+              "marks": 1
+            },
+            {
+              "point": "Constraint: at most $|S| - 1$ edges inside any proper subset $S$ (formula), so no subset can close a cycle",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF p. 21 (\"(n − 1)! possible tours … in the asymmetric TSP (and ½(n − 1)! for the symmetric TSP with home city being fixed)\"); QAP over all permutations $S_n$, PDF pp. 33–34 (eq. 69). Course notes: ATSP model with subtour constraints, DisCopt.pdf PDF pp. 21–22 (eqs. 33–38: \"the solution without (37) is not a tour but a collection of directed cycles called subtours\"); STSP model, PDF pp. 22–23 (eqs. 39–42)."
+        },
+        {
+          "id": "do-pt16-2c",
+          "source": {
+            "number": "2(c)"
+          },
+          "lecture": 10,
+          "concept": "α-approximation and Christofides",
+          "type": "written",
+          "marks": 3,
+          "question": "Define an $\\alpha$-approximation algorithm of a minimization problem. What is the value of $\\alpha$ in the Christofides algorithm for TSP? [2 + 1 Marks ]",
+          "modelAnswer": "Let $P$ be a minimisation problem with set of instances $\\mathcal{I}$, and let $A$ be an algorithm that returns a feasible solution $A(I)$ for every instance $I \\in \\mathcal{I}$. $A$ is an $\\alpha$-approximation algorithm ($\\alpha \\ge 1$) if it finds that feasible solution in polynomial time for every instance and\n$$A(I) \\le \\alpha \\cdot OPT(I) \\quad \\text{for all } I \\in \\mathcal{I},$$\nwhere $OPT(I)$ is the optimal (minimum) value of instance $I$. So the answer is never worse than $\\alpha$ times the optimum; the closer $\\alpha$ is to 1, the better the guarantee.\nChristofides algorithm (symmetric TSP with distances satisfying the triangle inequality): $\\alpha = \\tfrac{3}{2}$.",
+          "rubric": [
+            {
+              "point": "Feasible solution for every instance in polynomial time",
+              "marks": 1
+            },
+            {
+              "point": "$A(I) \\le \\alpha\\, OPT(I)$ for all instances, $\\alpha \\ge 1$",
+              "marks": 1
+            },
+            {
+              "point": "Christofides: $\\alpha = 3/2$",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. The same question (2021 exam) is answered in Past Paper Solutions 2024 Exam.pdf p. 6. Course notes: DisCopt.pdf PDF p. 24 (section 2.3.1, eq. 47). Christofides: PDF p. 24."
+        },
+        {
+          "id": "do-pt16-2d",
+          "source": {
+            "number": "2(d)"
+          },
+          "lecture": 9,
+          "concept": "2-opt neighbour",
+          "type": "written",
+          "marks": 2,
+          "question": "Consider the 7 city TSP with a feasible tour $x = (1, 3, 2, 6, 7, 4, 5)$ where the 1st city is the starting city. Construct a 2-Opt neighbor of $x$. [2 Marks ]",
+          "modelAnswer": "2-opt move: delete two non-adjacent edges $(c_i, c_{i+1})$ and $(c_j, c_{j+1})$ of the tour and reconnect with $(c_i, c_j)$ and $(c_{i+1}, c_{j+1})$; this reverses the cities in positions $i+1, \\dots, j$. Positions (not city labels) of $x$: $c_1 = 1, c_2 = 3, c_3 = 2, c_4 = 6, c_5 = 7, c_6 = 4, c_7 = 5$ (city 1 stays first).\nTake $i = 2$, $j = 4$: remove the edges (3, 2) and (6, 7), add (3, 6) and (2, 7), reversing the segment \"2, 6\":\n$$x' = (1, 3, 6, 2, 7, 4, 5).$$\nAny other valid choice is also correct, e.g. $i = 1, j = 3$: $(1, 2, 3, 6, 7, 4, 5)$.",
+          "rubric": [
+            {
+              "point": "Two tour edges removed and the segment between them reversed (edges named)",
+              "marks": 1
+            },
+            {
+              "point": "A valid neighbour tour with city 1 first",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. The same neighbour is in Past Paper Solutions 2024 Exam.pdf p. 8 (e-Science 2021). Course notes: the 2-opt move and the full neighbour list of a 7-city tour, DisCopt.pdf PDF pp. 26–27 (eqs. 49–50)."
+        },
+        {
+          "id": "do-pt16-3a",
+          "source": {
+            "number": "3(a)"
+          },
+          "lecture": 11,
+          "concept": "Set covering problem",
+          "type": "written",
+          "marks": 4,
+          "question": "Define the set covering problem and write down its mathematical model. Describe the physical meaning of the constraint sets in the mathematical model. [4 Marks ]",
+          "modelAnswer": "Definition: given a set $S = \\{1, \\dots, n\\}$ of items and a family of subsets $S_1, \\dots, S_m$ of $S$, where choosing $S_j$ costs $c_j > 0$, choose some of the subsets so that their union is $S$ (every item is covered) at minimum total cost.\nData: $a_{ij} = 1$ if item $i$ is in $S_j$, $a_{ij} = 0$ otherwise ($i = 1, \\dots, n$; $j = 1, \\dots, m$).\nDecision variables: $x_j = 1$ if subset $S_j$ is chosen, $x_j = 0$ otherwise.\n$$\\min \\sum_{j=1}^{m} c_j x_j$$\n$$\\text{s.t.}\\quad \\sum_{j=1}^{m} a_{ij} x_j \\ge 1, \\quad i = 1, \\dots, n$$\n$$x_j \\in \\{0, 1\\}, \\quad j = 1, \\dots, m$$\nMeaning: the objective is the total cost of the chosen subsets (minimise it). The constraint for item $i$ says that at least one chosen subset contains item $i$, i.e. every item of $S$ is covered at least once. $x_j \\in \\{0, 1\\}$: each subset is either taken or not (no fractions of a subset).",
+          "rubric": [
+            {
+              "point": "Definition: choose subsets whose union covers all items at minimum cost",
+              "marks": 1
+            },
+            {
+              "point": "Variables $x_j$ and data $a_{ij}$ defined; objective $\\min \\sum_j c_j x_j$",
+              "marks": 1
+            },
+            {
+              "point": "Constraints $\\sum_j a_{ij} x_j \\ge 1$ for every item, $x_j \\in \\{0,1\\}$",
+              "marks": 1
+            },
+            {
+              "point": "Meaning: each item covered by at least one chosen subset",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. The same model is in Past Paper Solutions 2024 Exam.pdf p. 11 (2019 test). Course notes: set covering model, DisCopt.pdf PDF pp. 31–33 (eqs. 64–68, and the meaning of each equation in the hospital example on PDF p. 33)."
+        },
+        {
+          "id": "do-pt16-3b",
+          "source": {
+            "number": "3(b)"
+          },
+          "lecture": 8,
+          "concept": "Facility location: single-source constraint",
+          "type": "written",
+          "marks": 2,
+          "question": "A constraint of the mathematical model of the facility location problem is given by $\\sum_{i=1}^{m} x_{ij} = 1$, $\\forall j$, where $i$ represents the warehouses and $j$ is a customer; $x_{ij}$ is the variable representing whether customer $j$ is served by the warehouse $i$. Described the meaning of this constraint. [2 Marks ]",
+          "modelAnswer": "For each customer $j$, the sum over all $m$ warehouses of the binary $x_{ij}$ is exactly 1. So every customer $j$ is served, and by exactly one warehouse: it cannot be left unserved or split between warehouses (single-source facility location).",
+          "rubric": [
+            {
+              "point": "Every customer must be served",
+              "marks": 1
+            },
+            {
+              "point": "…by exactly one warehouse",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. The same question is answered in Past Paper Solutions 2024 Exam.pdf p. 12 (2019 test). Course notes: DisCopt.pdf PDF p. 30 (eq. 52)."
+        },
+        {
+          "id": "do-pt16-3c",
+          "source": {
+            "number": "3(c)"
+          },
+          "lecture": 11,
+          "concept": "Weighted vertex cover model",
+          "type": "written",
+          "marks": 3,
+          "question": "Write down the mathematical model of the weighted vertex cover problem where $c_i > 0$ is the weight of each vertex $i$. [3 Marks ]",
+          "modelAnswer": "Graph $G = (V, E)$, $V = \\{1, \\dots, n\\}$. Variables: $x_i = 1$ if vertex $i$ is in the cover, 0 otherwise.\n$$\\min \\sum_{i=1}^{n} c_i x_i$$\n$$\\text{s.t.} \\quad x_i + x_j \\ge 1 \\quad \\forall (i, j) \\in E, \\qquad x_i \\in \\{0, 1\\} \\quad \\forall i \\in V.$$\nThe objective is the total weight of the chosen vertices; the constraint says every edge has at least one end point in the cover (the edge is covered).",
+          "rubric": [
+            {
+              "point": "Binary $x_i$ defined (1 if vertex $i$ in the cover)",
+              "marks": 1
+            },
+            {
+              "point": "Objective $\\min \\sum_i c_i x_i$",
+              "marks": 1
+            },
+            {
+              "point": "$x_i + x_j \\ge 1$ for every edge $(i,j) \\in E$, $x_i \\in \\{0,1\\}$",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 35–36 (vertex cover, eqs. 88–90)."
         }
       ]
     }
