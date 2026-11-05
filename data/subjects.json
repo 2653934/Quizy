@@ -8,6 +8,7 @@
      "sets": ["nlp-past-quiz-2-2025", "nlp-practice-quiz", "nlp-tutorial", "nlp-new-questions", "nlp-label-diagrams"]},
     {"key": "do", "code": "COMS4050A", "name": "Discrete Optimisation",
      "theme": {"accent": "#9a5c15", "paper": "#f7f4ef", "light": "#f3e6d3", "aside": "#efe9df"},
-     "sets": []}
+     "topics": {"1": "Network flow", "2": "Genetic algorithm", "3": "Simulated annealing", "4": "B&B and relaxation", "5": "Assignment", "6": "Clique", "7": "Bisection & max-cut", "8": "Facility location", "9": "TSP", "10": "Approximation", "11": "Covering", "12": "Out of scope"},
+     "sets": ["do-2024-exam"]}
   ]
 }

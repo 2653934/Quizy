@@ -1,0 +1,240 @@
+{
+  "id": "do-2024-exam",
+  "title": "2024 Exam (questions in the solutions)",
+  "kind": "past-paper",
+  "description": "The 2024 exam questions that appear in the handwritten past-paper solutions (Question 1 (a)–(d) and Question 2, 14 marks), transcribed word for word. Write or think your answer, reveal the model answer, then tick the marking points you covered. Answers follow the handwritten solutions where they exist, expanded with full working from the course notes; they are unofficial.",
+  "sourceFile": "03 Past Papers/Past Paper Solutions 2024 Exam.pdf (pages 1–5)",
+  "unofficialAnswers": true,
+  "transcriptionNotes": "There is no separate 2024 question paper: the questions are screenshots inside the handwritten solutions (pages 1–5). Only Question 1 (a)–(d) and Question 2 (a)–(c) appear, so this is not the whole paper and there is no total. Words split across lines by hyphenation are joined. Typos kept: \"You wants to covers\", \"a Asymmetric\". Maths written as LaTeX. Past Paper Solutions 2024.pdf is a page-for-page copy of pages 1–5 of this file and is not used separately. Model answers and rubrics were written by an AI assistant from the handwritten solutions and the course notes; rubric marks follow the printed mark split.",
+  "subject": "do",
+  "questions": [
+    {
+      "id": "do-ex24-1a",
+      "source": {
+        "number": "1(a)"
+      },
+      "lecture": 4,
+      "concept": "Relaxed problem and bounds",
+      "type": "written",
+      "marks": 6,
+      "question": "Give example of a linear integer minimization problem (LIP), and define the following (i) the relaxed problem of the LIP, (ii) an upper bound of the original LIP problem. [2 + 2 + 2 Marks ]",
+      "modelAnswer": "Example LIP:\n$$\\min\\ 5x_1 + 3x_2 \\quad \\text{s.t.}\\quad x_1 + x_2 \\ge 2,\\quad x_1, x_2 \\in \\{0, 1, 2, 3\\}$$\n(i) Relaxed problem: drop the integer requirement and keep only the bounds, so the variables become real:\n$$\\min\\ 5x_1 + 3x_2 \\quad \\text{s.t.}\\quad x_1 + x_2 \\ge 2,\\quad 0 \\le x_1, x_2 \\le 3$$\nIts feasible set contains every feasible point of the LIP, so its optimal value is a lower bound on the LIP optimum (here the LP optimum is $x = (0, 2)$ with value 6).\n(ii) Upper bound: the objective value of any (integer) feasible solution of the original LIP. For example $(x_1, x_2) = (2, 2)$ is feasible ($2 + 2 = 4 \\ge 2$) and gives $5(2) + 3(2) = 16$, so $16 \\ge \\text{OPT}$. In branch and bound the best feasible solution found so far (the incumbent) is the upper bound and it is lowered whenever a better feasible solution is found.",
+      "rubric": [
+        {
+          "point": "A correct linear integer minimisation problem: linear objective, linear constraint(s), integer variables",
+          "marks": 2
+        },
+        {
+          "point": "Relaxed problem: same objective and constraints with the integrality replaced by continuous bounds (its value is a lower bound)",
+          "marks": 2
+        },
+        {
+          "point": "Upper bound: the objective value of any feasible integer solution of the original problem, with an example value",
+          "marks": 2
+        }
+      ],
+      "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 1 (same example; the values 6 and 16 are added here). Course notes: relaxation and bounds in DisCopt.pdf PDF pp. 46–48 (sections 3.2–3.2.2). For a minimisation: relaxation → lower bound, feasible solution → upper bound.",
+      "keyDispute": "The handwritten solution labels the relaxed constraint \"lower bound change to 0 ≤ x1, x2 ≤ 3\". That line is the relaxed problem (continuous variables), not a bound on the objective."
+    },
+    {
+      "id": "do-ex24-1b",
+      "source": {
+        "number": "1(b)"
+      },
+      "lecture": 11,
+      "concept": "Weighted set covering model",
+      "type": "written",
+      "marks": 4,
+      "question": "Given a set of items $S = \\{1, 2, \\cdots, n\\}$ and $m$ proper subsets $S_j$ of $S$, $j = 1, 2, \\cdots, m$. You wants to covers all items in $S$ by choosing a number of $S_j$ with minimum cost; the cost of choosing $S_j$ is $c_j$. Write down the mathematical model of the weighted set covering problem by defining decision variables for optimization. Describe the physical meaning of the constraint sets in the mathematical model. [3+1 Marks ]",
+      "modelAnswer": "Data: $a_{ij} = 1$ if item $i$ is in $S_j$, $a_{ij} = 0$ otherwise ($i = 1, \\dots, n$; $j = 1, \\dots, m$).\nDecision variables: $x_j = 1$ if subset $S_j$ is chosen, $x_j = 0$ otherwise.\n$$\\min \\sum_{j=1}^{m} c_j x_j$$\n$$\\text{s.t.}\\quad \\sum_{j=1}^{m} a_{ij} x_j \\ge 1, \\quad i = 1, \\dots, n$$\n$$x_j \\in \\{0, 1\\}, \\quad j = 1, \\dots, m$$\nMeaning: the objective is the total cost of the chosen subsets. The constraint for item $i$ says that at least one chosen subset contains item $i$, i.e. every item of $S$ is covered at least once. $x_j \\in \\{0, 1\\}$: each subset is either taken or not.",
+      "rubric": [
+        {
+          "point": "Defines $x_j$ (1 if $S_j$ chosen, else 0) and the incidence data $a_{ij}$",
+          "marks": 1
+        },
+        {
+          "point": "Objective $\\min \\sum_j c_j x_j$",
+          "marks": 1
+        },
+        {
+          "point": "Covering constraints $\\sum_j a_{ij} x_j \\ge 1$ for every item $i$, with $x_j \\in \\{0,1\\}$",
+          "marks": 1
+        },
+        {
+          "point": "Meaning: every item must be covered by at least one chosen subset",
+          "marks": 1
+        }
+      ],
+      "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf pp. 1–2. Course notes: set covering model, DisCopt.pdf PDF pp. 31–33 (eqs. 64–68 and the meaning of each equation in the hospital example)."
+    },
+    {
+      "id": "do-ex24-1c",
+      "source": {
+        "number": "1(c)"
+      },
+      "lecture": 5,
+      "concept": "Linear assignment model",
+      "type": "written",
+      "marks": 5,
+      "question": "Consider the following bi-partite graph\nfor which the costs $c_{ij}$ are given as\n$$c_{11} = 2, c_{12} = 3, c_{13} = 4,$$\n$$c_{21} = 3, c_{22} = 4, c_{23} = 1,$$\n$$c_{31} = 4, c_{32} = 2, c_{33} = 3.$$\nDefine the variables for the minimization problem and present your mathematical model. Define the meaning of each of your 6 constraints involved. [3 + 2 Marks ]",
+      "modelAnswer": "Variables: $x_{ij} = 1$ if worker $i$ is assigned to job $j$, $x_{ij} = 0$ otherwise ($i, j \\in \\{1, 2, 3\\}$).\n$$\\min \\sum_{i=1}^{3}\\sum_{j=1}^{3} c_{ij}x_{ij} = 2x_{11} + 3x_{12} + 4x_{13} + 3x_{21} + 4x_{22} + x_{23} + 4x_{31} + 2x_{32} + 3x_{33}$$\nsubject to the 6 constraints\n$$x_{11} + x_{12} + x_{13} = 1,\\quad x_{21} + x_{22} + x_{23} = 1,\\quad x_{31} + x_{32} + x_{33} = 1$$\n$$x_{11} + x_{21} + x_{31} = 1,\\quad x_{12} + x_{22} + x_{32} = 1,\\quad x_{13} + x_{23} + x_{33} = 1$$\n$$x_{ij} \\in \\{0, 1\\}$$\nMeaning: the first three (one per worker, $\\sum_j x_{ij} = 1$) say each worker $i$ does exactly one job; the last three (one per job, $\\sum_i x_{ij} = 1$) say each job $j$ is done by exactly one worker.\n(Not asked, but useful: the optimum is $x_{11} = x_{23} = x_{32} = 1$ with cost $2 + 1 + 2 = 5$; checking all $3! = 6$ assignments gives 9, 5, 9, 8, 9, 12.)",
+      "rubric": [
+        {
+          "point": "Binary variables $x_{ij}$ defined (worker $i$ to job $j$)",
+          "marks": 1
+        },
+        {
+          "point": "Objective $\\min \\sum_i \\sum_j c_{ij} x_{ij}$ with the given costs",
+          "marks": 1
+        },
+        {
+          "point": "All 6 assignment constraints written, plus $x_{ij} \\in \\{0,1\\}$",
+          "marks": 1
+        },
+        {
+          "point": "Meaning of the 3 worker constraints: each worker gets exactly one job",
+          "marks": 1
+        },
+        {
+          "point": "Meaning of the 3 job constraints: each job gets exactly one worker",
+          "marks": 1
+        }
+      ],
+      "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf pp. 2–3. Course notes: linear assignment model, DisCopt.pdf PDF pp. 10–11 (eqs. 14–17). The figure is the same graph as Tutorial 2 Question 1(a); it is cropped from Tut2.pdf because the copy in the solutions has handwritten marks on it. The optimal assignment was checked by enumerating all 6 assignments.",
+      "image": {
+        "src": "data/do/img/2024-exam/do-ex24-1c.png",
+        "alt": "Bipartite graph. Left column: workers 1, 2, 3. Right column: jobs 1, 2, 3. Every worker is joined to every job (9 edges); the three edges from worker 3 are dashed. No costs are written on the edges."
+      },
+      "answerImage": {
+        "src": "data/do/img/2024-exam/do-ex24-1c-answer.png",
+        "alt": "The same bipartite graph with the optimal assignment highlighted: worker 1 to job 1, worker 2 to job 3, worker 3 to job 2, total cost 5."
+      }
+    },
+    {
+      "id": "do-ex24-1d",
+      "source": {
+        "number": "1(d)"
+      },
+      "lecture": 10,
+      "concept": "α-approximation algorithm",
+      "type": "written",
+      "marks": 2,
+      "question": "Define an $\\alpha$-approximation algorithm of a minimization problem in combinatorial optimization. [2 Marks ]",
+      "modelAnswer": "Let $P$ be a minimisation problem with set of instances $\\mathcal{I}$, and let $A$ be an algorithm that returns a feasible solution $A(I)$ for every instance $I \\in \\mathcal{I}$. $A$ is an $\\alpha$-approximation algorithm ($\\alpha \\ge 1$) if it runs in polynomial time and\n$$A(I) \\le \\alpha \\cdot OPT(I) \\quad \\text{for all } I \\in \\mathcal{I},$$\nwhere $OPT(I)$ is the optimal value of instance $I$. So the solution is never worse than $\\alpha$ times the optimum (e.g. Christofides for the metric STSP has $\\alpha = 3/2$).",
+      "rubric": [
+        {
+          "point": "Feasible solution for every instance found in polynomial time",
+          "marks": 1
+        },
+        {
+          "point": "$A(I) \\le \\alpha\\, OPT(I)$ for all instances, with $\\alpha \\ge 1$",
+          "marks": 1
+        }
+      ],
+      "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 3. Course notes: DisCopt.pdf PDF p. 24 (section 2.3.1, eq. 47)."
+    },
+    {
+      "id": "do-ex24-2a",
+      "source": {
+        "number": "2(a)"
+      },
+      "lecture": 9,
+      "concept": "Minimum spanning tree",
+      "type": "written",
+      "marks": 4,
+      "question": "State one of the most important properties of the MST (minimum spanning tree) subgraph of a graph. Find the MST sub-graph by inspection of the undirected graph below in Fig. 1, where the distance or cost of various edges are $c_{12} = c_{13} = c_{24} = c_{34} = 1$, $c_{14} = 2$ and $c_{23} = 3$ [1 + 3 Marks ]",
+      "modelAnswer": "Property: the MST is a tree, so it connects all the vertices with no cycles (hence exactly $n - 1$ edges), and it has the minimum possible total edge weight of all spanning trees.\nMST by inspection: there are 4 vertices, so the tree needs $4 - 1 = 3$ edges. The four edges of cost 1 form the cycle 1–2–4–3–1; any three of them connect all four vertices without a cycle. Take\n$$T = \\{(1,2), (1,3), (2,4)\\}, \\qquad \\text{cost} = 1 + 1 + 1 = 3.$$\nIt is minimum because every spanning tree has 3 edges and every edge costs at least 1, so no tree can cost less than 3. The diagonals $(1,4)$ (cost 2) and $(2,3)$ (cost 3) are not used. (Kruskal gives the same: take the unit edges in turn and skip the one that would close the cycle.) Any other choice of three unit edges is an equally good MST.",
+      "rubric": [
+        {
+          "point": "One correct property: spans/connects all vertices, no cycles ($n-1$ edges), minimum total weight",
+          "marks": 1
+        },
+        {
+          "point": "Three edges of cost 1 chosen that connect all 4 vertices without a cycle",
+          "marks": 2
+        },
+        {
+          "point": "Total cost 3 stated, with a reason it is minimal (or that the diagonals are not used)",
+          "marks": 1
+        }
+      ],
+      "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 3 (tree 1–2, 1–3, 2–4). Course notes: spanning tree features and the MST model, DisCopt.pdf PDF pp. 12–14. Figure cropped from DOPT2022.pdf (the same Figure 1; the copy in the solutions has handwritten marks on it). The 4 possible MSTs were checked by enumeration.",
+      "image": {
+        "src": "data/do/img/2024-exam/do-ex24-2a.png",
+        "alt": "Undirected graph on four boxed vertices: 1 top left, 2 top right, 3 bottom left, 4 bottom right. Solid edges 1–2, 1–3, 2–4 and 3–4 around the square, dotted diagonals 1–4 and 2–3. Costs from the question: c12 = c13 = c24 = c34 = 1, c14 = 2, c23 = 3."
+      },
+      "answerImage": {
+        "src": "data/do/img/2024-exam/do-ex24-2a-answer.png",
+        "alt": "The four-vertex graph with the MST edges 1–2, 1–3 and 2–4 highlighted (each cost 1, total 3); edges 3–4 (1), 1–4 (2) and 2–3 (3) are grey."
+      }
+    },
+    {
+      "id": "do-ex24-2b",
+      "source": {
+        "number": "2(b)"
+      },
+      "lecture": 9,
+      "concept": "Counting TSP and QAP solutions",
+      "type": "written",
+      "marks": 5,
+      "question": "Explain why there are $(n-1)!$ possible distinct routes (solutions) in a Asymmetric Traveling Salesman Problem (ATSP) with $n$ cities. How many solutions are there in the quadratic assignment problem with $n$ facilities and $n$ locations? Why? [2 + 3 Marks ]",
+      "modelAnswer": "ATSP: a tour is a cyclic order of the $n$ cities, so fix the home (starting) city; it does not matter where the cycle starts. The second city can then be any of the remaining $n-1$ cities, the third any of the remaining $n-2$, …, the last is forced. So there are\n$$1 \\times (n-1)(n-2)\\cdots 2 \\times 1 = (n-1)!$$\ndistinct routes. In the ATSP $c_{ij} \\ne c_{ji}$ in general, so a tour and its reverse are different routes with different lengths and both are counted. (For the symmetric TSP a tour and its reverse have the same length, which gives $\\tfrac{1}{2}(n-1)!$.)\nQAP: there are $n!$ solutions. A solution is a one-to-one assignment of the $n$ facilities to the $n$ locations, i.e. a permutation $\\phi \\in S_n$: facility 1 can go to any of $n$ locations, facility 2 to any of the remaining $n-1$, …, facility $n$ to the last one, giving $n(n-1)\\cdots 1 = n!$. Unlike a tour there is no rotation to factor out, because every location is a distinct place.",
+      "rubric": [
+        {
+          "point": "Fix the starting city: the remaining $n-1$ cities can be ordered in $(n-1)(n-2)\\cdots 1$ ways",
+          "marks": 1
+        },
+        {
+          "point": "Asymmetric: a tour and its reverse are different, so all $(n-1)!$ count",
+          "marks": 1
+        },
+        {
+          "point": "QAP has $n!$ solutions",
+          "marks": 1
+        },
+        {
+          "point": "Reason: each solution is a permutation (one-to-one assignment) of $n$ facilities to $n$ locations: $n(n-1)\\cdots 1$",
+          "marks": 2
+        }
+      ],
+      "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 4. Course notes: tour counts, DisCopt.pdf PDF p. 21 (\"(n − 1)! possible tours … in the asymmetric TSP (and ½(n − 1)! for the symmetric TSP with home city being fixed)\"); QAP as a permutation problem, PDF pp. 33–34 (eq. 69).",
+      "keyDispute": "The handwritten solution adds \"for any tour, regardless of STSP or ATSP, the reverse way of travelling will result in the same distance, hence (n−1)!/2\". That only holds for the symmetric TSP; for the ATSP asked here the answer is (n−1)!, as the notes (PDF p. 21) say."
+    },
+    {
+      "id": "do-ex24-2c",
+      "source": {
+        "number": "2(c)"
+      },
+      "lecture": 9,
+      "concept": "2-opt neighbours and sub-tours",
+      "type": "written",
+      "marks": 5,
+      "question": "Consider the 7 city symmetric TSP with a feasible tour $x = (1, 3, 2, 6, 7, 4, 5)$ where the 1st city is the starting city. Answer the following questions:\nConstruct two 2-Opt neighbors of $x$. Construct an example of a sub-tour that may occur in the solution process. [2 + 3 Marks ]",
+      "modelAnswer": "2-opt move: delete the edges $(c_i, c_{i+1})$ and $(c_j, c_{j+1})$, add $(c_i, c_j)$ and $(c_{i+1}, c_{j+1})$, which reverses positions $i+1, \\dots, j$. Positions (not city labels) of $x$: $c_1 = 1, c_2 = 3, c_3 = 2, c_4 = 6, c_5 = 7, c_6 = 4, c_7 = 5$.\n• $i = 1, j = 3$: remove (1,3) and (2,6), add (1,2) and (3,6), reverse \"3, 2\" → $x^{(1)} = (1, 2, 3, 6, 7, 4, 5)$.\n• $i = 1, j = 4$: remove (1,3) and (6,7), add (1,6) and (3,7), reverse \"3, 2, 6\" → $x^{(2)} = (1, 6, 2, 3, 7, 4, 5)$.\n(Another: $i = 2, j = 4$ gives $(1, 3, 6, 2, 7, 4, 5)$.)\nSub-tour: if the subtour elimination constraints are left out, the degree constraints $\\sum_{e \\in \\delta(i)} x_e = 2$ can be met by several separate cycles instead of one tour, e.g.\n$$1 \\to 3 \\to 2 \\to 1 \\quad\\text{and}\\quad 6 \\to 7 \\to 4 \\to 5 \\to 6.$$\nEvery city has degree 2, but the salesman never travels between $\\{1, 2, 3\\}$ and $\\{4, 5, 6, 7\\}$, so it is not a tour. In the STSP a sub-tour needs at least 3 cities (2 cities would need the same undirected edge twice). The constraint $\\sum_{e \\in E(S)} x_e \\le |S| - 1$ for $S = \\{1, 2, 3\\}$ is violated (3 edges > 2), which is how such solutions are cut off.",
+      "rubric": [
+        {
+          "point": "First valid 2-opt neighbour (two edges removed, the segment between them reversed)",
+          "marks": 1
+        },
+        {
+          "point": "Second, different valid 2-opt neighbour",
+          "marks": 1
+        },
+        {
+          "point": "A sub-tour example on the 7 cities: two or more disjoint cycles covering all cities",
+          "marks": 2
+        },
+        {
+          "point": "Why it is a sub-tour / not a tour (each cycle has ≥ 3 cities in the STSP; violates $\\sum_{e\\in E(S)} x_e \\le |S|-1$)",
+          "marks": 1
+        }
+      ],
+      "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf pp. 4–5 (neighbours 1236745 and 1623745; sub-tours drawn as two cycles). Course notes: the 2-opt move and the neighbour list for a 7-city tour, DisCopt.pdf PDF pp. 26–27; STSP model and subtour elimination constraints, PDF pp. 22–23. The neighbours were checked with a short script.",
+      "keyDispute": "The second sub-tour drawn in the handwritten solution seems to include a city 8, which does not exist in a 7-city problem; use cities 4, 5, 6, 7 as above.",
+      "answerImage": {
+        "src": "data/do/img/2024-exam/do-ex24-2c-answer.png",
+        "alt": "Two separate cycles on the 7 cities: 1–3–2–1 and 6–7–4–5–6."
+      }
+    }
+  ]
+}
