@@ -34,7 +34,8 @@
           "marks": 1
         }
       ],
-      "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 8 (\"1 3 2 6 7 4 5 → 1 3 6 2 7 4 5\"). Course notes: the 2-opt move and the full neighbour list of a 7-city tour, DisCopt.pdf PDF pp. 26–27 (eqs. 49–50). Checked with a short script."
+      "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 8 (\"1 3 2 6 7 4 5 → 1 3 6 2 7 4 5\"). Course notes: the 2-opt move and the full neighbour list of a 7-city tour, DisCopt.pdf PDF pp. 26–27 (eqs. 49–50). Checked with a short script.",
+      "variantOf": "do-2opt-neighbour"
     },
     {
       "id": "do-es21-1b",
@@ -65,7 +66,8 @@
           "marks": 1
         }
       ],
-      "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 8. Course notes: Metropolis rule and the SA algorithm, DisCopt.pdf PDF p. 51 (eq. 101, \"accept if exp(−(f(y) − f(x))/T) > random(0,1)\"); sa.pdf (lecturer's SA pseudocode, same test)."
+      "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 8. Course notes: Metropolis rule and the SA algorithm, DisCopt.pdf PDF p. 51 (eq. 101, \"accept if exp(−(f(y) − f(x))/T) > random(0,1)\"); sa.pdf (lecturer's SA pseudocode, same test).",
+      "variantOf": "do-metropolis"
     },
     {
       "id": "do-es21-1c",
@@ -132,7 +134,8 @@
       "answerImage": {
         "src": "data/do/img/escience-2021/do-es21-2a-answer.png",
         "alt": "Directed network: s→a (4), s→b (3), a→b (2), b→a (1), a→t (3), b→t (5). A dashed line separates A = {s, a} from B = {b, t}; cap(A, B) = 3 + 2 + 3 = 8."
-      }
+      },
+      "variantOf": "do-net-flow-antisym"
     },
     {
       "id": "do-es21-2b-i",
@@ -155,7 +158,8 @@
           "marks": 1
         }
       ],
-      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF p. 7 (relaxing $x_{ij} \\in \\{0,1\\}$ to $0 \\le x_{ij} \\le 1$), PDF pp. 46–48 (the relaxed solution is a lower bound in B&B)."
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF p. 7 (relaxing $x_{ij} \\in \\{0,1\\}$ to $0 \\le x_{ij} \\le 1$), PDF pp. 46–48 (the relaxed solution is a lower bound in B&B).",
+      "variantOf": "do-relaxed-bnb"
     },
     {
       "id": "do-es21-2b-ii",
@@ -182,7 +186,8 @@
           "marks": 1
         }
       ],
-      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 46–47 (\"there are two such cases\" (a) and (b), and \"another reason … is when the subproblem is infeasible\"), PDF pp. 48–50 (steps of B&B and fathoming)."
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 46–47 (\"there are two such cases\" (a) and (b), and \"another reason … is when the subproblem is infeasible\"), PDF pp. 48–50 (steps of B&B and fathoming).",
+      "variantOf": "do-bnb-delete"
     },
     {
       "id": "do-es21-2c",
@@ -293,7 +298,8 @@
         }
       ],
       "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: tournament selection, DisCopt.pdf PDF pp. 53–54; two-point crossover, PDF p. 55 (Fig. 37); the lecturer's pseudocode DiscreteGAcode.pdf pp. 1–2 (random pair, fitter one kept; crossover loop \"for l = n1 to n2\"). Children checked with a short script under both conventions.",
-      "keyDispute": "The two common double-point conventions give different children here: swapping genes n1..n2 inclusive (the lecturer's pseudocode) gives 11111 and 00100; cutting after genes n1 and n2 gives 10111 and 01100. The answer above follows the lecturer's pseudocode."
+      "keyDispute": "The two common double-point conventions give different children here: swapping genes n1..n2 inclusive (the lecturer's pseudocode) gives 11111 and 00100; cutting after genes n1 and n2 gives 10111 and 01100. The answer above follows the lecturer's pseudocode.",
+      "variantOf": "do-double-crossover"
     },
     {
       "id": "do-es21-3b-i",

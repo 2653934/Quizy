@@ -46,7 +46,8 @@
           "marks": 1
         }
       ],
-      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: NetworkFlowP.pdf p. 3 (net flow, skew-symmetry, and the derivation of $\\sum_l f(i,l) = 0$ for $i \\notin \\{s, t\\}$) and p. 4 (eq. 4)."
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: NetworkFlowP.pdf p. 3 (net flow, skew-symmetry, and the derivation of $\\sum_l f(i,l) = 0$ for $i \\notin \\{s, t\\}$) and p. 4 (eq. 4).",
+      "variantOf": "do-net-flow-antisym"
     },
     {
       "id": "do-ex21-1b",
@@ -131,7 +132,8 @@
           "marks": 1
         }
       ],
-      "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 6 (\"Normal: min $c^Tx$ st $Ax \\le b$, $x \\in \\{1,0\\}$; relaxed: … $0 \\le x_i \\le 1$\"). Course notes: knapsack model, DisCopt.pdf PDF p. 19 (eqs. 26–29); relaxation, PDF p. 7 and PDF pp. 46–48."
+      "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 6 (\"Normal: min $c^Tx$ st $Ax \\le b$, $x \\in \\{1,0\\}$; relaxed: … $0 \\le x_i \\le 1$\"). Course notes: knapsack model, DisCopt.pdf PDF p. 19 (eqs. 26–29); relaxation, PDF p. 7 and PDF pp. 46–48.",
+      "variantOf": "do-relaxed-bnb"
     },
     {
       "id": "do-ex21-2a",
@@ -189,7 +191,8 @@
           "marks": 2
         }
       ],
-      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 46–47 (\"there are two such cases\" (a) and (b), and \"another reason … is when the subproblem is infeasible\"), PDF pp. 48–50 (steps of B&B and fathoming)."
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 46–47 (\"there are two such cases\" (a) and (b), and \"another reason … is when the subproblem is infeasible\"), PDF pp. 48–50 (steps of B&B and fathoming).",
+      "variantOf": "do-bnb-delete"
     },
     {
       "id": "do-ex21-2c",
@@ -228,7 +231,8 @@
           "marks": 1
         }
       ],
-      "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 6 (\"For Christofides, $\\alpha = 3/2$\"; the definition is on p. 3). Course notes: DisCopt.pdf PDF p. 24 (eq. 47 and \"at maximum 3/2 times as much as the distance in the optimal solution\")."
+      "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 6 (\"For Christofides, $\\alpha = 3/2$\"; the definition is on p. 3). Course notes: DisCopt.pdf PDF p. 24 (eq. 47 and \"at maximum 3/2 times as much as the distance in the optimal solution\").",
+      "variantOf": "do-alpha-approx"
     },
     {
       "id": "do-ex21-3a",
@@ -255,7 +259,8 @@
           "marks": 1.5
         }
       ],
-      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: double point crossover, DisCopt.pdf PDF p. 55 (Fig. 37); the lecturer's pseudocode DiscreteGAcode.pdf p. 2 (\"for l = n1 to n2: x(l) = y(l); y(l) = temp(l)\"). Children checked with a short script under both conventions."
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: double point crossover, DisCopt.pdf PDF p. 55 (Fig. 37); the lecturer's pseudocode DiscreteGAcode.pdf p. 2 (\"for l = n1 to n2: x(l) = y(l); y(l) = temp(l)\"). Children checked with a short script under both conventions.",
+      "variantOf": "do-double-crossover"
     },
     {
       "id": "do-ex21-3b",
@@ -294,7 +299,8 @@
           "marks": 1
         }
       ],
-      "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 7 (probability 0.368, accept because 0.25 < 0.368). Course notes: Metropolis rule and the SA algorithm, DisCopt.pdf PDF p. 51 (eq. 101, \"accept if exp(−(f(y) − f(x))/T) > random(0,1)\"); sa.pdf (lecturer's SA pseudocode, same test). The value was checked with a short script."
+      "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 7 (probability 0.368, accept because 0.25 < 0.368). Course notes: Metropolis rule and the SA algorithm, DisCopt.pdf PDF p. 51 (eq. 101, \"accept if exp(−(f(y) − f(x))/T) > random(0,1)\"); sa.pdf (lecturer's SA pseudocode, same test). The value was checked with a short script.",
+      "variantOf": "do-metropolis"
     }
   ]
 }

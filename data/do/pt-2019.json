@@ -38,7 +38,8 @@
         }
       ],
       "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 11 (\"2019 paper\" (a)). Course notes: set covering model, DisCopt.pdf PDF pp. 31–33 (eqs. 64–68, and the meaning of each equation in the hospital example on PDF p. 33).",
-      "keyDispute": "The handwritten solution defines $a_{ij} = 1$ \"if item $i \\in S$\"; it should be \"if item $i \\in S_j$\"."
+      "keyDispute": "The handwritten solution defines $a_{ij} = 1$ \"if item $i \\in S$\"; it should be \"if item $i \\in S_j$\".",
+      "variantOf": "do-set-cover"
     },
     {
       "id": "do-pt19-2b",
@@ -62,7 +63,8 @@
         }
       ],
       "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 12 (\"every customer must be supplied/served by exactly 1 of the warehouses\"). Course notes: DisCopt.pdf PDF p. 30 (eqs. 51–57; constraint 52 is the single-source constraint).",
-      "keyDispute": "The handwritten solution swaps the letters (\"every customer i … of the warehouses j\"); in the question $j$ is the customer and $i$ the warehouse."
+      "keyDispute": "The handwritten solution swaps the letters (\"every customer i … of the warehouses j\"); in the question $j$ is the customer and $i$ the warehouse.",
+      "variantOf": "do-facility-one-customer"
     },
     {
       "id": "do-pt19-2c",
@@ -140,7 +142,8 @@
       "answerImage": {
         "src": "data/do/img/pt-2019/do-pt19-2d-answer.png",
         "alt": "Directed sub-tours on 7 cities: a 2-cycle 1 → 2 → 1 and a 5-cycle 3 → 4 → 5 → 6 → 7 → 3."
-      }
+      },
+      "variantOf": "do-subtour-atsp-stsp"
     }
   ]
 }

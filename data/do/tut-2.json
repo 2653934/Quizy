@@ -49,7 +49,8 @@
       "answerImage": {
         "src": "data/do/img/tut-2/do-tut2-1a-answer.png",
         "alt": "The bipartite graph with the optimal assignment highlighted: worker 1 to job 1, worker 2 to job 3, worker 3 to job 2, total cost 5."
-      }
+      },
+      "variantOf": "do-lap-model"
     },
     {
       "id": "do-tut2-1b",

@@ -30,7 +30,8 @@
           "marks": 1
         }
       ],
-      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: NetworkFlowP.pdf p. 2 (eq. 2) and p. 3 (net-flow form); DisCopt.pdf PDF p. 8 (eq. 8)."
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: NetworkFlowP.pdf p. 2 (eq. 2) and p. 3 (net-flow form); DisCopt.pdf PDF p. 8 (eq. 8).",
+      "variantOf": "do-node-balance"
     },
     {
       "id": "do-pt21-1b-i",
@@ -53,7 +54,8 @@
           "marks": 1
         }
       ],
-      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 15–17 (residual network, augmenting path, $\\delta(P)$, the algorithm); NetworkFlowP.pdf pp. 7–8 (sections 4.1–4.2); FordFulkerson.pdf pp. 1–3 (worked example)."
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 15–17 (residual network, augmenting path, $\\delta(P)$, the algorithm); NetworkFlowP.pdf pp. 7–8 (sections 4.1–4.2); FordFulkerson.pdf pp. 1–3 (worked example).",
+      "variantOf": "do-augmenting-residual"
     },
     {
       "id": "do-pt21-1b-ii",
@@ -76,7 +78,8 @@
           "marks": 1
         }
       ],
-      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 15–17 (residual network, augmenting path, $\\delta(P)$, the algorithm); NetworkFlowP.pdf pp. 7–8 (sections 4.1–4.2); FordFulkerson.pdf pp. 1–3 (worked example)."
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 15–17 (residual network, augmenting path, $\\delta(P)$, the algorithm); NetworkFlowP.pdf pp. 7–8 (sections 4.1–4.2); FordFulkerson.pdf pp. 1–3 (worked example).",
+      "variantOf": "do-augmenting-residual"
     },
     {
       "id": "do-pt21-1c",
@@ -126,7 +129,8 @@
       "answerImage": {
         "src": "data/do/img/pt-2021/do-pt21-1d-answer.png",
         "alt": "Directed network: s→a (4), s→b (3), a→b (2), b→a (1), a→t (3), b→t (5). A dashed line separates A = {s, a} from B = {b, t}."
-      }
+      },
+      "variantOf": "do-st-cut"
     },
     {
       "id": "do-pt21-2a",
@@ -181,7 +185,8 @@
       "answerImage": {
         "src": "data/do/img/pt-2021/do-pt21-2b-answer.png",
         "alt": "Two example graphs. Left (Hamiltonian): square 1–2–5–4 with centre 3 joined to all four corners; the Hamiltonian cycle 1–2–3–5–4–1 is highlighted. Right (Eulerian): bow-tie of triangles 1–3–4 and 2–3–5 sharing vertex 3; the Eulerian circuit 1–3–2–5–3–4–1 uses all six edges."
-      }
+      },
+      "variantOf": "do-ham-euler"
     },
     {
       "id": "do-pt21-2c",
@@ -216,7 +221,8 @@
       "answerImage": {
         "src": "data/do/img/pt-2021/do-pt21-2c-answer.png",
         "alt": "Directed sub-tours on 7 cities: a 2-cycle 1 → 2 → 1 and a 5-cycle 3 → 4 → 5 → 6 → 7 → 3."
-      }
+      },
+      "variantOf": "do-subtour-atsp-stsp"
     }
   ]
 }

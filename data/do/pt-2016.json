@@ -42,7 +42,8 @@
       "answerImage": {
         "src": "data/do/img/pt-2016/do-pt16-1a-answer.png",
         "alt": "Two example graphs. Left (Hamiltonian): square 1–2–5–4 with centre 3 joined to all four corners; the Hamiltonian cycle 1–2–3–5–4–1 is highlighted. Right (Eulerian): bow-tie of triangles 1–3–4 and 2–3–5 sharing vertex 3; the Eulerian circuit 1–3–2–5–3–4–1 uses all six edges."
-      }
+      },
+      "variantOf": "do-ham-euler"
     },
     {
       "id": "do-pt16-1b",
@@ -65,7 +66,8 @@
           "marks": 1
         }
       ],
-      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF p. 8 (eqs. 7–9); NetworkFlowP.pdf p. 2 (eq. 2)."
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF p. 8 (eqs. 7–9); NetworkFlowP.pdf p. 2 (eq. 2).",
+      "variantOf": "do-node-balance"
     },
     {
       "id": "do-pt16-1c",
@@ -96,7 +98,8 @@
           "marks": 1
         }
       ],
-      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 15–17 (residual network, augmenting path, $\\delta(P)$, the algorithm); NetworkFlowP.pdf pp. 7–8 (sections 4.1–4.2); FordFulkerson.pdf pp. 1–3 (worked example)."
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 15–17 (residual network, augmenting path, $\\delta(P)$, the algorithm); NetworkFlowP.pdf pp. 7–8 (sections 4.1–4.2); FordFulkerson.pdf pp. 1–3 (worked example).",
+      "variantOf": "do-augmenting-residual"
     },
     {
       "id": "do-pt16-1d",
@@ -131,7 +134,8 @@
       "image": {
         "src": "data/do/img/pt-2016/do-pt16-1d.png",
         "alt": "Table 1: Data showing the cost of workers doing different jobs. Rows are workers, columns are the jobs Cleaning, Sweeping, Receptionist, Cooking. Agness: ZAR9000, ZAR7500, ZAR7500, ZAR800. Rose: ZAR3500, ZAR8500, ZAR5500, ZAR6500. Joyce: ZAR12500, ZAR9500, ZAR9000, ZAR10500. Zainab: ZAR4500, ZAR11000, ZAR9500, ZAR11000."
-      }
+      },
+      "variantOf": "do-lap-model"
     },
     {
       "id": "do-pt16-2a",
@@ -189,7 +193,8 @@
           "marks": 1
         }
       ],
-      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF p. 21 (\"(n − 1)! possible tours … in the asymmetric TSP (and ½(n − 1)! for the symmetric TSP with home city being fixed)\"); QAP over all permutations $S_n$, PDF pp. 33–34 (eq. 69). Course notes: ATSP model with subtour constraints, DisCopt.pdf PDF pp. 21–22 (eqs. 33–38: \"the solution without (37) is not a tour but a collection of directed cycles called subtours\"); STSP model, PDF pp. 22–23 (eqs. 39–42)."
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF p. 21 (\"(n − 1)! possible tours … in the asymmetric TSP (and ½(n − 1)! for the symmetric TSP with home city being fixed)\"); QAP over all permutations $S_n$, PDF pp. 33–34 (eq. 69). Course notes: ATSP model with subtour constraints, DisCopt.pdf PDF pp. 21–22 (eqs. 33–38: \"the solution without (37) is not a tour but a collection of directed cycles called subtours\"); STSP model, PDF pp. 22–23 (eqs. 39–42).",
+      "variantOf": "do-tsp-route-count"
     },
     {
       "id": "do-pt16-2c",
@@ -216,7 +221,8 @@
           "marks": 1
         }
       ],
-      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. The same question (2021 exam) is answered in Past Paper Solutions 2024 Exam.pdf p. 6. Course notes: DisCopt.pdf PDF p. 24 (section 2.3.1, eq. 47). Christofides: PDF p. 24."
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. The same question (2021 exam) is answered in Past Paper Solutions 2024 Exam.pdf p. 6. Course notes: DisCopt.pdf PDF p. 24 (section 2.3.1, eq. 47). Christofides: PDF p. 24.",
+      "variantOf": "do-alpha-approx"
     },
     {
       "id": "do-pt16-2d",
@@ -239,7 +245,8 @@
           "marks": 1
         }
       ],
-      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. The same neighbour is in Past Paper Solutions 2024 Exam.pdf p. 8 (e-Science 2021). Course notes: the 2-opt move and the full neighbour list of a 7-city tour, DisCopt.pdf PDF pp. 26–27 (eqs. 49–50)."
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. The same neighbour is in Past Paper Solutions 2024 Exam.pdf p. 8 (e-Science 2021). Course notes: the 2-opt move and the full neighbour list of a 7-city tour, DisCopt.pdf PDF pp. 26–27 (eqs. 49–50).",
+      "variantOf": "do-2opt-neighbour"
     },
     {
       "id": "do-pt16-3a",
@@ -270,7 +277,8 @@
           "marks": 1
         }
       ],
-      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. The same model is in Past Paper Solutions 2024 Exam.pdf p. 11 (2019 test). Course notes: set covering model, DisCopt.pdf PDF pp. 31–33 (eqs. 64–68, and the meaning of each equation in the hospital example on PDF p. 33)."
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. The same model is in Past Paper Solutions 2024 Exam.pdf p. 11 (2019 test). Course notes: set covering model, DisCopt.pdf PDF pp. 31–33 (eqs. 64–68, and the meaning of each equation in the hospital example on PDF p. 33).",
+      "variantOf": "do-set-cover"
     },
     {
       "id": "do-pt16-3b",
@@ -293,7 +301,8 @@
           "marks": 1
         }
       ],
-      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. The same question is answered in Past Paper Solutions 2024 Exam.pdf p. 12 (2019 test). Course notes: DisCopt.pdf PDF p. 30 (eq. 52)."
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. The same question is answered in Past Paper Solutions 2024 Exam.pdf p. 12 (2019 test). Course notes: DisCopt.pdf PDF p. 30 (eq. 52).",
+      "variantOf": "do-facility-one-customer"
     },
     {
       "id": "do-pt16-3c",

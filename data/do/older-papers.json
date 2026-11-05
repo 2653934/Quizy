@@ -31,7 +31,7 @@
         }
       ],
       "explanation": "Question text from Scope_Questions.pdf item 10 (TSP part only). Course notes: DisCopt.pdf PDF p. 21 (\"½(n − 1)! for the symmetric TSP with home city being fixed\").",
-      "variantOf": "tsp-half-count"
+      "variantOf": "do-tsp-half-count"
     },
     {
       "id": "do-old-oct11-3",
@@ -60,7 +60,7 @@
         }
       ],
       "explanation": "Question text from Scope_Questions.pdf item 11 (TSP part only). Course notes: DisCopt.pdf PDF p. 21 (\"½(n − 1)! for the symmetric TSP with home city being fixed\").",
-      "variantOf": "tsp-half-count"
+      "variantOf": "do-tsp-half-count"
     },
     {
       "id": "do-old-nov11-2b",
@@ -161,7 +161,7 @@
         }
       ],
       "explanation": "Question text from Scope_Questions.pdf item 30. Course notes: DisCopt.pdf PDF pp. 52–56 (elitism, selection, crossover, mutation and the GA steps); DiscreteGAcode.pdf pp. 1–2. Course notes: tournament selection, DisCopt.pdf PDF pp. 53–54; the lecturer's pseudocode DiscreteGAcode.pdf p. 1 (two random indices, the fitter one kept).",
-      "variantOf": "ga-features-tournament"
+      "variantOf": "do-ga-features-tournament"
     },
     {
       "id": "do-old-oct11-2",
@@ -202,7 +202,7 @@
         }
       ],
       "explanation": "Question text from Scope_Questions.pdf item 34 (relevant parts only: the real-coded GA clause is left out there). The original mark split is not given; 6 is assigned here, as in the April 2013 version. Course notes: DisCopt.pdf PDF pp. 52–56 (elitism, selection, crossover, mutation and the GA steps); DiscreteGAcode.pdf pp. 1–2. Course notes: tournament selection, DisCopt.pdf PDF pp. 53–54; the lecturer's pseudocode DiscreteGAcode.pdf p. 1 (two random indices, the fitter one kept).",
-      "variantOf": "ga-features-tournament"
+      "variantOf": "do-ga-features-tournament"
     },
     {
       "id": "do-old-nov12-3b",
@@ -227,7 +227,7 @@
         }
       ],
       "explanation": "Question text from Scope_Questions.pdf item 31. Course notes: tournament selection, DisCopt.pdf PDF pp. 53–54; the lecturer's pseudocode DiscreteGAcode.pdf p. 1 (two random indices, the fitter one kept).",
-      "variantOf": "ga-tournament"
+      "variantOf": "do-tournament"
     },
     {
       "id": "do-old-nov11-3b",
@@ -252,7 +252,7 @@
         }
       ],
       "explanation": "Question text from Scope_Questions.pdf item 32. Course notes: tournament selection, DisCopt.pdf PDF pp. 53–54; the lecturer's pseudocode DiscreteGAcode.pdf p. 1 (two random indices, the fitter one kept).",
-      "variantOf": "ga-tournament"
+      "variantOf": "do-tournament"
     },
     {
       "id": "do-old-mar10-3b",
@@ -277,7 +277,7 @@
         }
       ],
       "explanation": "Question text from Scope_Questions.pdf item 33. Course notes: tournament selection, DisCopt.pdf PDF pp. 53–54; the lecturer's pseudocode DiscreteGAcode.pdf p. 1 (two random indices, the fitter one kept).",
-      "variantOf": "ga-tournament"
+      "variantOf": "do-tournament"
     },
     {
       "id": "do-old-mar08-1",
@@ -347,7 +347,7 @@
       ],
       "explanation": "Question text from Scope_Questions.pdf item 39. Course notes: DisCopt.pdf PDF p. 21 (\"½(n − 1)! for the symmetric TSP with home city being fixed\"). The counts and example tours were checked with a short script.",
       "keyDispute": "Inversion, translation and switching are not defined in DisCopt.pdf (the 2-opt move on PDF pp. 26–27 is the closest: it is an inversion). The answer uses the usual definitions for permutation-coded TSP: check them against your own lecture notes.",
-      "variantOf": "tsp-operators"
+      "variantOf": "do-tsp-operators"
     },
     {
       "id": "do-old-mar10-2",
@@ -385,7 +385,7 @@
       ],
       "explanation": "Question text from Scope_Questions.pdf item 40. Course notes: DisCopt.pdf PDF p. 21 (\"½(n − 1)! for the symmetric TSP with home city being fixed\"). The counts and example tours were checked with a short script.",
       "keyDispute": "Inversion, translation and switching are not defined in DisCopt.pdf (the 2-opt move on PDF pp. 26–27 is the closest: it is an inversion). The answer uses the usual definitions for permutation-coded TSP: check them against your own lecture notes.",
-      "variantOf": "tsp-operators"
+      "variantOf": "do-tsp-operators"
     },
     {
       "id": "do-old-jun09-3",
@@ -423,7 +423,7 @@
       ],
       "explanation": "Question text from Scope_Questions.pdf item 41. Course notes: DisCopt.pdf PDF p. 21 (\"½(n − 1)! for the symmetric TSP with home city being fixed\"). The counts and example tours were checked with a short script.",
       "keyDispute": "Inversion, translation and switching are not defined in DisCopt.pdf (the 2-opt move on PDF pp. 26–27 is the closest: it is an inversion). The answer uses the usual definitions for permutation-coded TSP: check them against your own lecture notes.",
-      "variantOf": "tsp-operators"
+      "variantOf": "do-tsp-operators"
     }
   ]
 }

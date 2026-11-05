@@ -30,7 +30,8 @@
           "marks": 2
         }
       ],
-      "explanation": "There is no solution PDF for this test; the answer is written from the course notes. Course notes: NetworkFlowP.pdf p. 2 (eq. 2: $\\sum_j x_{ij} - \\sum_j x_{ji} = 0$ for $i \\ne s, t$) and p. 3 (net-flow form); DisCopt.pdf PDF p. 8 (eq. 8, intermediate nodes)."
+      "explanation": "There is no solution PDF for this test; the answer is written from the course notes. Course notes: NetworkFlowP.pdf p. 2 (eq. 2: $\\sum_j x_{ij} - \\sum_j x_{ji} = 0$ for $i \\ne s, t$) and p. 3 (net-flow form); DisCopt.pdf PDF p. 8 (eq. 8, intermediate nodes).",
+      "variantOf": "do-node-balance"
     },
     {
       "id": "do-pt22-1b",
@@ -92,7 +93,8 @@
           "marks": 1
         }
       ],
-      "explanation": "There is no solution PDF for this test; the answer is written from the course notes. The same question (3+1 marks) is answered in Past Paper Solutions 2024 Exam.pdf pp. 1–2 (2024 paper). Course notes: set covering model, DisCopt.pdf PDF pp. 31–33 (eqs. 64–68, and the meaning of each equation in the hospital example on PDF p. 33)."
+      "explanation": "There is no solution PDF for this test; the answer is written from the course notes. The same question (3+1 marks) is answered in Past Paper Solutions 2024 Exam.pdf pp. 1–2 (2024 paper). Course notes: set covering model, DisCopt.pdf PDF pp. 31–33 (eqs. 64–68, and the meaning of each equation in the hospital example on PDF p. 33).",
+      "variantOf": "do-weighted-set-cover"
     },
     {
       "id": "do-pt22-1d",
@@ -123,7 +125,8 @@
       "answerImage": {
         "src": "data/do/img/pt-2022/do-pt22-1d-answer.png",
         "alt": "Directed network: s→a (4), s→b (3), a→b (2), b→a (1), a→t (3), b→t (5). A dashed line separates A = {s, a} from B = {b, t}; cap(A, B) = 3 + 2 + 3 = 8."
-      }
+      },
+      "variantOf": "do-st-cut"
     },
     {
       "id": "do-pt22-2a",
@@ -158,7 +161,8 @@
       "answerImage": {
         "src": "data/do/img/pt-2022/do-pt22-2a-answer.png",
         "alt": "The four-vertex graph with the MST edges 1–2, 1–3 and 2–4 highlighted (each cost 1, total 3); edges 3–4 (1), 1–4 (2) and 2–3 (3) are grey."
-      }
+      },
+      "variantOf": "do-mst-find"
     },
     {
       "id": "do-pt22-2b",
@@ -189,7 +193,8 @@
           "marks": 1
         }
       ],
-      "explanation": "There is no solution PDF for this test; the answer is written from the course notes. The 2024 version (ATSP) is answered in Past Paper Solutions 2024 Exam.pdf p. 4. Course notes: DisCopt.pdf PDF p. 21 (\"(n − 1)! possible tours … in the asymmetric TSP (and ½(n − 1)! for the symmetric TSP with home city being fixed)\"); QAP over all permutations $S_n$, PDF pp. 33–34 (eq. 69)."
+      "explanation": "There is no solution PDF for this test; the answer is written from the course notes. The 2024 version (ATSP) is answered in Past Paper Solutions 2024 Exam.pdf p. 4. Course notes: DisCopt.pdf PDF p. 21 (\"(n − 1)! possible tours … in the asymmetric TSP (and ½(n − 1)! for the symmetric TSP with home city being fixed)\"); QAP over all permutations $S_n$, PDF pp. 33–34 (eq. 69).",
+      "variantOf": "do-tsp-route-count"
     },
     {
       "id": "do-pt22-2c",
@@ -216,7 +221,8 @@
           "marks": 1
         }
       ],
-      "explanation": "There is no solution PDF for this test; the answer is written from the course notes. The same definition is in Past Paper Solutions 2024 Exam.pdf p. 3. Course notes: DisCopt.pdf PDF p. 24 (section 2.3.1, eq. 47)."
+      "explanation": "There is no solution PDF for this test; the answer is written from the course notes. The same definition is in Past Paper Solutions 2024 Exam.pdf p. 3. Course notes: DisCopt.pdf PDF p. 24 (section 2.3.1, eq. 47).",
+      "variantOf": "do-alpha-approx"
     },
     {
       "id": "do-pt22-2d-i",
@@ -239,7 +245,8 @@
           "marks": 1
         }
       ],
-      "explanation": "There is no solution PDF for this test; the answer is written from the course notes. The same tour is used in Past Paper Solutions 2024 Exam.pdf p. 4 (2024 paper: neighbours 1236745 and 1623745). Course notes: the 2-opt move and the full neighbour list of a 7-city tour, DisCopt.pdf PDF pp. 26–27 (eqs. 49–50). Neighbours checked with a short script."
+      "explanation": "There is no solution PDF for this test; the answer is written from the course notes. The same tour is used in Past Paper Solutions 2024 Exam.pdf p. 4 (2024 paper: neighbours 1236745 and 1623745). Course notes: the 2-opt move and the full neighbour list of a 7-city tour, DisCopt.pdf PDF pp. 26–27 (eqs. 49–50). Neighbours checked with a short script.",
+      "variantOf": "do-2opt-neighbour"
     },
     {
       "id": "do-pt22-2d-ii",
@@ -266,7 +273,8 @@
       "answerImage": {
         "src": "data/do/img/pt-2022/do-pt22-2d-ii-answer.png",
         "alt": "Two separate cycles on the 7 cities: 1–3–2–1 and 6–7–4–5–6."
-      }
+      },
+      "variantOf": "do-subtour-atsp-stsp"
     }
   ]
 }

@@ -30811,7 +30811,8 @@ window.QUIZY_DATA = {
             }
           ],
           "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 1 (same example; the values 6 and 16 are added here). Course notes: relaxation and bounds in DisCopt.pdf PDF pp. 46–48 (sections 3.2–3.2.2). For a minimisation: relaxation → lower bound, feasible solution → upper bound.",
-          "keyDispute": "The handwritten solution labels the relaxed constraint \"lower bound change to 0 ≤ x1, x2 ≤ 3\". That line is the relaxed problem (continuous variables), not a bound on the objective."
+          "keyDispute": "The handwritten solution labels the relaxed constraint \"lower bound change to 0 ≤ x1, x2 ≤ 3\". That line is the relaxed problem (continuous variables), not a bound on the objective.",
+          "variantOf": "do-relaxed-bnb"
         },
         {
           "id": "do-ex24-1b",
@@ -30842,7 +30843,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf pp. 1–2. Course notes: set covering model, DisCopt.pdf PDF pp. 31–33 (eqs. 64–68 and the meaning of each equation in the hospital example)."
+          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf pp. 1–2. Course notes: set covering model, DisCopt.pdf PDF pp. 31–33 (eqs. 64–68 and the meaning of each equation in the hospital example).",
+          "variantOf": "do-weighted-set-cover"
         },
         {
           "id": "do-ex24-1c",
@@ -30885,7 +30887,8 @@ window.QUIZY_DATA = {
           "answerImage": {
             "src": "data/do/img/2024-exam/do-ex24-1c-answer.png",
             "alt": "The same bipartite graph with the optimal assignment highlighted: worker 1 to job 1, worker 2 to job 3, worker 3 to job 2, total cost 5."
-          }
+          },
+          "variantOf": "do-lap-model"
         },
         {
           "id": "do-ex24-1d",
@@ -30908,7 +30911,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 3. Course notes: DisCopt.pdf PDF p. 24 (section 2.3.1, eq. 47)."
+          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 3. Course notes: DisCopt.pdf PDF p. 24 (section 2.3.1, eq. 47).",
+          "variantOf": "do-alpha-approx"
         },
         {
           "id": "do-ex24-2a",
@@ -30943,7 +30947,8 @@ window.QUIZY_DATA = {
           "answerImage": {
             "src": "data/do/img/2024-exam/do-ex24-2a-answer.png",
             "alt": "The four-vertex graph with the MST edges 1–2, 1–3 and 2–4 highlighted (each cost 1, total 3); edges 3–4 (1), 1–4 (2) and 2–3 (3) are grey."
-          }
+          },
+          "variantOf": "do-mst-find"
         },
         {
           "id": "do-ex24-2b",
@@ -30975,7 +30980,8 @@ window.QUIZY_DATA = {
             }
           ],
           "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 4. Course notes: tour counts, DisCopt.pdf PDF p. 21 (\"(n − 1)! possible tours … in the asymmetric TSP (and ½(n − 1)! for the symmetric TSP with home city being fixed)\"); QAP as a permutation problem, PDF pp. 33–34 (eq. 69).",
-          "keyDispute": "The handwritten solution adds \"for any tour, regardless of STSP or ATSP, the reverse way of travelling will result in the same distance, hence (n−1)!/2\". That only holds for the symmetric TSP; for the ATSP asked here the answer is (n−1)!, as the notes (PDF p. 21) say."
+          "keyDispute": "The handwritten solution adds \"for any tour, regardless of STSP or ATSP, the reverse way of travelling will result in the same distance, hence (n−1)!/2\". That only holds for the symmetric TSP; for the ATSP asked here the answer is (n−1)!, as the notes (PDF p. 21) say.",
+          "variantOf": "do-tsp-route-count"
         },
         {
           "id": "do-ex24-2c",
@@ -31011,7 +31017,8 @@ window.QUIZY_DATA = {
           "answerImage": {
             "src": "data/do/img/2024-exam/do-ex24-2c-answer.png",
             "alt": "Two separate cycles on the 7 cities: 1–3–2–1 and 6–7–4–5–6."
-          }
+          },
+          "variantOf": "do-2opt-neighbour"
         }
       ]
     },
@@ -31047,7 +31054,8 @@ window.QUIZY_DATA = {
               "marks": 2
             }
           ],
-          "explanation": "There is no solution PDF for this test; the answer is written from the course notes. Course notes: NetworkFlowP.pdf p. 2 (eq. 2: $\\sum_j x_{ij} - \\sum_j x_{ji} = 0$ for $i \\ne s, t$) and p. 3 (net-flow form); DisCopt.pdf PDF p. 8 (eq. 8, intermediate nodes)."
+          "explanation": "There is no solution PDF for this test; the answer is written from the course notes. Course notes: NetworkFlowP.pdf p. 2 (eq. 2: $\\sum_j x_{ij} - \\sum_j x_{ji} = 0$ for $i \\ne s, t$) and p. 3 (net-flow form); DisCopt.pdf PDF p. 8 (eq. 8, intermediate nodes).",
+          "variantOf": "do-node-balance"
         },
         {
           "id": "do-pt22-1b",
@@ -31109,7 +31117,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "There is no solution PDF for this test; the answer is written from the course notes. The same question (3+1 marks) is answered in Past Paper Solutions 2024 Exam.pdf pp. 1–2 (2024 paper). Course notes: set covering model, DisCopt.pdf PDF pp. 31–33 (eqs. 64–68, and the meaning of each equation in the hospital example on PDF p. 33)."
+          "explanation": "There is no solution PDF for this test; the answer is written from the course notes. The same question (3+1 marks) is answered in Past Paper Solutions 2024 Exam.pdf pp. 1–2 (2024 paper). Course notes: set covering model, DisCopt.pdf PDF pp. 31–33 (eqs. 64–68, and the meaning of each equation in the hospital example on PDF p. 33).",
+          "variantOf": "do-weighted-set-cover"
         },
         {
           "id": "do-pt22-1d",
@@ -31140,7 +31149,8 @@ window.QUIZY_DATA = {
           "answerImage": {
             "src": "data/do/img/pt-2022/do-pt22-1d-answer.png",
             "alt": "Directed network: s→a (4), s→b (3), a→b (2), b→a (1), a→t (3), b→t (5). A dashed line separates A = {s, a} from B = {b, t}; cap(A, B) = 3 + 2 + 3 = 8."
-          }
+          },
+          "variantOf": "do-st-cut"
         },
         {
           "id": "do-pt22-2a",
@@ -31175,7 +31185,8 @@ window.QUIZY_DATA = {
           "answerImage": {
             "src": "data/do/img/pt-2022/do-pt22-2a-answer.png",
             "alt": "The four-vertex graph with the MST edges 1–2, 1–3 and 2–4 highlighted (each cost 1, total 3); edges 3–4 (1), 1–4 (2) and 2–3 (3) are grey."
-          }
+          },
+          "variantOf": "do-mst-find"
         },
         {
           "id": "do-pt22-2b",
@@ -31206,7 +31217,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "There is no solution PDF for this test; the answer is written from the course notes. The 2024 version (ATSP) is answered in Past Paper Solutions 2024 Exam.pdf p. 4. Course notes: DisCopt.pdf PDF p. 21 (\"(n − 1)! possible tours … in the asymmetric TSP (and ½(n − 1)! for the symmetric TSP with home city being fixed)\"); QAP over all permutations $S_n$, PDF pp. 33–34 (eq. 69)."
+          "explanation": "There is no solution PDF for this test; the answer is written from the course notes. The 2024 version (ATSP) is answered in Past Paper Solutions 2024 Exam.pdf p. 4. Course notes: DisCopt.pdf PDF p. 21 (\"(n − 1)! possible tours … in the asymmetric TSP (and ½(n − 1)! for the symmetric TSP with home city being fixed)\"); QAP over all permutations $S_n$, PDF pp. 33–34 (eq. 69).",
+          "variantOf": "do-tsp-route-count"
         },
         {
           "id": "do-pt22-2c",
@@ -31233,7 +31245,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "There is no solution PDF for this test; the answer is written from the course notes. The same definition is in Past Paper Solutions 2024 Exam.pdf p. 3. Course notes: DisCopt.pdf PDF p. 24 (section 2.3.1, eq. 47)."
+          "explanation": "There is no solution PDF for this test; the answer is written from the course notes. The same definition is in Past Paper Solutions 2024 Exam.pdf p. 3. Course notes: DisCopt.pdf PDF p. 24 (section 2.3.1, eq. 47).",
+          "variantOf": "do-alpha-approx"
         },
         {
           "id": "do-pt22-2d-i",
@@ -31256,7 +31269,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "There is no solution PDF for this test; the answer is written from the course notes. The same tour is used in Past Paper Solutions 2024 Exam.pdf p. 4 (2024 paper: neighbours 1236745 and 1623745). Course notes: the 2-opt move and the full neighbour list of a 7-city tour, DisCopt.pdf PDF pp. 26–27 (eqs. 49–50). Neighbours checked with a short script."
+          "explanation": "There is no solution PDF for this test; the answer is written from the course notes. The same tour is used in Past Paper Solutions 2024 Exam.pdf p. 4 (2024 paper: neighbours 1236745 and 1623745). Course notes: the 2-opt move and the full neighbour list of a 7-city tour, DisCopt.pdf PDF pp. 26–27 (eqs. 49–50). Neighbours checked with a short script.",
+          "variantOf": "do-2opt-neighbour"
         },
         {
           "id": "do-pt22-2d-ii",
@@ -31283,7 +31297,8 @@ window.QUIZY_DATA = {
           "answerImage": {
             "src": "data/do/img/pt-2022/do-pt22-2d-ii-answer.png",
             "alt": "Two separate cycles on the 7 cities: 1–3–2–1 and 6–7–4–5–6."
-          }
+          },
+          "variantOf": "do-subtour-atsp-stsp"
         }
       ]
     },
@@ -31319,7 +31334,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: NetworkFlowP.pdf p. 2 (eq. 2) and p. 3 (net-flow form); DisCopt.pdf PDF p. 8 (eq. 8)."
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: NetworkFlowP.pdf p. 2 (eq. 2) and p. 3 (net-flow form); DisCopt.pdf PDF p. 8 (eq. 8).",
+          "variantOf": "do-node-balance"
         },
         {
           "id": "do-pt21-1b-i",
@@ -31342,7 +31358,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 15–17 (residual network, augmenting path, $\\delta(P)$, the algorithm); NetworkFlowP.pdf pp. 7–8 (sections 4.1–4.2); FordFulkerson.pdf pp. 1–3 (worked example)."
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 15–17 (residual network, augmenting path, $\\delta(P)$, the algorithm); NetworkFlowP.pdf pp. 7–8 (sections 4.1–4.2); FordFulkerson.pdf pp. 1–3 (worked example).",
+          "variantOf": "do-augmenting-residual"
         },
         {
           "id": "do-pt21-1b-ii",
@@ -31365,7 +31382,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 15–17 (residual network, augmenting path, $\\delta(P)$, the algorithm); NetworkFlowP.pdf pp. 7–8 (sections 4.1–4.2); FordFulkerson.pdf pp. 1–3 (worked example)."
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 15–17 (residual network, augmenting path, $\\delta(P)$, the algorithm); NetworkFlowP.pdf pp. 7–8 (sections 4.1–4.2); FordFulkerson.pdf pp. 1–3 (worked example).",
+          "variantOf": "do-augmenting-residual"
         },
         {
           "id": "do-pt21-1c",
@@ -31415,7 +31433,8 @@ window.QUIZY_DATA = {
           "answerImage": {
             "src": "data/do/img/pt-2021/do-pt21-1d-answer.png",
             "alt": "Directed network: s→a (4), s→b (3), a→b (2), b→a (1), a→t (3), b→t (5). A dashed line separates A = {s, a} from B = {b, t}."
-          }
+          },
+          "variantOf": "do-st-cut"
         },
         {
           "id": "do-pt21-2a",
@@ -31470,7 +31489,8 @@ window.QUIZY_DATA = {
           "answerImage": {
             "src": "data/do/img/pt-2021/do-pt21-2b-answer.png",
             "alt": "Two example graphs. Left (Hamiltonian): square 1–2–5–4 with centre 3 joined to all four corners; the Hamiltonian cycle 1–2–3–5–4–1 is highlighted. Right (Eulerian): bow-tie of triangles 1–3–4 and 2–3–5 sharing vertex 3; the Eulerian circuit 1–3–2–5–3–4–1 uses all six edges."
-          }
+          },
+          "variantOf": "do-ham-euler"
         },
         {
           "id": "do-pt21-2c",
@@ -31505,7 +31525,8 @@ window.QUIZY_DATA = {
           "answerImage": {
             "src": "data/do/img/pt-2021/do-pt21-2c-answer.png",
             "alt": "Directed sub-tours on 7 cities: a 2-cycle 1 → 2 → 1 and a 5-cycle 3 → 4 → 5 → 6 → 7 → 3."
-          }
+          },
+          "variantOf": "do-subtour-atsp-stsp"
         }
       ]
     },
@@ -31557,7 +31578,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: NetworkFlowP.pdf p. 3 (net flow, skew-symmetry, and the derivation of $\\sum_l f(i,l) = 0$ for $i \\notin \\{s, t\\}$) and p. 4 (eq. 4)."
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: NetworkFlowP.pdf p. 3 (net flow, skew-symmetry, and the derivation of $\\sum_l f(i,l) = 0$ for $i \\notin \\{s, t\\}$) and p. 4 (eq. 4).",
+          "variantOf": "do-net-flow-antisym"
         },
         {
           "id": "do-ex21-1b",
@@ -31642,7 +31664,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 6 (\"Normal: min $c^Tx$ st $Ax \\le b$, $x \\in \\{1,0\\}$; relaxed: … $0 \\le x_i \\le 1$\"). Course notes: knapsack model, DisCopt.pdf PDF p. 19 (eqs. 26–29); relaxation, PDF p. 7 and PDF pp. 46–48."
+          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 6 (\"Normal: min $c^Tx$ st $Ax \\le b$, $x \\in \\{1,0\\}$; relaxed: … $0 \\le x_i \\le 1$\"). Course notes: knapsack model, DisCopt.pdf PDF p. 19 (eqs. 26–29); relaxation, PDF p. 7 and PDF pp. 46–48.",
+          "variantOf": "do-relaxed-bnb"
         },
         {
           "id": "do-ex21-2a",
@@ -31700,7 +31723,8 @@ window.QUIZY_DATA = {
               "marks": 2
             }
           ],
-          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 46–47 (\"there are two such cases\" (a) and (b), and \"another reason … is when the subproblem is infeasible\"), PDF pp. 48–50 (steps of B&B and fathoming)."
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 46–47 (\"there are two such cases\" (a) and (b), and \"another reason … is when the subproblem is infeasible\"), PDF pp. 48–50 (steps of B&B and fathoming).",
+          "variantOf": "do-bnb-delete"
         },
         {
           "id": "do-ex21-2c",
@@ -31739,7 +31763,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 6 (\"For Christofides, $\\alpha = 3/2$\"; the definition is on p. 3). Course notes: DisCopt.pdf PDF p. 24 (eq. 47 and \"at maximum 3/2 times as much as the distance in the optimal solution\")."
+          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 6 (\"For Christofides, $\\alpha = 3/2$\"; the definition is on p. 3). Course notes: DisCopt.pdf PDF p. 24 (eq. 47 and \"at maximum 3/2 times as much as the distance in the optimal solution\").",
+          "variantOf": "do-alpha-approx"
         },
         {
           "id": "do-ex21-3a",
@@ -31766,7 +31791,8 @@ window.QUIZY_DATA = {
               "marks": 1.5
             }
           ],
-          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: double point crossover, DisCopt.pdf PDF p. 55 (Fig. 37); the lecturer's pseudocode DiscreteGAcode.pdf p. 2 (\"for l = n1 to n2: x(l) = y(l); y(l) = temp(l)\"). Children checked with a short script under both conventions."
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: double point crossover, DisCopt.pdf PDF p. 55 (Fig. 37); the lecturer's pseudocode DiscreteGAcode.pdf p. 2 (\"for l = n1 to n2: x(l) = y(l); y(l) = temp(l)\"). Children checked with a short script under both conventions.",
+          "variantOf": "do-double-crossover"
         },
         {
           "id": "do-ex21-3b",
@@ -31805,7 +31831,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 7 (probability 0.368, accept because 0.25 < 0.368). Course notes: Metropolis rule and the SA algorithm, DisCopt.pdf PDF p. 51 (eq. 101, \"accept if exp(−(f(y) − f(x))/T) > random(0,1)\"); sa.pdf (lecturer's SA pseudocode, same test). The value was checked with a short script."
+          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 7 (probability 0.368, accept because 0.25 < 0.368). Course notes: Metropolis rule and the SA algorithm, DisCopt.pdf PDF p. 51 (eq. 101, \"accept if exp(−(f(y) − f(x))/T) > random(0,1)\"); sa.pdf (lecturer's SA pseudocode, same test). The value was checked with a short script.",
+          "variantOf": "do-metropolis"
         }
       ]
     },
@@ -31845,7 +31872,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 8 (\"1 3 2 6 7 4 5 → 1 3 6 2 7 4 5\"). Course notes: the 2-opt move and the full neighbour list of a 7-city tour, DisCopt.pdf PDF pp. 26–27 (eqs. 49–50). Checked with a short script."
+          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 8 (\"1 3 2 6 7 4 5 → 1 3 6 2 7 4 5\"). Course notes: the 2-opt move and the full neighbour list of a 7-city tour, DisCopt.pdf PDF pp. 26–27 (eqs. 49–50). Checked with a short script.",
+          "variantOf": "do-2opt-neighbour"
         },
         {
           "id": "do-es21-1b",
@@ -31876,7 +31904,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 8. Course notes: Metropolis rule and the SA algorithm, DisCopt.pdf PDF p. 51 (eq. 101, \"accept if exp(−(f(y) − f(x))/T) > random(0,1)\"); sa.pdf (lecturer's SA pseudocode, same test)."
+          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 8. Course notes: Metropolis rule and the SA algorithm, DisCopt.pdf PDF p. 51 (eq. 101, \"accept if exp(−(f(y) − f(x))/T) > random(0,1)\"); sa.pdf (lecturer's SA pseudocode, same test).",
+          "variantOf": "do-metropolis"
         },
         {
           "id": "do-es21-1c",
@@ -31943,7 +31972,8 @@ window.QUIZY_DATA = {
           "answerImage": {
             "src": "data/do/img/escience-2021/do-es21-2a-answer.png",
             "alt": "Directed network: s→a (4), s→b (3), a→b (2), b→a (1), a→t (3), b→t (5). A dashed line separates A = {s, a} from B = {b, t}; cap(A, B) = 3 + 2 + 3 = 8."
-          }
+          },
+          "variantOf": "do-net-flow-antisym"
         },
         {
           "id": "do-es21-2b-i",
@@ -31966,7 +31996,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF p. 7 (relaxing $x_{ij} \\in \\{0,1\\}$ to $0 \\le x_{ij} \\le 1$), PDF pp. 46–48 (the relaxed solution is a lower bound in B&B)."
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF p. 7 (relaxing $x_{ij} \\in \\{0,1\\}$ to $0 \\le x_{ij} \\le 1$), PDF pp. 46–48 (the relaxed solution is a lower bound in B&B).",
+          "variantOf": "do-relaxed-bnb"
         },
         {
           "id": "do-es21-2b-ii",
@@ -31993,7 +32024,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 46–47 (\"there are two such cases\" (a) and (b), and \"another reason … is when the subproblem is infeasible\"), PDF pp. 48–50 (steps of B&B and fathoming)."
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 46–47 (\"there are two such cases\" (a) and (b), and \"another reason … is when the subproblem is infeasible\"), PDF pp. 48–50 (steps of B&B and fathoming).",
+          "variantOf": "do-bnb-delete"
         },
         {
           "id": "do-es21-2c",
@@ -32104,7 +32136,8 @@ window.QUIZY_DATA = {
             }
           ],
           "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: tournament selection, DisCopt.pdf PDF pp. 53–54; two-point crossover, PDF p. 55 (Fig. 37); the lecturer's pseudocode DiscreteGAcode.pdf pp. 1–2 (random pair, fitter one kept; crossover loop \"for l = n1 to n2\"). Children checked with a short script under both conventions.",
-          "keyDispute": "The two common double-point conventions give different children here: swapping genes n1..n2 inclusive (the lecturer's pseudocode) gives 11111 and 00100; cutting after genes n1 and n2 gives 10111 and 01100. The answer above follows the lecturer's pseudocode."
+          "keyDispute": "The two common double-point conventions give different children here: swapping genes n1..n2 inclusive (the lecturer's pseudocode) gives 11111 and 00100; cutting after genes n1 and n2 gives 10111 and 01100. The answer above follows the lecturer's pseudocode.",
+          "variantOf": "do-double-crossover"
         },
         {
           "id": "do-es21-3b-i",
@@ -32237,7 +32270,8 @@ window.QUIZY_DATA = {
             }
           ],
           "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 11 (\"2019 paper\" (a)). Course notes: set covering model, DisCopt.pdf PDF pp. 31–33 (eqs. 64–68, and the meaning of each equation in the hospital example on PDF p. 33).",
-          "keyDispute": "The handwritten solution defines $a_{ij} = 1$ \"if item $i \\in S$\"; it should be \"if item $i \\in S_j$\"."
+          "keyDispute": "The handwritten solution defines $a_{ij} = 1$ \"if item $i \\in S$\"; it should be \"if item $i \\in S_j$\".",
+          "variantOf": "do-set-cover"
         },
         {
           "id": "do-pt19-2b",
@@ -32261,7 +32295,8 @@ window.QUIZY_DATA = {
             }
           ],
           "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 12 (\"every customer must be supplied/served by exactly 1 of the warehouses\"). Course notes: DisCopt.pdf PDF p. 30 (eqs. 51–57; constraint 52 is the single-source constraint).",
-          "keyDispute": "The handwritten solution swaps the letters (\"every customer i … of the warehouses j\"); in the question $j$ is the customer and $i$ the warehouse."
+          "keyDispute": "The handwritten solution swaps the letters (\"every customer i … of the warehouses j\"); in the question $j$ is the customer and $i$ the warehouse.",
+          "variantOf": "do-facility-one-customer"
         },
         {
           "id": "do-pt19-2c",
@@ -32339,7 +32374,8 @@ window.QUIZY_DATA = {
           "answerImage": {
             "src": "data/do/img/pt-2019/do-pt19-2d-answer.png",
             "alt": "Directed sub-tours on 7 cities: a 2-cycle 1 → 2 → 1 and a 5-cycle 3 → 4 → 5 → 6 → 7 → 3."
-          }
+          },
+          "variantOf": "do-subtour-atsp-stsp"
         }
       ]
     },
@@ -32387,7 +32423,8 @@ window.QUIZY_DATA = {
           "answerImage": {
             "src": "data/do/img/pt-2017/do-pt17-1a-answer.png",
             "alt": "Two example graphs. Left (Hamiltonian): square 1–2–5–4 with centre 3 joined to all four corners; the Hamiltonian cycle 1–2–3–5–4–1 is highlighted. Right (Eulerian): bow-tie of triangles 1–3–4 and 2–3–5 sharing vertex 3; the Eulerian circuit 1–3–2–5–3–4–1 uses all six edges."
-          }
+          },
+          "variantOf": "do-ham-euler"
         },
         {
           "id": "do-pt17-1b",
@@ -32410,7 +32447,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF p. 8 (eqs. 7–9); NetworkFlowP.pdf p. 2 (eq. 2)."
+          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF p. 8 (eqs. 7–9); NetworkFlowP.pdf p. 2 (eq. 2).",
+          "variantOf": "do-node-balance"
         },
         {
           "id": "do-pt17-1c-i-ii",
@@ -32441,7 +32479,8 @@ window.QUIZY_DATA = {
               "marks": 0.5
             }
           ],
-          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 15–17 (residual network, augmenting path, $\\delta(P)$, the algorithm); NetworkFlowP.pdf pp. 7–8 (sections 4.1–4.2); FordFulkerson.pdf pp. 1–3 (worked example)."
+          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 15–17 (residual network, augmenting path, $\\delta(P)$, the algorithm); NetworkFlowP.pdf pp. 7–8 (sections 4.1–4.2); FordFulkerson.pdf pp. 1–3 (worked example).",
+          "variantOf": "do-augmenting-residual"
         },
         {
           "id": "do-pt17-1c-iii",
@@ -32528,7 +32567,8 @@ window.QUIZY_DATA = {
           "answerImage": {
             "src": "data/do/img/pt-2017/do-pt17-2a-answer.png",
             "alt": "The four-vertex graph with the MST edges 1–2, 1–3 and 2–4 highlighted (each cost 1, total 3); edges 3–4 (1), 1–4 (2) and 2–3 (3) are grey."
-          }
+          },
+          "variantOf": "do-mst-find"
         },
         {
           "id": "do-pt17-2b",
@@ -32555,7 +32595,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. The same constraint is written in Past Paper Solutions 2024 Exam.pdf p. 13 (2019 test). Course notes: ATSP model with subtour constraints, DisCopt.pdf PDF pp. 21–22 (eqs. 33–38: \"the solution without (37) is not a tour but a collection of directed cycles called subtours\"); STSP model, PDF pp. 22–23 (eqs. 39–42)."
+          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. The same constraint is written in Past Paper Solutions 2024 Exam.pdf p. 13 (2019 test). Course notes: ATSP model with subtour constraints, DisCopt.pdf PDF pp. 21–22 (eqs. 33–38: \"the solution without (37) is not a tour but a collection of directed cycles called subtours\"); STSP model, PDF pp. 22–23 (eqs. 39–42).",
+          "variantOf": "do-subtour-atsp-stsp"
         },
         {
           "id": "do-pt17-2c",
@@ -32582,7 +32623,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. The same definition is in Past Paper Solutions 2024 Exam.pdf p. 3. Course notes: DisCopt.pdf PDF p. 24 (section 2.3.1, eq. 47)."
+          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. The same definition is in Past Paper Solutions 2024 Exam.pdf p. 3. Course notes: DisCopt.pdf PDF p. 24 (section 2.3.1, eq. 47).",
+          "variantOf": "do-alpha-approx"
         },
         {
           "id": "do-pt17-2d",
@@ -32609,7 +32651,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. The same neighbour ($i = 2$, $j = 4$) is in Past Paper Solutions 2024 Exam.pdf p. 8 (e-Science 2021). Course notes: the 2-opt move and the full neighbour list of a 7-city tour, DisCopt.pdf PDF pp. 26–27 (eqs. 49–50)."
+          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. The same neighbour ($i = 2$, $j = 4$) is in Past Paper Solutions 2024 Exam.pdf p. 8 (e-Science 2021). Course notes: the 2-opt move and the full neighbour list of a 7-city tour, DisCopt.pdf PDF pp. 26–27 (eqs. 49–50).",
+          "variantOf": "do-2opt-neighbour"
         },
         {
           "id": "do-pt17-3a",
@@ -32640,7 +32683,8 @@ window.QUIZY_DATA = {
               "marks": 0.5
             }
           ],
-          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. The same question is answered in Past Paper Solutions 2024 Exam.pdf p. 11 (2019 test). Course notes: set covering model, DisCopt.pdf PDF pp. 31–33 (eqs. 64–68, and the meaning of each equation in the hospital example on PDF p. 33)."
+          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. The same question is answered in Past Paper Solutions 2024 Exam.pdf p. 11 (2019 test). Course notes: set covering model, DisCopt.pdf PDF pp. 31–33 (eqs. 64–68, and the meaning of each equation in the hospital example on PDF p. 33).",
+          "variantOf": "do-set-cover"
         },
         {
           "id": "do-pt17-3b",
@@ -32663,7 +32707,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. The same question is answered in Past Paper Solutions 2024 Exam.pdf p. 12 (2019 test). Course notes: DisCopt.pdf PDF p. 30 (eq. 52)."
+          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. The same question is answered in Past Paper Solutions 2024 Exam.pdf p. 12 (2019 test). Course notes: DisCopt.pdf PDF p. 30 (eq. 52).",
+          "variantOf": "do-facility-one-customer"
         },
         {
           "id": "do-pt17-3c",
@@ -32742,7 +32787,8 @@ window.QUIZY_DATA = {
           "answerImage": {
             "src": "data/do/img/pt-2016/do-pt16-1a-answer.png",
             "alt": "Two example graphs. Left (Hamiltonian): square 1–2–5–4 with centre 3 joined to all four corners; the Hamiltonian cycle 1–2–3–5–4–1 is highlighted. Right (Eulerian): bow-tie of triangles 1–3–4 and 2–3–5 sharing vertex 3; the Eulerian circuit 1–3–2–5–3–4–1 uses all six edges."
-          }
+          },
+          "variantOf": "do-ham-euler"
         },
         {
           "id": "do-pt16-1b",
@@ -32765,7 +32811,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF p. 8 (eqs. 7–9); NetworkFlowP.pdf p. 2 (eq. 2)."
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF p. 8 (eqs. 7–9); NetworkFlowP.pdf p. 2 (eq. 2).",
+          "variantOf": "do-node-balance"
         },
         {
           "id": "do-pt16-1c",
@@ -32796,7 +32843,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 15–17 (residual network, augmenting path, $\\delta(P)$, the algorithm); NetworkFlowP.pdf pp. 7–8 (sections 4.1–4.2); FordFulkerson.pdf pp. 1–3 (worked example)."
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 15–17 (residual network, augmenting path, $\\delta(P)$, the algorithm); NetworkFlowP.pdf pp. 7–8 (sections 4.1–4.2); FordFulkerson.pdf pp. 1–3 (worked example).",
+          "variantOf": "do-augmenting-residual"
         },
         {
           "id": "do-pt16-1d",
@@ -32831,7 +32879,8 @@ window.QUIZY_DATA = {
           "image": {
             "src": "data/do/img/pt-2016/do-pt16-1d.png",
             "alt": "Table 1: Data showing the cost of workers doing different jobs. Rows are workers, columns are the jobs Cleaning, Sweeping, Receptionist, Cooking. Agness: ZAR9000, ZAR7500, ZAR7500, ZAR800. Rose: ZAR3500, ZAR8500, ZAR5500, ZAR6500. Joyce: ZAR12500, ZAR9500, ZAR9000, ZAR10500. Zainab: ZAR4500, ZAR11000, ZAR9500, ZAR11000."
-          }
+          },
+          "variantOf": "do-lap-model"
         },
         {
           "id": "do-pt16-2a",
@@ -32889,7 +32938,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF p. 21 (\"(n − 1)! possible tours … in the asymmetric TSP (and ½(n − 1)! for the symmetric TSP with home city being fixed)\"); QAP over all permutations $S_n$, PDF pp. 33–34 (eq. 69). Course notes: ATSP model with subtour constraints, DisCopt.pdf PDF pp. 21–22 (eqs. 33–38: \"the solution without (37) is not a tour but a collection of directed cycles called subtours\"); STSP model, PDF pp. 22–23 (eqs. 39–42)."
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF p. 21 (\"(n − 1)! possible tours … in the asymmetric TSP (and ½(n − 1)! for the symmetric TSP with home city being fixed)\"); QAP over all permutations $S_n$, PDF pp. 33–34 (eq. 69). Course notes: ATSP model with subtour constraints, DisCopt.pdf PDF pp. 21–22 (eqs. 33–38: \"the solution without (37) is not a tour but a collection of directed cycles called subtours\"); STSP model, PDF pp. 22–23 (eqs. 39–42).",
+          "variantOf": "do-tsp-route-count"
         },
         {
           "id": "do-pt16-2c",
@@ -32916,7 +32966,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. The same question (2021 exam) is answered in Past Paper Solutions 2024 Exam.pdf p. 6. Course notes: DisCopt.pdf PDF p. 24 (section 2.3.1, eq. 47). Christofides: PDF p. 24."
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. The same question (2021 exam) is answered in Past Paper Solutions 2024 Exam.pdf p. 6. Course notes: DisCopt.pdf PDF p. 24 (section 2.3.1, eq. 47). Christofides: PDF p. 24.",
+          "variantOf": "do-alpha-approx"
         },
         {
           "id": "do-pt16-2d",
@@ -32939,7 +32990,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. The same neighbour is in Past Paper Solutions 2024 Exam.pdf p. 8 (e-Science 2021). Course notes: the 2-opt move and the full neighbour list of a 7-city tour, DisCopt.pdf PDF pp. 26–27 (eqs. 49–50)."
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. The same neighbour is in Past Paper Solutions 2024 Exam.pdf p. 8 (e-Science 2021). Course notes: the 2-opt move and the full neighbour list of a 7-city tour, DisCopt.pdf PDF pp. 26–27 (eqs. 49–50).",
+          "variantOf": "do-2opt-neighbour"
         },
         {
           "id": "do-pt16-3a",
@@ -32970,7 +33022,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. The same model is in Past Paper Solutions 2024 Exam.pdf p. 11 (2019 test). Course notes: set covering model, DisCopt.pdf PDF pp. 31–33 (eqs. 64–68, and the meaning of each equation in the hospital example on PDF p. 33)."
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. The same model is in Past Paper Solutions 2024 Exam.pdf p. 11 (2019 test). Course notes: set covering model, DisCopt.pdf PDF pp. 31–33 (eqs. 64–68, and the meaning of each equation in the hospital example on PDF p. 33).",
+          "variantOf": "do-set-cover"
         },
         {
           "id": "do-pt16-3b",
@@ -32993,7 +33046,8 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. The same question is answered in Past Paper Solutions 2024 Exam.pdf p. 12 (2019 test). Course notes: DisCopt.pdf PDF p. 30 (eq. 52)."
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. The same question is answered in Past Paper Solutions 2024 Exam.pdf p. 12 (2019 test). Course notes: DisCopt.pdf PDF p. 30 (eq. 52).",
+          "variantOf": "do-facility-one-customer"
         },
         {
           "id": "do-pt16-3c",
@@ -33181,7 +33235,8 @@ window.QUIZY_DATA = {
           "answerImage": {
             "src": "data/do/img/tut-2/do-tut2-1a-answer.png",
             "alt": "The bipartite graph with the optimal assignment highlighted: worker 1 to job 1, worker 2 to job 3, worker 3 to job 2, total cost 5."
-          }
+          },
+          "variantOf": "do-lap-model"
         },
         {
           "id": "do-tut2-1b",
@@ -33361,7 +33416,7 @@ window.QUIZY_DATA = {
             }
           ],
           "explanation": "Question text from Scope_Questions.pdf item 10 (TSP part only). Course notes: DisCopt.pdf PDF p. 21 (\"½(n − 1)! for the symmetric TSP with home city being fixed\").",
-          "variantOf": "tsp-half-count"
+          "variantOf": "do-tsp-half-count"
         },
         {
           "id": "do-old-oct11-3",
@@ -33390,7 +33445,7 @@ window.QUIZY_DATA = {
             }
           ],
           "explanation": "Question text from Scope_Questions.pdf item 11 (TSP part only). Course notes: DisCopt.pdf PDF p. 21 (\"½(n − 1)! for the symmetric TSP with home city being fixed\").",
-          "variantOf": "tsp-half-count"
+          "variantOf": "do-tsp-half-count"
         },
         {
           "id": "do-old-nov11-2b",
@@ -33491,7 +33546,7 @@ window.QUIZY_DATA = {
             }
           ],
           "explanation": "Question text from Scope_Questions.pdf item 30. Course notes: DisCopt.pdf PDF pp. 52–56 (elitism, selection, crossover, mutation and the GA steps); DiscreteGAcode.pdf pp. 1–2. Course notes: tournament selection, DisCopt.pdf PDF pp. 53–54; the lecturer's pseudocode DiscreteGAcode.pdf p. 1 (two random indices, the fitter one kept).",
-          "variantOf": "ga-features-tournament"
+          "variantOf": "do-ga-features-tournament"
         },
         {
           "id": "do-old-oct11-2",
@@ -33532,7 +33587,7 @@ window.QUIZY_DATA = {
             }
           ],
           "explanation": "Question text from Scope_Questions.pdf item 34 (relevant parts only: the real-coded GA clause is left out there). The original mark split is not given; 6 is assigned here, as in the April 2013 version. Course notes: DisCopt.pdf PDF pp. 52–56 (elitism, selection, crossover, mutation and the GA steps); DiscreteGAcode.pdf pp. 1–2. Course notes: tournament selection, DisCopt.pdf PDF pp. 53–54; the lecturer's pseudocode DiscreteGAcode.pdf p. 1 (two random indices, the fitter one kept).",
-          "variantOf": "ga-features-tournament"
+          "variantOf": "do-ga-features-tournament"
         },
         {
           "id": "do-old-nov12-3b",
@@ -33557,7 +33612,7 @@ window.QUIZY_DATA = {
             }
           ],
           "explanation": "Question text from Scope_Questions.pdf item 31. Course notes: tournament selection, DisCopt.pdf PDF pp. 53–54; the lecturer's pseudocode DiscreteGAcode.pdf p. 1 (two random indices, the fitter one kept).",
-          "variantOf": "ga-tournament"
+          "variantOf": "do-tournament"
         },
         {
           "id": "do-old-nov11-3b",
@@ -33582,7 +33637,7 @@ window.QUIZY_DATA = {
             }
           ],
           "explanation": "Question text from Scope_Questions.pdf item 32. Course notes: tournament selection, DisCopt.pdf PDF pp. 53–54; the lecturer's pseudocode DiscreteGAcode.pdf p. 1 (two random indices, the fitter one kept).",
-          "variantOf": "ga-tournament"
+          "variantOf": "do-tournament"
         },
         {
           "id": "do-old-mar10-3b",
@@ -33607,7 +33662,7 @@ window.QUIZY_DATA = {
             }
           ],
           "explanation": "Question text from Scope_Questions.pdf item 33. Course notes: tournament selection, DisCopt.pdf PDF pp. 53–54; the lecturer's pseudocode DiscreteGAcode.pdf p. 1 (two random indices, the fitter one kept).",
-          "variantOf": "ga-tournament"
+          "variantOf": "do-tournament"
         },
         {
           "id": "do-old-mar08-1",
@@ -33677,7 +33732,7 @@ window.QUIZY_DATA = {
           ],
           "explanation": "Question text from Scope_Questions.pdf item 39. Course notes: DisCopt.pdf PDF p. 21 (\"½(n − 1)! for the symmetric TSP with home city being fixed\"). The counts and example tours were checked with a short script.",
           "keyDispute": "Inversion, translation and switching are not defined in DisCopt.pdf (the 2-opt move on PDF pp. 26–27 is the closest: it is an inversion). The answer uses the usual definitions for permutation-coded TSP: check them against your own lecture notes.",
-          "variantOf": "tsp-operators"
+          "variantOf": "do-tsp-operators"
         },
         {
           "id": "do-old-mar10-2",
@@ -33715,7 +33770,7 @@ window.QUIZY_DATA = {
           ],
           "explanation": "Question text from Scope_Questions.pdf item 40. Course notes: DisCopt.pdf PDF p. 21 (\"½(n − 1)! for the symmetric TSP with home city being fixed\"). The counts and example tours were checked with a short script.",
           "keyDispute": "Inversion, translation and switching are not defined in DisCopt.pdf (the 2-opt move on PDF pp. 26–27 is the closest: it is an inversion). The answer uses the usual definitions for permutation-coded TSP: check them against your own lecture notes.",
-          "variantOf": "tsp-operators"
+          "variantOf": "do-tsp-operators"
         },
         {
           "id": "do-old-jun09-3",
@@ -33753,7 +33808,7 @@ window.QUIZY_DATA = {
           ],
           "explanation": "Question text from Scope_Questions.pdf item 41. Course notes: DisCopt.pdf PDF p. 21 (\"½(n − 1)! for the symmetric TSP with home city being fixed\"). The counts and example tours were checked with a short script.",
           "keyDispute": "Inversion, translation and switching are not defined in DisCopt.pdf (the 2-opt move on PDF pp. 26–27 is the closest: it is an inversion). The answer uses the usual definitions for permutation-coded TSP: check them against your own lecture notes.",
-          "variantOf": "tsp-operators"
+          "variantOf": "do-tsp-operators"
         }
       ]
     }
