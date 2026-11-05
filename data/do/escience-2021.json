@@ -1,0 +1,388 @@
+{
+  "id": "do-escience-2021",
+  "title": "E-Science Exam 2021",
+  "kind": "past-paper",
+  "description": "COMS7057A (e-Science) exam, 22 November 2021 (50 marks), transcribed word for word, one sub-part per question. Write or think your answer, reveal the model answer, then tick the marking points you covered. 1(a)–(c) follow the handwritten past-paper solutions; the rest is answered from the course notes. The clique question has no course source. All answers are unofficial.",
+  "sourceFile": "03 Past Papers/EscienceExam2021.pdf",
+  "unofficialAnswers": true,
+  "totalMarks": 50,
+  "transcriptionNotes": "Question text copied from the PDF; words split by hyphenation at line ends are joined (\"considered\"). Kept as printed: \"two parents solutions\", \"binary optimization problem\", \"$\\beta_o$\" (letter o), \"$N >> 4$\". Maths written as LaTeX; the underlined $\\underline{y}$ is kept. 2(b) and 3(b) are split into their sub-parts, each repeating the stem (and the printed mark split); 2(c) keeps its inline (i) and (ii) as one question. Model answers and rubrics were written by an AI assistant from the handwritten solutions (Past Paper Solutions 2024 Exam.pdf p. 8, Question 1) and the course notes; rubric marks follow the printed mark split, with 2(c) split 1.5 per point. Questions 2(c)(i) and 3(b) (regression) are outside the 2026 exam scope (topic 12).",
+  "subject": "do",
+  "questions": [
+    {
+      "id": "do-es21-1a",
+      "source": {
+        "number": "1(a)"
+      },
+      "lecture": 9,
+      "concept": "2-opt neighbour",
+      "type": "written",
+      "marks": 3,
+      "question": "Consider the 7 city TSP with a feasible tour $x = (1, 3, 2, 6, 7, 4, 5)$ where the 1st city is the starting city. Construct a 2-opt neighbor of $x$ with $i$=2 and $j$=4. [3 Marks ]",
+      "modelAnswer": "2-opt move: delete two non-adjacent edges $(c_i, c_{i+1})$ and $(c_j, c_{j+1})$ of the tour and reconnect with $(c_i, c_j)$ and $(c_{i+1}, c_{j+1})$; this reverses the cities in positions $i+1, \\dots, j$. Positions (not city labels) of $x$: $c_1 = 1, c_2 = 3, c_3 = 2, c_4 = 6, c_5 = 7, c_6 = 4, c_7 = 5$ (city 1 stays first).\nWith $i = 2$, $j = 4$: delete the edges $(c_2, c_3) = (3, 2)$ and $(c_4, c_5) = (6, 7)$; add $(c_2, c_4) = (3, 6)$ and $(c_3, c_5) = (2, 7)$. The cities in positions 3 to 4 (\"2, 6\") are reversed:\n$$x' = (1, 3, 6, 2, 7, 4, 5).$$",
+      "rubric": [
+        {
+          "point": "Removes the edges (3, 2) and (6, 7) at positions $i, i+1$ and $j, j+1$",
+          "marks": 1
+        },
+        {
+          "point": "Adds the edges (3, 6) and (2, 7)",
+          "marks": 1
+        },
+        {
+          "point": "Neighbour $(1, 3, 6, 2, 7, 4, 5)$",
+          "marks": 1
+        }
+      ],
+      "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 8 (\"1 3 2 6 7 4 5 → 1 3 6 2 7 4 5\"). Course notes: the 2-opt move and the full neighbour list of a 7-city tour, DisCopt.pdf PDF pp. 26–27 (eqs. 49–50). Checked with a short script."
+    },
+    {
+      "id": "do-es21-1b",
+      "source": {
+        "number": "1(b)"
+      },
+      "lecture": 3,
+      "concept": "Metropolis algorithm",
+      "type": "written",
+      "marks": 5,
+      "question": "What is the main objective of the Metropolis Algorithm? Define the Metropolis acceptance probability of accepting a trial solution $(y, E_y)$ from the current solution $(x, E_x)$. [3 + 2 Marks ]",
+      "modelAnswer": "Main objective of the Metropolis algorithm: to numerically generate sample points (a Markov chain of solutions) from a probability distribution that cannot be sampled directly, here the Boltzmann (equilibrium / stationary) distribution at temperature $T$. In SA it is the rule that decides whether a trial solution replaces the current one: better solutions are always accepted and worse ones are accepted with a probability that shrinks as $T$ is lowered, so the search can climb out of local minima early on and settles near a good minimum as $T \\to 0$.\nMetropolis acceptance probability (minimisation) of moving from the current solution $(x, E_x)$ to the trial solution $(y, E_y)$ at temperature $T_t$:\n$$A_{xy}(T_t) = \\min\\left\\{1,\\ \\exp\\!\\left(-\\frac{E_y - E_x}{T_t}\\right)\\right\\}.$$\nIf $E_y \\le E_x$ the exponent is $\\ge 0$, so $A_{xy} = 1$ and $y$ is always accepted. If $E_y > E_x$, $y$ is accepted when a uniform random number $r \\in (0,1)$ satisfies $r < \\exp(-(E_y - E_x)/T_t)$.",
+      "rubric": [
+        {
+          "point": "Generates sample points from a distribution that cannot be sampled directly (the equilibrium/Boltzmann distribution at temperature $T$)",
+          "marks": 2
+        },
+        {
+          "point": "In SA: accepts all improvements and some worse moves, so it can escape local minima",
+          "marks": 1
+        },
+        {
+          "point": "$A_{xy}(T) = \\min\\{1, \\exp(-(E_y - E_x)/T)\\}$",
+          "marks": 1
+        },
+        {
+          "point": "Use: always accept if $E_y \\le E_x$, else accept if a uniform $r < \\exp(-(E_y - E_x)/T)$",
+          "marks": 1
+        }
+      ],
+      "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 8. Course notes: Metropolis rule and the SA algorithm, DisCopt.pdf PDF p. 51 (eq. 101, \"accept if exp(−(f(y) − f(x))/T) > random(0,1)\"); sa.pdf (lecturer's SA pseudocode, same test)."
+    },
+    {
+      "id": "do-es21-1c",
+      "source": {
+        "number": "1(c)"
+      },
+      "lecture": 7,
+      "concept": "Graph bisection vs max-cut",
+      "type": "written",
+      "marks": 2,
+      "question": "What is the main difference between the graph bisection problem and the max-2-cut problem. [2 Marks ]",
+      "modelAnswer": "Both split the vertex set $V$ of a weighted graph into two disjoint parts and are judged by the total weight of the edges that run between the two parts (in the course notes both maximise it).\nGraph bisection: the two parts must have the same number of vertices, $|V_1| = |V_2| = n/2$ ($n$ even). In the model $x_i \\in \\{1, -1\\}$ this is the extra constraint $\\sum_i x_i = 0$.\nMax-2-cut (max-cut): the two parts $S$ and $V \\setminus S$ can have any sizes; there is no balance constraint.\nSo the main difference is the equal-size (balance) constraint of bisection.",
+      "rubric": [
+        {
+          "point": "Bisection: the two parts must be of equal size ($\\sum_i x_i = 0$)",
+          "marks": 1
+        },
+        {
+          "point": "Max-2-cut: any partition into two sets, no size restriction (both maximise the weight of edges between the parts)",
+          "marks": 1
+        }
+      ],
+      "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 8. Course notes: max-bisection, DisCopt.pdf PDF pp. 40–41 (\"partitioning V into two disjoint subsets V1 and V2 with the same cardinality\"); max-cut, PDF pp. 41–42 (\"a partition of V into two disjoint subsets (not necessarily equal)\").",
+      "keyDispute": "The handwritten solution says max-2-cut \"divides the vertices into 3 disjoint sets\"; it should be 2. Also note that outside this course \"graph bisection\" usually means minimising the edges between the halves; the course notes use the max-bisection version."
+    },
+    {
+      "id": "do-es21-2a",
+      "source": {
+        "number": "2(a)"
+      },
+      "lecture": 1,
+      "concept": "s–t cut and skew-symmetry",
+      "type": "written",
+      "marks": 6,
+      "question": "Construct an example flow network and define an $(s, t)$-cut on it. Let $f(i, j)$ denote the net flow going out of node $i$ to node $j$. Prove that $f(i, j) = -f(j, i)$. [4 + 2 Marks ]",
+      "modelAnswer": "Example flow network (capacities on the arcs): $s \\to a$ (4), $s \\to b$ (3), $a \\to b$ (2), $b \\to a$ (1), $a \\to t$ (3), $b \\to t$ (5).\nAn $(s,t)$-cut $(A, B)$ is a partition of the nodes into two disjoint sets with $s \\in A$ and $t \\in B$. On the example: $A = \\{s, a\\}$, $B = \\{b, t\\}$. The cut set is the arcs from $A$ to $B$: $(s,b), (a,b), (a,t)$; removing them leaves no path from $s$ to $t$. Its capacity is the sum of the capacities of the arcs from $A$ to $B$ only: $\\text{cap}(A, B) = 3 + 2 + 3 = 8$ (the arc $b \\to a$ goes from $B$ to $A$ and is not counted).\nProof of skew-symmetry: let $p(i,j) \\ge 0$ be the positive flow on $(i,j)$ and $p(j,i) \\ge 0$ the positive flow on $(j,i)$. The net flow out of $i$ to $j$ is $f(i,j) = p(i,j) - p(j,i)$, and likewise $f(j,i) = p(j,i) - p(i,j)$. Hence\n$$f(j,i) = p(j,i) - p(i,j) = -\\big(p(i,j) - p(j,i)\\big) = -f(i,j).$$",
+      "rubric": [
+        {
+          "point": "A directed flow network with $s$, $t$ and arc capacities",
+          "marks": 1
+        },
+        {
+          "point": "Cut defined: partition $(A, B)$ with $s \\in A$, $t \\in B$, disjoint",
+          "marks": 1
+        },
+        {
+          "point": "A cut shown on the example (its cut set)",
+          "marks": 1
+        },
+        {
+          "point": "Cut capacity: sum of capacities of arcs from $A$ to $B$, computed",
+          "marks": 1
+        },
+        {
+          "point": "Net flow written as $f(i,j) = p(i,j) - p(j,i)$ (and $f(j,i) = p(j,i) - p(i,j)$)",
+          "marks": 1
+        },
+        {
+          "point": "Concludes $f(j,i) = -f(i,j)$",
+          "marks": 1
+        }
+      ],
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: cuts, NetworkFlowP.pdf p. 5 (Definitions 1–4) and DisCopt.pdf PDF p. 17; net flow and skew-symmetry, NetworkFlowP.pdf p. 3. The example network is made up here.",
+      "answerImage": {
+        "src": "data/do/img/escience-2021/do-es21-2a-answer.png",
+        "alt": "Directed network: s→a (4), s→b (3), a→b (2), b→a (1), a→t (3), b→t (5). A dashed line separates A = {s, a} from B = {b, t}; cap(A, B) = 3 + 2 + 3 = 8."
+      }
+    },
+    {
+      "id": "do-es21-2b-i",
+      "source": {
+        "number": "2(b)(i)"
+      },
+      "lecture": 4,
+      "concept": "Relaxed problem",
+      "type": "written",
+      "marks": 2,
+      "question": "In the context of Branch and Bound algorithm for a minimization problem answer the following questions: [2 + 3 Marks ]\n(i) What is a relaxed problem?",
+      "modelAnswer": "The relaxed problem is the original integer problem with the integrality requirement dropped (e.g. $x_j \\in \\{0, 1\\}$ replaced by $0 \\le x_j \\le 1$, or $x_j \\in \\mathbb{Z}$ by $x_j \\in \\mathbb{R}$), keeping the same objective and all other constraints. Its feasible set contains every feasible point of the original problem, so for a minimisation its optimal value is a lower bound on the original optimum (an upper bound for a maximisation). It is an LP (or a convex QP) and can be solved quickly; B&B solves it at every node.\nExample: for $\\min c^Tx$ s.t. $Ax \\ge b$, $x \\in \\{0,1\\}^n$ the relaxed problem is $\\min c^Tx$ s.t. $Ax \\ge b$, $0 \\le x \\le 1$.",
+      "rubric": [
+        {
+          "point": "The original problem with the integer (binary) restrictions dropped, i.e. the variables made continuous, other constraints kept",
+          "marks": 1
+        },
+        {
+          "point": "Its optimum is a lower bound for a minimisation (it is solved at each B&B node)",
+          "marks": 1
+        }
+      ],
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF p. 7 (relaxing $x_{ij} \\in \\{0,1\\}$ to $0 \\le x_{ij} \\le 1$), PDF pp. 46–48 (the relaxed solution is a lower bound in B&B)."
+    },
+    {
+      "id": "do-es21-2b-ii",
+      "source": {
+        "number": "2(b)(ii)"
+      },
+      "lecture": 4,
+      "concept": "Branch and bound: fathoming",
+      "type": "written",
+      "marks": 3,
+      "question": "In the context of Branch and Bound algorithm for a minimization problem answer the following questions: [2 + 3 Marks ]\n(ii) Give three cases when a subproblem (or node in the tree) is deleted (not considered for further investigation).",
+      "modelAnswer": "For a minimisation problem, with the best feasible (incumbent) value as the upper bound $u$ and the relaxed value $l(S_i)$ of a subproblem as its lower bound, a subproblem is deleted (fathomed) when:\n1. Bound: $l(S_i) \\ge u$ (in the notes $l(S_i) > u(S)$): even its relaxation cannot beat the best solution already found, so no solution in that branch can be better.\n2. Integer solution: the relaxed solution of the subproblem is already integer feasible. It is the best solution in that branch, so the incumbent and upper bound are updated if it is better, and there is nothing left to branch on.\n3. Infeasible: the relaxed subproblem has no feasible solution, so the branch contains no solutions at all.",
+      "rubric": [
+        {
+          "point": "Bound: the subproblem's lower bound (relaxed value) is not better than the current upper bound",
+          "marks": 1
+        },
+        {
+          "point": "Integer: the relaxed solution is integer feasible (update the incumbent / upper bound)",
+          "marks": 1
+        },
+        {
+          "point": "Infeasible: the relaxed subproblem has no feasible solution",
+          "marks": 1
+        }
+      ],
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 46–47 (\"there are two such cases\" (a) and (b), and \"another reason … is when the subproblem is infeasible\"), PDF pp. 48–50 (steps of B&B and fathoming)."
+    },
+    {
+      "id": "do-es21-2c",
+      "source": {
+        "number": "2(c)"
+      },
+      "lecture": 12,
+      "concept": "Regression types; bipartite graphs",
+      "type": "written",
+      "marks": 6,
+      "question": "Differentiate between (i) linear regression and non-linear regression, (ii) Bipartite and complete bipartite graph. You may use example graphs in (ii). [3 + 3 Marks ]",
+      "modelAnswer": "(i) Linear regression: the model is linear in its unknown parameters, $\\hat{f}(x) = \\beta_0 + \\beta_1 g_1(x) + \\dots + \\beta_p g_p(x)$, so the data give a linear system $A\\beta = y$ (the basis functions $g_k$ themselves may be non-linear, e.g. polynomials). The least-squares parameters come in closed form from the normal equation $A^TA\\beta = A^Ty$.\nNon-linear regression: the model depends non-linearly on the parameters, $y = f(x, \\theta) + \\epsilon$ (e.g. $\\theta_1 e^{\\theta_2 x}$). There is no closed form; the parameters are found iteratively with non-linear optimisation (e.g. conjugate gradient or Newton-type methods), which may stop at a local minimum.\n(ii) Bipartite graph: the vertices split into two disjoint sets $U$ and $W$ so that every edge joins a vertex of $U$ to a vertex of $W$ (no edge inside $U$ or inside $W$). Not every $U$–$W$ pair has to be joined. Example: $U = \\{a, b, c\\}$, $W = \\{d, e\\}$, edges $a$–$d$, $b$–$d$, $c$–$e$.\nComplete bipartite graph $K_{m,n}$: a bipartite graph in which every vertex of $U$ ($|U| = m$) is joined to every vertex of $W$ ($|W| = n$), so it has exactly $m \\cdot n$ edges. Example: $K_{3,3}$, three workers each joined to all three jobs (the linear assignment graph).",
+      "rubric": [
+        {
+          "point": "Linear regression: model linear in the parameters, solved directly by least squares / normal equations",
+          "marks": 1.5
+        },
+        {
+          "point": "Non-linear regression: model non-linear in the parameters, needs iterative non-linear optimisation",
+          "marks": 1.5
+        },
+        {
+          "point": "Bipartite: two disjoint vertex sets, every edge goes between them (example)",
+          "marks": 1.5
+        },
+        {
+          "point": "Complete bipartite: every vertex of one set joined to every vertex of the other, $m \\cdot n$ edges (example)",
+          "marks": 1.5
+        }
+      ],
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. (i) Regression.pdf p. 1 (linear least squares and normal equations; non-linear models $f(y, \\theta) = b$ solved with conjugate gradient or Newton-like methods). (ii) The notes use bipartite graphs for the linear assignment problem (DisCopt.pdf PDF pp. 10–11, Fig. 14) but do not define \"complete bipartite\"; that definition is the standard graph-theory one. Regression is outside the 2026 exam scope.",
+      "answerImage": {
+        "src": "data/do/img/escience-2021/do-es21-2c-answer.png",
+        "alt": "Left: a bipartite graph with sets {a, b, c} and {d, e} and edges a–d, b–d, c–e (not complete). Right: the complete bipartite graph K3,3, with each of 1, 2, 3 on the left joined to each of 1, 2, 3 on the right (9 edges)."
+      }
+    },
+    {
+      "id": "do-es21-2d",
+      "source": {
+        "number": "2(d)"
+      },
+      "lecture": 6,
+      "concept": "Maximum clique and planted clique",
+      "type": "written",
+      "marks": 5,
+      "question": "Define the maximum clique with an example graph. Describe one way of creating a planted clique of size $k$. [2 + 3 Marks ]",
+      "modelAnswer": "A clique of a graph $G = (V, E)$ is a subset $C \\subseteq V$ in which every pair of vertices is joined by an edge (the vertices induce a complete subgraph). The maximum clique is a clique with the largest possible number of vertices; its size is the clique number $\\omega(G)$.\nExample: $V = \\{1, \\dots, 6\\}$, edges 1–2, 1–3, 1–4, 2–3, 2–4, 3–4, 3–5, 4–5, 5–6, 6–1. $\\{1, 2, 3, 4\\}$ is a clique (all 6 pairs are edges) and there is no clique of 5 vertices, so the maximum clique is $\\{1, 2, 3, 4\\}$ with size 4. ($\\{3, 4, 5\\}$ is a clique but not maximum.)\nPlanted clique of size $k$:\n1. Generate a random graph $G(n, \\tfrac{1}{2})$: for every pair of the $n$ vertices, add the edge independently with probability $\\tfrac12$.\n2. Choose $k$ of the $n$ vertices uniformly at random.\n3. Add every missing edge between the chosen vertices, so they form a clique of size $k$ (the \"planted\" clique).\nThe task is then to find the hidden clique. Since a random $G(n, \\tfrac12)$ only has cliques of about $2\\log_2 n$ vertices, a planted clique with $k$ clearly larger than that is the unique maximum clique and can be used as a test instance with a known answer.",
+      "rubric": [
+        {
+          "point": "Clique: a set of vertices that are all pairwise adjacent; maximum clique = the largest such set",
+          "marks": 1
+        },
+        {
+          "point": "Correct example graph with its maximum clique identified",
+          "marks": 1
+        },
+        {
+          "point": "Start from a random graph (e.g. $G(n, 1/2)$, each edge with probability 1/2)",
+          "marks": 1
+        },
+        {
+          "point": "Pick $k$ vertices at random",
+          "marks": 1
+        },
+        {
+          "point": "Add all edges among them to make a $k$-clique (then search for it)",
+          "marks": 1
+        }
+      ],
+      "explanation": "No course notes on cliques or planted cliques were found in the DO folder (the syllabus in DO-Topics2026.docx only lists \"the independent set problem\", and the 2026 exam scope names \"the planted clique, the maximum clique and the maximum independent set problem\"). This answer uses the standard definitions; the example's maximum clique was checked with networkx.",
+      "keyDispute": "Answer written from standard graph theory, not from a course document: check it against your lecture notes on the planted clique before the exam.",
+      "answerImage": {
+        "src": "data/do/img/escience-2021/do-es21-2d-answer.png",
+        "alt": "Graph on vertices 1–6 with edges 1–2, 1–3, 1–4, 2–3, 2–4, 3–4, 3–5, 4–5, 5–6, 6–1. The six edges of the maximum clique {1, 2, 3, 4} are highlighted."
+      }
+    },
+    {
+      "id": "do-es21-3a",
+      "source": {
+        "number": "3(a)"
+      },
+      "lecture": 2,
+      "concept": "Tournament selection and double-point crossover",
+      "type": "written",
+      "marks": 6,
+      "question": "Suppose GA is used to solve binary optimization problem. Tournament selection is used to select two parents solutions $x_1 = 10101$ and $x_2 = 01110$ for reproduction. Describe the tournament selection process in brief. Obtain two new solutions ($y_1$ and $y_2$) using a double point crossover with the integers $n_1$=2 and $n_2$=4. [2 + 4 Marks ]",
+      "modelAnswer": "Tournament selection: pick two members of the current population at random (different indices) and compare their fitness; the fitter one becomes parent A. Repeat with another random pair to get parent B (members may be picked again). Fitter solutions win more tournaments, so they reproduce more often, but weak ones still have a chance.\nConvention: the lecturer's GA pseudocode (DiscreteGAcode.pdf p. 2) swaps the genes in positions $n_1, n_1 + 1, \\dots, n_2$ inclusive between the two parents.\nPositions:   1 | 2 3 4 | 5\n$x_1$ = 1 | 0 1 0 | 1\n$x_2$ = 0 | 1 1 1 | 0\nSwap the genes in positions 2–4 (\"010\" and \"111\"), keep positions 1 and 5:\n$y_1$ = 1 | 1 1 1 | 1 = $11111$\n$y_2$ = 0 | 0 1 0 | 0 = $00100$\n(If instead the cuts are placed after gene 2 and after gene 4, only positions 3–4 are swapped, giving $y_1 = 10111$ and $y_2 = 01100$. State the convention you use.)",
+      "rubric": [
+        {
+          "point": "Tournament: two random members compared, the fitter becomes a parent",
+          "marks": 1
+        },
+        {
+          "point": "Repeated (independently) for the second parent",
+          "marks": 1
+        },
+        {
+          "point": "Crossover segment positions $n_1 = 2$ to $n_2 = 4$ identified in both parents",
+          "marks": 2
+        },
+        {
+          "point": "$y_1 = 11111$",
+          "marks": 1
+        },
+        {
+          "point": "$y_2 = 00100$",
+          "marks": 1
+        }
+      ],
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: tournament selection, DisCopt.pdf PDF pp. 53–54; two-point crossover, PDF p. 55 (Fig. 37); the lecturer's pseudocode DiscreteGAcode.pdf pp. 1–2 (random pair, fitter one kept; crossover loop \"for l = n1 to n2\"). Children checked with a short script under both conventions.",
+      "keyDispute": "The two common double-point conventions give different children here: swapping genes n1..n2 inclusive (the lecturer's pseudocode) gives 11111 and 00100; cutting after genes n1 and n2 gives 10111 and 01100. The answer above follows the lecturer's pseudocode."
+    },
+    {
+      "id": "do-es21-3b-i",
+      "source": {
+        "number": "3(b)(i)"
+      },
+      "lecture": 12,
+      "concept": "Least squares: the linear system",
+      "type": "written",
+      "marks": 5,
+      "question": "You are given a set of data $\\{(y^1, x^1), (y^2, x^2), \\cdots, (y^N, x^N)\\}$, $N >> 4$. Assume that the response variable, $y$, relates to the predictors, $x = (x_1, x_2)^T$, through some unknown function expressed generally as: $y = f(x) + \\epsilon$, $\\epsilon \\sim N(0, \\sigma)$, $\\epsilon$ is unrelated to $x$. Use the estimator, $\\hat{f}(x)$, of $f(x)$ as\n$$\\hat{f}(x) = \\beta_o + \\beta_1 x_1 + \\beta_2 x_2 + \\beta_3 x_1 x_2$$\nand answer the following questions:\n(i) Use the given data set to construct the over-determined linear system:\n$$A\\beta = \\underline{y}, \\qquad (1)$$\nwhere $\\underline{y}^T = (y^1, y^2, \\cdots, y^N)$, $\\beta^T = (\\beta_o, \\beta_1, \\beta_2, \\beta_3)$; [5 + 5 + 2 Marks ]",
+      "modelAnswer": "Write the model for every data point $k = 1, \\dots, N$: $y^k \\approx \\beta_0 + \\beta_1 x_1^k + \\beta_2 x_2^k + \\beta_3 x_1^k x_2^k$. Stacking the $N$ equations:\n$$A = \\begin{pmatrix} 1 & x_1^1 & x_2^1 & x_1^1 x_2^1 \\\\ 1 & x_1^2 & x_2^2 & x_1^2 x_2^2 \\\\ \\vdots & \\vdots & \\vdots & \\vdots \\\\ 1 & x_1^N & x_2^N & x_1^N x_2^N \\end{pmatrix} \\in \\mathbb{R}^{N \\times 4}$$\n$$\\beta = \\begin{pmatrix} \\beta_0 \\\\ \\beta_1 \\\\ \\beta_2 \\\\ \\beta_3 \\end{pmatrix}, \\qquad \\underline{y} = \\begin{pmatrix} y^1 \\\\ y^2 \\\\ \\vdots \\\\ y^N \\end{pmatrix}, \\qquad A\\beta = \\underline{y}.$$\nRow $k$ of $A$ is $(1, x_1^k, x_2^k, x_1^k x_2^k)$: a 1 for the intercept, then the two predictors and their product. There are $N$ equations and only 4 unknowns, and $N \\gg 4$, so the system is over-determined and in general has no exact solution (the noise $\\epsilon$ makes the points inconsistent); we look for the least-squares $\\beta$ instead.",
+      "rubric": [
+        {
+          "point": "Writes the model equation for each data point $k$",
+          "marks": 1
+        },
+        {
+          "point": "Matrix $A$ with rows $(1, x_1^k, x_2^k, x_1^kx_2^k)$, size $N \\times 4$",
+          "marks": 2
+        },
+        {
+          "point": "Vectors $\\beta$ and $\\underline{y}$ and the system $A\\beta = \\underline{y}$",
+          "marks": 1
+        },
+        {
+          "point": "Explains over-determined: $N \\gg 4$ equations, 4 unknowns, no exact solution in general",
+          "marks": 1
+        }
+      ],
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: Regression.pdf p. 1 (least squares, normal equation $A^TAx = A^Tb$, nonlinear models $f(y, \\theta) = b$), p. 2 (polynomial regression written as $r = Ax - b$, over-determined systems) and p. 3 (section 2.3, normal equation). Regression is outside the 2026 exam scope."
+    },
+    {
+      "id": "do-es21-3b-ii",
+      "source": {
+        "number": "3(b)(ii)"
+      },
+      "lecture": 12,
+      "concept": "Least squares: deriving the solution",
+      "type": "written",
+      "marks": 5,
+      "question": "You are given a set of data $\\{(y^1, x^1), (y^2, x^2), \\cdots, (y^N, x^N)\\}$, $N >> 4$. Assume that the response variable, $y$, relates to the predictors, $x = (x_1, x_2)^T$, through some unknown function expressed generally as: $y = f(x) + \\epsilon$, $\\epsilon \\sim N(0, \\sigma)$, $\\epsilon$ is unrelated to $x$. Use the estimator, $\\hat{f}(x)$, of $f(x)$ as\n$$\\hat{f}(x) = \\beta_o + \\beta_1 x_1 + \\beta_2 x_2 + \\beta_3 x_1 x_2$$\nand answer the following questions:\n(ii) Minimize the function\n$$\\min_{\\beta} \\ \\|A\\beta - \\underline{y}\\|_2^2 \\qquad (2)$$\nand show that $\\beta = (A^TA)^{-1}A^T\\underline{y}$; [5 + 5 + 2 Marks ]",
+      "modelAnswer": "Let $S(\\beta) = \\|A\\beta - \\underline{y}\\|_2^2 = (A\\beta - \\underline{y})^T(A\\beta - \\underline{y})$. Expanding:\n$$S(\\beta) = \\beta^TA^TA\\beta - \\beta^TA^T\\underline{y} - \\underline{y}^TA\\beta + \\underline{y}^T\\underline{y} = \\beta^TA^TA\\beta - 2\\beta^TA^T\\underline{y} + \\underline{y}^T\\underline{y},$$\nbecause $\\underline{y}^TA\\beta$ is a scalar, so it equals its transpose $\\beta^TA^T\\underline{y}$.\nSet the gradient to zero (using $\\nabla_\\beta(\\beta^TM\\beta) = 2M\\beta$ for symmetric $M = A^TA$ and $\\nabla_\\beta(\\beta^Tc) = c$):\n$$\\nabla S(\\beta) = 2A^TA\\beta - 2A^T\\underline{y} = 0 \\;\\Rightarrow\\; A^TA\\beta = A^T\\underline{y}.$$\nIf $A$ has full column rank (the 4 columns are linearly independent, true for $N \\gg 4$ generic data), $A^TA$ is invertible, so\n$$\\beta = (A^TA)^{-1}A^T\\underline{y}.$$\nIt is a minimum: the Hessian $2A^TA$ is positive definite, since $v^TA^TAv = \\|Av\\|^2 > 0$ for $v \\ne 0$, so $S$ is convex and this stationary point is the global minimiser.",
+      "rubric": [
+        {
+          "point": "Writes $S(\\beta) = (A\\beta - y)^T(A\\beta - y)$ and expands it",
+          "marks": 1
+        },
+        {
+          "point": "Combines the cross terms: $-2\\beta^TA^Ty$",
+          "marks": 1
+        },
+        {
+          "point": "Gradient $2A^TA\\beta - 2A^Ty$ set to 0",
+          "marks": 1
+        },
+        {
+          "point": "Solves $\\beta = (A^TA)^{-1}A^Ty$, noting $A^TA$ must be invertible (full column rank)",
+          "marks": 1
+        },
+        {
+          "point": "Justifies a minimum (Hessian $2A^TA$ positive (semi)definite, convex)",
+          "marks": 1
+        }
+      ],
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: Regression.pdf p. 1 (least squares, normal equation $A^TAx = A^Tb$, nonlinear models $f(y, \\theta) = b$), p. 2 (polynomial regression written as $r = Ax - b$, over-determined systems) and p. 3 (section 2.3, normal equation). Regression is outside the 2026 exam scope."
+    },
+    {
+      "id": "do-es21-3b-iii",
+      "source": {
+        "number": "3(b)(iii)"
+      },
+      "lecture": 12,
+      "concept": "Normal equation",
+      "type": "written",
+      "marks": 2,
+      "question": "You are given a set of data $\\{(y^1, x^1), (y^2, x^2), \\cdots, (y^N, x^N)\\}$, $N >> 4$. Assume that the response variable, $y$, relates to the predictors, $x = (x_1, x_2)^T$, through some unknown function expressed generally as: $y = f(x) + \\epsilon$, $\\epsilon \\sim N(0, \\sigma)$, $\\epsilon$ is unrelated to $x$. Use the estimator, $\\hat{f}(x)$, of $f(x)$ as\n$$\\hat{f}(x) = \\beta_o + \\beta_1 x_1 + \\beta_2 x_2 + \\beta_3 x_1 x_2$$\nand answer the following questions:\n(iii) Identify the normal equation in the solution process of (2). [5 + 5 + 2 Marks ]",
+      "modelAnswer": "The normal equation is the equation obtained by setting the gradient of $\\|A\\beta - \\underline{y}\\|_2^2$ to zero:\n$$A^TA\\,\\beta = A^T\\underline{y}.$$\nIt is a $4 \\times 4$ linear system for $\\beta$ (here $A^TA$ is $4 \\times 4$). It says the residual $\\underline{y} - A\\beta$ is orthogonal (\"normal\") to every column of $A$: $A^T(\\underline{y} - A\\beta) = 0$. Solving it gives $\\beta = (A^TA)^{-1}A^T\\underline{y}$.",
+      "rubric": [
+        {
+          "point": "$A^TA\\beta = A^T\\underline{y}$",
+          "marks": 1
+        },
+        {
+          "point": "Identified as the gradient = 0 step (residual orthogonal to the columns of $A$)",
+          "marks": 1
+        }
+      ],
+      "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: Regression.pdf p. 1 (least squares, normal equation $A^TAx = A^Tb$, nonlinear models $f(y, \\theta) = b$), p. 2 (polynomial regression written as $r = Ax - b$, over-determined systems) and p. 3 (section 2.3, normal equation). Regression is outside the 2026 exam scope."
+    }
+  ]
+}
