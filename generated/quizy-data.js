@@ -58,6 +58,46 @@ window.QUIZY_DATA = {
         "11": "Covering",
         "12": "Out of scope"
       },
+      "examBlueprint": {
+        "title": "DO scope exam",
+        "totalMarks": 50,
+        "questions": [
+          {
+            "label": "Question 1",
+            "marks": 18,
+            "topics": [
+              1,
+              5
+            ]
+          },
+          {
+            "label": "Question 2",
+            "marks": 20,
+            "topics": [
+              4,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
+          },
+          {
+            "label": "Question 3",
+            "marks": 12,
+            "topics": [
+              2,
+              3,
+              9
+            ]
+          }
+        ],
+        "seenShare": [
+          0.6,
+          0.8
+        ]
+      },
       "sets": [
         "do-2024-exam",
         "do-pt-2022",

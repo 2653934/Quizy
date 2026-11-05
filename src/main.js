@@ -12,6 +12,8 @@
     $('bank-note').textContent = 'The question bank could not be loaded.';
     $('start').disabled = true;
     $('generate').disabled = true;
+    $('scope-exam').disabled = true;
+    $('scope-sweep').disabled = true;
     $('browse-open').disabled = true;
     return;
   }
@@ -25,6 +27,8 @@
   $('mode').addEventListener('change', ui.updateNote);
   $('start').addEventListener('click', ui.start);
   $('generate').addEventListener('click', ui.generatePaper);
+  $('scope-exam').addEventListener('click', () => ui.generateScope('exam'));
+  $('scope-sweep').addEventListener('click', () => ui.generateScope('sweep'));
   $('replay').addEventListener('click', ui.replayPaper);
   $('paper-code').addEventListener('keydown', event => { if (event.key === 'Enter') ui.replayPaper(); });
   $('continue').addEventListener('click', ui.resume);

@@ -126,18 +126,22 @@
     playIntro();
   };
 
-  // A mock paper from Quizy.makePaper: its sections in order, the options shuffled with the paper's own
-  // generator so that replaying the code gives the same paper.
+  // A mock paper from Quizy.makePaper, or a scope exam / sweep (src/ui/paper.js startScope, kind 'exam' or
+  // 'sweep', whose exam questions are the sections): its sections in order, the options shuffled with the
+  // paper's own generator so that replaying the code gives the same paper.
   ui.startPaper = function (paper) {
     ui.cancelRapidAdvance();
     ui.returnTo = null;
     const random = list => shuffle(list, paper.random);
     let start = 0;
-    const sections = paper.sections.map(s => ({key: s.key, letter: s.letter, name: s.name, marks: s.marks, start: (start += s.items.length) - s.items.length, count: s.items.length}));
+    const sections = paper.sections.map(s => ({key: s.key, letter: s.letter, name: s.name, marks: s.marks, target: s.target, short: s.short,
+      start: (start += s.items.length) - s.items.length, count: s.items.length}));
     const items = paper.sections.flatMap(s => s.items.map(({q, set}) => ({q, set, section: s.key, ...typeOf(q).makeOrder(q, random)})));
-    const set = {id: `${state.subject.key}-paper`, subject: state.subject.key, title: `Mock test · Paper ${paper.code}`, kind: 'mock-paper',
+    const title = paper.kind ? `${paper.title} ${paper.label}` : `Mock test · Paper ${paper.code}`;
+    const set = {id: `${state.subject.key}-paper`, subject: state.subject.key, title, kind: paper.kind ? 'scope-exam' : 'mock-paper',
       totalMarks: paper.sections.reduce((sum, s) => sum + s.marks, 0)};
-    Quizy.beginRound(set, items, {code: paper.code, lectures: paper.lectures, sections}, {rapidMode: $('rapid-mode').checked});
+    Quizy.beginRound(set, items, {code: paper.code, lectures: paper.lectures, sections, kind: paper.kind || 'mock', title: paper.title, label: paper.label},
+      {rapidMode: $('rapid-mode').checked});
     ui.show('quiz');
     drawQuestion();
     playIntro();
@@ -146,11 +150,15 @@
   // Marks are shown on every question of a mock paper and of sets that have a total.
   const showsMarks = item => state.paper !== null || item.set.totalMarks !== undefined;
 
+  const inScopePaper = () => state.paper?.kind === 'exam' || state.paper?.kind === 'sweep';
+
   function sourceLine(item) {
     const q = item.q;
     const parts = [state.subject.topics ? Quizy.lectureName(q.lecture, state.subject) : `Lecture ${q.lecture}`, q.concept];
     if (q.source?.pages?.length) parts.push(`Slide ${q.source.pages[0]}`);
-    if (q.number !== undefined) parts.push(`Paper Q${q.number}`);
+    // A scope exam says where each part comes from ("from DOPT2022 Q2(c)", "new practice question").
+    if (inScopePaper()) parts.push(Quizy.originLabel(q, item.set));
+    else if (q.number !== undefined) parts.push(`Paper Q${q.number}`);
     else if (q.source?.number !== undefined) parts.push(Quizy.sourceLabel(q, item.set));
     if (showsMarks(item) || marksOf(q) !== 1) parts.push(plural(marksOf(q), 'mark'));
     return parts.filter(Boolean).join(' · ');
@@ -165,8 +173,12 @@
     const section = Quizy.currentSection();
     const [at, count] = section ? [index - section.start, section.count] : [index, round.length];
     $('paper-bar').hidden = !section;
-    if (section) $('paper-bar').textContent = `Paper ${state.paper.code} · Section ${section.letter} · ${section.name} (${plural(section.marks, 'mark')})`;
-    $('position').textContent = `Question ${at + 1} of ${count}`;
+    if (section && inScopePaper()) {
+      // "DO scope exam 4821 · Question 2 (20 marks)"; parts (a), (b), (c) within each exam question.
+      $('paper-bar').textContent = `${state.paper.title} ${state.paper.label} · ${section.name} (${plural(section.marks, 'mark')}`
+        + (section.short ? `; not enough questions for ${formatMarks(section.target)})` : ')');
+    } else if (section) $('paper-bar').textContent = `Paper ${state.paper.code} · Section ${section.letter} · ${section.name} (${plural(section.marks, 'mark')})`;
+    $('position').textContent = inScopePaper() ? `Part (${Quizy.letter(at).slice(0, -1)}) · ${at + 1} of ${count}` : `Question ${at + 1} of ${count}`;
     $('progress').max = count;
     $('progress').value = at;
     $('source').textContent = sourceLine(item);
@@ -186,7 +198,8 @@
     $('feedback').hidden = true;
     $('feedback').replaceChildren();
     $('next').hidden = true;
-    $('next').textContent = index === round.length - 1 ? 'See results ↗' : section && at === count - 1 ? `Finish Section ${section.letter} ↗` : 'Next question ↗';
+    $('next').textContent = index === round.length - 1 ? 'See results ↗'
+      : section && at === count - 1 ? `Finish ${inScopePaper() ? section.name : `Section ${section.letter}`} ↗` : 'Next question ↗';
     $('check').hidden = !type.needsCheckButton;
     $('check').disabled = true;
     $('check').textContent = type.checkLabel || 'Check answer';

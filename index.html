@@ -112,13 +112,18 @@
             <button id="start" class="primary">Start quiz ↗</button>
             <button id="generate" type="button">Generate a mock test ↗</button>
           </div>
+          <div id="scope-start" class="start-row scope-row" hidden>
+            <button id="scope-exam" type="button">Generate a scope exam ↗</button>
+            <button id="scope-sweep" type="button">Full scope sweep ↗</button>
+          </div>
           <button id="browse-open" class="quiet browse-open" type="button">Browse all questions →</button>
           <p id="setup-message" class="message" role="status"></p>
           <div class="paper-start">
-            <p class="paper-note">A mock test is shaped like the real one: Section A quiz (30 marks), then Section B theory (20 marks), from the lectures you picked. Quiz set and question style don’t apply.</p>
-            <label for="paper-code">Replay paper code</label>
+            <p id="paper-note" class="paper-note">A mock test is shaped like the real one: Section A quiz (30 marks), then Section B theory (20 marks), from the lectures you picked. Quiz set and question style don’t apply.</p>
+            <p id="scope-note" class="paper-note" hidden></p>
+            <label id="paper-code-label" for="paper-code">Replay paper code</label>
             <div class="replay-row">
-              <input id="paper-code" class="answer-input" type="text" inputmode="numeric" autocomplete="off" placeholder="e.g. 4821">
+              <input id="paper-code" class="answer-input" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="e.g. 4821">
               <button id="replay" type="button">Replay</button>
             </div>
           </div>
@@ -203,6 +208,8 @@
         <p id="summary-detail"></p>
         <div id="paper-result" class="paper-result" hidden>
           <dl id="paper-scores" class="paper-scores"></dl>
+          <div id="topic-title" class="eyebrow" hidden>By topic (weakest first)</div>
+          <dl id="topic-scores" class="paper-scores topic-scores" hidden></dl>
           <p id="paper-origin" class="paper-origin"></p>
           <div class="eyebrow" id="missed-title"></div>
           <ol id="missed-list" class="missed-list"></ol>
@@ -242,6 +249,7 @@
   <script src="src/core/state.js" defer></script>
   <script src="src/core/prompt.js" defer></script>
   <script src="src/core/paper.js" defer></script>
+  <script src="src/core/exam.js" defer></script>
   <script src="src/types/registry.js" defer></script>
   <script src="src/types/single.js" defer></script>
   <script src="src/types/truefalse.js" defer></script>

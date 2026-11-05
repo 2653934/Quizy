@@ -70,15 +70,20 @@
   }
 
   // A random subset of items whose weights sum to exactly sum (which reach says is possible).
-  function takeExact(items, weights, reach, sum, random) {
+  // greedy: take every item that still allows the exact sum, from the last item down (the scope exam puts
+  // its best-ranked questions last).
+  function takeExact(items, weights, reach, sum, random, greedy = false) {
     const picked = [];
     for (let i = items.length; i > 0; i--) {
       const w = weights[i - 1];
       const canTake = sum >= w && reach[i - 1][sum - w];
-      if (canTake && (!reach[i - 1][sum] || random() < 0.5)) { picked.push(items[i - 1]); sum -= w; }
+      if (canTake && (greedy || !reach[i - 1][sum] || random() < 0.5)) { picked.push(items[i - 1]); sum -= w; }
     }
     return picked;
   }
+
+  // Shared with the scope-exam generator (src/core/exam.js).
+  Quizy.subsetSum = {units, gcd, reachTable, takeExact};
 
   // Fills one section exactly from seen and new candidates, as close to the seen target as possible
   // (and inside the 60–80% band when that can be done). Returns null when no exact fill exists.

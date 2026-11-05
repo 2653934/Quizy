@@ -13,6 +13,7 @@ require('../src/core/math.js');
 require('../src/core/scoring.js');
 const Quizy = require('../src/core/data.js');
 require('../src/core/paper.js');
+require('../src/core/exam.js');
 require('../src/types/registry.js');
 const types = path.join(__dirname, '..', 'src', 'types');
 for (const file of fs.readdirSync(types).sort()) require(path.join(types, file));
@@ -70,6 +71,7 @@ for (const subject of registry.subjects) {
     if (!subject.topics || typeof subject.topics !== 'object' || Array.isArray(subject.topics)) fail(`${subject.key}: topics must be an object of names`);
     else for (const [n, name] of Object.entries(subject.topics)) if (!isText(name)) fail(`${subject.key}: topics.${n} must be a name`);
   }
+  Quizy.checkExamBlueprint(subject, fail);
   let questionCount = 0, markCount = 0;
   for (const id of subject.sets) {
     if (!id.startsWith(subject.key + '-')) { fail(`${subject.key}: set id "${id}" must start with "${subject.key}-"`); continue; }

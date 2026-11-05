@@ -158,9 +158,31 @@
     const known = new Set(lecturesIn(Quizy.allQuestions()));
     lectures = storage.loadLectures(state.subject.key).filter(n => known.has(n));
     $('paper-code').value = '';
+    showPaperChoices();
+    // DO names its lectures as topics ("Network flow"), so its chips are labelled "Topic".
+    $('lectures-label').textContent = $('browse-lectures-label').textContent = state.subject.topics ? 'Topic' : 'Lecture';
     if (sets.length) ui.chooseSet();
     ui.updateStats();
   };
+
+  // Subjects with an examBlueprint (DO) get "Generate a scope exam" and "Full scope sweep" instead of the
+  // 30 + 20 mock test, which doesn't fit their exam (src/core/exam.js, src/ui/paper.js).
+  function showPaperChoices() {
+    const blueprint = state.subject.examBlueprint;
+    $('generate').hidden = !!blueprint;
+    $('scope-start').hidden = !blueprint;
+    $('paper-note').hidden = !!blueprint;
+    $('scope-note').hidden = !blueprint;
+    $('paper-code-label').textContent = blueprint ? 'Replay exam code' : 'Replay paper code';
+    $('paper-code').placeholder = blueprint ? 'e.g. 4821 or S4821' : 'e.g. 4821';
+    $('paper-code').inputMode = blueprint ? 'text' : 'numeric';
+    if (!blueprint) return;
+    const parts = blueprint.questions.map(x => `${x.label} (${plural(x.marks, 'mark')})`).join(', ');
+    const [low, high] = blueprint.seenShare.map(f => Math.round(f * 100));
+    $('scope-note').textContent = `A scope exam is shaped like the real ${subjectName()} exam: ${parts}, ${blueprint.totalMarks} marks, from every topic in the final scope `
+      + `(“Out of scope” never appears). ${low}–${high}% of the marks are the lecturer’s past questions, favouring the ones asked most often; the rest are new practice questions. `
+      + 'A full scope sweep asks one question from every topic. Quiz set, topic chips and question style don’t apply, and the 30 + 20 mock test isn’t used for this subject.';
+  }
 
   // "Start quiz": explain an empty selection, otherwise start a round.
   ui.start = function () {

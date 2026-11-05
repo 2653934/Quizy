@@ -101,3 +101,19 @@
 #retry-missed {
   margin-bottom: 14px;
 }
+
+/* Scope exams (subjects with an examBlueprint): the buttons under "Start quiz" and the per-topic table */
+.scope-row {
+  margin-top: 12px;
+}
+
+#topic-title {
+  margin-top: 4px;
+  margin-bottom: 6px;
+}
+
+.topic-scores dt:last-of-type,
+.topic-scores dd:last-of-type {
+  padding-top: 0;
+  border-top: 0;
+}
