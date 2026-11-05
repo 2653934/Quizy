@@ -67,7 +67,9 @@ window.QUIZY_DATA = {
         "do-pt-2019",
         "do-pt-2017",
         "do-pt-2016",
-        "do-tut-1"
+        "do-tut-1",
+        "do-tut-2",
+        "do-tut-3"
       ]
     }
   ],
@@ -33124,6 +33126,204 @@ window.QUIZY_DATA = {
             }
           ],
           "explanation": "There is no solution for Tutorial 1; the answer is written from the course notes: QKP, DisCopt.pdf PDF p. 20; knapsack constraint, PDF p. 19. Both matrices, the identity $b^\\top x + \\tfrac12 x^\\top Mx = \\tfrac12 x^\\top \\tilde{M}x$ for all 32 binary $x$, and the best choice were checked with numpy. The tutorial prints no marks; 8 is assigned here. Knapsack is outside the 2026 exam scope (topic 12)."
+        }
+      ]
+    },
+    "do-tut-2": {
+      "id": "do-tut-2",
+      "title": "Tutorial 2",
+      "kind": "tutorial",
+      "description": "Tutorial 2 (linear assignment, assignment as a min-cost flow, Ford–Fulkerson), transcribed word for word. Write or think your answer, reveal the model answer, then tick the marking points you covered; the max flow is checked automatically. Answers follow the lecturer's handwritten solutions in Tut2&3.pdf, written up with full working.",
+      "sourceFile": "03 Past Papers/Tut2.pdf (answers: 03 Past Papers/Tut2&3.pdf pp. 3–6)",
+      "unofficialAnswers": true,
+      "transcriptionNotes": "Question text copied from Tut2.pdf. Tut2&3.pdf is a scan that repeats the questions of Tutorials 2 and 3 by hand and adds the lecturer's handwritten solutions; it is used only as the answer source, not as a separate set. The stem of Q1(a) is repeated in Q1(b). The tutorial prints no marks; 5, 5 and 6 are assigned here. Model answers and rubrics were written up by an AI assistant from the handwritten solutions and the course notes.",
+      "subject": "do",
+      "questions": [
+        {
+          "id": "do-tut2-1a",
+          "source": {
+            "number": "1(a)"
+          },
+          "lecture": 5,
+          "concept": "Linear assignment model",
+          "type": "written",
+          "marks": 5,
+          "question": "(a) Consider the linear assignment problem presented in graphical (undirected) form:\nThe costs $c_{ij}$ are given as\n$$c_{11} = 2, c_{12} = 3, c_{13} = 4,$$\n$$c_{21} = 3, c_{22} = 4, c_{23} = 1,$$\n$$c_{31} = 4, c_{32} = 2, c_{33} = 3.$$\nDefine the variables for the optimization problem and present your mathematical model. Define the meaning of each of your 6 constraints involved.",
+          "modelAnswer": "Variables (9 of them, 3 per worker): $x_{ij} = 1$ if worker $i$ is assigned job $j$, 0 otherwise.\nObjective (minimise total cost):\n$$\\min \\sum_{i=1}^{3}\\sum_{j=1}^{3} c_{ij}x_{ij} = (2x_{11} + 3x_{12} + 4x_{13}) + (3x_{21} + 4x_{22} + x_{23}) + (4x_{31} + 2x_{32} + 3x_{33})$$\nConstraints:\nWorker 1 gets one job: $x_{11} + x_{12} + x_{13} = 1$\nWorker 2 gets one job: $x_{21} + x_{22} + x_{23} = 1$\nWorker 3 gets one job: $x_{31} + x_{32} + x_{33} = 1$\nJob 1 is assigned to one worker: $x_{11} + x_{21} + x_{31} = 1$\nJob 2 is assigned to one worker: $x_{12} + x_{22} + x_{32} = 1$\nJob 3 is assigned to one worker: $x_{13} + x_{23} + x_{33} = 1$\n$x_{ij} \\in \\{0, 1\\}$, $i, j = 1, 2, 3$.\n(Not asked: the optimum is $x_{11} = x_{23} = x_{32} = 1$, cost $2 + 1 + 2 = 5$.)",
+          "rubric": [
+            {
+              "point": "Binary $x_{ij}$ defined (9 variables)",
+              "marks": 1
+            },
+            {
+              "point": "Objective with the given costs",
+              "marks": 1
+            },
+            {
+              "point": "All 6 constraints and $x_{ij} \\in \\{0,1\\}$",
+              "marks": 1
+            },
+            {
+              "point": "Meaning: each worker gets exactly one job",
+              "marks": 1
+            },
+            {
+              "point": "Meaning: each job goes to exactly one worker",
+              "marks": 1
+            }
+          ],
+          "explanation": "Follows the lecturer's handwritten solution in Tut2&3.pdf p. 3. Course notes: DisCopt.pdf PDF pp. 10–11 (eqs. 14–17). The optimum was checked by enumerating the 6 assignments.",
+          "image": {
+            "src": "data/do/img/tut-2/do-tut2-1a.png",
+            "alt": "Bipartite graph. Left column: workers 1, 2, 3. Right column: jobs 1, 2, 3. Every worker is joined to every job (9 edges); the three edges from worker 3 are dashed. No costs are written on the edges."
+          },
+          "answerImage": {
+            "src": "data/do/img/tut-2/do-tut2-1a-answer.png",
+            "alt": "The bipartite graph with the optimal assignment highlighted: worker 1 to job 1, worker 2 to job 3, worker 3 to job 2, total cost 5."
+          }
+        },
+        {
+          "id": "do-tut2-1b",
+          "source": {
+            "number": "1(b)"
+          },
+          "lecture": 1,
+          "concept": "Assignment as a min-cost flow",
+          "type": "written",
+          "marks": 5,
+          "question": "(a) Consider the linear assignment problem presented in graphical (undirected) form:\nThe costs $c_{ij}$ are given as\n$$c_{11} = 2, c_{12} = 3, c_{13} = 4,$$\n$$c_{21} = 3, c_{22} = 4, c_{23} = 1,$$\n$$c_{31} = 4, c_{32} = 2, c_{33} = 3.$$\nDefine the variables for the optimization problem and present your mathematical model. Define the meaning of each of your 6 constraints involved.\n(b) Introduce a source node and a demand node, and construct a flow (directed) network. Assume the capacities of each edge to be 1, $c_{si} = 0$ $\\forall i$, $c_{jt} = 0$ $\\forall j$, and the equivalent minimum cost net flow problem corresponding to the linear assignment problem in Q1(a).\nNote: You need to consider demand at $t$ as $-3$.",
+          "modelAnswer": "Network: source $s$ → each worker node $i$ (cost $c_{si} = 0$), each worker $i$ → each job node $j$ (cost $c_{ij}$ from (a)), each job $j$ → sink $t$ (cost $c_{jt} = 0$). Every arc has capacity $u_{ij} = 1$. (The handwritten solution numbers the job nodes 4, 5, 6.)\nVariables: $x_{ij}$ = flow along arc $(i,j)$.\nMinimum cost network flow model:\n$$\\min \\sum_{(i,j)} c_{ij}x_{ij}$$\n$$\\sum_{i=1}^{3} x_{si} = 3 \\quad (\\text{supply } b_s = 3), \\qquad -\\sum_{j=1}^{3} x_{jt} = -3 \\quad (\\text{demand } b_t = -3),$$\n$$\\sum_{j} x_{ij} - \\sum_{k} x_{ki} = 0 \\quad \\text{for every worker and job node } i \\ne s, t,$$\n$$0 \\le x_{ij} \\le u_{ij} = 1.$$\nWhy it is the same problem: 3 units leave $s$, one through each worker (capacity 1); each worker passes its unit to exactly one job; each job can pass at most one unit to $t$, and $t$ must receive 3, so every job gets exactly one worker. The flow on a worker→job arc is 1 exactly when that assignment is made, and the cost is $\\sum c_{ij}x_{ij}$. Min-cost flow has integer optimal solutions, so the flows are 0 or 1 (optimum cost 5).",
+          "rubric": [
+            {
+              "point": "Directed network: $s$ → workers → jobs → $t$",
+              "marks": 1
+            },
+            {
+              "point": "Costs 0 on source/sink arcs, $c_{ij}$ on worker→job arcs; capacities 1",
+              "marks": 1
+            },
+            {
+              "point": "Objective $\\min \\sum c_{ij}x_{ij}$",
+              "marks": 1
+            },
+            {
+              "point": "Supply 3 at $s$, demand −3 at $t$, flow balance 0 at the other nodes, $0 \\le x_{ij} \\le 1$",
+              "marks": 1
+            },
+            {
+              "point": "Explains the equivalence with the assignment problem (unit flows = assignments)",
+              "marks": 1
+            }
+          ],
+          "explanation": "Follows the lecturer's handwritten solution in Tut2&3.pdf p. 4. Course notes: min-cost flow, DisCopt.pdf PDF p. 9 (eqs. 11–13), and the assignment problem as a network, PDF p. 10 (Remark 1.4).",
+          "image": {
+            "src": "data/do/img/tut-2/do-tut2-1a.png",
+            "alt": "Bipartite graph. Left column: workers 1, 2, 3. Right column: jobs 1, 2, 3. Every worker is joined to every job (9 edges); the three edges from worker 3 are dashed. No costs are written on the edges."
+          },
+          "answerImage": {
+            "src": "data/do/img/tut-2/do-tut2-1b-answer.png",
+            "alt": "Flow network: s → w1, w2, w3 (cost 0); each worker → each job j1, j2, j3 with cost c_ij; j1, j2, j3 → t (cost 0). All capacities 1; supply 3 at s, demand −3 at t."
+          }
+        },
+        {
+          "id": "do-tut2-2",
+          "source": {
+            "number": "2"
+          },
+          "lecture": 1,
+          "concept": "Ford–Fulkerson max flow and min cut",
+          "type": "numeric",
+          "marks": 6,
+          "question": "Use the Min-cut Max-flow (Ford-Fulkerson) algorithm and solve the following Max-flow problem:\nIdentify the $s$-$t$ cut $(A, B)$ corresponding to your maximum flow and check that your result is correct by the max-flow = min-cut identity.",
+          "parts": [
+            {
+              "label": "Maximum flow from node 1 to node 6",
+              "answer": 5,
+              "tolerance": 0.5,
+              "marks": 4
+            },
+            {
+              "label": "Capacity of the cut $(A, B)$ you found",
+              "answer": 5,
+              "tolerance": 0.5,
+              "marks": 2
+            }
+          ],
+          "solution": "Source 1, sink 6. Initially $r_{ij} = u_{ij}$ and $r_{ji} = 0$; after each path $r_{ij} \\leftarrow r_{ij} - \\delta(P)$, $r_{ji} \\leftarrow r_{ji} + \\delta(P)$.\n1. $P_1$: $1 \\to 2 \\to 4 \\to 6$, $\\delta(P_1) = \\min\\{6, 3, 2\\} = 2$. Now $r_{12} = 4$, $r_{24} = 1$, $r_{46} = 0$.\n2. $P_2$: $1 \\to 2 \\to 4 \\to 5 \\to 6$, $\\delta(P_2) = \\min\\{4, 1, 3, 3\\} = 1$. Now $r_{12} = 3$, $r_{24} = 0$, $r_{45} = 2$, $r_{56} = 2$.\n3. $P_3$: $1 \\to 2 \\to 3 \\to 5 \\to 6$, $\\delta(P_3) = \\min\\{3, 4, 3, 2\\} = 2$. Now $r_{56} = 0$.\nBoth arcs into 6 are now saturated ($r_{46} = 0$, $r_{56} = 0$), so there is no augmenting path from 1 to 6.\n$$\\text{max flow} = 2 + 1 + 2 = 5.$$\nCut: the nodes reachable from 1 in the final residual network are $A = \\{1, 2, 3, 4, 5\\}$, so $B = \\{6\\}$. The arcs from $A$ to $B$ are $4 \\to 6$ (2) and $5 \\to 6$ (3):\n$$\\text{cap}(A, B) = 2 + 3 = 5 = \\text{max flow},$$\nso by the max-flow min-cut theorem the flow is maximum and the cut is minimum.",
+          "explanation": "Follows the lecturer's handwritten solution in Tut2&3.pdf pp. 5–6 (same three paths, A = {1, 2, 3, 4, 5}, B = {6}, cap = 2 + 3 = 5). Method: FordFulkerson.pdf pp. 1–3. Checked with a short max-flow script (another order of paths gives the same value).",
+          "keyDispute": "The handwritten solution writes the second path as \"1 → 2 → 4 → 4 → 6\"; from its bottleneck min{4, 1, 3, 3} it is 1 → 2 → 4 → 5 → 6.",
+          "image": {
+            "src": "data/do/img/tut-2/do-tut2-2.png",
+            "alt": "Directed network from node 1 (source) to node 6 (sink) with capacities: 1→2 (6), 1→3 (5), 2→4 (3), 2→3 (4), 3→4 (2), 4→3 (3), 3→5 (3), 4→5 (3), 4→6 (2), 5→6 (3)."
+          },
+          "answerImage": {
+            "src": "data/do/img/tut-2/do-tut2-2-answer.png",
+            "alt": "Final flow/capacity: 1→2 2/6, 1→3 3/5, 2→4 2/3, 2→3 0/4, 3→4 0/2, 4→3 0/3, 3→5 3/3, 4→5 0/3, 4→6 2/2, 5→6 3/3. A dashed line separates A = {1, 2, 3, 4, 5} from B = {6}; cap(A, B) = 2 + 3 = 5 = max flow."
+          }
+        }
+      ]
+    },
+    "do-tut-3": {
+      "id": "do-tut-3",
+      "title": "Tutorial 3",
+      "kind": "tutorial",
+      "description": "Tutorial 3 (knapsack model; solving it by local improvement with a penalty function), transcribed word for word. Write or think your answer, reveal the model answer, then tick the marking points you covered; the final value is checked automatically. Answers follow the lecturer's handwritten solutions in Tut2&3.pdf, written up with full working.",
+      "sourceFile": "03 Past Papers/Tut3.pdf (answers: 03 Past Papers/Tut2&3.pdf pp. 8–13)",
+      "unofficialAnswers": true,
+      "transcriptionNotes": "Question text copied from Tut3.pdf. Tut2&3.pdf is used only as the answer source. Question 2 refers to question 1, so its text repeats the Question 1 stem first. Kept as printed: \"a number of epoch\". The tutorial prints no marks; 4 and 8 are assigned here. Both questions are knapsack (topic 12, outside the 2026 exam scope). Model answers were written up by an AI assistant from the handwritten solutions and the course notes.",
+      "subject": "do",
+      "questions": [
+        {
+          "id": "do-tut3-1",
+          "source": {
+            "number": "1"
+          },
+          "lecture": 12,
+          "concept": "Knapsack model",
+          "type": "written",
+          "marks": 4,
+          "question": "You want to invest your total amount of R100 ($W = 100$) for buying a number of items from a set. The item $i$ costs $w_i$ rand but gives you a profit of $v_i$. Formulate the Knapsack Problem mathematically using the following data:\n$$(v_i, w_i) = \\{(7, 20), (5, 30), (8, 15), (4, 10), (3, 30), (9, 25)\\}$$\nfor $i = 1, 2, \\ldots, 6$.",
+          "modelAnswer": "Decision variables: $x_i = 1$ if item $i$ is chosen, 0 otherwise ($i = 1, \\dots, 6$).\nTotal profit $\\sum_{i=1}^{6} v_ix_i$; total money spent $\\sum_{i=1}^{6} w_ix_i$.\n$$\\max\\ 7x_1 + 5x_2 + 8x_3 + 4x_4 + 3x_5 + 9x_6$$\n$$\\text{s.t.}\\quad 20x_1 + 30x_2 + 15x_3 + 10x_4 + 30x_5 + 25x_6 \\le 100, \\qquad x_i \\in \\{0, 1\\}.$$",
+          "rubric": [
+            {
+              "point": "Binary $x_i$ defined",
+              "marks": 1
+            },
+            {
+              "point": "Objective $\\max \\sum v_ix_i$ with the data",
+              "marks": 1
+            },
+            {
+              "point": "Budget constraint $\\sum w_ix_i \\le 100$ with the data",
+              "marks": 1
+            },
+            {
+              "point": "$x_i \\in \\{0, 1\\}$",
+              "marks": 1
+            }
+          ],
+          "explanation": "Follows the lecturer's handwritten solution in Tut2&3.pdf p. 8. Course notes: DisCopt.pdf PDF p. 19 (eqs. 26–29). Knapsack is outside the 2026 exam scope (topic 12)."
+        },
+        {
+          "id": "do-tut3-2",
+          "source": {
+            "number": "2"
+          },
+          "lecture": 12,
+          "concept": "Local improvement (FM / IILS passes)",
+          "type": "numeric",
+          "marks": 8,
+          "question": "You want to invest your total amount of R100 ($W = 100$) for buying a number of items from a set. The item $i$ costs $w_i$ rand but gives you a profit of $v_i$. Formulate the Knapsack Problem mathematically using the following data:\n$$(v_i, w_i) = \\{(7, 20), (5, 30), (8, 15), (4, 10), (3, 30), (9, 25)\\}$$\nfor $i = 1, 2, \\ldots, 6$.\nSolve (manually) the problem you have formulated in question 1 using the local improvement algorithm starting from $x^0 = (101010)$.\nHints:\n(a) Construct the Penalty Function\n$$F(x; R) = f(x) - R\\phi(x) \\text{ with } R = 20$$\n(b) Each pass has a number of epoch and whenever an overall best solution is found (within an epoch), the next epoch starts.",
+          "parts": [
+            {
+              "label": "Best penalty value $F(x^*; R)$ found",
+              "answer": 33,
+              "tolerance": 0.5,
+              "marks": 8
+            }
+          ],
+          "solution": "Penalty function (maximisation): $F(x; R) = \\sum_i v_ix_i - 20\\max\\{0, \\sum_i w_ix_i - 100\\}$, $x \\in \\{0,1\\}^6$.\nRules: each epoch flips every unlocked bit of the current point one at a time and evaluates $F$; the best flip is kept and its bit locked. As soon as a flip beats the overall best, that point becomes the new overall best and a new pass starts from it (hint b). A pass that locks every bit without beating the overall best ends the search.\nStart: $x^0 = (101010)$: $F = 7 + 8 + 3 = 18$ (cost 65).\nPass 1, epoch 1: $(001010)$: 11; $(111010)$: $7 + 5 + 8 + 3 = 23 > 18$ (cost 95) → new overall best.\nPass 2 from $(111010)$, 23. Epoch 1: $(011010)$: 16, $(101010)$: 18, $(110010)$: 15, $(111110)$: $27 - 20 \\cdot 5 = -73$, $(111000)$: 20, $(111011)$: $32 - 20 \\cdot 20 = -368$. Best is $(101010)$, 18: lock bit 2. Epoch 2: $(001010)$: 11, $(100010)$: 10, $(101110)$: 22, $(101000)$: 15, $(101011)$: $7 + 8 + 3 + 9 = 27 > 23$ (cost 90) → new overall best.\nPass 3 from $(101011)$, 27. Epoch 1: $(001011)$: 20, $(111011)$: −368, $(100011)$: 19, $(101111)$: $7 + 8 + 4 + 3 + 9 = 31 > 27$ (cost 100) → new overall best.\nPass 4 from $(101111)$, 31. Epoch 1: $(001111)$: 24, $(111111)$: $36 - 20 \\cdot 30 = -564$, $(100111)$: 23, $(101011)$: 27, $(101101)$: 28, $(101110)$: 22. Best $(101101)$, 28: lock bit 5. Epoch 2: $(001101)$: 21, $(111101)$: $7 + 5 + 8 + 4 + 9 = 33 > 31$ (cost 100) → new overall best.\nPass 5 from $(111101)$, 33. Epoch 1: best flip $(111001)$, 29 (others 26, 28, 25, −564, 24): lock bit 4. Epoch 2: best $(101001)$, 24: lock bit 2. Epoch 3: best $(101011)$, 27: lock bit 5. Epoch 4: best $(001011)$, 20: lock bit 1. Epoch 5: best $(000011)$, 12: lock bit 3. Epoch 6: $(000010)$, 3. All bits locked and nothing beat 33, so the search stops.\n$$x^* = (111101), \\qquad F(x^*; R) = f(x^*) = 33,$$\nwith cost $20 + 30 + 15 + 10 + 25 = 100 \\le 100$ (feasible, no penalty). Checking all 64 binary vectors confirms 33 is the true optimum.",
+          "explanation": "Follows the lecturer's handwritten solution in Tut2&3.pdf pp. 9–13 (same passes, $x^* = (111101)$, $f(x^*) = 33$). Course notes: the FM pass/epoch scheme and IILS, DisCopt.pdf PDF pp. 42–45 (with the penalty function in footnote 8). The penalty values and the optimum were checked with a short script. In the exam, show each pass and epoch, not just the number."
         }
       ]
     }

@@ -1,0 +1,64 @@
+{
+  "id": "do-tut-3",
+  "title": "Tutorial 3",
+  "kind": "tutorial",
+  "description": "Tutorial 3 (knapsack model; solving it by local improvement with a penalty function), transcribed word for word. Write or think your answer, reveal the model answer, then tick the marking points you covered; the final value is checked automatically. Answers follow the lecturer's handwritten solutions in Tut2&3.pdf, written up with full working.",
+  "sourceFile": "03 Past Papers/Tut3.pdf (answers: 03 Past Papers/Tut2&3.pdf pp. 8–13)",
+  "unofficialAnswers": true,
+  "transcriptionNotes": "Question text copied from Tut3.pdf. Tut2&3.pdf is used only as the answer source. Question 2 refers to question 1, so its text repeats the Question 1 stem first. Kept as printed: \"a number of epoch\". The tutorial prints no marks; 4 and 8 are assigned here. Both questions are knapsack (topic 12, outside the 2026 exam scope). Model answers were written up by an AI assistant from the handwritten solutions and the course notes.",
+  "subject": "do",
+  "questions": [
+    {
+      "id": "do-tut3-1",
+      "source": {
+        "number": "1"
+      },
+      "lecture": 12,
+      "concept": "Knapsack model",
+      "type": "written",
+      "marks": 4,
+      "question": "You want to invest your total amount of R100 ($W = 100$) for buying a number of items from a set. The item $i$ costs $w_i$ rand but gives you a profit of $v_i$. Formulate the Knapsack Problem mathematically using the following data:\n$$(v_i, w_i) = \\{(7, 20), (5, 30), (8, 15), (4, 10), (3, 30), (9, 25)\\}$$\nfor $i = 1, 2, \\ldots, 6$.",
+      "modelAnswer": "Decision variables: $x_i = 1$ if item $i$ is chosen, 0 otherwise ($i = 1, \\dots, 6$).\nTotal profit $\\sum_{i=1}^{6} v_ix_i$; total money spent $\\sum_{i=1}^{6} w_ix_i$.\n$$\\max\\ 7x_1 + 5x_2 + 8x_3 + 4x_4 + 3x_5 + 9x_6$$\n$$\\text{s.t.}\\quad 20x_1 + 30x_2 + 15x_3 + 10x_4 + 30x_5 + 25x_6 \\le 100, \\qquad x_i \\in \\{0, 1\\}.$$",
+      "rubric": [
+        {
+          "point": "Binary $x_i$ defined",
+          "marks": 1
+        },
+        {
+          "point": "Objective $\\max \\sum v_ix_i$ with the data",
+          "marks": 1
+        },
+        {
+          "point": "Budget constraint $\\sum w_ix_i \\le 100$ with the data",
+          "marks": 1
+        },
+        {
+          "point": "$x_i \\in \\{0, 1\\}$",
+          "marks": 1
+        }
+      ],
+      "explanation": "Follows the lecturer's handwritten solution in Tut2&3.pdf p. 8. Course notes: DisCopt.pdf PDF p. 19 (eqs. 26–29). Knapsack is outside the 2026 exam scope (topic 12)."
+    },
+    {
+      "id": "do-tut3-2",
+      "source": {
+        "number": "2"
+      },
+      "lecture": 12,
+      "concept": "Local improvement (FM / IILS passes)",
+      "type": "numeric",
+      "marks": 8,
+      "question": "You want to invest your total amount of R100 ($W = 100$) for buying a number of items from a set. The item $i$ costs $w_i$ rand but gives you a profit of $v_i$. Formulate the Knapsack Problem mathematically using the following data:\n$$(v_i, w_i) = \\{(7, 20), (5, 30), (8, 15), (4, 10), (3, 30), (9, 25)\\}$$\nfor $i = 1, 2, \\ldots, 6$.\nSolve (manually) the problem you have formulated in question 1 using the local improvement algorithm starting from $x^0 = (101010)$.\nHints:\n(a) Construct the Penalty Function\n$$F(x; R) = f(x) - R\\phi(x) \\text{ with } R = 20$$\n(b) Each pass has a number of epoch and whenever an overall best solution is found (within an epoch), the next epoch starts.",
+      "parts": [
+        {
+          "label": "Best penalty value $F(x^*; R)$ found",
+          "answer": 33,
+          "tolerance": 0.5,
+          "marks": 8
+        }
+      ],
+      "solution": "Penalty function (maximisation): $F(x; R) = \\sum_i v_ix_i - 20\\max\\{0, \\sum_i w_ix_i - 100\\}$, $x \\in \\{0,1\\}^6$.\nRules: each epoch flips every unlocked bit of the current point one at a time and evaluates $F$; the best flip is kept and its bit locked. As soon as a flip beats the overall best, that point becomes the new overall best and a new pass starts from it (hint b). A pass that locks every bit without beating the overall best ends the search.\nStart: $x^0 = (101010)$: $F = 7 + 8 + 3 = 18$ (cost 65).\nPass 1, epoch 1: $(001010)$: 11; $(111010)$: $7 + 5 + 8 + 3 = 23 > 18$ (cost 95) → new overall best.\nPass 2 from $(111010)$, 23. Epoch 1: $(011010)$: 16, $(101010)$: 18, $(110010)$: 15, $(111110)$: $27 - 20 \\cdot 5 = -73$, $(111000)$: 20, $(111011)$: $32 - 20 \\cdot 20 = -368$. Best is $(101010)$, 18: lock bit 2. Epoch 2: $(001010)$: 11, $(100010)$: 10, $(101110)$: 22, $(101000)$: 15, $(101011)$: $7 + 8 + 3 + 9 = 27 > 23$ (cost 90) → new overall best.\nPass 3 from $(101011)$, 27. Epoch 1: $(001011)$: 20, $(111011)$: −368, $(100011)$: 19, $(101111)$: $7 + 8 + 4 + 3 + 9 = 31 > 27$ (cost 100) → new overall best.\nPass 4 from $(101111)$, 31. Epoch 1: $(001111)$: 24, $(111111)$: $36 - 20 \\cdot 30 = -564$, $(100111)$: 23, $(101011)$: 27, $(101101)$: 28, $(101110)$: 22. Best $(101101)$, 28: lock bit 5. Epoch 2: $(001101)$: 21, $(111101)$: $7 + 5 + 8 + 4 + 9 = 33 > 31$ (cost 100) → new overall best.\nPass 5 from $(111101)$, 33. Epoch 1: best flip $(111001)$, 29 (others 26, 28, 25, −564, 24): lock bit 4. Epoch 2: best $(101001)$, 24: lock bit 2. Epoch 3: best $(101011)$, 27: lock bit 5. Epoch 4: best $(001011)$, 20: lock bit 1. Epoch 5: best $(000011)$, 12: lock bit 3. Epoch 6: $(000010)$, 3. All bits locked and nothing beat 33, so the search stops.\n$$x^* = (111101), \\qquad F(x^*; R) = f(x^*) = 33,$$\nwith cost $20 + 30 + 15 + 10 + 25 = 100 \\le 100$ (feasible, no penalty). Checking all 64 binary vectors confirms 33 is the true optimum.",
+      "explanation": "Follows the lecturer's handwritten solution in Tut2&3.pdf pp. 9–13 (same passes, $x^* = (111101)$, $f(x^*) = 33$). Course notes: the FM pass/epoch scheme and IILS, DisCopt.pdf PDF pp. 42–45 (with the penalty function in footnote 8). The penalty values and the optimum were checked with a short script. In the exam, show each pass and epoch, not just the number."
+    }
+  ]
+}

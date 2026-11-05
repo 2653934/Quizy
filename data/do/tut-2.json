@@ -1,0 +1,134 @@
+{
+  "id": "do-tut-2",
+  "title": "Tutorial 2",
+  "kind": "tutorial",
+  "description": "Tutorial 2 (linear assignment, assignment as a min-cost flow, Ford–Fulkerson), transcribed word for word. Write or think your answer, reveal the model answer, then tick the marking points you covered; the max flow is checked automatically. Answers follow the lecturer's handwritten solutions in Tut2&3.pdf, written up with full working.",
+  "sourceFile": "03 Past Papers/Tut2.pdf (answers: 03 Past Papers/Tut2&3.pdf pp. 3–6)",
+  "unofficialAnswers": true,
+  "transcriptionNotes": "Question text copied from Tut2.pdf. Tut2&3.pdf is a scan that repeats the questions of Tutorials 2 and 3 by hand and adds the lecturer's handwritten solutions; it is used only as the answer source, not as a separate set. The stem of Q1(a) is repeated in Q1(b). The tutorial prints no marks; 5, 5 and 6 are assigned here. Model answers and rubrics were written up by an AI assistant from the handwritten solutions and the course notes.",
+  "subject": "do",
+  "questions": [
+    {
+      "id": "do-tut2-1a",
+      "source": {
+        "number": "1(a)"
+      },
+      "lecture": 5,
+      "concept": "Linear assignment model",
+      "type": "written",
+      "marks": 5,
+      "question": "(a) Consider the linear assignment problem presented in graphical (undirected) form:\nThe costs $c_{ij}$ are given as\n$$c_{11} = 2, c_{12} = 3, c_{13} = 4,$$\n$$c_{21} = 3, c_{22} = 4, c_{23} = 1,$$\n$$c_{31} = 4, c_{32} = 2, c_{33} = 3.$$\nDefine the variables for the optimization problem and present your mathematical model. Define the meaning of each of your 6 constraints involved.",
+      "modelAnswer": "Variables (9 of them, 3 per worker): $x_{ij} = 1$ if worker $i$ is assigned job $j$, 0 otherwise.\nObjective (minimise total cost):\n$$\\min \\sum_{i=1}^{3}\\sum_{j=1}^{3} c_{ij}x_{ij} = (2x_{11} + 3x_{12} + 4x_{13}) + (3x_{21} + 4x_{22} + x_{23}) + (4x_{31} + 2x_{32} + 3x_{33})$$\nConstraints:\nWorker 1 gets one job: $x_{11} + x_{12} + x_{13} = 1$\nWorker 2 gets one job: $x_{21} + x_{22} + x_{23} = 1$\nWorker 3 gets one job: $x_{31} + x_{32} + x_{33} = 1$\nJob 1 is assigned to one worker: $x_{11} + x_{21} + x_{31} = 1$\nJob 2 is assigned to one worker: $x_{12} + x_{22} + x_{32} = 1$\nJob 3 is assigned to one worker: $x_{13} + x_{23} + x_{33} = 1$\n$x_{ij} \\in \\{0, 1\\}$, $i, j = 1, 2, 3$.\n(Not asked: the optimum is $x_{11} = x_{23} = x_{32} = 1$, cost $2 + 1 + 2 = 5$.)",
+      "rubric": [
+        {
+          "point": "Binary $x_{ij}$ defined (9 variables)",
+          "marks": 1
+        },
+        {
+          "point": "Objective with the given costs",
+          "marks": 1
+        },
+        {
+          "point": "All 6 constraints and $x_{ij} \\in \\{0,1\\}$",
+          "marks": 1
+        },
+        {
+          "point": "Meaning: each worker gets exactly one job",
+          "marks": 1
+        },
+        {
+          "point": "Meaning: each job goes to exactly one worker",
+          "marks": 1
+        }
+      ],
+      "explanation": "Follows the lecturer's handwritten solution in Tut2&3.pdf p. 3. Course notes: DisCopt.pdf PDF pp. 10–11 (eqs. 14–17). The optimum was checked by enumerating the 6 assignments.",
+      "image": {
+        "src": "data/do/img/tut-2/do-tut2-1a.png",
+        "alt": "Bipartite graph. Left column: workers 1, 2, 3. Right column: jobs 1, 2, 3. Every worker is joined to every job (9 edges); the three edges from worker 3 are dashed. No costs are written on the edges."
+      },
+      "answerImage": {
+        "src": "data/do/img/tut-2/do-tut2-1a-answer.png",
+        "alt": "The bipartite graph with the optimal assignment highlighted: worker 1 to job 1, worker 2 to job 3, worker 3 to job 2, total cost 5."
+      }
+    },
+    {
+      "id": "do-tut2-1b",
+      "source": {
+        "number": "1(b)"
+      },
+      "lecture": 1,
+      "concept": "Assignment as a min-cost flow",
+      "type": "written",
+      "marks": 5,
+      "question": "(a) Consider the linear assignment problem presented in graphical (undirected) form:\nThe costs $c_{ij}$ are given as\n$$c_{11} = 2, c_{12} = 3, c_{13} = 4,$$\n$$c_{21} = 3, c_{22} = 4, c_{23} = 1,$$\n$$c_{31} = 4, c_{32} = 2, c_{33} = 3.$$\nDefine the variables for the optimization problem and present your mathematical model. Define the meaning of each of your 6 constraints involved.\n(b) Introduce a source node and a demand node, and construct a flow (directed) network. Assume the capacities of each edge to be 1, $c_{si} = 0$ $\\forall i$, $c_{jt} = 0$ $\\forall j$, and the equivalent minimum cost net flow problem corresponding to the linear assignment problem in Q1(a).\nNote: You need to consider demand at $t$ as $-3$.",
+      "modelAnswer": "Network: source $s$ → each worker node $i$ (cost $c_{si} = 0$), each worker $i$ → each job node $j$ (cost $c_{ij}$ from (a)), each job $j$ → sink $t$ (cost $c_{jt} = 0$). Every arc has capacity $u_{ij} = 1$. (The handwritten solution numbers the job nodes 4, 5, 6.)\nVariables: $x_{ij}$ = flow along arc $(i,j)$.\nMinimum cost network flow model:\n$$\\min \\sum_{(i,j)} c_{ij}x_{ij}$$\n$$\\sum_{i=1}^{3} x_{si} = 3 \\quad (\\text{supply } b_s = 3), \\qquad -\\sum_{j=1}^{3} x_{jt} = -3 \\quad (\\text{demand } b_t = -3),$$\n$$\\sum_{j} x_{ij} - \\sum_{k} x_{ki} = 0 \\quad \\text{for every worker and job node } i \\ne s, t,$$\n$$0 \\le x_{ij} \\le u_{ij} = 1.$$\nWhy it is the same problem: 3 units leave $s$, one through each worker (capacity 1); each worker passes its unit to exactly one job; each job can pass at most one unit to $t$, and $t$ must receive 3, so every job gets exactly one worker. The flow on a worker→job arc is 1 exactly when that assignment is made, and the cost is $\\sum c_{ij}x_{ij}$. Min-cost flow has integer optimal solutions, so the flows are 0 or 1 (optimum cost 5).",
+      "rubric": [
+        {
+          "point": "Directed network: $s$ → workers → jobs → $t$",
+          "marks": 1
+        },
+        {
+          "point": "Costs 0 on source/sink arcs, $c_{ij}$ on worker→job arcs; capacities 1",
+          "marks": 1
+        },
+        {
+          "point": "Objective $\\min \\sum c_{ij}x_{ij}$",
+          "marks": 1
+        },
+        {
+          "point": "Supply 3 at $s$, demand −3 at $t$, flow balance 0 at the other nodes, $0 \\le x_{ij} \\le 1$",
+          "marks": 1
+        },
+        {
+          "point": "Explains the equivalence with the assignment problem (unit flows = assignments)",
+          "marks": 1
+        }
+      ],
+      "explanation": "Follows the lecturer's handwritten solution in Tut2&3.pdf p. 4. Course notes: min-cost flow, DisCopt.pdf PDF p. 9 (eqs. 11–13), and the assignment problem as a network, PDF p. 10 (Remark 1.4).",
+      "image": {
+        "src": "data/do/img/tut-2/do-tut2-1a.png",
+        "alt": "Bipartite graph. Left column: workers 1, 2, 3. Right column: jobs 1, 2, 3. Every worker is joined to every job (9 edges); the three edges from worker 3 are dashed. No costs are written on the edges."
+      },
+      "answerImage": {
+        "src": "data/do/img/tut-2/do-tut2-1b-answer.png",
+        "alt": "Flow network: s → w1, w2, w3 (cost 0); each worker → each job j1, j2, j3 with cost c_ij; j1, j2, j3 → t (cost 0). All capacities 1; supply 3 at s, demand −3 at t."
+      }
+    },
+    {
+      "id": "do-tut2-2",
+      "source": {
+        "number": "2"
+      },
+      "lecture": 1,
+      "concept": "Ford–Fulkerson max flow and min cut",
+      "type": "numeric",
+      "marks": 6,
+      "question": "Use the Min-cut Max-flow (Ford-Fulkerson) algorithm and solve the following Max-flow problem:\nIdentify the $s$-$t$ cut $(A, B)$ corresponding to your maximum flow and check that your result is correct by the max-flow = min-cut identity.",
+      "parts": [
+        {
+          "label": "Maximum flow from node 1 to node 6",
+          "answer": 5,
+          "tolerance": 0.5,
+          "marks": 4
+        },
+        {
+          "label": "Capacity of the cut $(A, B)$ you found",
+          "answer": 5,
+          "tolerance": 0.5,
+          "marks": 2
+        }
+      ],
+      "solution": "Source 1, sink 6. Initially $r_{ij} = u_{ij}$ and $r_{ji} = 0$; after each path $r_{ij} \\leftarrow r_{ij} - \\delta(P)$, $r_{ji} \\leftarrow r_{ji} + \\delta(P)$.\n1. $P_1$: $1 \\to 2 \\to 4 \\to 6$, $\\delta(P_1) = \\min\\{6, 3, 2\\} = 2$. Now $r_{12} = 4$, $r_{24} = 1$, $r_{46} = 0$.\n2. $P_2$: $1 \\to 2 \\to 4 \\to 5 \\to 6$, $\\delta(P_2) = \\min\\{4, 1, 3, 3\\} = 1$. Now $r_{12} = 3$, $r_{24} = 0$, $r_{45} = 2$, $r_{56} = 2$.\n3. $P_3$: $1 \\to 2 \\to 3 \\to 5 \\to 6$, $\\delta(P_3) = \\min\\{3, 4, 3, 2\\} = 2$. Now $r_{56} = 0$.\nBoth arcs into 6 are now saturated ($r_{46} = 0$, $r_{56} = 0$), so there is no augmenting path from 1 to 6.\n$$\\text{max flow} = 2 + 1 + 2 = 5.$$\nCut: the nodes reachable from 1 in the final residual network are $A = \\{1, 2, 3, 4, 5\\}$, so $B = \\{6\\}$. The arcs from $A$ to $B$ are $4 \\to 6$ (2) and $5 \\to 6$ (3):\n$$\\text{cap}(A, B) = 2 + 3 = 5 = \\text{max flow},$$\nso by the max-flow min-cut theorem the flow is maximum and the cut is minimum.",
+      "explanation": "Follows the lecturer's handwritten solution in Tut2&3.pdf pp. 5–6 (same three paths, A = {1, 2, 3, 4, 5}, B = {6}, cap = 2 + 3 = 5). Method: FordFulkerson.pdf pp. 1–3. Checked with a short max-flow script (another order of paths gives the same value).",
+      "keyDispute": "The handwritten solution writes the second path as \"1 → 2 → 4 → 4 → 6\"; from its bottleneck min{4, 1, 3, 3} it is 1 → 2 → 4 → 5 → 6.",
+      "image": {
+        "src": "data/do/img/tut-2/do-tut2-2.png",
+        "alt": "Directed network from node 1 (source) to node 6 (sink) with capacities: 1→2 (6), 1→3 (5), 2→4 (3), 2→3 (4), 3→4 (2), 4→3 (3), 3→5 (3), 4→5 (3), 4→6 (2), 5→6 (3)."
+      },
+      "answerImage": {
+        "src": "data/do/img/tut-2/do-tut2-2-answer.png",
+        "alt": "Final flow/capacity: 1→2 2/6, 1→3 3/5, 2→4 2/3, 2→3 0/4, 3→4 0/2, 4→3 0/3, 3→5 3/3, 4→5 0/3, 4→6 2/2, 5→6 3/3. A dashed line separates A = {1, 2, 3, 4, 5} from B = {6}; cap(A, B) = 2 + 3 = 5 = max flow."
+      }
+    }
+  ]
+}
