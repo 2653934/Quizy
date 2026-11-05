@@ -17,6 +17,7 @@
   let listTop = 0;    // the list's scroll position, restored when coming back
   let opened = null;  // the question in the answer view
   let timer = null;
+  let backTo = null;  // 'reference' when opened from the model sheet's "Practise these questions"
 
   const ALL = () => ui.ALL;
   const setOf = q => state.setOf.get(q.id);
@@ -102,11 +103,15 @@
   }
 
   // "Browse all questions" (setup screen), or after switching subject while browsing.
-  ui.openBrowse = function () {
+  // From the model sheet: {lectures: [topic], from: 'reference'} starts fresh filters on that topic,
+  // and "Back to setup" becomes "← Back to the model sheet".
+  ui.openBrowse = function (options = {}) {
     if (!state.sets.length) return ui.backToSetup();
-    if (filters?.subject !== state.subject.key) {
-      filters = {subject: state.subject.key, query: '', set: ALL(), lectures: ui.chosenLectures(), style: ALL(), wrong: false};
+    if (filters?.subject !== state.subject.key || options.lectures) {
+      filters = {subject: state.subject.key, query: '', set: ALL(), lectures: options.lectures || ui.chosenLectures(), style: ALL(), wrong: false};
     }
+    backTo = options.from || null;
+    $('browse-close').textContent = backTo === 'reference' ? '← Back to the model sheet' : 'Back to setup';
     buildFilters();
     refresh();
     setHash(null);
@@ -173,7 +178,7 @@
 
   ui.wireBrowse = function () {
     $('browse-open').addEventListener('click', ui.openBrowse);
-    $('browse-close').addEventListener('click', () => { setHash(null); ui.backToSetup(); });
+    $('browse-close').addEventListener('click', () => { setHash(null); if (backTo === 'reference') ui.backToReference(); else ui.backToSetup(); });
     $('browse-search').addEventListener('input', () => {
       clearTimeout(timer);
       timer = setTimeout(() => { filters.query = $('browse-search').value; refresh(); }, 150);

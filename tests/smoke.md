@@ -16,6 +16,7 @@ node maths.cjs <repo-with-maths-check> mx    # maths rendering and Browse & sear
 node sidebar.cjs <path-to-Quizy> sb          # sidebar, phone menu and dark mode (see below)
 node mobile.cjs <path-to-Quizy> mb           # intro cue, rapid-mode burst, reset wrong answers, sticky Check / Next (see below)
 MISSES=1 node fit.cjs <path-to-Quizy> now    # how many questions fit on one phone screen, at four sizes (see below)
+node sheet.cjs <path-to-Quizy> sh           # the DO model sheet: chips, search, fold, images, practise, #ref= links (see below)
 ```
 
 ## What it does
@@ -1936,5 +1937,273 @@ const answer = () => {
     if (process.env.MISSES) console.log('  misses:', misses.slice(0, 40).join(' '));
   }
   require('node:fs').writeFileSync(`fit-${label}.json`, JSON.stringify(results));
+})();
+```
+
+## sheet.cjs
+
+The DO model sheet (2026-11-05, `feature/do-past-papers`) over `file://` and HTTP, at 375×667 and 1280×800, light and dark: "Model sheet →" only for DO; 30 cards all open with KaTeX (no raw LaTeX), 11 topic chips and the last section "Also in past papers (not in final scope)"; formulas wider than their box scroll inside it (at 375px: QAP, ATSP, STSP and vertex cover objectives/constraints); a chip puts its topic just below the sticky chip row; search ("subtour", accents and case ignored, nothing found, chips disabled); Collapse all / Expand all and one card by its summary; an image opens full size in a new tab and stays on white in dark mode; "Practise these questions (n)" opens Browse on that topic with "← Back to the model sheet", which returns to the same scroll position; `#ref=<id>` on load and as a hash change; a `#ref=` link is ignored during a round; switching to NLP from the sheet goes back to setup; no sideways scroll, tap targets ≥ 44px, no console errors. It first found that lazy images without a size moved the page under a topic jump on phones; images now carry `width` / `height`.
+
+```js
+// node sheet.cjs <repoDir> <outDir>
+// The DO model sheet over file:// and HTTP, at 375x667 and 1280x800, light and dark: the button (DO only),
+// cards and maths, sticky topic chips, search, collapse/expand, image full size, "Practise these questions"
+// and back, #ref= deep links (also ignored during a round), no sideways scroll, tap targets, console errors.
+const http = require('node:http');
+const fs = require('node:fs');
+const path = require('node:path');
+const assert = require('node:assert/strict');
+const {chromium} = require('playwright-core');
+
+const repo = path.resolve(process.argv[2]);
+const out = path.resolve(process.argv[3]);
+fs.mkdirSync(out, {recursive: true});
+const TYPES = {'.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.svg': 'image/svg+xml', '.woff2': 'font/woff2'};
+const serve = () => new Promise(resolve => {
+  const server = http.createServer((req, res) => {
+    const file = path.join(repo, decodeURIComponent(new URL(req.url, 'http://x').pathname));
+    if (!file.startsWith(repo) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) { res.writeHead(404); return res.end(); }
+    res.writeHead(200, {'content-type': TYPES[path.extname(file)] || 'application/octet-stream'});
+    res.end(fs.readFileSync(file));
+  });
+  server.listen(0, () => resolve(server));
+});
+const ready = page => page.waitForSelector('.subject-tab[aria-pressed=true]', {state: 'attached'});
+const settle = page => page.evaluate(async () => {
+  let last = -1, same = 0;
+  for (let i = 0; i < 100 && same < 6; i++) { await new Promise(r => setTimeout(r, 50)); if (scrollY === last) same++; else { same = 0; last = scrollY; } }
+});
+const layout = page => page.evaluate(() => {
+  const doc = document.documentElement;
+  const small = [];
+  for (const node of document.querySelectorAll('button, select, input, textarea, summary')) {
+    const box = node.getBoundingClientRect();
+    if (!box.width || !box.height || node.closest('[hidden]')) continue;
+    if (node.closest('details:not([open])') && node.tagName !== 'SUMMARY') continue;
+    if (box.height < 43.5) small.push(`${node.tagName}#${node.id}.${node.className} ${Math.round(box.width)}x${Math.round(box.height)}`);
+  }
+  return {hScroll: doc.scrollWidth > doc.clientWidth, small: [...new Set(small)].slice(0, 8)};
+});
+async function pickSubject(page, key) {
+  if (await page.isVisible('#menu-toggle')) await page.click('#menu-toggle');
+  await page.click(`.subject-tab[data-key=${key}]`);
+}
+const visible = (page, id) => page.evaluate(id => !document.getElementById(id).hidden, id);
+
+(async () => {
+  const server = await serve();
+  const fileUrl = 'file:///' + path.join(repo, 'index.html').replace(/\\/g, '/');
+  const httpUrl = `http://localhost:${server.address().port}/index.html`;
+  const ref = JSON.parse(fs.readFileSync(path.join(repo, 'data', 'do', 'reference.json')));
+  const browser = await chromium.launch({channel: 'msedge'});
+  const problems = [];
+  const report = [];
+  for (const [where, url] of [['file', fileUrl], ['http', httpUrl]]) {
+    for (const [w, h] of [[375, 667], [1280, 800]]) {
+      for (const scheme of ['light', 'dark']) {
+        const name = `${where}-${w}-${scheme}`;
+        const context = await browser.newContext({viewport: {width: w, height: h}, deviceScaleFactor: 1, colorScheme: scheme});
+        const page = await context.newPage();
+        const errors = [];
+        page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
+        page.on('pageerror', e => errors.push(String(e)));
+        const check = async (label, fn) => { try { await fn(); } catch (e) { problems.push(`${name} ${label}: ${e.message.split('\n')[0]}`); } };
+        await page.goto(url);
+        await ready(page);
+
+        // The button: DO only.
+        for (const key of ['dve', 'nlp']) {
+          await pickSubject(page, key);
+          await check(`${key} has no model sheet button`, async () => assert.equal(await visible(page, 'reference-open'), false));
+        }
+        await pickSubject(page, 'do');
+        await check('DO button', async () => assert.equal(await visible(page, 'reference-open'), true));
+        await page.click('#reference-open');
+        await settle(page);
+        await check('sheet open', async () => {
+          assert.equal(await visible(page, 'reference'), true);
+          assert.equal(await page.evaluate(() => document.body.dataset.view), 'browse');
+          const info = await page.evaluate(() => ({
+            cards: document.querySelectorAll('.ref-card').length, open: document.querySelectorAll('.ref-card[open]').length,
+            katex: document.querySelectorAll('#ref-cards .katex').length, raw: document.querySelectorAll('#ref-cards .math-raw').length,
+            chips: [...document.querySelectorAll('#ref-topics .chip')].map(c => c.textContent), toggle: document.getElementById('ref-toggle').textContent,
+            count: document.getElementById('ref-count').textContent, images: document.querySelectorAll('.ref-figure img').length,
+            sections: [...document.querySelectorAll('.ref-topic-title')].map(t => t.textContent)
+          }));
+          assert.equal(info.cards, ref.cards.length);
+          assert.equal(info.open, ref.cards.length);
+          assert.ok(info.katex > 150, `katex ${info.katex}`);
+          assert.equal(info.raw, 0);
+          assert.equal(info.chips.length, 11);
+          assert.equal(info.toggle, 'Collapse all');
+          assert.equal(info.count, `${ref.cards.length} cards`);
+          assert.equal(info.images, 20);
+          assert.equal(info.sections.at(-1), 'Also in past papers (not in final scope)');
+          if (name === 'file-375-light') report.push(`chips: ${info.chips.join(' | ')}`, `katex nodes: ${info.katex}`);
+        });
+        await check('layout (sheet top)', async () => { const l = await layout(page); assert.equal(l.hScroll, false); assert.deepEqual(l.small, []); });
+        await page.screenshot({path: path.join(out, `${name}-top.png`)});
+
+        // Wide formulas scroll inside their own box.
+        const wide = await page.evaluate(() => [...document.querySelectorAll('#ref-cards .math-display')].filter(n => n.scrollWidth > n.clientWidth + 1)
+          .map(n => ({id: n.closest('.ref-card').id, overflow: getComputedStyle(n).overflowX})));
+        await check('wide formulas scroll in their box', async () => assert.ok(wide.every(x => x.overflow === 'auto'), JSON.stringify(wide)));
+        if (w === 375 && scheme === 'light') report.push(`${where} 375: ${wide.length} formulas wider than their box (scroll inside it): ${[...new Set(wide.map(x => x.id))].join(', ')}`);
+
+        // Topic chips jump below the sticky bar, and the bar stays at the top.
+        await check('chip jump', async () => {
+          await page.click('#ref-topics .chip:has-text("TSP")');
+          await settle(page);
+          const pos = await page.evaluate(() => ({bar: document.getElementById('ref-topics').getBoundingClientRect(), topic: document.getElementById('ref-topic-9').getBoundingClientRect().top}));
+          assert.ok(Math.abs(pos.bar.top) < 1, `bar top ${pos.bar.top}`);
+          assert.ok(pos.topic >= pos.bar.bottom - 1 && pos.topic < pos.bar.bottom + 30, `topic ${pos.topic} bar ${pos.bar.bottom}`);
+        });
+        await check('layout (after jump)', async () => { const l = await layout(page); assert.equal(l.hScroll, false); });
+        await page.screenshot({path: path.join(out, `${name}-tsp.png`)});
+        await check('bisection card', async () => {
+          await page.evaluate(() => document.getElementById('card-ref-bisection').scrollIntoView());
+          await page.waitForTimeout(150);
+          await page.locator('#card-ref-bisection').screenshot({path: path.join(out, `${name}-bisection.png`)});
+        });
+
+        // Search.
+        await check('search', async () => {
+          await page.fill('#ref-search', 'subtour');
+          await page.waitForTimeout(400);
+          const s = await page.evaluate(() => ({count: document.getElementById('ref-count').textContent,
+            ids: [...document.querySelectorAll('.ref-topic:not([hidden]) .ref-card')].map(c => c.id), marks: document.querySelectorAll('#ref-cards mark').length,
+            disabled: [...document.querySelectorAll('#ref-topics .chip:disabled')].length}));
+          assert.match(s.count, /^\d+ of 30 cards$/);
+          assert.ok(s.ids.includes('card-ref-atsp') && s.ids.includes('card-ref-stsp'), s.ids.join());
+          assert.ok(!s.ids.includes('card-ref-qap'));
+          assert.ok(s.marks > 0);
+          assert.ok(s.disabled >= 9, `disabled chips ${s.disabled}`);
+          await page.fill('#ref-search', 'métropolis ACCEPT');
+          await page.waitForTimeout(400);
+          assert.ok((await page.evaluate(() => [...document.querySelectorAll('.ref-topic:not([hidden]) .ref-card')].map(c => c.id))).includes('card-ref-sa-equilibrium'));
+          await page.fill('#ref-search', 'zzzz');
+          await page.waitForTimeout(400);
+          assert.match(await page.textContent('#ref-count'), /^0 of 30 cards\. Nothing matches/);
+          assert.equal(await page.isDisabled('#ref-toggle'), true);
+          await page.fill('#ref-search', '');
+          await page.waitForTimeout(400);
+          assert.equal(await page.textContent('#ref-count'), '30 cards');
+        });
+
+        // Collapse / expand all, and one card by its summary.
+        await check('collapse/expand', async () => {
+          await page.click('#ref-toggle');
+          assert.equal(await page.evaluate(() => document.querySelectorAll('.ref-card[open]').length), 0);
+          assert.equal(await page.textContent('#ref-toggle'), 'Expand all');
+          await page.click('#card-ref-qap > summary');
+          assert.equal(await page.evaluate(() => document.getElementById('card-ref-qap').open), true);
+          assert.equal(await page.textContent('#ref-toggle'), 'Expand all');
+          const l = await layout(page); assert.equal(l.hScroll, false); assert.deepEqual(l.small, []);
+          await page.screenshot({path: path.join(out, `${name}-collapsed.png`)});
+          await page.click('#ref-toggle');
+          assert.equal(await page.evaluate(() => document.querySelectorAll('.ref-card[open]').length), 30);
+          assert.equal(await page.textContent('#ref-toggle'), 'Collapse all');
+        });
+
+        // An image opens full size; it stays on white in dark mode and loads.
+        await check('image full size', async () => {
+          const link = page.locator('#card-ref-christofides .ref-figure a');
+          await link.scrollIntoViewIfNeeded();
+          await page.waitForFunction(() => { const i = document.querySelector('#card-ref-christofides .ref-figure img'); return i.complete && i.naturalWidth > 0; });
+          assert.equal(await page.evaluate(() => getComputedStyle(document.querySelector('#card-ref-christofides .ref-figure img')).backgroundColor), 'rgb(255, 255, 255)');
+          const [popup] = await Promise.all([context.waitForEvent('page'), link.click()]);
+          await popup.waitForLoadState();
+          assert.match(popup.url(), /data\/do\/img\/reference\/do-christofides\.png$/);
+          await popup.close();
+        });
+
+        // Practise these questions → Browse on that topic, and back to where the sheet was.
+        await check('practise and back', async () => {
+          await page.click('#ref-topics .chip:has-text("Assignment")');
+          await settle(page);
+          await page.locator('#card-ref-qap .ref-practise').scrollIntoViewIfNeeded();
+          const before = await page.evaluate(() => scrollY);
+          const label = await page.textContent('#card-ref-qap .ref-practise');
+          await page.click('#card-ref-qap .ref-practise');
+          await settle(page);
+          assert.equal(await visible(page, 'browse'), true);
+          const b = await page.evaluate(() => ({pressed: [...document.querySelectorAll('#browse-lectures .chip[aria-pressed=true]')].map(c => c.textContent),
+            close: document.getElementById('browse-close').textContent, count: document.getElementById('browse-count').textContent}));
+          assert.deepEqual(b.pressed, ['Assignment']);
+          assert.equal(b.close, '← Back to the model sheet');
+          const n = Number(/\((\d+)\)/.exec(label)[1]);
+          assert.match(b.count, new RegExp(`^${n} of `));
+          await page.click('#browse-close');
+          await settle(page);
+          assert.equal(await visible(page, 'reference'), true);
+          const after = await page.evaluate(() => scrollY);
+          assert.ok(Math.abs(after - before) < 2, `scroll ${before} → ${after}`);
+        });
+
+        // Back to setup clears the view; "Browse all questions" from setup says "Back to setup" again.
+        await check('back to setup', async () => {
+          await page.click('#ref-close');
+          await settle(page);
+          assert.equal(await visible(page, 'setup'), true);
+          await page.click('#browse-open');
+          assert.equal(await page.textContent('#browse-close'), 'Back to setup');
+          await page.click('#browse-close');
+        });
+
+        // Deep link (a fresh load), then a hash change from setup.
+        await check('deep link', async () => {
+          await page.goto(url + '#ref=ref-christofides');
+          await ready(page);
+          await settle(page);
+          assert.equal(await visible(page, 'reference'), true);
+          const t = await page.evaluate(() => {
+            const card = document.getElementById('card-ref-christofides');
+            return {target: card.classList.contains('ref-target'), open: card.open, top: card.getBoundingClientRect().top, bar: document.getElementById('ref-topics').getBoundingClientRect().bottom, hash: location.hash};
+          });
+          assert.ok(t.target && t.open);
+          assert.ok(t.top >= t.bar - 1 && t.top < t.bar + 30, `card top ${t.top}, bar ${t.bar}`);
+          assert.equal(t.hash, '#ref=ref-christofides');
+          await page.screenshot({path: path.join(out, `${name}-deeplink.png`)});
+          await page.click('#ref-close');
+          assert.equal(await page.evaluate(() => location.hash), '');
+          await page.evaluate(() => { location.hash = '#ref=ref-qap'; });
+          await page.waitForTimeout(300);
+          assert.equal(await visible(page, 'reference'), true);
+          await page.click('#ref-close');
+        });
+
+        // Never during a round: a #ref= link is ignored and the round goes on.
+        await check('ignored during a round', async () => {
+          await page.click('#start');
+          await page.waitForTimeout(200);
+          assert.equal(await visible(page, 'quiz'), true);
+          await page.evaluate(() => { location.hash = '#ref=ref-qap'; });
+          await page.waitForTimeout(300);
+          assert.equal(await visible(page, 'quiz'), true);
+          assert.equal(await visible(page, 'reference'), false);
+          await page.click('#quit');
+        });
+
+        // Switching subject while the sheet is open: NLP has none, so back to setup.
+        await check('subject switch from the sheet', async () => {
+          await page.evaluate(() => { history.replaceState(null, '', location.pathname); });
+          if (!(await visible(page, 'setup'))) await page.click('#again').catch(() => {});
+          await page.click('#reference-open');
+          await pickSubject(page, 'nlp');
+          await settle(page);
+          assert.equal(await visible(page, 'setup'), true);
+          assert.equal(await visible(page, 'reference-open'), false);
+        });
+
+        await check('console errors', async () => assert.deepEqual(errors, []));
+        await context.close();
+      }
+    }
+  }
+  await browser.close();
+  server.close();
+  console.log(report.join('\n'));
+  console.log(problems.length ? `PROBLEMS (${problems.length}):\n` + problems.join('\n') : 'sheet.cjs: all checks passed');
+  process.exit(problems.length ? 1 : 0);
 })();
 ```

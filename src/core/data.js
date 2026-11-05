@@ -12,14 +12,19 @@
   }
 
   // Over HTTP (GitHub Pages) read the JSON under data/. On file://, or if any fetch fails,
-  // fall back to generated/quizy-data.js, which sets window.QUIZY_DATA.
+  // fall back to generated/quizy-data.js, which sets window.QUIZY_DATA. A subject's model sheet
+  // ("reference": "<subject>-reference") follows the set file rule too and ends up in `references`.
   Quizy.loadData = async function () {
     if (location.protocol !== 'file:') {
       try {
         const registry = await getJSON('data/subjects.json');
         const sets = {};
-        await Promise.all(registry.subjects.flatMap(s => s.sets.map(async id => { sets[id] = await getJSON(Quizy.setFile(s.key, id)); })));
-        return {subjects: registry.subjects, sets};
+        const references = {};
+        await Promise.all(registry.subjects.flatMap(s => [
+          ...s.sets.map(async id => { sets[id] = await getJSON(Quizy.setFile(s.key, id)); }),
+          ...(s.reference ? [(async () => { references[s.reference] = await getJSON(Quizy.setFile(s.key, s.reference)); })()] : [])
+        ]));
+        return {subjects: registry.subjects, sets, references};
       } catch (error) {
         console.warn('Using the bundled question data.', error);
       }

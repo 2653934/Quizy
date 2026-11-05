@@ -1,20 +1,20 @@
 'use strict';
 
-// Switching between the setup, browse, answer (one question from the browse list), quiz, interlude
+// Switching between the setup, browse, answer (one question from the browse list), reference (the model sheet), quiz, interlude
 // (between the sections of a mock paper) and summary panels.
 (function (Quizy) {
   const ui = Quizy.ui = Quizy.ui || {};
   const {$} = Quizy;
   // body[data-view] for each panel: the interlude is still part of the round, so it looks like the quiz view,
-  // and the answer view is part of browsing.
-  const MODES = {interlude: 'quiz', answer: 'browse'};
+  // and the answer view and the model sheet are part of browsing.
+  const MODES = {interlude: 'quiz', answer: 'browse', reference: 'browse'};
   const scrollBehavior = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
 
   ui.view = 'setup';
 
   // top: where to scroll to (a number restores a position instantly, e.g. the browse list); default smooth to the top.
   ui.show = function (view, top) {
-    for (const id of ['setup', 'browse', 'answer', 'quiz', 'interlude', 'summary']) $(id).hidden = id !== view;
+    for (const id of ['setup', 'browse', 'reference', 'answer', 'quiz', 'interlude', 'summary']) $(id).hidden = id !== view;
     ui.view = view;
     const mode = MODES[view] || view;
     ui.lockSubjectTabs(mode === 'quiz');

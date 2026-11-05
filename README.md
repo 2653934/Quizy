@@ -8,6 +8,8 @@ DO has its own **scope exam** instead: “Generate a scope exam” builds a 50-m
 
 **Browse all questions** (under the start buttons) lists a subject's whole question bank with a search box (every word must match, ignoring case and accents; it also finds source numbers such as "Q5.4" or "Paper Q13") and filters for quiz set, lectures, question style and "Only ones I got wrong". Tap a question to see its answer (correct options, values with tolerances, worked solution, model answer and rubric, study note), practise just that question, or copy it for Claude with a request to explain it. A question's answer view has its own link (`index.html#q=<question id>`).
 
+DO also has a **Model sheet** (“Model sheet →” beside “Browse all questions”): one card for every model and algorithm in the 2026 final scope, with the variables, objective and each constraint explained in plain words (or the numbered steps), key points, a diagram, an example and the page in the course notes it comes from. Topic chips at the top jump to a topic, every card folds open and shut (“Collapse all / Expand all”), a search box filters the cards, and “Practise these questions” opens Browse on that topic. A card has its own link (`index.html#ref=<card id>`).
+
 Formulas are typeset with [KaTeX](https://katex.org), which is included in `vendor/katex/` so it works offline and from a local file.
 
 ## Open it
@@ -25,6 +27,7 @@ All quiz content lives in `data/`:
 data/subjects.json             # subjects, theme colours, and the set ids for each subject
 data/<subject>/<name>.json     # one quiz set; its id must be "<subject>-<name>"
 data/<subject>/img/...         # images referenced by questions (image.src is relative to index.html)
+data/<subject>/reference.json  # optional model sheet ("reference": "<subject>-reference" in subjects.json)
 ```
 
 - **New set:** create `data/<subject>/<name>.json` with `id`, `subject`, `title`, `kind` (`lecture-bank`, `past-paper`, `practice-quiz`, `tutorial` or `generated`), `description`, optional `totalMarks` / `negativeMarkingNote` / `unofficialAnswers`, and `questions`. Then add its id to that subject's `sets` in `data/subjects.json`. `data/nlp/past-quiz-2-2025.json` is a complete example.
@@ -37,7 +40,7 @@ Then run:
 ```sh
 node tools/build-data.cjs        # validates every set and regenerates generated/quizy-data.js
 node tools/check-verbatim.cjs    # past-paper, practice-quiz and tutorial text in the bundle is byte-identical to data/
-node --test "tests/*.test.cjs"   # scoring, question-type, mock-paper, scope-exam, maths and search tests (Node's built-in runner, no installs)
+node --test "tests/*.test.cjs"   # scoring, question-type, mock-paper, scope-exam, maths, search and model-sheet tests (Node's built-in runner, no installs)
 ```
 
 The build checks unique ids, answer ranges, images, mark totals, the maths and each question type's own rules. Commit **both** the JSON and `generated/quizy-data.js`. The generated JavaScript lets the page work when opened directly from a local file; GitHub Pages reads the JSON.
@@ -49,14 +52,14 @@ Do not put private information in the question bank because a published site is 
 Plain HTML, CSS and JavaScript (plus the vendored KaTeX) with no build step, so `index.html` also works from `file://`. The scripts are classic `<script defer>` files that share one `window.Quizy` namespace, loaded in order by `index.html`:
 
 ```
-src/core/      helpers, maths ($…$ splitting, plain-text fallback), search, seeded random (?seed=N, for tests), storage, data loading, scoring, app state, the mock-paper and scope-exam generators
+src/core/      helpers, maths ($…$ splitting, plain-text fallback), search, seeded random (?seed=N, for tests), storage, data loading, scoring, app state, the mock-paper and scope-exam generators, model-sheet checks and search
 src/types/     one file per question type (single, truefalse, multi, match, short, numeric, written, label) + registry.js
-src/ui/        theme and colour mode, sidebar and subject list, setup panel, quiz panel, "Copy for Claude", summary, mock papers, browse & search, view switching
+src/ui/        theme and colour mode, sidebar and subject list, setup panel, quiz panel, "Copy for Claude", summary, mock papers, browse & search, the model sheet, view switching
 src/main.js    boot
-styles/        tokens, base, layout, components, question, paper, browse, types/<type>.css, views
+styles/        tokens, base, layout, components, question, paper, browse, reference, types/<type>.css, views
 vendor/katex/  KaTeX 0.19.0 (MIT), the only third-party code: maths rendering, also used by the build to check formulas
 tools/         build-data.cjs, check-verbatim.cjs
-tests/         node:test files (types, scoring, the paper generator, maths, search), fixture sets; smoke.md describes the browser checks
+tests/         node:test files (types, scoring, the paper generator, maths, search, the model sheet), fixture sets; smoke.md describes the browser checks
 ```
 
 See `CLAUDE.md` for how to add a question type, a set or a subject.

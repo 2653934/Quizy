@@ -50,7 +50,9 @@
     for (const tab of $('subjects').children) tab.setAttribute('aria-pressed', String(tab.dataset.key === subject.key));
 
     ui.showSets();
-    // Switching subject while browsing shows the new subject's questions.
+    ui.showReferenceButton();
+    // Switching subject while browsing shows the new subject's questions (or model sheet, if it has one).
     if (ui.view === 'browse' || ui.view === 'answer') ui.openBrowse();
+    else if (ui.view === 'reference') ui.openReference();
   };
 })(window.Quizy = window.Quizy || {});

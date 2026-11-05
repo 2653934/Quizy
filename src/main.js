@@ -15,6 +15,7 @@
     $('scope-exam').disabled = true;
     $('scope-sweep').disabled = true;
     $('browse-open').disabled = true;
+    $('reference-open').disabled = true;
     return;
   }
   state.data = data;
@@ -42,7 +43,9 @@
   $('reset-wrong').addEventListener('click', ui.confirmResetWrong);
   $('reset-dialog').addEventListener('close', ui.closeResetDialog);
   ui.wireBrowse();
+  ui.wireReference();
 
   ui.chooseSubject(storage.lastSubject());
   ui.openFromHash();
+  ui.openReferenceFromHash();
 })(window.Quizy);

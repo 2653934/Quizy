@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="styles/question.css">
   <link rel="stylesheet" href="styles/paper.css">
   <link rel="stylesheet" href="styles/browse.css">
+  <link rel="stylesheet" href="styles/reference.css">
   <link rel="stylesheet" href="styles/types/single.css">
   <link rel="stylesheet" href="styles/types/truefalse.css">
   <link rel="stylesheet" href="styles/types/multi.css">
@@ -116,7 +117,10 @@
             <button id="scope-exam" type="button">Generate a scope exam ↗</button>
             <button id="scope-sweep" type="button">Full scope sweep ↗</button>
           </div>
-          <button id="browse-open" class="quiet browse-open" type="button">Browse all questions →</button>
+          <div class="browse-row">
+            <button id="browse-open" class="quiet browse-open" type="button">Browse all questions →</button>
+            <button id="reference-open" class="quiet browse-open" type="button" hidden>Model sheet →</button>
+          </div>
           <p id="setup-message" class="message" role="status"></p>
           <div class="paper-start">
             <p id="paper-note" class="paper-note">A mock test is shaped like the real one: Section A quiz (30 marks), then Section B theory (20 marks), from the lectures you picked. Quiz set and question style don’t apply.</p>
@@ -158,6 +162,21 @@
         <p id="browse-count" class="bank-note" role="status"></p>
         <ol id="browse-list" class="browse-list"></ol>
         <button id="browse-more" type="button" hidden></button>
+      </section>
+      <section id="reference" class="panel" hidden>
+        <div class="quiz-top"><span class="eyebrow">Model sheet</span><button id="ref-close" class="quiet" type="button">Back to setup</button></div>
+        <h2 id="ref-title">Model sheet</h2>
+        <p id="ref-description" class="set-description"></p>
+        <div class="ref-tools">
+          <div class="form-row">
+            <label for="ref-search">Search</label>
+            <input id="ref-search" class="answer-input" type="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="e.g. subtour, Metropolis">
+          </div>
+          <button id="ref-toggle" type="button">Collapse all</button>
+        </div>
+        <p id="ref-count" class="bank-note" role="status"></p>
+        <nav id="ref-topics" class="chips ref-topics" aria-label="Jump to a topic"></nav>
+        <div id="ref-cards" class="ref-cards"></div>
       </section>
       <section id="answer" class="panel" hidden>
         <div class="quiz-top"><span id="answer-set" class="eyebrow"></span><button id="answer-back" class="quiet" type="button">← Back to the list</button></div>
@@ -250,6 +269,7 @@
   <script src="src/core/prompt.js" defer></script>
   <script src="src/core/paper.js" defer></script>
   <script src="src/core/exam.js" defer></script>
+  <script src="src/core/reference.js" defer></script>
   <script src="src/types/registry.js" defer></script>
   <script src="src/types/single.js" defer></script>
   <script src="src/types/truefalse.js" defer></script>
@@ -267,6 +287,7 @@
   <script src="src/ui/summary.js" defer></script>
   <script src="src/ui/paper.js" defer></script>
   <script src="src/ui/browse.js" defer></script>
+  <script src="src/ui/reference.js" defer></script>
   <script src="src/main.js" defer></script>
 </body>
 </html>

@@ -58,6 +58,7 @@ window.QUIZY_DATA = {
         "11": "Covering",
         "12": "Out of scope"
       },
+      "reference": "do-reference",
       "examBlueprint": {
         "title": "DO scope exam",
         "totalMarks": 50,
@@ -34999,6 +35000,1026 @@ window.QUIZY_DATA = {
           ],
           "solution": "(a) Positions: $c_2 = 4$, $c_3 = 2$, $c_5 = 3$, $c_6 = 6$. Remove $(c_2, c_3) = (4, 2)$ and $(c_5, c_6) = (3, 6)$; add $(c_2, c_5) = (4, 3)$ and $(c_3, c_6) = (2, 6)$. The cities in positions 3 to 5 are reversed:\n$$x' = (1, 4, 3, 7, 2, 6, 5).$$\n$$\\Delta = (c_{43} + c_{26}) - (c_{42} + c_{36}) = (4 + 6) - (7 + 5) = -2,$$\nso $x'$ is 2 shorter: an improving move (only these four edges need to be compared, not the whole tour).\n(b) For $i = 1$: $j = 3, \\dots, 7$ (5 moves); $i = 2$: 4; $i = 3$: 3; $i = 4$: 2; $i = 5$: 1. Total $5 + 4 + 3 + 2 + 1 = 15 = \\frac{(n-2)(n-3)}{2}$. (For $n = 7$ this gives the 10 neighbours listed in the notes.)",
           "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). DisCopt.pdf PDF p. 26 (2-opt move and the four-edge comparison) and PDF pp. 26–27 (all 10 neighbours of a 7-city tour, detailed steps). Checked with a short script."
+        }
+      ]
+    }
+  },
+  "references": {
+    "do-reference": {
+      "id": "do-reference",
+      "subject": "do",
+      "title": "DO model sheet",
+      "description": "Every model and algorithm in the 2026 final scope, one card each, checked against the course notes. Page numbers are the printed page numbers of the notes. Diagrams use made-up example data.",
+      "scopeTopics": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "extraTitle": "Also in past papers (not in final scope)",
+      "cards": [
+        {
+          "id": "ref-max-flow",
+          "topic": 1,
+          "title": "Max-flow model and net flow",
+          "kind": "model",
+          "summary": "Send as much material as possible from the source $s$ to the sink $t$ of a directed network without exceeding any arc capacity. No costs.",
+          "model": {
+            "variables": [
+              {
+                "math": "x_{ij}",
+                "meaning": "flow on arc $(i,j)$"
+              },
+              {
+                "math": "u_{ij}",
+                "meaning": "capacity of arc $(i,j)$ (given)"
+              },
+              {
+                "math": "F",
+                "meaning": "amount sent from $s$ to $t$ (the flow value)"
+              }
+            ],
+            "objective": "\\max\\ F",
+            "constraints": [
+              {
+                "math": "\\sum_j x_{sj} - \\sum_k x_{ks} = F",
+                "meaning": "source: $F$ more leaves $s$ than enters it"
+              },
+              {
+                "math": "\\sum_j x_{ij} - \\sum_k x_{ki} = 0 \\quad \\forall i \\ne s,t",
+                "meaning": "conservation (node balance): what comes in goes out at every intermediate node"
+              },
+              {
+                "math": "\\sum_j x_{tj} - \\sum_k x_{kt} = -F",
+                "meaning": "sink: $F$ more enters $t$ than leaves it"
+              },
+              {
+                "math": "0 \\le x_{ij} \\le u_{ij} \\quad \\forall (i,j) \\in E",
+                "meaning": "capacity: no arc carries more than its capacity"
+              }
+            ]
+          },
+          "points": [
+            "It is an LP; with integer capacities there is always an integer max flow.",
+            "Net flow: $f(i,j) = x_{ij} - x_{ji}$ (can be negative).",
+            "Skew-symmetry (antisymmetry): $f(i,j) = x_{ij} - x_{ji} = -(x_{ji} - x_{ij}) = -f(j,i)$.",
+            "Conservation in net flow: $\\sum_l f(i,l) = 0$ for every $i \\ne s,t$, and $f(s) = -f(t)$.",
+            "Value of a flow: $\\text{val}(F) = \\sum_{e \\text{ out of } s} f(e) = \\sum_{e \\text{ into } t} f(e)$."
+          ],
+          "images": [],
+          "source": "DisCopt.pdf p. 7 (§1.2, eqs. 6–10); net flow and skew-symmetry: NetworkFlowP.pdf pp. 3–4 (§2)"
+        },
+        {
+          "id": "ref-residual",
+          "topic": 1,
+          "title": "Residual network and augmenting paths",
+          "kind": "concept",
+          "summary": "The residual network $G_x$ shows where more flow can still be sent, given the current flow $x$. Each arc is replaced by a forward arc (spare capacity) and a reverse arc (flow that can be cancelled). An augmenting path is an $s \\to t$ path in $G_x$.",
+          "points": [
+            "Forward residual capacity: $r_{ij} = u_{ij} - x_{ij}$.",
+            "Reverse residual capacity: $r_{ji} = x_{ij}$ (sending back cancels flow).",
+            "$G_x$ keeps only the arcs with $r_{ij} > 0$.",
+            "Capacity of an augmenting path: $\\delta(P) = \\min\\{r_{ij} : (i,j) \\in P\\}$.",
+            "Augmenting by $\\delta(P)$: $r_{ij} \\leftarrow r_{ij} - \\delta(P)$ and $r_{ji} \\leftarrow r_{ji} + \\delta(P)$ on every arc of $P$.",
+            "No augmenting path left means the flow is maximum."
+          ],
+          "images": [],
+          "source": "DisCopt.pdf pp. 14–15 (§1.6); NetworkFlowP.pdf pp. 7–8 (§4.1–4.2)"
+        },
+        {
+          "id": "ref-cut",
+          "topic": 1,
+          "title": "s–t cut, cap(A, B) and max-flow = min-cut",
+          "kind": "concept",
+          "summary": "An s–t cut $(A,B)$ splits the nodes into two disjoint sets with $s \\in A$ and $t \\in B$. Its capacity counts only the arcs that go from $A$ to $B$. Every flow is at most every cut, and the largest flow equals the smallest cut.",
+          "points": [
+            "$\\text{cap}(A,B) = \\sum_{e \\text{ out of } A} c_e$: arcs $A \\to B$ only, never $B \\to A$.",
+            "Cut-set: the arcs that begin in $A$ and end in $B$.",
+            "Flow value lemma: $\\text{val}(F) = \\sum_{e \\text{ out of } A} f(e) - \\sum_{e \\text{ into } A} f(e)$ for any cut.",
+            "Weak duality: $\\text{val}(F) \\le \\text{cap}(A,B)$ for every flow and every cut.",
+            "Max-flow min-cut theorem: $\\max_F \\text{val}(F) = \\min_{(A,B)} \\text{cap}(A,B)$.",
+            "If $\\text{val}(F) = \\text{cap}(A,B)$, then $F$ is a max flow and $(A,B)$ is a min cut."
+          ],
+          "images": [
+            {
+              "src": "data/do/img/reference/do-cut.png",
+              "alt": "An s–t cut on the network s, a, b, t. A = {s, a} is shaded and B = {b, t}; a dashed line separates them. Arcs a→t (3), a→b (2) and s→b (3) go from A to B and are drawn in orange, so cap(A, B) = 3 + 2 + 3 = 8. Arc b→a (1) goes from B to A, is grey and is not counted.",
+              "width": 970,
+              "height": 568
+            }
+          ],
+          "example": "In the picture, $A = \\{s, a\\}$: the arcs $a \\to t$, $a \\to b$ and $s \\to b$ cross from $A$ to $B$, so $\\text{cap}(A,B) = 3 + 2 + 3 = 8$. The arc $b \\to a$ goes backwards and is not counted.",
+          "source": "NetworkFlowP.pdf pp. 5–7 (§3, Definitions 1–4, Lemmas 1–2, Theorem 1); DisCopt.pdf pp. 16–17 (Definitions 1.5–1.6, Theorems 1.9 and 1.12)"
+        },
+        {
+          "id": "ref-ford-fulkerson",
+          "topic": 1,
+          "title": "Ford–Fulkerson (max-flow min-cut) algorithm",
+          "kind": "algorithm",
+          "summary": "Start with zero flow and keep pushing flow along augmenting paths in the residual network until none is left. The flow is then maximum, and the nodes still reachable from $s$ give a minimum cut.",
+          "steps": [
+            "Start with $x = 0$, so $r_{ij} = u_{ij}$ on every arc.",
+            "Build the residual network $G_x$.",
+            "While $G_x$ has a directed path $P$ from $s$ to $t$: send $\\delta(P) = \\min_{(i,j) \\in P} r_{ij}$ along it.",
+            "Update: $r_{ij} \\leftarrow r_{ij} - \\delta(P)$, $r_{ji} \\leftarrow r_{ji} + \\delta(P)$, and add $\\delta(P)$ to the total flow.",
+            "Stop when there is no $s \\to t$ path in $G_x$: the flow is maximum.",
+            "Min cut: $A$ = the nodes reachable from $s$ in the last $G_x$, $B$ = the rest. Then $\\text{cap}(A,B)$ = max flow."
+          ],
+          "points": [
+            "With integer (or rational) finite capacities it stops after finitely many steps.",
+            "Max flow = sum of all the $\\delta(P)$ sent = flow out of $s$ = flow into $t$."
+          ],
+          "images": [
+            {
+              "src": "data/do/img/reference/do-ff.png",
+              "alt": "Ford–Fulkerson on a four-node network in three panels. 1: capacities s→a 4, s→b 3, a→b 2, b→a 1, a→t 3, b→t 5. 2: a maximum flow of value 7, shown as flow/capacity: s→a 4/4, s→b 3/3, a→b 1/2, b→a 0/1, a→t 3/3, b→t 4/5. 3: the residual network with grey reverse arcs; no path from s to t is left, only s is reachable, so A = {s} and cap(A, B) = 4 + 3 = 7 = the max flow.",
+              "width": 1595,
+              "height": 542
+            }
+          ],
+          "example": "Lecturer’s worked example: three augmenting paths carry $5 + 1 + 3 = 9$; afterwards only $c$ can be reached from $s$, so $A = \\{s, c\\}$, $B = \\{b, d, e, t\\}$ and $\\text{cap}(A,B) = 9$ = max flow.",
+          "source": "DisCopt.pdf pp. 13–17 (§1.6, the algorithm box on p. 16, Remark 1.11); NetworkFlowP.pdf p. 9 (§4.4); FordFulkerson.pdf pp. 1–3 (worked example, the cut from the reachable nodes on p. 3)"
+        },
+        {
+          "id": "ref-ga-loop",
+          "topic": 2,
+          "title": "The genetic algorithm loop",
+          "kind": "algorithm",
+          "summary": "A GA keeps a population of $N$ chromosomes (candidate solutions, e.g. bit strings) and improves it generation by generation, copying nature: the fittest survive and breed.",
+          "steps": [
+            "Create an initial population $G(0)$ of $N$ random chromosomes.",
+            "Evaluate the fitness of every chromosome and rank them.",
+            "Elitism: copy the best few (e.g. 10% of $N$) unchanged into $G(t+1)$.",
+            "Selection: pick pairs of parents, favouring fitter ones (tournament selection).",
+            "Crossover: each pair of parents makes two children (single- or double-point).",
+            "Mutation: flip each bit of each child with a small probability $p_\\mu$.",
+            "The children fill the rest of $G(t+1)$; repeat from step 2 until the fitness values are close to each other (small standard deviation) or a maximum number of generations."
+          ],
+          "points": [
+            "Balances exploiting good solutions (selection, elitism) and exploring the search space (crossover, mutation).",
+            "Needs no mathematical model, only a way to evaluate fitness. Constraints can be handled with a penalty (the lecturer’s knapsack code subtracts $R \\cdot$ overweight).",
+            "Direct version for TSP / QAP: permutations, swap (path) crossover, no mutation."
+          ],
+          "images": [
+            {
+              "src": "data/do/img/reference/do-ga-loop.png",
+              "alt": "The GA loop as a row of boxes: Initial population, Fitness, Selection (tournament), Crossover, Mutation, New generation (+ elitism), with an arrow from New generation back to Fitness labelled \"repeat until the stopping rule (e.g. max generations)\".",
+              "width": 1033,
+              "height": 286
+            }
+          ],
+          "source": "DisCopt.pdf pp. 52–55 (§3.4, the GA steps on p. 55); DiscreteGAcode.pdf pp. 1–2"
+        },
+        {
+          "id": "ref-ga-operators",
+          "topic": 2,
+          "title": "GA operators: elitism, tournament, crossover, mutation",
+          "kind": "concept",
+          "summary": "The operators that turn generation $G(t)$ into $G(t+1)$. Elitism keeps the best, tournament selection picks good parents, crossover mixes two parents and mutation adds small random changes.",
+          "points": [
+            "Elitism: the best (e.g. 10%) of $G(t)$ go straight into $G(t+1)$; the other 90% are made pairwise by selection, crossover and mutation.",
+            "Tournament selection: pick two different chromosomes at random and keep the fitter one as parent $A$; repeat for parent $B$ (a chromosome may be picked again).",
+            "Single-point crossover: one cut point; the two parents swap everything after it.",
+            "Double-point crossover (lecturer’s code): random positions $n_1 < n_2$; the parents swap the genes in positions $n_1, n_1 + 1, \\dots, n_2$ (inclusive). Genes outside stay.",
+            "Mutation: for each bit, if random $< p_\\mu$ flip it ($x_j \\leftarrow 1 - x_j$). $p_\\mu$ is small (the code uses $10^{-3}$) and keeps diversity."
+          ],
+          "images": [
+            {
+              "src": "data/do/img/reference/do-ga.png",
+              "alt": "Double-point crossover and mutation on 5-bit strings. Parents x1 = 10101 and x2 = 01110 with cut lines around positions 3 and 4 (n1 = 3, n2 = 4); the segments 10 and 11 are swapped, giving children y1 = 10111 and y2 = 01100. Below, mutation flips one bit: 10111 becomes 10011.",
+              "width": 1033,
+              "height": 676
+            }
+          ],
+          "example": "DOEXAM2021 Q3(a): $x_1 = 10101$, $x_2 = 01110$, $n_1 = 3$, $n_2 = 4$. Swap positions 3–4: $y_1 = 10\\,11\\,1 = 10111$, $y_2 = 01\\,10\\,0 = 01100$.",
+          "source": "DisCopt.pdf pp. 52–54 (§3.4.1–3.4.2, Figs. 36–38); DiscreteGAcode.pdf p. 1 (tournament: two random indices, the fitter kept) and p. 2 (crossover loop “for l = n1 to n2”, mutation)"
+        },
+        {
+          "id": "ref-sa-equilibrium",
+          "topic": 3,
+          "title": "Annealing, equilibrium distribution and the Metropolis rule",
+          "kind": "concept",
+          "summary": "Physical annealing heats a solid and cools it slowly so its particles settle into a low-energy, ordered state. At a fixed temperature the system reaches thermal equilibrium, where state $x$ has the Boltzmann probability below. SA treats the objective as the energy and uses the Metropolis rule to sample this distribution.",
+          "points": [
+            "Equilibrium (Boltzmann, stationary) distribution: $\\pi_T(x) = \\dfrac{e^{-E(x)/T}}{Z}$, with $Z = \\sum_y e^{-E(y)/T}$.",
+            "As $T \\to 0$, $\\pi_T$ puts all its mass on the minimum-energy states, i.e. the optimum.",
+            "Metropolis acceptance (minimising): $A_{xy}(T) = \\min\\{1, e^{-(f(y) - f(x))/T}\\}$. A better $y$ is always accepted; a worse one with probability $e^{-\\Delta f/T}$, accepted if random$(0,1) <$ that.",
+            "Why Metropolis: $\\pi_T$ can’t be sampled directly ($Z$ sums over every state). Metropolis builds a Markov chain whose stationary distribution is $\\pi_T$, using only the difference $f(y) - f(x)$.",
+            "Accepting some worse moves lets SA escape local minima; high $T$ accepts many, low $T$ almost none."
+          ],
+          "images": [
+            {
+              "src": "data/do/img/reference/do-sa.png",
+              "alt": "Two plots. Left: Metropolis acceptance probability P = min(1, e^(−ΔE/T)) against ΔE from 0 to 300 for T = 300, 100 and 30; it falls faster at lower T. The marked point ΔE = 100, T = 100 gives P = e^−1 = 0.368, and r = 0.25 < 0.368 means accept. Right: the Boltzmann distribution π(x) = e^(−E(x)/T)/Z over eight states with energies 5, 3, 6, 1, 4, 7, 2, 5; at T = 5 the bars are spread out, at T = 0.7 most of the mass is on x4, the minimum (E = 1).",
+              "width": 1416,
+              "height": 622
+            }
+          ],
+          "example": "DOEXAM2021: $\\Delta E = 100$, $T = 100$: $P = e^{-1} = 0.368$. With $r = 0.25 < 0.368$, accept the worse solution.",
+          "source": "Acceptance rule: DisCopt.pdf p. 50 (§3.3, eq. 101). Physical annealing, thermal equilibrium and “why Metropolis”: Assignment II 2026 Q1. The Boltzmann formula and the Markov-chain reason are the standard ones (as in the Assignment II solution), not written out in the notes."
+        },
+        {
+          "id": "ref-sa",
+          "topic": 3,
+          "title": "Simulated annealing algorithm",
+          "kind": "algorithm",
+          "summary": "Two loops: the inner loop runs a Metropolis chain of $L_t$ trial moves at a fixed temperature $T_t$; the outer loop lowers the temperature. SA needs no mathematical model, only a way to make a trial solution $y$ from $x$ (e.g. swap two cities).",
+          "steps": [
+            "Choose $T_0$, the chain length $L$, the stopping value $\\varepsilon$ and a starting solution $x$; compute $f(x)$.",
+            "While $T > \\varepsilon$, repeat $L$ times: generate a trial $y$ from $x$.",
+            "If $f(y) \\le f(x)$ accept $y$; else accept it if $e^{-(f(y) - f(x))/T} >$ random$(0,1)$. If accepted, $x := y$.",
+            "After the $L$ trials, cool: $T_{t+1} = \\alpha T_t$ (e.g. $\\alpha = 0.9$), and repeat.",
+            "Stop when $T_t \\le \\varepsilon$; report the best solution found."
+          ],
+          "points": [
+            "Cooling schedule: initial $T_0$ (acceptance ratio near 1), chain length $L_t$ (e.g. $10n$), decrement rule, stopping rule.",
+            "Simple decrement: $T_{t+1} = \\alpha T_t$ with $\\alpha \\in (0.9, 0.97)$.",
+            "Slow cooling gives the chain time to reach equilibrium at each $T$."
+          ],
+          "images": [
+            {
+              "src": "data/do/img/reference/do-sa-cooling.png",
+              "alt": "A step plot of the cooling schedule T(k+1) = α·T(k) with α = 0.85: the temperature starts at 100 and drops in steps towards 0 over 30 outer iterations. The title notes that at each T an inner loop of Metropolis moves runs until equilibrium.",
+              "width": 824,
+              "height": 508
+            }
+          ],
+          "source": "DisCopt.pdf pp. 50–51 (§3.3 SA algorithm, §3.3.1 cooling schedule, Remark 3.4); sa.pdf p. 1 (the lecturer’s pseudocode, T = 0.9T)"
+        },
+        {
+          "id": "ref-relaxation",
+          "topic": 4,
+          "title": "Relaxed problem and bounds",
+          "kind": "concept",
+          "summary": "The relaxation of an integer (or binary) program drops the integrality: $x_j \\in \\{0,1\\}$ becomes $0 \\le x_j \\le 1$ (or integer becomes real). The relaxed problem is easier (an LP for a linear model) and its optimum bounds the integer optimum.",
+          "points": [
+            "Minimisation: relaxed optimum = lower bound; any feasible integer solution = upper bound.",
+            "Maximisation: relaxed optimum = upper bound; any feasible integer solution = lower bound.",
+            "Relaxed solution infeasible → the integer problem is infeasible.",
+            "Relaxed solution already integer → it is optimal for the integer problem.",
+            "Quadratic problems (QAP, QKP, bisection) are relaxed the same way and solved with a suitable solver."
+          ],
+          "images": [],
+          "source": "DisCopt.pdf pp. 45–47 (§3.2 and §3.2.2 LP-based B&B); vertex cover relaxation p. 36"
+        },
+        {
+          "id": "ref-bnb",
+          "topic": 4,
+          "title": "Branch and bound",
+          "kind": "algorithm",
+          "summary": "“Intelligent enumeration”: solve the relaxation, branch on a fractional variable to make two subproblems, and delete subproblems that can’t contain a better solution. Shown here for minimisation (swap the bounds for maximisation).",
+          "steps": [
+            "Find an initial feasible integer solution (e.g. by a heuristic): incumbent $x^*$ with upper bound $u(S)$.",
+            "Pick a subproblem $P(S_j)$ from the list (depth-first: the newest) and solve its relaxation: lower bound $l(S_j)$.",
+            "Delete it if (1) the relaxation is infeasible, (2) its solution is integer (update the incumbent if better), or (3) $l(S_j) > u(S)$: it can’t beat the incumbent.",
+            "Otherwise branch on the most fractional variable $\\hat{x}_i$: $x_i \\le \\lfloor \\hat{x}_i \\rfloor$ and $x_i \\ge \\lceil \\hat{x}_i \\rceil$ (for 0-1: $x_i = 0$ and $x_i = 1$), and add both to the list.",
+            "Stop when the list is empty; the incumbent is optimal."
+          ],
+          "points": [
+            "Bounding = deletion cases (2) and (3); infeasible subproblems are deleted too.",
+            "Speed depends on a good initial incumbent and tight relaxation bounds."
+          ],
+          "images": [
+            {
+              "src": "data/do/img/reference/do-bnb.png",
+              "alt": "Two separate examples. Left: the LP feasible region of a small two-variable maximisation, with orange dots for the integer points inside, a blue star for the fractional LP optimum (the bound) and a red square for the best integer point. Right: a branch and bound tree for a maximisation: the root (LP 10.5, x1 = 2.5) branches into x1 ≤ 2 (LP 9.8, x2 = 1.4) and x1 ≥ 3 (infeasible, deleted, case 1); x1 ≤ 2 branches into x2 ≤ 1 (LP 9, integer, becomes the incumbent, case 2) and x2 ≥ 2 (LP 8.6 ≤ 9, deleted by bound, case 3).",
+              "width": 1569,
+              "height": 702
+            }
+          ],
+          "source": "DisCopt.pdf pp. 45–49 (§3.2, deletion cases (a)–(b) and infeasibility on pp. 45–46, steps in §3.2.3 pp. 48–49)"
+        },
+        {
+          "id": "ref-lap",
+          "topic": 5,
+          "title": "Linear assignment problem (LAP)",
+          "kind": "model",
+          "summary": "Assign $n$ applicants to $n$ jobs, one each, at minimum total cost $c_{ij}$. Also called weighted bipartite (perfect) matching.",
+          "model": {
+            "variables": [
+              {
+                "math": "x_{ij} \\in \\{0,1\\}",
+                "meaning": "1 if applicant $i$ is assigned to job $j$"
+              },
+              {
+                "math": "c_{ij} \\ge 0",
+                "meaning": "cost of applicant $i$ doing job $j$ (given)"
+              }
+            ],
+            "objective": "\\min \\sum_i \\sum_j c_{ij}\\, x_{ij}",
+            "constraints": [
+              {
+                "math": "\\sum_j x_{ij} = 1 \\quad \\forall i",
+                "meaning": "every applicant gets exactly one job"
+              },
+              {
+                "math": "\\sum_i x_{ij} = 1 \\quad \\forall j",
+                "meaning": "every job gets exactly one applicant"
+              },
+              {
+                "math": "x_{ij} \\in \\{0,1\\}",
+                "meaning": "binary"
+              }
+            ]
+          },
+          "points": [
+            "Linear: the cost of a pair doesn’t depend on the other pairs.",
+            "The LP relaxation already has an integer optimum, so LAP is easy (polynomial).",
+            "Perfect matching form: $\\max \\sum_e c_e x_e$ s.t. $\\sum_{e \\text{ at } i} x_e = 1$ for each vertex."
+          ],
+          "images": [],
+          "source": "DisCopt.pdf pp. 9–11 (§1.4, eqs. 14–17; matching form eqs. 18–20)"
+        },
+        {
+          "id": "ref-lap-flow",
+          "topic": 5,
+          "title": "LAP as a minimum-cost flow",
+          "kind": "concept",
+          "summary": "LAP (and the transportation problem) is a min-cost flow network with no intermediate nodes: one supply node per worker, one demand node per job, and an arc from each worker to each job with cost $c_{ij}$.",
+          "points": [
+            "Min-cost flow: $\\min \\sum c_{ij} x_{ij}$ s.t. $\\sum_j x_{ij} - \\sum_j x_{ji} = b_i$ for each $i$, $0 \\le x_{ij} \\le u_{ij}$.",
+            "LAP: $b_i = 1$ at each worker (supply), $b_j = -1$ at each job (demand).",
+            "The picture adds a source $s$ and a sink $t$ with capacity-1 arcs and sends $n$ units: the same thing.",
+            "Integer data give an integer optimal flow, so the flow is a valid assignment."
+          ],
+          "images": [
+            {
+              "src": "data/do/img/reference/do-lap-flow.png",
+              "alt": "LAP as a minimum-cost flow network: a source s with capacity-1 arcs to workers W1, W2, W3, orange arcs from every worker to every job J1, J2, J3 with cost c_ij and capacity 1, and capacity-1 arcs from each job to the sink t. The caption says to send n = 3 units from s to t at minimum cost.",
+              "width": 765,
+              "height": 500
+            }
+          ],
+          "source": "DisCopt.pdf pp. 8–9 (§1.3, eqs. 11–13, Remarks 1.2 and 1.4)"
+        },
+        {
+          "id": "ref-qap",
+          "topic": 5,
+          "title": "Quadratic assignment problem (QAP)",
+          "kind": "model",
+          "summary": "Place $n$ facilities at $n$ locations, one each. The cost depends on the flow between every pair of facilities times the distance between the locations they get, so it depends on pairs of assignments.",
+          "model": {
+            "variables": [
+              {
+                "math": "x_{ij} \\in \\{0,1\\}",
+                "meaning": "1 if facility $i$ is placed at location $j$"
+              },
+              {
+                "math": "f_{ij}",
+                "meaning": "flow between facilities $i$ and $j$ (given)"
+              },
+              {
+                "math": "d_{kl}",
+                "meaning": "distance between locations $k$ and $l$ (given)"
+              },
+              {
+                "math": "b_{ij}",
+                "meaning": "cost of placing facility $i$ at location $j$ (given)"
+              }
+            ],
+            "objective": "\\min \\sum_{i=1}^n \\sum_{j=1}^n \\sum_{k=1}^n \\sum_{l=1}^n f_{ij}\\, d_{kl}\\, x_{ik}\\, x_{jl} + \\sum_{i=1}^n \\sum_{j=1}^n b_{ij}\\, x_{ij}",
+            "constraints": [
+              {
+                "math": "\\sum_{i=1}^n x_{ij} = 1 \\quad j = 1, \\dots, n",
+                "meaning": "every location gets exactly one facility"
+              },
+              {
+                "math": "\\sum_{j=1}^n x_{ij} = 1 \\quad i = 1, \\dots, n",
+                "meaning": "every facility goes to exactly one location"
+              },
+              {
+                "math": "x_{ij} \\in \\{0,1\\}",
+                "meaning": "binary (so $X$ is a permutation matrix)"
+              }
+            ]
+          },
+          "points": [
+            "Quadratic: the term $x_{ik} x_{jl}$ is a product, “facility $i$ at $k$ and facility $j$ at $l$”, costing $f_{ij} d_{kl}$.",
+            "Permutation form (Koopmans–Beckmann): $\\min_{\\pi \\in S_n} \\sum_i \\sum_j f_{ij} d_{\\pi(i)\\pi(j)} + \\sum_i b_{i\\pi(i)}$.",
+            "There are $n!$ feasible assignments; QAP is one of the hardest problems (no exact method for $n > 20$ in reasonable time).",
+            "LAP vs QAP: same assignment constraints, but LAP’s cost is linear (each pair on its own) and easy; QAP’s cost couples pairs of assignments and is NP-hard."
+          ],
+          "images": [
+            {
+              "src": "data/do/img/reference/do-lap-qap.png",
+              "alt": "LAP next to QAP. Left (LAP): workers W1–W3 joined to jobs J1–J3 by grey edges, with one feasible assignment in orange (W1–J2, W2–J1, W3–J3); x_ij = 1 if worker i does job j, every worker one job and every job one worker. Right (QAP): facilities A, B, C with flows f_AB = 5 and f_BC = 1, dashed arrows placing them at locations L1, L2, L3 whose distances are d = 3, 4, 2. Placing A at L1 and B at L2 costs f_AB · d_12 = 5 · 3, which depends on pairs of assignments (x_ij · x_kl), so the cost is quadratic; there are n! assignments.",
+              "width": 1311,
+              "height": 560
+            }
+          ],
+          "source": "DisCopt.pdf pp. 32–34 (§2.8, eq. 69; §2.8.1 quadratic integer programming formulation, eqs. 71–75)"
+        },
+        {
+          "id": "ref-clique",
+          "topic": 6,
+          "title": "Clique, maximal and maximum clique",
+          "kind": "model",
+          "summary": "A clique is a set of vertices that are all joined to each other. A maximal clique can’t be extended by another vertex; a maximum clique is a largest one (its size is the clique number $\\omega(G)$). Every maximum clique is maximal, not the other way round.",
+          "model": {
+            "variables": [
+              {
+                "math": "x_i \\in \\{0,1\\}",
+                "meaning": "1 if vertex $i$ is in the clique"
+              }
+            ],
+            "objective": "\\max \\sum_{i \\in V} x_i",
+            "constraints": [
+              {
+                "math": "x_i + x_j \\le 1 \\quad \\forall (i,j) \\notin E,\\ i \\ne j",
+                "meaning": "two vertices that are not adjacent can’t both be chosen"
+              },
+              {
+                "math": "x_i \\in \\{0,1\\}",
+                "meaning": "binary"
+              }
+            ]
+          },
+          "points": [
+            "A clique in $G$ is an independent set in the complement $\\bar{G}$ (edges exactly where $G$ has none).",
+            "So max clique of $G$ = maximum independent set of $\\bar{G}$.",
+            "Maximum clique is NP-hard."
+          ],
+          "images": [
+            {
+              "src": "data/do/img/reference/do-clique.png",
+              "alt": "Left: a graph G on vertices 1–6 with edges 12, 13, 14, 23, 24, 34, 45, 46, 56. {1, 2, 3, 4} is shaded with its six edges in orange: the maximum clique (ω = 4). {4, 5, 6} with blue edges is a maximal clique but not maximum. Right: the complement Ḡ, with edges exactly where G has none (15, 16, 25, 26, 35, 36); {1, 2, 3, 4} has no edges there, so it is a maximum independent set of Ḡ.",
+              "width": 1371,
+              "height": 563
+            }
+          ],
+          "example": "$V = \\{1, \\dots, 6\\}$, $E = \\{12, 13, 14, 23, 24, 34, 45, 46, 56\\}$: $\\{1,2,3,4\\}$ is maximum ($\\omega = 4$); $\\{4,5,6\\}$ is maximal only.",
+          "source": "Standard formulation, not in the notes (no course notes on cliques were found; the scope and E-Science Exam 2021 Q2(d) name the problem)"
+        },
+        {
+          "id": "ref-planted",
+          "topic": 6,
+          "title": "Planted clique",
+          "kind": "algorithm",
+          "summary": "A random graph with a clique of known size $k$ hidden in it, used to test clique-finding methods: we know a $k$-clique is there and must find it among random edges.",
+          "steps": [
+            "Start with $n$ vertices $V = \\{1, \\dots, n\\}$ and no edges.",
+            "Choose $k < n$ vertices at random.",
+            "Join every pair of the chosen vertices: they form a $k$-clique.",
+            "Add every other edge independently with probability $p$ (a random graph $G(n, p)$)."
+          ],
+          "points": [
+            "The planted clique is a clique of size $k$, so $\\omega(G) \\ge k$.",
+            "For small $p$ and large enough $k$ it is the maximum clique; finding it is hard when $k$ is small."
+          ],
+          "images": [
+            {
+              "src": "data/do/img/reference/do-planted.png",
+              "alt": "A planted clique with n = 14, k = 5 and p = 0.18: fourteen vertices on a circle; vertices 1, 4, 7, 10 and 12 are shaded and all ten edges among them are orange (the guaranteed 5-clique); the other edges, added at random with probability p, are grey. The caption lists the steps: start with V = {1, …, n}, choose k vertices, join every pair of them, add every other edge independently with probability p.",
+              "width": 661,
+              "height": 760
+            }
+          ],
+          "source": "Standard construction, not in the notes (E-Science Exam 2021 Q2(d) asks for “one way of creating a planted clique of size k”)"
+        },
+        {
+          "id": "ref-mis",
+          "topic": 6,
+          "title": "Maximum independent set (MIS)",
+          "kind": "model",
+          "summary": "An independent set is a set of vertices with no edge between any two of them. The maximum independent set problem asks for a largest one. It is the clique problem on the complement graph.",
+          "model": {
+            "variables": [
+              {
+                "math": "x_i \\in \\{0,1\\}",
+                "meaning": "1 if vertex $i$ is in the set"
+              }
+            ],
+            "objective": "\\max \\sum_{i \\in V} x_i",
+            "constraints": [
+              {
+                "math": "x_i + x_j \\le 1 \\quad \\forall (i,j) \\in E",
+                "meaning": "the two ends of an edge can’t both be chosen"
+              },
+              {
+                "math": "x_i \\in \\{0,1\\}",
+                "meaning": "binary"
+              }
+            ]
+          },
+          "points": [
+            "Clique vs MIS: the same model, but the constraint is over non-edges (clique) or edges (MIS).",
+            "$S$ is independent in $G$ ⇔ $S$ is a clique in $\\bar{G}$.",
+            "$S$ is independent ⇔ $V \\setminus S$ is a vertex cover, so max independent set = $n$ − min vertex cover."
+          ],
+          "images": [],
+          "source": "Standard formulation, not in the notes (vertex cover itself: DisCopt.pdf pp. 34–35, §2.9)"
+        },
+        {
+          "id": "ref-bisection",
+          "topic": 7,
+          "title": "Graph bisection (max-bisection)",
+          "kind": "model",
+          "summary": "Split the $n$ vertices (n even) of a weighted undirected graph into two halves of equal size, $V_1$ and $V_2$, so that the total weight of the edges between the halves is as large as possible. The notes use the max version.",
+          "model": {
+            "variables": [
+              {
+                "math": "x_i \\in \\{1, -1\\}",
+                "meaning": "$x_i = 1$ if $i \\in V_1$, $x_i = -1$ if $i \\in V_2$"
+              },
+              {
+                "math": "w_{ij} \\ge 0",
+                "meaning": "weight of edge $(i,j)$ (0 if there is no edge)"
+              }
+            ],
+            "objective": "\\max_x\\ \\frac{1}{4} \\sum_{i=1}^n \\sum_{j=1}^n w_{ij}\\,(1 - x_i x_j)",
+            "constraints": [
+              {
+                "math": "\\sum_{i=1}^n x_i = 0",
+                "meaning": "as many $+1$s as $-1$s: the halves are the same size"
+              },
+              {
+                "math": "x_i \\in \\{1, -1\\}, \\quad i \\in \\{1, \\dots, n\\}",
+                "meaning": "every vertex is on one side"
+              }
+            ]
+          },
+          "points": [
+            "$1 - x_i x_j = 2$ if $i$ and $j$ are on different sides, 0 if on the same side.",
+            "Why ¼: the double sum counts each edge twice ($w_{ij}$ and $w_{ji}$), and each crossing edge gives 2, so $2 \\times 2 = 4$; ¼ leaves exactly the crossing weight.",
+            "Symmetry: if $x$ is feasible so is $-x$ (swap the halves), with the same objective.",
+            "It is an integer quadratic program (the $x_i x_j$ term)."
+          ],
+          "images": [
+            {
+              "src": "data/do/img/reference/do-bisection.png",
+              "alt": "Max-bisection of six vertices: V1 = {1, 2, 3} with x_i = +1 on the left, V2 = {4, 5, 6} with x_i = −1 on the right. The crossing edges in red are 1–4 (4), 2–4 (5), 2–5 (1) and 3–6 (2); the edges inside a half (1–2, 2–3, 4–5, 5–6) are grey. Σ x_i = 0, crossing edges give 1 − x_i x_j = 2, and ¼ ΣΣ w_ij (1 − x_i x_j) = 4 + 5 + 1 + 2 = 12.",
+              "width": 897,
+              "height": 560
+            }
+          ],
+          "example": "In the picture $V_1 = \\{1,2,3\\}$, $V_2 = \\{4,5,6\\}$: crossing weight $= 4 + 5 + 1 + 2 = 12$.",
+          "source": "DisCopt.pdf pp. 39–40 (§2.11)"
+        },
+        {
+          "id": "ref-max-cut",
+          "topic": 7,
+          "title": "Max-cut (and how it differs from bisection)",
+          "kind": "model",
+          "summary": "Split the vertices into two sets $S$ and $V \\setminus S$ of any sizes so that the weight of the edges between them is as large as possible. Same as max-bisection without the equal-size constraint.",
+          "model": {
+            "variables": [
+              {
+                "math": "x_i \\in \\{1, -1\\}",
+                "meaning": "$x_i = 1$ if $i \\in S$, $-1$ otherwise"
+              }
+            ],
+            "objective": "\\max\\ f(x) = \\frac{1}{2} \\sum_{1 \\le i < j \\le n} w_{ij}\\,(1 - x_i x_j)",
+            "constraints": [
+              {
+                "math": "x_i \\in \\{1, -1\\}, \\quad i \\in V",
+                "meaning": "the only constraint: no balance constraint"
+              }
+            ]
+          },
+          "points": [
+            "½ instead of ¼: the sum runs over $i < j$, so each edge is counted once.",
+            "Bisection = max-cut + $\\sum_i x_i = 0$.",
+            "Max-cut is NP-complete, but min cut (s–t) is polynomial with Ford–Fulkerson.",
+            "Max-$k$-cut splits $V$ into $k$ parts; max-cut is $k = 2$."
+          ],
+          "images": [],
+          "source": "DisCopt.pdf pp. 40–41 (§2.12, eqs. 97–98)"
+        },
+        {
+          "id": "ref-facility",
+          "topic": 8,
+          "title": "Facility location (fixed charge, capacitated, single source)",
+          "kind": "model",
+          "summary": "Choose which of $m$ potential facilities (depots) to open and which open facility serves each of $n$ customers, minimising opening costs plus serving costs.",
+          "model": {
+            "variables": [
+              {
+                "math": "y_i \\in \\{0,1\\}",
+                "meaning": "1 if a facility is opened at potential location $i$"
+              },
+              {
+                "math": "x_{ij} \\in \\{0,1\\}",
+                "meaning": "1 if customer $j$ is served from the facility at $i$"
+              },
+              {
+                "math": "f_i,\\ c_{ij}",
+                "meaning": "fixed cost of opening $i$; cost of serving $j$ from $i$ (given)"
+              },
+              {
+                "math": "d_j,\\ W_i",
+                "meaning": "demand of customer $j$; capacity of facility $i$ (given)"
+              }
+            ],
+            "objective": "\\min \\sum_{i=1}^m \\sum_{j=1}^n c_{ij}\\, x_{ij} + \\sum_{i=1}^m f_i\\, y_i",
+            "constraints": [
+              {
+                "math": "\\sum_{i=1}^m x_{ij} = 1 \\quad \\forall j",
+                "meaning": "every customer is served by exactly one facility (single source)"
+              },
+              {
+                "math": "x_{ij} \\le y_i \\quad \\forall i, j",
+                "meaning": "only an open facility can serve a customer"
+              },
+              {
+                "math": "\\sum_{j=1}^n d_j\\, x_{ij} \\le W_i\\, y_i \\quad \\forall i",
+                "meaning": "capacity: the demand served by $i$ is at most its capacity (drop this for the uncapacitated problem)"
+              },
+              {
+                "math": "x_{ij},\\ y_i \\in \\{0,1\\}",
+                "meaning": "binary"
+              }
+            ]
+          },
+          "points": [
+            "First term: distribution cost; second: fixed opening cost. The number of depots is a trade-off between the two.",
+            "Uncapacitated (UFLP): no capacity constraint; each customer goes to its cheapest open facility.",
+            "p-median: no fixed costs, $\\sum_i y_i = p$."
+          ],
+          "images": [
+            {
+              "src": "data/do/img/reference/do-facility.png",
+              "alt": "Facility location: four candidate facilities drawn as squares; F1 and F4 are open (filled, y = 1) and F2 and F3 are closed (empty, y = 0). Nine customers (blue dots) are each joined by a dashed line to the one open facility that serves them. The caption repeats: each customer is served by exactly one facility, Σ_i x_ij = 1; only open facilities serve, x_ij ≤ y_i; cost = Σ f_i y_i (opening) + Σ c_ij x_ij (serving).",
+              "width": 869,
+              "height": 660
+            }
+          ],
+          "source": "DisCopt.pdf pp. 27–30 (§2.5, eqs. 51–57; p-median eqs. 58–63)"
+        },
+        {
+          "id": "ref-atsp",
+          "topic": 9,
+          "title": "Asymmetric TSP model (subtour elimination)",
+          "kind": "model",
+          "summary": "Visit each of $n$ cities exactly once and return home at minimum cost, where $c_{ij}$ may differ from $c_{ji}$ (a directed graph).",
+          "model": {
+            "variables": [
+              {
+                "math": "x_{ij} \\in \\{0,1\\}",
+                "meaning": "1 if the salesman goes directly from city $i$ to city $j$"
+              },
+              {
+                "math": "c_{ij}",
+                "meaning": "cost of travelling from $i$ to $j$ (given)"
+              }
+            ],
+            "objective": "\\min \\sum_{i=1}^n \\sum_{j=1}^n c_{ij}\\, x_{ij}",
+            "constraints": [
+              {
+                "math": "\\sum_{i=1}^n x_{ij} = 1 \\quad \\forall j \\in V,\\ (i \\ne j)",
+                "meaning": "every city is entered exactly once"
+              },
+              {
+                "math": "\\sum_{j=1}^n x_{ij} = 1 \\quad \\forall i \\in V,\\ (i \\ne j)",
+                "meaning": "every city is left exactly once"
+              },
+              {
+                "math": "\\sum_{i \\in S} \\sum_{j \\in S} x_{ij} \\le |S| - 1 \\quad S \\subset V,\\ 2 \\le |S| \\le n - 2",
+                "meaning": "subtour elimination: the cities of $S$ can’t form a closed loop on their own"
+              },
+              {
+                "math": "x_{ij} \\in \\{0,1\\} \\quad (i,j) \\in E",
+                "meaning": "binary"
+              }
+            ]
+          },
+          "points": [
+            "Without subtour elimination, a solution can be several separate cycles (subtours) that still satisfy the in/out constraints.",
+            "There are exponentially many subtour constraints; in practice add only the violated ones and re-solve."
+          ],
+          "images": [
+            {
+              "src": "data/do/img/reference/do-tsp-subtour.png",
+              "alt": "Left: seven cities where every city has one arc in and one arc out, but the arcs form two subtours, 1→2→1 (red) and 3→4→5→6→7→3 (blue); for S = {1, 2}, x12 + x21 = 2 > |S| − 1 = 1, so the subtour constraint is violated. Right: a valid tour, one Hamiltonian cycle 1→2→3→4→5→6→7→1, with the subtour elimination constraint Σ_{i,j∈S} x_ij ≤ |S| − 1, 2 ≤ |S| ≤ n−2 (DisCopt eq. 37), and for the STSP 3 ≤ |S| ≤ n−3 (eq. 41).",
+              "width": 1413,
+              "height": 609
+            }
+          ],
+          "example": "7 cities: 1→2→1 and 3→4→5→6→7→3 meet both assignment constraints but are two subtours. $S = \\{1, 2\\}$: $x_{12} + x_{21} = 2 > |S| - 1 = 1$.",
+          "source": "DisCopt.pdf pp. 20–21 (§2.2.1, eqs. 33–38)"
+        },
+        {
+          "id": "ref-stsp",
+          "topic": 9,
+          "title": "Symmetric TSP model",
+          "kind": "model",
+          "summary": "The TSP on an undirected complete graph, $c_{ij} = c_{ji}$: the direction of travel doesn’t matter, so there is one variable per edge and every city has degree 2 in the tour.",
+          "model": {
+            "variables": [
+              {
+                "math": "x_e \\in \\{0,1\\}",
+                "meaning": "1 if edge $e$ is in the tour"
+              },
+              {
+                "math": "c_e",
+                "meaning": "cost (length) of edge $e$ (given)"
+              }
+            ],
+            "objective": "\\min \\sum_{e \\in E} c_e\\, x_e",
+            "constraints": [
+              {
+                "math": "\\sum_{e \\in \\delta(i)} x_e = 2 \\quad \\forall i \\in V",
+                "meaning": "every city has two tour edges (in and out), i.e. is visited exactly once"
+              },
+              {
+                "math": "\\sum_{e \\in E(S)} x_e \\le |S| - 1 \\quad S \\subset V,\\ 3 \\le |S| \\le n - 3",
+                "meaning": "subtour elimination: the edges inside $S$ can’t close a cycle"
+              },
+              {
+                "math": "x_e \\in \\{0,1\\}",
+                "meaning": "binary"
+              }
+            ]
+          },
+          "points": [
+            "$\\delta(i)$: the edges at vertex $i$; $E(S)$: the edges with both ends in $S$.",
+            "$|S| \\ge 3$ because an undirected subtour needs at least 3 cities (a 2-city loop would use one edge twice).",
+            "Equivalent form with $x_{ij}$, $i < j$: $\\sum_{i<k} x_{ik} + \\sum_{j>k} x_{kj} = 2$ for every $k$."
+          ],
+          "images": [],
+          "source": "DisCopt.pdf pp. 21–22 (§2.2.2, eqs. 39–46)"
+        },
+        {
+          "id": "ref-tsp-facts",
+          "topic": 9,
+          "title": "TSP: tours, route counts, Hamiltonian vs Eulerian",
+          "kind": "concept",
+          "summary": "A tour is a Hamiltonian cycle: it visits every vertex exactly once and returns to the start. An Eulerian cycle instead uses every edge exactly once (vertices may repeat). TSP is NP-hard because the number of tours grows like $n!$.",
+          "points": [
+            "Asymmetric TSP, home city fixed: $(n-1)!$ tours ($n!$ if any city can be home).",
+            "Symmetric TSP, home city fixed: $\\frac{1}{2}(n-1)!$ (each tour and its reverse are the same).",
+            "Hamiltonian: every vertex once. Eulerian: every edge once; exists in a connected graph iff every degree is even.",
+            "Triangle inequality: $c_{ij} + c_{jk} \\ge c_{ik}$ (e.g. Euclidean distances); Christofides needs it."
+          ],
+          "images": [
+            {
+              "src": "data/do/img/reference/do-ham-euler.png",
+              "alt": "Two graphs on vertices 1–5. Left: a Hamiltonian cycle 1-2-5-3-4-1 in orange visits every vertex once; the edges 1–5 and 2–3 stay unused (grey). Right: an Eulerian cycle 1-2-5-3-4-5-1 in blue uses every edge once; vertex 5 is visited twice and every degree is even.",
+              "width": 1076,
+              "height": 540
+            }
+          ],
+          "source": "DisCopt.pdf pp. 19–20 (§2.2, route counts and Remark 2.1); Eulerian walk: p. 24 (§2.3.2, step 5)"
+        },
+        {
+          "id": "ref-mst",
+          "topic": 9,
+          "title": "Minimum spanning tree (MST)",
+          "kind": "model",
+          "summary": "A spanning tree connects all $n$ vertices of an undirected graph with no cycles, using exactly $n - 1$ edges. The MST is the one of least total cost. It is step 1 of Christofides.",
+          "model": {
+            "variables": [
+              {
+                "math": "x_e \\in \\{0,1\\}",
+                "meaning": "1 if edge $e$ is in the tree"
+              }
+            ],
+            "objective": "\\min \\sum_{e \\in E} c_e\\, x_e",
+            "constraints": [
+              {
+                "math": "\\sum_{e \\in \\delta(S)} x_e \\ge 1 \\quad \\forall S \\subset V,\\ S \\ne \\emptyset",
+                "meaning": "connected: at least one tree edge leaves every set $S$ ($\\delta(S)$ = edges with one end in $S$)"
+              },
+              {
+                "math": "\\sum_{e \\in E} x_e = n - 1",
+                "meaning": "a tree on $n$ vertices has $n - 1$ edges"
+              },
+              {
+                "math": "x_e \\in \\{0,1\\}",
+                "meaning": "binary"
+              }
+            ]
+          },
+          "points": [
+            "Deleting one edge of an optimal tour gives a spanning tree, so cost(MST) ≤ OPT (used in the 3/2 bound)."
+          ],
+          "images": [
+            {
+              "src": "data/do/img/reference/do-mst.png",
+              "alt": "A minimum spanning tree on six points A–F: the five orange tree edges are A–F, B–F, E–F, D–F and C–D; the other edges of the complete graph are faint grey. Title: connects all, no cycles, n−1 = 5 edges, minimum weight.",
+              "width": 742,
+              "height": 520
+            }
+          ],
+          "source": "DisCopt.pdf pp. 11–13 (§1.5, eqs. 21–25)"
+        },
+        {
+          "id": "ref-2opt",
+          "topic": 9,
+          "title": "2-opt heuristic (“two optimal heuristics”)",
+          "kind": "algorithm",
+          "summary": "A local search for the TSP: repeatedly remove two non-adjacent edges of the tour and reconnect the two paths the other way (reversing the segment between them) whenever that shortens the tour. It ends in a 2-optimal tour, a local (not necessarily global) optimum. The scope’s “two optimal heuristics for TSP” is read here as 2-opt; that is an inference.",
+          "steps": [
+            "Start with a tour $T = (c_1, c_2, \\dots, c_n, c_1)$ of length $D$.",
+            "For $i = 1, 2, \\dots$ and $j = i + 2, \\dots$: break the links $(c_i, c_{i+1})$ and $(c_j, c_{j+1})$.",
+            "Reconnect with $(c_i, c_j)$ and $(c_{i+1}, c_{j+1})$: $\\hat{T} = (c_1, \\dots, c_i, c_j, \\dots, c_{i+1}, c_{j+1}, \\dots, c_1)$ (the segment is reversed).",
+            "If $\\text{dist}(i,i+1) + \\text{dist}(j,j+1) > \\text{dist}(i,j) + \\text{dist}(i+1,j+1)$, the new tour is shorter: $T := \\hat{T}$, update $D$ and start again.",
+            "When no 2-opt move improves $T$, stop: $T$ is 2-optimal."
+          ],
+          "points": [
+            "Two tours are 2-adjacent if one is obtained from the other by deleting two edges and adding two edges; $N(T)$ is the set of them.",
+            "Only the four changed edges need comparing, not the whole tour.",
+            "3-opt: the same with three edges (3-adjacent, 3-optimal)."
+          ],
+          "images": [
+            {
+              "src": "data/do/img/reference/do-2opt.png",
+              "alt": "A 2-opt move on seven cities. Before: tour 1-2-5-4-3-6-7-1 of length 11.26, with the crossing edges (2,5) and (3,6) in red. After: those two edges are removed, the segment 5-4-3 is reversed to 3-4-5 and the edges (2,3) and (5,6) are added in green, giving tour 1-2-3-4-5-6-7-1 of length 8.42. Δ = d23 + d56 − d25 − d36 < 0, so the move is accepted; repeat until no 2-opt move improves (2-optimal).",
+              "width": 1876,
+              "height": 650
+            }
+          ],
+          "example": "Notes: $T = (c_1, \\dots, c_7, c_1)$, $i = 1$, $j = 3$ gives $(c_1, c_3, c_2, c_4, c_5, c_6, c_7, c_1)$. With $c_1$ fixed the notes list 10 such neighbours.",
+          "source": "DisCopt.pdf pp. 25–26 (§2.3.3, Fig. 28, eqs. 49–50, the basic and detailed steps)"
+        },
+        {
+          "id": "ref-approx",
+          "topic": 10,
+          "title": "α-approximation algorithm",
+          "kind": "concept",
+          "summary": "An algorithm $A$ for a minimisation problem is an $\\alpha$-approximation ($\\alpha \\ge 1$) if, for every instance $I$, it finds a feasible solution in polynomial time with cost at most $\\alpha$ times the optimum. Unlike a heuristic, the guarantee holds on every instance.",
+          "points": [
+            "Minimisation: $A(I) \\le \\alpha \\, OPT(I)$ for all $I$.",
+            "Maximisation: $A(I) \\ge \\frac{1}{\\alpha} OPT(I)$ for all $I$.",
+            "Three requirements: polynomial time, always feasible, the bound on every instance.",
+            "A heuristic (e.g. 2-opt) has no such guarantee.",
+            "Examples: Christofides for metric STSP ($\\alpha = 3/2$); LP rounding for vertex cover ($\\alpha = 2$)."
+          ],
+          "images": [
+            {
+              "src": "data/do/img/reference/do-approx.png",
+              "alt": "A number line with OPT on the left, ALG in the middle and α·OPT (α = 3/2) on the right; the shaded band from OPT to α·OPT is where the algorithm’s cost must lie. Caption: minimisation, OPT ≤ cost(ALG) ≤ α·OPT for every instance, in polynomial time (α ≥ 1).",
+              "width": 968,
+              "height": 266
+            }
+          ],
+          "source": "DisCopt.pdf pp. 22–23 (§2.3 and §2.3.1, eqs. 47–48)"
+        },
+        {
+          "id": "ref-christofides",
+          "topic": 10,
+          "title": "Christofides algorithm for the STSP",
+          "kind": "algorithm",
+          "summary": "An approximation algorithm for the symmetric TSP whose tour is at most 3/2 times the optimal length (when the distances satisfy the triangle inequality). It uses the fact that every graph has an even number of odd-degree vertices.",
+          "steps": [
+            "Find a minimum spanning tree $T$ of the graph.",
+            "Find the vertices with odd degree in $T$ (always an even number of them).",
+            "Find a minimum-weight perfect matching $M$ of those odd vertices (pair them up with the shortest edges).",
+            "Add the matching edges to $T$ (an edge in both is doubled): now every degree is even.",
+            "Construct an Eulerian circuit of $T \\cup M$ (every edge exactly once).",
+            "Delete repeated vertices (shortcut): the remaining order is a Hamiltonian cycle, the TSP tour."
+          ],
+          "points": [
+            "Why 3/2: cost($T$) ≤ OPT (drop an edge of the optimal tour), cost($M$) ≤ OPT/2, and shortcutting never adds length (triangle inequality). So tour ≤ 3/2 · OPT.",
+            "The notes state the 3/2 guarantee; the reason above is the standard proof, not in the notes."
+          ],
+          "images": [
+            {
+              "src": "data/do/img/reference/do-christofides.png",
+              "alt": "Christofides on six points A–F in five panels. 1: the MST T (edges A–F, B–F, E–F, D–F, C–D). 2: the odd-degree vertices O = {A, B, C, E} are filled; |O| = 4, always even. 3: the minimum perfect matching M on O, dashed blue edges A–E and B–C. 4: T ∪ M has all degrees even, giving the Euler circuit A-E-F-D-C-B-F-A. 5: shortcutting the repeated F gives the tour A-E-F-D-C-B-A of length 10.35 (the optimum is 10.05). Caption: why ≤ 3/2·OPT for metric STSP: cost(T) ≤ OPT, cost(M) ≤ OPT/2, and shortcutting never increases the cost (triangle inequality).",
+              "width": 2250,
+              "height": 620
+            }
+          ],
+          "source": "DisCopt.pdf pp. 23–24 (§2.3.2, Fig. 27, steps 1–6); the 3/2 proof is standard, not in the notes"
+        },
+        {
+          "id": "ref-vertex-cover",
+          "topic": 11,
+          "title": "Vertex cover (unweighted and weighted)",
+          "kind": "model",
+          "summary": "A vertex cover of an undirected graph is a set of vertices that touches every edge: for each edge $(i,j)$, $i$ or $j$ (or both) is in the cover. Find one of minimum size, or of minimum total weight $c_i$.",
+          "model": {
+            "variables": [
+              {
+                "math": "x_i \\in \\{0,1\\}",
+                "meaning": "1 if vertex $i$ is in the cover"
+              },
+              {
+                "math": "c_i > 0",
+                "meaning": "weight of vertex $i$ (weighted version; all 1 for the unweighted one)"
+              }
+            ],
+            "objective": "\\min \\sum_{i=1}^n c_i\\, x_i \\qquad \\Big(\\text{unweighted: } \\min \\sum_{j=1}^n x_j\\Big)",
+            "constraints": [
+              {
+                "math": "x_i + x_j \\ge 1 \\quad \\forall (i,j) \\in E",
+                "meaning": "every edge has at least one end in the cover"
+              },
+              {
+                "math": "x_i \\in \\{0,1\\} \\quad \\forall i \\in V",
+                "meaning": "binary"
+              }
+            ]
+          },
+          "points": [
+            "The unweighted version is also called cardinality vertex cover.",
+            "Special case of set cover: the elements are the edges, and each vertex is the set of edges it touches.",
+            "$C$ is a vertex cover ⇔ $V \\setminus C$ is an independent set.",
+            "Decision version ($k$-vertex cover): is there a cover with at most $k$ vertices? Greedy kernel rule: a vertex of degree $\\ge k + 1$ must be in the cover.",
+            "Application: place as few ATMs as possible so that every street has one."
+          ],
+          "images": [
+            {
+              "src": "data/do/img/reference/do-vertex-cover.png",
+              "alt": "A graph on six vertices with edges 1–2, 1–3, 2–3, 2–4, 3–5, 4–5, 4–6 and 5–6. The minimum vertex cover C = {1, 2, 4, 5} is filled: every edge has at least one filled end (x_i + x_j ≥ 1). The unfilled vertices V \\ C = {3, 6} have no edge between them, so they form an independent set.",
+              "width": 775,
+              "height": 500
+            }
+          ],
+          "source": "DisCopt.pdf pp. 34–36 (§2.9, eqs. 85–90)"
+        },
+        {
+          "id": "ref-vc-approx",
+          "topic": 11,
+          "title": "Vertex cover: LP relaxation and ½-rounding (2-approximation)",
+          "kind": "algorithm",
+          "summary": "Solve the LP relaxation of the weighted vertex cover model and put every vertex with value at least ½ into the cover. The result is always a cover and costs at most twice the optimum.",
+          "steps": [
+            "Relax $x_i \\in \\{0,1\\}$ to $x_i \\ge 0$ and solve the LP: solution $\\hat{x}$.",
+            "Round: $C = \\{i \\in V : \\hat{x}_i \\ge \\frac{1}{2}\\}$.",
+            "$C$ is a cover: for each edge $\\hat{x}_i + \\hat{x}_j \\ge 1$, so $\\max\\{\\hat{x}_i, \\hat{x}_j\\} \\ge \\frac{1}{2}$ and at least one end is taken.",
+            "Cost: $c^T \\bar{x} = \\sum_{\\hat{x}_i \\ge 1/2} c_i \\le \\sum_{\\hat{x}_i \\ge 1/2} 2 \\hat{x}_i c_i \\le 2 c^T \\hat{x} \\le 2 c^T x^*$."
+          ],
+          "points": [
+            "$c^T \\hat{x} \\le c^T x^*$ because the relaxation is a lower bound (minimisation).",
+            "So the rounding is a 2-approximation for minimum-weight vertex cover."
+          ],
+          "images": [],
+          "source": "DisCopt.pdf pp. 35–36 (§2.9, the rounding argument after eq. 90)"
+        },
+        {
+          "id": "ref-set-cover",
+          "topic": 12,
+          "title": "Set covering",
+          "kind": "model",
+          "summary": "Choose a cheapest family of subsets $S_j$ (cost $c_j$) whose union covers every element (duty) $i$ of $S = \\{1, \\dots, m\\}$.",
+          "model": {
+            "variables": [
+              {
+                "math": "x_j \\in \\{0,1\\}",
+                "meaning": "1 if subset (work pattern) $S_j$ is chosen"
+              },
+              {
+                "math": "a_{ij}",
+                "meaning": "1 if element $i$ is in $S_j$ (given)"
+              }
+            ],
+            "objective": "\\min \\sum_{j=1}^n c_j\\, x_j",
+            "constraints": [
+              {
+                "math": "\\sum_{j=1}^n a_{ij}\\, x_j \\ge 1 \\quad i \\in \\{1, \\dots, m\\}",
+                "meaning": "every element is covered at least once"
+              },
+              {
+                "math": "x_j \\in \\{0,1\\}",
+                "meaning": "binary"
+              }
+            ]
+          },
+          "points": [
+            "Examples: air crew scheduling, doctors on call covering every procedure."
+          ],
+          "images": [],
+          "source": "DisCopt.pdf pp. 29–32 (§2.6, eqs. 64–68)"
+        },
+        {
+          "id": "ref-knapsack",
+          "topic": 12,
+          "title": "Knapsack and quadratic knapsack",
+          "kind": "model",
+          "summary": "Choose items of weight $w_i$ and value $v_i$ to maximise the total value without exceeding the weight limit $W$.",
+          "model": {
+            "variables": [
+              {
+                "math": "x_i \\in \\{0,1\\}",
+                "meaning": "1 if item $i$ is put in the knapsack"
+              }
+            ],
+            "objective": "\\max \\sum_{i=1}^n v_i\\, x_i",
+            "constraints": [
+              {
+                "math": "\\sum_{i=1}^n w_i\\, x_i \\le W",
+                "meaning": "the total weight is within the limit"
+              },
+              {
+                "math": "x_i \\in \\{0,1\\}",
+                "meaning": "binary"
+              }
+            ]
+          },
+          "points": [
+            "Quadratic knapsack: $\\max \\sum_j c_j x_j + \\sum_{k=1}^{n-1} \\sum_{j=k+1}^n d_{kj} x_k x_j$ s.t. $\\sum_j a_{ij} x_j \\le b_i$, $x \\in \\{0,1\\}^n$ (pairs of items add value).",
+            "Both are NP-hard; capital budgeting has the same form with several budget constraints."
+          ],
+          "images": [],
+          "source": "DisCopt.pdf pp. 18–19 (§2.1, eqs. 26–32 and the quadratic knapsack)"
         }
       ]
     }
