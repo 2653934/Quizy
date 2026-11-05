@@ -93,7 +93,8 @@
       "answerImage": {
         "src": "data/do/img/tut-2/do-tut2-1b-answer.png",
         "alt": "Flow network: s → w1, w2, w3 (cost 0); each worker → each job j1, j2, j3 with cost c_ij; j1, j2, j3 → t (cost 0). All capacities 1; supply 3 at s, demand −3 at t."
-      }
+      },
+      "variantOf": "do-lap-min-cost-flow"
     },
     {
       "id": "do-tut2-2",

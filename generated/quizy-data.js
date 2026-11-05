@@ -70,7 +70,8 @@ window.QUIZY_DATA = {
         "do-tut-1",
         "do-tut-2",
         "do-tut-3",
-        "do-older-papers"
+        "do-older-papers",
+        "do-scope-bank"
       ]
     }
   ],
@@ -33279,7 +33280,8 @@ window.QUIZY_DATA = {
           "answerImage": {
             "src": "data/do/img/tut-2/do-tut2-1b-answer.png",
             "alt": "Flow network: s → w1, w2, w3 (cost 0); each worker → each job j1, j2, j3 with cost c_ij; j1, j2, j3 → t (cost 0). All capacities 1; supply 3 at s, demand −3 at t."
-          }
+          },
+          "variantOf": "do-lap-min-cost-flow"
         },
         {
           "id": "do-tut2-2",
@@ -33809,6 +33811,1154 @@ window.QUIZY_DATA = {
           "explanation": "Question text from Scope_Questions.pdf item 41. Course notes: DisCopt.pdf PDF p. 21 (\"½(n − 1)! for the symmetric TSP with home city being fixed\"). The counts and example tours were checked with a short script.",
           "keyDispute": "Inversion, translation and switching are not defined in DisCopt.pdf (the 2-opt move on PDF pp. 26–27 is the closest: it is an inversion). The answer uses the usual definitions for permutation-coded TSP: check them against your own lecture notes.",
           "variantOf": "do-tsp-operators"
+        }
+      ]
+    },
+    "do-scope-bank": {
+      "id": "do-scope-bank",
+      "subject": "do",
+      "title": "Scope practice bank",
+      "kind": "generated",
+      "unofficialAnswers": true,
+      "description": "Practice questions written to cover the 2026 final-exam scope where the past papers are thin (clique and independent set, SA and Metropolis, QAP, bisection, facility location, Christofides, vertex cover, a new Ford–Fulkerson network, B&B and 2-opt runs). They are NOT the lecturer's questions. Answers are worked from the course notes (cited by page) and every number was checked with a script.",
+      "questions": [
+        {
+          "id": "do-sb-ff-maxflow",
+          "lecture": 1,
+          "concept": "Ford–Fulkerson max flow",
+          "type": "numeric",
+          "marks": 4,
+          "question": "Use the Ford–Fulkerson (max-flow min-cut) algorithm to find the maximum flow from $s$ to $t$ in the network in the figure (the numbers are arc capacities). Show each augmenting path with its bottleneck capacity and update the residual network after each augmentation. [4 Marks]",
+          "parts": [
+            {
+              "label": "Maximum flow from $s$ to $t$",
+              "answer": 17,
+              "tolerance": 0.5,
+              "marks": 4
+            }
+          ],
+          "solution": "Start with zero flow, so every residual capacity $r_{ij}$ equals the capacity and every reverse residual is 0.\n1. Augmenting path $P_1$: $s \\to a \\to c \\to t$, $\\delta(P_1) = \\min\\{12, 8, 12\\} = 8$. Update: $r_{sa} = 4$, $r_{as} = 8$; $r_{ac} = 0$, $r_{ca} = 8$; $r_{ct} = 4$, $r_{tc} = 8$. Flow = 8.\n2. $P_2$: $s \\to b \\to d \\to t$, $\\delta(P_2) = \\min\\{7, 9, 9\\} = 7$. Update: $r_{sb} = 0$, $r_{bs} = 7$; $r_{bd} = 2$, $r_{db} = 7$; $r_{dt} = 2$, $r_{td} = 7$. Flow = 15.\n3. $P_3$: $s \\to a \\to b \\to d \\to t$, $\\delta(P_3) = \\min\\{4, 4, 2, 2\\} = 2$. Update: $r_{sa} = 2$, $r_{ab} = 2$, $r_{bd} = 0$, $r_{dt} = 0$ (reverse arcs grow by 2). Flow = 17.\nResidual network now: from $s$ only $a$ can be reached ($r_{sa} = 2$; $r_{sb} = 0$); from $a$ only $b$ ($r_{ab} = 2$, $r_{ac} = 0$); from $b$ nothing new ($r_{bd} = 0$ and $r_{bc} = 0$ because no flow is on $c \\to b$). So $t$ cannot be reached: no augmenting path is left and the flow is maximum.\n$$\\text{max flow} = 8 + 7 + 2 = 17.$$\nFinal flows: $x_{sa} = 10$, $x_{sb} = 7$, $x_{ab} = 2$, $x_{ac} = 8$, $x_{bd} = 9$, $x_{ct} = 8$, $x_{dt} = 9$, $x_{cb} = x_{dc} = 0$ (out of $s$: $10 + 7 = 17$; into $t$: $8 + 9 = 17$). Other path orders give the same value.",
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). Method as in FordFulkerson.pdf pp. 1–3 and DisCopt.pdf PDF pp. 15–18 (augmenting path, bottleneck, residual update $r_{ij} - \\delta$, $r_{ji} + \\delta$). In the exam show every path and residual update, not just the number. Max flow and min cut were checked with networkx.",
+          "image": {
+            "src": "data/do/img/scope-bank/ff-network.png",
+            "alt": "Directed flow network with capacities: s→a 12, s→b 7, a→b 4, a→c 8, b→d 9, c→b 3, c→t 12, d→c 5, d→t 9. Source s on the left, a and c along the top, b and d along the bottom, sink t on the right."
+          },
+          "answerImage": {
+            "src": "data/do/img/scope-bank/ff-answer.png",
+            "alt": "Final flow/capacity on each arc: s→a 10/12, s→b 7/7, a→b 2/4, a→c 8/8, b→d 9/9, c→b 0/3, c→t 8/12, d→c 0/5, d→t 9/9. A dashed cut line separates A = {s, a, b} from B = {c, d, t}; the saturated arcs a→c and b→d cross it. Max flow 17 = cap(A, B) = 8 + 9."
+          }
+        },
+        {
+          "id": "do-sb-ff-mincut",
+          "lecture": 1,
+          "concept": "Minimum s–t cut",
+          "type": "written",
+          "marks": 3,
+          "question": "For the network in the figure, Ford–Fulkerson stops with a maximum flow of 17. Use the final residual network to identify a minimum $s$–$t$ cut $(A, B)$: give $A$, $B$, the arcs that cross from $A$ to $B$, and $cap(A, B)$. Explain why this proves the flow is maximum. [1 + 1 + 1 Marks]",
+          "modelAnswer": "In the final residual network, let $A$ be the set of nodes reachable from $s$ along arcs with positive residual capacity: $s \\to a$ ($r_{sa} = 2$), $a \\to b$ ($r_{ab} = 2$); $a \\to c$ and $b \\to d$ are saturated and $s \\to b$ is full. So\n$$A = \\{s, a, b\\}, \\qquad B = V \\setminus A = \\{c, d, t\\}.$$\nArcs from $A$ to $B$: $a \\to c$ (8) and $b \\to d$ (9). Arcs from $B$ to $A$ ($c \\to b$) are not counted in the capacity.\n$$cap(A, B) = \\sum_{i \\in A,\\ j \\in B} u_{ij} = 8 + 9 = 17.$$\nWhy this proves optimality: every $s$–$t$ flow must cross every cut, so for any feasible flow $f$ and any cut, $|f| \\le cap(A, B)$. Our flow has value 17 and this cut has capacity 17, so the flow is maximum and the cut is minimum (max-flow = min-cut). Both arcs of the cut are saturated and the reverse arc $c \\to b$ carries no flow, as the theorem requires.",
+          "rubric": [
+            {
+              "point": "$A = \\{s, a, b\\}$ (reachable from $s$ in the residual network), $B = \\{c, d, t\\}$",
+              "marks": 1
+            },
+            {
+              "point": "Cut arcs $a \\to c$, $b \\to d$; $cap(A, B) = 8 + 9 = 17$ (arc $c \\to b$ not counted)",
+              "marks": 1
+            },
+            {
+              "point": "$|f| \\le cap(A, B)$ for every flow and cut; $17 = 17$ so the flow is maximum",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). Course notes: s–t cut and its capacity, max-flow min-cut theorem, NetworkFlowP.pdf and DisCopt.pdf PDF pp. 15–18; the reachable-set cut is how FordFulkerson.pdf finds the cut at the end. Checked with networkx (the minimum cut is unique here).",
+          "image": {
+            "src": "data/do/img/scope-bank/ff-network.png",
+            "alt": "Directed flow network with capacities: s→a 12, s→b 7, a→b 4, a→c 8, b→d 9, c→b 3, c→t 12, d→c 5, d→t 9. Source s on the left, a and c along the top, b and d along the bottom, sink t on the right."
+          },
+          "answerImage": {
+            "src": "data/do/img/scope-bank/ff-answer.png",
+            "alt": "Final flow/capacity on each arc: s→a 10/12, s→b 7/7, a→b 2/4, a→c 8/8, b→d 9/9, c→b 0/3, c→t 8/12, d→c 0/5, d→t 9/9. A dashed cut line separates A = {s, a, b} from B = {c, d, t}; the saturated arcs a→c and b→d cross it. Max flow 17 = cap(A, B) = 8 + 9."
+          }
+        },
+        {
+          "id": "do-sb-ff-cutcap",
+          "lecture": 1,
+          "concept": "s–t cut capacity",
+          "type": "numeric",
+          "marks": 3,
+          "question": "For the network in the figure, compute the capacity $cap(A, B)$ of the $s$–$t$ cut with (i) $A = \\{s, a, c\\}$ and (ii) $A = \\{s, a, b, d\\}$ ($B = V \\setminus A$ in each case). Is either of them a minimum cut? [1½ + 1½ Marks]",
+          "parts": [
+            {
+              "label": "(i) $cap(A, B)$ for $A = \\{s, a, c\\}$",
+              "answer": 26,
+              "tolerance": 0.5,
+              "marks": 1.5
+            },
+            {
+              "label": "(ii) $cap(A, B)$ for $A = \\{s, a, b, d\\}$",
+              "answer": 22,
+              "tolerance": 0.5,
+              "marks": 1.5
+            }
+          ],
+          "solution": "$cap(A, B)$ adds the capacities of the arcs that go from $A$ to $B$ only.\n(i) $A = \\{s, a, c\\}$, $B = \\{b, d, t\\}$: arcs $s \\to b$ (7), $a \\to b$ (4), $c \\to b$ (3), $c \\to t$ (12): $cap = 7 + 4 + 3 + 12 = 26$.\n(ii) $A = \\{s, a, b, d\\}$, $B = \\{c, t\\}$: arcs $a \\to c$ (8), $d \\to c$ (5), $d \\to t$ (9): $cap = 8 + 5 + 9 = 22$.\nNeither is minimum: the maximum flow is 17 and the minimum cut is $A = \\{s, a, b\\}$ with $cap = 8 + 9 = 17$. Every cut capacity is an upper bound on the flow value ($17 \\le 22 \\le 26$).",
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). Course notes: definition of an s–t cut (A, B) and cap(A, B), DisCopt.pdf PDF pp. 15–18 and NetworkFlowP.pdf. Values checked with a short script.",
+          "image": {
+            "src": "data/do/img/scope-bank/ff-network.png",
+            "alt": "Directed flow network with capacities: s→a 12, s→b 7, a→b 4, a→c 8, b→d 9, c→b 3, c→t 12, d→c 5, d→t 9. Source s on the left, a and c along the top, b and d along the bottom, sink t on the right."
+          },
+          "answerImage": {
+            "src": "data/do/img/scope-bank/ff-answer.png",
+            "alt": "Final flow/capacity on each arc: s→a 10/12, s→b 7/7, a→b 2/4, a→c 8/8, b→d 9/9, c→b 0/3, c→t 8/12, d→c 0/5, d→t 9/9. A dashed cut line separates A = {s, a, b} from B = {c, d, t}; the saturated arcs a→c and b→d cross it. Max flow 17 = cap(A, B) = 8 + 9."
+          }
+        },
+        {
+          "id": "do-sb-sa-physical",
+          "lecture": 3,
+          "concept": "Physical annealing",
+          "type": "written",
+          "marks": 3,
+          "question": "Describe the physical annealing process and its purpose. How does the simulated annealing (SA) algorithm turn this process into an optimisation method? [1 + 2 Marks]",
+          "modelAnswer": "Physical annealing: a solid (e.g. a metal) is heated to a high temperature so that its particles can move freely between arrangements, and is then cooled slowly. At each temperature it is given time to reach thermal equilibrium, so as the temperature falls the particles settle into a highly ordered, low-energy (crystalline, ground) state. Cooling too fast (quenching) freezes the material in a disordered, higher-energy state. Purpose: obtain a low-energy, defect-free structure (a stronger, more stable material).\nSA as optimisation (Kirkpatrick et al.):\n- a state of the material ↔ a feasible solution $x$ (e.g. a TSP tour);\n- its energy $E$ ↔ the objective value $f(x)$ to be minimised (e.g. tour length);\n- temperature ↔ a control parameter $T$ that is lowered by a cooling schedule;\n- reaching equilibrium at each temperature ↔ a Metropolis chain of trial solutions at fixed $T$;\n- the ground state ↔ the global minimum; a frozen, disordered state ↔ a local minimum.\nSo SA is a series of Metropolis chains run at decreasing temperatures.",
+          "rubric": [
+            {
+              "point": "Heat, then cool slowly so the material reaches equilibrium at each temperature and ends in a low-energy ordered state (purpose: a stable, low-energy structure)",
+              "marks": 1
+            },
+            {
+              "point": "Analogy: solution ↔ state, objective $f(x)$ ↔ energy, $T$ ↔ temperature, global minimum ↔ ground state",
+              "marks": 1
+            },
+            {
+              "point": "SA = Metropolis chains at a sequence of decreasing temperatures (cooling schedule)",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). DisCopt.pdf PDF p. 51 (\"designed … by simulating the physical annealing process … a series of Metropolis chains used at different values of decreasing temperatures\"). The notes do not describe the physical process itself; that part follows Assignment II (2026) Q1 and standard background."
+        },
+        {
+          "id": "do-sb-sa-equilibrium",
+          "lecture": 3,
+          "concept": "Thermal equilibrium",
+          "type": "written",
+          "marks": 4,
+          "question": "What is thermal equilibrium (the stationary or equilibrium distribution) in the context of SA? Write down the probability distribution associated with it for a solution $x$ with energy (objective value) $E(x)$ at temperature $T$, and describe what happens to it as $T \\to \\infty$ and as $T \\to 0$. [1 + 1 + 2 Marks]",
+          "modelAnswer": "Thermal equilibrium: at a fixed temperature the system keeps moving between states, but the probability of being in each state no longer changes with time. This stable distribution is the stationary (equilibrium) distribution of the process.\nIt is the Boltzmann (Gibbs) distribution:\n$$P_T(x) = \\frac{\\exp\\!\\left(-E(x)/T\\right)}{Z(T)}, \\qquad Z(T) = \\sum_{y \\in S} \\exp\\!\\left(-E(y)/T\\right),$$\nwhere $S$ is the set of all solutions and $Z(T)$ normalises the probabilities (in physics $T$ is multiplied by Boltzmann's constant $k_B$; in SA it is absorbed into $T$).\n- $T \\to \\infty$: $\\exp(-E(x)/T) \\to 1$ for every $x$, so the distribution becomes uniform: every solution is equally likely (pure random search).\n- $T \\to 0$: the ratio $P_T(x)/P_T(x^*) = \\exp(-(E(x) - E(x^*))/T) \\to 0$ for every $x$ worse than a minimum $x^*$, so all the probability concentrates on the minimum-energy (optimal) solutions.\nThat is why SA samples at decreasing $T$: at low temperature the equilibrium distribution puts its mass on the global minima.",
+          "rubric": [
+            {
+              "point": "Equilibrium: state probabilities stop changing at fixed $T$ (stationary distribution)",
+              "marks": 1
+            },
+            {
+              "point": "$P_T(x) = \\exp(-E(x)/T)/Z(T)$ with $Z(T) = \\sum_y \\exp(-E(y)/T)$",
+              "marks": 1
+            },
+            {
+              "point": "$T \\to \\infty$: uniform over all solutions",
+              "marks": 1
+            },
+            {
+              "point": "$T \\to 0$: concentrates on the minimum-energy (optimal) solutions",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). The notes give the Metropolis rule (DisCopt.pdf PDF p. 51, eq. 101) but not the Boltzmann distribution; this answer follows Assignment II (2026) Q1 (thermal equilibrium and its distribution) and standard background."
+        },
+        {
+          "id": "do-sb-sa-why-metropolis",
+          "lecture": 3,
+          "concept": "Why Metropolis in SA",
+          "type": "written",
+          "marks": 4,
+          "question": "Why is the Metropolis algorithm used inside the simulated annealing algorithm? In your answer explain why we cannot simply draw independent samples from the equilibrium distribution, and how the Metropolis acceptance rule gets around this. [4 Marks]",
+          "modelAnswer": "- SA wants solutions distributed according to the equilibrium (Boltzmann) distribution $P_T(x) = \\exp(-f(x)/T)/Z(T)$ at each temperature: at low $T$ this distribution is concentrated on the optimal solutions.\n- We cannot draw independent (IID) samples from it directly: $Z(T) = \\sum_y \\exp(-f(y)/T)$ sums over every solution (e.g. $(n-1)!/2$ tours), which is as hard as enumerating them all, i.e. as hard as the optimisation problem itself.\n- Markov chain Monte Carlo (MCMC) solves this: build a Markov chain of solutions (each trial $y$ generated from the current $x$, e.g. by a swap) whose stationary distribution is $P_T$. After enough steps the chain's states are (dependent) samples from $P_T$.\n- The Metropolis algorithm is such an MCMC method. It accepts $y$ with probability\n$$A_{xy}(T) = \\min\\left\\{1,\\ \\exp\\!\\left(-\\frac{f(y) - f(x)}{T}\\right)\\right\\},$$\nwhich only needs the ratio $P_T(y)/P_T(x) = \\exp(-(f(y) - f(x))/T)$: $Z(T)$ cancels, so it is never computed.\n- Consequences for SA: better moves are always accepted, worse moves sometimes (more often at high $T$), so the search can escape local minima; lowering $T$ between chains moves the equilibrium towards the optimum.",
+          "rubric": [
+            {
+              "point": "Goal: sample from the equilibrium (Boltzmann) distribution at temperature $T$",
+              "marks": 1
+            },
+            {
+              "point": "Direct IID sampling impossible: $Z(T)$ needs every solution",
+              "marks": 1
+            },
+            {
+              "point": "MCMC: a Markov chain whose stationary distribution is the Boltzmann distribution",
+              "marks": 1
+            },
+            {
+              "point": "Metropolis acceptance uses only $\\exp(-(f(y) - f(x))/T)$, so $Z$ cancels; worse moves sometimes accepted (escape local minima)",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). DisCopt.pdf PDF p. 51 (SA as Metropolis chains, eq. 101, \"a Markov chain is a sequence of trial solutions\"). This follows the explanation the lecturer gave on 28 Oct 2026 (physical annealing → equilibrium distribution → no direct sampling → MCMC → Metropolis) as recorded in the exam-prep notes; the announcement itself is not in the course folder."
+        },
+        {
+          "id": "do-sb-sa-accept",
+          "lecture": 3,
+          "concept": "Metropolis acceptance",
+          "type": "numeric",
+          "marks": 4,
+          "question": "You are minimising a 7-city TSP with SA. The current tour $x$ has length $f(x) = 212$ and a swap gives the trial tour $y$ with $f(y) = 227$. Define the Metropolis acceptance probability and use it to calculate the probability of accepting $y$ at temperature $T = 20$. Decide whether you accept $y$ if the uniform random number is $r = 0.53$. Then calculate the probability of accepting the same move at $T = 5$. [1½ + 1 + 1½ Marks]",
+          "parts": [
+            {
+              "label": "Acceptance probability at $T = 20$",
+              "answer": 0.4724,
+              "tolerance": 0.005,
+              "marks": 1.5
+            },
+            {
+              "label": "Decision at $T = 20$, $r = 0.53$ (1 = accept, 0 = reject)",
+              "answer": 0,
+              "tolerance": 0.1,
+              "marks": 1
+            },
+            {
+              "label": "Acceptance probability at $T = 5$",
+              "answer": 0.0498,
+              "tolerance": 0.001,
+              "marks": 1.5
+            }
+          ],
+          "solution": "Metropolis rule (minimisation): from $x$ to $y$ at temperature $T$,\n$$A_{xy}(T) = \\min\\left\\{1,\\ \\exp\\!\\left(-\\frac{f(y) - f(x)}{T}\\right)\\right\\}.$$\nA better $y$ ($f(y) \\le f(x)$) is always accepted; a worse $y$ is accepted if $\\exp(-(f(y) - f(x))/T) > r$ for a uniform random $r \\in (0, 1)$.\nHere $f(y) - f(x) = 227 - 212 = 15 > 0$ ($y$ is worse).\n$T = 20$: $A = e^{-15/20} = e^{-0.75} \\approx 0.4724$.\nDecision: $r = 0.53 > 0.4724$, so $y$ is rejected and $x$ stays the current tour.\n$T = 5$: $A = e^{-15/5} = e^{-3} \\approx 0.0498$: at a lower temperature the same worse move is about ten times less likely to be accepted.",
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). DisCopt.pdf PDF p. 51 (eq. 101 and \"else if exp(−(f(y) − f(x))/T_t) > random(0,1) then accept\"); same structure as Exam 2021 Q3(b). Values checked with a short script.",
+          "inputHint": "Probabilities as decimals (e.g. 0.123). Decision: type 1 to accept or 0 to reject."
+        },
+        {
+          "id": "do-sb-sa-temperature",
+          "lecture": 3,
+          "concept": "SA temperature and loops",
+          "type": "written",
+          "marks": 3,
+          "question": "Explain the role of the temperature $T$ in the simulated annealing algorithm by comparing its behaviour at a high and at a low temperature. Name the two loops of SA and state what each one controls. [2 + 1 Marks]",
+          "modelAnswer": "High $T$: $\\exp(-(f(y) - f(x))/T) \\approx 1$ for most worse moves, so almost every trial solution is accepted. The search wanders widely (exploration) and can leave any local minimum.\nLow $T$: $\\exp(-(f(y) - f(x))/T) \\approx 0$ for worse moves, so practically only improving moves are accepted. SA then behaves like a greedy local search and settles into a (hopefully global) minimum.\nLowering $T$ slowly therefore moves SA from exploration to exploitation.\nTwo loops:\n- Inner loop: at a fixed temperature $T_t$, generate $L_t$ trial solutions $y$ from the current $x$ and accept or reject each with the Metropolis criterion (one Markov chain).\n- Outer loop: after each chain, lower the temperature by the cooling schedule, e.g. $T_{t+1} = \\alpha T_t$ with $\\alpha \\in (0.9, 0.97)$, and stop when $T_t \\le \\varepsilon$.",
+          "rubric": [
+            {
+              "point": "High $T$: most worse moves accepted (random exploration, escapes local minima)",
+              "marks": 1
+            },
+            {
+              "point": "Low $T$: only improving moves accepted (local search, converges)",
+              "marks": 1
+            },
+            {
+              "point": "Inner loop: $L_t$ Metropolis trials at fixed $T$; outer loop: lowers $T$ (cooling schedule) until $T \\le \\varepsilon$",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). DisCopt.pdf PDF pp. 51–52 (two loops, Metropolis criterion, cooling schedule, $T_{t+1} = \\alpha T_t$ with $\\alpha \\in (0.9, 0.97)$, stopping rule $T_t \\le \\varepsilon$)."
+        },
+        {
+          "id": "do-sb-sa-cooling",
+          "lecture": 3,
+          "concept": "SA cooling schedule",
+          "type": "numeric",
+          "marks": 3,
+          "question": "An SA run uses $T_0 = 15$, the cooling rule $T_{k+1} = 0.9\\,T_k$, $L = 20$ trial solutions at each temperature, and the outer loop \"while $T > \\varepsilon$\" with $\\varepsilon = 10^{-2}$ (as in the lecturer's SA pseudocode). How many Markov chains (temperatures) are run, and how many trial solutions are generated in total? [2 + 1 Marks]",
+          "parts": [
+            {
+              "label": "Number of Markov chains (temperatures)",
+              "answer": 70,
+              "tolerance": 0.5,
+              "marks": 2
+            },
+            {
+              "label": "Total number of trial solutions",
+              "answer": 1400,
+              "tolerance": 0.5,
+              "marks": 1
+            }
+          ],
+          "solution": "After $k$ reductions $T_k = 15 \\times 0.9^k$. A chain is run at $T_k$ while $T_k > 0.01$:\n$$15 \\times 0.9^k > 0.01 \\iff k < \\frac{\\ln(0.01/15)}{\\ln 0.9} = \\frac{-7.313}{-0.10536} \\approx 69.41.$$\nSo chains run at $T_0, T_1, \\dots, T_{69}$: that is $70$ chains. Check: $T_{69} = 15 \\times 0.9^{69} \\approx 0.0104 > 0.01$ and $T_{70} \\approx 0.0094 \\le 0.01$ stops the loop.\nTrial solutions: $70 \\times L = 70 \\times 20 = 1400$.",
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). Lecturer's SA pseudocode sa.pdf (T0 = 15, L = 20, ε = 10⁻², T = 0.9T, \"while T > ε\"); same data as Assignment II (2026) Q2. Cooling rule: DisCopt.pdf PDF p. 52. Counted with a short script."
+        },
+        {
+          "id": "do-sb-clique-define",
+          "lecture": 6,
+          "concept": "Clique definitions",
+          "type": "written",
+          "marks": 4,
+          "question": "Define a clique, a maximal clique and a maximum clique of an undirected graph $G = (V, E)$. For the graph in the figure, give a maximal clique that is not maximum, and a maximum clique. [2 + 2 Marks]",
+          "modelAnswer": "- Clique: a subset $C \\subseteq V$ in which every pair of vertices is joined by an edge (the vertices induce a complete subgraph).\n- Maximal clique: a clique that cannot be extended, i.e. no vertex outside $C$ is adjacent to every vertex of $C$.\n- Maximum clique: a clique with the largest number of vertices in $G$; its size is the clique number $\\omega(G)$. Every maximum clique is maximal, but not the other way round.\nIn the figure:\n- $\\{1, 2, 3\\}$ is a clique (edges 1–2, 1–3, 2–3) and it is maximal: 4 and 5 are adjacent to 2 and 3 but not to 1, and no other vertex touches 1. It is not maximum. ($\\{5, 6\\}$, $\\{6, 7\\}$ and $\\{4, 7\\}$ are also maximal but not maximum.)\n- $\\{2, 3, 4, 5\\}$ is a maximum clique: all six pairs 2–3, 2–4, 2–5, 3–4, 3–5, 4–5 are edges, and there is no clique of 5 vertices (vertices 1, 6 and 7 each have at most one neighbour in it). So $\\omega(G) = 4$.",
+          "rubric": [
+            {
+              "point": "Clique: every pair of its vertices adjacent",
+              "marks": 0.5
+            },
+            {
+              "point": "Maximal: cannot add a vertex; maximum: largest size ($\\omega(G)$)",
+              "marks": 1.5
+            },
+            {
+              "point": "A maximal, not maximum, clique, e.g. $\\{1, 2, 3\\}$",
+              "marks": 1
+            },
+            {
+              "point": "Maximum clique $\\{2, 3, 4, 5\\}$ (size 4)",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). No course notes on cliques or independent sets were found in the DO folder (the 2026 exam scope names \"the planted clique, the maximum clique and the maximum independent set problem\"); this answer uses the standard definitions, as in the model answer to E-Science Exam 2021 Q2(d). The cliques of the figure were listed with networkx.",
+          "image": {
+            "src": "data/do/img/scope-bank/clique-graph.png",
+            "alt": "Undirected graph on vertices 1 to 7 with edges 1–2, 1–3, 2–3, 2–4, 3–4, 2–5, 3–5, 4–5, 5–6, 6–7, 4–7."
+          },
+          "answerImage": {
+            "src": "data/do/img/scope-bank/clique-answer.png",
+            "alt": "The same graph with the maximum clique {2, 3, 4, 5} shaded and its six edges in orange, and the maximum independent set {1, 4, 6} circled in purple."
+          }
+        },
+        {
+          "id": "do-sb-clique-numbers",
+          "lecture": 6,
+          "concept": "Clique and independence number",
+          "type": "numeric",
+          "marks": 3,
+          "question": "For the graph in the figure, find (a) the size of a maximum clique $\\omega(G)$, (b) the size of a maximum independent set $\\alpha(G)$ and (c) the size of a minimum vertex cover. [1 + 1 + 1 Marks]",
+          "parts": [
+            {
+              "label": "(a) $\\omega(G)$",
+              "answer": 4,
+              "tolerance": 0.1,
+              "marks": 1
+            },
+            {
+              "label": "(b) $\\alpha(G)$",
+              "answer": 3,
+              "tolerance": 0.1,
+              "marks": 1
+            },
+            {
+              "label": "(c) minimum vertex cover size",
+              "answer": 4,
+              "tolerance": 0.1,
+              "marks": 1
+            }
+          ],
+          "solution": "(a) $\\{2, 3, 4, 5\\}$ is a clique (all 6 pairs are edges) and no 5 vertices are pairwise adjacent, so $\\omega(G) = 4$.\n(b) An independent set has no edge inside it. It can contain at most one of $\\{2, 3, 4, 5\\}$ (they form a clique), plus some of 1, 6, 7; but 6–7 is an edge, so at most one of 6, 7. Hence $\\alpha(G) \\le 1 + 1 + 1 = 3$, and $\\{1, 4, 6\\}$ (or $\\{1, 5, 7\\}$) reaches 3: $\\alpha(G) = 3$.\n(c) $S$ is independent exactly when $V \\setminus S$ is a vertex cover, so the minimum vertex cover has $n - \\alpha(G) = 7 - 3 = 4$ vertices, e.g. $V \\setminus \\{1, 4, 6\\} = \\{2, 3, 5, 7\\}$ (check: every edge has an end in it).",
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). No course notes on cliques or independent sets were found in the DO folder (the 2026 exam scope names \"the planted clique, the maximum clique and the maximum independent set problem\"); this answer uses the standard definitions, as in the model answer to E-Science Exam 2021 Q2(d). All three numbers were checked by brute force.",
+          "image": {
+            "src": "data/do/img/scope-bank/clique-graph.png",
+            "alt": "Undirected graph on vertices 1 to 7 with edges 1–2, 1–3, 2–3, 2–4, 3–4, 2–5, 3–5, 4–5, 5–6, 6–7, 4–7."
+          },
+          "answerImage": {
+            "src": "data/do/img/scope-bank/clique-answer.png",
+            "alt": "The same graph with the maximum clique {2, 3, 4, 5} shaded and its six edges in orange, and the maximum independent set {1, 4, 6} circled in purple."
+          }
+        },
+        {
+          "id": "do-sb-clique-model",
+          "lecture": 6,
+          "concept": "Maximum clique model",
+          "type": "written",
+          "marks": 4,
+          "question": "Write down a binary integer programming model of the maximum clique problem for a graph $G = (V, E)$ with $V = \\{1, \\dots, n\\}$. Define the variables and explain the meaning of the objective and the constraints. [1 + 1 + 2 Marks]",
+          "modelAnswer": "Variables: for each vertex $i \\in V$,\n$$x_i = \\begin{cases} 1 & \\text{if vertex } i \\text{ is in the clique,} \\\\ 0 & \\text{otherwise.} \\end{cases}$$\nModel:\n$$\\max_x \\sum_{i=1}^{n} x_i$$\n$$\\text{s.t. } x_i + x_j \\le 1 \\quad \\text{for all } i < j \\text{ with } (i, j) \\notin E,$$\n$$x_i \\in \\{0, 1\\}, \\quad i = 1, \\dots, n.$$\nMeaning:\n- Objective: the number of chosen vertices, i.e. the size of the clique, is maximised. (With vertex weights $w_i$ the objective is $\\sum_i w_i x_i$: the maximum weight clique.)\n- Constraints: one for every pair of vertices that is not joined by an edge; at most one of the two may be chosen. So every pair of chosen vertices is adjacent, which is exactly the definition of a clique.\n- $x_i \\in \\{0, 1\\}$: each vertex is either in or out.",
+          "rubric": [
+            {
+              "point": "Binary $x_i = 1$ if vertex $i$ is in the clique",
+              "marks": 1
+            },
+            {
+              "point": "Objective $\\max \\sum_i x_i$ (clique size)",
+              "marks": 1
+            },
+            {
+              "point": "$x_i + x_j \\le 1$ for every non-adjacent pair $(i, j) \\notin E$",
+              "marks": 1
+            },
+            {
+              "point": "Explains: no two non-adjacent vertices together, so the chosen set is a clique",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). No course notes on cliques or independent sets were found in the DO folder (the 2026 exam scope names \"the planted clique, the maximum clique and the maximum independent set problem\"); this answer uses the standard definitions, as in the model answer to E-Science Exam 2021 Q2(d)."
+        },
+        {
+          "id": "do-sb-mis-model",
+          "lecture": 6,
+          "concept": "Maximum independent set model",
+          "type": "written",
+          "marks": 4,
+          "question": "Define an independent set of a graph $G = (V, E)$ and the maximum independent set problem. Write down its binary mathematical model (with vertex weights $w_i \\ge 0$) and explain the constraints. How does it differ from the maximum clique model? [1 + 2 + 1 Marks]",
+          "modelAnswer": "An independent (stable) set is a subset $S \\subseteq V$ with no edge between any two of its vertices. The maximum independent set problem asks for an independent set of largest size (or, with weights, largest total weight $\\sum_{i \\in S} w_i$); its size is $\\alpha(G)$.\nVariables: $x_i = 1$ if vertex $i$ is in the set, $0$ otherwise.\n$$\\max_x \\sum_{i=1}^{n} w_i x_i$$\n$$\\text{s.t. } x_i + x_j \\le 1 \\quad \\text{for all } (i, j) \\in E,$$\n$$x_i \\in \\{0, 1\\}, \\quad i \\in V.$$\nConstraints: for every edge at most one endpoint can be chosen, so no edge lies inside the chosen set. (Unweighted: all $w_i = 1$.)\nDifference from maximum clique: the clique model has the same form, but its constraints are written for the pairs that are not edges ($(i, j) \\notin E$). So a maximum independent set of $G$ is a maximum clique of the complement graph $\\bar G$.",
+          "rubric": [
+            {
+              "point": "Independent set: no edge between any two chosen vertices",
+              "marks": 1
+            },
+            {
+              "point": "Objective $\\max \\sum_i w_i x_i$ with binary $x_i$",
+              "marks": 1
+            },
+            {
+              "point": "$x_i + x_j \\le 1$ for every edge $(i, j) \\in E$, explained",
+              "marks": 1
+            },
+            {
+              "point": "Clique model uses non-edges instead (complement graph)",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). No course notes on cliques or independent sets were found in the DO folder (the 2026 exam scope names \"the planted clique, the maximum clique and the maximum independent set problem\"); this answer uses the standard definitions, as in the model answer to E-Science Exam 2021 Q2(d)."
+        },
+        {
+          "id": "do-sb-clique-complement",
+          "lecture": 6,
+          "concept": "Clique and complement graph",
+          "type": "written",
+          "marks": 3,
+          "question": "Let $\\bar G = (V, \\bar E)$ be the complement of $G = (V, E)$: $(i, j) \\in \\bar E$ exactly when $i \\neq j$ and $(i, j) \\notin E$. Show that $S \\subseteq V$ is an independent set of $G$ if and only if $S$ is a clique of $\\bar G$. What does this give for $\\alpha(G)$ and $\\omega(\\bar G)$, and how can a maximum clique algorithm be used to solve the maximum independent set problem? [2 + 1 Marks]",
+          "modelAnswer": "Proof: $S$ is independent in $G$\n$\\iff$ for all distinct $i, j \\in S$: $(i, j) \\notin E$\n$\\iff$ for all distinct $i, j \\in S$: $(i, j) \\in \\bar E$ (definition of the complement)\n$\\iff$ $S$ is a clique of $\\bar G$.\nSo the independent sets of $G$ are exactly the cliques of $\\bar G$ (and vice versa), and the largest ones correspond:\n$$\\alpha(G) = \\omega(\\bar G), \\qquad \\omega(G) = \\alpha(\\bar G).$$\nTo find a maximum independent set of $G$: build $\\bar G$ (add every missing edge, delete every existing one) and run a maximum clique algorithm on $\\bar G$; the clique it returns is a maximum independent set of $G$. The two problems are therefore equally hard.",
+          "rubric": [
+            {
+              "point": "Chain of equivalences using the definition of the complement",
+              "marks": 2
+            },
+            {
+              "point": "$\\alpha(G) = \\omega(\\bar G)$; solve MIS as max clique on $\\bar G$",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). No course notes on cliques or independent sets were found in the DO folder (the 2026 exam scope names \"the planted clique, the maximum clique and the maximum independent set problem\"); this answer uses the standard definitions, as in the model answer to E-Science Exam 2021 Q2(d)."
+        },
+        {
+          "id": "do-sb-mis-vertex-cover",
+          "lecture": 6,
+          "concept": "Independent set and vertex cover",
+          "type": "written",
+          "marks": 4,
+          "question": "Show that $S \\subseteq V$ is an independent set of $G = (V, E)$ if and only if $V \\setminus S$ is a vertex cover of $G$. Deduce a relation between $\\alpha(G)$, the size $\\tau(G)$ of a minimum vertex cover and $n = |V|$. A graph on 10 vertices has a maximum independent set of 4 vertices: what is the size of its minimum vertex cover? [2 + 1 + 1 Marks]",
+          "modelAnswer": "Proof: $S$ is independent\n$\\iff$ no edge has both endpoints in $S$\n$\\iff$ every edge $(i, j) \\in E$ has at least one endpoint outside $S$, i.e. in $V \\setminus S$\n$\\iff$ $V \\setminus S$ is a vertex cover (every edge is covered).\nRelation: complements of independent sets are exactly the vertex covers, and a larger $S$ gives a smaller $V \\setminus S$. So a maximum independent set gives a minimum vertex cover:\n$$\\alpha(G) + \\tau(G) = n.$$\nIn models: $x_i + x_j \\le 1$ (independent set) becomes $(1 - x_i) + (1 - x_j) \\ge 1$ with $y_i = 1 - x_i$, i.e. $y_i + y_j \\ge 1$, the vertex cover constraint.\nExample: $\\tau(G) = 10 - 4 = 6$.",
+          "rubric": [
+            {
+              "point": "Independent ⇔ every edge has an endpoint outside $S$ ⇔ $V \\setminus S$ covers every edge",
+              "marks": 2
+            },
+            {
+              "point": "$\\alpha(G) + \\tau(G) = n$",
+              "marks": 1
+            },
+            {
+              "point": "$\\tau = 10 - 4 = 6$",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). No course notes on cliques or independent sets were found in the DO folder (the 2026 exam scope names \"the planted clique, the maximum clique and the maximum independent set problem\"); this answer uses the standard definitions, as in the model answer to E-Science Exam 2021 Q2(d). Vertex cover itself: DisCopt.pdf PDF pp. 36–37 (eqs. 85–87)."
+        },
+        {
+          "id": "do-sb-planted-clique",
+          "lecture": 6,
+          "concept": "Planted clique",
+          "type": "written",
+          "marks": 4,
+          "question": "Describe the planted clique problem: how is a random graph with a planted clique of size $k$ created, and what is the task? Explain why planted-clique instances are useful for testing algorithms for the maximum clique problem. [2 + 2 Marks]",
+          "modelAnswer": "Construction (planted clique of size $k$ in a graph on $n$ vertices):\n1. Generate a random graph $G(n, p)$, usually $p = \\tfrac12$: every pair of vertices is joined by an edge independently with probability $p$.\n2. Choose $k$ of the $n$ vertices uniformly at random.\n3. Add every missing edge between the chosen vertices, so they form a clique of size $k$: the planted (hidden) clique.\n4. Give the algorithm the graph only, not the chosen set.\nTask: find (recover) the planted clique, or more generally a maximum clique, in the resulting graph.\nWhy it is useful:\n- The answer is known: a random $G(n, \\tfrac12)$ only contains cliques of about $2\\log_2 n$ vertices, so when $k$ is clearly larger than that the planted clique is (with high probability) the unique maximum clique. We can check whether a heuristic (local search, SA, GA …) found the optimum, which is impossible on large instances whose optimum is unknown.\n- The difficulty can be tuned by $n$ and $k$: the smaller $k$ is compared with $n$, the better the clique is hidden among the random edges.",
+          "rubric": [
+            {
+              "point": "Random graph $G(n, p)$ (e.g. $p = 1/2$)",
+              "marks": 0.5
+            },
+            {
+              "point": "Choose $k$ vertices at random and add all edges among them",
+              "marks": 1
+            },
+            {
+              "point": "Task: find the hidden clique / a maximum clique",
+              "marks": 0.5
+            },
+            {
+              "point": "Known optimum (random cliques only $\\approx 2\\log_2 n$), so heuristics can be checked",
+              "marks": 1.5
+            },
+            {
+              "point": "Difficulty tuned by $n$ and $k$",
+              "marks": 0.5
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). No course notes on cliques or independent sets were found in the DO folder (the 2026 exam scope names \"the planted clique, the maximum clique and the maximum independent set problem\"); this answer uses the standard definitions, as in the model answer to E-Science Exam 2021 Q2(d)."
+        },
+        {
+          "id": "do-sb-qap-model",
+          "lecture": 5,
+          "concept": "QAP model",
+          "type": "written",
+          "marks": 6,
+          "question": "Write down the full mathematical model of the quadratic assignment problem (QAP) with $n$ facilities and $n$ locations in its quadratic integer programming (Koopmans–Beckmann) form. Define all the data and the variables, and explain the objective function and each constraint. [2 + 2 + 2 Marks]",
+          "modelAnswer": "Data: $F = (f_{ij})$, $f_{ij}$ the flow between facility $i$ and facility $j$; $D = (d_{kl})$, $d_{kl}$ the distance between location $k$ and location $l$; $B = (b_{ij})$, $b_{ij}$ the cost of placing facility $i$ at location $j$.\nVariables:\n$$x_{ij} = \\begin{cases} 1 & \\text{if facility } i \\text{ is placed at location } j, \\\\ 0 & \\text{otherwise.} \\end{cases}$$\nModel:\n$$\\min_x \\sum_{i=1}^{n}\\sum_{j=1}^{n}\\sum_{k=1}^{n}\\sum_{l=1}^{n} f_{ij}\\, d_{kl}\\, x_{ik}\\, x_{jl} + \\sum_{i=1}^{n}\\sum_{j=1}^{n} b_{ij}\\, x_{ij}$$\n$$\\text{s.t. } \\sum_{i=1}^{n} x_{ij} = 1, \\quad j = 1, \\dots, n,$$\n$$\\sum_{j=1}^{n} x_{ij} = 1, \\quad i = 1, \\dots, n,$$\n$$x_{ij} \\in \\{0, 1\\}, \\quad i, j = 1, \\dots, n.$$\nMeaning:\n- $f_{ij} d_{kl} x_{ik} x_{jl}$: the product $x_{ik} x_{jl} = 1$ only when facility $i$ is at location $k$ and facility $j$ is at location $l$; then the cost is flow × distance between them. This product of variables makes the problem quadratic.\n- $b_{ij} x_{ij}$: the linear cost of putting facility $i$ at location $j$.\n- $\\sum_i x_{ij} = 1$: every location $j$ receives exactly one facility.\n- $\\sum_j x_{ij} = 1$: every facility $i$ is placed at exactly one location.\n- Together the constraints make $X = (x_{ij})$ a permutation matrix (the same constraints as the LAP).",
+          "rubric": [
+            {
+              "point": "Data $f_{ij}$ (flow), $d_{kl}$ (distance), $b_{ij}$ (placement cost) defined",
+              "marks": 1
+            },
+            {
+              "point": "Binary $x_{ij} = 1$ if facility $i$ is at location $j$",
+              "marks": 1
+            },
+            {
+              "point": "Objective $\\sum f_{ij} d_{kl} x_{ik} x_{jl} + \\sum b_{ij} x_{ij}$",
+              "marks": 1
+            },
+            {
+              "point": "Quadratic term explained (cost only when both placements are made)",
+              "marks": 1
+            },
+            {
+              "point": "$\\sum_i x_{ij} = 1$ (each location one facility)",
+              "marks": 1
+            },
+            {
+              "point": "$\\sum_j x_{ij} = 1$ (each facility one location), binary",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). DisCopt.pdf PDF pp. 33–35 (§2.8: eq. 69 permutation form, eqs. 71–75 quadratic integer programming formulation)."
+        },
+        {
+          "id": "do-sb-qap-vs-lap",
+          "lecture": 5,
+          "concept": "QAP compared with LAP",
+          "type": "written",
+          "marks": 3,
+          "question": "(a) Which part of the QAP objective makes it quadratic, and what is its meaning? (b) Show that the QAP becomes a linear assignment problem when all flows $f_{ij}$ are zero. (c) Why is the QAP much harder to solve than the LAP? [1 + 1 + 1 Marks]",
+          "modelAnswer": "(a) The term $\\sum_{i,j,k,l} f_{ij} d_{kl} x_{ik} x_{jl}$ multiplies two decision variables. It is the interaction cost: the cost of facility $i$ depends on where facility $j$ is placed (flow between them × distance between their locations).\n(b) With $f_{ij} = 0$ for all $i, j$ the quadratic term vanishes and the model is\n$$\\min \\sum_{i,j} b_{ij} x_{ij} \\text{ s.t. } \\sum_i x_{ij} = 1,\\ \\sum_j x_{ij} = 1,\\ x_{ij} \\in \\{0, 1\\},$$\nwhich is exactly the LAP with costs $c_{ij} = b_{ij}$.\n(c) The LAP is linear and can be written as a minimum-cost flow problem whose LP relaxation already has integer optimal solutions, so it is solved efficiently in polynomial time. The QAP's objective couples pairs of assignments, so this structure is lost: it is NP-hard and, as the notes say, one of the hardest combinatorial problems, with no exact method solving instances with $n > 20$ in reasonable time.",
+          "rubric": [
+            {
+              "point": "Quadratic term $f_{ij} d_{kl} x_{ik} x_{jl}$: interaction cost between pairs of placements",
+              "marks": 1
+            },
+            {
+              "point": "$f = 0$ leaves $\\min \\sum b_{ij} x_{ij}$ with the assignment constraints = LAP",
+              "marks": 1
+            },
+            {
+              "point": "LAP solved efficiently (min-cost flow, integral LP); QAP NP-hard, exact methods only for small $n$ (about 20)",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). DisCopt.pdf PDF p. 34 (\"the QAP, in contrast with its linear counterpart the LAP, remains one of the hardest optimization problems and no exact algorithm can solve problems of size n > 20\"); LAP as min-cost flow and integral solutions: PDF pp. 9–11 (Remarks 1.2 and 1.4)."
+        },
+        {
+          "id": "do-sb-qap-cost",
+          "lecture": 5,
+          "concept": "QAP cost of a permutation",
+          "type": "numeric",
+          "marks": 4,
+          "question": "A QAP has 3 facilities and 3 locations, no placement costs ($B = 0$), flow matrix $F$ and distance matrix $D$:\n$$F = \\begin{pmatrix} 0 & 5 & 2 \\\\ 5 & 0 & 3 \\\\ 2 & 3 & 0 \\end{pmatrix}, \\qquad D = \\begin{pmatrix} 0 & 8 & 15 \\\\ 8 & 0 & 13 \\\\ 15 & 13 & 0 \\end{pmatrix}.$$\nUsing the permutation form $\\min_{\\pi} \\sum_{i=1}^{3}\\sum_{j=1}^{3} f_{ij}\\, d_{\\pi(i)\\pi(j)}$, where $\\pi(i)$ is the location of facility $i$, calculate the cost of $\\pi = (2, 1, 3)$ and of $\\pi = (3, 2, 1)$, and find the optimal cost by checking all $3! = 6$ permutations. [1 + 1 + 2 Marks]",
+          "parts": [
+            {
+              "label": "Cost of $\\pi = (2, 1, 3)$",
+              "answer": 222,
+              "tolerance": 0.5,
+              "marks": 1
+            },
+            {
+              "label": "Cost of $\\pi = (3, 2, 1)$",
+              "answer": 238,
+              "tolerance": 0.5,
+              "marks": 1
+            },
+            {
+              "label": "Optimal cost",
+              "answer": 218,
+              "tolerance": 0.5,
+              "marks": 2
+            }
+          ],
+          "solution": "$F$ and $D$ are symmetric with zero diagonals, so the double sum counts every pair of facilities twice: cost $= 2\\,(f_{12} d_{\\pi(1)\\pi(2)} + f_{13} d_{\\pi(1)\\pi(3)} + f_{23} d_{\\pi(2)\\pi(3)})$.\n$\\pi = (2, 1, 3)$: $2\\,(5 \\cdot d_{21} + 2 \\cdot d_{23} + 3 \\cdot d_{13}) = 2\\,(5 \\cdot 8 + 2 \\cdot 13 + 3 \\cdot 15) = 2 \\cdot 111 = 222$.\n$\\pi = (3, 2, 1)$: $2\\,(5 \\cdot d_{32} + 2 \\cdot d_{31} + 3 \\cdot d_{21}) = 2\\,(5 \\cdot 13 + 2 \\cdot 15 + 3 \\cdot 8) = 2 \\cdot 119 = 238$.\nAll six permutations: $(1,2,3)$: 218, $(1,3,2)$: 260, $(2,1,3)$: 222, $(2,3,1)$: 252, $(3,1,2)$: 250, $(3,2,1)$: 238.\nOptimal: $\\pi = (1, 2, 3)$ with cost $2\\,(5 \\cdot 8 + 2 \\cdot 15 + 3 \\cdot 13) = 2 \\cdot 109 = 218$: the pair with the largest flow (facilities 1 and 2, flow 5) gets the closest locations (1 and 2, distance 8).",
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). Permutation form of the QAP: DisCopt.pdf PDF p. 34 (eq. 69, $\\min_{\\pi \\in S_n} \\sum_{i,j} f_{ij} d_{\\pi(i)\\pi(j)}$). All six costs were checked with a short script."
+        },
+        {
+          "id": "do-sb-lap-min-cost-flow",
+          "lecture": 5,
+          "concept": "LAP as minimum cost flow",
+          "type": "written",
+          "marks": 5,
+          "question": "Show how a linear assignment problem with $n$ workers, $n$ jobs and costs $c_{ij}$ (worker $i$ doing job $j$) can be modelled as a minimum cost flow problem. Draw the network for $n = 3$, giving the supplies and demands and the capacity and cost of every arc, and explain why the minimum cost flow gives a 0–1 assignment although $x_{ij}$ is not required to be integer. [3 + 2 Marks]",
+          "modelAnswer": "Network (for $n = 3$; see the diagram):\n- a source $s$ with supply $n = 3$ and a sink $t$ with demand $3$ (or, without $s$ and $t$: each worker node supply $b_i = 1$, each job node demand $b_j = -1$);\n- arcs $s \\to W_i$, capacity 1, cost 0 (each worker does at most one job);\n- arcs $W_i \\to J_j$ for every worker–job pair, capacity 1, cost $c_{ij}$;\n- arcs $J_j \\to t$, capacity 1, cost 0 (each job is done once).\nMin-cost flow model: $\\min \\sum_{(i,j)} c_{ij} x_{ij}$ s.t. flow balance $\\sum_j x_{ij} - \\sum_j x_{ji} = b_i$ at every node and $0 \\le x_{ij} \\le u_{ij} = 1$. Sending 3 units from $s$ to $t$ forces one unit out of every worker and into every job, which is $\\sum_j x_{ij} = 1$ and $\\sum_i x_{ij} = 1$: the LAP constraints. The cost of the flow is the cost of the assignment.\nIntegrality: supplies, demands and capacities are integers, so the basic feasible (optimal) solutions of the min-cost flow LP are integer. With capacities 1 every $x_{ij}$ is then 0 or 1, i.e. a valid assignment, without imposing $x_{ij} \\in \\{0, 1\\}$.",
+          "rubric": [
+            {
+              "point": "Source/sink with supply and demand $n$ (or worker supply 1, job demand 1)",
+              "marks": 1
+            },
+            {
+              "point": "Arcs $W_i \\to J_j$ with cost $c_{ij}$ and capacity 1",
+              "marks": 1
+            },
+            {
+              "point": "Arcs $s \\to W_i$ and $J_j \\to t$ with capacity 1, cost 0; balance gives the assignment constraints",
+              "marks": 1
+            },
+            {
+              "point": "Integer data ⇒ integer basic optimal solutions",
+              "marks": 1
+            },
+            {
+              "point": "With capacity 1 the flows are 0/1: an assignment",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). DisCopt.pdf PDF pp. 9–11 (§1.3 min-cost flow, eqs. 11–13; Remark 1.2: integer basic feasible solutions; Remark 1.4: transportation / assignment problem as min-cost flow with a supply node per source and a demand node per destination). Tutorial 2 Q1(b) asks the same conversion for a 3 × 3 instance.",
+          "variantOf": "do-lap-min-cost-flow",
+          "answerImage": {
+            "src": "data/do/img/scope-bank/lap-flow-answer.png",
+            "alt": "Min-cost flow network for a 3 × 3 assignment: source s (supply 3) to worker nodes W1, W2, W3 with (capacity 1, cost 0); every worker to every job J1, J2, J3 with capacity 1 and cost c_ij; jobs to sink t (demand 3) with (capacity 1, cost 0)."
+          }
+        },
+        {
+          "id": "do-sb-bisection-model",
+          "lecture": 7,
+          "concept": "Max-bisection model",
+          "type": "written",
+          "marks": 5,
+          "question": "Define the maximum bisection problem for an undirected connected graph $G = (V, E)$ with $n$ (even) vertices and edge weights $w_{ij} = w_{ji} \\ge 0$ ($w_{ij} = 0$ if there is no edge). Write down its integer quadratic programming model with $x_i \\in \\{1, -1\\}$, and explain (i) the variables, (ii) the constraint, and (iii) why the objective equals the total weight of the edges between the two subsets, including the factor $\\frac14$. [1 + 1 + 1 + 2 Marks]",
+          "modelAnswer": "Max-bisection: partition $V$ into two disjoint subsets $V_1$, $V_2$ of equal size $n/2$ so that the sum of the weights of the edges between $V_1$ and $V_2$ is maximum.\nModel:\n$$\\max_x \\ \\frac{1}{4}\\sum_{i=1}^{n}\\sum_{j=1}^{n} w_{ij}\\,(1 - x_i x_j) \\quad \\text{s.t. } \\sum_{i=1}^{n} x_i = 0, \\quad x_i \\in \\{1, -1\\},\\ i = 1, \\dots, n.$$\n(i) Variables: $x_i = 1$ if $i \\in V_1$ and $x_i = -1$ if $i \\in V_2$.\n(ii) Constraint $\\sum_i x_i = 0$: there are as many $+1$s as $-1$s, so $|V_1| = |V_2| = n/2$: the partition is a bisection.\n(iii) For a pair $i, j$: if both are on the same side, $x_i x_j = 1$ and $1 - x_i x_j = 0$; if they are on different sides, $x_i x_j = -1$ and $1 - x_i x_j = 2$. So $\\frac12 (1 - x_i x_j)$ is 1 exactly for a cut edge. The double sum runs over all ordered pairs, so every edge appears twice ($w_{ij}$ and $w_{ji}$). Each cut edge therefore contributes $\\frac14 \\cdot 2 \\cdot 2\\, w_{ij} = w_{ij}$, and the objective is the cut weight $\\sum_{i \\in V_1,\\, j \\in V_2} w_{ij}$. Equivalently $\\frac12 \\sum_{i < j} w_{ij} (1 - x_i x_j)$.",
+          "rubric": [
+            {
+              "point": "Problem: two equal halves maximising the weight of edges between them",
+              "marks": 1
+            },
+            {
+              "point": "Model with $\\frac14 \\sum\\sum w_{ij}(1 - x_i x_j)$, $\\sum x_i = 0$, $x_i \\in \\{\\pm 1\\}$",
+              "marks": 1
+            },
+            {
+              "point": "$x_i = \\pm 1$ gives the side; $\\sum x_i = 0$ gives equal sizes",
+              "marks": 1
+            },
+            {
+              "point": "$1 - x_i x_j \\in \\{0, 2\\}$: 2 only for a cut edge",
+              "marks": 1
+            },
+            {
+              "point": "Factor $\\frac14$: the 2 from $1 - x_i x_j$ times the 2 from counting each edge twice",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). DisCopt.pdf PDF pp. 40–41 (§2.11, the max-bisection integer quadratic program with $x_i \\in \\{1, -1\\}$). Related past question: Test 2019 Q2(c)."
+        },
+        {
+          "id": "do-sb-bisection-eval",
+          "lecture": 7,
+          "concept": "Evaluating bisections",
+          "type": "numeric",
+          "marks": 4,
+          "question": "For the weighted graph in the figure, evaluate the max-bisection objective $\\frac{1}{4}\\sum_{i}\\sum_{j} w_{ij}(1 - x_i x_j)$ for the bisections (a) $V_1 = \\{1, 2, 3\\}$, $V_2 = \\{4, 5, 6\\}$ and (b) $V_1 = \\{1, 3, 5\\}$, $V_2 = \\{2, 4, 6\\}$. Which one is better for max-bisection? [2 + 2 Marks]",
+          "parts": [
+            {
+              "label": "(a) objective for $V_1 = \\{1, 2, 3\\}$",
+              "answer": 14,
+              "tolerance": 0.5,
+              "marks": 2
+            },
+            {
+              "label": "(b) objective for $V_1 = \\{1, 3, 5\\}$",
+              "answer": 25,
+              "tolerance": 0.5,
+              "marks": 2
+            }
+          ],
+          "solution": "The objective equals the total weight of the edges with one end in $V_1$ and the other in $V_2$ (each such pair gives $\\frac14 \\cdot 2 \\cdot 2 w_{ij} = w_{ij}$).\n(a) $x = (1, 1, 1, -1, -1, -1)$. Crossing edges: 1–4 (4), 2–5 (5), 3–4 (2), 3–6 (3). Value $= 4 + 5 + 2 + 3 = 14$.\n(b) $x = (1, -1, 1, -1, 1, -1)$. Crossing edges: 1–2 (3), 1–4 (4), 2–3 (2), 2–5 (5), 3–4 (2), 3–6 (3), 4–5 (2), 5–6 (4). Value $= 3 + 4 + 2 + 5 + 2 + 3 + 2 + 4 = 25$. (Only 1–3 and 4–6 stay inside a side.)\n(b) is better ($25 > 14$); in fact it is the best of all $\\binom{6}{3}/2 = 10$ bisections of this graph.",
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). Model: DisCopt.pdf PDF pp. 40–41 (§2.11). Both values and the best bisection were checked by enumerating every bisection.",
+          "image": {
+            "src": "data/do/img/scope-bank/bisection-graph.png",
+            "alt": "Weighted undirected graph on vertices 1 to 6 with edge weights: 1–2: 3, 1–3: 1, 1–4: 4, 2–3: 2, 2–5: 5, 3–4: 2, 3–6: 3, 4–5: 2, 4–6: 1, 5–6: 4."
+          },
+          "answerImage": {
+            "src": "data/do/img/scope-bank/bisection-answer.png",
+            "alt": "The same graph with V1 = {1, 3, 5} shaded; the crossing edges 1–2 (3), 1–4 (4), 2–3 (2), 2–5 (5), 3–6 (3), 4–5 (2), 5–6 (4) and 3–4 (2) are in orange, total 25."
+          }
+        },
+        {
+          "id": "do-sb-bisection-symmetry",
+          "lecture": 7,
+          "concept": "Bisection symmetry and max-cut",
+          "type": "written",
+          "marks": 4,
+          "question": "(a) For the max-bisection model\n$$\\max_x \\ \\frac{1}{4}\\sum_{i=1}^{n}\\sum_{j=1}^{n} w_{ij}\\,(1 - x_i x_j) \\quad \\text{s.t. } \\sum_{i=1}^{n} x_i = 0, \\quad x_i \\in \\{1, -1\\},\\ i = 1, \\dots, n.$$\nshow that if $x$ is feasible then $\\bar x = -x$ is feasible with the same objective value. What does this mean for the number of different bisections of $n$ vertices? (b) How does the max-cut problem differ from max-bisection? Why is finding a minimum cut easy while max-cut is hard? [2 + 2 Marks]",
+          "modelAnswer": "(a) If $x$ is feasible then $x_i \\in \\{1, -1\\}$, so $-x_i \\in \\{1, -1\\}$, and $\\sum_i (-x_i) = -\\sum_i x_i = 0$: $\\bar x = -x$ is feasible. Its objective is the same because $(-x_i)(-x_j) = x_i x_j$, so every term $w_{ij}(1 - x_i x_j)$ is unchanged. $\\bar x$ only swaps the names $V_1$ and $V_2$: it is the same partition. So feasible solutions come in pairs: there are $\\binom{n}{n/2}$ feasible $x$ but only $\\frac12\\binom{n}{n/2}$ different bisections (e.g. $n = 6$: 20 vectors, 10 bisections), and an algorithm may fix $x_1 = 1$ to search half the space.\n(b) Max-cut partitions $V$ into two subsets $S$ and $V \\setminus S$ of any sizes (not necessarily equal) to maximise the weight of the edges between them:\n$$\\max_x \\ \\frac12 \\sum_{1 \\le i < j \\le n} w_{ij}(1 - x_i x_j), \\quad x_i \\in \\{1, -1\\}.$$\nIt is the same objective without the constraint $\\sum_i x_i = 0$, so max-cut ≥ max-bisection on every graph (every bisection is a cut). Max-cut is the case $k = 2$ of max-$k$-cut and is NP-complete. The inverse problem, a minimum $s$–$t$ cut, is solvable in polynomial time with network flow (Ford–Fulkerson: min cut = max flow).",
+          "rubric": [
+            {
+              "point": "$-x$ feasible ($\\pm 1$ values, sum still 0) with the same objective ($x_i x_j$ unchanged)",
+              "marks": 1
+            },
+            {
+              "point": "Same partition with sides swapped: $\\frac12\\binom{n}{n/2}$ distinct bisections",
+              "marks": 1
+            },
+            {
+              "point": "Max-cut: no equal-size constraint (any two subsets), objective $\\frac12\\sum_{i<j} w_{ij}(1 - x_i x_j)$",
+              "marks": 1
+            },
+            {
+              "point": "Max-cut NP-complete; min cut polynomial via max flow (Ford–Fulkerson)",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). DisCopt.pdf PDF p. 41 (symmetric solution $\\bar x = -x$ is feasible; max-cut and its NP-completeness, min cut via Ford–Fulkerson) and PDF p. 42 (max-cut model, eq. 98). Related past questions: Test 2019 Q2(c), E-Science Exam 2021 Q1(c)."
+        },
+        {
+          "id": "do-sb-flp-model",
+          "lecture": 8,
+          "concept": "Facility location model",
+          "type": "written",
+          "marks": 6,
+          "question": "There are $m$ potential facility locations and $n$ customers. Opening a facility at location $i$ costs $f_i$, supplying customer $j$ from a facility at location $i$ costs $c_{ij}$, customer $j$ has demand $d_j$ and a facility at $i$ has capacity $W_i$. Each customer must be served by exactly one facility. Define the variables and write down the full mathematical model of this (capacitated, single-source, fixed-charge) facility location problem. Explain the objective and every constraint. [2 + 2 + 2 Marks]",
+          "modelAnswer": "Variables:\n$$y_i = \\begin{cases} 1 & \\text{if a facility is established at location } i, \\\\ 0 & \\text{otherwise,} \\end{cases} \\qquad x_{ij} = \\begin{cases} 1 & \\text{if customer } j \\text{ is served from location } i, \\\\ 0 & \\text{otherwise.} \\end{cases}$$\nModel:\n$$\\min \\sum_{i=1}^{m}\\sum_{j=1}^{n} c_{ij} x_{ij} + \\sum_{i=1}^{m} f_i y_i$$\n$$\\text{s.t. } \\sum_{i=1}^{m} x_{ij} = 1, \\quad j = 1, \\dots, n,$$\n$$x_{ij} \\le y_i, \\quad i = 1, \\dots, m,\\ j = 1, \\dots, n,$$\n$$\\sum_{j=1}^{n} d_j x_{ij} \\le W_i y_i, \\quad i = 1, \\dots, m,$$\n$$x_{ij},\\ y_i \\in \\{0, 1\\}.$$\nMeaning:\n- Objective: distribution (supply) costs plus the fixed costs of the opened facilities; the number of facilities is the trade-off between the two.\n- $\\sum_i x_{ij} = 1$: every customer is served by exactly one facility (single source).\n- $x_{ij} \\le y_i$: a customer can only be served from a location where a facility is opened.\n- $\\sum_j d_j x_{ij} \\le W_i y_i$: the total demand assigned to facility $i$ is at most its capacity, and zero if it is closed.\n- Binary variables: open or not, served or not.",
+          "rubric": [
+            {
+              "point": "Variables $y_i$ (open) and $x_{ij}$ (customer $j$ served from $i$) defined",
+              "marks": 1
+            },
+            {
+              "point": "Objective $\\sum c_{ij} x_{ij} + \\sum f_i y_i$ explained (distribution + fixed costs)",
+              "marks": 1
+            },
+            {
+              "point": "$\\sum_i x_{ij} = 1$: each customer served by exactly one facility",
+              "marks": 1
+            },
+            {
+              "point": "$x_{ij} \\le y_i$: only from open facilities",
+              "marks": 1
+            },
+            {
+              "point": "$\\sum_j d_j x_{ij} \\le W_i y_i$: capacity",
+              "marks": 1
+            },
+            {
+              "point": "Binary constraints",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). DisCopt.pdf PDF pp. 29–30 (§2.5, eqs. 51–57: the constrained single-source FLP and the meaning of each term)."
+        },
+        {
+          "id": "do-sb-flp-variants",
+          "lecture": 8,
+          "concept": "Facility location variants",
+          "type": "written",
+          "marks": 4,
+          "question": "(a) In the facility location model, explain the constraints $x_{ij} \\le y_i$ and $\\sum_{j} d_j x_{ij} \\le W_i y_i$. (b) How does the model change for the uncapacitated facility location problem (UFLP)? In the UFLP, how should each customer be assigned once the open facilities are known? (c) How does the model change if a customer's demand may be split between several facilities? [1 + 2 + 1 Marks]",
+          "modelAnswer": "(a) $x_{ij} \\le y_i$: if no facility is opened at $i$ ($y_i = 0$) then no customer can be served from $i$ ($x_{ij} = 0$). $\\sum_j d_j x_{ij} \\le W_i y_i$: the demand assigned to facility $i$ may not exceed its capacity $W_i$, and is 0 if $i$ is closed (so it also links $x$ and $y$).\n(b) UFLP: there are no capacity restrictions, so the capacity constraint is dropped. The linking constraint $x_{ij} \\le y_i$ must then stay (it is the only thing preventing service from closed sites). With no capacities, once the open facilities are fixed each customer should simply be assigned to the cheapest (e.g. closest) open facility, so the hard decision is which facilities to open.\n(c) Demand splitting (not single-source): let $x_{ij} \\in [0, 1]$ be the fraction of customer $j$'s demand supplied from $i$. $\\sum_i x_{ij} = 1$ still says all of the demand is met, the capacity constraint is unchanged, and only $y_i$ stays binary.",
+          "rubric": [
+            {
+              "point": "(a) Linking: serve only from open facilities; capacity: assigned demand ≤ $W_i$, 0 when closed",
+              "marks": 1
+            },
+            {
+              "point": "(b) UFLP: drop the capacity constraint, keep $x_{ij} \\le y_i$",
+              "marks": 1
+            },
+            {
+              "point": "(b) Assign each customer to its cheapest open facility",
+              "marks": 1
+            },
+            {
+              "point": "(c) $x_{ij} \\in [0, 1]$ = fraction of demand; $y_i$ still binary",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). DisCopt.pdf PDF pp. 29–30 (single-source vs several depots, UFLP vs CFLP, \"if there are no capacity constraints, customers should be assigned to the closest open depot\"). Part (c) (continuous $x_{ij}$) is the standard multi-source variant; the notes only name it."
+        },
+        {
+          "id": "do-sb-flp-calc",
+          "lecture": 8,
+          "concept": "Facility location calculation",
+          "type": "numeric",
+          "marks": 4,
+          "question": "An uncapacitated facility location problem has 2 potential sites and 3 customers. The fixed opening costs are $f_1 = 30$ and $f_2 = 20$, and the supply costs $c_{ij}$ (site $i$, customer $j$) are\n$$c = \\begin{pmatrix} 4 & 6 & 15 \\\\ 14 & 7 & 3 \\end{pmatrix}.$$\nEach customer is served by exactly one open site. Calculate the minimum total cost when (a) only site 1 is opened, (b) only site 2 is opened, (c) both sites are opened, and (d) give the optimal total cost. [1 + 1 + 1 + 1 Marks]",
+          "parts": [
+            {
+              "label": "(a) only site 1 open",
+              "answer": 55,
+              "tolerance": 0.5,
+              "marks": 1
+            },
+            {
+              "label": "(b) only site 2 open",
+              "answer": 44,
+              "tolerance": 0.5,
+              "marks": 1
+            },
+            {
+              "label": "(c) both sites open",
+              "answer": 63,
+              "tolerance": 0.5,
+              "marks": 1
+            },
+            {
+              "label": "(d) optimal total cost",
+              "answer": 44,
+              "tolerance": 0.5,
+              "marks": 1
+            }
+          ],
+          "solution": "Total cost = fixed costs of the open sites + for each customer the cheapest open site (no capacities).\n(a) $30 + (4 + 6 + 15) = 55$.\n(b) $20 + (14 + 7 + 3) = 44$.\n(c) $30 + 20 + (\\min\\{4, 14\\} + \\min\\{6, 7\\} + \\min\\{15, 3\\}) = 50 + (4 + 6 + 3) = 63$.\n(d) At least one site must be open, so these are all the choices: the optimum is to open only site 2, with cost $44$ ($y = (0, 1)$, $x_{21} = x_{22} = x_{23} = 1$). Opening site 1 as well saves only $10 + 1 = 11$ in supply costs but costs $30$.",
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). Model: DisCopt.pdf PDF pp. 29–30 (eqs. 51–57, without the capacity constraint 54). Checked by enumerating the opening decisions."
+        },
+        {
+          "id": "do-sb-christofides-steps",
+          "lecture": 10,
+          "concept": "Christofides algorithm steps",
+          "type": "written",
+          "marks": 5,
+          "question": "State the problem (and the condition on the distances) for which the Christofides algorithm is used, list all the steps of the algorithm in order, and state its approximation guarantee. [1 + 3 + 1 Marks]",
+          "modelAnswer": "Problem: the symmetric TSP (STSP) on a complete graph whose distances are metric, i.e. $c_{ij} = c_{ji} \\ge 0$ and the triangle inequality $c_{ik} \\le c_{ij} + c_{jk}$ holds.\nSteps:\n1. Find a minimum spanning tree $T$ of the graph.\n2. Identify the set $O$ of vertices with odd degree in $T$ (there is always an even number of them).\n3. Find a minimum-weight perfect matching $M$ of the vertices in $O$ (pair them up using the shortest set of edges).\n4. Add the matching edges to $T$: the multigraph $T \\cup M$ (an edge in both is doubled) has only even degrees.\n5. Construct an Eulerian circuit of $T \\cup M$, going through every edge exactly once.\n6. Shortcut: walk along the Eulerian circuit and delete every vertex that was already visited. The remaining sequence is a Hamiltonian cycle: the TSP tour.\nGuarantee: the tour is at most $\\frac32$ times the optimal tour length: Christofides is a $\\frac32$-approximation algorithm (polynomial time).",
+          "rubric": [
+            {
+              "point": "Metric (triangle inequality) symmetric TSP on a complete graph",
+              "marks": 1
+            },
+            {
+              "point": "MST, then the odd-degree vertices",
+              "marks": 1
+            },
+            {
+              "point": "Minimum-weight perfect matching of the odd vertices, added to the MST",
+              "marks": 1
+            },
+            {
+              "point": "Eulerian circuit, then shortcut repeated vertices to a Hamiltonian cycle",
+              "marks": 1
+            },
+            {
+              "point": "Tour ≤ $\\frac32$ OPT ($\\alpha = 3/2$)",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). DisCopt.pdf PDF pp. 24–25 (§2.3.2, the six steps of Fig. 27 and the 3/2 guarantee). The notes do not state the metric condition explicitly; it is what makes the shortcut step safe (see the next question)."
+        },
+        {
+          "id": "do-sb-christofides-bound",
+          "lecture": 10,
+          "concept": "Why Christofides is 3/2",
+          "type": "written",
+          "marks": 4,
+          "question": "Explain why the Christofides algorithm returns a tour of length at most $\\frac32\\,OPT$ on a metric STSP. Your answer should explain (i) why the number of odd-degree vertices is even, (ii) why $c(T) \\le OPT$ for the minimum spanning tree $T$, (iii) why $c(M) \\le \\frac12 OPT$ for the matching $M$, and (iv) why shortcutting does not increase the length. [1 + 1 + 1 + 1 Marks]",
+          "modelAnswer": "(i) Every edge adds 2 to the sum of all degrees, so $\\sum_v \\deg(v) = 2|E|$ is even. The even-degree vertices contribute an even amount, so the odd degrees must also add up to an even number, which needs an even number of odd-degree vertices. So a perfect matching on them exists.\n(ii) Deleting any edge from an optimal tour leaves a spanning path, which is a spanning tree. Its length is at most $OPT$ (edges are non-negative), and the MST is the cheapest spanning tree: $c(T) \\le OPT$.\n(iii) Shortcut the optimal tour so it visits only the odd vertices $O$, in the same order. By the triangle inequality this cycle on $O$ has length $\\le OPT$. It has an even number of edges and splits into two perfect matchings of $O$ (alternate edges); the cheaper one costs $\\le \\frac12 OPT$, and $M$ is the minimum one: $c(M) \\le \\frac12 OPT$.\n(iv) The Eulerian circuit has length $c(T) + c(M) \\le \\frac32 OPT$. Skipping an already visited vertex replaces a path $u \\to v \\to w$ by the edge $u \\to w$, and $c_{uw} \\le c_{uv} + c_{vw}$ by the triangle inequality, so the tour is no longer than the circuit:\n$$\\text{tour} \\le c(T) + c(M) \\le OPT + \\tfrac12 OPT = \\tfrac32\\, OPT.$$",
+          "rubric": [
+            {
+              "point": "(i) Handshake: degree sum $2|E|$ even ⇒ even number of odd vertices",
+              "marks": 1
+            },
+            {
+              "point": "(ii) Optimal tour minus an edge is a spanning tree ⇒ $c(T) \\le OPT$",
+              "marks": 1
+            },
+            {
+              "point": "(iii) Optimal tour shortcut to $O$ splits into two matchings ⇒ $c(M) \\le OPT/2$",
+              "marks": 1
+            },
+            {
+              "point": "(iv) Triangle inequality ⇒ shortcutting never increases length; total $\\le \\frac32 OPT$",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). DisCopt.pdf PDF pp. 24–25 states the 3/2 guarantee and that \"every finite undirected graph has an even number of vertices with odd degree\", but not the proof; the proof here is the standard one."
+        },
+        {
+          "id": "do-sb-christofides-apply",
+          "lecture": 10,
+          "concept": "Applying Christofides",
+          "type": "numeric",
+          "marks": 6,
+          "question": "Apply the Christofides algorithm to the 6-city metric STSP with distance matrix\n$$C = \\begin{pmatrix} 0 & 2 & 3 & 2 & 5 & 6 \\\\ 2 & 0 & 4 & 4 & 4 & 7 \\\\ 3 & 4 & 0 & 5 & 5 & 4 \\\\ 2 & 4 & 5 & 0 & 3 & 6 \\\\ 5 & 4 & 5 & 3 & 0 & 3 \\\\ 6 & 7 & 4 & 6 & 3 & 0 \\end{pmatrix}.$$\n(a) Find the minimum spanning tree and its weight. (b) Identify the odd-degree vertices and a minimum-weight perfect matching on them; give its weight. (c) Shortcut the Eulerian circuit $1 \\to 2 \\to 1 \\to 3 \\to 6 \\to 5 \\to 4 \\to 1$ of the combined graph and give the length of the resulting tour. Check the result against the $\\frac32$ guarantee, given that the optimal tour has length 18. [2 + 2 + 2 Marks]",
+          "parts": [
+            {
+              "label": "(a) MST weight",
+              "answer": 13,
+              "tolerance": 0.5,
+              "marks": 2
+            },
+            {
+              "label": "(b) matching weight",
+              "answer": 6,
+              "tolerance": 0.5,
+              "marks": 2
+            },
+            {
+              "label": "(c) Christofides tour length",
+              "answer": 18,
+              "tolerance": 0.5,
+              "marks": 2
+            }
+          ],
+          "solution": "(a) Kruskal (shortest edges first, skipping cycles): 1–2 (2), 1–4 (2), 1–3 (3), 4–5 (3), 5–6 (3). That is 5 edges for 6 vertices and no cycle: MST weight $2 + 2 + 3 + 3 + 3 = 13$ (this MST is unique).\n(b) Degrees in the MST: $\\deg(1) = 3$, $\\deg(2) = 1$, $\\deg(3) = 1$, $\\deg(4) = 2$, $\\deg(5) = 2$, $\\deg(6) = 1$. Odd vertices: $O = \\{1, 2, 3, 6\\}$ (four: even, as it must be). Perfect matchings of $O$: $\\{1\\text{–}2, 3\\text{–}6\\}$: $2 + 4 = 6$; $\\{1\\text{–}3, 2\\text{–}6\\}$: $3 + 7 = 10$; $\\{1\\text{–}6, 2\\text{–}3\\}$: $6 + 4 = 10$. Minimum: $M = \\{1\\text{–}2, 3\\text{–}6\\}$, weight $6$. Edge 1–2 is in both the MST and $M$, so it is doubled.\n(c) The combined multigraph has 7 edges, total $13 + 6 = 19$, and all degrees even. The circuit $1 \\to 2 \\to 1 \\to 3 \\to 6 \\to 5 \\to 4 \\to 1$ uses each edge once. Shortcutting deletes the repeated visit to 1: tour $1 \\to 2 \\to 3 \\to 6 \\to 5 \\to 4 \\to 1$ with length $2 + 4 + 4 + 3 + 3 + 2 = 18$ (the shortcut replaces $2 \\to 1 \\to 3$, length 5, by $2 \\to 3$, length 4).\nCheck: $18 \\le 19 = c(T) + c(M) \\le \\frac32 \\cdot 18 = 27$. Here the tour happens to be optimal.",
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). Steps: DisCopt.pdf PDF pp. 24–25 (§2.3.2). The matrix is metric (shortest-path distances of a road network); the MST, matchings, every Euler-circuit shortcut and the optimal tour (18) were checked with a script.",
+          "answerImage": {
+            "src": "data/do/img/scope-bank/christofides-answer.png",
+            "alt": "Left: the MST edges 1–2 (2), 1–3 (3), 1–4 (2), 4–5 (3), 5–6 (3) in black, odd-degree vertices 1, 2, 3, 6 shaded, and the matching edges 1–2 (2) and 3–6 (4) dashed. Right: the shortcut tour 1 → 2 → 3 → 6 → 5 → 4 → 1 with edge lengths 2, 4, 4, 3, 3, 2, total 18."
+          }
+        },
+        {
+          "id": "do-sb-approx-vs-heuristic",
+          "lecture": 10,
+          "concept": "Approximation algorithm vs heuristic",
+          "type": "written",
+          "marks": 3,
+          "question": "Explain the difference between an approximation algorithm and a heuristic for an NP-hard problem such as the TSP. Classify the 2-opt heuristic and the Christofides algorithm. If the optimal tour of a metric STSP instance has length 120, what is the longest tour the Christofides algorithm may return, and can the 2-opt heuristic give such a guarantee? [1 + 1 + 1 Marks]",
+          "modelAnswer": "- Approximation algorithm: runs in polynomial time and has a provable guarantee on the quality of the solution for every instance: for minimisation, $A(I) \\le \\alpha \\cdot OPT(I)$ for all instances $I$ ($\\alpha \\ge 1$).\n- Heuristic: any method without such a formal guarantee; it may give very good solutions in practice (e.g. local search: improve until no improving neighbour exists), but there is no bound on how bad it can be.\n- Christofides is an approximation algorithm ($\\alpha = \\frac32$ for the metric STSP); 2-opt is a (local search) heuristic.\n- With $OPT = 120$: Christofides returns a tour of length at most $\\frac32 \\cdot 120 = 180$. 2-opt only guarantees a 2-optimal tour (no 2-adjacent tour is shorter), which is a local optimum whose length can be far from $OPT$, so it gives no such guarantee.",
+          "rubric": [
+            {
+              "point": "Approximation: polynomial time + provable bound $A(I) \\le \\alpha\\,OPT(I)$ for all instances; heuristic: no guarantee",
+              "marks": 1
+            },
+            {
+              "point": "Christofides = approximation ($\\alpha = 3/2$), 2-opt = heuristic",
+              "marks": 1
+            },
+            {
+              "point": "At most $1.5 \\times 120 = 180$; 2-opt gives only a local optimum, no bound",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). DisCopt.pdf PDF pp. 23–24 (approximation algorithms vs heuristics, eq. 47) and PDF p. 26 (2-opt, 2-optimal tour). The α-approximation definition itself is a repeated past question (Tests 2016, 2017, 2022; Exam 2021)."
+        },
+        {
+          "id": "do-sb-vc-models",
+          "lecture": 11,
+          "concept": "Vertex cover models",
+          "type": "written",
+          "marks": 5,
+          "question": "Define a vertex cover of an undirected graph $G = (V, E)$ and the minimum (weighted) vertex cover problem. Write down the integer linear programming models of the unweighted and of the weighted vertex cover problem (vertex weights $c_i > 0$), and explain the meaning of the constraints. [1 + 2 + 2 Marks]",
+          "modelAnswer": "A vertex cover is a set $S \\subseteq V$ such that every edge $(i, j) \\in E$ has at least one endpoint in $S$ ($i \\in S$ or $j \\in S$ or both): the chosen vertices \"cover\" all edges. The minimum vertex cover problem asks for a cover with the fewest vertices (cardinality vertex cover); the weighted version asks for a cover of minimum total weight $\\sum_{i \\in S} c_i$.\nVariables: $x_i = 1$ if vertex $i$ is in the cover, $0$ otherwise.\nUnweighted:\n$$\\min \\sum_{j=1}^{n} x_j \\quad \\text{s.t. } x_i + x_j \\ge 1 \\ \\ \\forall (i, j) \\in E, \\qquad x_j \\in \\{0, 1\\},\\ j \\in V.$$\nWeighted:\n$$\\min \\sum_{i=1}^{n} c_i x_i \\quad \\text{s.t. } x_i + x_j \\ge 1 \\ \\ \\forall (i, j) \\in E, \\qquad x_i \\in \\{0, 1\\},\\ i \\in V.$$\nConstraints: $x_i + x_j \\ge 1$ for every edge means at least one of its two endpoints is chosen, i.e. the edge is covered. The binary constraints say each vertex is either in the cover or not.",
+          "rubric": [
+            {
+              "point": "Vertex cover: every edge has at least one endpoint in $S$",
+              "marks": 1
+            },
+            {
+              "point": "Unweighted model $\\min \\sum x_j$",
+              "marks": 1
+            },
+            {
+              "point": "Weighted model $\\min \\sum c_i x_i$",
+              "marks": 1
+            },
+            {
+              "point": "$x_i + x_j \\ge 1$ for every edge $(i, j) \\in E$",
+              "marks": 1
+            },
+            {
+              "point": "Constraint explained (edge covered), binary variables",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). DisCopt.pdf PDF pp. 36–37 (§2.9, eqs. 85–90). Test 2016 Q3(c) asks for the weighted model only."
+        },
+        {
+          "id": "do-sb-vc-rounding",
+          "lecture": 11,
+          "concept": "Vertex cover LP rounding",
+          "type": "written",
+          "marks": 5,
+          "question": "Write down the LP relaxation of the weighted vertex cover problem. Let $\\hat x$ be an optimal LP solution and $C = \\{i \\in V : \\hat x_i \\ge \\frac12\\}$. Show that $C$ is a vertex cover, and that its weight is at most twice the minimum weight of a vertex cover, so that this rounding is a 2-approximation algorithm. [1 + 2 + 2 Marks]",
+          "modelAnswer": "LP relaxation: replace $x_i \\in \\{0, 1\\}$ by $x_i \\ge 0$ (or $0 \\le x_i \\le 1$):\n$$\\min \\sum_{i=1}^{n} c_i x_i \\quad \\text{s.t. } x_i + x_j \\ge 1 \\ \\ \\forall (i, j) \\in E, \\quad x_i \\ge 0.$$\nIt can be solved in polynomial time, and its optimal value is a lower bound on the integer optimum: $c^T \\hat x \\le c^T x^*$, since every integer cover is LP-feasible.\n$C$ is a cover: for every edge, $\\hat x_i + \\hat x_j \\ge 1$, so $\\max\\{\\hat x_i, \\hat x_j\\} \\ge \\frac12$ and at least one endpoint is in $C$.\nBound: let $\\bar x$ be the 0/1 vector of $C$. For $i \\in C$, $\\hat x_i \\ge \\frac12$, so $1 \\le 2\\hat x_i$. Hence\n$$c^T \\bar x = \\sum_{i \\in C} c_i \\le \\sum_{i \\in C} 2\\hat x_i c_i \\le 2\\sum_{i=1}^{n} \\hat x_i c_i = 2\\,c^T \\hat x \\le 2\\,c^T x^*,$$\nwhere $x^*$ is an optimal (minimum weight) cover. The rounding runs in polynomial time and always returns a cover of weight at most $2 \\cdot OPT$: a 2-approximation algorithm.",
+          "rubric": [
+            {
+              "point": "LP relaxation: $x_i \\ge 0$ instead of binary; its value ≤ OPT",
+              "marks": 1
+            },
+            {
+              "point": "$\\hat x_i + \\hat x_j \\ge 1 \\Rightarrow \\max \\ge \\frac12$",
+              "marks": 1
+            },
+            {
+              "point": "so every edge has an endpoint in $C$",
+              "marks": 1
+            },
+            {
+              "point": "$\\sum_{i \\in C} c_i \\le 2\\sum \\hat x_i c_i = 2c^T\\hat x$",
+              "marks": 1
+            },
+            {
+              "point": "$\\le 2c^T x^*$: 2-approximation",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). DisCopt.pdf PDF p. 37 (LP relaxation, the rounding set C = {i : x̂ᵢ ≥ ½} and the chain cᵀx̄ ≤ 2cᵀx̂ ≤ 2cᵀx*)."
+        },
+        {
+          "id": "do-sb-vc-apply",
+          "lecture": 11,
+          "concept": "Vertex cover rounding example",
+          "type": "numeric",
+          "marks": 4,
+          "question": "For the weighted graph in the figure (vertex weights $c_i$), the LP relaxation of the weighted vertex cover problem has the optimal solution $\\hat x = (\\frac12, \\frac12, \\frac12, 1, 0)$ with value 4. (a) Apply the rounding $C = \\{i : \\hat x_i \\ge \\frac12\\}$ and give the weight of $C$. (b) Find the minimum weight vertex cover and its weight. Check the 2-approximation bound. [2 + 2 Marks]",
+          "parts": [
+            {
+              "label": "(a) weight of the rounded cover",
+              "answer": 7,
+              "tolerance": 0.5,
+              "marks": 2
+            },
+            {
+              "label": "(b) minimum vertex cover weight",
+              "answer": 5,
+              "tolerance": 0.5,
+              "marks": 2
+            }
+          ],
+          "solution": "(a) $C = \\{1, 2, 3, 4\\}$ ($\\hat x_5 = 0$), weight $2 + 2 + 2 + 1 = 7$. It is a cover: 1–2, 1–3, 2–3, 3–4 and 4–5 all have an endpoint in $C$.\n(b) The triangle 1–2–3 needs at least two of its vertices (one vertex leaves the opposite edge uncovered): at least $2 + 2 = 4$. Edge 4–5 needs 4 or 5; vertex 4 (weight 1) is cheaper and also covers 3–4. So $\\{1, 2, 4\\}$ is a cover of weight $2 + 2 + 1 = 5$, and no cover is cheaper: minimum weight 5.\nCheck: LP value $4 \\le OPT = 5$ (lower bound), and $7 \\le 2 \\cdot 4 = 8 \\le 2 \\cdot OPT = 10$, so the rounded cover is within the factor 2. It is not optimal: rounding only guarantees the bound.",
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). Rounding and bound: DisCopt.pdf PDF p. 37. The LP optimum (unique for these weights), the rounded cover and the minimum cover were checked with scipy and brute force.",
+          "image": {
+            "src": "data/do/img/scope-bank/vc-graph.png",
+            "alt": "Undirected graph: a triangle on vertices 1, 2, 3, then a path 3–4–5. Vertex weights: c1 = 2, c2 = 2, c3 = 2, c4 = 1, c5 = 3."
+          },
+          "answerImage": {
+            "src": "data/do/img/scope-bank/vc-answer.png",
+            "alt": "The same graph with the minimum weight vertex cover {1, 2, 4} shaded, weight 2 + 2 + 1 = 5."
+          }
+        },
+        {
+          "id": "do-sb-vc-set-cover",
+          "lecture": 11,
+          "concept": "Vertex cover as set cover",
+          "type": "written",
+          "marks": 4,
+          "question": "(a) Show that the vertex cover problem is a special case of the set covering problem: say what the items, the subsets and the costs are, and show that the set covering model becomes the vertex cover model. (b) Describe the decision version ($k$-vertex cover) of the problem and how it differs from the optimisation version. [2 + 2 Marks]",
+          "modelAnswer": "(a) Set covering: items $1, \\dots, m$, subsets $S_1, \\dots, S_n$ with costs $c_j$, $a_{ij} = 1$ if item $i \\in S_j$; choose subsets covering every item at minimum cost:\n$$\\min \\sum_j c_j x_j \\text{ s.t. } \\sum_j a_{ij} x_j \\ge 1 \\ \\forall i, \\quad x_j \\in \\{0, 1\\}.$$\nVertex cover as set cover: the items are the edges $e \\in E$; for every vertex $v$ the subset $S_v$ is the set of edges incident to $v$, with cost $c_v$ (1 if unweighted). Then $a_{ev} = 1$ exactly when $v$ is an endpoint of $e$. Each edge $e = (i, j)$ lies in exactly two subsets, $S_i$ and $S_j$, so its covering constraint is $x_i + x_j \\ge 1$: the vertex cover model. Choosing subsets that cover all edges is choosing vertices that touch all edges.\n(b) Optimisation version: find a vertex cover of minimum size (or weight). Decision version ($k$-vertex cover): given $G$ and an integer $k$, is there a vertex cover with at most $k$ vertices? The answer is yes/no. The optimisation version answers it (compare the minimum with $k$), and the decision version can be used to find the minimum by trying $k = 1, 2, \\dots$. Trying all subsets of size $k$ takes $O(n^k)$ time; the notes' greedy rule (put any vertex of degree $\\ge k + 1$ in the cover and delete it) shrinks the graph to a small kernel first.",
+          "rubric": [
+            {
+              "point": "Items = edges, subsets = edges incident to each vertex, costs = vertex weights",
+              "marks": 1
+            },
+            {
+              "point": "Constraint of edge $(i, j)$ becomes $x_i + x_j \\ge 1$",
+              "marks": 1
+            },
+            {
+              "point": "Decision: is there a cover of size $\\le k$? (yes/no)",
+              "marks": 1
+            },
+            {
+              "point": "Optimisation: minimum size; relation between them / $O(n^k)$ or degree rule",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). DisCopt.pdf PDF p. 36 (\"vertex cover is a special case of set cover (can you prove it?)\"), PDF p. 37 (decision and optimisation versions, k-vertex cover, the degree ≥ k + 1 rule); set covering model PDF pp. 31–33 (eqs. 64–68)."
+        },
+        {
+          "id": "do-sb-bnb-trace",
+          "lecture": 4,
+          "concept": "Branch and bound trace",
+          "type": "written",
+          "marks": 6,
+          "question": "Solve the binary integer programme\n$$\\min z = 6x_1 + 5x_2 + 4x_3 + 3x_4 \\quad \\text{s.t. } 4x_1 + 3x_2 + 2x_3 + x_4 \\ge 6, \\quad x_j \\in \\{0, 1\\},$$\nwith LP-based branch and bound: solve the LP relaxation at each node (with a single $\\ge$ constraint, the LP is solved by filling the requirement with the variables in increasing order of $c_j / a_j$), branch on the fractional variable, and state for every node its bound and why it is branched or deleted. Draw the tree and give the optimal solution. [6 Marks]",
+          "modelAnswer": "Ratios $c_j / a_j$: $x_1$: 1.5, $x_2$: 1.67, $x_3$: 2, $x_4$: 3.\nP0 (root): $x_1 = 1$ gives 4, then $x_2 = \\frac{2}{3}$ gives the remaining 2: $\\hat x = (1, \\frac23, 0, 0)$, $z = 6 + \\frac{10}{3} = 9.33$. Lower bound $9.33$; not integer, so branch on $x_2$.\nP1 ($x_2 = 0$): $x_1 = 1$ (4), $x_3 = 1$ (2): $\\hat x = (1, 0, 1, 0)$, $z = 10$. Integer feasible: incumbent $\\bar x = (1, 0, 1, 0)$, upper bound $u = 10$. Node deleted (case: integer solution).\nP2 ($x_2 = 1$): need $6 - 3 = 3$ more: $x_1 = \\frac34$: $\\hat x = (\\frac34, 1, 0, 0)$, $z = 5 + 4.5 = 9.5$. $9.5 < 10$, so it could still contain a better solution: branch on $x_1$.\nP3 ($x_2 = 1, x_1 = 0$): need 3 from $x_3, x_4$: $x_3 = x_4 = 1$, $z = 5 + 4 + 3 = 12$. Integer, but $12 > u = 10$: deleted (bound worse than the incumbent).\nP4 ($x_2 = 1, x_1 = 1$): $4 + 3 = 7 \\ge 6$, $z = 11$. $11 > 10$: deleted.\nNo node is left, so the incumbent is optimal: $x^* = (1, 0, 1, 0)$, $z^* = 10$. The root bound 9.33 shows no solution could beat it by more than 0.67.",
+          "rubric": [
+            {
+              "point": "Root LP: $\\hat x = (1, \\frac23, 0, 0)$, bound 9.33; branch on $x_2$",
+              "marks": 1
+            },
+            {
+              "point": "$x_2 = 0$: integer $(1, 0, 1, 0)$, $z = 10$ becomes the incumbent",
+              "marks": 1
+            },
+            {
+              "point": "$x_2 = 1$: bound 9.5 < 10, branch on $x_1$",
+              "marks": 1
+            },
+            {
+              "point": "$x_1 = 0$: $z = 12 > 10$ deleted; $x_1 = 1$: $z = 11 > 10$ deleted",
+              "marks": 1
+            },
+            {
+              "point": "Reasons for deleting stated (integer solution / bound ≥ incumbent)",
+              "marks": 1
+            },
+            {
+              "point": "Optimum $x^* = (1, 0, 1, 0)$, $z^* = 10$, with the tree",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). DisCopt.pdf PDF pp. 45–49 (§3.2: relaxation bounds, branching on the most fractional variable, deleting a node when it is infeasible, integer feasible, or its bound is worse than the incumbent). Every node LP was checked with scipy and the optimum by brute force.",
+          "answerImage": {
+            "src": "data/do/img/scope-bank/bnb-tree.png",
+            "alt": "Branch and bound tree: root P0 (LP 9.33, x = (1, 2/3, 0, 0)); left child P1 with x2 = 0 (LP 10, integer, incumbent 10, highlighted); right child P2 with x2 = 1 (LP 9.5, x = (3/4, 1, 0, 0)); P2 branches into P3 (x1 = 0, LP 12, deleted) and P4 (x1 = 1, LP 11, deleted)."
+          }
+        },
+        {
+          "id": "do-sb-bnb-fathom",
+          "lecture": 4,
+          "concept": "Deleting B&B nodes",
+          "type": "written",
+          "marks": 4,
+          "question": "During branch and bound for a minimisation problem the incumbent (best integer solution so far) has value $u = 42$. The following open nodes are processed in this order, with the results of their LP relaxations:\nN1: the LP is infeasible.\nN2: LP value 39.5, solution not integer.\nN3: LP value 44, solution not integer.\nN4: LP value 41, solution integer.\nN5: LP value 42, solution not integer.\nFor each node, decide whether it is deleted or branched and why, and give the incumbent after all five nodes. [4 Marks]",
+          "modelAnswer": "- N1: deleted, because its subproblem is infeasible (no solution in this branch).\n- N2: $39.5 < 42$: its lower bound is better than the incumbent and the solution is fractional, so a better integer solution may exist below it: branch.\n- N3: $44 > 42$: every solution in this branch costs at least 44, worse than the incumbent: deleted (bounding).\n- N4: integer solution with $41 < 42$: it is the best solution of its branch and better than the incumbent, so the incumbent becomes $u = 41$ and the node is deleted (nothing better can be found below it).\n- N5: $42 > 41$ (the new incumbent): its bound cannot beat the incumbent: deleted. (Even against the old $u = 42$, a bound equal to the incumbent cannot give a strictly better solution.)\nAfter the five nodes: incumbent $u = 41$ (from N4); only N2's children remain to be explored (N2 is still worth exploring because $39.5 < 41$).",
+          "rubric": [
+            {
+              "point": "N1 deleted: infeasible",
+              "marks": 1
+            },
+            {
+              "point": "N2 branched: bound 39.5 below the incumbent, fractional",
+              "marks": 1
+            },
+            {
+              "point": "N3 and N5 deleted: bound not better than the incumbent",
+              "marks": 1
+            },
+            {
+              "point": "N4 integer, better: new incumbent 41, deleted",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). DisCopt.pdf PDF pp. 45–46 (cases (a) and (b) of bounding, and deletion of infeasible subproblems) and PDF p. 48 (LP-based B&B: infeasible, integer feasible, or a lower bound). Same idea as the repeated past question on the cases in which a node is deleted."
+        },
+        {
+          "id": "do-sb-2opt-run",
+          "lecture": 9,
+          "concept": "2-opt run",
+          "type": "numeric",
+          "marks": 5,
+          "question": "Solve the 6-city symmetric TSP with distance matrix\n$$C = \\begin{pmatrix} 0 & 2 & 9 & 10 & 7 & 3 \\\\ 2 & 0 & 6 & 4 & 3 & 8 \\\\ 9 & 6 & 0 & 8 & 5 & 6 \\\\ 10 & 4 & 8 & 0 & 6 & 9 \\\\ 7 & 3 & 5 & 6 & 0 & 4 \\\\ 3 & 8 & 6 & 9 & 4 & 0 \\end{pmatrix}$$\nwith the 2-opt heuristic, starting from the tour $T = (1, 3, 2, 5, 4, 6)$ (city 1 is the home city and stays first). Follow the detailed steps in the notes: for $i = 1, \\dots, n - 3$ and $j = i + 2, \\dots, n - 1$, break the links $(c_i, c_{i+1})$ and $(c_j, c_{j+1})$ and reconnect with $(c_i, c_j)$ and $(c_{i+1}, c_{j+1})$; as soon as a move improves the tour, accept it and start again from $i = 1$. Give the length of the starting tour, the number of improving moves made, and the length of the final 2-optimal tour. [1 + 1 + 3 Marks]",
+          "parts": [
+            {
+              "label": "Length of the starting tour",
+              "answer": 36,
+              "tolerance": 0.5,
+              "marks": 1
+            },
+            {
+              "label": "Number of improving moves",
+              "answer": 3,
+              "tolerance": 0.1,
+              "marks": 1
+            },
+            {
+              "label": "Length of the final tour",
+              "answer": 26,
+              "tolerance": 0.5,
+              "marks": 3
+            }
+          ],
+          "solution": "Tour length of $(1, 3, 2, 5, 4, 6)$: $9 + 6 + 3 + 6 + 9 + 3 = 36$.\nA move changes the length by $\\Delta = c(c_i, c_j) + c(c_{i+1}, c_{j+1}) - c(c_i, c_{i+1}) - c(c_j, c_{j+1})$; it improves when $\\Delta < 0$.\nMove 1, $i = 1, j = 3$: remove $(1,3) + (2,5) = 9 + 3 = 12$, add $(1,2) + (3,5) = 2 + 5 = 7$, $\\Delta = -5$: new tour $(1, 2, 3, 5, 4, 6)$, length 31.\nRestart: $i = 1$: $j = 3$: $\\Delta = +5$; $j = 4$: remove $(1,2) + (5,4) = 8$, add $(1,5) + (2,4) = 11$, $\\Delta = +3$; $j = 5$: remove $(1,2) + (4,6) = 11$, add $(1,4) + (2,6) = 18$, $\\Delta = +7$.\nMove 2, $i = 2, j = 4$: remove $(2,3) + (5,4) = 6 + 6 = 12$, add $(2,5) + (3,4) = 3 + 8 = 11$, $\\Delta = -1$: tour $(1, 2, 5, 3, 4, 6)$, length 30.\nRestart: $i = 1$, $j = 3, 4, 5$: $\\Delta = +6, +3, +7$; $i = 2, j = 4$: $\\Delta = +1$.\nMove 3, $i = 2, j = 5$: remove $(2,5) + (4,6) = 3 + 9 = 12$, add $(2,4) + (5,6) = 4 + 4 = 8$, $\\Delta = -4$: tour $(1, 2, 4, 3, 5, 6)$, length 26.\nRestart: $i = 1$, $j = 3, 4, 5$: $\\Delta = +6, +5, +9$; $i = 2$, $j = 4, 5$: $\\Delta = +3, +4$; $i = 3, j = 5$: $\\Delta = 0$ (not an improvement). No neighbour is shorter, so the tour is 2-optimal.\nFinal tour $(1, 2, 4, 3, 5, 6)$ with length $2 + 4 + 8 + 5 + 4 + 3 = 26$ after 3 improving moves (here it is also the global optimum).",
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). DisCopt.pdf PDF pp. 26–27 (§2.3.3: 2-adjacent tours, the 2-opt move and the detailed steps). Same kind of task as Assignment I (2026) Q2. The whole run and the optimum were checked with a script."
+        },
+        {
+          "id": "do-sb-2opt-delta",
+          "lecture": 9,
+          "concept": "2-opt move gain",
+          "type": "numeric",
+          "marks": 3,
+          "question": "Consider the 7-city symmetric TSP tour $x = (1, 4, 2, 7, 3, 6, 5)$ (city 1 first). The relevant distances are $c_{42} = 7$, $c_{36} = 5$, $c_{43} = 4$ and $c_{26} = 6$. (a) For the 2-opt move with $i = 2$ and $j = 5$, which two edges are removed and which are added, what is the new tour, and what is the change $\\Delta$ in tour length? (b) Following the notes ($i = 1, \\dots, n - 3$, $j = i + 2, \\dots, n - 1$), how many 2-opt neighbours does a tour of $n = 8$ cities have? [2 + 1 Marks]",
+          "parts": [
+            {
+              "label": "(a) change in length $\\Delta$",
+              "answer": -2,
+              "tolerance": 0.1,
+              "marks": 2
+            },
+            {
+              "label": "(b) number of 2-opt neighbours for $n = 8$",
+              "answer": 15,
+              "tolerance": 0.1,
+              "marks": 1
+            }
+          ],
+          "solution": "(a) Positions: $c_2 = 4$, $c_3 = 2$, $c_5 = 3$, $c_6 = 6$. Remove $(c_2, c_3) = (4, 2)$ and $(c_5, c_6) = (3, 6)$; add $(c_2, c_5) = (4, 3)$ and $(c_3, c_6) = (2, 6)$. The cities in positions 3 to 5 are reversed:\n$$x' = (1, 4, 3, 7, 2, 6, 5).$$\n$$\\Delta = (c_{43} + c_{26}) - (c_{42} + c_{36}) = (4 + 6) - (7 + 5) = -2,$$\nso $x'$ is 2 shorter: an improving move (only these four edges need to be compared, not the whole tour).\n(b) For $i = 1$: $j = 3, \\dots, 7$ (5 moves); $i = 2$: 4; $i = 3$: 3; $i = 4$: 2; $i = 5$: 1. Total $5 + 4 + 3 + 2 + 1 = 15 = \\frac{(n-2)(n-3)}{2}$. (For $n = 7$ this gives the 10 neighbours listed in the notes.)",
+          "explanation": "Practice question written to cover the 2026 exam scope (not the lecturer's). DisCopt.pdf PDF p. 26 (2-opt move and the four-edge comparison) and PDF pp. 26–27 (all 10 neighbours of a 7-city tour, detailed steps). Checked with a short script."
         }
       ]
     }
