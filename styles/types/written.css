@@ -7,7 +7,8 @@
 
 .written-compare {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* minmax(0, …): a wide display formula in the model answer scrolls in its own box instead of widening the page */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 12px 16px;
 }
 
@@ -95,7 +96,7 @@
 /* Responsive */
 @media (max-width: 700px) {
   .written-compare {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .rubric-point {
