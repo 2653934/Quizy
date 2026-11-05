@@ -60,7 +60,8 @@ window.QUIZY_DATA = {
       },
       "sets": [
         "do-2024-exam",
-        "do-pt-2022"
+        "do-pt-2022",
+        "do-pt-2021"
       ]
     }
   ],
@@ -31273,6 +31274,228 @@ window.QUIZY_DATA = {
           "answerImage": {
             "src": "data/do/img/pt-2022/do-pt22-2d-ii-answer.png",
             "alt": "Two separate cycles on the 7 cities: 1–3–2–1 and 6–7–4–5–6."
+          }
+        }
+      ]
+    },
+    "do-pt-2021": {
+      "id": "do-pt-2021",
+      "title": "Test 1 2021",
+      "kind": "past-paper",
+      "description": "COMS4050 Test I, 2021 (20 marks), transcribed word for word, one sub-part per question. Write or think your answer, reveal the model answer, then tick the marking points you covered. Question 2 follows the handwritten past-paper solutions; Question 1 is answered from the course notes. All answers are unofficial.",
+      "sourceFile": "03 Past Papers/DOPT2021.pdf",
+      "unofficialAnswers": true,
+      "totalMarks": 20,
+      "transcriptionNotes": "Question text copied from the PDF. The PDF shows \"i,j 6= s and i,j 6= t\", a broken not-equal sign; it is written here as LaTeX $\\ne$. Missing spaces in the PDF are kept as printed: \"Ford-Fulkersonalgorithm\", \"theshortest\", \"problemensures\", \"graphtheory\", \"Howdoes\"; also \"a nodes\". The stem of 1(b) is repeated in (i) and (ii). The paper prints no total; 20 is the sum of the two questions. Model answers and rubrics were written by an AI assistant from the handwritten solutions (Past Paper Solutions 2024 Exam.pdf pp. 9–10, Question 2) and the course notes; rubric marks follow the printed mark split.",
+      "subject": "do",
+      "questions": [
+        {
+          "id": "do-pt21-1a",
+          "source": {
+            "number": "1(a)"
+          },
+          "lecture": 1,
+          "concept": "Node balance (flow conservation)",
+          "type": "written",
+          "marks": 2,
+          "question": "Consider the max-flow problem of a directed network with a source node $s$ and the sink node $t$. Let $x_{ij}$ (respectively, $x_{ji}$) denote the amount of positive flow from node $i$ to node $j$ (respectively, from node $j$ to node $i$). Write the node balanced equations of a nodes $i$ and $j$ where $i,j \\ne s$ and $i,j \\ne t$. [2 Marks ]",
+          "modelAnswer": "For an intermediate node (not $s$, not $t$) the flow in equals the flow out.\nNode $i$: $$\\sum_{k} x_{ik} - \\sum_{k} x_{ki} = 0, \\qquad i \\ne s, t$$\nNode $j$: $$\\sum_{k} x_{jk} - \\sum_{k} x_{kj} = 0, \\qquad j \\ne s, t$$\n($x_{ik}$: flow leaving $i$ along $(i,k)$; $x_{ki}$: flow entering $i$. The arc between them appears as $x_{ij}$ in both equations, as outflow of $i$ and inflow of $j$, and $x_{ji}$ the other way.) Equivalently, with net flow $f(i,k) = x_{ik} - x_{ki}$: $\\sum_k f(i,k) = 0$.",
+          "rubric": [
+            {
+              "point": "Node $i$: outflow minus inflow equals 0",
+              "marks": 1
+            },
+            {
+              "point": "Node $j$: the same balance written for $j$",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: NetworkFlowP.pdf p. 2 (eq. 2) and p. 3 (net-flow form); DisCopt.pdf PDF p. 8 (eq. 8)."
+        },
+        {
+          "id": "do-pt21-1b-i",
+          "source": {
+            "number": "1(b)(i)"
+          },
+          "lecture": 1,
+          "concept": "Augmenting path",
+          "type": "written",
+          "marks": 2,
+          "question": "(b) Answer the following questions\n(i) An Augmenting Path in the Ford Fulkerson algorithm. [2 Marks ]",
+          "modelAnswer": "An augmenting path $P$ is a simple directed path from the source $s$ to the sink $t$ in the residual network $G_x$, i.e. every arc on it still has positive residual capacity $r_{ij} > 0$. Its capacity is the bottleneck\n$$\\delta(P) = \\min_{(i,j) \\in P} r_{ij},$$\nand the flow from $s$ to $t$ can be increased by $\\delta(P)$ by sending that much along every arc of $P$ (then $r_{ij} \\leftarrow r_{ij} - \\delta(P)$, $r_{ji} \\leftarrow r_{ji} + \\delta(P)$). Ford–Fulkerson stops when no augmenting path exists; the flow is then maximum.",
+          "rubric": [
+            {
+              "point": "A directed path from $s$ to $t$ in the residual network (every arc has positive residual capacity)",
+              "marks": 1
+            },
+            {
+              "point": "Its capacity is the bottleneck $\\delta(P) = \\min r_{ij}$, by which the flow is increased",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 15–17 (residual network, augmenting path, $\\delta(P)$, the algorithm); NetworkFlowP.pdf pp. 7–8 (sections 4.1–4.2); FordFulkerson.pdf pp. 1–3 (worked example)."
+        },
+        {
+          "id": "do-pt21-1b-ii",
+          "source": {
+            "number": "1(b)(ii)"
+          },
+          "lecture": 1,
+          "concept": "Residual network",
+          "type": "written",
+          "marks": 2,
+          "question": "(b) Answer the following questions\n(ii) Explain what do you mean by the residual network in the Ford-Fulkersonalgorithm. [2 Marks ]",
+          "modelAnswer": "Given a feasible flow $x$ with capacities $u_{ij}$, the residual network $G_x = (V, E_x)$ has the same nodes, and each arc $(i,j)$ of the network is replaced by two arcs:\n• forward arc $(i,j)$ with residual capacity $r_{ij} = u_{ij} - x_{ij}$ (how much more flow can still be sent from $i$ to $j$);\n• backward arc $(j,i)$ with residual capacity $r_{ji} = x_{ij}$ (how much of the existing flow can be cancelled by sending it back).\n$E_x$ keeps only the arcs with $r_{ij} > 0$. So the residual network shows where extra flow can still be pushed (or undone), and augmenting paths are searched for in it.",
+          "rubric": [
+            {
+              "point": "Forward residual capacity $r_{ij} = u_{ij} - x_{ij}$: remaining capacity",
+              "marks": 1
+            },
+            {
+              "point": "Backward arc with $r_{ji} = x_{ij}$ (flow can be cancelled); only arcs with positive residual capacity are kept",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 15–17 (residual network, augmenting path, $\\delta(P)$, the algorithm); NetworkFlowP.pdf pp. 7–8 (sections 4.1–4.2); FordFulkerson.pdf pp. 1–3 (worked example)."
+        },
+        {
+          "id": "do-pt21-1c",
+          "source": {
+            "number": "1(c)"
+          },
+          "lecture": 1,
+          "concept": "Min-cost flow and shortest path",
+          "type": "written",
+          "marks": 2,
+          "question": "Establish the connection between the minimum cost network flow problem and theshortest path problem. [2 Marks ]",
+          "modelAnswer": "The shortest path problem is a special case of the minimum cost network flow problem.\nMin-cost flow: $\\min \\sum_{(i,j)} c_{ij} x_{ij}$ s.t. $\\sum_j x_{ij} - \\sum_j x_{ji} = b_i$ for every node $i$, $0 \\le x_{ij} \\le u_{ij}$.\nTake the arc costs $c_{ij}$ to be the distances, give the source a supply of one unit ($b_s = 1$), the sink a demand of one unit ($b_t = -1$), every other node $b_i = 0$ (what comes in goes out), and capacities $u_{ij} = 1$. Then the cheapest way to send one unit of flow from $s$ to $t$ is along the shortest $s$–$t$ path: $x_{ij} = 1$ exactly on the arcs of that path, and the minimum cost equals the shortest path length. (The LP is integral, so the flows come out 0 or 1 without forcing them.)",
+          "rubric": [
+            {
+              "point": "Costs = distances; supply 1 at $s$, demand 1 at $t$ ($b_t = -1$), $b_i = 0$ elsewhere (capacities 1)",
+              "marks": 1
+            },
+            {
+              "point": "The min-cost flow then sends one unit along the shortest $s$–$t$ path; its cost is the shortest distance",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF p. 7 (shortest path as sending one unit from source to sink), PDF p. 9 (min-cost flow model, eqs. 11–13) and PDF p. 10 (Remark 1.3: flow value 1 and capacities 1 make min-cost flow equivalent to the shortest path)."
+        },
+        {
+          "id": "do-pt21-1d",
+          "source": {
+            "number": "1(d)"
+          },
+          "lecture": 1,
+          "concept": "s–t cut",
+          "type": "written",
+          "marks": 2,
+          "question": "Construct a directed graph with $s$ and $t$ as the source and terminal node, respectively, and define an $(s - t)$ cut-$(A,B)$. [2 Marks ]",
+          "modelAnswer": "Example network (capacities on the arcs): $s \\to a$ (4), $s \\to b$ (3), $a \\to b$ (2), $b \\to a$ (1), $a \\to t$ (3), $b \\to t$ (5).\nAn $s$–$t$ cut $(A, B)$ is a partition of the node set $V$ into two disjoint sets $A$ and $B$ ($A \\cup B = V$, $A \\cap B = \\emptyset$) with $s \\in A$ and $t \\in B$. The arcs from $A$ to $B$ form the cut set: removing them leaves no directed path from $s$ to $t$. Example: $A = \\{s, a\\}$, $B = \\{b, t\\}$, cut set $\\{(s,b), (a,b), (a,t)\\}$.\n(Its capacity is the sum over arcs from $A$ to $B$ only: $3 + 2 + 3 = 8$; the arc $b \\to a$ is not counted.)",
+          "rubric": [
+            {
+              "point": "A directed network with $s$ and $t$ drawn/listed",
+              "marks": 1
+            },
+            {
+              "point": "Cut defined as a partition $(A, B)$ of the nodes, disjoint, $s \\in A$, $t \\in B$ (arcs from $A$ to $B$ disconnect $t$ from $s$)",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: NetworkFlowP.pdf p. 5 (Definitions 1–4); DisCopt.pdf PDF p. 17 (Definitions 1.5–1.6). The example network is made up here.",
+          "answerImage": {
+            "src": "data/do/img/pt-2021/do-pt21-1d-answer.png",
+            "alt": "Directed network: s→a (4), s→b (3), a→b (2), b→a (1), a→t (3), b→t (5). A dashed line separates A = {s, a} from B = {b, t}."
+          }
+        },
+        {
+          "id": "do-pt21-2a",
+          "source": {
+            "number": "2(a)"
+          },
+          "lecture": 9,
+          "concept": "MST model: tree constraint",
+          "type": "written",
+          "marks": 2,
+          "question": "Which constraint in the mathematical model of the minimum spanning tree problemensures that the graph is a tree graph. [2 Marks ]",
+          "modelAnswer": "MST model ($x_e = 1$ if edge $e$ is in the tree):\n$$\\min \\sum_{e \\in E} c_e x_e \\quad \\text{s.t.} \\quad \\sum_{e \\in \\delta(S)} x_e \\ge 1 \\ \\ \\forall S \\subset V, S \\ne \\emptyset; \\qquad \\sum_{e \\in E} x_e = n - 1; \\qquad x_e \\in \\{0, 1\\}.$$\nThe tree constraint is $$\\sum_{e \\in E} x_e = n - 1,$$ the \"tree property\": a tree on $n$ vertices has exactly $n - 1$ edges. Together with the cut (connectivity) constraints, which force the chosen edges to connect every set $S$ to the rest of the graph, a connected subgraph with $n - 1$ edges cannot contain a cycle, so it is a spanning tree.",
+          "rubric": [
+            {
+              "point": "Names $\\sum_{e \\in E} x_e = n - 1$ as the tree constraint",
+              "marks": 1
+            },
+            {
+              "point": "Explains: a connected graph (from $\\sum_{e \\in \\delta(S)} x_e \\ge 1$) with $n-1$ edges has no cycle, so it is a tree",
+              "marks": 1
+            }
+          ],
+          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 9 (2021 Test), which marks $\\sum x_e = n - 1$ as the \"tree property\". Course notes: MST model, DisCopt.pdf PDF p. 14 (eqs. 21–25: \"(23) ensures that the spanning tree is connected, while the number of edges requirement is fulfilled by (24)\").",
+          "keyDispute": "The notes say (23) gives connectivity and (24), $\\sum x_e = n-1$, the edge count; neither alone makes a tree. If the marker wants one constraint, give $\\sum x_e = n - 1$ and say it works together with the connectivity constraints."
+        },
+        {
+          "id": "do-pt21-2b",
+          "source": {
+            "number": "2(b)"
+          },
+          "lecture": 9,
+          "concept": "Hamiltonian vs Eulerian cycle",
+          "type": "written",
+          "marks": 3,
+          "question": "Describe the difference between the Hamiltonian and the Eulerian cycle in graphtheory. Use an example graph for each concept. [3 Marks ]",
+          "modelAnswer": "Hamiltonian cycle: a cycle that visits every vertex exactly once and returns to the start (it need not use every edge).\nEulerian cycle: a closed walk that uses every edge exactly once and returns to the start (vertices may be visited several times). An undirected connected graph has one if and only if every vertex has even degree.\nSo the difference is vertices versus edges: Hamiltonian = each vertex once, Eulerian = each edge once. (The TSP looks for a minimum-cost Hamiltonian cycle.)\nExample 1 (Hamiltonian, not Eulerian): square 1–2–5–4–1 with a centre vertex 3 joined to 1, 2, 4, 5. The cycle 1–2–3–5–4–1 visits every vertex once. It is not Eulerian: vertices 1, 2, 4, 5 have odd degree 3.\nExample 2 (Eulerian, not Hamiltonian): a \"bow-tie\", two triangles 1–3–4 and 2–3–5 sharing vertex 3. The closed walk 1–3–2–5–3–4–1 uses all 6 edges once (degrees 2, 2, 4, 2, 2 are all even). It is not Hamiltonian: any cycle through all vertices must pass through 3 twice.",
+          "rubric": [
+            {
+              "point": "Hamiltonian cycle: visits every vertex exactly once and returns to the start",
+              "marks": 1
+            },
+            {
+              "point": "Eulerian cycle: uses every edge exactly once and returns to the start",
+              "marks": 1
+            },
+            {
+              "point": "A correct example graph for each, with the cycle shown",
+              "marks": 1
+            }
+          ],
+          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 9 (2021 Test: same definitions, the cycle 1 2 3 5 4 1 and the circuit 1 3 2 5 3 4 1 on similar graphs). Course notes: Euler and Hamilton paths and circuits, DisCopt.pdf PDF pp. 4–5 (with the even-degree condition and Figures 7–8).",
+          "answerImage": {
+            "src": "data/do/img/pt-2021/do-pt21-2b-answer.png",
+            "alt": "Two example graphs. Left (Hamiltonian): square 1–2–5–4 with centre 3 joined to all four corners; the Hamiltonian cycle 1–2–3–5–4–1 is highlighted. Right (Eulerian): bow-tie of triangles 1–3–4 and 2–3–5 sharing vertex 3; the Eulerian circuit 1–3–2–5–3–4–1 uses all six edges."
+          }
+        },
+        {
+          "id": "do-pt21-2c",
+          "source": {
+            "number": "2(c)"
+          },
+          "lecture": 9,
+          "concept": "ATSP vs STSP subtour elimination",
+          "type": "written",
+          "marks": 5,
+          "question": "Give an example of a sub-tour that can occur for the 7-city asymmetric TSP? Howdoes the sub-tour elimination constraint of ATSP differ from the same constraint of the symmetric travelling salesman problem (STSP)? Why? [2 + 1 + 2 Marks ]",
+          "modelAnswer": "Example sub-tour for 7 cities (directed): $1 \\to 2 \\to 1$ and $3 \\to 4 \\to 5 \\to 6 \\to 7 \\to 3$. Every city has exactly one arc in and one arc out, so the assignment constraints $\\sum_i x_{ij} = 1$ and $\\sum_j x_{ij} = 1$ hold, but the route is two separate cycles, not one tour. It violates the subtour constraint for $S = \\{1, 2\\}$: $x_{12} + x_{21} = 2 > |S| - 1 = 1$.\nATSP subtour elimination constraints ($x_{ij} = 1$ if the salesman goes directly from city $i$ to city $j$):\n$$\\sum_{i \\in S} \\sum_{j \\in S,\\ j \\ne i} x_{ij} \\le |S| - 1, \\qquad \\forall S \\subset V,\\ 2 \\le |S| \\le n - 2.$$\nFor any proper subset $S$ of cities, the arcs used inside $S$ must be fewer than $|S|$, so they cannot close a cycle on $S$ alone.\nSTSP subtour elimination constraints ($x_e = 1$ if undirected edge $e$ is in the tour, $E(S)$ = edges with both ends in $S$):\n$$\\sum_{e \\in E(S)} x_e \\le |S| - 1, \\qquad \\forall S \\subset V,\\ 3 \\le |S| \\le n - 3.$$\nWhy the ranges differ: in the ATSP the arcs $(i,j)$ and $(j,i)$ are different, so two cities can form a sub-tour $i \\to j \\to i$; sets with $|S| = 2$ must be included. In the STSP $\\{i, j\\}$ is a single edge that can be used at most once, so a sub-tour needs at least 3 cities and $|S| = 2$ is not needed. The upper limit comes from the complement: if $S$ holds a sub-tour then so does $V \\setminus S$, which needs at least 2 cities (ATSP, so $|S| \\le n - 2$) or at least 3 cities (STSP, so $|S| \\le n - 3$). The ATSP version also sums over ordered pairs $i \\ne j$ instead of undirected edges.",
+          "rubric": [
+            {
+              "point": "A valid directed sub-tour example on 7 cities (separate cycles, each city one arc in and one out)",
+              "marks": 2
+            },
+            {
+              "point": "Difference stated: ATSP sums $x_{ij}$ over ordered pairs in $S$ with $2 \\le |S| \\le n-2$; STSP sums $x_e$ over $E(S)$ with $3 \\le |S| \\le n-3$",
+              "marks": 1
+            },
+            {
+              "point": "Why: directed arcs allow a 2-city sub-tour $i \\to j \\to i$",
+              "marks": 1
+            },
+            {
+              "point": "Why: an undirected edge is used at most once, so STSP sub-tours need ≥ 3 cities (and the complement bounds the upper limit)",
+              "marks": 1
+            }
+          ],
+          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 10 (2021 Test: sub-tours 1→2→1 and 3→4→7→6→5→3; ATSP $2 \\le |S| \\le n-2$ vs STSP $3 \\le |S| \\le n-3$; \"you need 3 vertices to create a sub-tour in STSP… only 2 nodes are needed to create a loop in a directed graph\"). Course notes: ATSP model with subtour constraints, DisCopt.pdf PDF pp. 21–22 (eqs. 33–38: \"the solution without (37) is not a tour but a collection of directed cycles called subtours\"); STSP model, PDF pp. 22–23 (eqs. 39–42).",
+          "answerImage": {
+            "src": "data/do/img/pt-2021/do-pt21-2c-answer.png",
+            "alt": "Directed sub-tours on 7 cities: a 2-cycle 1 → 2 → 1 and a 5-cycle 3 → 4 → 5 → 6 → 7 → 3."
           }
         }
       ]
