@@ -61,7 +61,8 @@ window.QUIZY_DATA = {
       "sets": [
         "do-2024-exam",
         "do-pt-2022",
-        "do-pt-2021"
+        "do-pt-2021",
+        "do-exam-2021"
       ]
     }
   ],
@@ -31497,6 +31498,306 @@ window.QUIZY_DATA = {
             "src": "data/do/img/pt-2021/do-pt21-2c-answer.png",
             "alt": "Directed sub-tours on 7 cities: a 2-cycle 1 → 2 → 1 and a 5-cycle 3 → 4 → 5 → 6 → 7 → 3."
           }
+        }
+      ]
+    },
+    "do-exam-2021": {
+      "id": "do-exam-2021",
+      "title": "Exam 2021",
+      "kind": "past-paper",
+      "description": "COMS4050 exam, 22 November 2021 (50 marks), transcribed word for word, one sub-part per question. Write or think your answer, reveal the model answer, then tick the marking points you covered. 1(b), 1(d), 2(c) and 3(b) follow the handwritten past-paper solutions; the rest is answered from the course notes. All answers are unofficial.",
+      "sourceFile": "03 Past Papers/DOEXAM2021.pdf",
+      "unofficialAnswers": true,
+      "totalMarks": 50,
+      "transcriptionNotes": "Question text copied from the PDF; words split by hyphenation at line ends are joined (\"performed\", \"Metropolis\", \"company\"). Kept as printed: \"always hold\", \"profit hailed from\", \"you may use calculator\", \"two parents solutions\". Maths written as LaTeX (\"$n_1$=3\" and \"$x$=(253416)\" keep the printed spacing). Model answers and rubrics were written by an AI assistant from the handwritten solutions (Past Paper Solutions 2024 Exam.pdf pp. 6–7) and the course notes; rubric marks follow the printed mark split.",
+      "subject": "do",
+      "questions": [
+        {
+          "id": "do-ex21-1a",
+          "source": {
+            "number": "1(a)"
+          },
+          "lecture": 1,
+          "concept": "Net flow: skew-symmetry and conservation",
+          "type": "written",
+          "marks": 6,
+          "question": "Consider a flow network $G(V, E)$ with source $s$ and sink $t$. If the net flow from node $i$ to node $j$, i.e., along the edge $e = (i, j)$, is given by $f(i, j) = p(i, j) - p(j, i)$ where $p(i, j)$ is the positive flow along $(i, j)$ and $p(j, i)$ is the positive flow along $(j, i)$, then prove that $f(i, j) = -f(j, i)$. Why do you think $\\sum_j f(i, j) = 0$ always hold for any node $i$ $(i \\ne s, i \\ne t)$? [2 + 4 Marks ]",
+          "modelAnswer": "Skew-symmetry: by the definition with $i$ and $j$ swapped, $f(j,i) = p(j,i) - p(i,j)$. So\n$$f(j,i) = p(j,i) - p(i,j) = -\\big(p(i,j) - p(j,i)\\big) = -f(i,j),$$\ni.e. $f(i,j) = -f(j,i)$. (Sending 1 unit from $i$ to $j$ is the same as sending $-1$ unit from $j$ to $i$.)\nWhy $\\sum_j f(i,j) = 0$ for $i \\ne s, t$: an intermediate node neither creates nor absorbs flow (only the source and the sink do), so by flow conservation the total positive flow into $i$ equals the total positive flow out of $i$:\n$$\\sum_j p(i,j) = \\sum_j p(j,i).$$\nThen\n$$\\sum_j f(i,j) = \\sum_j \\big(p(i,j) - p(j,i)\\big) = \\underbrace{\\sum_j p(i,j)}_{\\text{out of } i} - \\underbrace{\\sum_j p(j,i)}_{\\text{into } i} = 0.$$\nEquivalently, using skew-symmetry, the net flow out of $i$ is the negative of the net flow into $i$, and the two cancel. This is the node balance (mass balance) constraint of the max-flow model. It fails only at $s$ (net outflow = flow value) and $t$ (net inflow = flow value).",
+          "rubric": [
+            {
+              "point": "Writes $f(j,i) = p(j,i) - p(i,j)$ from the definition",
+              "marks": 1
+            },
+            {
+              "point": "Concludes $f(j,i) = -(p(i,j) - p(j,i)) = -f(i,j)$",
+              "marks": 1
+            },
+            {
+              "point": "States flow conservation: intermediate nodes neither generate nor store flow",
+              "marks": 1
+            },
+            {
+              "point": "Inflow equals outflow: $\\sum_j p(i,j) = \\sum_j p(j,i)$",
+              "marks": 1
+            },
+            {
+              "point": "Expands $\\sum_j f(i,j) = \\sum_j p(i,j) - \\sum_j p(j,i)$",
+              "marks": 1
+            },
+            {
+              "point": "Concludes the sum is 0, and only $s$ and $t$ are exceptions",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: NetworkFlowP.pdf p. 3 (net flow, skew-symmetry, and the derivation of $\\sum_l f(i,l) = 0$ for $i \\notin \\{s, t\\}$) and p. 4 (eq. 4)."
+        },
+        {
+          "id": "do-ex21-1b",
+          "source": {
+            "number": "1(b)"
+          },
+          "lecture": 9,
+          "concept": "Minimum spanning tree features",
+          "type": "written",
+          "marks": 4,
+          "question": "State two important features of the minimum spanning tree graph. [4 Marks ]",
+          "modelAnswer": "A spanning tree (and so the minimum spanning tree) of a connected undirected graph with $n$ vertices has these features:\n1. It spans (connects) all the vertices: every vertex is joined to every other vertex by a path of tree edges.\n2. It contains no cycles (loops), so it is a tree; together with 1 this means it has exactly $n - 1$ edges.\nThe minimum spanning tree is, in addition, the spanning tree with the smallest total edge cost $\\sum_{e \\in T} c_e$.",
+          "rubric": [
+            {
+              "point": "Feature 1: spans/connects all vertices (a path between every pair)",
+              "marks": 2
+            },
+            {
+              "point": "Feature 2: no cycles (a tree, $n-1$ edges), with minimum total weight for the MST",
+              "marks": 2
+            }
+          ],
+          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 6 (\"subgraph has to be a tree (contains no loops) and it has to connect all the vertices of the graph with the minimum possible total edge weight\"). Course notes: DisCopt.pdf PDF p. 12 (the two features of a spanning tree) and PDF pp. 13–14 (MST definition and model)."
+        },
+        {
+          "id": "do-ex21-1c",
+          "source": {
+            "number": "1(c)"
+          },
+          "lecture": 5,
+          "concept": "Linear vs quadratic assignment",
+          "type": "written",
+          "marks": 3,
+          "question": "Describe the difference between the linear and the quadratic assignment problem (do not write mathematical formula or expressions). [3 Marks ]",
+          "modelAnswer": "Both assign $n$ objects (workers/facilities) one-to-one to $n$ places (jobs/locations); each object gets exactly one place and each place one object.\nLinear assignment problem (LAP): every single assignment has its own fixed cost (e.g. the pay of worker $i$ for job $j$). The total cost is just the sum of those individual costs, so the cost of one assignment does not depend on any other assignment.\nQuadratic assignment problem (QAP): the cost depends on pairs of assignments: the flow between two facilities multiplied by the distance between the locations they are put in (plus any placement cost). Where one facility goes changes the cost of every other facility, so the cost is quadratic in the decisions.\nConsequence: the LAP is easy (it is a network flow problem whose LP relaxation gives integer solutions, solvable in polynomial time), while the QAP is NP-hard and one of the hardest combinatorial problems; exact methods struggle beyond about $n = 20$.",
+          "rubric": [
+            {
+              "point": "LAP: each individual assignment has its own cost; total = sum of independent costs",
+              "marks": 1
+            },
+            {
+              "point": "QAP: cost comes from pairs of assignments (flow between facilities × distance between their locations), so assignments interact",
+              "marks": 1
+            },
+            {
+              "point": "Consequence: LAP is easy/polynomial, QAP is much harder (NP-hard)",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: LAP, DisCopt.pdf PDF pp. 9–11; QAP (flows, distances, \"remains one of the hardest optimization problems and no exact algorithm can solve problems of size n > 20\"), PDF pp. 32–34."
+        },
+        {
+          "id": "do-ex21-1d",
+          "source": {
+            "number": "1(d)"
+          },
+          "lecture": 4,
+          "concept": "Binary integer program and its relaxation",
+          "type": "written",
+          "marks": 5,
+          "question": "Give an example of a binary integer programming problem and define its relaxed version. [3 + 2 Marks ]",
+          "modelAnswer": "Example (0–1 knapsack): items $i = 1, \\dots, n$ with values $v_i$ and weights $w_i$, capacity $W$; $x_i = 1$ if item $i$ is packed, 0 otherwise.\n$$\\max \\sum_{i=1}^{n} v_i x_i \\quad \\text{s.t.} \\quad \\sum_{i=1}^{n} w_i x_i \\le W, \\qquad x_i \\in \\{0, 1\\},\\ i = 1, \\dots, n.$$\n(General form: $\\min c^T x$ s.t. $Ax \\le b$, $x \\in \\{0,1\\}^n$.)\nRelaxed version: the same objective and constraints, but each binary condition is replaced by the interval $0 \\le x_i \\le 1$ ($x_i$ real):\n$$\\max \\sum_{i=1}^{n} v_i x_i \\quad \\text{s.t.} \\quad \\sum_{i=1}^{n} w_i x_i \\le W, \\qquad 0 \\le x_i \\le 1.$$\nThis is an LP. Every binary solution is still feasible, so its optimum is an upper bound for this maximisation (a lower bound for a minimisation), which branch and bound uses.",
+          "rubric": [
+            {
+              "point": "Binary variables defined with their meaning",
+              "marks": 1
+            },
+            {
+              "point": "Linear objective",
+              "marks": 1
+            },
+            {
+              "point": "Linear constraint(s) and $x_i \\in \\{0,1\\}$",
+              "marks": 1
+            },
+            {
+              "point": "Relaxed version: $x_i \\in \\{0,1\\}$ replaced by $0 \\le x_i \\le 1$, rest unchanged",
+              "marks": 1
+            },
+            {
+              "point": "Says the relaxation is an LP whose optimum bounds the original (upper bound for max / lower bound for min)",
+              "marks": 1
+            }
+          ],
+          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 6 (\"Normal: min $c^Tx$ st $Ax \\le b$, $x \\in \\{1,0\\}$; relaxed: … $0 \\le x_i \\le 1$\"). Course notes: knapsack model, DisCopt.pdf PDF p. 19 (eqs. 26–29); relaxation, PDF p. 7 and PDF pp. 46–48."
+        },
+        {
+          "id": "do-ex21-2a",
+          "source": {
+            "number": "2(a)"
+          },
+          "lecture": 4,
+          "concept": "Quadratic knapsack model",
+          "type": "written",
+          "marks": 10,
+          "question": "The quadratic knapsack problem (QKP) is defined as follows: Given a number of items $n$, positive integer weights $w_i$ (say cost of investing in a share of the company $i$) for each item $i$, a knapsack capacity $c$ (total money available to invest, or the maximal weight that can be contained by the knapsack) and the profit matrix $P = (p_{ij})$, $p_{ij} \\ge 0$, $P \\in R^{n \\times n}$. Selections of items are made pairwise since profit of any two items (shares) are linked, i.e. profit hailed from items $(i, j)$ is $p_{ij} + p_{ji}$; $p_{ii}$ is the profit hailed from the selection of the same item $(i, i)$. Define the optimization variables and write down the mathematical model (including the constraint) of the problem to maximize the profit. [2 + 5 + 3 Marks ]",
+          "modelAnswer": "Variables: $x_i = 1$ if item (share) $i$ is selected, $x_i = 0$ otherwise, $i = 1, \\dots, n$.\nModel:\n$$\\max_{x} \\ \\sum_{i=1}^{n} \\sum_{j=1}^{n} p_{ij}\\, x_i x_j$$\n$$\\text{s.t.} \\quad \\sum_{i=1}^{n} w_i x_i \\le c, \\qquad x_i \\in \\{0, 1\\},\\ i = 1, \\dots, n.$$\nWhy the objective is right: $x_i x_j = 1$ only when both $i$ and $j$ are selected. For $i \\ne j$ the double sum contains both $p_{ij} x_i x_j$ and $p_{ji} x_j x_i$, giving the pair profit $p_{ij} + p_{ji}$; for $i = j$, $x_i x_i = x_i$ gives the single-item profit $p_{ii}$. Written out:\n$$\\sum_{i}\\sum_{j} p_{ij} x_i x_j = \\sum_{i=1}^{n} p_{ii} x_i + \\sum_{i=1}^{n-1}\\sum_{j=i+1}^{n} (p_{ij} + p_{ji})\\, x_i x_j,$$\nwhich matches the notes' form $\\sum_j c_j x_j + \\sum_k \\sum_{j > k} d_{kj} x_k x_j$ with $c_j = p_{jj}$ and $d_{kj} = p_{kj} + p_{jk}$.\nConstraint: the total cost (weight) of the selected shares cannot exceed the money (capacity) available, $\\sum_i w_i x_i \\le c$.",
+          "rubric": [
+            {
+              "point": "Binary variables $x_i$ defined: 1 if item $i$ selected, else 0",
+              "marks": 2
+            },
+            {
+              "point": "Quadratic objective $\\max \\sum_i \\sum_j p_{ij} x_i x_j$",
+              "marks": 3
+            },
+            {
+              "point": "Explains that $x_ix_j$ collects $p_{ij} + p_{ji}$ for a pair and $p_{ii}$ for a single item",
+              "marks": 2
+            },
+            {
+              "point": "Capacity constraint $\\sum_i w_i x_i \\le c$",
+              "marks": 2
+            },
+            {
+              "point": "$x_i \\in \\{0, 1\\}$",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: QKP formulation, DisCopt.pdf PDF p. 20; knapsack constraint, PDF p. 19 (eq. 27). Tutorial 1 Question 2 asks for the same kind of model with numbers."
+        },
+        {
+          "id": "do-ex21-2b",
+          "source": {
+            "number": "2(b)"
+          },
+          "lecture": 4,
+          "concept": "Branch and bound: fathoming",
+          "type": "written",
+          "marks": 4,
+          "question": "In the context of Branch and Bound algorithm for minimization, give two cases when a subproblem (or node in the tree) is deleted (not considered for further investigation). [2 + 2 Marks ]",
+          "modelAnswer": "For a minimisation problem, with the best feasible (incumbent) value as the upper bound $u$ and the relaxed value $l(S_i)$ of a subproblem as its lower bound, a subproblem is deleted (fathomed) when:\n1. Bound: $l(S_i) \\ge u$ (in the notes $l(S_i) > u(S)$): even its relaxation cannot beat the best solution already found, so no solution in that branch can be better.\n2. Integer solution: the relaxed solution of the subproblem is already integer feasible. It is the best solution in that branch, so the incumbent and upper bound are updated if it is better, and there is nothing left to branch on.\n3. Infeasible: the relaxed subproblem has no feasible solution, so the branch contains no solutions at all.\nAny two of these answer the question; the notes list 1 and 2 as the two bounding cases.",
+          "rubric": [
+            {
+              "point": "Case 1: lower bound of the subproblem (its relaxed value) is not better than the current upper bound (incumbent)",
+              "marks": 2
+            },
+            {
+              "point": "Case 2: the relaxed solution is integer feasible (update the upper bound), or the subproblem is infeasible",
+              "marks": 2
+            }
+          ],
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 46–47 (\"there are two such cases\" (a) and (b), and \"another reason … is when the subproblem is infeasible\"), PDF pp. 48–50 (steps of B&B and fathoming)."
+        },
+        {
+          "id": "do-ex21-2c",
+          "source": {
+            "number": "2(c)"
+          },
+          "lecture": 10,
+          "concept": "α-approximation and Christofides",
+          "type": "written",
+          "marks": 6,
+          "question": "Define an $\\alpha$-approximation algorithm for a minimization problem. What is the value of $\\alpha$ for Christofides Algorithm for STSP (symmetric travelling salesman problem)? [5 + 1 Marks ]",
+          "modelAnswer": "Let $P$ be a minimisation problem with set of instances $\\mathcal{I}$, and let $A$ be an algorithm that returns a feasible solution $A(I)$ for every instance $I \\in \\mathcal{I}$. $A$ is an $\\alpha$-approximation algorithm ($\\alpha \\ge 1$) if it finds that feasible solution in polynomial time for every instance and\n$$A(I) \\le \\alpha \\cdot OPT(I) \\quad \\text{for all } I \\in \\mathcal{I},$$\nwhere $OPT(I)$ is the optimal (minimum) value of instance $I$. So the answer is never worse than $\\alpha$ times the optimum; the closer $\\alpha$ is to 1, the better the guarantee.\nChristofides algorithm for the STSP (distances satisfying the triangle inequality): $\\alpha = \\tfrac{3}{2}$, i.e. the tour it returns is at most 1.5 times the length of an optimal tour.",
+          "rubric": [
+            {
+              "point": "Minimisation problem $P$ with set of instances $\\mathcal{I}$; $OPT(I)$ the optimal value",
+              "marks": 1
+            },
+            {
+              "point": "$A$ returns a feasible solution $A(I)$ for every instance",
+              "marks": 1
+            },
+            {
+              "point": "$A$ runs in polynomial time",
+              "marks": 1
+            },
+            {
+              "point": "$A(I) \\le \\alpha\\, OPT(I)$ for all $I \\in \\mathcal{I}$",
+              "marks": 1
+            },
+            {
+              "point": "$\\alpha \\ge 1$ (closer to 1 = better guarantee)",
+              "marks": 1
+            },
+            {
+              "point": "Christofides: $\\alpha = 3/2$",
+              "marks": 1
+            }
+          ],
+          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 6 (\"For Christofides, $\\alpha = 3/2$\"; the definition is on p. 3). Course notes: DisCopt.pdf PDF p. 24 (eq. 47 and \"at maximum 3/2 times as much as the distance in the optimal solution\")."
+        },
+        {
+          "id": "do-ex21-3a",
+          "source": {
+            "number": "3(a)"
+          },
+          "lecture": 2,
+          "concept": "Double-point crossover",
+          "type": "written",
+          "marks": 5,
+          "question": "Suppose GA is used to solve a binary optimization problem where crossover is performed pairwise. Suppose that two parents solutions $x_1 = 10101$ and $x_2 = 01110$ are chosen for reproduction. Obtain two new solutions ($y_1$ and $y_2$) using a double point crossover with the integers $n_1$=3 and $n_2$=4. [5 Marks ]",
+          "modelAnswer": "Convention: the lecturer's GA pseudocode (DiscreteGAcode.pdf p. 2) swaps the genes in positions $n_1, n_1 + 1, \\dots, n_2$ inclusive between the two parents.\nPositions:   1 2 3 4 5\n$x_1$ = 1 0 | 1 0 | 1\n$x_2$ = 0 1 | 1 1 | 0\nThe segment in positions 3–4 is \"10\" in $x_1$ and \"11\" in $x_2$. Swap the segments, keep the genes outside them:\n$y_1$ = 1 0 | 1 1 | 1 = $10111$\n$y_2$ = 0 1 | 1 0 | 0 = $01100$\n(Here position 3 is the same in both parents, so only gene 4 actually changes. The other common convention, cutting after gene $n_1$ and after gene $n_2$, swaps only position 4 and gives the same children.) After crossover each child would normally go through mutation with a small probability $p_\\mu$ per gene.",
+          "rubric": [
+            {
+              "point": "Identifies the crossover segment, positions $n_1 = 3$ to $n_2 = 4$, in both parents",
+              "marks": 2
+            },
+            {
+              "point": "$y_1 = 10111$",
+              "marks": 1.5
+            },
+            {
+              "point": "$y_2 = 01100$",
+              "marks": 1.5
+            }
+          ],
+          "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: double point crossover, DisCopt.pdf PDF p. 55 (Fig. 37); the lecturer's pseudocode DiscreteGAcode.pdf p. 2 (\"for l = n1 to n2: x(l) = y(l); y(l) = temp(l)\"). Children checked with a short script under both conventions."
+        },
+        {
+          "id": "do-ex21-3b",
+          "source": {
+            "number": "3(b)"
+          },
+          "lecture": 3,
+          "concept": "Metropolis acceptance in SA",
+          "type": "written",
+          "marks": 7,
+          "question": "What is the main objective of the Metropolis Algorithm in the context of the simulated annealing (SA) algorithm? Suppose you are minimizing a traveling salesman problem (TSP) involving 6 cities using SA. If your current solution is $x$=(253416) with $E_x = 50$ and your trial solution $y$=(542316) with $E_y = 150$, define the Metropolis acceptance probability in SA with the temperature parameter $T$=100, and use this to calculate the probability of accepting $y$. Decide if you would accept the solution $y$ if you were given a uniform random number $r \\in (0, 1)$, $r = 0.25$ (you may use calculator for this calculation). [2 + 3 + 2 Marks ]",
+          "modelAnswer": "Main objective of the Metropolis algorithm: to numerically generate sample points (a Markov chain of solutions) from a probability distribution that cannot be sampled directly, here the Boltzmann (equilibrium / stationary) distribution at temperature $T$. In SA it is the rule that decides whether a trial solution replaces the current one: better solutions are always accepted and worse ones are accepted with a probability that shrinks as $T$ is lowered, so the search can climb out of local minima early on and settles near a good minimum as $T \\to 0$.\nMetropolis acceptance probability (minimisation) of moving from the current solution $(x, E_x)$ to the trial solution $(y, E_y)$ at temperature $T_t$:\n$$A_{xy}(T_t) = \\min\\left\\{1,\\ \\exp\\!\\left(-\\frac{E_y - E_x}{T_t}\\right)\\right\\}.$$\nIf $E_y \\le E_x$ the exponent is $\\ge 0$, so $A_{xy} = 1$ and $y$ is always accepted. If $E_y > E_x$, $y$ is accepted when a uniform random number $r \\in (0,1)$ satisfies $r < \\exp(-(E_y - E_x)/T_t)$.\nCalculation: $E_y - E_x = 150 - 50 = 100$, $T = 100$:\n$$A_{xy}(100) = \\min\\left\\{1,\\ e^{-100/100}\\right\\} = \\min\\{1,\\ e^{-1}\\} = e^{-1} \\approx 0.368.$$\nDecision: $y$ is worse ($E_y > E_x$), so it is accepted only if $r < 0.368$. Since $r = 0.25 < 0.368$, accept $y$: it becomes the current solution.",
+          "rubric": [
+            {
+              "point": "Objective: generate samples from a distribution that cannot be sampled directly / decide acceptance so SA can escape local minima",
+              "marks": 2
+            },
+            {
+              "point": "Acceptance probability $A_{xy}(T) = \\min\\{1, \\exp(-(E_y - E_x)/T)\\}$ defined",
+              "marks": 1
+            },
+            {
+              "point": "Substitutes: $\\exp(-(150 - 50)/100) = e^{-1}$",
+              "marks": 1
+            },
+            {
+              "point": "Probability ≈ 0.368",
+              "marks": 1
+            },
+            {
+              "point": "Compares $r = 0.25 < 0.368$",
+              "marks": 1
+            },
+            {
+              "point": "Decision: accept $y$",
+              "marks": 1
+            }
+          ],
+          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 7 (probability 0.368, accept because 0.25 < 0.368). Course notes: Metropolis rule and the SA algorithm, DisCopt.pdf PDF p. 51 (eq. 101, \"accept if exp(−(f(y) − f(x))/T) > random(0,1)\"); sa.pdf (lecturer's SA pseudocode, same test). The value was checked with a short script."
         }
       ]
     }
