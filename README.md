@@ -4,6 +4,8 @@ A small, phone-friendly practice-quiz app for several subjects (DVE, NLP and DO)
 
 On the setup screen you can pick several lectures at once (chips), practise one question style (for example only "Label the diagram"), pool every set of a subject ("Everything in NLP"), or **generate a mock test**: a 50-mark paper shaped like the real test, with a 30-mark quiz section and a 20-mark theory section, mixing questions the lecturer set (60–80% of the marks) with new ones. Each paper has a code; type it under "Replay paper code" with the same lectures to sit the identical paper again. The summary breaks the marks down by section and by seen/new, and lets you retry what you missed.
 
+DO has its own **scope exam** instead: “Generate a scope exam” builds a 50-mark paper shaped like the real DO exam (Question 1: 18 marks, Question 2: 20, Question 3: 12) from every topic in the 2026 final scope, 60–80% from the lecturer’s past questions (repeated ones more likely) and the rest from the new scope practice bank. “Full scope sweep” asks one question from every topic. Both have replayable codes (“4821”, “S4821”) and a summary with marks per exam question and per topic. DO chips show topic names instead of lecture numbers, and some answers come with a worked diagram.
+
 **Browse all questions** (under the start buttons) lists a subject's whole question bank with a search box (every word must match, ignoring case and accents; it also finds source numbers such as "Q5.4" or "Paper Q13") and filters for quiz set, lectures, question style and "Only ones I got wrong". Tap a question to see its answer (correct options, values with tolerances, worked solution, model answer and rubric, study note), practise just that question, or copy it for Claude with a request to explain it. A question's answer view has its own link (`index.html#q=<question id>`).
 
 Formulas are typeset with [KaTeX](https://katex.org), which is included in `vendor/katex/` so it works offline and from a local file.
@@ -35,7 +37,7 @@ Then run:
 ```sh
 node tools/build-data.cjs        # validates every set and regenerates generated/quizy-data.js
 node tools/check-verbatim.cjs    # past-paper, practice-quiz and tutorial text in the bundle is byte-identical to data/
-node --test "tests/*.test.cjs"   # scoring, question-type, mock-paper, maths and search tests (Node's built-in runner, no installs)
+node --test "tests/*.test.cjs"   # scoring, question-type, mock-paper, scope-exam, maths and search tests (Node's built-in runner, no installs)
 ```
 
 The build checks unique ids, answer ranges, images, mark totals, the maths and each question type's own rules. Commit **both** the JSON and `generated/quizy-data.js`. The generated JavaScript lets the page work when opened directly from a local file; GitHub Pages reads the JSON.
@@ -47,7 +49,7 @@ Do not put private information in the question bank because a published site is 
 Plain HTML, CSS and JavaScript (plus the vendored KaTeX) with no build step, so `index.html` also works from `file://`. The scripts are classic `<script defer>` files that share one `window.Quizy` namespace, loaded in order by `index.html`:
 
 ```
-src/core/      helpers, maths ($…$ splitting, plain-text fallback), search, seeded random (?seed=N, for tests), storage, data loading, scoring, app state, the mock-paper generator
+src/core/      helpers, maths ($…$ splitting, plain-text fallback), search, seeded random (?seed=N, for tests), storage, data loading, scoring, app state, the mock-paper and scope-exam generators
 src/types/     one file per question type (single, truefalse, multi, match, short, numeric, written, label) + registry.js
 src/ui/        theme and colour mode, sidebar and subject list, setup panel, quiz panel, "Copy for Claude", summary, mock papers, browse & search, view switching
 src/main.js    boot
