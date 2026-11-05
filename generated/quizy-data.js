@@ -66,7 +66,8 @@ window.QUIZY_DATA = {
         "do-escience-2021",
         "do-pt-2019",
         "do-pt-2017",
-        "do-pt-2016"
+        "do-pt-2016",
+        "do-tut-1"
       ]
     }
   ],
@@ -33017,6 +33018,112 @@ window.QUIZY_DATA = {
             }
           ],
           "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 35–36 (vertex cover, eqs. 88–90)."
+        }
+      ]
+    },
+    "do-tut-1": {
+      "id": "do-tut-1",
+      "title": "Tutorial 1",
+      "kind": "tutorial",
+      "description": "Discrete Optimization Tutorial 1 (shortest path as a minimum cost flow; quadratic knapsack in matrix form), transcribed word for word. Write or think your answer, reveal the model answer, then tick the marking points you covered. There is no memo: answers are written from the course notes and are unofficial.",
+      "sourceFile": "03 Past Papers/TutI.pdf",
+      "unofficialAnswers": true,
+      "transcriptionNotes": "Question text copied from the PDF (the submission date line is left out). Kept as printed: \"The cost of each are\", \"compacted form\". The tutorial prints no marks; 6 and 8 are assigned here. Maths written as LaTeX; the network is a cropped image. Model answers and rubrics were written by an AI assistant from the course notes.",
+      "subject": "do",
+      "questions": [
+        {
+          "id": "do-tut1-1",
+          "source": {
+            "number": "1"
+          },
+          "lecture": 1,
+          "concept": "Shortest path as min-cost flow",
+          "type": "written",
+          "marks": 6,
+          "question": "Consider the following road network where the distances for each pair $(i, j)$ of cities are shown. Formulate the problem mathematically, where the shortest path from city $s$ to city $t$ has to be found.\nConvert your mathematical model into the mathematical form of the Minimum Cost Network Flow problem. Specifically mention the assumptions needed.",
+          "modelAnswer": "Arcs and distances $c_{ij}$: $(s,1) = 5$, $(s,2) = 4$, $(2,1) = 2$, $(1,3) = 6$, $(2,4) = 3$, $(3,4) = 3$, $(3,t) = 4$, $(4,t) = 8$.\nVariables: $x_{ij} = 1$ if arc $(i,j)$ is on the path, 0 otherwise.\nShortest path ILP:\n$$\\min\\ 5x_{s1} + 4x_{s2} + 2x_{21} + 6x_{13} + 3x_{24} + 3x_{34} + 4x_{3t} + 8x_{4t}$$\nsubject to (out minus in at each node)\n$$s:\\ x_{s1} + x_{s2} = 1$$\n$$1:\\ x_{13} - x_{s1} - x_{21} = 0, \\qquad 2:\\ x_{21} + x_{24} - x_{s2} = 0$$\n$$3:\\ x_{34} + x_{3t} - x_{13} = 0, \\qquad 4:\\ x_{4t} - x_{24} - x_{34} = 0$$\n$$t:\\ -x_{3t} - x_{4t} = -1, \\qquad x_{ij} \\in \\{0, 1\\}.$$\nMinimum cost network flow form:\n$$\\min \\sum_{(i,j)} c_{ij}x_{ij} \\quad \\text{s.t.} \\quad \\sum_j x_{ij} - \\sum_j x_{ji} = b_i \\ \\ \\forall i, \\qquad 0 \\le x_{ij} \\le u_{ij}$$\nwith $b_s = 1$ (supply of one unit), $b_t = -1$ (demand of one unit), $b_1 = b_2 = b_3 = b_4 = 0$ (transshipment nodes), costs $c_{ij}$ = distances and capacities $u_{ij} = 1$.\nAssumptions: one unit of flow is sent from $s$ to $t$; total supply equals total demand ($\\sum_i b_i = 0$); costs are non-negative (no negative cycles); arc capacities are 1 (or at least 1). The binary condition can then be relaxed to $0 \\le x_{ij} \\le 1$ because the min-cost flow LP has integer optimal solutions, so the flow picks out a path.\nNot asked, but useful: the shortest distance is 15, along $s \\to 1 \\to 3 \\to t$ ($5 + 6 + 4$) or $s \\to 2 \\to 4 \\to t$ ($4 + 3 + 8$).",
+          "rubric": [
+            {
+              "point": "Binary path variables $x_{ij}$ defined",
+              "marks": 1
+            },
+            {
+              "point": "Objective: total distance $\\sum c_{ij}x_{ij}$ with the network's distances",
+              "marks": 1
+            },
+            {
+              "point": "Flow constraints: +1 out of $s$, −1 at $t$, 0 at nodes 1–4 (written for this network)",
+              "marks": 1
+            },
+            {
+              "point": "Min-cost flow form $\\sum_j x_{ij} - \\sum_j x_{ji} = b_i$, $0 \\le x_{ij} \\le u_{ij}$",
+              "marks": 1
+            },
+            {
+              "point": "$b_s = 1$, $b_t = -1$, $b_i = 0$ otherwise; $u_{ij} = 1$; costs = distances",
+              "marks": 1
+            },
+            {
+              "point": "Assumptions stated: one unit of flow, supply = demand, non-negative costs, integral LP so 0/1 flows",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for Tutorial 1; the answer is written from the course notes. Course notes: shortest path ILP, DisCopt.pdf PDF pp. 6–7 (eqs. 1–5); minimum cost flow, PDF p. 9 (eqs. 11–13) and PDF p. 10 (Remark 1.3). The shortest distance was checked with networkx. The tutorial prints no marks; 6 is assigned here.",
+          "image": {
+            "src": "data/do/img/tut-1/do-tut1-1.png",
+            "alt": "Directed road network with distances: s→1 (5), s→2 (4), 2→1 (2), 1→3 (6), 2→4 (3), 3→4 (3), 3→t (4), 4→t (8)."
+          },
+          "answerImage": {
+            "src": "data/do/img/tut-1/do-tut1-1-answer.png",
+            "alt": "The road network with the shortest path s→1→3→t highlighted (length 5 + 6 + 4 = 15); s→2→4→t also has length 15."
+          }
+        },
+        {
+          "id": "do-tut1-2",
+          "source": {
+            "number": "2"
+          },
+          "lecture": 12,
+          "concept": "Quadratic knapsack in matrix form",
+          "type": "written",
+          "marks": 8,
+          "question": "Consider the set of items $\\{1, 2, 3, 4, 5\\}$ that you want to invest your R1000 into. Individual profits that can be earned are R50, R100, R250, R20 and R90. The joint profits pairwise are as follows:\n$$P_{12} = 10, \\quad P_{13} = 20, \\quad P_{14} = 5, \\quad P_{15} = 6,$$\n$$P_{21} = 3, \\quad P_{23} = 7, \\quad P_{24} = 6, \\quad P_{25} = 2,$$\n$$P_{31} = 10, \\quad P_{32} = 15, \\quad P_{34} = 20, \\quad P_{35} = 1,$$\n$$P_{41} = 12, \\quad P_{42} = 3, \\quad P_{43} = 7, \\quad P_{45} = 6,$$\n$$P_{51} = 6, \\quad P_{52} = 10, \\quad P_{53} = 1, \\quad P_{54} = 2.$$\nThe cost of each are:\n$$c_1 = 200, \\quad c_2 = 500, \\quad c_3 = 400, \\quad c_4 = 50, \\quad c_5 = 600.$$\nFormulate the problem mathematically and write in the compacted form as:\n$$f(x) = b^\\top x + \\frac{1}{2}x^\\top Mx,$$\nwhere $x \\in \\mathbb{R}^5$ is your decision variable, $b \\in \\mathbb{R}^5$ is a constant vector and $M$ is a symmetric but constant matrix. Show that the function can be written as $f(x) = \\frac{1}{2}x^\\top \\tilde{M}x$, where $\\tilde{M}$ is a symmetric but constant matrix.",
+          "modelAnswer": "Variables: $x_i = 1$ if we invest in item $i$, 0 otherwise.\nModel (quadratic knapsack):\n$$\\max\\ f(x) = 50x_1 + 100x_2 + 250x_3 + 20x_4 + 90x_5 + \\sum_{i=1}^{5}\\sum_{j \\ne i} P_{ij}x_ix_j$$\n$$\\text{s.t.}\\quad 200x_1 + 500x_2 + 400x_3 + 50x_4 + 600x_5 \\le 1000, \\qquad x_i \\in \\{0, 1\\}.$$\nCompact form: $b = (50, 100, 250, 20, 90)^\\top$. The pair $\\{i, j\\}$ earns $P_{ij} + P_{ji}$ when both are chosen, so take $M_{ij} = M_{ji} = P_{ij} + P_{ji}$ for $i \\ne j$ and $M_{ii} = 0$. Then $\\tfrac12 x^\\top Mx = \\tfrac12\\sum_{i \\ne j} M_{ij}x_ix_j = \\sum_{i<j}(P_{ij} + P_{ji})x_ix_j = \\sum_{i \\ne j}P_{ij}x_ix_j$, which is exactly the joint-profit term:\n$$M = \\begin{pmatrix} 0 & 13 & 30 & 17 & 12 \\\\ 13 & 0 & 22 & 9 & 12 \\\\ 30 & 22 & 0 & 27 & 2 \\\\ 17 & 9 & 27 & 0 & 8 \\\\ 12 & 12 & 2 & 8 & 0 \\end{pmatrix}, \\qquad f(x) = b^\\top x + \\tfrac12 x^\\top Mx.$$\n$M$ is symmetric and constant.\nPure quadratic form: since $x_i \\in \\{0,1\\}$, $x_i^2 = x_i$, so $b^\\top x = \\sum_i b_ix_i^2 = \\tfrac12 x^\\top(2\\,\\text{diag}(b))x$. Hence\n$$f(x) = \\tfrac12 x^\\top \\tilde{M}x, \\qquad \\tilde{M} = M + 2\\,\\text{diag}(b) = \\begin{pmatrix} 100 & 13 & 30 & 17 & 12 \\\\ 13 & 200 & 22 & 9 & 12 \\\\ 30 & 22 & 500 & 27 & 2 \\\\ 17 & 9 & 27 & 40 & 8 \\\\ 12 & 12 & 2 & 8 & 180 \\end{pmatrix},$$\nwhich is symmetric (a symmetric $M$ plus a diagonal matrix) and constant.\nNot asked, but a check: the best affordable choice is items 2, 3, 4 (cost 950), profit $100 + 250 + 20$ (single items) $+ 22 + 9 + 27$ (pairs 2–3, 2–4, 3–4) $= 428$.",
+          "rubric": [
+            {
+              "point": "Binary variables $x_i$ defined",
+              "marks": 1
+            },
+            {
+              "point": "Objective: individual profits plus pairwise profits $P_{ij}x_ix_j$",
+              "marks": 1
+            },
+            {
+              "point": "Budget constraint $\\sum c_ix_i \\le 1000$, $x_i \\in \\{0,1\\}$",
+              "marks": 1
+            },
+            {
+              "point": "$b = (50, 100, 250, 20, 90)^\\top$",
+              "marks": 1
+            },
+            {
+              "point": "$M_{ij} = P_{ij} + P_{ji}$ ($i \\ne j$), $M_{ii} = 0$, with the reason (each pair counted twice, halved by ½)",
+              "marks": 1
+            },
+            {
+              "point": "$M$ written out correctly and symmetric",
+              "marks": 1
+            },
+            {
+              "point": "Uses $x_i^2 = x_i$ to write $b^\\top x = \\tfrac12 x^\\top 2\\,\\text{diag}(b)\\,x$",
+              "marks": 1
+            },
+            {
+              "point": "$\\tilde{M} = M + 2\\,\\text{diag}(b)$ written out, symmetric",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for Tutorial 1; the answer is written from the course notes: QKP, DisCopt.pdf PDF p. 20; knapsack constraint, PDF p. 19. Both matrices, the identity $b^\\top x + \\tfrac12 x^\\top Mx = \\tfrac12 x^\\top \\tilde{M}x$ for all 32 binary $x$, and the best choice were checked with numpy. The tutorial prints no marks; 8 is assigned here. Knapsack is outside the 2026 exam scope (topic 12)."
         }
       ]
     }
