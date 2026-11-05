@@ -64,7 +64,8 @@ window.QUIZY_DATA = {
         "do-pt-2021",
         "do-exam-2021",
         "do-escience-2021",
-        "do-pt-2019"
+        "do-pt-2019",
+        "do-pt-2017"
       ]
     }
   ],
@@ -32334,6 +32335,361 @@ window.QUIZY_DATA = {
             "src": "data/do/img/pt-2019/do-pt19-2d-answer.png",
             "alt": "Directed sub-tours on 7 cities: a 2-cycle 1 → 2 → 1 and a 5-cycle 3 → 4 → 5 → 6 → 7 → 3."
           }
+        }
+      ]
+    },
+    "do-pt-2017": {
+      "id": "do-pt-2017",
+      "title": "Test 1 2017",
+      "kind": "past-paper",
+      "description": "COMS4050 Test I, 18 April 2017 (35 marks), transcribed word for word, one sub-part per question. Write or think your answer, reveal the model answer, then tick the marking points you covered. The max flow in 1(c)(iii) is checked automatically. There is no memo: answers are written from the course notes and are unofficial.",
+      "sourceFile": "03 Past Papers/DOPT2017.pdf",
+      "unofficialAnswers": true,
+      "totalMarks": 35,
+      "transcriptionNotes": "Question text copied from the PDF; words split by hyphenation are joined (\"problem\"). Kept as printed: \"(c) (i) Define … (i) … (ii) … (iii)\" numbering, \"Described the meaning\". Fractions in marks written as ½. 1(c) is split: (i)+(ii) are one printed sentence and stay together (3 marks); (iii) is a calculation question (4 marks) and (iv) the cut (1 mark); (iii) and (iv) repeat the stem and the figure. Model answers and rubrics were written by an AI assistant from the course notes; rubric marks follow the printed mark split.",
+      "subject": "do",
+      "questions": [
+        {
+          "id": "do-pt17-1a",
+          "source": {
+            "number": "1(a)"
+          },
+          "lecture": 9,
+          "concept": "Hamiltonian vs Eulerian cycle",
+          "type": "written",
+          "marks": 4,
+          "question": "Describe the difference between the Hamiltonian and the Eulerian cycle in graph theory. Use an example graph for each concept. [4 Marks ]",
+          "modelAnswer": "Hamiltonian cycle: a cycle that visits every vertex exactly once and returns to the start (it need not use every edge).\nEulerian cycle: a closed walk that uses every edge exactly once and returns to the start (vertices may be visited several times). An undirected connected graph has one if and only if every vertex has even degree.\nSo the difference is vertices versus edges: Hamiltonian = each vertex once, Eulerian = each edge once. (The TSP looks for a minimum-cost Hamiltonian cycle.)\nExample 1 (Hamiltonian, not Eulerian): square 1–2–5–4–1 with a centre vertex 3 joined to 1, 2, 4, 5. The cycle 1–2–3–5–4–1 visits every vertex once. It is not Eulerian: vertices 1, 2, 4, 5 have odd degree 3.\nExample 2 (Eulerian, not Hamiltonian): a \"bow-tie\", two triangles 1–3–4 and 2–3–5 sharing vertex 3. The closed walk 1–3–2–5–3–4–1 uses all 6 edges once (degrees 2, 2, 4, 2, 2 are all even). It is not Hamiltonian: any cycle through all vertices must pass through 3 twice.",
+          "rubric": [
+            {
+              "point": "Hamiltonian cycle: visits every vertex exactly once and returns to the start",
+              "marks": 1
+            },
+            {
+              "point": "Eulerian cycle: uses every edge exactly once and returns to the start",
+              "marks": 1
+            },
+            {
+              "point": "Example graph with a Hamiltonian cycle shown",
+              "marks": 1
+            },
+            {
+              "point": "Example graph with an Eulerian cycle shown",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. The same question (DOPT2021 Q2(b)) is answered in Past Paper Solutions 2024 Exam.pdf p. 9. Course notes: Euler and Hamilton paths and circuits, DisCopt.pdf PDF pp. 4–5 (with the even-degree condition and Figures 7–8).",
+          "answerImage": {
+            "src": "data/do/img/pt-2017/do-pt17-1a-answer.png",
+            "alt": "Two example graphs. Left (Hamiltonian): square 1–2–5–4 with centre 3 joined to all four corners; the Hamiltonian cycle 1–2–3–5–4–1 is highlighted. Right (Eulerian): bow-tie of triangles 1–3–4 and 2–3–5 sharing vertex 3; the Eulerian circuit 1–3–2–5–3–4–1 uses all six edges."
+          }
+        },
+        {
+          "id": "do-pt17-1b",
+          "source": {
+            "number": "1(b)"
+          },
+          "lecture": 1,
+          "concept": "Node balance (flow conservation)",
+          "type": "written",
+          "marks": 2,
+          "question": "Consider the max-flow problem of a directed network with a source node $s$ and the sink node $t$. Let $x_{ij}$ denote the amount of flow between the node $i$ and node $j$. Write the node balanced equation of a node $i$ where $i \\ne s$ and $i \\ne t$. [2 Marks ]",
+          "modelAnswer": "For an intermediate node $i$ the flow out equals the flow in:\n$$\\sum_{j} x_{ij} - \\sum_{j} x_{ji} = 0, \\qquad i \\ne s,\\ i \\ne t,$$\nwhere $x_{ij}$ is the flow on arc $(i,j)$ (leaving $i$) and $x_{ji}$ the flow on arc $(j,i)$ (entering $i$), with $0 \\le x_{ij} \\le u_{ij}$. (At the source the difference is $+F$ and at the sink $-F$, the flow value.)",
+          "rubric": [
+            {
+              "point": "Outflow $\\sum_j x_{ij}$ minus inflow $\\sum_j x_{ji}$",
+              "marks": 1
+            },
+            {
+              "point": "…equals 0 for every intermediate node",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF p. 8 (eqs. 7–9); NetworkFlowP.pdf p. 2 (eq. 2)."
+        },
+        {
+          "id": "do-pt17-1c-i-ii",
+          "source": {
+            "number": "1(c)(i)–(ii)"
+          },
+          "lecture": 1,
+          "concept": "Augmenting path and residual network",
+          "type": "written",
+          "marks": 3,
+          "question": "Define the following concepts in the Ford Fulkerson algorithm for max-flow problem: (i) The Augmenting Path; (ii) the Residual Network corresponding to a feasible flow of amount $x$. [1½ + 1½ + 4 + 1 Marks ]",
+          "modelAnswer": "(i) An augmenting path $P$ is a simple directed path from the source $s$ to the sink $t$ in the residual network $G_x$, i.e. every arc on it still has positive residual capacity $r_{ij} > 0$. Its capacity is the bottleneck\n$$\\delta(P) = \\min_{(i,j) \\in P} r_{ij},$$\nand the flow from $s$ to $t$ can be increased by $\\delta(P)$ by sending that much along every arc of $P$ (then $r_{ij} \\leftarrow r_{ij} - \\delta(P)$, $r_{ji} \\leftarrow r_{ji} + \\delta(P)$). Ford–Fulkerson stops when no augmenting path exists; the flow is then maximum.\n(ii) Given a feasible flow $x$ with capacities $u_{ij}$, the residual network $G_x = (V, E_x)$ has the same nodes, and each arc $(i,j)$ of the network is replaced by two arcs:\n• forward arc $(i,j)$ with residual capacity $r_{ij} = u_{ij} - x_{ij}$ (how much more flow can still be sent from $i$ to $j$);\n• backward arc $(j,i)$ with residual capacity $r_{ji} = x_{ij}$ (how much of the existing flow can be cancelled by sending it back).\n$E_x$ keeps only the arcs with $r_{ij} > 0$. So the residual network shows where extra flow can still be pushed (or undone), and augmenting paths are searched for in it.",
+          "rubric": [
+            {
+              "point": "Augmenting path: a directed $s$–$t$ path in the residual network (all residual capacities positive)",
+              "marks": 1
+            },
+            {
+              "point": "Its capacity is the bottleneck $\\delta(P) = \\min r_{ij}$, added to the flow",
+              "marks": 0.5
+            },
+            {
+              "point": "Residual network: forward residual $r_{ij} = u_{ij} - x_{ij}$",
+              "marks": 1
+            },
+            {
+              "point": "Backward residual $r_{ji} = x_{ij}$; only arcs with positive residual capacity kept",
+              "marks": 0.5
+            }
+          ],
+          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF pp. 15–17 (residual network, augmenting path, $\\delta(P)$, the algorithm); NetworkFlowP.pdf pp. 7–8 (sections 4.1–4.2); FordFulkerson.pdf pp. 1–3 (worked example)."
+        },
+        {
+          "id": "do-pt17-1c-iii",
+          "source": {
+            "number": "1(c)(iii)"
+          },
+          "lecture": 1,
+          "concept": "Ford–Fulkerson max flow",
+          "type": "numeric",
+          "marks": 4,
+          "question": "(c) (i) Define the following concepts in the Ford Fulkerson algorithm for max-flow problem: (i) The Augmenting Path; (ii) the Residual Network corresponding to a feasible flow of amount $x$. (iii) Use these concepts to find the maximum flow of the network in Fig. 1:\n[1½ + 1½ + 4 + 1 Marks ]",
+          "parts": [
+            {
+              "label": "Maximum flow from $s$ to $t$",
+              "answer": 15,
+              "tolerance": 0.5,
+              "marks": 4
+            }
+          ],
+          "solution": "Start with zero flow: every residual capacity equals the capacity.\n1. Augmenting path $P_1$: $s \\to 1 \\to t$, $\\delta(P_1) = \\min\\{10, 8\\} = 8$. Update: $r_{s1} = 2$, $r_{1s} = 8$; $r_{1t} = 0$, $r_{t1} = 8$. Flow = 8.\n2. $P_2$: $s \\to 2 \\to t$, $\\delta(P_2) = \\min\\{6, 10\\} = 6$. Update: $r_{s2} = 0$, $r_{2s} = 6$; $r_{2t} = 4$, $r_{t2} = 6$. Flow = 14.\n3. $P_3$: $s \\to 1 \\to 2 \\to t$, $\\delta(P_3) = \\min\\{2, 1, 4\\} = 1$. Update: $r_{s1} = 1$, $r_{12} = 0$, $r_{2t} = 3$ (and the reverse arcs grow by 1). Flow = 15.\nResidual network now: from $s$ only $s \\to 1$ ($r = 1$) is open; from 1 both $1 \\to 2$ and $1 \\to t$ are saturated ($r = 0$). So $t$ cannot be reached: no augmenting path is left and the flow is maximum.\n$$\\text{max flow} = \\delta(P_1) + \\delta(P_2) + \\delta(P_3) = 8 + 6 + 1 = 15.$$\nFinal flows: $x_{s1} = 9$, $x_{s2} = 6$, $x_{12} = 1$, $x_{1t} = 8$, $x_{2t} = 7$ (out of $s$: $9 + 6 = 15$; into $t$: $8 + 7 = 15$).",
+          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. Method as in FordFulkerson.pdf pp. 1–3 and DisCopt.pdf PDF pp. 15–17. In the exam, show each augmenting path, its bottleneck and the residual network, not just the number. The flow and cut were checked with a short max-flow script.",
+          "image": {
+            "src": "data/do/img/pt-2017/do-pt17-1c.png",
+            "alt": "Flow network with capacities: s→1 (10), s→2 (6), 1→2 (1), 1→t (8), 2→t (10). Node s on the left, 1 top middle, 2 bottom middle, t on the right."
+          },
+          "answerImage": {
+            "src": "data/do/img/pt-2017/do-pt17-1c-iii-answer.png",
+            "alt": "Final flow/capacity on each arc: s→1 9/10, s→2 6/6, 1→2 1/1, 1→t 8/8, 2→t 7/10. The saturated arcs s→2, 1→2 and 1→t cross a dashed cut line between A = {s, 1} and B = {2, t}; max flow 15 = cap(A, B) = 6 + 1 + 8."
+          }
+        },
+        {
+          "id": "do-pt17-1c-iv",
+          "source": {
+            "number": "1(c)(iv)"
+          },
+          "lecture": 1,
+          "concept": "Minimum s–t cut",
+          "type": "written",
+          "marks": 1,
+          "question": "(c) (i) Define the following concepts in the Ford Fulkerson algorithm for max-flow problem: (i) The Augmenting Path; (ii) the Residual Network corresponding to a feasible flow of amount $x$. (iii) Use these concepts to find the maximum flow of the network in Fig. 1:\n(iv) Find the minimum $s$-$t$ cut $(A, B)$ of the max-flow solution for the above network. [1½ + 1½ + 4 + 1 Marks ]",
+          "modelAnswer": "After the maximum flow (15) the residual network lets $s$ reach only node 1 ($r_{s1} = 1$; $r_{s2} = 0$, $r_{12} = 0$, $r_{1t} = 0$). The nodes reachable from $s$ form $A$:\n$$A = \\{s, 1\\}, \\qquad B = \\{2, t\\}.$$\nArcs from $A$ to $B$: $s \\to 2$ (6), $1 \\to 2$ (1), $1 \\to t$ (8), so $\\text{cap}(A, B) = 6 + 1 + 8 = 15$, which equals the maximum flow (max-flow = min-cut), confirming both. (For comparison: $\\{s\\}$ gives 16 and $\\{s, 1, 2\\}$ gives 18.)",
+          "rubric": [
+            {
+              "point": "$A = \\{s, 1\\}$, $B = \\{2, t\\}$ with capacity 15 = max flow",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. Method: the nodes reachable from $s$ in the final residual network, as in FordFulkerson.pdf p. 3; max-flow min-cut theorem, DisCopt.pdf PDF pp. 17–18. Checked with a short script.",
+          "image": {
+            "src": "data/do/img/pt-2017/do-pt17-1c.png",
+            "alt": "Flow network with capacities: s→1 (10), s→2 (6), 1→2 (1), 1→t (8), 2→t (10). Node s on the left, 1 top middle, 2 bottom middle, t on the right."
+          },
+          "answerImage": {
+            "src": "data/do/img/pt-2017/do-pt17-1c-iii-answer.png",
+            "alt": "Final flows with the minimum cut A = {s, 1}, B = {2, t}: arcs s→2 (6), 1→2 (1), 1→t (8) cross the cut, total 15."
+          }
+        },
+        {
+          "id": "do-pt17-2a",
+          "source": {
+            "number": "2(a)"
+          },
+          "lecture": 9,
+          "concept": "Minimum spanning tree",
+          "type": "written",
+          "marks": 3,
+          "question": "Find the minimum spanning tree (MST) of the undirected graph below in Fig. 2, where the distance or cost of various edges are $c_{12} = c_{13} = c_{24} = c_{34} = 1$, $c_{14} = 2$ and $c_{23} = 3$ [3 Marks ]",
+          "modelAnswer": "MST by inspection: there are 4 vertices, so the tree needs $4 - 1 = 3$ edges. The four edges of cost 1 form the cycle 1–2–4–3–1; any three of them connect all four vertices without a cycle. Take\n$$T = \\{(1,2), (1,3), (2,4)\\}, \\qquad \\text{cost} = 1 + 1 + 1 = 3.$$\nIt is minimum because every spanning tree has 3 edges and every edge costs at least 1, so no tree can cost less than 3. The diagonals $(1,4)$ (cost 2) and $(2,3)$ (cost 3) are not used. (Kruskal gives the same: take the unit edges in turn and skip the one that would close the cycle.) Any other choice of three unit edges is an equally good MST.",
+          "rubric": [
+            {
+              "point": "Three edges of cost 1 chosen that connect all 4 vertices without a cycle",
+              "marks": 2
+            },
+            {
+              "point": "Total cost 3, with a reason it is minimal (diagonals not used)",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. The same graph (2024 paper) is answered in Past Paper Solutions 2024 Exam.pdf p. 3. Course notes: DisCopt.pdf PDF pp. 12–14. All 4 MSTs were checked by enumeration.",
+          "image": {
+            "src": "data/do/img/pt-2017/do-pt17-2a.png",
+            "alt": "Undirected graph on four boxed vertices: 1 top left, 2 top right, 3 bottom left, 4 bottom right. Solid edges 1–2, 1–3, 2–4 and 3–4 around the square, dotted diagonals 1–4 and 2–3. Costs from the question: c12 = c13 = c24 = c34 = 1, c14 = 2, c23 = 3."
+          },
+          "answerImage": {
+            "src": "data/do/img/pt-2017/do-pt17-2a-answer.png",
+            "alt": "The four-vertex graph with the MST edges 1–2, 1–3 and 2–4 highlighted (each cost 1, total 3); edges 3–4 (1), 1–4 (2) and 2–3 (3) are grey."
+          }
+        },
+        {
+          "id": "do-pt17-2b",
+          "source": {
+            "number": "2(b)"
+          },
+          "lecture": 9,
+          "concept": "ATSP subtour elimination",
+          "type": "written",
+          "marks": 3,
+          "question": "Define mathematically the sub-tour elimination constraints for asymmetric traveling salesman problem (TSP). [3 Marks ]",
+          "modelAnswer": "ATSP subtour elimination constraints ($x_{ij} = 1$ if the salesman goes directly from city $i$ to city $j$):\n$$\\sum_{i \\in S} \\sum_{j \\in S,\\ j \\ne i} x_{ij} \\le |S| - 1, \\qquad \\forall S \\subset V,\\ 2 \\le |S| \\le n - 2.$$\nFor any proper subset $S$ of cities, the arcs used inside $S$ must be fewer than $|S|$, so they cannot close a cycle on $S$ alone.\nHere $V = \\{1, \\dots, n\\}$ is the set of cities. Without these constraints the assignment constraints ($\\sum_i x_{ij} = 1$, $\\sum_j x_{ij} = 1$) can be satisfied by several disjoint directed cycles (sub-tours), e.g. $1 \\to 2 \\to 1$ and $3 \\to 4 \\to \\dots \\to n \\to 3$; for $S = \\{1, 2\\}$ that solution has $x_{12} + x_{21} = 2 > 1$ and is cut off.",
+          "rubric": [
+            {
+              "point": "Variables: $x_{ij} = 1$ if the tour goes directly from $i$ to $j$",
+              "marks": 1
+            },
+            {
+              "point": "$\\sum_{i \\in S}\\sum_{j \\in S, j \\ne i} x_{ij} \\le |S| - 1$",
+              "marks": 1
+            },
+            {
+              "point": "For all $S \\subset V$ with $2 \\le |S| \\le n - 2$",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. The same constraint is written in Past Paper Solutions 2024 Exam.pdf p. 13 (2019 test). Course notes: ATSP model with subtour constraints, DisCopt.pdf PDF pp. 21–22 (eqs. 33–38: \"the solution without (37) is not a tour but a collection of directed cycles called subtours\"); STSP model, PDF pp. 22–23 (eqs. 39–42)."
+        },
+        {
+          "id": "do-pt17-2c",
+          "source": {
+            "number": "2(c)"
+          },
+          "lecture": 10,
+          "concept": "α-approximation algorithm",
+          "type": "written",
+          "marks": 3,
+          "question": "Define an $\\alpha$-approximation algorithm of a minimization problem. [3 Marks ]",
+          "modelAnswer": "Let $P$ be a minimisation problem with set of instances $\\mathcal{I}$, and let $A$ be an algorithm that returns a feasible solution $A(I)$ for every instance $I \\in \\mathcal{I}$. $A$ is an $\\alpha$-approximation algorithm ($\\alpha \\ge 1$) if it finds that feasible solution in polynomial time for every instance and\n$$A(I) \\le \\alpha \\cdot OPT(I) \\quad \\text{for all } I \\in \\mathcal{I},$$\nwhere $OPT(I)$ is the optimal (minimum) value of instance $I$. So the answer is never worse than $\\alpha$ times the optimum; the closer $\\alpha$ is to 1, the better the guarantee.",
+          "rubric": [
+            {
+              "point": "Minimisation problem with instances; $A$ returns a feasible solution $A(I)$ for every instance",
+              "marks": 1
+            },
+            {
+              "point": "Runs in polynomial time",
+              "marks": 1
+            },
+            {
+              "point": "$A(I) \\le \\alpha\\, OPT(I)$ for all $I$, with $\\alpha \\ge 1$",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. The same definition is in Past Paper Solutions 2024 Exam.pdf p. 3. Course notes: DisCopt.pdf PDF p. 24 (section 2.3.1, eq. 47)."
+        },
+        {
+          "id": "do-pt17-2d",
+          "source": {
+            "number": "2(d)"
+          },
+          "lecture": 9,
+          "concept": "2-opt neighbour",
+          "type": "written",
+          "marks": 3,
+          "question": "Consider the 7 city symmetric TSP with a feasible tour $x = (1, 3, 2, 6, 7, 4, 5)$ where the 1st city is the starting city. Construct a single 2-Opt neighbor of $x$. [3 Marks ]",
+          "modelAnswer": "2-opt move: delete two non-adjacent edges $(c_i, c_{i+1})$ and $(c_j, c_{j+1})$ of the tour and reconnect with $(c_i, c_j)$ and $(c_{i+1}, c_{j+1})$; this reverses the cities in positions $i+1, \\dots, j$. Positions (not city labels) of $x$: $c_1 = 1, c_2 = 3, c_3 = 2, c_4 = 6, c_5 = 7, c_6 = 4, c_7 = 5$ (city 1 stays first).\nTake $i = 2$, $j = 4$: remove the edges $(c_2, c_3) = (3, 2)$ and $(c_4, c_5) = (6, 7)$, add $(3, 6)$ and $(2, 7)$, and reverse the segment in positions 3–4 (\"2, 6\"):\n$$x' = (1, 3, 6, 2, 7, 4, 5).$$\nAny other valid choice is also correct, e.g. $i = 1, j = 3$: $(1, 2, 3, 6, 7, 4, 5)$.",
+          "rubric": [
+            {
+              "point": "Two non-adjacent edges of the tour removed (named)",
+              "marks": 1
+            },
+            {
+              "point": "The two reconnecting edges added (segment reversed)",
+              "marks": 1
+            },
+            {
+              "point": "A valid neighbour tour with city 1 first",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. The same neighbour ($i = 2$, $j = 4$) is in Past Paper Solutions 2024 Exam.pdf p. 8 (e-Science 2021). Course notes: the 2-opt move and the full neighbour list of a 7-city tour, DisCopt.pdf PDF pp. 26–27 (eqs. 49–50)."
+        },
+        {
+          "id": "do-pt17-3a",
+          "source": {
+            "number": "3(a)"
+          },
+          "lecture": 11,
+          "concept": "Set covering model",
+          "type": "written",
+          "marks": 3.5,
+          "question": "Write down the mathematical model of the set covering problem. Describe the physical meaning of the constraint sets in the mathematical model. [3½ Marks ]",
+          "modelAnswer": "Set $S = \\{1, \\dots, n\\}$ of items and subsets $S_1, \\dots, S_m$ of $S$; choosing $S_j$ costs $c_j > 0$; pick subsets that cover every item at minimum cost.\nData: $a_{ij} = 1$ if item $i$ is in $S_j$, $a_{ij} = 0$ otherwise ($i = 1, \\dots, n$; $j = 1, \\dots, m$).\nDecision variables: $x_j = 1$ if subset $S_j$ is chosen, $x_j = 0$ otherwise.\n$$\\min \\sum_{j=1}^{m} c_j x_j$$\n$$\\text{s.t.}\\quad \\sum_{j=1}^{m} a_{ij} x_j \\ge 1, \\quad i = 1, \\dots, n$$\n$$x_j \\in \\{0, 1\\}, \\quad j = 1, \\dots, m$$\nMeaning: the objective is the total cost of the chosen subsets (minimise it). The constraint for item $i$ says that at least one chosen subset contains item $i$, i.e. every item of $S$ is covered at least once. $x_j \\in \\{0, 1\\}$: each subset is either taken or not (no fractions of a subset).",
+          "rubric": [
+            {
+              "point": "Defines $x_j$ and $a_{ij}$",
+              "marks": 1
+            },
+            {
+              "point": "Objective $\\min \\sum_j c_j x_j$",
+              "marks": 1
+            },
+            {
+              "point": "Constraints $\\sum_j a_{ij} x_j \\ge 1$ for every item, $x_j \\in \\{0,1\\}$",
+              "marks": 1
+            },
+            {
+              "point": "Meaning: every item is covered by at least one chosen subset",
+              "marks": 0.5
+            }
+          ],
+          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. The same question is answered in Past Paper Solutions 2024 Exam.pdf p. 11 (2019 test). Course notes: set covering model, DisCopt.pdf PDF pp. 31–33 (eqs. 64–68, and the meaning of each equation in the hospital example on PDF p. 33)."
+        },
+        {
+          "id": "do-pt17-3b",
+          "source": {
+            "number": "3(b)"
+          },
+          "lecture": 8,
+          "concept": "Facility location: single-source constraint",
+          "type": "written",
+          "marks": 2,
+          "question": "A constraint of the mathematical model of the facility location problem is given by $\\sum_{i=1}^{m} x_{ij} = 1$, $\\forall j$, where $i$ represents the warehouses and $j$ is a customer; $x_{ij}$ is the variable representing whether customer $j$ is served by the warehouse $i$. Described the meaning of this constraint. [2 Marks ]",
+          "modelAnswer": "For each customer $j$, the sum over all $m$ warehouses of the binary $x_{ij}$ is exactly 1. So every customer $j$ is served, and by exactly one warehouse: it cannot be left unserved or split between warehouses (single-source facility location).",
+          "rubric": [
+            {
+              "point": "Every customer must be served",
+              "marks": 1
+            },
+            {
+              "point": "…by exactly one warehouse",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. The same question is answered in Past Paper Solutions 2024 Exam.pdf p. 12 (2019 test). Course notes: DisCopt.pdf PDF p. 30 (eq. 52)."
+        },
+        {
+          "id": "do-pt17-3c",
+          "source": {
+            "number": "3(c)"
+          },
+          "lecture": 12,
+          "concept": "Linear knapsack model",
+          "type": "written",
+          "marks": 3.5,
+          "question": "Write down the mathematical model of the linear knapsack problem. Describe the physical meaning of the main constraint in the mathematical model. [3½ Marks ]",
+          "modelAnswer": "Items $i = 1, \\dots, n$, item $i$ has weight $w_i \\ge 0$ and value $v_i \\ge 0$; the knapsack holds total weight at most $W$. Variables: $x_i = 1$ if item $i$ is put in the knapsack, 0 otherwise.\n$$\\max \\sum_{i=1}^{n} v_i x_i \\quad \\text{s.t.} \\quad \\sum_{i=1}^{n} w_i x_i \\le W, \\qquad x_i \\in \\{0, 1\\}.$$\n(It is assumed that $\\sum_i w_i > W$, otherwise everything fits.)\nMeaning of the main constraint $\\sum_i w_i x_i \\le W$: the total weight (or cost) of the items chosen cannot exceed the capacity (budget) of the knapsack.",
+          "rubric": [
+            {
+              "point": "Binary variables $x_i$ with their meaning",
+              "marks": 1
+            },
+            {
+              "point": "Objective $\\max \\sum_i v_i x_i$",
+              "marks": 1
+            },
+            {
+              "point": "Capacity constraint $\\sum_i w_i x_i \\le W$ and $x_i \\in \\{0,1\\}$",
+              "marks": 1
+            },
+            {
+              "point": "Meaning: total weight of chosen items at most the capacity",
+              "marks": 0.5
+            }
+          ],
+          "explanation": "There is no solution for this test in the past-paper solutions; the answer is written from the course notes. Course notes: DisCopt.pdf PDF p. 19 (eqs. 26–29). Knapsack is outside the 2026 exam scope (topic 12)."
         }
       ]
     }
