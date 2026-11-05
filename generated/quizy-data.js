@@ -59,7 +59,8 @@ window.QUIZY_DATA = {
         "12": "Out of scope"
       },
       "sets": [
-        "do-2024-exam"
+        "do-2024-exam",
+        "do-pt-2022"
       ]
     }
   ],
@@ -30999,6 +31000,278 @@ window.QUIZY_DATA = {
           "keyDispute": "The second sub-tour drawn in the handwritten solution seems to include a city 8, which does not exist in a 7-city problem; use cities 4, 5, 6, 7 as above.",
           "answerImage": {
             "src": "data/do/img/2024-exam/do-ex24-2c-answer.png",
+            "alt": "Two separate cycles on the 7 cities: 1–3–2–1 and 6–7–4–5–6."
+          }
+        }
+      ]
+    },
+    "do-pt-2022": {
+      "id": "do-pt-2022",
+      "title": "Test 1 2022",
+      "kind": "past-paper",
+      "description": "COMS4050 Test I, 13 October 2022 (30 marks), transcribed word for word, one sub-part per question. Write or think your answer, reveal the model answer, then tick the marking points you covered. There is no official memo: answers are written from the course notes (and the handwritten 2024 solutions where the same question appears) and are unofficial.",
+      "sourceFile": "03 Past Papers/DOPT2022.pdf",
+      "unofficialAnswers": true,
+      "totalMarks": 30,
+      "transcriptionNotes": "Question text copied from the PDF; words split by hyphenation at line ends are joined. Typos kept: \"a nodes\", \"You wants to covers\". Maths written as LaTeX. The stem of 2(d) is repeated in (i) and (ii). Model answers and rubrics were written by an AI assistant from DisCopt.pdf, NetworkFlowP.pdf and FordFulkerson.pdf; rubric marks follow the printed mark split.",
+      "subject": "do",
+      "questions": [
+        {
+          "id": "do-pt22-1a",
+          "source": {
+            "number": "1(a)"
+          },
+          "lecture": 1,
+          "concept": "Node balance (flow conservation)",
+          "type": "written",
+          "marks": 4,
+          "question": "Consider the max-flow problem of a directed network with a source node $s$ and the sink node $t$. Let $x_{ij}$ (respectively, $x_{ji}$) denote the amount of positive flow from node $i$ to node $j$ (respectively, from node $j$ to node $i$). Write the node balanced equations of a nodes $i$ and $j$ where $i, j \\ne s$ and $i, j \\ne t$. [4 Marks ]",
+          "modelAnswer": "For an intermediate node (not $s$, not $t$) everything that flows in must flow out (flow conservation).\nNode $i$ (sum over all its neighbours $k$):\n$$\\sum_{k} x_{ik} - \\sum_{k} x_{ki} = 0, \\qquad i \\ne s, t$$\nNode $j$:\n$$\\sum_{k} x_{jk} - \\sum_{k} x_{kj} = 0, \\qquad j \\ne s, t$$\nHere $x_{ik}$ is the positive flow leaving $i$ along $(i,k)$ and $x_{ki}$ the positive flow entering $i$; the arc between $i$ and $j$ appears as $x_{ij}$ (out of $i$, into $j$) and $x_{ji}$ (out of $j$, into $i$). All flows also satisfy $0 \\le x_{ij} \\le u_{ij}$.\nEquivalently with net flow $f(i,k) = x_{ik} - x_{ki}$: $\\sum_k f(i,k) = 0$ and $\\sum_k f(j,k) = 0$.",
+          "rubric": [
+            {
+              "point": "Node $i$: total outflow $\\sum_k x_{ik}$ minus total inflow $\\sum_k x_{ki}$ equals 0",
+              "marks": 2
+            },
+            {
+              "point": "Node $j$: $\\sum_k x_{jk} - \\sum_k x_{kj} = 0$ (same rule written for $j$)",
+              "marks": 2
+            }
+          ],
+          "explanation": "There is no solution PDF for this test; the answer is written from the course notes. Course notes: NetworkFlowP.pdf p. 2 (eq. 2: $\\sum_j x_{ij} - \\sum_j x_{ji} = 0$ for $i \\ne s, t$) and p. 3 (net-flow form); DisCopt.pdf PDF p. 8 (eq. 8, intermediate nodes)."
+        },
+        {
+          "id": "do-pt22-1b",
+          "source": {
+            "number": "1(b)"
+          },
+          "lecture": 1,
+          "concept": "Residual capacity update",
+          "type": "written",
+          "marks": 3,
+          "question": "Suppose you are solving a network flow problem using the Ford-Fulkerson algorithm and at a particular iteration, the remaining capacity of the edge $(i, j)$ is $r_{ij}$ (respectively, $r_{ji}$ in $(j, i)$) and you send a feasible flow $f(i, j)$ along $(i, j)$ then show that $r_{ji} = r_{ji} + f(i, j)$ holds for the residual network. [3 Marks ]",
+          "modelAnswer": "Residual capacity is the capacity still available in a direction. Sending $f(i,j)$ units along $(i,j)$ uses up that much of $(i,j)$:\n$$r_{ij} \\leftarrow r_{ij} - f(i,j) \\ge 0.$$\nNet flow is skew-symmetric: $f(j,i) = -f(i,j)$. Pushing $f(i,j)$ from $i$ to $j$ is the same as pushing $-f(i,j)$ from $j$ to $i$. Applying the same update rule to the arc $(j,i)$:\n$$r_{ji} \\leftarrow r_{ji} - f(j,i) = r_{ji} - (-f(i,j)) = r_{ji} + f(i,j).$$\nMeaning: after sending flow along $(i,j)$ we can later send up to that much back from $j$ to $i$, which cancels (undoes) the earlier flow. This back-edge is what lets Ford–Fulkerson correct bad early choices.",
+          "rubric": [
+            {
+              "point": "States the forward update $r_{ij} = r_{ij} - f(i,j)$ (residual = remaining capacity)",
+              "marks": 1
+            },
+            {
+              "point": "Uses skew-symmetry $f(j,i) = -f(i,j)$",
+              "marks": 1
+            },
+            {
+              "point": "Derives $r_{ji} = r_{ji} - f(j,i) = r_{ji} + f(i,j)$ and explains it allows flow to be cancelled",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution PDF for this test; the answer is written from the course notes. Course notes: NetworkFlowP.pdf p. 8 (eqs. 11–12, the same derivation); DisCopt.pdf PDF pp. 15–16 ($r_{ij} = r_{ij} - \\delta(P)$, $r_{ji} = r_{ji} + \\delta(P)$); FordFulkerson.pdf p. 1."
+        },
+        {
+          "id": "do-pt22-1c",
+          "source": {
+            "number": "1(c)"
+          },
+          "lecture": 11,
+          "concept": "Weighted set covering model",
+          "type": "written",
+          "marks": 5,
+          "question": "Given a set of items $S = \\{1, 2, \\cdots, n\\}$ and $m$ proper subsets $S_j$ of $S$, $j = 1, 2, \\cdots, m$. You wants to covers all items in $S$ by choosing a number of $S_j$ with minimum cost; the cost of choosing $S_j$ is $c_j$. Write down the mathematical model of the weighted set covering problem by defining decision variables for optimization. Describe the physical meaning of the constraint sets in the mathematical model. [3+2 Marks ]",
+          "modelAnswer": "Data: $a_{ij} = 1$ if item $i$ is in $S_j$, $a_{ij} = 0$ otherwise ($i = 1, \\dots, n$; $j = 1, \\dots, m$).\nDecision variables: $x_j = 1$ if subset $S_j$ is chosen, $x_j = 0$ otherwise.\n$$\\min \\sum_{j=1}^{m} c_j x_j$$\n$$\\text{s.t.}\\quad \\sum_{j=1}^{m} a_{ij} x_j \\ge 1, \\quad i = 1, \\dots, n$$\n$$x_j \\in \\{0, 1\\}, \\quad j = 1, \\dots, m$$\nMeaning: the objective is the total cost of the chosen subsets (minimise it). The constraint for item $i$ says that at least one chosen subset contains item $i$, i.e. every item of $S$ is covered at least once. $x_j \\in \\{0, 1\\}$: each subset is either taken or not (no fractions of a subset).",
+          "rubric": [
+            {
+              "point": "Defines $x_j$ (1 if $S_j$ chosen, else 0) and the incidence data $a_{ij}$",
+              "marks": 1
+            },
+            {
+              "point": "Objective $\\min \\sum_j c_j x_j$",
+              "marks": 1
+            },
+            {
+              "point": "Covering constraints $\\sum_j a_{ij} x_j \\ge 1$ for every item $i$, with $x_j \\in \\{0,1\\}$",
+              "marks": 1
+            },
+            {
+              "point": "Meaning of the covering constraints: every item is covered by at least one chosen subset",
+              "marks": 1
+            },
+            {
+              "point": "Meaning of the binary constraints / objective: a subset is chosen or not; minimise total cost",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution PDF for this test; the answer is written from the course notes. The same question (3+1 marks) is answered in Past Paper Solutions 2024 Exam.pdf pp. 1–2 (2024 paper). Course notes: set covering model, DisCopt.pdf PDF pp. 31–33 (eqs. 64–68, and the meaning of each equation in the hospital example on PDF p. 33)."
+        },
+        {
+          "id": "do-pt22-1d",
+          "source": {
+            "number": "1(d)"
+          },
+          "lecture": 1,
+          "concept": "s–t cut and its capacity",
+          "type": "written",
+          "marks": 3,
+          "question": "Construct a directed graph network with $s$ and $t$ as the source and terminal node, respectively, and define an $(s - t)$ cut-$(A, B)$ together with the corresponding capacity of the cut, $\\text{CAP}(A, B)$. [3 Marks ]",
+          "modelAnswer": "Example network (capacities on the arcs): $s \\to a$ (4), $s \\to b$ (3), $a \\to b$ (2), $b \\to a$ (1), $a \\to t$ (3), $b \\to t$ (5).\nAn $s$–$t$ cut $(A, B)$ is a partition of the nodes into two disjoint sets with $s \\in A$ and $t \\in B$ ($A \\cup B = V$, $A \\cap B = \\emptyset$). Removing the arcs from $A$ to $B$ leaves no path from $s$ to $t$. Example: $A = \\{s, a\\}$, $B = \\{b, t\\}$.\nCapacity: the sum of the capacities of the arcs leaving $A$ (from $A$ to $B$); arcs from $B$ back to $A$ are not counted:\n$$\\text{CAP}(A, B) = \\sum_{e \\text{ out of } A} c_e = c_{sb} + c_{ab} + c_{at} = 3 + 2 + 3 = 8.$$\nThe arc $b \\to a$ (1) goes from $B$ to $A$, so it is left out. (For this network the max flow is 7, which equals the minimum cut $A = \\{s\\}$: $4 + 3 = 7$; every flow is at most every cut capacity.)",
+          "rubric": [
+            {
+              "point": "A directed network with $s$, $t$ and arc capacities",
+              "marks": 1
+            },
+            {
+              "point": "Cut defined: partition $(A, B)$ of the nodes with $s \\in A$, $t \\in B$, disjoint",
+              "marks": 1
+            },
+            {
+              "point": "CAP(A, B) = sum of capacities of arcs from A to B only, computed for the example",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution PDF for this test; the answer is written from the course notes. Course notes: definitions of an s–t cut and its capacity in NetworkFlowP.pdf p. 5 (Definitions 1–2) and DisCopt.pdf PDF p. 17 (Definitions 1.5–1.6); a worked cut in FordFulkerson.pdf p. 3. The example network is made up here; its max flow (7) was checked with a short script.",
+          "answerImage": {
+            "src": "data/do/img/pt-2022/do-pt22-1d-answer.png",
+            "alt": "Directed network: s→a (4), s→b (3), a→b (2), b→a (1), a→t (3), b→t (5). A dashed line separates A = {s, a} from B = {b, t}; cap(A, B) = 3 + 2 + 3 = 8."
+          }
+        },
+        {
+          "id": "do-pt22-2a",
+          "source": {
+            "number": "2(a)"
+          },
+          "lecture": 9,
+          "concept": "Minimum spanning tree",
+          "type": "written",
+          "marks": 4,
+          "question": "State one of the most important properties of the MST subgraph of a graph. Find the minimum spanning tree (MST) sub-graph by inspection of the undirected graph below in Fig. 1, where the distance or cost of various edges are $c_{12} = c_{13} = c_{24} = c_{34} = 1$, $c_{14} = 2$ and $c_{23} = 3$ [1 + 3 Marks ]",
+          "modelAnswer": "Property: the MST is a tree, so it connects all the vertices with no cycles (hence exactly $n - 1$ edges), and it has the minimum possible total edge weight of all spanning trees.\nMST by inspection: there are 4 vertices, so the tree needs $4 - 1 = 3$ edges. The four edges of cost 1 form the cycle 1–2–4–3–1; any three of them connect all four vertices without a cycle. Take\n$$T = \\{(1,2), (1,3), (2,4)\\}, \\qquad \\text{cost} = 1 + 1 + 1 = 3.$$\nIt is minimum because every spanning tree has 3 edges and every edge costs at least 1, so no tree can cost less than 3. The diagonals $(1,4)$ (cost 2) and $(2,3)$ (cost 3) are not used. (Kruskal gives the same: take the unit edges in turn and skip the one that would close the cycle.) Any other choice of three unit edges is an equally good MST.",
+          "rubric": [
+            {
+              "point": "One correct property: spans/connects all vertices, no cycles ($n-1$ edges), minimum total weight",
+              "marks": 1
+            },
+            {
+              "point": "Three edges of cost 1 chosen that connect all 4 vertices without a cycle",
+              "marks": 2
+            },
+            {
+              "point": "Total cost 3 stated, with a reason it is minimal (or that the diagonals are not used)",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution PDF for this test; the answer is written from the course notes. The same question (2024 paper) is answered in Past Paper Solutions 2024 Exam.pdf p. 3 with the tree 1–2, 1–3, 2–4. Course notes: spanning tree features and the MST model, DisCopt.pdf PDF pp. 12–14. All 4 MSTs were checked by enumeration.",
+          "image": {
+            "src": "data/do/img/pt-2022/do-pt22-2a.png",
+            "alt": "Undirected graph on four boxed vertices: 1 top left, 2 top right, 3 bottom left, 4 bottom right. Solid edges 1–2, 1–3, 2–4 and 3–4 around the square, dotted diagonals 1–4 and 2–3. Costs from the question: c12 = c13 = c24 = c34 = 1, c14 = 2, c23 = 3."
+          },
+          "answerImage": {
+            "src": "data/do/img/pt-2022/do-pt22-2a-answer.png",
+            "alt": "The four-vertex graph with the MST edges 1–2, 1–3 and 2–4 highlighted (each cost 1, total 3); edges 3–4 (1), 1–4 (2) and 2–3 (3) are grey."
+          }
+        },
+        {
+          "id": "do-pt22-2b",
+          "source": {
+            "number": "2(b)"
+          },
+          "lecture": 9,
+          "concept": "Counting TSP and QAP solutions",
+          "type": "written",
+          "marks": 4,
+          "question": "Explain why there are $(n-1)!$ possible distinct routes (solutions) in a Traveling Salesman Problem (TSP) with $n$ cities. How many solutions are there in the quadratic assignment problem with $n$ facilities and $n$ locations? Why? [2 + 2 Marks ]",
+          "modelAnswer": "Fix the home (starting) city: a tour is a cycle, so where it starts does not matter. The second city can then be any of the remaining $n - 1$ cities, the third any of the remaining $n - 2$, and so on until the last city is forced:\n$$1 \\times (n-1) \\times (n-2) \\times \\cdots \\times 2 \\times 1 = (n-1)!$$\nEach order is a different route (this count treats a tour and its reverse as different, which is right for the asymmetric TSP; in the symmetric TSP they have the same length, so there are $\\tfrac{1}{2}(n-1)!$ distinct tours).\nQAP: there are $n!$ solutions. A solution assigns each of the $n$ facilities to a different location, i.e. it is a permutation $\\phi \\in S_n$ (facility $i$ goes to location $\\phi(i)$). Facility 1 has $n$ choices of location, facility 2 has the remaining $n - 1$, …, facility $n$ gets the last one: $n(n-1)\\cdots 1 = n!$. There is no rotation to divide out, because the locations are distinct places (unlike the cyclic order of a tour).",
+          "rubric": [
+            {
+              "point": "Fix the starting city (a tour is a cycle)",
+              "marks": 1
+            },
+            {
+              "point": "The remaining $n-1$ cities can be ordered in $(n-1)(n-2)\\cdots 1 = (n-1)!$ ways",
+              "marks": 1
+            },
+            {
+              "point": "QAP has $n!$ solutions",
+              "marks": 1
+            },
+            {
+              "point": "Reason: each solution is a permutation (one-to-one assignment) of the $n$ facilities to the $n$ locations",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution PDF for this test; the answer is written from the course notes. The 2024 version (ATSP) is answered in Past Paper Solutions 2024 Exam.pdf p. 4. Course notes: DisCopt.pdf PDF p. 21 (\"(n − 1)! possible tours … in the asymmetric TSP (and ½(n − 1)! for the symmetric TSP with home city being fixed)\"); QAP over all permutations $S_n$, PDF pp. 33–34 (eq. 69)."
+        },
+        {
+          "id": "do-pt22-2c",
+          "source": {
+            "number": "2(c)"
+          },
+          "lecture": 10,
+          "concept": "α-approximation algorithm",
+          "type": "written",
+          "marks": 3,
+          "question": "Define an $\\alpha$-approximation algorithm of a minimization problem in combinatorial optimization. [3 Marks ]",
+          "modelAnswer": "Let $P$ be a minimisation problem with set of instances $\\mathcal{I}$, and let $A$ be an algorithm that returns a feasible solution $A(I)$ for every instance $I \\in \\mathcal{I}$. $A$ is an $\\alpha$-approximation algorithm ($\\alpha \\ge 1$) if it finds that feasible solution in polynomial time for every instance and\n$$A(I) \\le \\alpha \\cdot OPT(I) \\quad \\text{for all } I \\in \\mathcal{I},$$\nwhere $OPT(I)$ is the optimal (minimum) value of instance $I$. So the answer is never worse than $\\alpha$ times the optimum; the closer $\\alpha$ is to 1, the better the guarantee.",
+          "rubric": [
+            {
+              "point": "Setting: minimisation problem $P$ with instances $\\mathcal{I}$; $A$ returns a feasible solution $A(I)$ for every instance",
+              "marks": 1
+            },
+            {
+              "point": "Runs in polynomial time",
+              "marks": 1
+            },
+            {
+              "point": "$A(I) \\le \\alpha\\, OPT(I)$ for all $I$, with $\\alpha \\ge 1$ and $OPT(I)$ the optimal value",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution PDF for this test; the answer is written from the course notes. The same definition is in Past Paper Solutions 2024 Exam.pdf p. 3. Course notes: DisCopt.pdf PDF p. 24 (section 2.3.1, eq. 47)."
+        },
+        {
+          "id": "do-pt22-2d-i",
+          "source": {
+            "number": "2(d)(i)"
+          },
+          "lecture": 9,
+          "concept": "2-opt neighbours",
+          "type": "written",
+          "marks": 2,
+          "question": "Consider the 7 city symmetric TSP with a feasible tour $x = (1, 3, 2, 6, 7, 4, 5)$ where the 1st city is the starting city. Answer the following questions:\n(i) Construct two 2-Opt neighbors of $x$. [2 Marks ]",
+          "modelAnswer": "2-opt move: delete two non-adjacent edges $(c_i, c_{i+1})$ and $(c_j, c_{j+1})$ of the tour and reconnect with $(c_i, c_j)$ and $(c_{i+1}, c_{j+1})$; this reverses the cities in positions $i+1, \\dots, j$. Positions (not city labels) of $x$: $c_1 = 1, c_2 = 3, c_3 = 2, c_4 = 6, c_5 = 7, c_6 = 4, c_7 = 5$ (city 1 stays first).\n• $i = 1, j = 3$: remove (1,3) and (2,6), add (1,2) and (3,6), reverse \"3, 2\" → $x^{(1)} = (1, 2, 3, 6, 7, 4, 5)$.\n• $i = 1, j = 4$: remove (1,3) and (6,7), add (1,6) and (3,7), reverse \"3, 2, 6\" → $x^{(2)} = (1, 6, 2, 3, 7, 4, 5)$.\n(Others, e.g. $i = 2, j = 4$: $(1, 3, 6, 2, 7, 4, 5)$; $i = 2, j = 5$: $(1, 3, 7, 6, 2, 4, 5)$.)",
+          "rubric": [
+            {
+              "point": "First valid 2-opt neighbour (two edges removed, segment between them reversed, city 1 first)",
+              "marks": 1
+            },
+            {
+              "point": "Second, different valid 2-opt neighbour",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution PDF for this test; the answer is written from the course notes. The same tour is used in Past Paper Solutions 2024 Exam.pdf p. 4 (2024 paper: neighbours 1236745 and 1623745). Course notes: the 2-opt move and the full neighbour list of a 7-city tour, DisCopt.pdf PDF pp. 26–27 (eqs. 49–50). Neighbours checked with a short script."
+        },
+        {
+          "id": "do-pt22-2d-ii",
+          "source": {
+            "number": "2(d)(ii)"
+          },
+          "lecture": 9,
+          "concept": "Sub-tours in the STSP",
+          "type": "written",
+          "marks": 2,
+          "question": "Consider the 7 city symmetric TSP with a feasible tour $x = (1, 3, 2, 6, 7, 4, 5)$ where the 1st city is the starting city. Answer the following questions:\n(ii) Construct an example of a sub-tour that may occur in the solution process. [2 Marks ]",
+          "modelAnswer": "Sub-tour: without the subtour elimination constraints, the degree constraints $\\sum_{e \\in \\delta(i)} x_e = 2$ can be met by several separate cycles instead of one tour, e.g.\n$$1 \\to 3 \\to 2 \\to 1 \\quad\\text{and}\\quad 6 \\to 7 \\to 4 \\to 5 \\to 6.$$\nEvery city has degree 2, but nothing joins $\\{1, 2, 3\\}$ to $\\{4, 5, 6, 7\\}$, so it is not a tour. In the STSP a sub-tour needs at least 3 cities (2 cities would use the same undirected edge twice). It violates $\\sum_{e \\in E(S)} x_e \\le |S| - 1$ for $S = \\{1, 2, 3\\}$ (3 edges > 2), which is how the model cuts it off.",
+          "rubric": [
+            {
+              "point": "A sub-tour example on the 7 cities: two or more disjoint cycles covering all cities, each of at least 3 cities",
+              "marks": 1
+            },
+            {
+              "point": "Explains why it is not a tour (degree constraints met but cities split into separate cycles; violates the subtour elimination constraint)",
+              "marks": 1
+            }
+          ],
+          "explanation": "There is no solution PDF for this test; the answer is written from the course notes. The 2024 version is answered in Past Paper Solutions 2024 Exam.pdf p. 5. Course notes: STSP model and subtour elimination constraints, DisCopt.pdf PDF pp. 22–23 (eqs. 39–42).",
+          "answerImage": {
+            "src": "data/do/img/pt-2022/do-pt22-2d-ii-answer.png",
             "alt": "Two separate cycles on the 7 cities: 1–3–2–1 and 6–7–4–5–6."
           }
         }
