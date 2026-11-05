@@ -200,6 +200,11 @@ progress::-moz-progress-bar {
   background: #fff; /* diagrams are drawn for white paper, so they stay on white in dark mode too */
 }
 
+/* A worked diagram after answering and in the browse answer view (src/ui/quiz.js ui.answerFigure) */
+.answer-figure .eyebrow {
+  margin-bottom: 6px;
+}
+
 .figure figcaption {
   font-size: 12px;
   color: var(--muted);

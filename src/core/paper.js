@@ -35,10 +35,14 @@
     }
   };
 
-  // "L5", "L5–L8", "L5–L6, L8"; an empty list means every lecture.
-  Quizy.lectureLabel = function (lectures) {
-    if (!lectures || !lectures.length) return 'all lectures';
+  // A lecture's name: the subject's topic name when it has one ("Network flow", DO), otherwise "L5".
+  Quizy.lectureName = (n, subject) => subject?.topics?.[String(n)] || `L${n}`;
+
+  // "L5", "L5–L8", "L5–L6, L8"; an empty list means every lecture. With topic names: "Network flow, Assignment".
+  Quizy.lectureLabel = function (lectures, subject) {
+    if (!lectures || !lectures.length) return subject?.topics ? 'all topics' : 'all lectures';
     const numbers = [...new Set(lectures.map(String))].sort((a, b) => Number(a) - Number(b) || a.localeCompare(b));
+    if (subject?.topics) return numbers.map(n => Quizy.lectureName(n, subject)).join(', ');
     const runs = [];
     for (const n of numbers) {
       const run = runs[runs.length - 1];

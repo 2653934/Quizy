@@ -123,7 +123,7 @@
       button.addEventListener('click', () => onToggle(value));
       return button;
     };
-    container.replaceChildren(chip(ALL, 'All', !chosen.length), ...lecturesIn(Quizy.allQuestions()).map(n => chip(n, `L${n}`, chosen.includes(n))));
+    container.replaceChildren(chip(ALL, 'All', !chosen.length), ...lecturesIn(Quizy.allQuestions()).map(n => chip(n, Quizy.lectureName(n, state.subject), chosen.includes(n))));
   };
 
   // "All" clears the choice; a lecture chip toggles. Removing the last lecture goes back to all.

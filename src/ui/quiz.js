@@ -148,9 +148,10 @@
 
   function sourceLine(item) {
     const q = item.q;
-    const parts = [`Lecture ${q.lecture}`, q.concept];
+    const parts = [state.subject.topics ? Quizy.lectureName(q.lecture, state.subject) : `Lecture ${q.lecture}`, q.concept];
     if (q.source?.pages?.length) parts.push(`Slide ${q.source.pages[0]}`);
     if (q.number !== undefined) parts.push(`Paper Q${q.number}`);
+    else if (q.source?.number !== undefined) parts.push(Quizy.sourceLabel(q, item.set));
     if (showsMarks(item) || marksOf(q) !== 1) parts.push(plural(marksOf(q), 'mark'));
     return parts.filter(Boolean).join(' · ');
   }
@@ -258,9 +259,26 @@
     if (showsMarks(item) || marks !== 1 || (score > 0 && !full)) heading.append(el('span', 'score', `${formatMarks(score)} / ${formatMarks(marks)} ${marks === 1 ? 'mark' : 'marks'}`));
     feedback.append(heading);
     if (typeOf(q).resultNotes) feedback.append(...typeOf(q).resultNotes(q, response));
-    feedback.append(...ui.studyNotes(q, set));
+    feedback.append(...ui.answerFigure(q), ...ui.studyNotes(q, set));
     feedback.hidden = false;
   }
+
+  // The question's answerImage (a worked diagram), shown after answering and in the browse answer view,
+  // styled like the question's own figure: on white, tap to open full size. [] when there is none.
+  ui.answerFigure = function (q) {
+    if (!q.answerImage) return [];
+    const figure = el('figure', 'figure answer-figure');
+    const link = el('a');
+    link.href = q.answerImage.src;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    const img = el('img');
+    img.src = q.answerImage.src;
+    img.alt = q.answerImage.alt;
+    link.append(img);
+    figure.append(el('div', 'eyebrow', 'Answer diagram'), link, el('figcaption', '', 'Tap the image to open it full size.'));
+    return [figure];
+  };
 
   // The study note and any doubt about the official answer (also used by the browse view).
   ui.studyNotes = function (q, set) {

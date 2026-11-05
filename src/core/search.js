@@ -12,6 +12,8 @@
   Quizy.sourceLabel = function (q, set) {
     if (q.number !== undefined) return `${PREFIX[set?.kind] || 'Q'}${q.number}`;
     if (q.source?.pages?.length) return `Slide ${q.source.pages[0]}`;
+    // DO: {number} or {paper, number} ("April 2013 test Q3").
+    if (q.source?.number !== undefined) return q.source.paper ? `${q.source.paper} Q${q.source.number}` : `${PREFIX[set?.kind] || 'Q'}${q.source.number}`;
     return '';
   };
 

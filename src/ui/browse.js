@@ -24,7 +24,7 @@
   const inLectures = q => !filters.lectures.length || filters.lectures.includes(String(q.lecture));
 
   // "L7 · Self-attention calculation · Tutorial Q5.4 · 10 marks"
-  const metaLine = q => [`L${q.lecture}`, q.concept, Quizy.sourceLabel(q, setOf(q)), plural(marksOf(q), 'mark')].filter(Boolean).join(' · ');
+  const metaLine = q => [Quizy.lectureName(q.lecture, state.subject), q.concept, Quizy.sourceLabel(q, setOf(q)), plural(marksOf(q), 'mark')].filter(Boolean).join(' · ');
 
   // The latest saved result for a question, if any.
   function lastResult(q) {
@@ -138,7 +138,7 @@
       $('answer-figure-img').alt = q.image.alt;
       $('answer-figure-link').href = q.image.src;
     }
-    $('answer-key').replaceChildren(...type.answerKey(q));
+    $('answer-key').replaceChildren(...type.answerKey(q), ...ui.answerFigure(q));
     $('answer-notes').replaceChildren(...ui.studyNotes(q, set));
     ui.resetCopyButton($('answer-copy'), $('answer-fallback'));
     setHash(q.id);

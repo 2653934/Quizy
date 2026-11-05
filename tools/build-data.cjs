@@ -38,9 +38,11 @@ function checkQuestion(q, set, ids) {
   if (q.marks !== undefined && !(typeof q.marks === 'number' && q.marks > 0)) fail(`${where}: marks must be a positive number`);
   if (q.emphasis !== undefined && isText(q.question)) checkWords(where, q.question, q.emphasis, fail);
   if (q.keyDispute !== undefined && !isText(q.keyDispute)) fail(`${where}: keyDispute must be text`);
-  if (q.image !== undefined) {
-    if (!isText(q.image.src) || !isText(q.image.alt)) fail(`${where}: image needs src and alt`);
-    else if (!fs.existsSync(path.join(root, q.image.src))) fail(`${where}: image ${q.image.src} not found`);
+  for (const field of ['image', 'answerImage']) {
+    const image = q[field];
+    if (image === undefined) continue;
+    if (!isText(image?.src) || !isText(image?.alt)) fail(`${where}: ${field} needs src and alt`);
+    else if (!fs.existsSync(path.join(root, image.src))) fail(`${where}: ${field} ${image.src} not found`);
   }
   if (set.kind === 'lecture-bank' && (!q.source?.file || !Array.isArray(q.source.pages) || !q.source.pages.length)) fail(`${where}: missing source`);
   type.validate(q, set, fail);
@@ -63,6 +65,11 @@ for (const subject of registry.subjects) {
   for (const token of ['accent', 'paper', 'light', 'aside']) {
     if (!/^#[0-9a-f]{6}$/i.test(subject.theme?.[token] || '')) fail(`${subject.key}: theme.${token} must be a #rrggbb colour`);
   }
+  // Optional topic names for the lecture numbers ({"1": "Network flow", …}): shown instead of "L1".
+  if (subject.topics !== undefined) {
+    if (!subject.topics || typeof subject.topics !== 'object' || Array.isArray(subject.topics)) fail(`${subject.key}: topics must be an object of names`);
+    else for (const [n, name] of Object.entries(subject.topics)) if (!isText(name)) fail(`${subject.key}: topics.${n} must be a name`);
+  }
   let questionCount = 0, markCount = 0;
   for (const id of subject.sets) {
     if (!id.startsWith(subject.key + '-')) { fail(`${subject.key}: set id "${id}" must start with "${subject.key}-"`); continue; }
@@ -77,6 +84,9 @@ for (const subject of registry.subjects) {
     if (set.unofficialAnswers !== undefined && typeof set.unofficialAnswers !== 'boolean') fail(`${file}: unofficialAnswers must be true or false`);
     if (!Array.isArray(set.questions)) { fail(`${file}: questions must be an array`); continue; }
     for (const q of set.questions) checkQuestion(q, set, ids);
+    if (subject.topics && typeof subject.topics === 'object') {
+      for (const q of set.questions) if (q.lecture !== undefined && !isText(subject.topics[String(q.lecture)])) fail(`${id} / ${q.id}: lecture ${q.lecture} has no name in ${subject.key}.topics`);
+    }
     Quizy.checkPaperFields(set, fail);
     const marks = set.questions.reduce((sum, q) => sum + (q.marks ?? 1), 0);
     if (set.totalMarks !== undefined && set.totalMarks !== marks) fail(`${file}: totalMarks is ${set.totalMarks} but the questions add up to ${marks}`);

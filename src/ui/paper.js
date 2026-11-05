@@ -16,7 +16,7 @@
     const {section, lectures, available} = paper;
     const kind = section.name.toLowerCase();
     if (!lectures.length) return `Not enough ${kind} questions in ${state.subject.key.toUpperCase()} to fill Section ${section.letter} (${plural(section.marks, 'mark')}) yet.`;
-    const where = Quizy.lectureLabel(lectures) + (lectures.length === 1 ? ' only' : '');
+    const where = Quizy.lectureLabel(lectures, state.subject) + (lectures.length === 1 ? ' only' : '');
     return available < section.marks
       ? `Not enough ${kind} questions in ${where}: pick more lectures.`
       : `The ${kind} questions in ${where} can’t add up to exactly ${plural(section.marks, 'mark')}: pick more lectures.`;
@@ -69,7 +69,7 @@
     $('progress').value = $('progress').max;
     $('summary-eyebrow').textContent = 'Mock test complete';
     $('summary-title').textContent = `${formatMarks(totals.score)} / ${formatMarks(totals.marks)} marks · ${percent(totals.score, totals.marks)}`;
-    $('summary-detail').textContent = `Paper ${paper.code} · ${state.subject.key.toUpperCase()} · ${Quizy.lectureLabel(paper.lectures)}. `
+    $('summary-detail').textContent = `Paper ${paper.code} · ${state.subject.key.toUpperCase()} · ${Quizy.lectureLabel(paper.lectures, state.subject)}. `
       + 'To sit this paper again, pick the same lectures and replay the code. Your latest answers are saved on this device.';
 
     const rows = paper.sections.map(s => {
