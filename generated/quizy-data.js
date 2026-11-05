@@ -63,7 +63,8 @@ window.QUIZY_DATA = {
         "do-pt-2022",
         "do-pt-2021",
         "do-exam-2021",
-        "do-escience-2021"
+        "do-escience-2021",
+        "do-pt-2019"
       ]
     }
   ],
@@ -32187,6 +32188,152 @@ window.QUIZY_DATA = {
             }
           ],
           "explanation": "There is no solution for this part in the past-paper solutions; the answer is written from the course notes. Course notes: Regression.pdf p. 1 (least squares, normal equation $A^TAx = A^Tb$, nonlinear models $f(y, \\theta) = b$), p. 2 (polynomial regression written as $r = Ax - b$, over-determined systems) and p. 3 (section 2.3, normal equation). Regression is outside the 2026 exam scope."
+        }
+      ]
+    },
+    "do-pt-2019": {
+      "id": "do-pt-2019",
+      "title": "Test 2019 (September)",
+      "kind": "past-paper",
+      "description": "The September 2019 test, Question 2 (a)–(d) (19 marks), transcribed word for word. Write or think your answer, reveal the model answer, then tick the marking points you covered. Answers follow the handwritten past-paper solutions, expanded with full working from the course notes; they are unofficial.",
+      "sourceFile": "03 Past Papers/Past Paper Solutions 2024 Exam.pdf (pages 11–13); 04 Prep/Scope_Questions.pdf (extracts 07, 23, 25)",
+      "unofficialAnswers": true,
+      "transcriptionNotes": "There is no separate 2019 paper in the folder. The question text is taken from the screenshots in the handwritten solutions (pp. 11–13, headed \"2019 paper\"), checked against the clean extracts in Scope_Questions.pdf, which give the paper as the September 2019 test, Question 2. Only Question 2 (a)–(d) is available, so there is no total. Words split by hyphenation are joined (\"salesman\"). Maths written as LaTeX. Model answers and rubrics were written by an AI assistant from the handwritten solutions and the course notes; rubric marks follow the printed mark split.",
+      "subject": "do",
+      "questions": [
+        {
+          "id": "do-pt19-2a",
+          "source": {
+            "number": "2(a)"
+          },
+          "lecture": 11,
+          "concept": "Set covering model",
+          "type": "written",
+          "marks": 4,
+          "question": "Write down the mathematical model of the set covering problem. Describe the physical meaning of the constraint sets in the mathematical model. [3 + 1 Marks ]",
+          "modelAnswer": "Set $S = \\{1, \\dots, n\\}$ of items and subsets $S_1, \\dots, S_m$ of $S$; choosing $S_j$ costs $c_j > 0$; pick subsets that cover every item at minimum cost.\nData: $a_{ij} = 1$ if item $i$ is in $S_j$, $a_{ij} = 0$ otherwise ($i = 1, \\dots, n$; $j = 1, \\dots, m$).\nDecision variables: $x_j = 1$ if subset $S_j$ is chosen, $x_j = 0$ otherwise.\n$$\\min \\sum_{j=1}^{m} c_j x_j$$\n$$\\text{s.t.}\\quad \\sum_{j=1}^{m} a_{ij} x_j \\ge 1, \\quad i = 1, \\dots, n$$\n$$x_j \\in \\{0, 1\\}, \\quad j = 1, \\dots, m$$\nMeaning: the objective is the total cost of the chosen subsets (minimise it). The constraint for item $i$ says that at least one chosen subset contains item $i$, i.e. every item of $S$ is covered at least once. $x_j \\in \\{0, 1\\}$: each subset is either taken or not (no fractions of a subset).",
+          "rubric": [
+            {
+              "point": "Defines $x_j$ (1 if $S_j$ chosen, else 0) and $a_{ij}$ (1 if item $i \\in S_j$)",
+              "marks": 1
+            },
+            {
+              "point": "Objective $\\min \\sum_j c_j x_j$",
+              "marks": 1
+            },
+            {
+              "point": "Constraints $\\sum_j a_{ij} x_j \\ge 1$ for every item $i$, $x_j \\in \\{0,1\\}$",
+              "marks": 1
+            },
+            {
+              "point": "Meaning: every item is covered by at least one chosen subset",
+              "marks": 1
+            }
+          ],
+          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 11 (\"2019 paper\" (a)). Course notes: set covering model, DisCopt.pdf PDF pp. 31–33 (eqs. 64–68, and the meaning of each equation in the hospital example on PDF p. 33).",
+          "keyDispute": "The handwritten solution defines $a_{ij} = 1$ \"if item $i \\in S$\"; it should be \"if item $i \\in S_j$\"."
+        },
+        {
+          "id": "do-pt19-2b",
+          "source": {
+            "number": "2(b)"
+          },
+          "lecture": 8,
+          "concept": "Facility location: single-source constraint",
+          "type": "written",
+          "marks": 2,
+          "question": "A constraint of the mathematical model of the facility location problem is given by $\\sum_{i=1}^{m} x_{ij} = 1$, $\\forall j$, where $i$ represents the warehouses and $j$ is a customer; $x_{ij}$ is the variable representing whether customer $j$ is served by the warehouse $i$. Describe the meaning of this constraint. [2 Marks ]",
+          "modelAnswer": "For each customer $j$, the sum over all $m$ warehouses of $x_{ij}$ is exactly 1, and each $x_{ij}$ is 0 or 1. So every customer $j$ is served by exactly one warehouse: it must be served (the sum is not 0) and it cannot be split between or served by two warehouses (the sum is not 2 or more). This is the single-source requirement of the facility location model. (Another constraint, $x_{ij} \\le y_i$, then makes sure that warehouse is actually open.)",
+          "rubric": [
+            {
+              "point": "Every customer must be served (assigned to some warehouse)",
+              "marks": 1
+            },
+            {
+              "point": "…by exactly one warehouse (single source, no splitting)",
+              "marks": 1
+            }
+          ],
+          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 12 (\"every customer must be supplied/served by exactly 1 of the warehouses\"). Course notes: DisCopt.pdf PDF p. 30 (eqs. 51–57; constraint 52 is the single-source constraint).",
+          "keyDispute": "The handwritten solution swaps the letters (\"every customer i … of the warehouses j\"); in the question $j$ is the customer and $i$ the warehouse."
+        },
+        {
+          "id": "do-pt19-2c",
+          "source": {
+            "number": "2(c)"
+          },
+          "lecture": 7,
+          "concept": "Graph bisection: ±1 model and the 1/4 factor",
+          "type": "written",
+          "marks": 7,
+          "question": "Consider the graph bisection problem\n$$\\left\\{\\begin{array}{ll} \\max_x & \\frac{1}{4}\\sum_{i=1}^{n}\\sum_{j=1}^{n} w_{ij}(1 - x_i x_j) \\\\ s.t. & \\sum_{i=1}^{n} x_i = 0, \\\\ & x_i \\in \\{1, -1\\}, i \\in \\{1, \\cdots, n\\}. \\end{array}\\right.$$\nLet $S$ be the set of all feasible solutions to the above problem where $x_i \\in \\{-1, 1\\}$. (i) Prove that if $x = (x_1, x_2, \\cdots, x_n)^T \\in S$ then the solution $\\bar{x} = (-x_1, -x_2, \\cdots, -x_n)^T \\in S$. Give your reasons as to why the objective function is multiplied by $\\frac{1}{4}$. (ii) Is it possible to replace $\\frac{1}{4}$ with $\\frac{1}{2}$? (iii) How? [4 + 1 + 2 Marks ]",
+          "modelAnswer": "(i) Let $x \\in S$, so $\\sum_i x_i = 0$ and every $x_i \\in \\{1, -1\\}$. For $\\bar{x} = -x$: each $\\bar{x}_i = -x_i \\in \\{-1, 1\\}$, and\n$$\\sum_{i=1}^{n} \\bar{x}_i = \\sum_{i=1}^{n} (-x_i) = -\\sum_{i=1}^{n} x_i = -0 = 0,$$\nso $\\bar{x} \\in S$. (It is the same bisection with the two halves' labels swapped, and $\\bar{x}_i\\bar{x}_j = x_ix_j$, so it has the same objective value.)\nWhy $\\frac14$: $x_i = 1$ puts $i$ in $V_1$ and $x_i = -1$ puts it in $V_2$. For a pair in the same half $x_ix_j = 1$, so $1 - x_ix_j = 0$; for a pair in different halves $x_ix_j = -1$, so $1 - x_ix_j = 2$. The double sum runs over ordered pairs, so each cut edge $\\{i, j\\}$ appears twice, as $(i,j)$ and $(j,i)$, with $w_{ij} = w_{ji}$:\n$$w_{ij}(1 - x_ix_j) + w_{ji}(1 - x_jx_i) = 2w_{ij} + 2w_{ij} = 4w_{ij}.$$\nMultiplying by $\\frac14$ makes the objective exactly the total weight of the edges between $V_1$ and $V_2$ (the cut value).\n(ii) Yes.\n(iii) Count each pair once instead of twice, i.e. sum only over $i < j$:\n$$\\frac{1}{4}\\sum_{i=1}^{n}\\sum_{j=1}^{n} w_{ij}(1 - x_ix_j) = \\frac{1}{2}\\sum_{i=1}^{n-1}\\sum_{j=i+1}^{n} w_{ij}(1 - x_ix_j),$$\nbecause the diagonal terms vanish ($1 - x_i^2 = 0$) and the $(i,j)$ and $(j,i)$ terms are equal. Each cut edge now contributes $2w_{ij}$, and $\\frac12$ gives $w_{ij}$. (Simply writing $\\frac12$ in front of the full double sum would give twice the cut weight: the same maximiser, but not the cut value.)",
+          "rubric": [
+            {
+              "point": "(i) Each $-x_i \\in \\{1,-1\\}$",
+              "marks": 1
+            },
+            {
+              "point": "(i) $\\sum_i (-x_i) = -\\sum_i x_i = 0$, so $\\bar{x} \\in S$",
+              "marks": 1
+            },
+            {
+              "point": "(i) $1 - x_ix_j$ is 0 for a pair on the same side and 2 for a pair on opposite sides",
+              "marks": 1
+            },
+            {
+              "point": "(i) Each edge counted twice ($w_{ij} = w_{ji}$) gives $4w_{ij}$, so $\\frac14$ makes the objective the cut weight",
+              "marks": 1
+            },
+            {
+              "point": "(ii) Yes",
+              "marks": 1
+            },
+            {
+              "point": "(iii) Sum over $i < j$ only (each pair once): $\\frac12 \\sum_{i<j} w_{ij}(1 - x_ix_j)$",
+              "marks": 2
+            }
+          ],
+          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 12 (\"$w_{ij}(1 - x_ix_j) + w_{ji}(1 - x_jx_i) = 2(1 - x_ix_j)w_{ij} = 4w_{ij}$\"; \"yes, $\\frac14 \\sum\\sum = \\frac12 \\sum_i \\sum_{j>i}$\"). Course notes: max-bisection model and the symmetric solution $\\bar{x}$, DisCopt.pdf PDF pp. 40–41; the max-cut model with $\\frac12 \\sum_{i<j}$, PDF p. 42 (eq. 98). Both forms were checked numerically against the cut weight on random graphs."
+        },
+        {
+          "id": "do-pt19-2d",
+          "source": {
+            "number": "2(d)"
+          },
+          "lecture": 9,
+          "concept": "ATSP subtour elimination",
+          "type": "written",
+          "marks": 6,
+          "question": "Write down the sub-tour elimination constraint for the asymmetric travelling salesman problem (ATSP). Give an example of a sub-tour that can occur for the 7-city asymmetric TSP? How does the sub-tour elimination constraint of ATSP differ from the same constraint of the symmetric travelling salesman problem (STSP)? [2+2+2 Marks ]",
+          "modelAnswer": "ATSP subtour elimination constraints ($x_{ij} = 1$ if the salesman goes directly from city $i$ to city $j$):\n$$\\sum_{i \\in S} \\sum_{j \\in S,\\ j \\ne i} x_{ij} \\le |S| - 1, \\qquad \\forall S \\subset V,\\ 2 \\le |S| \\le n - 2.$$\nFor any proper subset $S$ of cities, the arcs used inside $S$ must be fewer than $|S|$, so they cannot close a cycle on $S$ alone.\nExample sub-tour for 7 cities (directed): $1 \\to 2 \\to 1$ and $3 \\to 4 \\to 5 \\to 6 \\to 7 \\to 3$. Every city has exactly one arc in and one arc out, so the assignment constraints $\\sum_i x_{ij} = 1$ and $\\sum_j x_{ij} = 1$ hold, but the route is two separate cycles, not one tour. It violates the subtour constraint for $S = \\{1, 2\\}$: $x_{12} + x_{21} = 2 > |S| - 1 = 1$.\nSTSP subtour elimination constraints ($x_e = 1$ if undirected edge $e$ is in the tour, $E(S)$ = edges with both ends in $S$):\n$$\\sum_{e \\in E(S)} x_e \\le |S| - 1, \\qquad \\forall S \\subset V,\\ 3 \\le |S| \\le n - 3.$$\nWhy the ranges differ: in the ATSP the arcs $(i,j)$ and $(j,i)$ are different, so two cities can form a sub-tour $i \\to j \\to i$; sets with $|S| = 2$ must be included. In the STSP $\\{i, j\\}$ is a single edge that can be used at most once, so a sub-tour needs at least 3 cities and $|S| = 2$ is not needed. The upper limit comes from the complement: if $S$ holds a sub-tour then so does $V \\setminus S$, which needs at least 2 cities (ATSP, so $|S| \\le n - 2$) or at least 3 cities (STSP, so $|S| \\le n - 3$). The ATSP version also sums over ordered pairs $i \\ne j$ instead of undirected edges.",
+          "rubric": [
+            {
+              "point": "ATSP constraint $\\sum_{i \\in S}\\sum_{j \\in S, j \\ne i} x_{ij} \\le |S| - 1$",
+              "marks": 1
+            },
+            {
+              "point": "…for all $S \\subset V$ with $2 \\le |S| \\le n - 2$",
+              "marks": 1
+            },
+            {
+              "point": "A valid 7-city directed sub-tour example",
+              "marks": 2
+            },
+            {
+              "point": "Difference: STSP uses undirected edges $E(S)$ with $3 \\le |S| \\le n-3$",
+              "marks": 1
+            },
+            {
+              "point": "Reason: a 2-city sub-tour is possible only with directed arcs",
+              "marks": 1
+            }
+          ],
+          "explanation": "Follows the handwritten solution in Past Paper Solutions 2024 Exam.pdf p. 13 (same constraint, sub-tours 1→2→3→1 and 4→6→7→5→4, and \"any subset S of V with |S| = 2 cannot form a subtour in STSP\"). Course notes: ATSP model with subtour constraints, DisCopt.pdf PDF pp. 21–22 (eqs. 33–38: \"the solution without (37) is not a tour but a collection of directed cycles called subtours\"); STSP model, PDF pp. 22–23 (eqs. 39–42).",
+          "answerImage": {
+            "src": "data/do/img/pt-2019/do-pt19-2d-answer.png",
+            "alt": "Directed sub-tours on 7 cities: a 2-cycle 1 → 2 → 1 and a 5-cycle 3 → 4 → 5 → 6 → 7 → 3."
+          }
         }
       ]
     }
