@@ -41,6 +41,7 @@ window.QUIZY_DATA = {
         "nlp-bank-lecture-6",
         "nlp-bank-lecture-7",
         "nlp-bank-lecture-8",
+        "nlp-bank-lecture-9",
         "nlp-bank-lecture-10"
       ]
     },
@@ -39646,6 +39647,371 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ]
+        }
+      ]
+    },
+    "nlp-bank-lecture-9": {
+      "id": "nlp-bank-lecture-9",
+      "subject": "nlp",
+      "title": "Practice bank: Lecture 9 (Scaling NLP)",
+      "kind": "generated",
+      "origin": "new",
+      "description": "New practice questions on Lecture 9 (induction heads, scaling laws, mixture of experts, modularity, distillation and data poisoning), with scaling-law and distillation calculations, plus mechanistic interpretability from the tutorial. Written for exam revision from the slides. Not from the lecturer: the answers are unofficial.",
+      "unofficialAnswers": true,
+      "negativeMarkingNote": "The real Moodle quiz uses negative marking on MCQ questions: picking all right and wrong answers on a question results in a mark of 0.",
+      "totalMarks": 23,
+      "questions": [
+        {
+          "id": "nlp-b9-001",
+          "lecture": 9,
+          "concept": "Induction heads and in-context learning",
+          "source": {
+            "file": "lecture9_scaling_nlp.pdf",
+            "pages": [
+              2
+            ]
+          },
+          "type": "single",
+          "marks": 1,
+          "question": "What is the \"phase change\" associated with induction heads (Lecture 9)?",
+          "choices": [
+            "With scale, the model realises the task cannot be done by learning alone and switches to using the context (in-context learning)",
+            "The model's loss suddenly increases at the end of training",
+            "Attention heads switch from the encoder to the decoder",
+            "The model switches from greedy decoding to beam search"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slide 2. Induction heads tend to emerge with scale and are argued to be the mechanism for most in-context learning (slide 3)."
+        },
+        {
+          "id": "nlp-b9-002",
+          "lecture": 9,
+          "concept": "Induction heads and in-context learning",
+          "source": {
+            "file": "lecture9_scaling_nlp.pdf",
+            "pages": [
+              2,
+              3
+            ]
+          },
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or False: An induction head needs two attention layers working together: a previous-token head and a head that uses it to copy what followed an earlier occurrence of the current token.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "The circuit on slide 2 shows a \"previous token head\" feeding the induction head. The lecturer linked this to stacked layers in L5 and to the project."
+        },
+        {
+          "id": "nlp-b9-003",
+          "lecture": 9,
+          "concept": "Neural scaling laws",
+          "source": {
+            "file": "lecture9_scaling_nlp.pdf",
+            "pages": [
+              4
+            ]
+          },
+          "type": "numeric",
+          "marks": 4,
+          "question": "The Kaplan et al. fits on slide 4 are $L(N) = (N / 8.8 \\times 10^{13})^{-0.076}$ (parameters) and $L(D) = (D / 5.4 \\times 10^{13})^{-0.095}$ (tokens).\n(a) $L$ for a model with $N = 10^9$ parameters.\n(b) The factor by which $L$ is multiplied when $N$ grows 10×.\n(c) $L$ for $D = 10^{10}$ tokens.\n(d) The factor when $D$ grows 10×.",
+          "parts": [
+            {
+              "label": "(a) L(N = 1e9)",
+              "answer": 2.3756,
+              "marks": 1,
+              "tolerance": 0.006
+            },
+            {
+              "label": "(b) factor for 10× N",
+              "answer": 0.8395,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "(c) L(D = 1e10)",
+              "answer": 2.2624,
+              "marks": 1,
+              "tolerance": 0.006
+            },
+            {
+              "label": "(d) factor for 10× D",
+              "answer": 0.8035,
+              "marks": 1,
+              "tolerance": 0.0006
+            }
+          ],
+          "solution": "(a) $(10^9 / 8.8\\times10^{13})^{-0.076} = 2.3756$. (b) $10^{-0.076} = 0.8395$: about 16% lower loss per 10× parameters. (c) $2.2624$. (d) $10^{-0.095} = 0.8035$.",
+          "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+          "explanation": "A power law is a straight line on log–log axes: each 10× in scale gives the same fractional improvement, which is what makes the improvements predictable.",
+          "variantOf": "scaling-calc"
+        },
+        {
+          "id": "nlp-b9-004",
+          "lecture": 9,
+          "concept": "Neural scaling laws",
+          "source": {
+            "file": "lecture9_scaling_nlp.pdf",
+            "pages": [
+              4
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which statements about neural scaling laws are made on the slides?",
+          "choices": [
+            "Language-model loss improves smoothly and predictably as compute, data and parameters grow",
+            "Each factor has a power-law relationship with the loss when not bottlenecked by the others",
+            "The regularity is believed to be due to the Zipf distribution of language",
+            "Scaling up removes the need for more data"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "Slide 4 (Kaplan et al.). The three must be scaled in tandem."
+        },
+        {
+          "id": "nlp-b9-005",
+          "lecture": 9,
+          "concept": "Sparsity: mixture of experts",
+          "source": {
+            "file": "lecture9_scaling_nlp.pdf",
+            "pages": [
+              5
+            ]
+          },
+          "type": "single",
+          "marks": 1,
+          "question": "In a sparsely-gated mixture-of-experts layer:",
+          "choices": [
+            "A gating network selects a few experts for each input, so only part of the parameters is used per token",
+            "Every expert processes every token and the outputs are averaged",
+            "Experts are separate models trained on different languages",
+            "The gate is fixed by hand"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slide 5 (Shazeer et al.): the gate picks two experts here. Sparsity gives the capacity of a large model at the compute cost of a small one."
+        },
+        {
+          "id": "nlp-b9-006",
+          "lecture": 9,
+          "concept": "Sparsity: mixture of experts",
+          "source": {
+            "file": "lecture9_scaling_nlp.pdf",
+            "pages": [
+              5
+            ]
+          },
+          "type": "numeric",
+          "marks": 3,
+          "question": "An MoE layer has 64 experts, each with 4.2M parameters, and the gate selects the top 2 experts per token. (a) What fraction of the expert parameters is used for one token? (b) How many expert parameters are stored? (c) How many are used per token?",
+          "parts": [
+            {
+              "label": "(a) fraction",
+              "answer": 0.0313,
+              "marks": 1,
+              "tolerance": 0.0005
+            },
+            {
+              "label": "(b) stored",
+              "answer": 268800000,
+              "marks": 1,
+              "relTolerance": 0.001
+            },
+            {
+              "label": "(c) used",
+              "answer": 8400000,
+              "marks": 1,
+              "relTolerance": 0.001
+            }
+          ],
+          "solution": "(a) $2/64 = 0.03125$. (b) $64 \\times 4.2$M = 268.8M. (c) $2 \\times 4.2$M = 8.4M.",
+          "inputHint": "A decimal or whole number (e.g. 2.688e8)."
+        },
+        {
+          "id": "nlp-b9-007",
+          "lecture": 9,
+          "concept": "Modularity: recurrent independent mechanisms",
+          "source": {
+            "file": "lecture9_scaling_nlp.pdf",
+            "pages": [
+              6
+            ]
+          },
+          "type": "single",
+          "marks": 1,
+          "question": "In Recurrent Independent Mechanisms (RIMs), what role does attention play?",
+          "choices": [
+            "It guides information flow through whole network modules, so only the relevant modules are activated and they communicate sparsely",
+            "It replaces the recurrence entirely",
+            "It masks future tokens",
+            "It is used only to read the output"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slide 6: modularity and sparsity baked in; modules compete via input attention and communicate sparsely."
+        },
+        {
+          "id": "nlp-b9-008",
+          "lecture": 9,
+          "concept": "Modularity: recurrent independent mechanisms",
+          "source": {
+            "file": "lecture9_scaling_nlp.pdf",
+            "pages": [
+              5,
+              6
+            ]
+          },
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or False: Lecture 9 presents sparsity (mixture of experts) and modularity (e.g. RIMs) as ways to get emergent abilities without needing as much scale.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "The slides' heading is \"Emergence without the scale\"."
+        },
+        {
+          "id": "nlp-b9-009",
+          "lecture": 9,
+          "concept": "Knowledge distillation",
+          "source": {
+            "file": "lecture9_scaling_nlp.pdf",
+            "pages": [
+              7
+            ]
+          },
+          "type": "numeric",
+          "marks": 3,
+          "question": "A teacher network gives logits $(4,2,1,0)$ for four classes; the true label is class 1.\n(a) The teacher's probability for class 2 at temperature 1.\n(b) The same at temperature 4 (softened labels for distillation).\n(c) The hard label's probability for class 2.",
+          "parts": [
+            {
+              "label": "(a) τ = 1",
+              "answer": 0.1125,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "(b) τ = 4",
+              "answer": 0.2479,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "(c) hard label",
+              "answer": 0,
+              "marks": 1,
+              "tolerance": 0.0005
+            }
+          ],
+          "solution": "(a) $\\text{softmax}(4,2,1,0)_2 = 0.1125$. (b) Dividing by 4: $(1, 0.5, 0.25, 0)$, $p_2 = 0.2479$. (c) The one-hot label gives 0.",
+          "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+          "explanation": "Distillation trains the student on the teacher's soft labels, which say how similar the wrong classes are to the right one: \"far more detailed labels\" than one-hot targets (slide 7). The temperature is the same knob as in L5.",
+          "variantOf": "kd-calc"
+        },
+        {
+          "id": "nlp-b9-010",
+          "lecture": 9,
+          "concept": "Knowledge distillation",
+          "source": {
+            "file": "lecture9_scaling_nlp.pdf",
+            "pages": [
+              7
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which statements about knowledge distillation are true?",
+          "choices": [
+            "A big (teacher) network is used to train a smaller (student) network",
+            "The student learns from the teacher's soft predictions, which carry more detail than hard labels",
+            "The student can also be trained on the true labels at the same time",
+            "The student must be larger than the teacher"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "The slide shows soft labels from the teacher and hard labels from the data both feeding the student."
+        },
+        {
+          "id": "nlp-b9-011",
+          "lecture": 9,
+          "concept": "Data poisoning",
+          "source": {
+            "file": "lecture9_scaling_nlp.pdf",
+            "pages": [
+              8,
+              9
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "The data-poisoning slides describe how model-generated data filtering back into training causes collapse. Which statements match them?",
+          "choices": [
+            "Probable events are over-estimated and improbable events under-estimated",
+            "Errors come from finite sampling and approximate fitting",
+            "The tails of the distribution shrink over time",
+            "Collapse takes thousands of generations to appear"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "It can happen \"over a handful of generations\"."
+        },
+        {
+          "id": "nlp-b9-012",
+          "lecture": 9,
+          "concept": "Mechanistic interpretability",
+          "type": "single",
+          "marks": 1,
+          "question": "What is the high-level goal of mechanistic interpretability (Tutorial 8.1)?",
+          "choices": [
+            "To reverse-engineer the computations inside a trained network into human-understandable mechanisms (circuits), such as induction heads",
+            "To make models smaller by pruning",
+            "To measure a model's accuracy on benchmarks",
+            "To write programs that generate neural networks"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Not on the slides: this follows the standard definition used in the tutorial. Induction heads are a classic example of a circuit found this way."
+        },
+        {
+          "id": "nlp-b9-013",
+          "lecture": 9,
+          "concept": "Mechanistic interpretability",
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or False: Probing a representation with a classifier shows that information is present, while mechanistic interpretability tries to show how the network actually uses it.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Probing is correlational (\"decodable\"); mechanistic work traces the causal circuit (e.g. which heads compose into an induction head). Tutorial 8.1 topic; standard definitions."
         }
       ]
     },
