@@ -75,6 +75,7 @@ for (const subject of registry.subjects) {
     else for (const [n, name] of Object.entries(subject.topics)) if (!isText(name)) fail(`${subject.key}: topics.${n} must be a name`);
   }
   Quizy.checkExamBlueprint(subject, fail);
+  Quizy.checkPaperSections(subject, fail);
   let questionCount = 0, markCount = 0;
   for (const id of subject.sets) {
     if (!id.startsWith(subject.key + '-')) { fail(`${subject.key}: set id "${id}" must start with "${subject.key}-"`); continue; }

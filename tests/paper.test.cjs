@@ -33,12 +33,12 @@ function syntheticSets() {
 }
 
 // Everything that must hold for any paper that was made.
-function checkPaper(paper, lectures) {
+function checkPaper(paper, lectures, marks = [30, 20]) {
   assert.equal(paper.ok, true);
   const [quiz, theory] = paper.sections;
-  assert.deepEqual([quiz.key, quiz.letter, quiz.marks, theory.key, theory.letter, theory.marks], ['quiz', 'A', 30, 'theory', 'B', 20]);
-  assert.equal(sum(quiz.items), 3000);
-  assert.equal(sum(theory.items), 2000);
+  assert.deepEqual([quiz.key, quiz.letter, quiz.marks, theory.key, theory.letter, theory.marks], ['quiz', 'A', marks[0], 'theory', 'B', marks[1]]);
+  assert.equal(sum(quiz.items), hundredths(marks[0]));
+  assert.equal(sum(theory.items), hundredths(marks[1]));
   const all = paper.sections.flatMap(s => s.items);
   assert.equal(new Set(all.map(x => x.q.id)).size, all.length, 'no question twice');
   const groups = all.map(x => x.q.variantOf).filter(Boolean);
@@ -185,4 +185,27 @@ test('real data: papers from the registered sets', () => {
   assert.deepEqual([l9.ok, l9.section.key], [false, 'quiz']);
   const dve = Quizy.makePaper({sets: setsOf('dve'), lectures: [], code: 1});
   assert.deepEqual([dve.ok, dve.section.key], [false, 'theory']);
+});
+
+test('subject paper sections: NLP papers are 50/50, other subjects keep the default', () => {
+  const subjects = readJSON('data/subjects.json').subjects;
+  const nlpSubject = subjects.find(s => s.key === 'nlp');
+  const sections = Quizy.paperSectionsOf(nlpSubject);
+  assert.deepEqual(sections.map(s => [s.key, s.marks]), [['quiz', 50], ['theory', 50]]);
+  assert.equal(Quizy.paperSectionsOf(subjects.find(s => s.key === 'dve')), Quizy.PAPER_SECTIONS);
+  const nlp = nlpSubject.sets.map(id => readJSON(Quizy.setFile('nlp', id)));
+  for (const lectures of [['5', '6', '7', '8', '10'], []]) {
+    for (let code = 2000; code < 2020; code++) checkPaper(Quizy.makePaper({sets: nlp, lectures, code, sections}), lectures, [50, 50]);
+  }
+  // The same code with the same sections gives the same paper.
+  const a = Quizy.makePaper({sets: nlp, lectures: [], code: 4821, sections});
+  assert.deepEqual(ids(Quizy.makePaper({sets: nlp, lectures: [], code: 4821, sections})), ids(a));
+});
+
+test('paperSections build check', () => {
+  const problems = s => { const out = []; Quizy.checkPaperSections({key: 'x', paperSections: s}, m => out.push(m)); return out; };
+  assert.deepEqual(problems(undefined), []);
+  assert.deepEqual(problems([{key: 'quiz', letter: 'A', name: 'Quiz', marks: 50}, {key: 'theory', letter: 'B', name: 'Written', marks: 50}]), []);
+  assert.equal(problems([{key: 'theory', letter: 'B', name: 'W', marks: 5}]).length, 1);
+  assert.equal(problems([{key: 'quiz', letter: 'A', name: 'Quiz', marks: 0}, {key: 'theory', letter: '', name: 'W', marks: 5}]).length, 2);
 });

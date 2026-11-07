@@ -25,7 +25,7 @@
   }
 
   function startPaper(code) {
-    const paper = Quizy.makePaper({sets: state.sets, lectures: ui.chosenLectures(), code});
+    const paper = Quizy.makePaper({sets: state.sets, lectures: ui.chosenLectures(), code, sections: Quizy.paperSectionsOf(state.subject)});
     if (!paper.ok) { $('setup-message').textContent = notEnough(paper); return; }
     ui.startPaper(paper);
   }

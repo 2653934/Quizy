@@ -22,6 +22,22 @@
     {key: 'theory', letter: 'B', name: 'Theory', marks: 20}
   ];
 
+  // A subject may give its own section marks in subjects.json ("paperSections", e.g. NLP's 50/50 split).
+  Quizy.paperSectionsOf = subject => subject?.paperSections || Quizy.PAPER_SECTIONS;
+
+  // Build check for a subject's paperSections: the quiz and theory sections, in that order, each with marks.
+  Quizy.checkPaperSections = function (subject, fail) {
+    const s = subject.paperSections;
+    if (s === undefined) return;
+    const at = `${subject.key}.paperSections`;
+    if (!Array.isArray(s) || s.map(x => x?.key).join() !== 'quiz,theory') return fail(`${at} must list the "quiz" then the "theory" section`);
+    s.forEach((x, i) => {
+      if (typeof x.letter !== 'string' || !x.letter.trim()) fail(`${at}[${i}]: letter must be text`);
+      if (typeof x.name !== 'string' || !x.name.trim()) fail(`${at}[${i}]: name must be text`);
+      if (!(typeof x.marks === 'number' && x.marks > 0)) fail(`${at}[${i}]: marks must be a positive number`);
+    });
+  };
+
   Quizy.originOf = set => set.origin || (SEEN_KINDS.includes(set.kind) ? 'seen' : 'new');
   Quizy.sectionOf = q => q.section || (THEORY_TYPES.includes(q.type) ? 'theory' : 'quiz');
 
@@ -128,7 +144,8 @@
   // Returns {ok: true, code, lectures, share, sections: [{key, letter, name, marks, items: [{q, set}], seenMarks}], random}
   // (random continues the paper's generator, for shuffling options the same way on a replay), or
   // {ok: false, code, lectures, section, available} naming the section that can't be filled exactly.
-  Quizy.makePaper = function ({sets, lectures, code}) {
+  // shape: the sections to fill (default Quizy.PAPER_SECTIONS; Quizy.paperSectionsOf(subject) in the app).
+  Quizy.makePaper = function ({sets, lectures, code, sections: shape = Quizy.PAPER_SECTIONS}) {
     const random = Quizy.seeded(code);
     const share = SHARE[0] + (SHARE[1] - SHARE[0]) * random();
     const wanted = lectures && lectures.length ? new Set(lectures.map(String)) : null;
@@ -140,18 +157,18 @@
       const picks = onePerGroup(Quizy.shuffle(pool, random));
       const sections = [];
       let cost = 0;
-      for (const section of Quizy.PAPER_SECTIONS) {
+      for (const section of shape) {
         const mine = picks.filter(x => Quizy.sectionOf(x.q) === section.key);
         const filled = fillSection(mine.filter(x => Quizy.originOf(x.set) === 'seen'), mine.filter(x => Quizy.originOf(x.set) !== 'seen'), section, share, random);
         if (!filled) { failures[section.key] = (failures[section.key] || 0) + 1; break; }
         sections.push({...section, items: Quizy.shuffle(filled.items, random), seenMarks: filled.seenMarks});
         cost += filled.cost;
       }
-      if (sections.length === Quizy.PAPER_SECTIONS.length && (!best || cost < best.cost)) best = {cost, sections};
+      if (sections.length === shape.length && (!best || cost < best.cost)) best = {cost, sections};
     }
     const base = {code, lectures: wanted ? [...wanted] : []};
     if (best) return {ok: true, ...base, share, sections: best.sections, random};
-    const section = Quizy.PAPER_SECTIONS.reduce((a, b) => (failures[b.key] || 0) > (failures[a.key] || 0) ? b : a);
+    const section = shape.reduce((a, b) => (failures[b.key] || 0) > (failures[a.key] || 0) ? b : a);
     const available = pool.filter(x => Quizy.sectionOf(x.q) === section.key).reduce((sum, x) => sum + Quizy.marksOf(x.q), 0);
     return {ok: false, ...base, section, available};
   };

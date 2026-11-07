@@ -26,6 +26,20 @@ window.QUIZY_DATA = {
         "light": "#e6e2f6",
         "aside": "#ebe8f4"
       },
+      "paperSections": [
+        {
+          "key": "quiz",
+          "letter": "A",
+          "name": "Quiz",
+          "marks": 50
+        },
+        {
+          "key": "theory",
+          "letter": "B",
+          "name": "Written",
+          "marks": 50
+        }
+      ],
       "sets": [
         "nlp-past-quiz-1-2025",
         "nlp-past-quiz-2-2025",

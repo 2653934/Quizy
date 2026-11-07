@@ -176,7 +176,12 @@
     $('paper-code-label').textContent = blueprint ? 'Replay exam code' : 'Replay paper code';
     $('paper-code').placeholder = blueprint ? 'e.g. 4821 or S4821' : 'e.g. 4821';
     $('paper-code').inputMode = blueprint ? 'text' : 'numeric';
-    if (!blueprint) return;
+    if (!blueprint) {
+      // The section marks come from the subject (paperSections), e.g. NLP's 50 + 50.
+      const [a, b] = Quizy.paperSectionsOf(state.subject);
+      $('paper-note').textContent = `A mock test is shaped like the real one: Section ${a.letter} ${a.name.toLowerCase()} (${a.marks} marks), then Section ${b.letter} ${b.name.toLowerCase()} (${b.marks} marks), from the lectures you picked. Quiz set and question style don’t apply.`;
+      return;
+    }
     const parts = blueprint.questions.map(x => `${x.label} (${plural(x.marks, 'mark')})`).join(', ');
     const [low, high] = blueprint.seenShare.map(f => Math.round(f * 100));
     $('scope-note').textContent = `A scope exam is shaped like the real ${subjectName()} exam: ${parts}, ${blueprint.totalMarks} marks, from every topic in the final scope `
