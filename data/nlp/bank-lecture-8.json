@@ -1,0 +1,1623 @@
+{
+  "id": "nlp-bank-lecture-8",
+  "subject": "nlp",
+  "title": "Practice bank: Lecture 8 (Transfer learning)",
+  "kind": "generated",
+  "origin": "new",
+  "description": "New practice questions on transfer learning, written for exam revision from the Lecture 8 slides and the tutorial: quiz questions, LoRA, adapter and fp16 memory calculations, scoring calculations for adapted models, and hard \"adapt model X to task Y\" written questions (GPT-2, BERT, ELMo for multiple choice, extractive QA, NLI, NER and summarisation). Not from the lecturer: the answers are unofficial.",
+  "unofficialAnswers": true,
+  "negativeMarkingNote": "The real Moodle quiz uses negative marking on MCQ questions: picking all right and wrong answers on a question results in a mark of 0.",
+  "totalMarks": 157,
+  "questions": [
+    {
+      "id": "nlp-b8-001",
+      "lecture": 8,
+      "concept": "Transfer learning idea",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          11,
+          13
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "What is the core idea of transfer learning in NLP?",
+      "choices": [
+        "Knowledge from a model trained on a source task (usually with lots of unlabelled data) is transferred to a model for the target task",
+        "A model is trained once on the target task and then copied to other machines",
+        "Labels are transferred from the test set to the training set",
+        "Each task is trained from scratch so knowledge cannot leak between tasks"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Slides 11–13: source task → auxiliary model → knowledge \"transfer\" → main model for the target task. Labelled task data is small; unlabelled text is huge."
+    },
+    {
+      "id": "nlp-b8-002",
+      "lecture": 8,
+      "concept": "Transfer learning idea",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          4,
+          13
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Transfer learning helps because labelled data for a specific task is usually small or not diverse, while unlabelled text in the general domain is huge.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The \"which data do we have?\" slide: task data is task-specific and limited; text for pretraining is huge and diverse."
+    },
+    {
+      "id": "nlp-b8-003",
+      "lecture": 8,
+      "concept": "Taxonomy of transfer learning",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "type": "match",
+      "marks": 4,
+      "question": "Match each setting to its name in Ruder's taxonomy.",
+      "pairs": [
+        {
+          "prompt": "Same task, different domain (e.g. news sentiment → tweet sentiment)",
+          "answer": "Domain adaptation"
+        },
+        {
+          "prompt": "Same task, different language",
+          "answer": "Cross-lingual learning"
+        },
+        {
+          "prompt": "Different tasks learned at the same time",
+          "answer": "Multi-task learning"
+        },
+        {
+          "prompt": "Different tasks learned one after another (pretrain, then fine-tune)",
+          "answer": "Sequential transfer learning"
+        }
+      ],
+      "options": [
+        "Domain adaptation",
+        "Cross-lingual learning",
+        "Multi-task learning",
+        "Sequential transfer learning",
+        "Knowledge distillation"
+      ],
+      "explanation": "Transductive (same task: domain adaptation, cross-lingual) vs inductive (different tasks: multi-task, sequential). Sequential transfer is the most popular today."
+    },
+    {
+      "id": "nlp-b8-004",
+      "lecture": 8,
+      "concept": "Transfer through word embeddings",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          19,
+          24
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Word2Vec embeddings used in a task model are the simplest form of transfer. Which statements are true?",
+      "choices": [
+        "They give each word one vector, whatever the context (\"bank\" is the same in \"river bank\" and \"bank loan\")",
+        "Only the word representations are transferred; the task model still learns how to process the sentence from scratch",
+        "They can be frozen, or used to initialise embeddings that are then fine-tuned",
+        "They give a different vector for each sense of a word"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "This is the gap ELMo and BERT fill: they transfer how to process whole texts, giving words-in-context representations."
+    },
+    {
+      "id": "nlp-b8-005",
+      "lecture": 8,
+      "concept": "ELMo architecture",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          25,
+          33
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which components make up ELMo?",
+      "choices": [
+        "A character-level CNN with highway layers that builds a vector for each word",
+        "A 2-layer forward LSTM language model and a 2-layer backward LSTM language model",
+        "Self-attention layers",
+        "Task-specific weights that combine the layers into one representation"
+      ],
+      "answer": [
+        0,
+        1,
+        3
+      ],
+      "explanation": "ELMo is recurrent (biLSTM), not self-attention (Quiz 2 Q22's key is disputed on exactly this point).",
+      "variantOf": "elmo-facts"
+    },
+    {
+      "id": "nlp-b8-006",
+      "lecture": 8,
+      "concept": "ELMo architecture",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: ELMo's character-level CNN means it can build a representation for any word, including words never seen in training, and words written similarly get similar representations.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Convolution over characters + global max-pooling + highway layers. This is why ELMo is open-vocabulary."
+    },
+    {
+      "id": "nlp-b8-007",
+      "lecture": 8,
+      "concept": "ELMo architecture",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          25
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "In a highway layer $y = g \\odot \\text{Linear}(x) + (1 - g) \\odot x$ with $g = \\sigma(W x + b)$, what does the gate $g$ do?",
+      "choices": [
+        "Decides, per dimension, how much of the transformed input to use and how much of the input to pass through unchanged",
+        "Masks future characters",
+        "Selects which LSTM direction to use",
+        "Normalises the vector to unit length"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The \"+\" and \"×\" nodes on the slide: a gated mix of the transformation and a skip connection, similar in spirit to a residual connection."
+    },
+    {
+      "id": "nlp-b8-008",
+      "lecture": 8,
+      "concept": "Using ELMo in a task model",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          30,
+          33
+        ]
+      },
+      "type": "numeric",
+      "marks": 3,
+      "question": "For one token, ELMo gives layer vectors $h_0 = (1,0)$ (char-CNN), $h_1 = (0,2)$ and $h_2 = (1,1)$ (biLSTM layers).\n(a)–(b) With task weights $\\lambda = (0.2,0.5,0.3)$ and scale $\\gamma = 2$, compute $\\gamma \\sum_j \\lambda_j h_j$.\n(c) In the ELMo paper the weights are $\\text{softmax}(s)$ of learned scalars $s$. If $s = (1,0,-1)$, what is $\\lambda_0$?",
+      "parts": [
+        {
+          "label": "(a) first component",
+          "answer": 1,
+          "marks": 1,
+          "tolerance": 0.006
+        },
+        {
+          "label": "(b) second component",
+          "answer": 2.6,
+          "marks": 1,
+          "tolerance": 0.006
+        },
+        {
+          "label": "(c) λ₀",
+          "answer": 0.6652,
+          "marks": 1,
+          "tolerance": 0.0006
+        }
+      ],
+      "solution": "(a)–(b) $\\sum_j \\lambda_j h_j = 0.2(1, 0) + 0.5(0, 2) + 0.3(1, 1) = (0.5, 1.3)$; times $\\gamma = 2$: $(1, 2.6)$.\n(c) $\\text{softmax}(1, 0, -1)_0 = 0.6652$.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "explanation": "The slide shows \"learn specific $\\lambda_0, \\lambda_1, \\lambda_2$ for each task\". Different tasks weight layers differently: lower layers carry more syntax, higher layers more context-dependent meaning.",
+      "variantOf": "elmo-calc"
+    },
+    {
+      "id": "nlp-b8-009",
+      "lecture": 8,
+      "concept": "Using ELMo in a task model",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          34,
+          52
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: To use ELMo, you replace the word embeddings feeding your task-specific model with ELMo's representations of words in context; the task model itself stays (almost) the same.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Slide 52 \"ELMo: what's changed?\". With BERT there is no task-specific model at all, just a small head."
+    },
+    {
+      "id": "nlp-b8-010",
+      "lecture": 8,
+      "concept": "BERT architecture and input",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          39,
+          43
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which statements about BERT's architecture and input are true?",
+      "choices": [
+        "BERT is a Transformer encoder with special training objectives and lots of data",
+        "Its input embedding is the sum of token, segment and position embeddings",
+        "[SEP] separates the two sentences of a pair, and [CLS] is placed at the start",
+        "BERT uses a causal mask so each token sees only earlier tokens"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "BERT is bidirectional: every token attends to both sides. A causal mask is what GPT uses."
+    },
+    {
+      "id": "nlp-b8-011",
+      "lecture": 8,
+      "concept": "BERT architecture and input",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          43
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "Which BERT output is used to predict whether sentence B follows sentence A?",
+      "choices": [
+        "The final vector of the [CLS] token",
+        "The final vector of the [SEP] token",
+        "The average of all token vectors",
+        "The vector of the last token of sentence B"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The [CLS] output feeds the NSP classifier; when fine-tuning, it is also used for sentence-level classification."
+    },
+    {
+      "id": "nlp-b8-012",
+      "lecture": 8,
+      "concept": "BERT masked language modelling",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          44,
+          48
+        ]
+      },
+      "type": "numeric",
+      "marks": 5,
+      "question": "BERT pre-training on a batch with 400 tokens. Using the standard masking scheme, how many tokens are (a) chosen for prediction, (b) replaced with [MASK], (c) replaced with a random token, (d) left unchanged but still predicted? (e) On how many positions is the MLM loss computed?",
+      "parts": [
+        {
+          "label": "(a) chosen",
+          "answer": 60,
+          "marks": 1,
+          "tolerance": 0.1
+        },
+        {
+          "label": "(b) [MASK]",
+          "answer": 48,
+          "marks": 1,
+          "tolerance": 0.1
+        },
+        {
+          "label": "(c) random token",
+          "answer": 6,
+          "marks": 1,
+          "tolerance": 0.1
+        },
+        {
+          "label": "(d) unchanged",
+          "answer": 6,
+          "marks": 1,
+          "tolerance": 0.1
+        },
+        {
+          "label": "(e) loss positions",
+          "answer": 60,
+          "marks": 1,
+          "tolerance": 0.1
+        }
+      ],
+      "solution": "15% of 400 = 60 chosen. Of these: 80% → 48 [MASK], 10% → 6 random, 10% → 6 unchanged. Cross-entropy is computed only on the 60 chosen positions.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "explanation": "Why not always [MASK]? [MASK] never appears at fine-tuning time, so keeping some tokens unchanged or random forces the model to build a good representation of every token.",
+      "variantOf": "bert-masking"
+    },
+    {
+      "id": "nlp-b8-013",
+      "lecture": 8,
+      "concept": "BERT masked language modelling",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          48
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: In masked language modelling, BERT predicts every token of the input, not only the chosen ones.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The slide: \"predict original tokens (only chosen ones!)\" with cross-entropy."
+    },
+    {
+      "id": "nlp-b8-014",
+      "lecture": 8,
+      "concept": "BERT next sentence prediction",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          42,
+          43
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which statements about next sentence prediction (NSP) are true?",
+      "choices": [
+        "The input is a pair of sentences that are either consecutive in the corpus or randomly paired",
+        "The [CLS] output is used to predict which case it is",
+        "It is meant to teach relations between sentences, useful for tasks such as NLI and QA",
+        "It is a causal language-modelling objective"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "MLM and NSP are BERT's two pre-training objectives (Tutorial 6.2)."
+    },
+    {
+      "id": "nlp-b8-015",
+      "lecture": 8,
+      "concept": "Fine-tuning BERT for tasks",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          49,
+          51
+        ]
+      },
+      "type": "match",
+      "marks": 4,
+      "question": "Match each task to how BERT is fine-tuned for it.",
+      "pairs": [
+        {
+          "prompt": "SST-2 (sentiment)",
+          "answer": "One sentence, no [SEP] pair; classifier on [CLS]"
+        },
+        {
+          "prompt": "MNLI (entailment / contradiction / neutral)",
+          "answer": "Sentence pair separated by [SEP]; classifier on [CLS]"
+        },
+        {
+          "prompt": "SQuAD (question answering)",
+          "answer": "Question and passage as a pair; predict start and end positions in the passage"
+        },
+        {
+          "prompt": "STS-B (similarity score 1–5)",
+          "answer": "Sentence pair; regression output on [CLS]"
+        }
+      ],
+      "options": [
+        "One sentence, no [SEP] pair; classifier on [CLS]",
+        "Sentence pair separated by [SEP]; classifier on [CLS]",
+        "Question and passage as a pair; predict start and end positions in the passage",
+        "Sentence pair; regression output on [CLS]",
+        "Generate the answer token by token with a causal mask"
+      ],
+      "explanation": "Slides 49–51. Token-level tasks (e.g. NER) put a classifier on every token's output instead."
+    },
+    {
+      "id": "nlp-b8-016",
+      "lecture": 8,
+      "concept": "Fine-tuning BERT for tasks",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          53
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: With BERT, \"there is no task-specific model at all\": fine-tuning adds only a small output layer and updates the whole pretrained network.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Slide 53 \"BERT: what's changed?\". Compare ELMo, where a task-specific model sits on top of frozen features."
+    },
+    {
+      "id": "nlp-b8-017",
+      "lecture": 8,
+      "concept": "Fine-tuning BERT for tasks",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          51
+        ]
+      },
+      "type": "numeric",
+      "marks": 4,
+      "question": "A BERT QA model scores the 5 passage tokens with start logits $(0.2,2,0.5,1.5,-1)$ and end logits $(-0.5,0.3,2.2,1,0.8)$ (positions 1–5).\n(a)–(b) Using score(start $i$, end $j$) = start$_i$ + end$_j$, with $i \\le j$ and a span of at most 3 tokens, give the best start and end positions.\n(c) The softmax probability that position 2 is the start.\n(d) The softmax probability that position 3 is the end.",
+      "parts": [
+        {
+          "label": "(a) start",
+          "answer": 2,
+          "marks": 1,
+          "tolerance": 0.1
+        },
+        {
+          "label": "(b) end",
+          "answer": 3,
+          "marks": 1,
+          "tolerance": 0.1
+        },
+        {
+          "label": "(c) P(start = 2)",
+          "answer": 0.4891,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(d) P(end = 3)",
+          "answer": 0.5667,
+          "marks": 1,
+          "tolerance": 0.0006
+        }
+      ],
+      "solution": "Best valid span: start 2, end 3, score $2 + 2.2 = 4.2$. (Position 2 has the highest start logit and position 3 the highest end logit, and they form a valid span.)\n(c) $\\text{softmax}(\\text{start})_2 = 0.4891$. (d) $\\text{softmax}(\\text{end})_3 = 0.5667$.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "explanation": "Two learned vectors (start and end) score every token output; training uses cross-entropy on the true start and end positions.",
+      "variantOf": "qa-span-calc"
+    },
+    {
+      "id": "nlp-b8-018",
+      "lecture": 8,
+      "concept": "GPT and decoder-only models",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          56,
+          58
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which statements about GPT (a Transformer decoder) are true?",
+      "choices": [
+        "It is trained as a left-to-right language model with a causal mask",
+        "It has no encoder and no cross-attention",
+        "For multiple choice, the slide's figure builds one sequence per answer (context, delimiter, answer), scores each with a linear layer, and takes a softmax across the answers",
+        "It cannot be used for classification"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "The GPT figure on slide 56 shows classification, entailment, similarity and multiple-choice input formats. A useful Transformer without the encoder exists: GPT (practice quiz 6.1)."
+    },
+    {
+      "id": "nlp-b8-019",
+      "lecture": 8,
+      "concept": "GPT and decoder-only models",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          56
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: BERT is an encoder-only model that sees both left and right context; GPT is a decoder-only model that sees only the left context, which is why GPT can generate text naturally.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Tutorial 6.3. The bidirectional encoder suits understanding tasks; the causal decoder suits generation."
+    },
+    {
+      "id": "nlp-b8-020",
+      "lecture": 8,
+      "concept": "GPT and decoder-only models",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          56
+        ]
+      },
+      "type": "numeric",
+      "marks": 3,
+      "question": "GPT-2 scores five answer options A–E for an MCQ by the log-probabilities of each option's tokens given \"Question: … Answer:\". Per-token log-probs (natural log):\nA: -1.2, -0.8\nB: -0.9, -1, -1.1\nC: -2.5\nD: -0.7, -0.6, -0.9, -0.8\nE: -1.6, -1.4\n(a) The option with the highest total log-probability (A = 1 … E = 5).\n(b) The option with the highest length-normalised (average per-token) log-probability.\n(c) The softmax probability of the option in (b), using the average log-probs as scores.",
+      "parts": [
+        {
+          "label": "(a) best by total",
+          "answer": 1,
+          "marks": 1,
+          "tolerance": 0.1
+        },
+        {
+          "label": "(b) best by average",
+          "answer": 4,
+          "marks": 1,
+          "tolerance": 0.1
+        },
+        {
+          "label": "(c) its probability",
+          "answer": 0.3121,
+          "marks": 1,
+          "tolerance": 0.0006
+        }
+      ],
+      "solution": "Totals: A -2, B -3, C -2.5, D -3, E -3: best A.\nAverages: A -1, B -1, C -2.5, D -0.75, E -1.5: best D.\nSoftmax over the averages: $0.3121$ for D.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "explanation": "Totals favour short options (fewer negative terms); length normalisation removes that bias. This is the scoring step of the \"adapt GPT-2 to MCQ\" answer.",
+      "variantOf": "mcq-score-calc"
+    },
+    {
+      "id": "nlp-b8-021",
+      "lecture": 8,
+      "concept": "Adapters",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          59,
+          63
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which statements about adapters are true?",
+      "choices": [
+        "The pretrained model is fixed; only the small adapter layers (and usually layer norms) are trained",
+        "An adapter projects down to a small hidden size, applies a nonlinearity, projects back up and adds a skip connection",
+        "About 1% of the parameters are updated per task, so one shared model serves many tasks",
+        "Adapters remove all extra inference cost"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Adapters add layers to the forward pass, which introduces inference latency (slide 68). That is one of LoRA's advantages.",
+      "variantOf": "adapters"
+    },
+    {
+      "id": "nlp-b8-022",
+      "lecture": 8,
+      "concept": "Adapters",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          62,
+          63
+        ]
+      },
+      "type": "numeric",
+      "marks": 3,
+      "question": "BERT-base has $d_{model} = 768$ and 12 layers, about 110M parameters. Each layer gets two adapters (one after attention, one after the feed-forward block), each with bottleneck size $m = 64$ (down-projection $d \\to m$, up-projection $m \\to d$, both with biases).\n(a) Parameters in one adapter.\n(b) Adapter parameters in the whole model.\n(c) As a percentage of the 110M base parameters.",
+      "parts": [
+        {
+          "label": "(a) one adapter",
+          "answer": 99136,
+          "marks": 1,
+          "relTolerance": 0.0005
+        },
+        {
+          "label": "(b) all adapters",
+          "answer": 2379264,
+          "marks": 1,
+          "relTolerance": 0.0005
+        },
+        {
+          "label": "(c) percentage",
+          "answer": 2.16,
+          "marks": 1,
+          "tolerance": 0.02,
+          "unit": "%"
+        }
+      ],
+      "solution": "(a) $768 \\times 64 + 64 + 64 \\times 768 + 768$ = 99,136.\n(b) 99,136 × 2 × 12 = 2,379,264.\n(c) 2,379,264 / 110,000,000 ≈ 2.16%.",
+      "inputHint": "A whole number, or a percentage as a number (e.g. 2.5).",
+      "explanation": "A few percent at this bottleneck size; the slides' \"≈1%\" corresponds to smaller bottlenecks. Only these, plus a task head, are stored per task.",
+      "variantOf": "adapter-calc"
+    },
+    {
+      "id": "nlp-b8-023",
+      "lecture": 8,
+      "concept": "Problems with full fine-tuning",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          67
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which problems with traditional (full) fine-tuning does Lecture 8 list?",
+      "choices": [
+        "Time: training a large number of parameters takes long",
+        "Computational resources and memory usage",
+        "Catastrophic forgetting of previously learned abilities",
+        "It cannot improve performance on the target task"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Slide 67. Full fine-tuning usually does improve the target task; the cost and the forgetting are the issues."
+    },
+    {
+      "id": "nlp-b8-024",
+      "lecture": 8,
+      "concept": "Prior solutions: adapters and prefix tuning",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          68
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "Which drawbacks of the earlier parameter-efficient methods are named on the LoRA slides?",
+      "choices": [
+        "Adapter layers introduce inference latency; prefix tuning is hard to optimise and reduces the usable sequence length",
+        "Adapters need more parameters than full fine-tuning; prefix tuning cannot be trained",
+        "Both require changing the tokenizer",
+        "Both only work on images"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Slide 68 \"Prior solutions\". LoRA's update can be merged into the weights, so it adds no latency."
+    },
+    {
+      "id": "nlp-b8-025",
+      "lecture": 8,
+      "concept": "Prior solutions: adapters and prefix tuning",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          80
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: The slides say LoRA can be combined with prefix tuning: LoRA reduces parameters while prefix tuning offers task-specific control.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Slide 80 \"Other uses of LoRA\"."
+    },
+    {
+      "id": "nlp-b8-026",
+      "lecture": 8,
+      "concept": "LoRA mechanism",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          69,
+          73
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which statements about LoRA are true?",
+      "choices": [
+        "The pretrained weights $W_0$ are frozen and the update is $\\Delta W \\approx BA$ with $B \\in \\mathbb{R}^{d \\times r}$, $A \\in \\mathbb{R}^{r \\times k}$, $r \\ll \\min(d, k)$",
+        "It relies on the intrinsic rank hypothesis: important weight changes lie in a low-dimensional subspace",
+        "It reduces the rank of the original layer $W_0$",
+        "It can be applied to any model that uses matrix multiplications"
+      ],
+      "answer": [
+        0,
+        1,
+        3
+      ],
+      "explanation": "LoRA adds a low-rank update; it does not change the rank of $W_0$ (Quiz 2 Q25). Slide 78: \"even SVMs\".",
+      "variantOf": "lora-facts"
+    },
+    {
+      "id": "nlp-b8-027",
+      "lecture": 8,
+      "concept": "LoRA mechanism",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          73
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: In LoRA, one of the two matrices (usually $B$) is initialised to zero so that $W_0 + BA = W_0$ at the start of fine-tuning.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "From the LoRA paper (not on the slides): $A$ is random and $B = 0$, so training starts exactly at the pretrained model."
+    },
+    {
+      "id": "nlp-b8-028",
+      "lecture": 8,
+      "concept": "LoRA parameter and memory calculations",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          72,
+          74
+        ]
+      },
+      "type": "numeric",
+      "marks": 5,
+      "question": "A projection matrix $W_0$ is 1024 × 4096, stored in fp16 (2 bytes per value). LoRA uses rank $r = 16$.\n(a) Trainable parameters for full fine-tuning.\n(b) Trainable parameters with LoRA.\n(c) LoRA as a percentage of full.\n(d) Memory for the LoRA matrices in bytes.\n(e) Memory for $W_0$ in MiB ($1\\,\\text{MiB} = 2^{20}$ bytes).",
+      "parts": [
+        {
+          "label": "(a) full",
+          "answer": 4194304,
+          "marks": 1,
+          "relTolerance": 0.0005
+        },
+        {
+          "label": "(b) LoRA",
+          "answer": 81920,
+          "marks": 1,
+          "relTolerance": 0.0005
+        },
+        {
+          "label": "(c) percentage",
+          "answer": 1.953,
+          "marks": 1,
+          "tolerance": 0.002,
+          "unit": "%"
+        },
+        {
+          "label": "(d) LoRA bytes",
+          "answer": 163840,
+          "marks": 1,
+          "relTolerance": 0.0005
+        },
+        {
+          "label": "(e) W₀ MiB",
+          "answer": 8,
+          "marks": 1,
+          "tolerance": 0.01
+        }
+      ],
+      "solution": "(a) 1024 × 4096 = 4,194,304.\n(b) $B$: 1024 × 16, $A$: 16 × 4096; total $16(1024 + 4096)$ = 81,920.\n(c) 1.953%.\n(d) 2 × 81,920 = 163,840 bytes.\n(e) 2 × 4,194,304 = 8,388,608 bytes = 8 MiB.",
+      "inputHint": "A whole number, or a decimal.",
+      "variantOf": "lora-mem"
+    },
+    {
+      "id": "nlp-b8-029",
+      "lecture": 8,
+      "concept": "LoRA parameter and memory calculations",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          74
+        ]
+      },
+      "type": "numeric",
+      "marks": 3,
+      "question": "As in Tutorial 6.6: a layer is $W \\in \\mathbb{R}^{N \\times D}$ with $N = 2000$, $D = 500$, stored in 16-bit floats.\n(a) Bytes to store $W$.\n(b) Bytes to store a rank-2 LoRA update ($B$: $N \\times 2$, $A$: $2 \\times D$).\n(c) How many times smaller is (b)?",
+      "parts": [
+        {
+          "label": "(a) W bytes",
+          "answer": 2000000,
+          "marks": 1,
+          "relTolerance": 0.0005
+        },
+        {
+          "label": "(b) LoRA bytes",
+          "answer": 10000,
+          "marks": 1,
+          "relTolerance": 0.0005
+        },
+        {
+          "label": "(c) ratio",
+          "answer": 200,
+          "marks": 1,
+          "tolerance": 0.06
+        }
+      ],
+      "solution": "(a) $2ND$ = 2 × 2000 × 500 = 2,000,000 bytes.\n(b) $2(2N + 2D) = 4(N + D)$ = 10,000 bytes.\n(c) $\\frac{2ND}{4(N + D)}$ = 200.",
+      "inputHint": "A whole number.",
+      "variantOf": "lora-mem"
+    },
+    {
+      "id": "nlp-b8-030",
+      "lecture": 8,
+      "concept": "LoRA parameter and memory calculations",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          72,
+          78
+        ]
+      },
+      "type": "numeric",
+      "marks": 3,
+      "question": "LoRA with $r = 8$ is applied to $W_Q$ and $W_V$ (each 768 × 768) in all 12 layers of BERT-base.\n(a) LoRA parameters per matrix. (b) Total LoRA parameters. (c) Total if the rank is doubled to 16.",
+      "parts": [
+        {
+          "label": "(a) per matrix",
+          "answer": 12288,
+          "marks": 1,
+          "relTolerance": 0.0005
+        },
+        {
+          "label": "(b) total",
+          "answer": 294912,
+          "marks": 1,
+          "relTolerance": 0.0005
+        },
+        {
+          "label": "(c) total at r = 16",
+          "answer": 589824,
+          "marks": 1,
+          "relTolerance": 0.0005
+        }
+      ],
+      "solution": "(a) $r(d + d)$ = 8 × 1536 = 12,288.\n(b) × 2 matrices × 12 layers = 294,912.\n(c) LoRA parameters grow linearly with $r$: 589,824.",
+      "inputHint": "A whole number.",
+      "explanation": "Under 0.3% of BERT-base. A higher rank converges towards full fine-tuning (slide 77); $r = 8$ is the usual default.",
+      "variantOf": "lora-calc"
+    },
+    {
+      "id": "nlp-b8-031",
+      "lecture": 8,
+      "concept": "LoRA advantages and rank choice",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          76,
+          77
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which are advantages of LoRA listed in Lecture 8?",
+      "choices": [
+        "No inference latency (the update can be merged into the weights)",
+        "Reduced checkpoint sizes (e.g. GPT-3: 1 TB to about 25 MB per checkpoint)",
+        "Fewer trainable parameters, so less training time and memory",
+        "It always beats full fine-tuning on every task"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Slide 76. Matching full fine-tuning on many tasks is not the same as always beating it.",
+      "variantOf": "lora-benefits"
+    },
+    {
+      "id": "nlp-b8-032",
+      "lecture": 8,
+      "concept": "LoRA advantages and rank choice",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          77
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "What does Lecture 8 say about choosing the LoRA rank $r$?",
+      "choices": [
+        "A lower rank means fewer parameters; a higher rank converges to full fine-tuning; very low ranks (1–2) were often enough and $r = 8$ is the usual default",
+        "The rank must equal the model dimension",
+        "Higher rank always means lower memory",
+        "The rank is learned by gradient descent"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Slide 77: the LoRA authors found $r = 1$ or $2$ sufficient even when the full rank was 12288."
+    },
+    {
+      "id": "nlp-b8-033",
+      "lecture": 8,
+      "concept": "QLoRA",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          79
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "What does QLoRA add to LoRA?",
+      "choices": [
+        "Quantisation of the model weights (e.g. 32-bit floats to lower precision), so it needs even less memory",
+        "A query-only version of LoRA applied to $W_Q$",
+        "A second low-rank matrix per layer",
+        "Quick training with a larger learning rate"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Slide 79: QLoRA combines LoRA with quantisation; good for hardware with limited resources."
+    },
+    {
+      "id": "nlp-b8-034",
+      "lecture": 8,
+      "concept": "QLoRA",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          79
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: QLoRA requires less memory than LoRA.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Lower-precision weights take fewer bytes (slide 79)."
+    },
+    {
+      "id": "nlp-b8-035",
+      "lecture": 8,
+      "concept": "Analysing BERT and probing",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          82,
+          99
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which analysis results about BERT appear in Lecture 8?",
+      "choices": [
+        "Many self-attention heads follow a few typical patterns (e.g. attending to [CLS], [SEP], the next or previous token)",
+        "Some heads encode information correlated with semantic links in the text",
+        "Probing with learned layer weights (like ELMo's) shows BERT's layers roughly follow the classical NLP pipeline (lower layers syntax, higher layers semantics)",
+        "BERT's layers are all identical in what they encode"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "\"Revealing the Dark Secrets of BERT\" and \"BERT rediscovers the classical NLP pipeline\"."
+    },
+    {
+      "id": "nlp-b8-036",
+      "lecture": 8,
+      "concept": "Analysing BERT and probing",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          96
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: After training a probing classifier that uses a weighted mix of BERT's layers, the learned layer weights show which layers hold the information for that task.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Slide 96: \"use weights for layers (like in ELMo)\" and then look at those weights."
+    },
+    {
+      "id": "nlp-b8-037",
+      "lecture": 8,
+      "concept": "Language models as knowledge bases",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          100,
+          103
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "How is a language model tested \"as a knowledge base\" (LAMA)?",
+      "choices": [
+        "Fill-in-the-blank facts such as \"Dante was born in [MASK]\" are given, and the model's prediction is checked",
+        "The model is asked to write a database schema",
+        "Facts are added to its weights by hand",
+        "The model's perplexity on Wikipedia is measured"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Petroni et al., \"Language Models as Knowledge Bases?\": pretrained LMs recall many relational facts without fine-tuning."
+    },
+    {
+      "id": "nlp-b8-038",
+      "lecture": 8,
+      "concept": "Language models as knowledge bases",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          100
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Querying a masked LM with cloze statements can retrieve factual knowledge without any fine-tuning.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "That is the paper's main finding, though recall is far from perfect."
+    },
+    {
+      "id": "nlp-b8-039",
+      "lecture": 8,
+      "concept": "Poverty of the stimulus and universal grammar",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          104,
+          105
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "Chomsky's \"poverty of the stimulus\" argument says that:",
+      "choices": [
+        "Children learn language quickly from relatively little data, so the capacity for language may be built into the brain (a Universal Grammar)",
+        "Children need more data than any neural network",
+        "Language is learned only from explicit grammar teaching",
+        "Poorer families produce less language data"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Slides 104–105. Iterated learning offers the alternative: language may be shaped to fit our brains.",
+      "variantOf": "pov"
+    },
+    {
+      "id": "nlp-b8-040",
+      "lecture": 8,
+      "concept": "Poverty of the stimulus and universal grammar",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          105
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Universal Grammar holds that only a limited set of possible languages is learnable by the human brain.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Slide 105."
+    },
+    {
+      "id": "nlp-b8-041",
+      "lecture": 8,
+      "concept": "Iterated learning",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          108
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "Which is the iterated-learning procedure for neural networks on slide 108?",
+      "choices": [
+        "Train a network but stop early, relabel the data with its outputs (logits), train a new network on those labels, and repeat for k generations",
+        "Train one network for many epochs and keep the best checkpoint",
+        "Train k networks in parallel and average them",
+        "Fine-tune on new data each generation without relabelling"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The early stopping is the learning bottleneck: each generation passes on what was easiest to learn, which refines the \"language\"."
+    },
+    {
+      "id": "nlp-b8-042",
+      "lecture": 8,
+      "concept": "Iterated learning",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          107
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: In iterated learning, the parts of language that are easiest to learn are remembered and come to dominate, so the communication bottleneck refines the language.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Slide 107 (Kirby)."
+    },
+    {
+      "id": "nlp-b8-043",
+      "lecture": 8,
+      "concept": "GPT and decoder-only models",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          56,
+          58
+        ]
+      },
+      "type": "written",
+      "marks": 10,
+      "question": "How would you modify GPT-2 for a task that takes in an MCQ question, the correct answer and four other options, and must choose the correct answer? Describe the input format, any new parameters, how each option is scored, the training loss, and inference. Mention at least two practical pitfalls. (10 Marks)",
+      "modelAnswer": "GPT-2 is a decoder-only (causal) language model, so it cannot look at all five options bidirectionally in one encoder pass; follow the GPT multiple-choice recipe (slide 56): build one sequence per option.\n\nInput: for each option $a_i$ ($i = 1..5$), the sequence \"[start] Question: … [delim] Answer: $a_i$ [extract]\". Add the delimiter/extract tokens to the vocabulary (new embeddings) and define a padding token with an attention mask for batching.\n\nScoring (two options):\n(1) LM scoring, no new head: the score is the conditional log-likelihood of the answer tokens given the question, $\\sum_t \\log p(a_{i,t} \\mid \\text{question}, a_{i,<t})$, length-normalised (divide by the number of tokens) so long options are not penalised.\n(2) Classification head (as in the figure): take the final hidden state at the [extract] token (the last position, the only one that has seen the whole sequence under the causal mask) and apply a new linear layer $w^\\top h \\to$ a scalar logit $s_i$.\nEither way, apply a softmax across the five scores: $p(i) = e^{s_i} / \\sum_j e^{s_j}$.\n\nTraining: cross-entropy over the five options with the index of the correct option as the label (multiclass, not BCE per option); fine-tune the whole model, or freeze it and train adapters or LoRA. Optionally add the LM loss as an auxiliary objective (as in GPT).\n\nInference: score all five options and pick the argmax; no generation is needed.\n\nPitfalls: the correct answer is a training label and must not be given as privileged input at test time; shuffle option order so the model cannot learn a position shortcut; total log-probabilities favour short options unless length-normalised; GPT-2 has no pad token by default; sequences must fit the context window.",
+      "rubric": [
+        {
+          "point": "Recognises GPT-2 is causal: one sequence per option (question + option) with delimiters",
+          "marks": 2
+        },
+        {
+          "point": "Uses the last-token state (or answer log-likelihood) to score each option",
+          "marks": 2
+        },
+        {
+          "point": "New parameters: linear head and/or special-token embeddings",
+          "marks": 1
+        },
+        {
+          "point": "Softmax across the five scores and cross-entropy with the correct index",
+          "marks": 2
+        },
+        {
+          "point": "Inference: argmax over options, no generation",
+          "marks": 1
+        },
+        {
+          "point": "Two practical pitfalls (leakage, position bias, length bias, padding)",
+          "marks": 2
+        }
+      ],
+      "explanation": "This question is the owner's recollection of the hardest 10-mark question on a past test (not an official transcription). The model answer follows the GPT multiple-choice figure on slide 56."
+    },
+    {
+      "id": "nlp-b8-044",
+      "lecture": 8,
+      "concept": "Fine-tuning BERT for tasks",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          41,
+          51
+        ]
+      },
+      "type": "written",
+      "marks": 10,
+      "question": "You must build an extractive question-answering system: given a question and a passage, return the span of the passage that answers it.\n(a) Explain why feeding static Word2Vec embeddings into a classifier would struggle here, using \"bank\" in \"she sat on the bank\" vs \"the bank raised rates\". How do ELMo and BERT fix this? (3)\n(b) Describe in detail how you would fine-tune BERT for this task: input format, segment embeddings, new parameters, how start and end are predicted, the loss, and decoding at inference with a valid-span constraint. (5)\n(c) Why is BERT a better starting point than GPT-2 for this task? (2) (10 Marks)",
+      "modelAnswer": "(a) Word2Vec gives one vector per word type, so \"bank\" has the same vector in both sentences: the classifier cannot tell the senses apart, and it gets no transferred knowledge of how to combine words or relate the question to the passage. ELMo: a biLSTM LM produces representations of words in context (task-weighted sum of layers), so \"bank\" differs by sentence; the task model on top stays the same. BERT: a deep bidirectional Transformer encoder whose every token representation attends to the whole input, fine-tuned end to end.\n\n(b) Input: \"[CLS] question tokens [SEP] passage tokens [SEP]\", with segment embedding A for the question and B for the passage, plus position embeddings. New parameters: a start vector $S$ and an end vector $E$ (each of size $d$). For each passage token $i$ with final hidden state $T_i$: $P_{\\text{start}}(i) = \\text{softmax}_i(S \\cdot T_i)$ and $P_{\\text{end}}(j) = \\text{softmax}_j(E \\cdot T_j)$. Loss: cross-entropy on the gold start plus cross-entropy on the gold end (averaged). Inference: score every span $(i, j)$ with $S \\cdot T_i + E \\cdot T_j$, keep only $i \\le j$, both inside the passage, length at most some maximum, and return the best; if the passage is longer than the limit, use overlapping windows. (A no-answer option can use [CLS].)\n\n(c) BERT is bidirectional: each passage token sees the question and the text on both sides, which is what span prediction needs, and SQuAD-style fine-tuning is exactly its design (slide 51). GPT-2's causal mask means a token cannot see what follows it, and it is designed for generation.",
+      "rubric": [
+        {
+          "point": "(a) Static vectors cannot separate senses",
+          "marks": 1
+        },
+        {
+          "point": "(a) ELMo and BERT give contextual representations",
+          "marks": 2
+        },
+        {
+          "point": "(b) Input format with [CLS]/[SEP] and segments",
+          "marks": 1
+        },
+        {
+          "point": "(b) Start and end vectors with softmax over tokens",
+          "marks": 2
+        },
+        {
+          "point": "(b) Loss: CE on start + CE on end",
+          "marks": 1
+        },
+        {
+          "point": "(b) Decoding with i ≤ j, max length, in-passage constraint",
+          "marks": 1
+        },
+        {
+          "point": "(c) Bidirectionality and design fit",
+          "marks": 2
+        }
+      ]
+    },
+    {
+      "id": "nlp-b8-045",
+      "lecture": 8,
+      "concept": "BERT architecture and input",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          43,
+          51
+        ]
+      },
+      "type": "written",
+      "marks": 6,
+      "question": "Describe how you would fine-tune BERT for (a) natural language inference (premise, hypothesis → entailment / contradiction / neutral) and (b) named entity recognition with BIO tags. For each give the input format, the output layer, the loss and how predictions are made. (c) Explain one problem that WordPiece subword tokenisation causes for NER and how you would handle it. (d) Explain how BERT's pre-training (MLM and NSP) helps each task. (6 Marks)",
+      "modelAnswer": "(a) NLI: \"[CLS] premise [SEP] hypothesis [SEP]\" with segment A/B. Output: a linear layer + softmax on the final [CLS] vector, 3 classes. Loss: cross-entropy with the gold label. Predict the argmax class.\n\n(b) NER: \"[CLS] sentence [SEP]\" (single segment). Output: a linear layer + softmax applied to every token's final vector (K tags: B-PER, I-PER, …, O). Loss: token-level cross-entropy averaged over tokens. Predict the argmax tag per token (optionally enforce valid BIO sequences, e.g. I- cannot follow O).\n\n(c) A word like \"Ngubane\" may split into several WordPieces, so labels and words do not line up: label only the first subword of each word (ignore the rest in the loss) and read the prediction from the first subword; or give all pieces the word's tag.\n\n(d) NSP trains [CLS] to relate two sentences, which is what NLI needs (and why the pair format is natural). MLM trains every token's output to encode its identity from both-side context, which is what token-level tagging needs. Both start from bidirectional contextual representations instead of from scratch.",
+      "rubric": [
+        {
+          "point": "(a) NLI input, [CLS] head, 3-way CE, prediction",
+          "marks": 2
+        },
+        {
+          "point": "(b) NER per-token head, CE over tokens, prediction",
+          "marks": 2
+        },
+        {
+          "point": "(c) Subword/label alignment problem and a fix",
+          "marks": 1
+        },
+        {
+          "point": "(d) How MLM and NSP help",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-b8-046",
+      "lecture": 8,
+      "concept": "Using ELMo in a task model",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          25,
+          53
+        ]
+      },
+      "type": "written",
+      "marks": 8,
+      "question": "Compare three ways of transferring knowledge into a sentiment classifier: (1) frozen Word2Vec embeddings, (2) ELMo features, (3) fine-tuning BERT. For each, explain what is transferred, what is trained for the task, and one weakness. Then explain why ELMo is open-vocabulary while Word2Vec is not. (8 Marks)",
+      "modelAnswer": "(1) Word2Vec: transfers one static vector per word type learned from co-occurrence; the whole task model (e.g. CNN/RNN) is trained from scratch on top. Weakness: no context (polysemy: \"bank\"), unknown words get UNK, nothing about how to process a sentence is transferred.\n\n(2) ELMo: transfers representations of words in context from a pretrained biLSTM LM (char-CNN + highway → 2-layer forward and backward LSTM-LMs), combined with task-specific weights $\\gamma \\sum_j \\lambda_j h_j$; the task model on top is (almost) the same and is trained, ELMo usually frozen. Weakness: still needs a task-specific architecture; LSTMs are sequential and slower; left and right LMs are trained separately (shallow bidirectionality).\n\n(3) BERT: transfers the whole deep bidirectional Transformer encoder (MLM + NSP pre-training); for the task only a small head on [CLS] is added and everything is fine-tuned. Weakness: expensive to fine-tune and store a full copy per task (motivating adapters/LoRA); catastrophic forgetting; [MASK] mismatch between pre-training and fine-tuning.\n\nOpen vocabulary: ELMo builds each word's vector from its characters with a CNN, so any string (unseen words, typos, rich morphology) gets a representation and similar spellings get similar vectors; Word2Vec only has vectors for words in its fixed vocabulary.",
+      "rubric": [
+        {
+          "point": "Word2Vec: what transfers, trained part, weakness",
+          "marks": 2
+        },
+        {
+          "point": "ELMo: what transfers (contextual, layer weighting), trained part, weakness",
+          "marks": 2
+        },
+        {
+          "point": "BERT: whole encoder fine-tuned with a small head, weakness",
+          "marks": 2
+        },
+        {
+          "point": "Open vocabulary via character CNN",
+          "marks": 2
+        }
+      ]
+    },
+    {
+      "id": "nlp-b8-047",
+      "lecture": 8,
+      "concept": "GPT and decoder-only models",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          56,
+          76
+        ]
+      },
+      "type": "written",
+      "marks": 8,
+      "question": "A team wants to fine-tune a pretrained model for news summarisation.\n(a) Explain why BERT on its own is a poor fit and which kinds of model are suitable. (2)\n(b) Describe how to fine-tune GPT-2 for summarisation: the input format, which tokens the loss is computed on, and how you would decode at inference (discuss greedy, beam search and sampling, as covered in Lectures 5–6). (4)\n(c) The team has one GPU. Explain how LoRA would make fine-tuning feasible and what is stored per task. (2) (8 Marks)",
+      "modelAnswer": "(a) Summarisation is generation: the output is a new sequence. BERT is an encoder trained with MLM; it gives contextual representations but has no left-to-right generation mechanism. Suitable: an encoder–decoder (seq2seq) Transformer, where the decoder cross-attends to the article, or a decoder-only LM such as GPT-2 conditioned on the article.\n\n(b) Input: \"article [SEP/TL;DR:] summary <eos>\" as one sequence. Training: teacher forcing with the causal LM cross-entropy, computed only on the summary tokens (mask the article positions out of the loss); the model learns $P(\\text{summary} \\mid \\text{article})$, a conditional LM. Truncate long articles to fit the context window. Inference: feed the article and separator and generate token by token. Greedy is short and repetitive; beam search (e.g. $k = 4$) finds higher-probability, more faithful summaries for this constrained, short-output task, but costs memory; sampling with temperature/top-p gives more diversity but risks hallucination, so beam search or low-temperature decoding is the usual choice here.\n\n(c) LoRA freezes $W_0$ and trains a low-rank update $BA$ on (some of) the projection matrices: far fewer trainable parameters and optimiser states, so it fits in memory; the update can be merged into the weights, so no extra latency. Per task only $A$ and $B$ (megabytes) are stored, not a new copy of the model.",
+      "rubric": [
+        {
+          "point": "(a) BERT cannot generate; seq2seq or decoder-only is suitable",
+          "marks": 2
+        },
+        {
+          "point": "(b) Input format and loss on summary tokens (conditional LM)",
+          "marks": 2
+        },
+        {
+          "point": "(b) Decoding choice justified (greedy vs beam vs sampling)",
+          "marks": 2
+        },
+        {
+          "point": "(c) LoRA: frozen W₀, low-rank BA, small storage per task",
+          "marks": 2
+        }
+      ]
+    },
+    {
+      "id": "nlp-b8-048",
+      "lecture": 8,
+      "concept": "LoRA advantages and rank choice",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          59,
+          79
+        ]
+      },
+      "type": "written",
+      "marks": 10,
+      "question": "Compare adapters and LoRA as parameter-efficient fine-tuning methods.\n(a) Describe how each modifies the network, with a diagram-level description. (3)\n(b) For a 4096 × 4096 weight in fp16 with rank $r = 8$, compute the trainable parameters and the memory for full fine-tuning vs LoRA, and the LoRA fraction. (3)\n(c) Give two advantages of LoRA over adapters and explain how LoRA achieves each. (2)\n(d) Explain catastrophic forgetting and why both methods reduce it. (2) (10 Marks)",
+      "modelAnswer": "(a) Adapters: small bottleneck modules inserted inside every Transformer layer (after attention and after the FFN): down-project $d \\to m$, nonlinearity, up-project $m \\to d$, plus a skip connection; the pretrained model is frozen and only adapters (and layer norms) are trained, about 1% of parameters. LoRA: no new layers; for chosen weight matrices the update is reparameterised as $W = W_0 + BA$ with $B \\in \\mathbb{R}^{d \\times r}$, $A \\in \\mathbb{R}^{r \\times k}$, running in parallel with $W_0$; $W_0$ is frozen.\n\n(b) Full: 4096 × 4096 = 16,777,216 parameters, 33,554,432 bytes (32 MiB). LoRA: $r(d + k)$ = 65,536 parameters, 131,072 bytes (128 KiB). Fraction 0.39%.\n\n(c) No inference latency: after training $BA$ can be added into $W_0$, so the network has exactly its original shape; adapters add sequential layers to every forward pass. Fewer parameters / smaller checkpoints: low rank (intrinsic rank hypothesis) means tiny $A$, $B$ per task (GPT-3: 1 TB → ~25 MB). Also: LoRA keeps the full sequence length (unlike prefix tuning) and the rank can be raised if it underperforms.\n\n(d) Catastrophic forgetting: fine-tuning all weights on a narrow task overwrites knowledge from pre-training, so the model loses general abilities. Both methods freeze the pretrained weights and learn a small separate set of parameters, so the original knowledge is preserved (remove the adapter/LoRA to get the original model back) and the small capacity limits how far the model can drift.",
+      "rubric": [
+        {
+          "point": "(a) Adapter structure and placement",
+          "marks": 1.5
+        },
+        {
+          "point": "(a) LoRA reparameterisation",
+          "marks": 1.5
+        },
+        {
+          "point": "(b) Correct parameter counts",
+          "marks": 1.5
+        },
+        {
+          "point": "(b) Correct memory and fraction",
+          "marks": 1.5
+        },
+        {
+          "point": "(c) Two advantages with mechanism",
+          "marks": 2
+        },
+        {
+          "point": "(d) Forgetting explained and why both reduce it",
+          "marks": 2
+        }
+      ]
+    },
+    {
+      "id": "nlp-b8-049",
+      "lecture": 8,
+      "concept": "Transfer through word embeddings",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          19,
+          53
+        ]
+      },
+      "type": "written",
+      "marks": 5,
+      "question": "Trace the move from static to contextual embeddings: Word2Vec → ELMo → BERT. For each, state how a token's representation is computed and whether it depends on context, and comment on Word2Vec's place in modern transfer learning. Use one ambiguous word as an example throughout. (5 Marks)",
+      "modelAnswer": "Word2Vec: a lookup table learned by predicting context words from a centre word (skip-gram) or vice versa (CBOW), with negative sampling; one vector per word type, the same in every sentence: \"bank\" mixes the river and finance senses (the vector is a frequency-weighted blend). It transfers only word-level knowledge; the task model learns processing from scratch.\n\nELMo: characters → char-CNN + highway → 2-layer forward and backward LSTM LMs; the representation is a task-weighted sum of the layers, computed from the whole sentence, so \"bank\" near \"river\" differs from \"bank\" near \"rates\". Transfers how to process text, not just words.\n\nBERT: WordPiece + segment + position embeddings → deep bidirectional Transformer encoder trained with MLM/NSP; every layer re-represents the token by attending to all others; fine-tuned end to end.\n\nWord2Vec today: still a cheap, strong baseline/feature extractor and the conceptual root (distributional hypothesis, embedding layers = first layer of every model), but superseded where context matters; BERT's input embedding layer plays the role Word2Vec did, before context is added.",
+      "rubric": [
+        {
+          "point": "Word2Vec: static, training objective, ambiguity example",
+          "marks": 2
+        },
+        {
+          "point": "ELMo: contextual via biLSTM + char-CNN",
+          "marks": 1
+        },
+        {
+          "point": "BERT: deep bidirectional attention, fine-tuned",
+          "marks": 1
+        },
+        {
+          "point": "Comment on Word2Vec's role today",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-b8-050",
+      "lecture": 8,
+      "concept": "Taxonomy of transfer learning",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          11,
+          18
+        ]
+      },
+      "type": "written",
+      "marks": 5,
+      "question": "Using Ruder's taxonomy, explain the difference between transductive and inductive transfer learning, and give an example of domain adaptation, cross-lingual learning, multi-task learning and sequential transfer learning. Which is the most popular today and why? (5 Marks)",
+      "modelAnswer": "Transductive: the task stays the same and labels exist for the source task; what changes is the domain or language. Domain adaptation: sentiment on product reviews → sentiment on tweets. Cross-lingual learning: English NER → isiZulu NER.\n\nInductive: the tasks differ and labels exist for the target task. Multi-task learning: train one model on NER and POS tagging at the same time with a shared encoder. Sequential transfer learning: pretrain a language model (e.g. BERT with MLM/NSP) on huge unlabelled text, then fine-tune on sentiment classification.\n\nSequential transfer is the most popular: pre-training needs no labels and uses huge, diverse text once; the same pretrained model can then be fine-tuned cheaply for many small labelled tasks.",
+      "rubric": [
+        {
+          "point": "Transductive vs inductive distinction",
+          "marks": 2
+        },
+        {
+          "point": "Four correct examples",
+          "marks": 2
+        },
+        {
+          "point": "Most popular is sequential, with a reason",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-b8-051",
+      "lecture": 8,
+      "concept": "Iterated learning",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          104,
+          109
+        ]
+      },
+      "type": "written",
+      "marks": 5,
+      "question": "Explain the \"poverty of the stimulus\" argument and the Universal Grammar view, then the alternative offered by iterated learning. Describe the iterated-learning procedure for neural networks and explain how it relates to expressivity, regularity and compositionality, and to model collapse (Lecture 10). (5 Marks)",
+      "modelAnswer": "Poverty of the stimulus (Chomsky): children learn language quickly from limited data, so the capacity for language may be innate; Universal Grammar: only a limited set of languages is learnable, and the brain is tuned to structures such as compositional generalisation.\n\nIterated learning (Kirby) flips this: language is tuned to our brains. Each generation learns from the previous one; the parts easiest to learn survive (the learning/communication bottleneck), refining the language over generations.\n\nNeural procedure: train a network but stop early, relabel the data with its outputs (logits), train a new network on those labels, repeat for $k$ generations.\n\nThe bottleneck favours regularity (systematic, compressible structure); the need to communicate favours expressivity (many distinct meanings). Together they produce compositionality: reusable parts combined by rules. Model collapse is the dark side of the same loop: when models train on previous models' outputs without a pressure to stay expressive (and without real data), the distribution narrows, tails vanish and outputs degenerate.",
+      "rubric": [
+        {
+          "point": "Poverty of the stimulus and UG",
+          "marks": 1
+        },
+        {
+          "point": "Iterated learning idea and bottleneck",
+          "marks": 1
+        },
+        {
+          "point": "Neural procedure",
+          "marks": 1
+        },
+        {
+          "point": "Link to expressivity, regularity and compositionality",
+          "marks": 1
+        },
+        {
+          "point": "Link to model collapse",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-b8-052",
+      "lecture": 8,
+      "concept": "Analysing BERT and probing",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          82,
+          103
+        ]
+      },
+      "type": "written",
+      "marks": 6,
+      "question": "Describe three ways Lecture 8 analyses what BERT has learned (model components, probing, looking at predictions), with one finding for each and one limitation of each. (6 Marks)",
+      "modelAnswer": "Model components (model-specific): look at self-attention heads. Finding: most heads follow a few typical patterns (attend to [CLS]/[SEP], to the previous/next token, broadly), and some encode semantic links. Limitation: attention weights are only part of the computation and many heads are redundant, so patterns don't prove use.\n\nProbing (model-agnostic): train simple classifiers on frozen representations, with learned layer weights like ELMo's. Finding: BERT rediscovers the classical NLP pipeline: POS and syntax lower, then entities, semantic roles and coreference higher. Limitation: decodable ≠ used; probe capacity matters.\n\nLooking at predictions: query the model with cloze facts (\"Dante was born in [MASK]\", LAMA). Finding: BERT recalls many relational facts without fine-tuning, so LMs can act as knowledge bases. Limitation: sensitive to phrasing, single-token answers, and it can be confidently wrong.",
+      "rubric": [
+        {
+          "point": "Heads: finding and limitation",
+          "marks": 2
+        },
+        {
+          "point": "Probing: finding and limitation",
+          "marks": 2
+        },
+        {
+          "point": "Predictions/LAMA: finding and limitation",
+          "marks": 2
+        }
+      ]
+    },
+    {
+      "id": "nlp-b8-053",
+      "lecture": 8,
+      "concept": "QLoRA",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          67,
+          80
+        ]
+      },
+      "type": "written",
+      "marks": 5,
+      "question": "Explain the problems with traditional full fine-tuning listed in Lecture 8, the prior solutions and their drawbacks, and how LoRA and QLoRA address them. Explain the intrinsic rank hypothesis in your answer. (5 Marks)",
+      "modelAnswer": "Problems: time (training all parameters is slow), computational resources and memory (gradients and optimiser state for every parameter), and catastrophic forgetting (the model loses abilities from pre-training).\n\nPrior solutions: adapter layers (few parameters, but extra layers add inference latency) and prefix tuning (learned prefix vectors; hard to optimise and eats into the sequence length).\n\nLoRA: freeze $W_0$ and learn $\\Delta W = BA$ of rank $r \\ll d$. The intrinsic rank hypothesis says the important changes needed to adapt a model lie in a low-dimensional subspace, so a low-rank update captures them. Trainable parameters drop from $dk$ to $r(d + k)$ (10,000× fewer for GPT-3, 3× less GPU memory); no latency once merged; tiny checkpoints. QLoRA additionally quantises the frozen weights to lower precision (e.g. 32-bit → 8- or 4-bit), cutting memory further so large models fit on limited hardware.",
+      "rubric": [
+        {
+          "point": "Three problems of full fine-tuning",
+          "marks": 1.5
+        },
+        {
+          "point": "Prior solutions and their drawbacks",
+          "marks": 1
+        },
+        {
+          "point": "LoRA mechanism and intrinsic rank hypothesis",
+          "marks": 1.5
+        },
+        {
+          "point": "QLoRA adds quantisation",
+          "marks": 1
+        }
+      ]
+    }
+  ]
+}
