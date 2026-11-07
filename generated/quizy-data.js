@@ -35,6 +35,7 @@ window.QUIZY_DATA = {
         "nlp-label-diagrams",
         "nlp-bank-lecture-1",
         "nlp-bank-lecture-2",
+        "nlp-bank-lecture-3",
         "nlp-bank-lecture-5",
         "nlp-bank-lecture-6",
         "nlp-bank-lecture-7",
@@ -32709,6 +32710,545 @@ window.QUIZY_DATA = {
           "solution": "$\\cos = \\frac{a \\cdot b}{\\|a\\|\\|b\\|}$. (a) $8/(3 \\times 3) = 0.8889$. (b) $-9/9 = -1$ (opposite direction). (c) Same direction: 1, whatever the length.",
           "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
           "variantOf": "cos-calc"
+        }
+      ]
+    },
+    "nlp-bank-lecture-3": {
+      "id": "nlp-bank-lecture-3",
+      "subject": "nlp",
+      "title": "Practice bank: Lecture 3 (Text classification and CNNs)",
+      "kind": "generated",
+      "origin": "new",
+      "description": "New quiz-style practice questions on text classification and CNNs, with tf-idf, softmax and cross-entropy, CNN output-shape, parameter-count and receptive-field calculations. Written for exam revision from the Lecture 3 slides and the tutorial. Not from the lecturer: the answers are unofficial.",
+      "unofficialAnswers": true,
+      "negativeMarkingNote": "The real Moodle quiz uses negative marking on MCQ questions: picking all right and wrong answers on a question results in a mark of 0.",
+      "totalMarks": 38,
+      "questions": [
+        {
+          "id": "nlp-b3-001",
+          "lecture": 3,
+          "concept": "Classification task types",
+          "source": {
+            "file": "lecture3_cnns.pdf",
+            "pages": [
+              4,
+              6
+            ]
+          },
+          "type": "match",
+          "marks": 3,
+          "question": "Match each example to its classification type.",
+          "pairs": [
+            {
+              "prompt": "Spam vs not spam",
+              "answer": "Binary"
+            },
+            {
+              "prompt": "Which of 20 news topics an article is about",
+              "answer": "Multi-class, single label"
+            },
+            {
+              "prompt": "Choosing all the hashtags that fit a tweet",
+              "answer": "Multi-label"
+            }
+          ],
+          "options": [
+            "Binary",
+            "Multi-class, single label",
+            "Multi-label",
+            "Sequence-to-sequence"
+          ],
+          "explanation": "Multi-label: several labels can be correct at once, so each label gets its own yes/no decision (sigmoid), unlike a single softmax."
+        },
+        {
+          "id": "nlp-b3-002",
+          "lecture": 3,
+          "concept": "Classification task types",
+          "source": {
+            "file": "lecture3_cnns.pdf",
+            "pages": [
+              6
+            ]
+          },
+          "type": "single",
+          "marks": 1,
+          "question": "Which output layer suits a multi-label problem (several labels can be correct)?",
+          "choices": [
+            "A sigmoid per label with binary cross-entropy for each",
+            "One softmax over all labels with multiclass cross-entropy",
+            "A single sigmoid",
+            "An argmax with no probabilities"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "A softmax forces the labels to compete and sum to 1, which suits exactly one correct label. Contrast next-token prediction (L5), where one softmax and multiclass CE is right."
+        },
+        {
+          "id": "nlp-b3-003",
+          "lecture": 3,
+          "concept": "Cross-entropy for classification",
+          "source": {
+            "file": "lecture3_cnns.pdf",
+            "pages": [
+              41,
+              44
+            ]
+          },
+          "type": "numeric",
+          "marks": 3,
+          "question": "A classifier's linear layer outputs scores $(2,0.5,-1)$ for classes (pos, neu, neg). The true class is \"neu\".\n(a) $P(neu)$ after the softmax. (b) The cross-entropy loss (natural log). (c) The loss if the true class were \"pos\".",
+          "parts": [
+            {
+              "label": "(a) P(neu)",
+              "answer": 0.1753,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "(b) loss",
+              "answer": 1.7413,
+              "marks": 1,
+              "tolerance": 0.006
+            },
+            {
+              "label": "(c) loss if pos",
+              "answer": 0.2413,
+              "marks": 1,
+              "tolerance": 0.0006
+            }
+          ],
+          "solution": "$\\text{softmax}(2,0.5,-1) = (0.7856, 0.1753, 0.0391)$.\n(b) $-\\ln 0.1753 = 1.7413$. (c) $-\\ln 0.7856 = 0.2413$.",
+          "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+          "explanation": "With a one-hot target, cross-entropy is $-\\log p(\\text{correct class})$: low when the model is confident and right, high when it is confident and wrong.",
+          "variantOf": "cls-ce-calc"
+        },
+        {
+          "id": "nlp-b3-004",
+          "lecture": 3,
+          "concept": "Linear layer + softmax = logistic regression",
+          "source": {
+            "file": "lecture3_cnns.pdf",
+            "pages": [
+              33,
+              38
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which statements about the final linear layer + softmax of a neural classifier are true?",
+          "choices": [
+            "It is logistic regression on the feature vector $h$",
+            "Each class $k$ has a weight vector $w_k$, and its score is $w_k \\cdot h + b_k$",
+            "Training makes text vectors point in the direction of their class vectors",
+            "It maps from $K$ classes back to $d$ features"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "It maps $d \\to K$. The class weight vectors are \"vector representations of classes\" (slide 37)."
+        },
+        {
+          "id": "nlp-b3-005",
+          "lecture": 3,
+          "concept": "Feature extractor + classifier",
+          "source": {
+            "file": "lecture3_cnns.pdf",
+            "pages": [
+              21,
+              22
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which statements describe the \"features + classifier\" view?",
+          "choices": [
+            "A feature extractor turns the text into a vector $h$; a classifier turns $h$ into a probability distribution over classes",
+            "In classical methods, a human designs the features (e.g. bag of words, n-grams)",
+            "In neural methods, the network learns which features matter",
+            "Neural features are always easier to interpret than hand-crafted ones"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "Interpretability is a weakness of learned features (Quiz 1 Q23)."
+        },
+        {
+          "id": "nlp-b3-006",
+          "lecture": 3,
+          "concept": "tf-idf",
+          "source": {
+            "file": "lecture3_cnns.pdf",
+            "pages": [
+              47,
+              48
+            ]
+          },
+          "type": "numeric",
+          "marks": 4,
+          "question": "Three documents: D1 \"the cat sat on the mat\", D2 \"the dog sat\", D3 \"a cat and a dog\". Use $\\text{tf-idf}(w, d) = N(w, d) \\times \\ln\\frac{|D|}{|\\{d \\in D: w \\in d\\}|}$ (natural log).\n(a) tf-idf(the, D1)  (b) tf-idf(cat, D1)  (c) tf-idf(mat, D1)  (d) tf-idf(a, D3)",
+          "parts": [
+            {
+              "label": "(a) the, D1",
+              "answer": 0.8109,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "(b) cat, D1",
+              "answer": 0.4055,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "(c) mat, D1",
+              "answer": 1.0986,
+              "marks": 1,
+              "tolerance": 0.006
+            },
+            {
+              "label": "(d) a, D3",
+              "answer": 2.1972,
+              "marks": 1,
+              "tolerance": 0.006
+            }
+          ],
+          "solution": "(a) \"the\": tf 2, in 2 of 3 docs: $2 \\ln(3/2) = 0.8109$. (b) \"cat\": tf 1, df 2: $\\ln 1.5 = 0.4055$. (c) \"mat\": tf 1, df 1: $\\ln 3 = 1.0986$. (d) \"a\": tf 2, df 1: $2\\ln 3 = 2.1972$.",
+          "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+          "explanation": "A word that appears in every document gets idf $\\ln 1 = 0$. tf-idf weights are one way to weight a bag of embeddings (slide 47). The slide does not fix the log base; state the one you use.",
+          "variantOf": "tfidf-calc"
+        },
+        {
+          "id": "nlp-b3-007",
+          "lecture": 3,
+          "concept": "tf-idf",
+          "source": {
+            "file": "lecture3_cnns.pdf",
+            "pages": [
+              47
+            ]
+          },
+          "type": "single",
+          "marks": 1,
+          "question": "A word appears in every document of the corpus. What is its idf?",
+          "choices": [
+            "0",
+            "1",
+            "The number of documents",
+            "Undefined"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "$\\log(|D|/|D|) = \\log 1 = 0$, so it gets no weight however often it appears."
+        },
+        {
+          "id": "nlp-b3-008",
+          "lecture": 3,
+          "concept": "Bag of embeddings and weighted BOE",
+          "source": {
+            "file": "lecture3_cnns.pdf",
+            "pages": [
+              47
+            ]
+          },
+          "type": "numeric",
+          "marks": 4,
+          "question": "A 3-word text has embeddings $(1,0)$, $(0,1)$, $(3,3)$.\n(a)–(b) The bag of embeddings (sum). (c)–(d) The weighted BOE with weights $(0.5,0.25,0.25)$.",
+          "parts": [
+            {
+              "label": "(a) BOE 1",
+              "answer": 4,
+              "marks": 1,
+              "tolerance": 0.001
+            },
+            {
+              "label": "(b) BOE 2",
+              "answer": 4,
+              "marks": 1,
+              "tolerance": 0.001
+            },
+            {
+              "label": "(c) weighted 1",
+              "answer": 1.25,
+              "marks": 1,
+              "tolerance": 0.006
+            },
+            {
+              "label": "(d) weighted 2",
+              "answer": 1,
+              "marks": 1,
+              "tolerance": 0.006
+            }
+          ],
+          "solution": "Sum: $(4,4)$. Weighted: $0.5(1,0) + 0.25(0,1) + 0.25(3,3) = (1.25, 1)$.",
+          "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+          "explanation": "Word order is lost in both: \"dog bites man\" and \"man bites dog\" give the same vector."
+        },
+        {
+          "id": "nlp-b3-009",
+          "lecture": 3,
+          "concept": "Convolution as a linear layer on windows",
+          "source": {
+            "file": "lecture3_cnns.pdf",
+            "pages": [
+              67,
+              78
+            ]
+          },
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or False: A convolution with $m$ filters and kernel size $k$ over $d$-dimensional embeddings is a linear layer from $k \\cdot d$ to $m$, applied to every window.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slide 78: concatenate the $k$ vectors in the window (size $k \\cdot d$) and multiply by a $(k \\cdot d) \\times m$ matrix."
+        },
+        {
+          "id": "nlp-b3-010",
+          "lecture": 3,
+          "concept": "CNN output shapes, stride and padding",
+          "source": {
+            "file": "lecture3_cnns.pdf",
+            "pages": [
+              65,
+              79
+            ]
+          },
+          "type": "numeric",
+          "marks": 4,
+          "question": "A 1D convolution runs over a sentence of 12 tokens with 100-dimensional embeddings, using 64 filters of width 3.\nGive the number of output positions for (a) stride 1, no padding, (b) stride 1 with 1 padding token on each side, (c) stride 2, no padding. (d) How many channels does each output position have?",
+          "parts": [
+            {
+              "label": "(a)",
+              "answer": 10,
+              "marks": 1,
+              "tolerance": 0.1
+            },
+            {
+              "label": "(b)",
+              "answer": 12,
+              "marks": 1,
+              "tolerance": 0.1
+            },
+            {
+              "label": "(c)",
+              "answer": 5,
+              "marks": 1,
+              "tolerance": 0.1
+            },
+            {
+              "label": "(d) channels",
+              "answer": 64,
+              "marks": 1,
+              "tolerance": 0.1
+            }
+          ],
+          "solution": "Output length $= \\lfloor (n + 2p - k)/s \\rfloor + 1$.\n(a) $12 - 3 + 1 = 10$. (b) $12 + 2 - 3 + 1 = 12$ (padding keeps the length, like the slide's <pad> tokens). (c) $\\lfloor 9/2 \\rfloor + 1 = 5$. (d) One channel per filter: 64.",
+          "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+          "variantOf": "cnn-shape-calc"
+        },
+        {
+          "id": "nlp-b3-011",
+          "lecture": 3,
+          "concept": "CNN parameter counts",
+          "source": {
+            "file": "lecture3_cnns.pdf",
+            "pages": [
+              79
+            ]
+          },
+          "type": "numeric",
+          "marks": 3,
+          "question": "Same layer: 64 filters of width 3 over 100-dimensional embeddings. (a) Weights per filter. (b) Total parameters including one bias per filter. (c) Total if the kernel width is 5 instead.",
+          "parts": [
+            {
+              "label": "(a) per filter",
+              "answer": 300,
+              "marks": 1,
+              "tolerance": 0.1
+            },
+            {
+              "label": "(b) total",
+              "answer": 19264,
+              "marks": 1,
+              "tolerance": 0.1
+            },
+            {
+              "label": "(c) width 5",
+              "answer": 32064,
+              "marks": 1,
+              "tolerance": 0.1
+            }
+          ],
+          "solution": "(a) $k \\times d = 300$. (b) $m(kd + 1) = 64 \\times 301 = 19264$. (c) $64 \\times 501 = 32064$.",
+          "inputHint": "A whole number.",
+          "explanation": "The count does not depend on the sentence length: the same weights are reused at every position (parameter sharing).",
+          "variantOf": "cnn-param-calc"
+        },
+        {
+          "id": "nlp-b3-012",
+          "lecture": 3,
+          "concept": "CNN parameter counts",
+          "source": {
+            "file": "lecture3_cnns.pdf",
+            "pages": [
+              91
+            ]
+          },
+          "type": "numeric",
+          "marks": 3,
+          "question": "A sentence classifier (as in \"CNNs for Sentence Classification\") uses three convolutions with kernel sizes 2, 3, 4, each with 100 filters, over 300-dimensional embeddings, then max-over-time pooling and concatenation, then a linear layer to 5 classes.\n(a) Convolution parameters (with biases). (b) Size of the concatenated vector $h$. (c) Parameters of the final linear layer (with biases).",
+          "parts": [
+            {
+              "label": "(a) conv params",
+              "answer": 270300,
+              "marks": 1,
+              "tolerance": 0.1
+            },
+            {
+              "label": "(b) size of h",
+              "answer": 300,
+              "marks": 1,
+              "tolerance": 0.1
+            },
+            {
+              "label": "(c) linear params",
+              "answer": 1505,
+              "marks": 1,
+              "tolerance": 0.1
+            }
+          ],
+          "solution": "(a) $100(2 \\times 300 + 1)$ + $100(3 \\times 300 + 1)$ + $100(4 \\times 300 + 1)$ = 270,300. (b) Each convolution gives 100 pooled features: $3 \\times 100 = 300$. (c) $300 \\times 5 + 5 = 1505$.",
+          "inputHint": "A whole number.",
+          "variantOf": "cnn-param-calc"
+        },
+        {
+          "id": "nlp-b3-013",
+          "lecture": 3,
+          "concept": "Several kernel sizes, stacking and receptive field",
+          "source": {
+            "file": "lecture3_cnns.pdf",
+            "pages": [
+              91,
+              93
+            ]
+          },
+          "type": "numeric",
+          "marks": 3,
+          "question": "How many input tokens does one output of the last layer see (its receptive field)?\n(a) Two stacked width-3 convolutions, stride 1.\n(b) Three stacked width-3 convolutions, stride 1.\n(c) Width-3 convolution, then width-2 pooling with stride 2, then a width-3 convolution (all other strides 1).",
+          "parts": [
+            {
+              "label": "(a)",
+              "answer": 5,
+              "marks": 1,
+              "tolerance": 0.1
+            },
+            {
+              "label": "(b)",
+              "answer": 7,
+              "marks": 1,
+              "tolerance": 0.1
+            },
+            {
+              "label": "(c)",
+              "answer": 8,
+              "marks": 1,
+              "tolerance": 0.1
+            }
+          ],
+          "solution": "$r = 1 + \\sum_l (k_l - 1)\\prod_{i<l} s_i$.\n(a) $1 + 2 + 2 = 5$. (b) $1 + 2 + 2 + 2 = 7$. (c) $1 + 2 + 1 + 2 \\times 2 = 8$: pooling with stride doubles how far the next layer reaches.",
+          "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+          "explanation": "Stacking blocks lets later layers see longer phrases; a larger kernel also grows the receptive field (Quiz 1 Q10).",
+          "variantOf": "rf-calc"
+        },
+        {
+          "id": "nlp-b3-014",
+          "lecture": 3,
+          "concept": "Translation invariance and equivariance",
+          "source": {
+            "file": "lecture3_cnns.pdf",
+            "pages": [
+              52,
+              58
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which statements about invariance and equivariance are true?",
+          "choices": [
+            "Convolution is translation equivariant: shifting the input shifts the feature map",
+            "Global max pooling over the feature map makes the result translation invariant",
+            "A CNN classifier with global pooling still depends on the order of words inside each window",
+            "Global pooling makes the model care exactly where in the text a phrase occurs"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "\"We don't care where the cat is, we care that it is somewhere.\""
+        },
+        {
+          "id": "nlp-b3-015",
+          "lecture": 3,
+          "concept": "Variable-length input",
+          "source": {
+            "file": "lecture3_cnns.pdf",
+            "pages": [
+              87
+            ]
+          },
+          "type": "single",
+          "marks": 1,
+          "question": "Why is global pooling needed before the linear layer in a CNN text classifier?",
+          "choices": [
+            "It turns a variable-length sequence of feature vectors into one fixed-size vector",
+            "It adds non-linearity",
+            "It increases the number of filters",
+            "It makes the model recurrent"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "The final block is always global pooling: \"you need it to get a single vector\"."
+        },
+        {
+          "id": "nlp-b3-016",
+          "lecture": 3,
+          "concept": "CNN output shapes, stride and padding",
+          "source": {
+            "file": "lecture3_cnns.pdf",
+            "pages": [
+              65,
+              83
+            ]
+          },
+          "type": "single",
+          "marks": 1,
+          "question": "A width-5 convolution (stride 1, 2 padding tokens on each side) runs over 20 tokens with 50 filters, followed by local max pooling of size 2 with stride 2. What is the output shape (positions × channels)?",
+          "choices": [
+            "10 × 50",
+            "20 × 50",
+            "8 × 50",
+            "10 × 100"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Convolution: $(20 + 4 - 5)/1 + 1 = 20$ positions × 50 channels. Pooling 2 with stride 2 halves the positions: 10 × 50. Pooling never changes the number of channels.",
+          "variantOf": "cnn-shape-calc"
         }
       ]
     },
