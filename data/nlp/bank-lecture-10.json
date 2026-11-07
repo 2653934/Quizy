@@ -1,0 +1,1715 @@
+{
+  "id": "nlp-bank-lecture-10",
+  "subject": "nlp",
+  "title": "Practice bank: Lecture 10 (Responsible NLP)",
+  "kind": "generated",
+  "origin": "new",
+  "description": "New practice questions on Responsible NLP, written for exam revision from the Lecture 10 slides and the tutorial. Quiz questions, short calculations from the slides' own figures, and hard scenario questions for the written section. Not from the lecturer: the answers are unofficial.",
+  "unofficialAnswers": true,
+  "negativeMarkingNote": "The real Moodle quiz uses negative marking on MCQ questions: picking all right and wrong answers on a question results in a mark of 0.",
+  "totalMarks": 136,
+  "questions": [
+    {
+      "id": "nlp-b10-001",
+      "lecture": 10,
+      "concept": "Language and responsibility",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          2
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "According to Lecture 10, communication is best described as:",
+      "choices": [
+        "The ability to direct others' attention, cognition or thoughts",
+        "The exchange of words that share a context",
+        "Encoding a message so that only the listener can decode it",
+        "Predicting the next word a listener expects"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The slide defines communication as \"the ability to direct others' attention, cognition or thoughts\", illustrated by \"Don't think about a pink elephant\": the sentence makes you do exactly what it forbids."
+    },
+    {
+      "id": "nlp-b10-002",
+      "lecture": 10,
+      "concept": "Language and responsibility",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Lecture 10 says that with the power of language \"comes responsibility\". Which statements match the slides?",
+      "choices": [
+        "What information is conveyed is one part of the responsibility (it describes culture)",
+        "Conveying information appropriately is another part (it is a piece of culture)",
+        "Responsibility only applies to written language, not speech",
+        "Natural language is described as a uniquely human tool that is extremely efficient and flexible"
+      ],
+      "answer": [
+        0,
+        1,
+        3
+      ],
+      "explanation": "The slides split responsibility into what is conveyed (describes culture) and conveying it appropriately (is a piece of culture), and call natural language a uniquely human, efficient and flexible tool. Nothing restricts it to writing."
+    },
+    {
+      "id": "nlp-b10-003",
+      "lecture": 10,
+      "concept": "Language and responsibility",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          2
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: The \"Don't think about a pink elephant\" example shows that language can direct a listener's thoughts even against the literal instruction.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The instruction makes you picture the elephant, which is the point: words direct attention and cognition."
+    },
+    {
+      "id": "nlp-b10-004",
+      "lecture": 10,
+      "concept": "Writer vs reader responsible languages",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          5,
+          6
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "In a \"reader responsible\" language:",
+      "choices": [
+        "The person receiving the message must make sense of it, and context can be left out for brevity",
+        "The writer must present all the context needed with the message",
+        "Readers must reply in the same language as the writer",
+        "Only written text, never speech, carries meaning"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Reader responsible (the slides' example: Mandarin): lots of situational awareness is needed and context can be omitted. Writer responsible (English): the context is presented with the message."
+    },
+    {
+      "id": "nlp-b10-005",
+      "lecture": 10,
+      "concept": "Writer vs reader responsible languages",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          5,
+          10
+        ]
+      },
+      "type": "match",
+      "marks": 4,
+      "question": "Match each description to the type of language (as described in Lecture 10).",
+      "pairs": [
+        {
+          "prompt": "The slides' example is English",
+          "answer": "Writer responsible"
+        },
+        {
+          "prompt": "The slides' example is Mandarin",
+          "answer": "Reader responsible"
+        },
+        {
+          "prompt": "Less situational awareness is needed to understand a message",
+          "answer": "Writer responsible"
+        },
+        {
+          "prompt": "Context can be omitted for brevity and left to the reader",
+          "answer": "Reader responsible"
+        }
+      ],
+      "options": [
+        "Writer responsible",
+        "Reader responsible",
+        "Code-switching"
+      ],
+      "explanation": "The difference comes down to how much context is needed to understand a statement. The slides stress it is a coarse grouping, open to stereotypes."
+    },
+    {
+      "id": "nlp-b10-006",
+      "lecture": 10,
+      "concept": "Writer vs reader responsible languages",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Lecture 10 presents the writer/reader responsible split as an exact classification of every language.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The slide says it is \"a coarse grouping and open to stereotypes\", but it makes clear that responsible communication is at the heart of language."
+    },
+    {
+      "id": "nlp-b10-007",
+      "lecture": 10,
+      "concept": "Implicit bias from added context",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          11,
+          12
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "Compare \"They want to be a nurse when they grow up\" with \"He wants to be a nurse when he grows up\". What does Lecture 10 say the second sentence does?",
+      "choices": [
+        "It adds the person's gender as implicit context where it is not necessary, which a model can learn as a false correlation",
+        "It removes context, so a model cannot learn anything from it",
+        "It is reader responsible, so it carries less bias",
+        "It makes the sentence ungrammatical for a language model"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Extra context in a writer responsible language can lead a model, which learns from co-occurrence (the distributional hypothesis), to pick up false correlations such as gender ↔ occupation."
+    },
+    {
+      "id": "nlp-b10-008",
+      "lecture": 10,
+      "concept": "Implicit bias from added context",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Because modern NLP rests on the distributional hypothesis, context that is added to text without being needed can teach models implicit biases.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Words that share contexts get similar representations. If \"nurse\" keeps appearing with \"she\", that association is learned whether or not it is relevant (Lecture 10, linking back to the Tej example of Lecture 1)."
+    },
+    {
+      "id": "nlp-b10-009",
+      "lecture": 10,
+      "concept": "Implicit bias from added context",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          11,
+          18
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which statements connect Lecture 10's linguistics points to NLP, as the slides do?",
+      "choices": [
+        "Useful context is needed to impart meaning",
+        "Implicit bias can stem from the nature of some languages themselves",
+        "Removing all context from training data removes all bias",
+        "The distributional hypothesis is foundational to modern NLP"
+      ],
+      "answer": [
+        0,
+        1,
+        3
+      ],
+      "explanation": "The \"Connections to NLP\" slide: the need for useful context to impart meaning, and implicit bias stemming from the nature of some languages. Removing context would also remove meaning."
+    },
+    {
+      "id": "nlp-b10-010",
+      "lecture": 10,
+      "concept": "Multilingualism and culture",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          13,
+          14
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which points about multilingualism appear in Lecture 10?",
+      "choices": [
+        "In some cultures it is rude to ask a person their name directly",
+        "People often have a home language and a separate professional language",
+        "English is typical of scientific papers, and many languages lack vocabulary for every domain",
+        "Every language has an equal amount of text on the internet"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "All three are on the multilingualism slides. The Wikipedia table later in the lecture shows the opposite of (d)."
+    },
+    {
+      "id": "nlp-b10-011",
+      "lecture": 10,
+      "concept": "Multilingualism and culture",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          17
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "Lecture 10 asks: \"Is it fair to translate Zulu books into English if it means there are less Zulu speakers but more awareness of Zulu culture?\" Which tension does this question capture?",
+      "choices": [
+        "Preserving cultural identity vs providing access to information",
+        "Coherence vs diversity in generated text",
+        "Writer responsible vs reader responsible grammar",
+        "Training cost vs inference cost"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The slide asks how we preserve cultural identity while also providing access to information, i.e. what happens when language, as a piece of culture, does not help convey that culture."
+    },
+    {
+      "id": "nlp-b10-012",
+      "lecture": 10,
+      "concept": "Code-switching",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "What is \"code-switching\"?",
+      "choices": [
+        "Switching between languages, often within one conversation or sentence",
+        "Rewriting a prompt so that it bypasses a model's safeguards",
+        "Converting text into sub-word tokens",
+        "Switching a model from training to inference mode"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Lecture 10: having to switch between languages can be tiring, and code-switching is a big problem for LLMs as well."
+    },
+    {
+      "id": "nlp-b10-013",
+      "lecture": 10,
+      "concept": "Code-switching",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Lecture 10 describes code-switching as a big problem for LLMs as well as being tiring for people.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Mixed-language text is rare in (mostly monolingual, English-heavy) training data, and the tokenizer and many heads are tuned to one language, so models handle it badly."
+    },
+    {
+      "id": "nlp-b10-014",
+      "lecture": 10,
+      "concept": "Code-switching",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          15,
+          34
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "A user writes a request that mixes isiZulu and English in one sentence. Which outcomes are plausible for an English-centric LLM, given Lecture 10?",
+      "choices": [
+        "The isiZulu parts are split into many more tokens than the English parts",
+        "The model may answer only in English, nudging the user away from their home language",
+        "The model is guaranteed to perform better because it sees two languages at once",
+        "The model's quality for this user may be lower than for an English-only user"
+      ],
+      "answer": [
+        0,
+        1,
+        3
+      ],
+      "explanation": "Tokenization is poor for African languages (more tokens per word), code-switching is a known LLM problem, and unequal quality between subgroups is one of the \"bias from the model\" concerns. Nothing guarantees better performance."
+    },
+    {
+      "id": "nlp-b10-015",
+      "lecture": 10,
+      "concept": "Stochastic parrots",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          22
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "In the \"stochastic parrots\" paper (Bender et al., 2021), a language model is described as:",
+      "choices": [
+        "A system for haphazardly stitching together sequences of linguistic forms it has observed, according to probabilistic information about how they combine, but without any reference to meaning",
+        "A model that memorises its training data exactly and repeats it word for word",
+        "A model trained with stochastic gradient descent on parrot speech",
+        "A grounded agent that shares context and intent with the listener"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "This is the quotation on the slide. Fluency and coherence are consistent, but opinions or semantic content are sampled."
+    },
+    {
+      "id": "nlp-b10-016",
+      "lecture": 10,
+      "concept": "Stochastic parrots",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: According to Lecture 10, in a stochastic parrot the fluency and coherence of the text are consistent, while opinions or semantic content are sampled.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "That is the slide's summary of the problem. We don't even know how to measure \"correct language\"."
+    },
+    {
+      "id": "nlp-b10-017",
+      "lecture": 10,
+      "concept": "Stochastic parrots",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          19,
+          21
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Why does Lecture 10 say LMs (as of the stochastic parrots paper) are \"ungrounded\"?",
+      "choices": [
+        "Coherence in human language revolves around a shared context between speaker and listener with intent",
+        "LMs require the speaker to describe their own intent and context",
+        "LMs have no training data",
+        "LMs cannot produce fluent text"
+      ],
+      "answer": [
+        0,
+        1
+      ],
+      "explanation": "Human coherence relies on shared context and intent. An LM has neither, so the user has to supply both. LMs are fluent and have plenty of data."
+    },
+    {
+      "id": "nlp-b10-018",
+      "lecture": 10,
+      "concept": "Grounding: modalities and longer contexts",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          23,
+          24
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Lecture 10 says LMs have come a long way since 2021. Which developments does it list as addressing the stochastic-parrot criticism?",
+      "choices": [
+        "Incorporating multiple modalities can fix the grounding problem",
+        "Context windows are becoming bigger and persistent, allowing more detailed comprehension",
+        "Removing the softmax so that outputs are deterministic",
+        "Training only on English to avoid ambiguity"
+      ],
+      "answer": [
+        0,
+        1
+      ],
+      "explanation": "The slides cite multi-modal grounding (video grounding) and bigger, persistent context windows (SelfExtend)."
+    },
+    {
+      "id": "nlp-b10-019",
+      "lecture": 10,
+      "concept": "Grounding: modalities and longer contexts",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Lecture 10 claims that notions of intent, agency and context in LMs are shifting as models gain more modalities and longer contexts.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The slide: \"LMs have come a long way since 2021 and have shifting notions of intent, agency and context.\""
+    },
+    {
+      "id": "nlp-b10-020",
+      "lecture": 10,
+      "concept": "Hegemonic views in training data",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          25,
+          27
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "Why do LMs \"enforce a hegemonic view\", according to Lecture 10?",
+      "choices": [
+        "They need a lot of data, mostly from the internet, where the dominant voices are over-represented",
+        "They are trained only on government documents",
+        "Their tokenizers delete minority-language words",
+        "They are fine-tuned by a single annotator"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "LMs require a lot of data, mainly from the internet, and the dominant voices there are over-represented. The hegemonic view is also context specific: common or important contexts may trigger a specific viewpoint."
+    },
+    {
+      "id": "nlp-b10-021",
+      "lecture": 10,
+      "concept": "Hegemonic views in training data",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          28
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Lecture 10 argues that a bigger training set automatically makes a model more diverse.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "The slide is titled \"Size does not equal diversity\": the chart shows English at about 49% of the data, far ahead of every other language."
+    },
+    {
+      "id": "nlp-b10-022",
+      "lecture": 10,
+      "concept": "Hegemonic views in training data",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          27
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: According to Lecture 10, all views can be represented in an LM, but common or important contexts may trigger one specific viewpoint.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The hegemonic viewpoint is context specific. The model can represent many views; which one it produces depends on the context."
+    },
+    {
+      "id": "nlp-b10-023",
+      "lecture": 10,
+      "concept": "Bias from the model",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          29,
+          30
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which concerns about the widespread adoption of Gen AI tools does Lecture 10 list under \"bias from the model\"?",
+      "choices": [
+        "Unequal quality between subgroups in society",
+        "Vulnerabilities in the tool which can cause harm",
+        "Language now serving a third role: as an interface to tools used across cultures",
+        "Models becoming too cheap to run"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "These three are on the slides. Cost appears later, but as a concern about expense, not cheapness."
+    },
+    {
+      "id": "nlp-b10-024",
+      "lecture": 10,
+      "concept": "Bias from the model",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          30
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "Lecture 10 says language now serves a \"third role\". What is it?",
+      "choices": [
+        "An interface to tools used across cultures",
+        "A way of storing knowledge in model weights",
+        "A replacement for programming languages",
+        "A training signal for image models"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Language describes culture, is a piece of culture, and is now also the interface to tools used across cultures."
+    },
+    {
+      "id": "nlp-b10-025",
+      "lecture": 10,
+      "concept": "Adversarial triggers and jailbreaking",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          31
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "What is an adversarial trigger, as described in Lecture 10?",
+      "choices": [
+        "A prompt that produces inappropriate behaviour indirectly through the context",
+        "A training example with a wrong label",
+        "A token that ends generation",
+        "A hardware fault that stops a model"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Adversarial examples or triggers are certain prompts which produce inappropriate behaviour indirectly through the context. Jailbreaking is the extreme case."
+    },
+    {
+      "id": "nlp-b10-026",
+      "lecture": 10,
+      "concept": "Adversarial triggers and jailbreaking",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          31
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Lecture 10 states that jailbreaking prompts can over-ride the manual safeguards placed on LLMs.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The slide: \"Jailbreaking: These can over-ride manual safeguards!\" (citing the \"Do Anything Now\" study)."
+    },
+    {
+      "id": "nlp-b10-027",
+      "lecture": 10,
+      "concept": "Adversarial triggers and jailbreaking",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          31,
+          33
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which statements about adversarial triggers are consistent with Lecture 10 (and the L5 point about continuous representation spaces)?",
+      "choices": [
+        "They work through the context of the prompt rather than by changing the model's weights",
+        "Universal triggers can be designed that work across many inputs",
+        "They can only be found by having access to the training data",
+        "Gaps in a model's continuous representation space are one reason such inputs exist"
+      ],
+      "answer": [
+        0,
+        1,
+        3
+      ],
+      "explanation": "The cited work finds \"universal and context-independent triggers\". In L5 the lecturer linked jailbreaks to gaps in the continuous space neural LMs interpolate over. Training data access is not required."
+    },
+    {
+      "id": "nlp-b10-028",
+      "lecture": 10,
+      "concept": "Tokenization of African languages",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          35,
+          36
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "On the tokenizer slide, \"I love the cat\" is 4 tokens and the isiZulu \"Ngiyalithanda ikati\" is 7 tokens. What is the main point?",
+      "choices": [
+        "Tokenizers trained mostly on English split African-language text into more, less meaningful pieces",
+        "isiZulu sentences carry more meaning per token",
+        "English needs more tokens than isiZulu",
+        "Token counts do not affect cost or quality"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Tokenization \"is a big problem for African languages\": the same meaning costs more tokens, the pieces do not match morphemes, and the slide shows translation failing (\"ikati\" → \"cat\" works only with the right split)."
+    },
+    {
+      "id": "nlp-b10-029",
+      "lecture": 10,
+      "concept": "Tokenization of African languages",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          34
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Lecture 10 argues that even if AI is used carefully, models remain limited for under-represented languages, and tokenization is a big problem for African languages in particular.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Both points are on the \"Tokenization & Prompting\" slides."
+    },
+    {
+      "id": "nlp-b10-030",
+      "lecture": 10,
+      "concept": "Tokenization of African languages",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          34,
+          37
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Why is a BPE tokenizer learned mostly on English text a problem for an agglutinative language such as isiZulu? (Lectures 1, 4 and 10)",
+      "choices": [
+        "Its merges reflect English character pairs, so isiZulu words break into many short pieces that ignore morpheme boundaries",
+        "More tokens per sentence means higher cost and less text fitting in the context window",
+        "Agglutinative words pack many morphemes (subject, tense, object, verb root…) into one word, so whitespace splitting is already hard",
+        "BPE cannot represent unseen words at all"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "BPE falls back to characters, so it can represent any word ((d) is false), but badly: the merges were learned on English frequencies. L1's \"Abashana bayazithengiselana\" example shows how much one agglutinative word contains."
+    },
+    {
+      "id": "nlp-b10-031",
+      "lecture": 10,
+      "concept": "Tokenization of African languages",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          36
+        ]
+      },
+      "type": "numeric",
+      "marks": 5,
+      "question": "The slide shows \"I love the cat\" as 4 tokens / 14 characters and \"Ngiyalithanda ikati\" (the same meaning in isiZulu) as 7 tokens / 19 characters.\n(a) How many times more tokens does the isiZulu sentence use?\n(b) Characters per token for English.\n(c) Characters per token for isiZulu.\n(d) How many complete copies of each sentence fit in a 4096-token context window? Give the English number then the isiZulu number.",
+      "parts": [
+        {
+          "label": "(a) Token ratio isiZulu / English",
+          "answer": 1.75,
+          "marks": 1,
+          "tolerance": 0.006
+        },
+        {
+          "label": "(b) English characters per token",
+          "answer": 3.5,
+          "marks": 1,
+          "tolerance": 0.006
+        },
+        {
+          "label": "(c) isiZulu characters per token",
+          "answer": 2.7143,
+          "marks": 1,
+          "tolerance": 0.006
+        },
+        {
+          "label": "(d) English copies",
+          "answer": 1024,
+          "marks": 1,
+          "tolerance": 0.5
+        },
+        {
+          "label": "(d) isiZulu copies",
+          "answer": 585,
+          "marks": 1,
+          "tolerance": 0.5
+        }
+      ],
+      "solution": "(a) $7/4 = 1.75$: the same meaning costs 1.75× as many tokens (and so 1.75× the price on a per-token API).\n(b) $14/4 = 3.5$ characters per token.\n(c) $19/7 \\approx 2.7143$ characters per token: shorter, less meaningful pieces.\n(d) $\\lfloor 4096/4 \\rfloor = 1024$ and $\\lfloor 4096/7 \\rfloor = 585$. An isiZulu user gets about 43% less text into the same context, which also means less room for helpful context.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "explanation": "This is the fairness-and-efficiency argument in numbers: more tokens for the same meaning means higher cost, slower generation and a smaller effective context window for speakers of under-represented languages."
+    },
+    {
+      "id": "nlp-b10-032",
+      "lecture": 10,
+      "concept": "Prompting and its problems",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          38,
+          41
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Lecture 10 names two problems with \"prompting\". Which are they?",
+      "choices": [
+        "Prompting is not a universal skill and is an emerging technology which favours affluence",
+        "It leans into the speaker-responsible view, so not everyone will be equally comfortable depending on their background",
+        "Prompts cannot contain context",
+        "Prompting only works in English"
+      ],
+      "answer": [
+        0,
+        1
+      ],
+      "explanation": "Problem 1: not a universal skill, favours affluence. Problem 2: it leans into the speaker (writer) responsible view, which is uncomfortable for people from reader-responsible backgrounds."
+    },
+    {
+      "id": "nlp-b10-033",
+      "lecture": 10,
+      "concept": "Prompting and its problems",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          39
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "According to Lecture 10, what does good prompting do?",
+      "choices": [
+        "Makes sure the most useful context is provided to the model",
+        "Changes the model's weights for the task",
+        "Removes the need for a tokenizer",
+        "Guarantees the model is grounded"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "\"Prompting\" is the skill of designing questions so that the most useful context is provided to the model. Weights are unchanged."
+    },
+    {
+      "id": "nlp-b10-034",
+      "lecture": 10,
+      "concept": "Prompting and its problems",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          42
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: In the chain-of-thought example on the slides, showing a worked reasoning step in the example answer leads the model to reason step by step and get the cafeteria apples question right (9) where standard prompting got it wrong (27).",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Wei et al. (2022): standard prompting gave \"27\"; chain-of-thought prompting gave 23 − 20 = 3, 3 + 6 = 9."
+    },
+    {
+      "id": "nlp-b10-035",
+      "lecture": 10,
+      "concept": "Dead internet theory",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          44,
+          46
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "What is the \"dead internet theory\"?",
+      "choices": [
+        "The theory that the internet is slowly being dominated by AI-generated content",
+        "The theory that internet traffic is falling every year",
+        "The theory that old websites are deleted to train new models",
+        "The theory that LLMs cannot access the internet"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The slides add that this creates mistrust in information and hides authentic communication."
+    },
+    {
+      "id": "nlp-b10-036",
+      "lecture": 10,
+      "concept": "Dead internet theory",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          47,
+          48
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which consequences of AI-generated content does Lecture 10 list under the dead internet theory?",
+      "choices": [
+        "Bias propagation: generated content is fed back into the training data of future models",
+        "It crowds out real content creators with interesting perspectives",
+        "It can lead to feelings of isolation among under-represented groups",
+        "It makes the internet more democratic"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "It undermines efforts to democratise the internet and highlight broader perspectives, because AI is more efficient at content generation."
+    },
+    {
+      "id": "nlp-b10-037",
+      "lecture": 10,
+      "concept": "Model collapse",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          51,
+          52
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "What is model collapse?",
+      "choices": [
+        "The degradation of models over generations when each generation is trained on data produced by the previous generation",
+        "A model crashing because it runs out of GPU memory",
+        "A model forgetting old tasks after fine-tuning on a new one",
+        "Attention weights becoming one-hot"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The diagram on the slides: Data⁰ → fit Model 0 → sample Data¹ → fit Model 1 → … Each model is trained on the previous model's samples, and the data drifts away from the real distribution. (Catastrophic forgetting, option c, is an L8 concept.)"
+    },
+    {
+      "id": "nlp-b10-038",
+      "lecture": 10,
+      "concept": "Model collapse",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          55,
+          64
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which observations on the Lecture 10 slides are signs of model collapse?",
+      "choices": [
+        "Generated MNIST digits become blurry and then all look alike by generation 20",
+        "OPT-125m outputs drift from architecture to lists of \"jackrabbits\" by generation 9",
+        "The perplexity of generated data narrows towards low values over generations",
+        "Face images keep their diversity no matter how much generated data is mixed in"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "The face experiment shows the opposite of (d): with more \"poisoned\" (generated) data the faces degrade within a few iterations. In the perplexity histograms the distribution of generated data sharpens around low perplexity, i.e. the model reproduces its own most probable outputs and loses the tails."
+    },
+    {
+      "id": "nlp-b10-039",
+      "lecture": 10,
+      "concept": "Model collapse",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          63
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Keeping some of the original real data in each generation's training set reduces model collapse.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The Shumailov et al. figure compares \"no data preserved\" with \"10% data preserved\": with real data kept, the generations stay much closer to the original distribution."
+    },
+    {
+      "id": "nlp-b10-040",
+      "lecture": 10,
+      "concept": "Model collapse",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          64
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "The final model-collapse slide plots log perplexity for several languages (English, Danish, French, Polish, Indonesian, Albanian, Swedish). The distributions are clearly shifted from one another. What concern does this raise?",
+      "choices": [
+        "Models already score different languages very differently, so collapse and generated-data effects will not hit all languages equally",
+        "All languages have the same perplexity, so collapse is language-independent",
+        "Perplexity cannot be measured for non-English languages",
+        "Lower-resource languages are immune to collapse"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Under-represented languages start from a worse position (more surprise per token) and have less real data to anchor them, so the double edge of resource use applies to model collapse too."
+    },
+    {
+      "id": "nlp-b10-041",
+      "lecture": 10,
+      "concept": "Resource use",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          68
+        ]
+      },
+      "type": "numeric",
+      "marks": 3,
+      "question": "Strubell et al.'s table on the slides estimates CO₂e (lbs): training a big Transformer 192; the same with neural architecture search 626,155; a car over its lifetime (incl. fuel) 126,000; one passenger flying NY↔SF 1,984; an average human life for one year 11,023.\n(a) How many car lifetimes is the architecture-search run?\n(b) How many NY↔SF passenger flights is it?\n(c) How many times more than the plain big-Transformer training run is it?",
+      "parts": [
+        {
+          "label": "(a) Car lifetimes",
+          "answer": 4.97,
+          "marks": 1,
+          "tolerance": 0.02
+        },
+        {
+          "label": "(b) Passenger flights",
+          "answer": 315.6,
+          "marks": 1,
+          "tolerance": 0.6
+        },
+        {
+          "label": "(c) Times the plain run",
+          "answer": 3261,
+          "marks": 1,
+          "tolerance": 2
+        }
+      ],
+      "solution": "(a) $626155/126000 \\approx 4.97$ car lifetimes.\n(b) $626155/1984 \\approx 315.6$ flights.\n(c) $626155/192 \\approx 3261$: the tuning and search around a model can cost thousands of times more than one training run.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "explanation": "Lecture 10's point: consider the bias and harm from training models, not only from using them. Training is extremely expensive, with impacts on the economy and environment."
+    },
+    {
+      "id": "nlp-b10-042",
+      "lecture": 10,
+      "concept": "Resource use",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          65,
+          67
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which statements about resource use are made in Lecture 10?",
+      "choices": [
+        "Training LLMs is extremely expensive and has impacts on the economy and the environment",
+        "LLM power usage tends to scale with parameter count, now in the billions",
+        "Training a model can cause large power transients on electricity grids",
+        "Inference is free once a model has been trained"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "The GPU power trace (Li et al., \"LLM-induced transients\") shows training power swinging sharply. Using the model also costs energy."
+    },
+    {
+      "id": "nlp-b10-043",
+      "lecture": 10,
+      "concept": "Double edge of resource use",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          69
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Lecture 10 says lower-resource communities feel the impact of high-resource models \"twice\" (and more). Which points are on that slide?",
+      "choices": [
+        "Through exclusion and inability to compete",
+        "The effects of climate change tend to hit the world's most marginalised first and they bounce back slower",
+        "The technology will scale more poorly for these communities",
+        "They pay lower prices for the same API calls"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "The three numbered points on the slide. Point 3 links back to tokenization: the same request costs more tokens."
+    },
+    {
+      "id": "nlp-b10-044",
+      "lecture": 10,
+      "concept": "Double edge of resource use",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          70
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which are listed in Lecture 10 as forms of exploitation in data collection involving marginalised communities?",
+      "choices": [
+        "Institutions use the data for research without inclusion beyond the collection (asymmetric power balance)",
+        "Communities cannot control the use of their data (lack of trust, conflicts of interest)",
+        "Data is taken out of context or misinterpreted",
+        "The data will be eroded more quickly by generative AI"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "All four are on the slide. The last links to model collapse and the dead internet."
+    },
+    {
+      "id": "nlp-b10-045",
+      "lecture": 10,
+      "concept": "Participation",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          73
+        ]
+      },
+      "type": "numeric",
+      "marks": 3,
+      "question": "The participation slide lists Wikipedia articles and speakers: English 6,087,118 articles / 1,268,100,000 speakers; Zulu 2,219 / 27,800,000; Yoruba 32,572 / 39,800,000.\n(a) Articles per million speakers for English.\n(b) Articles per million speakers for Zulu.\n(c) How many times more articles per speaker does English have than Zulu?",
+      "parts": [
+        {
+          "label": "(a) English",
+          "answer": 4800.2,
+          "marks": 1,
+          "tolerance": 0.6
+        },
+        {
+          "label": "(b) Zulu",
+          "answer": 79.82,
+          "marks": 1,
+          "tolerance": 0.06
+        },
+        {
+          "label": "(c) Ratio English / Zulu",
+          "answer": 60.1,
+          "marks": 1,
+          "tolerance": 0.6
+        }
+      ],
+      "solution": "(a) $6087118/1268100000 \\times 10^6 \\approx 4800.2$.\n(b) $2219/27800000 \\times 10^6 \\approx 79.82$.\n(c) $4800.2 / 79.82 \\approx 60.1$. (Yoruba: 818.4 per million.)",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "explanation": "Even after accounting for the number of speakers, Zulu has roughly 60 times less Wikipedia text per speaker than English. Web-scraped training data inherits this imbalance, which is why the slides call for participatory data creation."
+    },
+    {
+      "id": "nlp-b10-046",
+      "lecture": 10,
+      "concept": "Data curation",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          72
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which are listed in Lecture 10 as pros of data curation?",
+      "choices": [
+        "Removes social biases",
+        "Preserves privacy through anonymisation",
+        "Removes potentially exploitable patterns and balances the data",
+        "The curator cannot introduce any bias"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "The curator plays a role and can be biased: that is one of the cons."
+    },
+    {
+      "id": "nlp-b10-047",
+      "lecture": 10,
+      "concept": "Data curation",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          72
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which are listed in Lecture 10 as cons of data curation?",
+      "choices": [
+        "The curator plays a role and can be biased",
+        "It throws away data, which can be expensive",
+        "There is no clear best approach",
+        "It is a step away from studying the world \"organically\""
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "All four cons are on the slide (Rogers, \"Changing the world by changing the data\")."
+    },
+    {
+      "id": "nlp-b10-048",
+      "lecture": 10,
+      "concept": "Data curation",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          72
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "Lecture 10 defines data curation as:",
+      "choices": [
+        "The organisation, selection and integration of data collected from various sources",
+        "Generating extra training data with an LLM",
+        "Translating a dataset into every target language",
+        "Deleting all rare words from a corpus"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The slide's definition. Generating data with an LLM is closer to what causes model collapse."
+    },
+    {
+      "id": "nlp-b10-049",
+      "lecture": 10,
+      "concept": "Participation",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          73
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Lecture 10 argues that all aspects of the development pipeline (e.g. for machine translation) must be diverse and inclusive.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The \"increase participation\" slide (Nekoto et al., participatory research for low-resourced MT in African languages)."
+    },
+    {
+      "id": "nlp-b10-050",
+      "lecture": 10,
+      "concept": "Participation",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          74
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "Which of these is one of Lecture 10's conclusions?",
+      "choices": [
+        "Even if the skills gap is addressed, data quality and quantity issues are likely to create lingering inequality",
+        "Bigger models will remove inequality between languages on their own",
+        "Prompting is a universal skill that everyone has equal access to",
+        "AI should be treated as a neutral tool that does not shape culture"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The conclusions: AI is an entity shaping culture in its own right; disproportionate access to skills and tools is a risk for low-resource communities; and data issues are likely to create lingering inequality."
+    },
+    {
+      "id": "nlp-b10-051",
+      "lecture": 10,
+      "concept": "Expressivity, regularity and compositionality",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          106,
+          108
+        ]
+      },
+      "type": "match",
+      "marks": 4,
+      "question": "Match each term from the iterated-learning discussion to its meaning.",
+      "pairs": [
+        {
+          "prompt": "Expressivity",
+          "answer": "The language can convey many distinct meanings"
+        },
+        {
+          "prompt": "Regularity",
+          "answer": "The language follows systematic, consistent patterns, so it is easy to learn"
+        },
+        {
+          "prompt": "Compositionality",
+          "answer": "The meaning of the whole is built from the meanings of reusable parts"
+        },
+        {
+          "prompt": "Learning bottleneck",
+          "answer": "Each generation learns from limited data, so easy-to-learn structure survives"
+        }
+      ],
+      "options": [
+        "The language can convey many distinct meanings",
+        "The language follows systematic, consistent patterns, so it is easy to learn",
+        "The meaning of the whole is built from the meanings of reusable parts",
+        "Each generation learns from limited data, so easy-to-learn structure survives",
+        "The model forgets previous tasks after fine-tuning"
+      ],
+      "explanation": "Pressure to communicate pushes towards expressivity; the learning bottleneck pushes towards regularity. A language under both pressures becomes compositional. (Tutorial 7.3; Kirby's iterated learning in Lecture 8.)"
+    },
+    {
+      "id": "nlp-b10-052",
+      "lecture": 10,
+      "concept": "Expressivity, regularity and compositionality",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          107,
+          108
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: In iterated learning, each generation learns the language from the one before, and the parts that are easiest to learn are remembered and come to dominate.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Lecture 8 (iterated learning, Kirby): the \"communication bottleneck\" refines the language. The ML version trains a network, stops early, relabels the data with its outputs and trains a new network on them, for k generations."
+    },
+    {
+      "id": "nlp-b10-053",
+      "lecture": 10,
+      "concept": "Expressivity, regularity and compositionality",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          104
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "What is the \"poverty of the stimulus\" argument (Chomsky) that iterated learning offers an alternative to?",
+      "choices": [
+        "Children learn language quickly from relatively little data, so the capacity for language may be built into the brain",
+        "Languages with fewer speakers have simpler grammar",
+        "Models need less data than children to learn language",
+        "Language cannot be learned from examples at all"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Chomsky's conclusion is a Universal Grammar. Iterated learning flips it: maybe language is well tuned to our brains, because it was shaped by generations of learners."
+    },
+    {
+      "id": "nlp-b10-054",
+      "lecture": 10,
+      "concept": "Tokenization of African languages",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          34,
+          37,
+          72,
+          15
+        ]
+      },
+      "type": "written",
+      "marks": 11,
+      "question": "A clinic in KwaZulu-Natal wants an LLM chatbot that answers patients in isiZulu. The team plans to (1) fine-tune an English-centric LLM that keeps its original BPE tokenizer, (2) machine-translate an English medical-chat dataset into isiZulu for training, and (3) deploy it with a short English system prompt.\n(a) Using the slide example (\"I love the cat\" = 4 tokens, \"Ngiyalithanda ikati\" = 7 tokens), explain two concrete costs of step (1) for isiZulu users. (3)\n(b) Patients often code-switch between isiZulu and English. Explain why this is hard for the model and one bias it could induce. (3)\n(c) Give one risk of step (2) in terms of responsible language use, and one data-curation step you would add, with a con of that step. (3)\n(d) Explain why relying on users to write good prompts is not a neutral design choice. (2) (11 Marks)",
+      "modelAnswer": "(a) The same meaning takes 7/4 = 1.75× as many tokens. Costs: (i) higher price and slower generation per message for isiZulu speakers (per-token billing and decoding time); (ii) less text fits in the context window, so less conversation history and supporting context. Also, the pieces ignore morpheme boundaries (agglutinative words such as \"Ngi-ya-li-thanda\" are cut into frequency-based English-like fragments), so the representations are poorer and quality is lower: unequal quality between subgroups.\n\n(b) Mixed-language text is rare in training data, the tokenizer and many attention heads are tuned to English, and the two languages are encoded very differently, so the model handles switches poorly. Bias: the model may drift into English or answer better in English, nudging users away from their home language and giving lower-quality help to people who code-switch (often the most multilingual and marginalised users).\n\n(c) Risk: translated English text carries English (writer-responsible) conventions and cultural assumptions (e.g. how directly to ask a name or discuss illness), and translation errors, so the model learns translationese rather than how isiZulu speakers actually communicate; it also adds the English hegemonic view. Curation step: have native-speaker clinicians review and filter samples, remove unsafe or culturally inappropriate dialogues, balance topics and anonymise patient data. Con: the curator can be biased, it throws data away and is expensive, and there is no clear best approach.\n\n(d) Prompting is not a universal skill and favours the affluent; it leans into the speaker (writer) responsible view, so users from reader-responsible backgrounds, or with less experience of these tools, get worse answers. The system should supply useful context itself (e.g. a good isiZulu system prompt, examples) instead of shifting the burden to patients.",
+      "rubric": [
+        {
+          "point": "(a) Quantifies the 1.75× token cost",
+          "marks": 1
+        },
+        {
+          "point": "(a) Names two concrete costs (price/latency, context window, poorer morpheme-blind representations)",
+          "marks": 2
+        },
+        {
+          "point": "(b) Explains why code-switching is hard (rare in data, English-tuned tokenizer/heads)",
+          "marks": 2
+        },
+        {
+          "point": "(b) Names a resulting bias (drift to English, lower quality for code-switchers)",
+          "marks": 1
+        },
+        {
+          "point": "(c) Risk of machine-translated data (cultural conventions, errors, hegemonic view)",
+          "marks": 1
+        },
+        {
+          "point": "(c) A sensible curation step",
+          "marks": 1
+        },
+        {
+          "point": "(c) A con of curation (curator bias, cost, discarding data)",
+          "marks": 1
+        },
+        {
+          "point": "(d) Prompting is not universal / favours affluence",
+          "marks": 1
+        },
+        {
+          "point": "(d) Leans into the writer-responsible view, disadvantaging some users",
+          "marks": 1
+        }
+      ],
+      "explanation": "Calibrated to the written section: a scenario that mixes calculation with explanation and pulls in L1 (agglutinative tokenization) and L4 (BPE)."
+    },
+    {
+      "id": "nlp-b10-055",
+      "lecture": 10,
+      "concept": "Model collapse",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          51,
+          63,
+          47
+        ]
+      },
+      "type": "written",
+      "marks": 10,
+      "question": "A company trains a new language model every year on a fresh web crawl. More and more of the web is now generated by earlier models.\n(a) Describe the model-collapse loop shown in Lecture 10 and explain why the tails of the distribution disappear first. (4)\n(b) Describe one way model collapse can be identified and why it corresponds to collapse. (2)\n(c) Link this to the dead internet theory and say why the harm is not evenly spread across communities. (2)\n(d) Propose one mitigation and say what it costs. (2) (10 Marks)",
+      "modelAnswer": "(a) Real data Data⁰ is used to fit Model 0; samples from Model 0 become (part of) Data¹, which trains Model 1, and so on, so Dataⁿ drifts from Data⁰. Each step loses information through finite sampling (rare events may simply not be sampled) and approximate fitting (the model smooths and over-weights what it has seen). Probable events are over-estimated and improbable events under-estimated, so each generation is more concentrated than the last: the tails shrink and eventually vanish, and errors compound (\"probable events poison reality\").\n\n(b) Evaluate each generation's outputs with a model trained on real data (or look at the outputs): in the slides the perplexity histogram of generated text narrows towards low values over generations, and the OPT-125m outputs degrade into repetitive nonsense (\"jackrabbits\"). Lower perplexity on its own outputs with less spread means the model is reproducing its own most likely text and has lost the diversity of real data: that loss of the tails is collapse. (Other valid signs: falling diversity, MNIST digits converging to one blurry shape.)\n\n(c) The dead internet theory says the web is increasingly AI-generated, so web crawls feed generated data back in (bias propagation). Under-represented languages and groups have little real data to anchor them (e.g. ~80 Zulu Wikipedia articles per million speakers vs ~4,800 for English), so their real data is eroded fastest, their content creators are crowded out, and the hegemonic view is amplified.\n\n(d) Preserve a share of verified real (human) data in every generation (the slides' 10% preserved setting keeps the model much closer to the original), or detect and filter generated content, or curate. Cost: real data is expensive to collect and verify, filtering throws data away, curation can introduce curator bias, and detectors are imperfect.",
+      "rubric": [
+        {
+          "point": "(a) Describes the loop: fit → sample → train the next model on samples",
+          "marks": 2
+        },
+        {
+          "point": "(a) Explains tails vanishing (finite sampling / approximation; probable over-, improbable under-estimated)",
+          "marks": 2
+        },
+        {
+          "point": "(b) A valid identification method (perplexity distribution, diversity, degraded outputs)",
+          "marks": 1
+        },
+        {
+          "point": "(b) Explains why it indicates collapse (concentration, lost tails)",
+          "marks": 1
+        },
+        {
+          "point": "(c) Links generated web content to future training data (dead internet / bias propagation)",
+          "marks": 1
+        },
+        {
+          "point": "(c) Explains uneven harm for low-resource languages or groups",
+          "marks": 1
+        },
+        {
+          "point": "(d) A mitigation (keep real data, filter, curate)",
+          "marks": 1
+        },
+        {
+          "point": "(d) Its cost or downside",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-b10-056",
+      "lecture": 10,
+      "concept": "Stochastic parrots",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          19,
+          28
+        ]
+      },
+      "type": "written",
+      "marks": 6,
+      "question": "Explain what is meant by the term \"stochastic parrots\" in relation to neural language models. Then discuss how (i) grounding through other modalities and longer contexts and (ii) the hegemonic make-up of web training data relate to this criticism. Use what you know about how an LM is trained (Lecture 5) in your answer. (6 Marks)",
+      "modelAnswer": "Stochastic parrots (Bender et al., 2021): an LM \"haphazardly stitches together sequences of linguistic forms it has observed in its vast training data, according to probabilistic information about how they combine, but without any reference to meaning\". Fluency and coherence are consistent, but opinions or semantic content are sampled.\n\nWhy this follows from training: an LM is trained with cross-entropy to predict the next token from the previous ones. It only ever sees text (form), never the world or the speaker's intent, so it learns which forms co-occur (the distributional hypothesis) rather than grounded meaning. Human coherence relies on a shared context between speaker and listener with intent; the LM has neither, so the user must describe their intent and context.\n\n(i) Grounding: adding modalities (images, video) ties words to perception, and bigger, persistent context windows let the model use more of the speaker's context, so notions of intent and context are shifting since 2021. This weakens, but does not remove, the criticism: the model still optimises likelihood of forms.\n\n(ii) Hegemony: LMs need huge data, mainly from the internet, where dominant voices are over-represented (≈49% English on the slide; \"size does not equal diversity\"). A parrot repeats what it heard most, so common contexts trigger the dominant viewpoint and minority views and languages are under-served.",
+      "rubric": [
+        {
+          "point": "Defines stochastic parrots (stitching forms by probability, no reference to meaning)",
+          "marks": 2
+        },
+        {
+          "point": "Links to next-token training on form only / no shared context or intent (ungrounded)",
+          "marks": 2
+        },
+        {
+          "point": "(i) Explains how modalities and longer contexts address grounding, and the limit of this",
+          "marks": 1
+        },
+        {
+          "point": "(ii) Explains the hegemonic view: web data over-represents dominant voices; size ≠ diversity",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-b10-057",
+      "lecture": 10,
+      "concept": "Implicit bias from added context",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          11,
+          12
+        ]
+      },
+      "type": "written",
+      "marks": 6,
+      "question": "Lecture 10 contrasts \"They want to be a nurse when they grow up\" with \"He wants to be a nurse when he grows up\".\n(a) Explain how the second sentence can lead a model to learn an implicit bias, referring to the distributional hypothesis. (2)\n(b) Word2Vec is trained on a large English corpus. Explain why you might find that the vector for \"nurse\" is closer to \"she\" than to \"he\", and how this would show up in an analogy test. (2)\n(c) Explain why this kind of bias is linked to writer-responsible languages in particular. (2) (6 Marks)",
+      "modelAnswer": "(a) The distributional hypothesis says words that share contexts get similar meanings/representations. The second sentence adds the gender as implicit context where it is not necessary. Across a corpus, \"nurse\" co-occurs with gendered words, so the model learns a correlation between gender and occupation that is not part of the meaning of \"nurse\": a false correlation.\n\n(b) Word2Vec learns vectors by predicting context words in a sliding window. If \"nurse\" appears near \"she/her\" more often than \"he/him\", the training updates pull v(nurse) towards the context vectors of female words, so cosine similarity to \"she\" is higher. In an analogy test, v(doctor) − v(man) + v(woman) may land nearest \"nurse\": the linear structure that gives king − man + woman ≈ queen also encodes social stereotypes.\n\n(c) In writer-responsible languages the writer supplies the context with the message (more explicit context per sentence). English, for instance, forces gendered pronouns, so gender is stated even when irrelevant. That extra, unnecessary context is exactly what a co-occurrence-based model learns from.",
+      "rubric": [
+        {
+          "point": "(a) Distributional hypothesis + unnecessary gender context → false correlation",
+          "marks": 2
+        },
+        {
+          "point": "(b) Explains the training mechanism pulling vectors together",
+          "marks": 1
+        },
+        {
+          "point": "(b) Shows it in an analogy test",
+          "marks": 1
+        },
+        {
+          "point": "(c) Writer-responsible languages state more context explicitly (e.g. gendered pronouns)",
+          "marks": 2
+        }
+      ]
+    },
+    {
+      "id": "nlp-b10-058",
+      "lecture": 10,
+      "concept": "Double edge of resource use",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          65,
+          73
+        ]
+      },
+      "type": "written",
+      "marks": 6,
+      "question": "A large lab argues that its new multilingual LLM \"benefits everyone equally\". Using Lecture 10, critique this claim. Cover resource use, the \"double edge\" for lower-resource communities, exploitation in data collection, and what can be done. (6 Marks)",
+      "modelAnswer": "Resource use: training is extremely expensive (power scales with billions of parameters; architecture search ≈ 626k lbs CO₂e, about 5 car lifetimes), which has economic and environmental impacts.\n\nDouble edge: lower-resource communities (1) are excluded and cannot compete, (2) feel climate-change effects first and recover slower, and (3) get technology that scales poorly for them (more tokens per word, lower quality, higher cost).\n\nData collection: institutions may use community data for research without inclusion beyond collection (asymmetric power), communities can't control how their data is used (lack of trust, conflicts of interest), data is taken out of context or misinterpreted, and generative AI erodes their data faster.\n\nWhat can be done: careful curation (removes biases, anonymises, balances, but the curator can be biased and it is expensive), increased participation so every part of the pipeline is diverse and inclusive (participatory MT research), and gathering perspectives from low- and middle-income countries whose notion of impact goes beyond short-term technical concerns. So the benefits are not equal unless these are addressed.",
+      "rubric": [
+        {
+          "point": "Resource use and its environmental/economic cost",
+          "marks": 1
+        },
+        {
+          "point": "At least two \"double edge\" points",
+          "marks": 2
+        },
+        {
+          "point": "At least two exploitation risks in data collection",
+          "marks": 2
+        },
+        {
+          "point": "Concrete remedies (participation, curation, broader perspectives)",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-b10-059",
+      "lecture": 10,
+      "concept": "Adversarial triggers and jailbreaking",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          31,
+          33,
+          38
+        ]
+      },
+      "type": "written",
+      "marks": 5,
+      "question": "Explain what adversarial triggers and jailbreaking prompts are, why manual safeguards can fail against them, and why this is a responsibility issue rather than only a security issue. Relate your answer to how prompting provides context to a model. (5 Marks)",
+      "modelAnswer": "Adversarial triggers are inputs (prompts) that cause inappropriate behaviour indirectly through the context, rather than by asking directly; universal triggers work across many inputs and contexts. Jailbreaking prompts (e.g. \"Do Anything Now\" role-play) wrap a harmful request in context that over-rides the manual safeguards.\n\nWhy safeguards fail: safety behaviour is learned from a limited set of examples, while the model responds to the whole context; a neural LM interpolates in a continuous space, and inputs far from the safety training data (gaps in that space) fall outside what was taught. Because prompting works by supplying context, the same mechanism that lets a good prompt help also lets a crafted prompt steer the model.\n\nResponsibility: vulnerabilities in a widely used tool can cause harm to people who never wrote the prompt, and the burden of safe use falls unequally; language is now an interface to tools used across cultures, so these failures have social impact, not just technical impact.",
+      "rubric": [
+        {
+          "point": "Defines adversarial triggers (indirect, through context) and jailbreaking (over-rides safeguards)",
+          "marks": 2
+        },
+        {
+          "point": "Explains why safeguards fail (context-driven behaviour, gaps beyond safety training)",
+          "marks": 2
+        },
+        {
+          "point": "Explains why this is a responsibility issue (harm, tool used across cultures)",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-b10-060",
+      "lecture": 10,
+      "concept": "Language and responsibility",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          2,
+          17
+        ]
+      },
+      "type": "written",
+      "marks": 4,
+      "question": "Lecture 10 says language both describes culture and is a piece of culture. Explain this distinction, and use it to discuss the question \"Is it fair to translate Zulu books into English if it means there are less Zulu speakers but more awareness of Zulu culture?\" Refer to multilingualism (home vs professional language). (4 Marks)",
+      "modelAnswer": "Communication directs others' attention and thoughts, so it carries responsibility. What is conveyed describes culture (the information); how it is conveyed appropriately is itself a piece of culture (norms such as not asking a name directly, how much context to give).\n\nTranslating Zulu books into English makes the information about Zulu culture accessible to more people (describing culture), but the English version loses the piece of culture that lives in the language itself: its conventions, idioms and reader/writer responsibility. If English becomes the default for reading, and people already use English as their professional language (science, many domains lack vocabulary), fewer people use Zulu, which erodes the culture being described. A fair approach preserves cultural identity while giving access: translate both ways, build tools and vocabulary in Zulu, and involve speakers.",
+      "rubric": [
+        {
+          "point": "Explains describes-culture vs is-a-piece-of-culture",
+          "marks": 2
+        },
+        {
+          "point": "Applies it to the translation dilemma (access vs loss of identity)",
+          "marks": 1
+        },
+        {
+          "point": "Uses home vs professional language / domain vocabulary",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-b10-061",
+      "lecture": 10,
+      "concept": "Writer vs reader responsible languages",
+      "source": {
+        "file": "lecture10_responsible_nlp.pdf",
+        "pages": [
+          5,
+          10,
+          41
+        ]
+      },
+      "type": "written",
+      "marks": 4,
+      "question": "Describe the difference between reader-responsible and writer-responsible languages. Then explain why prompting an LLM \"leans into the speaker-responsible view\", and who this disadvantages. (4 Marks)",
+      "modelAnswer": "Writer responsible (e.g. English): the person conveying the message must make it understandable; the context needed is presented with the message, so less situational awareness is needed. Reader responsible (e.g. Mandarin): the receiver must make sense of it; context can be omitted for brevity and lots of situational awareness is needed. (A coarse grouping, open to stereotypes.)\n\nAn LLM is ungrounded and shares no situation with the user, so it only knows what is written: the user must spell out intent and context in the prompt. That is the writer/speaker-responsible style. People from reader-responsible linguistic backgrounds, or who are less practised with these tools, will be less comfortable doing this and get worse answers, and prompting as a skill already favours the affluent.",
+      "rubric": [
+        {
+          "point": "Defines writer responsible with an example",
+          "marks": 1
+        },
+        {
+          "point": "Defines reader responsible with an example",
+          "marks": 1
+        },
+        {
+          "point": "Explains why prompting is speaker-responsible (no shared context, must state intent)",
+          "marks": 1
+        },
+        {
+          "point": "Names who is disadvantaged",
+          "marks": 1
+        }
+      ]
+    }
+  ]
+}
