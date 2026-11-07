@@ -1,0 +1,1583 @@
+{
+  "id": "nlp-bank-lecture-5",
+  "subject": "nlp",
+  "title": "Practice bank: Lecture 5 (Language modelling)",
+  "kind": "generated",
+  "origin": "new",
+  "description": "New practice questions on language modelling, written for exam revision from the Lecture 5 slides, the recording notes and the tutorial: quiz questions, several variants of every calculation (n-grams, smoothing, backoff, interpolation, perplexity, temperature, top-k and top-p) and hard multi-part written questions. Not from the lecturer: the answers are unofficial.",
+  "unofficialAnswers": true,
+  "negativeMarkingNote": "The real Moodle quiz uses negative marking on MCQ questions: picking all right and wrong answers on a question results in a mark of 0.",
+  "totalMarks": 142,
+  "questions": [
+    {
+      "id": "nlp-b5-001",
+      "lecture": 5,
+      "concept": "What a language model is",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          8,
+          9
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "What does a language model estimate?",
+      "choices": [
+        "The probability of linguistic units: a sentence, or the next token given the previous ones",
+        "The grammatical parse tree of a sentence",
+        "The sentiment label of a text",
+        "A fixed embedding for every word in the vocabulary"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Lecture 5: LMs estimate the probability of different linguistic units (texts, sentences, tokens). In practice, via $P(y_t \\mid y_{<t})$."
+    },
+    {
+      "id": "nlp-b5-002",
+      "lecture": 5,
+      "concept": "What a language model is",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          3,
+          8
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: The lecturer compared a language model to a model train: it must reproduce the properties of language that matter for prediction, not copy how humans actually produce language.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "From the recording: a language model is an approximation of language, like a model train or a physics model of the world."
+    },
+    {
+      "id": "nlp-b5-003",
+      "lecture": 5,
+      "concept": "What a language model is",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          16,
+          20
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: We can estimate the probability of a whole sentence by counting how often that exact sentence occurs in a large corpus.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Language is compositional: almost every sentence has a count of 0, so we cannot treat sentences as atomic units. Instead we decompose them with the chain rule."
+    },
+    {
+      "id": "nlp-b5-004",
+      "lecture": 5,
+      "concept": "Chain rule (left-to-right) factorisation",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          21,
+          22
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "Which expression is the left-to-right factorisation used by language models?",
+      "choices": [
+        "$P(y_1, \\dots, y_n) = \\prod_{t=1}^{n} P(y_t \\mid y_1, \\dots, y_{t-1})$",
+        "$P(y_1, \\dots, y_n) = \\prod_{t=1}^{n} P(y_t)$",
+        "$P(y_1, \\dots, y_n) = \\sum_{t=1}^{n} P(y_t \\mid y_{t-1})$",
+        "$P(y_1, \\dots, y_n) = \\frac{N(y_1, \\dots, y_n)}{N(\\text{all sentences})}$"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The product rule of probability, applied left to right. It is exact; the Markov assumption is what makes it approximate."
+    },
+    {
+      "id": "nlp-b5-005",
+      "lecture": 5,
+      "concept": "Chain rule (left-to-right) factorisation",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          21,
+          24
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which statements about the left-to-right framework are true?",
+      "choices": [
+        "It is exact before any Markov assumption is made",
+        "N-gram and neural LMs differ only in how they compute $P(y_t \\mid y_{<t})$",
+        "To generate text you sample a token, append it to the context and repeat",
+        "It requires the model to see the future tokens"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "The slides: \"models differ in how they evaluate the probabilities\". Generation feeds each predicted token back in, so it never looks ahead."
+    },
+    {
+      "id": "nlp-b5-006",
+      "lecture": 5,
+      "concept": "Markov assumption and n-gram order",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          32,
+          33
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "Under the Markov assumption, a 5-gram model predicts $y_t$ from how many previous tokens?",
+      "choices": [
+        "4",
+        "5",
+        "3",
+        "6"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The $n$ in n-gram includes the predicted word, so a 5-gram uses $n - 1 = 4$ context words. The lecturer warned this naming is an easy mistake.",
+      "variantOf": "ngram-order"
+    },
+    {
+      "id": "nlp-b5-007",
+      "lecture": 5,
+      "concept": "Markov assumption and n-gram order",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          34
+        ]
+      },
+      "type": "match",
+      "marks": 4,
+      "question": "For the sentence \"I saw a cat on a mat\", match each model to the factor it uses for the word \"mat\".",
+      "pairs": [
+        {
+          "prompt": "Unigram",
+          "answer": "$P(mat)$"
+        },
+        {
+          "prompt": "Bigram",
+          "answer": "$P(mat \\mid a)$"
+        },
+        {
+          "prompt": "Trigram",
+          "answer": "$P(mat \\mid on\\ a)$"
+        },
+        {
+          "prompt": "4-gram",
+          "answer": "$P(mat \\mid cat\\ on\\ a)$"
+        }
+      ],
+      "options": [
+        "$P(mat)$",
+        "$P(mat \\mid a)$",
+        "$P(mat \\mid on\\ a)$",
+        "$P(mat \\mid cat\\ on\\ a)$",
+        "$P(mat \\mid I\\ saw\\ a\\ cat\\ on\\ a)$"
+      ],
+      "explanation": "An n-gram keeps $n - 1$ previous words. Only the full (no Markov) model uses the whole history.",
+      "variantOf": "ngram-order"
+    },
+    {
+      "id": "nlp-b5-008",
+      "lecture": 5,
+      "concept": "N-gram MLE and the zero problem",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          36
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "For a count-based estimate $P(mat \\mid cat\\ on\\ a) = \\frac{N(cat\\ on\\ a\\ mat)}{N(cat\\ on\\ a)}$, which statements are true?",
+      "choices": [
+        "If the numerator is 0, one unseen n-gram makes the whole sentence probability 0",
+        "If the denominator is 0, the probability is undefined",
+        "The estimate can never exceed 1, because $N(\\text{prefix} + w) \\le N(\\text{prefix})$",
+        "Using a longer context always reduces the number of zero counts"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Longer contexts are rarer, so they make zeros more likely, not less. That is why backoff shortens the context."
+    },
+    {
+      "id": "nlp-b5-009",
+      "lecture": 5,
+      "concept": "N-gram MLE and the zero problem",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          30,
+          36
+        ]
+      },
+      "type": "numeric",
+      "marks": 4,
+      "question": "A bigram model is trained on:\n<s> I like green tea </s>\n<s> I like black tea </s>\n<s> I drink green tea </s>\n<s> you like tea </s>\n(a) $P(like \\mid I)$  (b) $P(green \\mid like)$  (c) $P(tea \\mid green)$, all maximum-likelihood estimates.\n(d) The MLE probability of \"<s> you drink tea </s>\" (predict the 4 tokens after <s>).",
+      "parts": [
+        {
+          "label": "(a) P(like | I)",
+          "answer": 0.6667,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(b) P(green | like)",
+          "answer": 0.3333,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(c) P(tea | green)",
+          "answer": 1,
+          "marks": 1,
+          "tolerance": 0.006
+        },
+        {
+          "label": "(d) P(sentence)",
+          "answer": 0,
+          "marks": 1,
+          "tolerance": 0.001
+        }
+      ],
+      "solution": "$P(w \\mid v) = N(v\\,w) / N(v)$ where $N(v)$ counts $v$ as a context.\n(a) $2/3 = 0.6667$  (b) $1/3 = 0.3333$  (c) $2/2 = 1$\n(d) \"you drink\" never occurs, so $P(drink \\mid you) = 0$ and the whole product is $0$: one unseen bigram zeroes the sentence, even though every word was seen.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "explanation": "This is the zero problem that backoff, interpolation and smoothing fix.",
+      "variantOf": "ngram-mle-calc"
+    },
+    {
+      "id": "nlp-b5-010",
+      "lecture": 5,
+      "concept": "Laplace (add-δ) smoothing",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          42
+        ]
+      },
+      "type": "numeric",
+      "marks": 4,
+      "question": "Same corpus:\n<s> I like green tea </s>\n<s> I like black tea </s>\n<s> I drink green tea </s>\n<s> you like tea </s>\nThe prediction vocabulary is {I, like, green, tea, black, drink, you, </s>}, so $|V| = 8$. With Laplace (add-one, $\\delta = 1$) smoothing compute:\n(a) $P(drink \\mid you)$  (b) $P(like \\mid I)$  (c) the probability of \"<s> you drink tea </s>\" (4 predicted tokens).",
+      "parts": [
+        {
+          "label": "(a) P(drink | you)",
+          "answer": 0.1111,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(b) P(like | I)",
+          "answer": 0.2727,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(c) P(sentence)",
+          "answer": 0.0008573,
+          "marks": 2,
+          "relTolerance": 0.005
+        }
+      ],
+      "solution": "$$\\hat P(w \\mid v) = \\frac{N(v\\,w) + \\delta}{N(v) + \\delta|V|}$$\n(a) $\\frac{0 + 1}{1 + 8} = 0.1111$\n(b) $\\frac{2 + 1}{3 + 8} = 0.2727$: smoothing takes mass away from seen bigrams.\n(c) Factors: $P(\\text{you} \\mid \\text{<s>}) = \\frac{1+1}{4+8}$, $P(\\text{drink} \\mid \\text{you}) = \\frac{0+1}{1+8}$, $P(\\text{tea} \\mid \\text{drink}) = \\frac{0+1}{1+8}$, $P(\\text{</s>} \\mid \\text{tea}) = \\frac{4+1}{4+8}$; product $\\approx 0.0008573$.",
+      "inputHint": "A decimal; scientific notation such as 1.2e-4 is fine.",
+      "variantOf": "laplace-calc"
+    },
+    {
+      "id": "nlp-b5-011",
+      "lecture": 5,
+      "concept": "Laplace (add-δ) smoothing",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          32,
+          42
+        ]
+      },
+      "type": "numeric",
+      "marks": 5,
+      "question": "A trigram model is trained on three sentences, each padded with two start tokens:\n<s> <s> the cat sat on the mat </s>\n<s> <s> the cat ate the fish </s>\n<s> <s> the dog sat on the cat </s>\nThe prediction vocabulary is every token except <s>, so $|V| = 9$.\n(a) How many context words does this model use?\n(b) MLE $P(sat \\mid the\\ cat)$  (c) MLE $P(the \\mid sat\\ on)$\n(d) Add-$\\delta$ with $\\delta = 0.5$: $P(sat \\mid the\\ cat)$  (e) Add-$\\delta$: $P(ran \\mid the\\ cat)$",
+      "parts": [
+        {
+          "label": "(a) Context words",
+          "answer": 2,
+          "marks": 1,
+          "tolerance": 0.1
+        },
+        {
+          "label": "(b) MLE P(sat | the cat)",
+          "answer": 0.3333,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(c) MLE P(the | sat on)",
+          "answer": 1,
+          "marks": 1,
+          "tolerance": 0.006
+        },
+        {
+          "label": "(d) Add-δ P(sat | the cat)",
+          "answer": 0.2,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(e) Add-δ P(ran | the cat)",
+          "answer": 0.0667,
+          "marks": 1,
+          "tolerance": 0.0005
+        }
+      ],
+      "solution": "(a) A trigram is $n = 3$ including the predicted word, so $n - 1 = 2$ context words.\n(b) \"the cat\" occurs 3 times as a context (\"the cat sat\", \"the cat ate\"; the last \"the cat\" is followed by </s>, so it counts too): $1/3 = 0.3333$.\n(c) \"sat on\" is followed by \"the\" both times: $2/2 = 1$.\n(d) $\\frac{1 + 0.5}{3 + 0.5 \\times 9} = 0.2$\n(e) $\\frac{0 + 0.5}{3 + 0.5 \\times 9} = 0.0667$: an unseen trigram now gets a small non-zero probability.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "explanation": "With a large $|V|$ (around a million in practice), the $\\delta|V|$ term dominates the denominator and drags every probability down, which is the downside the lecturer pointed out.",
+      "variantOf": "laplace-calc"
+    },
+    {
+      "id": "nlp-b5-012",
+      "lecture": 5,
+      "concept": "Laplace (add-δ) smoothing",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          42
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Laplace smoothing can be seen as a uniform prior over the vocabulary, and with a very large vocabulary the $\\delta|V|$ term can dominate the denominator.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "From the recording: Laplace comes from Naive Bayes and acts as a uniform Bayesian prior; with $|V|$ around a million, even a tiny $\\delta$ drags every probability down."
+    },
+    {
+      "id": "nlp-b5-013",
+      "lecture": 5,
+      "concept": "Backoff",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          37
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "Stupid backoff (as on the slides) estimates $P(mat \\mid cat\\ on\\ a)$ when $N(cat\\ on\\ a) = 0$ by:",
+      "choices": [
+        "Trying $P(mat \\mid on\\ a)$ instead, then $P(mat \\mid a)$, then $P(mat)$, until the context has been seen",
+        "Adding 1 to every count",
+        "Averaging all four estimates with weights that sum to 1",
+        "Returning 0"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Backoff uses less context for contexts we don't know much about. (The original \"stupid backoff\" also multiplies each step down by a constant such as 0.4; the slides leave this out.) Option (c) is linear interpolation."
+    },
+    {
+      "id": "nlp-b5-014",
+      "lecture": 5,
+      "concept": "Backoff",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          37
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which statements about backoff are true?",
+      "choices": [
+        "It fixes the problem that larger n-grams are rarer",
+        "Shrinking the context removes constraints, so the prediction becomes less specific",
+        "It always uses the longest context available that has been seen",
+        "It guarantees that probabilities sum to exactly 1 without any extra normalisation"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "The lecturer's trade-off: avoiding zero counts by dropping context also drops constraints. Plain (stupid) backoff scores do not form a normalised distribution: that needs discounting (Katz backoff), which was not covered."
+    },
+    {
+      "id": "nlp-b5-015",
+      "lecture": 5,
+      "concept": "Backoff",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          37
+        ]
+      },
+      "type": "numeric",
+      "marks": 2,
+      "question": "A model is trained on:\n<s> the cat sat on a mat </s>\n<s> a dog sat on a rug </s>\n<s> the mat was on a table </s>\nUse backoff exactly as on the slides (no discount factor): use the trigram if its context has been seen, otherwise the bigram, otherwise the unigram.\n(a) $\\hat P(a \\mid cat\\ on)$\n(b) $\\hat P(mat \\mid on\\ a)$",
+      "parts": [
+        {
+          "label": "(a) P(a | cat on)",
+          "answer": 1,
+          "marks": 1,
+          "tolerance": 0.006
+        },
+        {
+          "label": "(b) P(mat | on a)",
+          "answer": 0.3333,
+          "marks": 1,
+          "tolerance": 0.0006
+        }
+      ],
+      "solution": "(a) $N(cat\\ on) = 0$: the context was never seen (\"cat sat on\", not \"cat on\"), so back off to the bigram: $P(a \\mid on) = N(on\\ a)/N(on) = 3/3 = 1$.\n(b) $N(on\\ a) = 3$, so the trigram can be used: $N(on\\ a\\ mat)/N(on\\ a) = 1/3 = 0.3333$. (The bigram would give $P(mat \\mid a) = 1/4 = 0.25$, but backoff only drops context when it has to.)",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "variantOf": "backoff-calc"
+    },
+    {
+      "id": "nlp-b5-016",
+      "lecture": 5,
+      "concept": "Linear interpolation",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          39,
+          41
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "In linear interpolation $\\hat P(mat \\mid cat\\ on\\ a) = \\lambda_3 P(mat \\mid cat\\ on\\ a) + \\lambda_2 P(mat \\mid on\\ a) + \\lambda_1 P(mat \\mid a) + \\lambda_0 P(mat)$, which are true?",
+      "choices": [
+        "The $\\lambda$s must sum to 1",
+        "The $\\lambda$s are chosen by cross-validation on held-out data",
+        "It turns the backoff algorithm into a hyperparameter problem",
+        "The $\\lambda$s are learned on the training set by maximising its likelihood"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Fitting the $\\lambda$s on the training data would just put all the weight on the longest n-gram (which fits the training data best). They must be tuned on a validation set."
+    },
+    {
+      "id": "nlp-b5-017",
+      "lecture": 5,
+      "concept": "Linear interpolation",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          39,
+          41
+        ]
+      },
+      "type": "numeric",
+      "marks": 2,
+      "question": "(a) A trigram LM is interpolated with weights $\\lambda_3 = 0.6, \\lambda_2 = 0.3, \\lambda_1 = 0.1$. The estimates are $P(tea \\mid drink\\ green) = 0$ (unseen), $P(tea \\mid green) = 0.25$ and $P(tea) = 0.04$. Give $\\hat P(tea \\mid drink\\ green)$.\n(b) A 4-gram model uses $\\lambda = (0.5, 0.3, 0.15, 0.05)$ for the 4-gram, trigram, bigram and unigram estimates $(0.5, 0.4, 0.1, 0.01)$. Give the interpolated probability.",
+      "parts": [
+        {
+          "label": "(a)",
+          "answer": 0.079,
+          "marks": 1,
+          "tolerance": 0.0005
+        },
+        {
+          "label": "(b)",
+          "answer": 0.3855,
+          "marks": 1,
+          "tolerance": 0.0006
+        }
+      ],
+      "solution": "(a) $0.6(0) + 0.3(0.25) + 0.1(0.04) = 0.079$: the unseen trigram no longer zeroes the estimate.\n(b) $0.5(0.5) + 0.3(0.4) + 0.15(0.1) + 0.05(0.01) = 0.3855$",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "variantOf": "interp-calc"
+    },
+    {
+      "id": "nlp-b5-018",
+      "lecture": 5,
+      "concept": "Neural LM pipeline",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          50,
+          52
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "In a neural LM, what happens after the network turns the context into a vector $h$ of size $d$?",
+      "choices": [
+        "A linear layer maps $h$ to $|V|$ scores, and a softmax turns them into $P(y_t \\mid y_{<t})$",
+        "The network counts n-grams in $h$",
+        "A sigmoid is applied to each of the $|V|$ scores independently",
+        "The most similar training sentence is retrieved"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "process context → $h$ → linear layer ($d \\to |V|$) → softmax. One softmax over the whole vocabulary: that is why cross-entropy, not BCE, is the right loss."
+    },
+    {
+      "id": "nlp-b5-019",
+      "lecture": 5,
+      "concept": "Neural LM pipeline",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          54
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: In the \"output embeddings\" view of the final layer, the score of each token is the dot product of $h$ with that token's output embedding.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The rows of the output matrix are output embeddings; a token scores highly when its embedding points in the same direction as $h$. The lecturer said the field mostly uses this view."
+    },
+    {
+      "id": "nlp-b5-020",
+      "lecture": 5,
+      "concept": "Neural LM pipeline",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          52
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: A neural LM can give a sensible probability to a context it never saw in training because it works in a continuous vector space where similar contexts get similar representations.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Counting cannot generalise to an unseen n-gram; a neural LM interpolates between nearby points. The cost: it needs a lot of data, and gaps in the space are where odd behaviour (e.g. jailbreaks) comes from."
+    },
+    {
+      "id": "nlp-b5-021",
+      "lecture": 5,
+      "concept": "Cross-entropy (not BCE) for next-token prediction",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          57
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "The model gives $p(cat \\mid I\\ saw\\ a) = 0.2$ and the target is \"cat\". With a one-hot target, what is the cross-entropy loss at this step (natural log)?",
+      "choices": [
+        "$-\\ln 0.2 \\approx 1.609$",
+        "$-\\ln 0.8 \\approx 0.223$",
+        "$0.2$",
+        "$-0.2 \\ln 0.2 - 0.8 \\ln 0.8 \\approx 0.500$"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "$\\text{CE} = -\\sum_j p^*_j \\log \\hat p_j$ and the one-hot target kills every term but the correct one, leaving $-\\log \\hat p(cat)$. Option (d) is the binary cross-entropy form, which is the wrong loss for a softmax over $|V|$."
+    },
+    {
+      "id": "nlp-b5-022",
+      "lecture": 5,
+      "concept": "Cross-entropy (not BCE) for next-token prediction",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          57
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which statements about the training loss of an LM are true?",
+      "choices": [
+        "It is multiclass cross-entropy over one softmax across the vocabulary",
+        "With a one-hot target it reduces to $-\\log \\hat p(\\text{observed token})$",
+        "Using binary cross-entropy (e.g. BCEWithLogits) on the $|V|$ outputs is a common bug",
+        "Lowering the loss on the correct token cannot change the other probabilities"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Because the softmax sums to 1, raising the correct token's probability lowers the others (Quiz 1 Q2 makes the same point)."
+    },
+    {
+      "id": "nlp-b5-023",
+      "lecture": 5,
+      "concept": "RNN and multi-layer RNN LMs",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          61,
+          62
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which statements about RNN language models are true?",
+      "choices": [
+        "The simplest version reads the text and predicts the next token from the hidden state at each step",
+        "In a multi-layer RNN, the states of one RNN are fed as inputs to the next",
+        "Roughly, lower layers capture local phenomena and higher layers longer dependencies",
+        "An RNN LM must recompute every previous step from scratch to generate each new token"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "The hidden state caches the past, so generating a token costs one step. That is the lecturer's reason for using RNNs rather than CNNs for generation."
+    },
+    {
+      "id": "nlp-b5-024",
+      "lecture": 5,
+      "concept": "RNN and multi-layer RNN LMs",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          61
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: The lecturer argued that RNNs suit generation better than CNNs because the hidden state caches the past, whereas a CNN must rerun convolution and pooling over the whole sequence for every new token.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "His wider point: in NLP, fast training with a small memory footprint (so you can show the model more data) beats mathematical elegance."
+    },
+    {
+      "id": "nlp-b5-025",
+      "lecture": 5,
+      "concept": "Coherence vs diversity",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          66
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "Why can't a language model simply always output its most probable continuation?",
+      "choices": [
+        "The most probable continuation is often short and generic (\"I like the cat.\"), so the text is coherent but not diverse and communicates little",
+        "Because the most probable token is always <eos>",
+        "Because computing the most probable token is intractable",
+        "Because it would make the text incoherent"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Real language communicates something, so it can't always take the most likely path. We need both coherence and diversity."
+    },
+    {
+      "id": "nlp-b5-026",
+      "lecture": 5,
+      "concept": "Coherence vs diversity",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          66,
+          77
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Changing the softmax temperature can improve coherence and diversity at the same time.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        1
+      ],
+      "explanation": "Temperature is a single knob: moving it either way helps one of coherence/diversity and hurts the other (slide 77)."
+    },
+    {
+      "id": "nlp-b5-027",
+      "lecture": 5,
+      "concept": "Temperature",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          68,
+          77
+        ]
+      },
+      "type": "numeric",
+      "marks": 4,
+      "question": "A language model outputs logits $(3, 1, 0.5, 0)$ for the tokens (cat, dog, mat, the). Give the probability of \"cat\" with softmax temperature:\n(a) $\\tau = 1$  (b) $\\tau = 0.5$  (c) $\\tau = 2$\n(d) The probability of \"the\" with $\\tau = 2$.",
+      "parts": [
+        {
+          "label": "(a) τ = 1",
+          "answer": 0.7891,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(b) τ = 0.5",
+          "answer": 0.9732,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(c) τ = 2",
+          "answer": 0.5326,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(d) \"the\", τ = 2",
+          "answer": 0.1188,
+          "marks": 1,
+          "tolerance": 0.0006
+        }
+      ],
+      "solution": "$$p_i = \\frac{e^{z_i/\\tau}}{\\sum_j e^{z_j/\\tau}}$$\n(a) $e^{3}/(e^{3}+e^{1}+e^{0.5}+e^{0}) = 0.7891$\n(b) logits become $(6, 2, 1, 0)$: $0.9732$ (sharper: more coherent, less diverse)\n(c) logits become $(1.5, 0.5, 0.25, 0)$: $0.5326$ (flatter: more diverse, less coherent)\n(d) $e^{0}/\\sum = 0.1188$, up from $0.0393$ at $\\tau = 1$.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "explanation": "Dividing every logit by the same $\\tau > 0$ never changes their order, so the argmax (and greedy decoding) is unchanged. As $\\tau \\to 0$ sampling becomes greedy; as $\\tau \\to \\infty$ it becomes uniform.",
+      "variantOf": "temp-calc"
+    },
+    {
+      "id": "nlp-b5-028",
+      "lecture": 5,
+      "concept": "Temperature",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          68,
+          77
+        ]
+      },
+      "type": "numeric",
+      "marks": 3,
+      "question": "Logits $(2, 1, 0)$. Give the probability of the top token at (a) $\\tau = 0.25$ and (b) $\\tau = 3$, and (c) the ratio $p_1 / p_3$ (top token over bottom token) at $\\tau = 3$.",
+      "parts": [
+        {
+          "label": "(a) τ = 0.25",
+          "answer": 0.9817,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(b) τ = 3",
+          "answer": 0.4484,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(c) p₁ / p₃ at τ = 3",
+          "answer": 1.9477,
+          "marks": 1,
+          "tolerance": 0.006
+        }
+      ],
+      "solution": "(a) logits $(8, 4, 0)$: $0.9817$, almost greedy.\n(b) logits $(0.667, 0.333, 0)$: $0.4484$, close to uniform ($1/3$).\n(c) The ratio of two softmax outputs is $e^{(z_1 - z_3)/\\tau} = e^{2/3} = 1.9477$.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "variantOf": "temp-calc"
+    },
+    {
+      "id": "nlp-b5-029",
+      "lecture": 5,
+      "concept": "Temperature",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          68,
+          77
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which statements about temperature are true?",
+      "choices": [
+        "$\\tau < 1$ gives more repetitive, safer text (e.g. \"the new version of the new version…\")",
+        "$\\tau > 1$ behaves a little like a uniform prior, similar in spirit to Laplace smoothing",
+        "Temperature changes which token has the highest probability",
+        "$\\tau = 1$ is ordinary sampling from the softmax"
+      ],
+      "answer": [
+        0,
+        1,
+        3
+      ],
+      "explanation": "The lecturer's examples and his Laplace comparison. Dividing by $\\tau$ keeps the order of the logits, so the most probable token stays the same."
+    },
+    {
+      "id": "nlp-b5-030",
+      "lecture": 5,
+      "concept": "Top-p (nucleus) sampling",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          78,
+          80
+        ]
+      },
+      "type": "numeric",
+      "marks": 4,
+      "question": "The next-token distribution (sorted) is $(0.42, 0.23, 0.15, 0.1, 0.06, 0.04)$.\n(a) Top-k with $k = 3$: the renormalised probability of the most likely token.\n(b) Top-p with $p = 0.75$: how many tokens are in the nucleus?\n(c) The renormalised probability of the most likely token inside that nucleus.\n(d) Nucleus size with $p = 0.9$.",
+      "parts": [
+        {
+          "label": "(a) Top-3 renormalised p₁",
+          "answer": 0.525,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(b) Nucleus size, p = 0.75",
+          "answer": 3,
+          "marks": 1,
+          "tolerance": 0.1
+        },
+        {
+          "label": "(c) Renormalised p₁ in the nucleus",
+          "answer": 0.525,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(d) Nucleus size, p = 0.9",
+          "answer": 4,
+          "marks": 1,
+          "tolerance": 0.1
+        }
+      ],
+      "solution": "(a) Keep the top 3 (mass $0.8$): $0.42 / 0.8 = 0.525$.\n(b) Add tokens until the mass reaches $p$: $0.42 + 0.23 = 0.65 < 0.75$, $+0.15 = 0.80 \\ge 0.75$, so 3 tokens.\n(c) $0.42 / 0.8 = 0.525$.\n(d) $0.80 + 0.10 = 0.90 \\ge 0.9$: 4 tokens.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "explanation": "The standard nucleus method renormalises inside the set and samples in proportion. (The lecturer said \"pick uniformly\"; write the standard version.)",
+      "variantOf": "topkp-calc"
+    },
+    {
+      "id": "nlp-b5-031",
+      "lecture": 5,
+      "concept": "Top-p (nucleus) sampling",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          79,
+          80
+        ]
+      },
+      "type": "numeric",
+      "marks": 3,
+      "question": "Two steps of generation give these sorted distributions:\nPeaked: $(0.88, 0.05, 0.03, 0.02, 0.02)$\nFlat: $(0.12, 0.11, 0.11, 0.1, 0.1, 0.1, 0.09, 0.09, 0.09, 0.09)$\nWith top-p, $p = 0.8$, how many tokens are in the nucleus (a) for the peaked step and (b) for the flat step? (c) With top-k, $k = 4$, what total probability mass is kept at the peaked step?",
+      "parts": [
+        {
+          "label": "(a) Peaked nucleus size",
+          "answer": 1,
+          "marks": 1,
+          "tolerance": 0.1
+        },
+        {
+          "label": "(b) Flat nucleus size",
+          "answer": 8,
+          "marks": 1,
+          "tolerance": 0.1
+        },
+        {
+          "label": "(c) Mass kept by top-4 (peaked)",
+          "answer": 0.98,
+          "marks": 1,
+          "tolerance": 0.0006
+        }
+      ],
+      "solution": "(a) $0.88 \\ge 0.8$ already: 1 token.\n(b) The flat distribution needs 8 tokens to reach $0.82$.\n(c) $0.88 + 0.05 + 0.03 + 0.02 = 0.98$: top-4 keeps three tokens the model barely believes in, while for the flat step it would cut off plausible words.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "explanation": "This is the slide-79 problem with fixed $k$ (too many candidates for a peaked distribution, too few for a flat one) and why top-p is called adaptive.",
+      "variantOf": "topkp-calc"
+    },
+    {
+      "id": "nlp-b5-032",
+      "lecture": 5,
+      "concept": "Top-k sampling",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          79
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "What is the main problem with top-k sampling according to Lecture 5?",
+      "choices": [
+        "A fixed $k$ is not good: the shape of the distribution changes from step to step",
+        "It can only be used with RNNs",
+        "It always picks the most probable token",
+        "It needs the probabilities to be renormalised over the whole vocabulary"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "For a flat distribution $k$ may be too small; for a peaked one it lets in tokens the model rejects. Usually $k \\approx 10$–$50$."
+    },
+    {
+      "id": "nlp-b5-033",
+      "lecture": 5,
+      "concept": "Perplexity",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          85,
+          89
+        ]
+      },
+      "type": "numeric",
+      "marks": 3,
+      "question": "(a) A model assigns probabilities $(0.5, 0.25, 0.125, 0.5)$ to the 4 tokens of a test text. Compute its perplexity.\n(b) Another model assigns $(0.2, 0.1, 0.4, 0.25, 0.05)$ to 5 tokens. Compute its perplexity.\n(c) What is the perplexity of a uniform model over a vocabulary of 50,000 tokens?",
+      "parts": [
+        {
+          "label": "(a)",
+          "answer": 3.3636,
+          "marks": 1,
+          "tolerance": 0.006
+        },
+        {
+          "label": "(b)",
+          "answer": 6.3096,
+          "marks": 1,
+          "tolerance": 0.006
+        },
+        {
+          "label": "(c)",
+          "answer": 50000,
+          "marks": 1,
+          "tolerance": 0.5
+        }
+      ],
+      "solution": "$$\\text{PP} = 2^{-\\frac{1}{M}\\sum_t \\log_2 p(y_t \\mid y_{<t})}$$\n(a) $\\log_2$ values: $-1, -2, -3, -1$, mean $-1.75$, so $\\text{PP} = 2^{1.75} = 3.3636$.\n(b) mean $\\log_2 p = -2.6575$, so $\\text{PP} = 6.3096$ (equivalently the inverse geometric mean of the probabilities).\n(c) $p = 1/|V|$ everywhere gives $2^{\\log_2 |V|} = |V| = 50000$.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "variantOf": "pp-calc"
+    },
+    {
+      "id": "nlp-b5-034",
+      "lecture": 5,
+      "concept": "Perplexity",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          87,
+          89
+        ]
+      },
+      "type": "numeric",
+      "marks": 3,
+      "question": "A model over a vocabulary of $|V| = 4$ tokens is confidently wrong: it gives the correct token probability $0.1$ at every one of 10 test positions.\n(a) What is its perplexity?\n(b) What is the perplexity of a uniform model on the same text?\n(c) Recompute (a) with natural logs: $e^{-\\frac{1}{M}\\sum \\ln p}$.",
+      "parts": [
+        {
+          "label": "(a) Confident model",
+          "answer": 10,
+          "marks": 1,
+          "tolerance": 0.06
+        },
+        {
+          "label": "(b) Uniform model",
+          "answer": 4,
+          "marks": 1,
+          "tolerance": 0.001
+        },
+        {
+          "label": "(c) With natural logs",
+          "answer": 10,
+          "marks": 1,
+          "tolerance": 0.06
+        }
+      ],
+      "solution": "(a) $2^{-\\log_2 0.1} = 10$, which is above $|V| = 4$.\n(b) 4.\n(c) The same, 10: perplexity is base-independent as long as the log and the power use the same base.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "explanation": "The slides say perplexity is \"always between 1 and |V|\". That holds for the uniform worst case they derive, but a confidently wrong model (p(correct) < 1/|V|) goes above |V|. In a test use the slides' framing unless asked for a critique.",
+      "keyDispute": "The slides state perplexity is always between 1 and |V|; this question shows the strict exception.",
+      "variantOf": "pp-calc"
+    },
+    {
+      "id": "nlp-b5-035",
+      "lecture": 5,
+      "concept": "Perplexity",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          83,
+          89
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which statements about perplexity are true?",
+      "choices": [
+        "Lower perplexity means higher data likelihood, which is better",
+        "A perfect model that gives the correct token probability 1 has perplexity 1",
+        "It measures how surprised a model is by a text",
+        "Over-optimising perplexity is always good, because language should be as predictable as possible"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "The lecturer warned that some surprise is necessary for language to carry information, so over-optimising perplexity is a trap."
+    },
+    {
+      "id": "nlp-b5-036",
+      "lecture": 5,
+      "concept": "Perplexity",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          85
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Cross-entropy (the training loss) is the negative log-likelihood, and perplexity is the exponent of the average negative log-likelihood per token.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Slide 85: \"cross-entropy (our loss) is negative log-likelihood\". Perplexity $= 2^{\\text{average NLL in bits}}$."
+    },
+    {
+      "id": "nlp-b5-037",
+      "lecture": 5,
+      "concept": "Weight tying",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          92,
+          93
+        ]
+      },
+      "type": "numeric",
+      "marks": 2,
+      "question": "An LM has vocabulary $|V| = 50,000$ and embedding size $d = 512$. Ignore biases.\n(a) How many parameters do the input embedding matrix and the output layer have together without weight tying?\n(b) How many parameters are saved by tying them?",
+      "parts": [
+        {
+          "label": "(a) Untied total",
+          "answer": 51200000,
+          "marks": 1,
+          "relTolerance": 0.001
+        },
+        {
+          "label": "(b) Saved by tying",
+          "answer": 25600000,
+          "marks": 1,
+          "relTolerance": 0.001
+        }
+      ],
+      "solution": "(a) Input embeddings $|V| \\times d$ plus output layer $d \\times |V|$: $2 \\times 50000 \\times 512 = 51,200,000$.\n(b) Tying reuses one matrix for both, saving $50000 \\times 512 = 25,600,000$ parameters.",
+      "inputHint": "A whole number (e.g. 25600000 or 2.56e7).",
+      "explanation": "Slide 93: a large part of the parameters comes from these matrices. The cost (lecturer): you lose the \"semantic freedom\" of separate input and output representations. It needs the vector fed to the output layer to have size $d$ (or a projection)."
+    },
+    {
+      "id": "nlp-b5-038",
+      "lecture": 5,
+      "concept": "Weight tying",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          92
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "What is weight tying in a language model?",
+      "choices": [
+        "Using the same matrix for the input embeddings and the output (scoring) layer",
+        "Freezing the embeddings so they are not recomputed",
+        "Sharing weights between the layers of a multi-layer RNN",
+        "Tying the temperature to the learning rate"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "It is not about avoiding recomputation (a correction to your notes): one matrix serves as both the input embeddings and the output embeddings."
+    },
+    {
+      "id": "nlp-b5-039",
+      "lecture": 5,
+      "concept": "Interpretable neurons",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          98,
+          104
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "What did the Lecture 5 slides show about individual neurons in character-level LSTM language models?",
+      "choices": [
+        "Some neurons track interpretable things such as line length, being inside quotes, or the depth of an expression",
+        "A \"sentiment neuron\" could be found and used to control the sentiment of generated text",
+        "Every neuron corresponds to exactly one word",
+        "No neuron can be interpreted at all"
+      ],
+      "answer": [
+        0,
+        1
+      ],
+      "explanation": "Karpathy's visualisations and the sentiment neuron (Radford et al.). You can probe a unit by training a simple classifier on its activation."
+    },
+    {
+      "id": "nlp-b5-040",
+      "lecture": 5,
+      "concept": "Interpretable neurons",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          104
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Once an interpretable neuron (such as a sentiment neuron) is found, fixing its value can steer what the model generates.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Slide 104 \"Use interpretable neurons to control generated texts\"."
+    },
+    {
+      "id": "nlp-b5-041",
+      "lecture": 5,
+      "concept": "Contrastive evaluation",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          106,
+          107
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "In contrastive evaluation of an LM on \"The roses in the vase by the door ___\", what is compared?",
+      "choices": [
+        "P(... are) against P(... is): is the grammatical form ranked higher?",
+        "The perplexity of two different models on the whole corpus",
+        "The BLEU score of two translations",
+        "The number of tokens in each continuation"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "You pick the tokens of interest from the model's distribution and check the ranking."
+    },
+    {
+      "id": "nlp-b5-042",
+      "lecture": 5,
+      "concept": "Contrastive evaluation",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          109
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "For subject–verb agreement tests, which statements are true?",
+      "choices": [
+        "Attractors are nouns between the subject and the verb with a different number from the subject",
+        "Adding attractors makes the test harder",
+        "\"The roses ___\" has no attractors; \"The roses in the vase by the door ___\" has two",
+        "Contrastive evaluation needs labelled training data for the model"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "\"vase\" and \"door\" are singular, while \"roses\" is plural. The test only needs the LM's probabilities."
+    },
+    {
+      "id": "nlp-b5-043",
+      "lecture": 5,
+      "concept": "N-gram MLE and the zero problem",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          30,
+          42,
+          85,
+          52
+        ]
+      },
+      "type": "written",
+      "marks": 10,
+      "question": "A bigram LM is trained on:\n<s> she reads books </s>\n<s> she writes books </s>\n<s> he reads papers </s>\n<s> he reads books </s>\nThe prediction vocabulary is {she, he, reads, writes, books, papers, </s>} ($|V| = 7$; <s> is never predicted).\n(a) Give the MLE factors and probabilities of \"<s> she reads papers </s>\" and \"<s> she writes papers </s>\". Neither sentence is in the corpus. Explain what the two results show about count-based LMs. (3)\n(b) Recompute the four factors of \"<s> she writes papers </s>\" with Laplace ($\\delta = 1$) smoothing, its probability, and its perplexity over the 4 predicted tokens. Is the perplexity sensible compared with $|V|$? (4)\n(c) Explain, in terms of continuous representations, why a neural LM could give \"she writes papers\" a reasonable probability without smoothing, and name one cost of the neural approach. (3) (10 Marks)",
+      "modelAnswer": "(a) \"she reads papers\": $P(\\text{she} \\mid \\text{<s>}) = 2/4$, $P(\\text{reads} \\mid \\text{she}) = 1/2$, $P(\\text{papers} \\mid \\text{reads}) = 1/3$, $P(\\text{</s>} \\mid \\text{papers}) = 1/1$; product $= 0.0833$. \"she writes papers\": $P(\\text{she} \\mid \\text{<s>}) = 2/4$, $P(\\text{writes} \\mid \\text{she}) = 1/2$, $P(\\text{papers} \\mid \\text{writes}) = 0/1$, $P(\\text{</s>} \\mid \\text{papers}) = 1/1$; product $= 0$.\nThe first sentence never occurs, yet gets a non-zero probability: the Markov assumption lets a count model combine bigrams seen in different sentences. The second gets exactly 0 because one bigram (\"writes papers\") was never counted, even though every word is known: a single unseen n-gram in the numerator zeroes the whole product.\n\n(b) $\\hat P = \\frac{N + 1}{N(\\text{ctx}) + 7}$: $\\frac{2+1}{4+7} = 0.2727$, $\\frac{1+1}{2+7} = 0.2222$, $\\frac{0+1}{1+7} = 0.125$, $\\frac{1+1}{1+7} = 0.25$. Product $\\approx 0.001894$. Perplexity $= (\\prod p)^{-1/4} = 4.7936$. Since $1 \\le 4.79 \\le 7$, it is better than a uniform model (7) but far from perfect (1); smoothing moved mass to unseen bigrams, which also lowered the seen ones.\n\n(c) A neural LM maps the context to a vector $h$ in a continuous space and scores every token by a dot product with its output embedding. \"reads\" and \"writes\" appear in similar contexts (after she/he, before books), so they get similar representations; the same holds for \"papers\" and \"books\". The model can therefore interpolate: \"writes papers\" sits near \"reads papers\" and \"writes books\", which it has seen, so it gets a reasonable probability without explicit smoothing. Cost: it needs a lot of data and compute, is harder to interpret, and gaps in the space can give odd predictions.",
+      "rubric": [
+        {
+          "point": "(a) Correct MLE factors and both products",
+          "marks": 2
+        },
+        {
+          "point": "(a) Explains Markov generalisation and the zero problem",
+          "marks": 1
+        },
+        {
+          "point": "(b) Correct Laplace factors",
+          "marks": 2
+        },
+        {
+          "point": "(b) Correct perplexity",
+          "marks": 1
+        },
+        {
+          "point": "(b) Interprets it against 1 and |V|",
+          "marks": 1
+        },
+        {
+          "point": "(c) Similar contexts → similar vectors, so the model interpolates to unseen combinations",
+          "marks": 2
+        },
+        {
+          "point": "(c) A cost of neural LMs",
+          "marks": 1
+        }
+      ],
+      "explanation": "Numbers: MLE 0.0833 and 0, Laplace 0.001894, perplexity 4.7936."
+    },
+    {
+      "id": "nlp-b5-044",
+      "lecture": 5,
+      "concept": "Temperature",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          66,
+          80
+        ]
+      },
+      "type": "written",
+      "marks": 10,
+      "question": "At one decoding step an LM gives logits $(2, 1.2, 0.8, 0.2, -0.5)$ for the tokens (the, a, this, my, his).\n(a) Compute the softmax probabilities at $\\tau = 1$ and $\\tau = 0.5$. (3)\n(b) Give the top-k ($k = 2$) and top-p ($p = 0.8$) candidate sets at $\\tau = 1$, with the renormalised probabilities you would sample from. (3)\n(c) Explain the coherence–diversity trade-off of temperature, and why top-p is called adaptive while top-k is not. (2)\n(d) Explain why greedy decoding, which this step would turn into argmax, tends to produce short generic sentences. (2) (10 Marks)",
+      "modelAnswer": "(a) $\\tau = 1$: (0.501, 0.225, 0.151, 0.083, 0.041). $\\tau = 0.5$ (logits doubled): (0.754, 0.152, 0.068, 0.021, 0.005). Lower $\\tau$ sharpens the distribution; the order stays the same.\n\n(b) Top-2: {the, a} with renormalised $(0.69, 0.31)$. Top-p 0.8: cumulative (0.501, 0.725, 0.876, 0.959, 1), so the nucleus is the first 3 tokens {the, a, this} with mass 0.876; renormalised (0.571, 0.257, 0.172).\n\n(c) $\\tau < 1$: more coherent, less diverse (repetitive); $\\tau > 1$: more diverse, less coherent; $\\tau = 1$ is ordinary sampling. One knob, so improving one hurts the other. Top-k keeps a fixed number of tokens whatever the shape of the distribution; top-p keeps the smallest set covering mass $p$, so it takes few tokens when the model is confident and many when the distribution is flat.\n\n(d) Greedy takes the most probable token each step. Frequent function words and the end-of-sentence token are often the most probable choices, so it produces safe, short, repetitive text (\"the hotel is located in the heart of the city <eos>\"): high coherence, no diversity. It also is not the most probable sentence overall (L6).",
+      "rubric": [
+        {
+          "point": "(a) Correct probabilities at τ = 1",
+          "marks": 1
+        },
+        {
+          "point": "(a) Correct probabilities at τ = 0.5 and comment on sharpening",
+          "marks": 2
+        },
+        {
+          "point": "(b) Correct top-2 set and renormalisation",
+          "marks": 1
+        },
+        {
+          "point": "(b) Correct nucleus and renormalisation",
+          "marks": 2
+        },
+        {
+          "point": "(c) Temperature trade-off",
+          "marks": 1
+        },
+        {
+          "point": "(c) Fixed k vs adaptive p",
+          "marks": 1
+        },
+        {
+          "point": "(d) Why greedy is short and generic",
+          "marks": 2
+        }
+      ],
+      "variantOf": "decoding-written"
+    },
+    {
+      "id": "nlp-b5-045",
+      "lecture": 5,
+      "concept": "Cross-entropy (not BCE) for next-token prediction",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          50,
+          57,
+          92
+        ]
+      },
+      "type": "written",
+      "marks": 8,
+      "question": "A student builds a neural LM with an embedding layer, an LSTM, a linear layer of size $d \\to |V|$ and a sigmoid on each output, trained with binary cross-entropy against the one-hot next token.\n(a) Explain what is wrong with the output and loss, and give the correct choice with its formula for one step. (3)\n(b) Show that the correct loss reduces to $-\\log \\hat p(\\text{target})$ for a one-hot target, and explain why pushing this down also pushes the other tokens' probabilities down. (2)\n(c) The student wants to cut parameters. Explain weight tying, what it requires, and its cost. (3) (8 Marks)",
+      "modelAnswer": "(a) Next-token prediction is one multiclass decision over the vocabulary: exactly one token comes next. Independent sigmoids with BCE treat it as $|V|$ separate yes/no problems (multi-label), so the outputs need not sum to 1 and are not a distribution over the next token. Correct: one softmax over the $|V|$ scores, $\\hat p = \\text{softmax}(W h + b)$, with multiclass cross-entropy $\\mathcal{L} = -\\sum_j p^*_j \\log \\hat p_j$.\n\n(b) With a one-hot target $p^*$ only the correct index $c$ has $p^*_c = 1$, so $\\mathcal{L} = -\\log \\hat p_c$. The softmax outputs sum to 1, so increasing $\\hat p_c$ necessarily decreases the other probabilities; the gradient raises the correct logit and lowers the others in proportion to their probability.\n\n(c) Use one matrix for both the input embedding ($|V| \\times d$) and the output layer ($d \\times |V|$, transposed). It saves $|V| \\cdot d$ parameters (a large share of a small LM). It requires the vector fed to the output layer to have the same size $d$ as the embeddings (or a projection). Cost: the input and output representations of a word are forced to be the same, losing their \"semantic freedom\".",
+      "rubric": [
+        {
+          "point": "(a) Identifies the multi-label (sigmoid/BCE) vs multiclass error",
+          "marks": 1
+        },
+        {
+          "point": "(a) Softmax + multiclass CE with formula",
+          "marks": 2
+        },
+        {
+          "point": "(b) One-hot reduces CE to −log p(target)",
+          "marks": 1
+        },
+        {
+          "point": "(b) Softmax coupling pushes the others down",
+          "marks": 1
+        },
+        {
+          "point": "(c) Explains weight tying",
+          "marks": 1
+        },
+        {
+          "point": "(c) States the dimension requirement",
+          "marks": 1
+        },
+        {
+          "point": "(c) States the cost",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-b5-046",
+      "lecture": 5,
+      "concept": "Perplexity",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          83,
+          89
+        ]
+      },
+      "type": "written",
+      "marks": 6,
+      "question": "Critically discuss perplexity as an evaluation metric for language models. Define it, derive its value for a perfect model and for a uniform model, explain the slides' claim that it lies between 1 and $|V|$ and when that claim fails, and give two limitations of using it. (6 Marks)",
+      "modelAnswer": "$\\text{PP}(y_{1:M}) = 2^{-\\frac{1}{M}\\sum_t \\log_2 p(y_t \\mid y_{<t})}$: the exponent of the average negative log-likelihood (cross-entropy) per token; it measures how surprised the model is. Lower is better.\n\nPerfect model: every $p = 1$, every log is 0, so $\\text{PP} = 2^0 = 1$. Uniform model: $p = 1/|V|$, so the average log is $-\\log_2|V|$ and $\\text{PP} = |V|$.\n\nThe \"between 1 and $|V|$\" claim treats the uniform model as the worst case. A model that is confidently wrong (gives the correct token less than $1/|V|$ on average) scores above $|V|$, e.g. $p = 0.1$ with $|V| = 4$ gives 10.\n\nLimitations: (i) it only compares models with the same vocabulary/tokenization (a different tokenizer changes $M$ and $|V|$); (ii) it measures likelihood of a test text, not quality of generated text: a model can have low perplexity yet generate dull text, and some surprise is necessary for language to carry information, so over-optimising it is a trap; (iii) it depends on the test domain.",
+      "rubric": [
+        {
+          "point": "Correct definition and interpretation (lower = better)",
+          "marks": 1
+        },
+        {
+          "point": "Derives 1 for a perfect model",
+          "marks": 1
+        },
+        {
+          "point": "Derives |V| for a uniform model",
+          "marks": 1
+        },
+        {
+          "point": "Explains when PP exceeds |V|",
+          "marks": 1
+        },
+        {
+          "point": "Two valid limitations",
+          "marks": 2
+        }
+      ]
+    },
+    {
+      "id": "nlp-b5-047",
+      "lecture": 5,
+      "concept": "CNN language models",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          61,
+          62
+        ]
+      },
+      "type": "written",
+      "marks": 6,
+      "question": "Compare CNN language models with RNN language models. Explain the role of global pooling in a CNN LM, why the lecturer preferred RNNs for generation, and why stacking RNN layers helps. (6 Marks)",
+      "modelAnswer": "CNN LM: convolution filters slide over the previous tokens (the sequence laid out spatially); to predict the next token the variable-length sequence of feature maps is collapsed by global pooling into one fixed-size vector, keeping each filter's strongest response wherever it occurred, which then feeds the linear layer and softmax. (To stay causal, the filters may only see past tokens.)\n\nGeneration: each new token changes the input, so a CNN LM has to rerun convolution and global pooling over the whole sequence for every token (it repeatedly processes the same words). An RNN keeps a hidden state that caches the past, so each new token costs one update. Fast training and generation with a small memory footprint let you show the model more data, which the lecturer valued over mathematical elegance.\n\nStacked RNNs: the states of one layer are the inputs of the next; roughly, lower layers capture local phenomena (e.g. parts of speech) and higher layers longer-range structure (sentence structure).",
+      "rubric": [
+        {
+          "point": "Explains global pooling in a CNN LM (variable length → fixed vector)",
+          "marks": 2
+        },
+        {
+          "point": "Explains the inefficiency of CNNs for generation vs the RNN cache",
+          "marks": 2
+        },
+        {
+          "point": "Explains stacked RNN layers",
+          "marks": 1
+        },
+        {
+          "point": "Mentions the lecturer's efficiency argument",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-b5-048",
+      "lecture": 5,
+      "concept": "Contrastive evaluation",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          98,
+          109
+        ]
+      },
+      "type": "written",
+      "marks": 4,
+      "question": "Describe two ways of analysing what a language model has learned, as shown at the end of Lecture 5. For each, explain what it can and cannot tell you. (4 Marks)",
+      "modelAnswer": "1. Looking at neurons: visualise activations of individual units while the model reads text (e.g. char-level LSTM units that track line length, quotes, or expression depth; the sentiment neuron). You can also probe a unit by training a binary classifier on its activation. Can: show interpretable features are represented and even steer generation (fix the sentiment neuron). Cannot: most units are not interpretable, and correlation does not prove the model uses the feature.\n\n2. Contrastive evaluation: compare the LM's probabilities for minimal pairs, e.g. P(The roses in the vase by the door are) vs P(… is). Attractors (nouns of a different number between subject and verb) make it harder. Can: test a specific linguistic ability with no extra training and graded difficulty. Cannot: it only tests the phenomena you design pairs for, and ranking the right form higher on a test set does not show how the model represents the rule.",
+      "rubric": [
+        {
+          "point": "Neuron analysis described",
+          "marks": 1
+        },
+        {
+          "point": "Its strength and limitation",
+          "marks": 1
+        },
+        {
+          "point": "Contrastive evaluation with attractors described",
+          "marks": 1
+        },
+        {
+          "point": "Its strength and limitation",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-b5-049",
+      "lecture": 5,
+      "concept": "Backoff",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          36,
+          42
+        ]
+      },
+      "type": "written",
+      "marks": 10,
+      "question": "A trigram LM is trained on:\n<s> the cat sat on the mat </s>\n<s> the cat sat on the rug </s>\n<s> a dog lay on the mat </s>\nThe prediction vocabulary is every token except <s> ($|V| = 10$), and the unigram estimate is $P(on) = N(on)/N(\\text{all predicted tokens})$.\n(a) Why can't the MLE trigram estimate $P(on \\mid dog\\ sat)$ be used? (1)\n(b) Give the stupid-backoff estimate as on the slides (use the longest context that has been seen; no discount). (2)\n(c) Give the linearly interpolated estimate with $\\lambda_3 = 0.6, \\lambda_2 = 0.3, \\lambda_1 = 0.1$ (use 0 for an undefined trigram). How should the $\\lambda$s be chosen? (3)\n(d) Give the Laplace ($\\delta = 1$) trigram estimate and explain its main weakness for a realistic vocabulary. (2)\n(e) Which of the three would you choose, and why? (2) (10 Marks)",
+      "modelAnswer": "(a) $N(dog\\ sat) = 0$ (\"a dog lay\", never \"dog sat\"), so the estimate is $0/0$: undefined (a zero in the denominator).\n\n(b) Back off to the bigram: $P(on \\mid sat) = N(sat\\ on)/N(sat) = 2/2 = 1$.\n\n(c) $P(on) = 3/21 = 0.1429$. $\\hat P = 0.6(0) + 0.3(1) + 0.1(0.1429) = 0.3143$. The $\\lambda$s must sum to 1 and are tuned by cross-validation on held-out data (not on the training data, which would favour the trigram).\n\n(d) $\\frac{0 + 1}{0 + 10} = 0.1$. Weakness: with a realistic $|V|$ (around a million) the $\\delta|V|$ term dominates every denominator, so seen events lose most of their mass and estimates become nearly uniform; it treats all unseen continuations as equally likely.\n\n(e) Interpolation is usually best: it always mixes in the more specific estimate when available, never gives 0 when a lower order has seen the word, and its weights are tuned on data. Backoff is simple but jumps between orders and drops constraints (less specific, less reasonable continuations); Laplace distorts the probabilities too much for large vocabularies. (Any well-argued choice gets the marks.)",
+      "rubric": [
+        {
+          "point": "(a) Identifies the zero denominator / undefined estimate",
+          "marks": 1
+        },
+        {
+          "point": "(b) Correct backoff estimate",
+          "marks": 2
+        },
+        {
+          "point": "(c) Correct interpolated value",
+          "marks": 2
+        },
+        {
+          "point": "(c) λs sum to 1, tuned on held-out data",
+          "marks": 1
+        },
+        {
+          "point": "(d) Correct Laplace value",
+          "marks": 1
+        },
+        {
+          "point": "(d) Weakness with large |V|",
+          "marks": 1
+        },
+        {
+          "point": "(e) Reasoned choice comparing the methods",
+          "marks": 2
+        }
+      ],
+      "explanation": "Numbers: backoff 1, interpolation 0.3143, Laplace 0.1."
+    },
+    {
+      "id": "nlp-b5-050",
+      "lecture": 5,
+      "concept": "What a language model is",
+      "source": {
+        "file": "lecture5_lms.pdf",
+        "pages": [
+          8,
+          35
+        ]
+      },
+      "type": "written",
+      "marks": 6,
+      "question": "Explain what a language model is and how it assigns a probability to a sentence. Your answer should cover: the left-to-right (chain rule) factorisation, why whole sentences cannot simply be counted, what the Markov assumption changes and why, and how a neural LM differs from an n-gram LM in computing each factor. (6 Marks)",
+      "modelAnswer": "A language model estimates the probability of linguistic units: a sentence, or the next token given the previous ones. It is an approximation of language that only needs to reproduce the properties that matter for prediction.\n\nChain rule: $P(y_1, \\dots, y_n) = \\prod_t P(y_t \\mid y_{<t})$, which is exact. Counting whole sentences fails because language is compositional: almost every sentence has count 0, so we must decompose.\n\nMarkov assumption: $P(y_t \\mid y_{<t}) \\approx P(y_t \\mid y_{t-n+1}, \\dots, y_{t-1})$: only the $n - 1$ previous tokens matter (the $n$ includes the predicted word). It makes the counts dense enough to estimate, at the price of forgetting anything outside the window; zeros still appear and need backoff, interpolation or smoothing.\n\nNeural LM: instead of counts, a network turns the whole (or a long) context into a vector $h$, then a linear layer + softmax gives a distribution over $|V|$; trained with cross-entropy. It works in a continuous space so it generalises to unseen contexts and can use longer contexts.",
+      "rubric": [
+        {
+          "point": "Definition of an LM",
+          "marks": 1
+        },
+        {
+          "point": "Chain-rule factorisation",
+          "marks": 1
+        },
+        {
+          "point": "Why sentences cannot be counted (compositional, zero counts)",
+          "marks": 1
+        },
+        {
+          "point": "Markov assumption: n − 1 context words, why and its cost",
+          "marks": 2
+        },
+        {
+          "point": "Neural LM computes each factor via h → linear → softmax, generalising",
+          "marks": 1
+        }
+      ]
+    }
+  ]
+}
