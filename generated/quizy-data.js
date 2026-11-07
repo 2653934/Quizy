@@ -26,6 +26,7 @@ window.QUIZY_DATA = {
         "light": "#e6e2f6",
         "aside": "#ebe8f4"
       },
+      "reference": "nlp-reference",
       "paperSections": [
         {
           "key": "quiz",
@@ -47020,11 +47021,1060 @@ window.QUIZY_DATA = {
     }
   },
   "references": {
+    "nlp-reference": {
+      "id": "nlp-reference",
+      "subject": "nlp",
+      "title": "NLP model sheet",
+      "description": "The key models, algorithms, calculations and quiz traps of lectures 1–10, one card each, checked against the slides. Page numbers are slide (PDF) pages. Points marked as coming from the lecture recordings are not on the slides. Worked examples were checked with a script; the diagrams use made-up example data. Start with the ★ Test 2 card in L8.",
+      "searchHint": "attention, LoRA, perplexity",
+      "scopeTopics": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "topicTitles": {
+        "1": "Basic processing",
+        "2": "Word embeddings",
+        "3": "Text classification and CNNs",
+        "4": "RNNs, augmentation and BPE",
+        "5": "Language modelling",
+        "6": "Seq2seq and attention",
+        "7": "Transformers",
+        "8": "Transfer learning",
+        "9": "Scaling NLP",
+        "10": "Responsible NLP"
+      },
+      "cards": [
+        {
+          "id": "nlp-word-tokens",
+          "topic": 1,
+          "kind": "concept",
+          "title": "Words, tokens and tokenization",
+          "summary": "What counts as a \"word\" is \"a matter of debate\". Tokenization segments running text into words (tokens). In English it is close to trivial (split on whitespace and punctuation); in agglutinative African languages it is not.",
+          "points": [
+            "A common working definition: a sequence of letters separated by whitespace or punctuation, an atomic unit of meaning.",
+            "English: \"The children are selling the clothes to each other.\" splits cleanly into 10 tokens (9 words and the full stop).",
+            "isiZulu: \"Abashana bayazithengiselana izimpahla\" says the same in 3 words. One word, aba-shana ba-ya-zi-theng-is-el-an-a, carries the subject marker, tense, \"buy\" and the reciprocal, so whitespace splitting loses the structure.",
+            "This is why tokenization comes back in L4 (BPE) and L10 (African languages cost more tokens)."
+          ],
+          "images": [],
+          "source": "lecture1_intro.pdf pp. 2–5"
+        },
+        {
+          "id": "nlp-morphology",
+          "topic": 1,
+          "kind": "concept",
+          "title": "Stemming, lemmatization and morphemes",
+          "summary": "Both stemming and lemmatization reduce inflected (and sometimes derived) forms to a common base. Stemming chops crudely; lemmatization uses a vocabulary and morphology to return the dictionary form (the lemma).",
+          "points": [
+            "Stemming: a \"crude heuristic process that chops off the ends of words\"; the result may not be a real word.",
+            "Lemmatization: vocabulary + morphological analysis, removes inflectional endings only: runs, running, ran → run.",
+            "Morpheme: the smallest meaningful unit of grammar. Bound: cannot occur on its own (an affix such as -ness). Unbound: can stand alone.",
+            "Root: the word with all affixes removed; it carries the main meaning. Stem: root + derivational affixes (no inflectional ones). Affix: a bound morpheme attached to a root or stem.",
+            "Derivation forms a new word and usually changes the word class: kind + ness → kindness.",
+            "Inflection is required by grammar, changes meaning predictably and usually keeps the class: come + s → comes (still a verb).",
+            "Morphology = how morphemes combine; syntax = how words form sentences; grammar = syntax + morphology."
+          ],
+          "images": [],
+          "source": "lecture1_intro.pdf pp. 6–14"
+        },
+        {
+          "id": "nlp-distributional",
+          "topic": 1,
+          "kind": "concept",
+          "title": "One-hot vectors, the distributional hypothesis and count-based methods",
+          "summary": "One-hot vectors are $|V|$-sized and all orthogonal, so they capture no meaning. The distributional hypothesis says words in similar contexts have similar meanings, so to capture meaning we capture contexts. Count-based methods do this from global corpus statistics.",
+          "points": [
+            "One-hot: every pair of different words has dot product 0, so \"cat\" is as far from \"kitten\" as from \"economics\".",
+            "The \"Tej\" example: you can infer what an unknown word means from the contexts it appears in.",
+            "Count-based recipe: (1) build a word–context matrix (co-occurrence counts within a window), (2) reduce its dimensionality.",
+            "Why reduce: the matrix is huge ($|V| \\times |V|$) and sparse (mostly zeros).",
+            "Design choices: what counts as context (window size) and how to fill the cells (raw counts, or reweighted, e.g. PPMI, then SVD)."
+          ],
+          "images": [],
+          "source": "lecture1_intro.pdf pp. 20–21 (one-hot), 24–31 (distributional hypothesis), 32–42 (count-based); PPMI and SVD as named variants are a standard addition"
+        },
+        {
+          "id": "nlp-word2vec",
+          "topic": 2,
+          "kind": "algorithm",
+          "title": "Word2vec (skip-gram) with negative sampling",
+          "summary": "A prediction-based method: slide over the corpus and make each centre word $c$ predict its context words $o$. Every word has two vectors, $v$ (as centre) and $u$ (as context).",
+          "steps": [
+            "Slide a window of size $m$ over the text. At position $t$ the centre word is $w_t$ and the context words are $w_{t+j}$ for $-m \\le j \\le m$, $j \\ne 0$.",
+            "Likelihood $L(\\theta) = \\prod_{t=1}^{T} \\prod_{-m \\le j \\le m,\\, j \\ne 0} P(w_{t+j} \\mid w_t, \\theta)$; the loss is the average negative log-likelihood $J(\\theta) = -\\frac{1}{T} \\log L(\\theta)$.",
+            "Full softmax: $P(o \\mid c) = \\dfrac{\\exp(u_o^\\top v_c)}{\\sum_{w \\in V} \\exp(u_w^\\top v_c)}$. Too slow: the sum runs over the whole vocabulary for every (centre, context) pair.",
+            "Negative sampling: for each true pair $(c, o)$ draw $K$ \"negative\" words $w_1, \\dots, w_K$.",
+            "Loss for this step: $J_{t,j}(\\theta) = -\\log \\sigma(u_o^\\top v_c) - \\sum_{w \\in \\{w_1, \\dots, w_K\\}} \\log \\sigma(-u_w^\\top v_c)$, with $\\sigma(x) = \\frac{1}{1 + e^{-x}}$. It pulls $v_c$ towards $u_o$ and pushes it away from the $K$ negatives only.",
+            "Take a gradient step (one window at a time) on $v_c$, $u_o$ and the $K$ negatives.",
+            "After training keep $v$ (or the average of $v$ and $u$) as the word embedding."
+          ],
+          "points": [
+            "It is a binary task (true pair vs. noise), so each update costs $O(K)$ instead of $O(|V|)$.",
+            "Over a large corpus every vector still gets enough updates to learn the relationships."
+          ],
+          "images": [],
+          "source": "lecture2_word2vec.pdf pp. 2–10 (idea), 11 (objective), 12–18 (softmax), 19–23 (training), 24–26 (negative sampling)"
+        },
+        {
+          "id": "nlp-skipgram-cbow-glove",
+          "topic": 2,
+          "kind": "concept",
+          "title": "Skip-gram vs CBOW, and GloVe",
+          "summary": "Skip-gram predicts the context from the centre word (one context word at a time). CBOW predicts the centre word from the sum of the context vectors. GloVe sits between count-based and prediction-based methods.",
+          "points": [
+            "Skip-gram: centre → each context word separately.",
+            "CBOW (continuous bag of words): sum of context → centre.",
+            "GloVe: information comes from global corpus statistics (like count-based methods), but the vectors are learned by gradient descent (like prediction-based methods).",
+            "Count-based: vectors come from dimensionality reduction. Prediction-based (word2vec): vectors are learned by gradient descent while \"reading\" the corpus."
+          ],
+          "images": [],
+          "source": "lecture2_word2vec.pdf p. 27 (skip-gram, CBOW), p. 28 (GloVe)"
+        },
+        {
+          "id": "nlp-embedding-eval",
+          "topic": 2,
+          "kind": "concept",
+          "title": "Evaluating embeddings, and cross-lingual spaces",
+          "summary": "Intrinsic evaluation checks the embeddings' own properties (fast); extrinsic evaluation checks them on the real task you care about (slow, but what matters).",
+          "points": [
+            "Intrinsic: word similarity (correlate cosine similarity with human scores) and analogies ($v_{king} - v_{man} + v_{woman} \\approx v_{queen}$).",
+            "Extrinsic: plug the embeddings into a downstream task (text classification, coreference resolution…) and compare scores.",
+            "Semantic spaces are (somewhat) linear: one language's space can be linearly mapped onto another's, giving word translation without parallel data.",
+            "Quiz trap: word2vec gives \"bank\" a single vector (static), and analogies/similarity are intrinsic evaluation."
+          ],
+          "images": [],
+          "source": "lecture2_word2vec.pdf pp. 29–31 (evaluation), 32–36 (analogies), 37–38 (cross-lingual)"
+        },
+        {
+          "id": "nlp-word2vec-limits",
+          "topic": 2,
+          "kind": "concept",
+          "title": "\"Comment on Word2Vec\" inside a transfer-learning answer",
+          "summary": "The written questions focus on L5–L8 and L10 but pull earlier topics in. When a transfer-learning question asks about word2vec, give its three limits and what ELMo and BERT fixed.",
+          "points": [
+            "Static: one vector per word type, so it cannot separate senses (\"bank\" of a river vs. a bank account).",
+            "Shallow transfer: only the embedding layer is pretrained; the rest of the task model starts from scratch.",
+            "Fixed vocabulary: unseen words become UNK.",
+            "ELMo: contextual vectors (words in context) and a character CNN, so an open vocabulary.",
+            "BERT: a deep bidirectional encoder, the whole network transfers (\"no task-specific model at all\")."
+          ],
+          "images": [],
+          "source": "Summary of lecture8_transfer_learning.pdf pp. 19–22, 25–36, 52–53 and lecture2_word2vec.pdf; exam focus from the 2026 scope announcement"
+        },
+        {
+          "id": "nlp-text-classification",
+          "topic": 3,
+          "kind": "concept",
+          "title": "Text classification: tasks, pipeline and models",
+          "summary": "Text → feature representation $h$ → classifier → $P(\\text{class} = k \\mid \\text{text})$. Classical methods use hand-made features; neural methods learn them.",
+          "points": [
+            "Binary (two classes); multi-class (many labels, exactly one correct); multi-label (several labels can be correct at once).",
+            "Classical: features such as bag of words and n-gram counts, then e.g. an SVM. On the slides SVMs beat Naive Bayes.",
+            "Generative models (Naive Bayes) model $P(x, y)$ under an independence assumption; discriminative models (logistic regression, SVMs, neural networks) model $P(y \\mid x)$ or the boundary directly.",
+            "Neural: the final linear layer + softmax is logistic regression on $h$. It learns one vector $w_k$ per class, and text vectors $h$ end up pointing towards their class vector.",
+            "Training: cross-entropy $-\\sum_{i=1}^{K} p_i^* \\log p(y = i \\mid x)$; with a one-hot target this is $-\\log p(y = k \\mid x)$ for the true class $k$."
+          ],
+          "images": [],
+          "source": "lecture3_cnns.pdf pp. 4–6 (task types), 21–25 (pipeline, SVM), 29–38 (neural, logistic regression), 41–44 (cross-entropy); the generative vs discriminative section is only listed in the agenda (pp. 19–20), so its definitions are the standard ones"
+        },
+        {
+          "id": "nlp-boe-tfidf",
+          "topic": 3,
+          "kind": "concept",
+          "title": "Bag of embeddings and tf-idf weighting",
+          "summary": "The simplest neural text representation: add up the word embeddings (BOE). Weighted BOE scales each embedding first, e.g. by tf-idf, so words that occur everywhere count for little.",
+          "points": [
+            "BOE: $h = \\sum_{w \\in \\text{text}} e_w$ (word order is lost).",
+            "tf-idf: $\\text{tf-idf}(w, d, D) = N(w, d) \\cdot \\log \\dfrac{|D|}{|\\{d \\in D : w \\in d\\}|}$ (term frequency × inverse document frequency).",
+            "A word in every document gets $\\log(|D|/|D|) = 0$, so \"the\" disappears."
+          ],
+          "example": "Corpus of $|D| = 4$ documents. In document $d$, \"cat\" appears 2 times and occurs in 1 document: $2 \\cdot \\ln(4/1) = 2.77$. \"the\" appears 5 times but is in all 4 documents: $5 \\cdot \\ln(4/4) = 0$.",
+          "images": [],
+          "source": "lecture3_cnns.pdf pp. 47–49"
+        },
+        {
+          "id": "nlp-cnn-text",
+          "topic": 3,
+          "kind": "concept",
+          "title": "CNNs for text: shapes, parameters and pooling",
+          "summary": "A convolution is a linear layer applied to every window of $k$ consecutive word vectors: it maps the concatenated $k \\cdot d$ vector to $m$ features (one per filter). Pooling then aggregates over positions.",
+          "points": [
+            "Shapes: $d$ = embedding size (input channels), $k$ = kernel size (window), $m$ = number of filters (output channels).",
+            "Output length with stride 1 and no padding: $n - k + 1$ positions, each with $m$ features. Parameters: $m \\cdot (k \\cdot d) + m$ (weights + biases).",
+            "A filter is a feature detector for an n-gram pattern; one filter fires for a family of similar n-grams (\"poorly designed junk\", \"a mediocre product\").",
+            "Pooling (max or mean) over local regions; global pooling (max-over-time) over the whole sequence gives one fixed-size vector $h \\in \\mathbb{R}^m$ for any length.",
+            "Use several kernel sizes (e.g. 2, 3, 4) and concatenate, or stack convolution + pooling blocks; the final pooling is always global.",
+            "Receptive field of $L$ stacked width-$k$ convolutions (stride 1): $L(k - 1) + 1$.",
+            "Quiz trap: convolution is translation equivariant (shift the input, the features shift); global pooling is invariant and gives a fixed size."
+          ],
+          "example": "$n = 10$ tokens, $d = 50$, $k = 3$, $m = 100$, stride 1, no padding: output $8 \\times 100$; parameters $100 \\cdot (3 \\cdot 50) + 100 = 15{,}100$. Two stacked width-3 layers see $2(3 - 1) + 1 = 5$ tokens.",
+          "images": [
+            {
+              "src": "data/nlp/img/reference/nlp-cnn-text.png",
+              "alt": "Diagram of a text CNN: a window of 3 word vectors (\"I like the\") is concatenated to k·d values, multiplied by W (k·d × m) to give n−k+1 positions of m filter outputs, then global max pooling gives h in R^m, followed by a linear layer and softmax. Notes: params = m·(k·d) + m, e.g. n=10, d=50, k=3, m=100 gives an 8×100 output and 15,100 params; receptive field of L stacked convolutions is L(k−1)+1.",
+              "width": 1430,
+              "height": 506
+            }
+          ],
+          "source": "lecture3_cnns.pdf pp. 52–58 (invariance), 65–79 (convolution, parameters), 82–87 (pooling), 91–93 (kernel sizes, stacking); filter families: lecture4_rnns_bpe.pdf p. 30; the receptive-field formula is a standard addition"
+        },
+        {
+          "id": "nlp-rnn",
+          "topic": 4,
+          "kind": "concept",
+          "title": "RNNs and the problems with recurrence",
+          "summary": "A vanilla RNN reads one token at a time and updates a hidden state: $h_t = \\tanh(h_{t-1} W_h + x_t W_x)$. For classification, the final state is the text vector $h$.",
+          "points": [
+            "Multi-layer: feed one RNN's states into the next. Bidirectional: concatenate the final states of a forward and a backward RNN.",
+            "Problem 1, vanishing/exploding gradients: the gradient through $n$ steps is a product of $n$ Jacobians, so lots of matrix multiplications blow up or shrink the signal.",
+            "Problem 2, credit assignment: position information is subtle and often lost in the final vector; recency bias (recent tokens dominate, early ones are forgotten).",
+            "Problem 3, fixed vector size: the state does not grow with the sentence length.",
+            "Quiz trap: an RNN needs $O(N)$ sequential steps for a length-$N$ sentence; a Transformer processes it in a constant number of steps (in parallel) during training."
+          ],
+          "images": [
+            {
+              "src": "data/nlp/img/reference/nlp-rnn-gradients.png",
+              "alt": "Line chart on a log scale of the gradient scale against time steps back (0 to 50) in an RNN. With |largest eigenvalue × tanh′| about 0.8 the gradient falls to about 10^-5 (vanishing: early words are forgotten), with 1.0 it stays flat, and with 1.2 it grows to about 10^4 (exploding).",
+              "width": 825,
+              "height": 462
+            }
+          ],
+          "source": "lecture4_rnns_bpe.pdf pp. 3–4 (cell), 5–10 (problems, multi-layer, bidirectional); O(N) vs constant steps: lecture7_transformers-2.pdf pp. 12–14"
+        },
+        {
+          "id": "nlp-embeddings-augmentation",
+          "topic": 4,
+          "kind": "concept",
+          "title": "Embedding choices, data augmentation and filter analysis",
+          "summary": "How to start the word embeddings of a task model, how to get more training text for free, and how to see what a CNN filter learned.",
+          "points": [
+            "Train from scratch: task-specific, but may not be enough data to learn word relationships.",
+            "Take pretrained (word2vec, GloVe) and freeze: know general relationships, but not specific to the task.",
+            "Initialise with pretrained, then fine-tune: both. This \"transfers\" knowledge from a huge unlabelled corpus (the preview of L8).",
+            "Augmentation: word dropout (replace random words with UNK or random words, the simplest and most popular), synonyms from a thesaurus, paraphrases by back-translation (translate to another language and back).",
+            "Interpretability: list the n-grams that activate a filter most; a filter responds to a family of n-grams with similar meaning."
+          ],
+          "images": [],
+          "source": "lecture4_rnns_bpe.pdf pp. 13–16 (embeddings), 19–27 (augmentation), 30 (filters)"
+        },
+        {
+          "id": "nlp-bpe",
+          "topic": 4,
+          "kind": "algorithm",
+          "title": "Byte Pair Encoding (BPE): training and inference",
+          "summary": "BPE fixes the fixed-vocabulary/UNK problem with subwords: frequent words become single tokens and rare words split into pieces. Training learns an ordered merge table; inference applies it.",
+          "steps": [
+            "Training input: a corpus (not necessarily the model's training data). Count the words, then split every word into characters.",
+            "Count every pair of adjacent symbols, only within words, weighted by the word counts.",
+            "Merge the most frequent pair into a new symbol; append the merge to the (ordered) merge table and the new symbol to the vocabulary.",
+            "Repeat until the vocabulary has the size you want.",
+            "Inference: split a new word into characters and apply the merges in table order (earlier merges were more frequent and have priority). BPE is deterministic."
+          ],
+          "points": [
+            "The vocabulary is adaptive: a mix of words, subwords and characters depending on the data.",
+            "Implementation detail on the slide: a marker such as \"@@\" separates a whole-word token (\"mat@@\") from the same piece inside a word (\"mat s\")."
+          ],
+          "example": "Slide corpus: cat ×4, mat ×5, mats ×2, mate ×3, ate ×3, eat ×2. Pair counts: a+t = 4+5+2+3+3+2 = 19 (merge 1: at), then m+at = 5+2+3 = 10 (merge 2: mat; at+e = 6 is second), then c+at = 4 (merge 3: cat). Result: cat, mat, mat s, mat e, at e, e at. A script trace of these counts agrees.",
+          "images": [
+            {
+              "src": "data/nlp/img/reference/nlp-bpe.png",
+              "alt": "Table of the L4 BPE example: words cat 4, mat 5, mats 2, mate 3, ate 3, eat 2, shown as characters, then after merging a t into β (19 times), then after merging m β into α (10) and c β into μ (4): cat becomes μ, mat α, mats α s, mate α e, ate β e, eat e β.",
+              "width": 1430,
+              "height": 418
+            }
+          ],
+          "source": "lecture4_rnns_bpe.pdf pp. 32–35 (UNK, subwords), 36–38 (training), 39–44 (example), 45 (inference)"
+        },
+        {
+          "id": "nlp-lm-ngram",
+          "topic": 5,
+          "kind": "concept",
+          "title": "Language models, the chain rule and n-grams",
+          "summary": "A language model gives the probability of a token sequence. By the chain rule it predicts one token at a time from everything before it: $P(y_1, \\dots, y_n) = \\prod_{t=1}^{n} P(y_t \\mid y_{<t})$.",
+          "points": [
+            "Markov assumption for an n-gram model: $P(y_t \\mid y_1, \\dots, y_{t-1}) = P(y_t \\mid y_{t-n+1}, \\dots, y_{t-1})$, i.e. $n - 1$ previous tokens.",
+            "Trigram ($n = 3$): two context words. Bigram: one. Unigram: none.",
+            "Maximum-likelihood estimate: $P(w \\mid h) = \\dfrac{N(h, w)}{N(h)}$ (count of the prefix followed by $w$ over the count of the prefix).",
+            "A zero count in the numerator makes the whole sentence probability 0; a zero count of the prefix makes it undefined.",
+            "Generation: sample a token, append it, repeat."
+          ],
+          "example": "Corpus \"the cat sat / the dog sat / the cat ran\": $P(\\text{cat} \\mid \\text{the}) = 2/3$.",
+          "images": [],
+          "source": "lecture5_lms.pdf pp. 16–24 (chain rule, framework), 30–35 (Markov, examples), 36 (zero counts)"
+        },
+        {
+          "id": "nlp-ngram-smoothing",
+          "topic": 5,
+          "kind": "concept",
+          "title": "Zero counts: backoff, interpolation and Laplace smoothing",
+          "summary": "Three fixes for unseen n-grams: use less context, mix several context lengths, or pretend every n-gram was seen $\\delta$ extra times.",
+          "points": [
+            "Backoff (\"stupid backoff\"): use the trigram if you can, else the bigram, else the unigram. Less context means fewer constraints, so less specific predictions.",
+            "Linear interpolation: $\\hat P(\\text{mat} \\mid \\text{cat on a}) = \\lambda_3 P(\\text{mat} \\mid \\text{cat on a}) + \\lambda_2 P(\\text{mat} \\mid \\text{on a}) + \\lambda_1 P(\\text{mat} \\mid \\text{a}) + \\lambda_0 P(\\text{mat})$ with $\\sum_i \\lambda_i = 1$, tuned by cross-validation (held-out data).",
+            "Laplace (add-$\\delta$): $\\hat P(w \\mid h) = \\dfrac{\\delta + N(h, w)}{\\delta \\cdot |V| + N(h)}$. Add-one is $\\delta = 1$.",
+            "Laplace acts like a uniform prior. With a big vocabulary the $\\delta |V|$ term dominates the denominator and drags every probability down."
+          ],
+          "example": "Same corpus with <s> and </s>, $|V| = 6$ (the, cat, dog, sat, ran, </s>), add-one: $P(\\text{the dog ran}) = \\frac{4}{9} \\cdot \\frac{2}{9} \\cdot \\frac{1}{7} \\cdot \\frac{2}{7} = \\frac{16}{3969} = 0.00403$ (MLE gives 0, because \"dog ran\" was never seen). Tutorial version: $\\frac{0 + 0.1}{10 + 0.1 \\cdot 20} = 0.0083$.",
+          "images": [
+            {
+              "src": "data/nlp/img/reference/nlp-ngram-perplexity.png",
+              "alt": "Two charts. Left: bigram P(w | dog) for the corpus \"the cat sat / the dog sat / the cat ran\"; MLE puts probability 1 on \"sat\" and 0 on \"ran\" (so the whole sentence gets 0), while Laplace gives every word some mass, 1/7 for \"ran\". Right: perplexity against the geometric-mean probability of each true token, falling from very high towards 1; the uniform model is PP = |V| = 6, a perfect model PP = 1, and \"the dog ran\" under Laplace has PP = (16/3969)^(-1/4) = 3.97.",
+              "width": 1430,
+              "height": 506
+            }
+          ],
+          "source": "lecture5_lms.pdf pp. 37–38 (backoff), 39–41 (interpolation), 42 (Laplace); the uniform-prior remark is from the lecture recordings (exam-signals notes), not on the slides"
+        },
+        {
+          "id": "nlp-neural-lm",
+          "topic": 5,
+          "kind": "concept",
+          "title": "Neural language models and weight tying",
+          "summary": "A neural LM encodes the context into a vector $h$, maps it linearly to $|V|$ scores, and applies softmax. The linear layer is the same as taking the dot product of $h$ with an output embedding for every token.",
+          "points": [
+            "Pipeline: context tokens → network → $h \\in \\mathbb{R}^d$ → linear $d \\to |V|$ → softmax → $P(\\cdot \\mid \\text{context})$.",
+            "Why exp in softmax: always positive and monotonic, so the ranking of the scores is kept.",
+            "Works in a continuous space, so it generalises to unseen contexts (an n-gram model cannot), at the cost of data and compute.",
+            "RNN LMs cache the past in the state, so each new token is cheap to generate. A CNN LM reruns convolution and pooling over the window each step (the tutorial asks what global pooling is for).",
+            "Weight tying: use the same matrix for the input embeddings and the output projection. A large share of the parameters sits in these two matrices, so this shrinks the model; the cost is less freedom for the two roles."
+          ],
+          "images": [],
+          "source": "lecture5_lms.pdf pp. 48–54 (pipeline, output embeddings), 59–62 (RNN LMs), 92–93 (weight tying); exp and generalisation remarks: the lecture recordings (exam-signals notes), not on the slides"
+        },
+        {
+          "id": "nlp-lm-cross-entropy",
+          "topic": 5,
+          "kind": "model",
+          "title": "Training objective: cross-entropy (negative log-likelihood)",
+          "summary": "Language models are trained to put high probability on the token that actually comes next. This is multi-class cross-entropy over the vocabulary, not binary cross-entropy.",
+          "model": {
+            "variables": [
+              {
+                "math": "y_1, \\dots, y_n",
+                "meaning": "the training text (tokens)"
+              },
+              {
+                "math": "h_t",
+                "meaning": "the network's vector for the context $y_{<t}$"
+              },
+              {
+                "math": "W \\in \\mathbb{R}^{|V| \\times d}",
+                "meaning": "output projection (one output embedding per token)"
+              },
+              {
+                "math": "\\theta",
+                "meaning": "all parameters"
+              }
+            ],
+            "objective": "\\min_{\\theta}\\; -\\sum_{t=1}^{n} \\log p_\\theta(y_t \\mid y_{<t})",
+            "constraints": [
+              {
+                "math": "p_\\theta(\\cdot \\mid y_{<t}) = \\operatorname{softmax}(W h_t)",
+                "meaning": "a distribution over the whole vocabulary at every step"
+              },
+              {
+                "math": "\\sum_{w \\in V} p_\\theta(w \\mid y_{<t}) = 1",
+                "meaning": "so raising the true token's probability lowers all the others"
+              }
+            ]
+          },
+          "points": [
+            "Per step the loss is $-\\sum_{i=1}^{|V|} p_i^* \\log p_i$; with a one-hot target this is $-\\log p(y_t)$.",
+            "The same loss trains classifiers (L3, over $K$ classes) and seq2seq decoders (L6, conditioned on the source).",
+            "Cross-entropy is the negative log-likelihood of the text, which is why it connects directly to perplexity."
+          ],
+          "example": "If the model gives the true next token $p = 0.25$: loss $= -\\ln 0.25 = 1.386$ nats ($= 2$ bits).",
+          "images": [],
+          "source": "lecture5_lms.pdf pp. 55–58 (cross-entropy), 85 (link to log-likelihood); lecture3_cnns.pdf pp. 41–44; lecture6_attention.pdf p. 31"
+        },
+        {
+          "id": "nlp-sampling",
+          "topic": 5,
+          "kind": "concept",
+          "title": "Generation: temperature, top-k and top-p",
+          "summary": "Generated text should be coherent (make sense) and diverse (different samples). Temperature, top-k and top-p trade one against the other.",
+          "points": [
+            "Temperature: $p_i = \\dfrac{\\exp(z_i / \\tau)}{\\sum_j \\exp(z_j / \\tau)}$. $\\tau < 1$ sharpens (more coherent, repetitive); $\\tau > 1$ flattens (more diverse, less coherent); $\\tau = 1$ is standard sampling; $\\tau \\to 0$ is greedy.",
+            "Temperature helps a bit but is not ideal: moving it improves one of coherence and diversity and hurts the other.",
+            "Top-k: always sample from the $K$ most probable tokens (usually $K \\approx 10$–$50$). A fixed $K$ is bad because the shape of the distribution changes every step.",
+            "Top-p (nucleus): keep the smallest set of top tokens covering probability mass $p$, so the set size adapts (few tokens on a peaked step, many on a flat one). Renormalise inside the set and sample in proportion.",
+            "The lecture said \"pick uniformly\" from the nucleus; the standard method renormalises and samples proportionally. Write the standard version and know both."
+          ],
+          "example": "Logits $z = [2, 1, 0]$: $\\tau = 1$ → $[0.665, 0.245, 0.090]$; $\\tau = 0.5$ → $[0.867, 0.117, 0.016]$; $\\tau = 2$ → $[0.506, 0.307, 0.186]$. Top-p with $p = 0.9$ on $[0.5, 0.3, 0.15, 0.05]$: cumulative $0.5, 0.8, 0.95$ → keep 3 tokens, renormalise by $0.95$ → $[0.526, 0.316, 0.158]$.",
+          "images": [
+            {
+              "src": "data/nlp/img/reference/nlp-temperature-sampling.png",
+              "alt": "Left: bar chart of softmax(z/τ) for logits 2, 1, 0 at τ = 0.5 (0.867, 0.117, 0.016), τ = 1 (0.665, 0.245, 0.090) and τ = 2 (0.506, 0.307, 0.186): lower τ is sharper, higher τ flatter. Right: two next-token distributions; on a peaked step the p = 0.9 nucleus keeps 3 tokens, on a flat step it keeps 9, while a fixed top-k (k = 5) keeps 5 in both.",
+              "width": 1430,
+              "height": 506
+            }
+          ],
+          "source": "lecture5_lms.pdf pp. 66–67 (coherence, diversity), 68–77 (temperature), 78–79 (top-k), 80 (top-p); \"pick uniformly\": the lecture recordings (exam-signals notes), not on the slides"
+        },
+        {
+          "id": "nlp-perplexity-eval",
+          "topic": 5,
+          "kind": "concept",
+          "title": "Evaluating LMs: perplexity, contrastive evaluation and probing",
+          "summary": "Perplexity measures how surprised the model is by real text. It is a transformation of the cross-entropy, so lower is better.",
+          "points": [
+            "Log-likelihood $L(y_{1:M}) = \\sum_{t=1}^{M} \\log_2 p(y_t \\mid y_{<t})$; perplexity $= 2^{-\\frac{1}{M} L(y_{1:M})} = P(y_{1:M})^{-1/M}$.",
+            "Best perplexity 1 (probability 1 on every correct token). A model that knows nothing gives $1/|V|$ everywhere, so perplexity $|V|$. The slides say it is \"always between 1 and $|V|$\" (a confidently wrong model can strictly go above $|V|$).",
+            "Contrastive evaluation: compare the probabilities of a correct and an incorrect form, e.g. subject–verb agreement with attractors: is $P(\\text{The roses in the vase by the door are}) > P(\\dots\\text{is})$?",
+            "Interpretable neurons: in character LSTMs some cells track position in the line, quotes or if-blocks; a \"sentiment neuron\" can steer generation.",
+            "Probing: train a simple classifier on the model's activations to test whether they encode a property."
+          ],
+          "example": "\"the dog ran\" (4 predicted tokens including </s>) with add-one probability $16/3969$: perplexity $(16/3969)^{-1/4} = 3.969$, below the uniform value $|V| = 6$.",
+          "images": [],
+          "source": "lecture5_lms.pdf pp. 83–89 (perplexity), 96–105 (neurons), 106–109 (contrastive evaluation); probing: lecture7_transformers-2.pdf pp. 75–80; \"strictly above |V|\": the lecture recordings (exam-signals notes), not on the slides"
+        },
+        {
+          "id": "nlp-l5-traps",
+          "topic": 5,
+          "kind": "concept",
+          "title": "L5 quiz traps",
+          "summary": "The language-modelling facts that past quizzes and the lecturer kept coming back to.",
+          "points": [
+            "The $n$ in n-gram includes the predicted word: a trigram has 2 context words.",
+            "Temperature: $\\tau < 1$ sharper (coherent, repetitive); $\\tau > 1$ flatter (diverse); $\\tau = 1$ normal softmax; $\\tau \\to 0$ greedy. He tests this.",
+            "LM loss: multi-class cross-entropy $= -\\log \\hat p(\\text{true token})$, not binary cross-entropy.",
+            "Perplexity: best 1, uniform model $|V|$, lower is better.",
+            "Top-p: the set size adapts each step; renormalise and sample in proportion (the lecture said uniform; write the standard version).",
+            "Laplace: the $\\delta |V|$ in the denominator can dominate."
+          ],
+          "images": [],
+          "source": "Past quizzes and the lecture recordings (exam-signals notes), not on the slides; facts on lecture5_lms.pdf pp. 32–33, 42, 57–58, 68–80, 87–89"
+        },
+        {
+          "id": "nlp-seq2seq",
+          "topic": 6,
+          "kind": "concept",
+          "title": "Seq2seq: a conditional language model",
+          "summary": "An encoder reads the source $x$; a decoder is a language model conditioned on it: $P(y_1, \\dots, y_n \\mid x) = \\prod_{t=1}^{n} p(y_t \\mid y_{<t}, x)$. The task is to find $y^* = \\arg\\max_y p(y \\mid x)$.",
+          "points": [
+            "Three parts: modelling (what $p(y \\mid x)$ looks like), learning (how to train it), search (how to find the best $y$).",
+            "Simplest model: an RNN encoder whose final state initialises an RNN decoder; the decoder feeds its own outputs back in (autoregressive).",
+            "Training: cross-entropy at every target step, feeding the gold previous tokens (teacher forcing). Long RNNs still suffer vanishing/exploding gradients.",
+            "Bottleneck: the whole source is squeezed into one fixed vector. Hard for the encoder (compress everything) and for the decoder (it needs different information at different steps). Attention fixes this.",
+            "BLEU (not on the slides): n-gram precision against reference translations with a brevity penalty. Problems: it can be gamed (e.g. by length), and exact n-gram matching misses synonyms and paraphrases."
+          ],
+          "images": [],
+          "source": "lecture6_attention.pdf pp. 2–5 (task), 12–26 (encoder–decoder, conditional LM), 27–28 (final state), 31 (cross-entropy), 57 (bottleneck); teacher forcing and BLEU: the lecture recordings (exam-signals notes), not on the slides"
+        },
+        {
+          "id": "nlp-beam-search",
+          "topic": 6,
+          "kind": "algorithm",
+          "title": "Greedy decoding vs beam search",
+          "summary": "Greedy decoding picks the most likely token at each step, but the product of per-step maxima is not the maximum of the product: $\\prod_t \\arg\\max p(y_t \\mid \\dots) \\ne \\arg\\max \\prod_t p(y_t \\mid \\dots)$. Beam search keeps several hypotheses.",
+          "steps": [
+            "Start with the single hypothesis <bos> (score 0 in log-probability).",
+            "Extend every hypothesis in the beam by every next token; score = sum of log-probabilities (= log of the product).",
+            "Keep only the top $k$ hypotheses (the beam size); finished ones (ending in </s>) are set aside.",
+            "Repeat until the beam is finished or a length limit is reached; return the best finished hypothesis.",
+            "$k = 1$ is greedy decoding."
+          ],
+          "points": [
+            "Pro: much closer to the best whole sentence than greedy.",
+            "Cons: more memory and compute, still not guaranteed optimal, tends to produce bland and short outputs.",
+            "Open-ended LLM generation usually samples (L5) instead of using beam search."
+          ],
+          "example": "Step 1: A 0.5, B 0.4, </s> 0.1. Step 2: after A, x 0.4; after B, x 0.9. Greedy takes A then x: $0.5 \\times 0.4 = 0.20$. Beam $k = 2$ keeps {A, B}, then {B x $= 0.4 \\times 0.9 = 0.36$, A x $= 0.20$}, so it finds the better sentence B x (0.36).",
+          "images": [
+            {
+              "src": "data/nlp/img/reference/nlp-beam-search.png",
+              "alt": "Search tree from <bos>: A p=0.5, B p=0.4, </s> p=0.1. Under A: A x 0.20, A y 0.15, A </s> 0.15. Under B: B x 0.36, B y 0.02, B </s> 0.02. The greedy path A x (0.20) is highlighted red; the beam-2 best B x (0.36) green. Caption: beam step 1 keeps {A, B}; step 2 keeps {B x .36, A x .20}.",
+              "width": 1320,
+              "height": 550
+            }
+          ],
+          "source": "lecture6_attention.pdf pp. 34–37 (greedy), 38–54 (beam search); pros and cons: the lecture recordings (exam-signals notes), not on the slides; numbers from the owner's mock exam (Q B2)"
+        },
+        {
+          "id": "nlp-attention-seq2seq",
+          "topic": 6,
+          "kind": "concept",
+          "title": "Attention in seq2seq: scores → weights → context",
+          "summary": "At decoder step $t$, compare the decoder state $h_t$ with every encoder state $s_k$, turn the scores into weights with softmax, and take the weighted sum of the encoder states.",
+          "points": [
+            "Scores: $\\text{score}(h_t, s_k)$ for $k = 1, \\dots, m$: \"how relevant is source token $k$ for target step $t$?\"",
+            "Weights: $a_k^{(t)} = \\dfrac{\\exp(\\text{score}(h_t, s_k))}{\\sum_{i=1}^{m} \\exp(\\text{score}(h_t, s_i))}$ (they sum to 1: a soft argmax).",
+            "Output (source context): $c^{(t)} = \\sum_{k=1}^{m} a_k^{(t)} s_k$.",
+            "Dot product: $h_t^\\top s_k$ (the bilinear form with $W = I$). Bilinear: $h_t^\\top W s_k$. MLP (additive): $w_2^\\top \\tanh(W_1 [h_t; s_k])$.",
+            "Why it helps: the encoder no longer has to compress everything into one vector, and the decoder can fetch a different detail at each step.",
+            "Costs: harder to debug, needs more data. The learned weights look like word alignments (\"zone économique européenne\"), the root of attention-based interpretability."
+          ],
+          "images": [],
+          "source": "lecture6_attention.pdf pp. 57–69 (high-level view), 70–76 (computation), 77–84 (learned relevance), 85–88 (score functions), 107 (alignment)"
+        },
+        {
+          "id": "nlp-bahdanau-luong",
+          "topic": 6,
+          "kind": "concept",
+          "title": "Bahdanau vs Luong attention",
+          "summary": "The two classic RNN attention models differ in the encoder, which decoder state does the attending, and the score function as taught.",
+          "points": [
+            "Bahdanau (the original): bidirectional encoder (concatenate forward and backward states); attention uses the previous decoder state $h_{t-1}$; the context $c^{(t)}$ is passed with $h_{t-1}$ into the next decoder step; score = MLP (as taught).",
+            "Luong: unidirectional encoder; attention uses the current decoder state $h_t$; the context is combined with $h_t$ to make the prediction; score = bilinear (as taught).",
+            "Careful: the Luong paper proposed dot, general (bilinear) and concat scores. Answer as taught, but do not claim neither used dot product."
+          ],
+          "images": [],
+          "source": "lecture6_attention.pdf pp. 89–98 (Bahdanau), 99–106 (Luong); score functions \"as taught\" and the paper caveat: the lecture recordings (exam-signals notes), not on the slides"
+        },
+        {
+          "id": "nlp-l6-traps",
+          "topic": 6,
+          "kind": "concept",
+          "title": "L6 quiz traps",
+          "summary": "Seq2seq and attention facts that past quizzes tested.",
+          "points": [
+            "Greedy: $\\prod \\arg\\max \\ne \\arg\\max \\prod$. Beam keeps $k$ hypotheses; $k = 1$ is greedy.",
+            "Bahdanau: biRNN encoder, $h_{t-1}$, MLP score. Luong: unidirectional encoder, $h_t$, bilinear (as taught).",
+            "Not a score function: softmax (and cosine, on a past quiz). Dot, bilinear and MLP are score functions.",
+            "Score vs weight vs context: scores are raw, weights are their softmax, the context vector is the weighted sum of encoder states.",
+            "\"Softmax makes attention sparse\" is strictly false (softmax never gives exact zeros), although the lecturer described the weights as nearly sparse."
+          ],
+          "images": [],
+          "source": "Past quizzes and the lecture recordings (exam-signals notes), not on the slides; facts on lecture6_attention.pdf pp. 35–54, 76, 85–106"
+        },
+        {
+          "id": "nlp-attention-types",
+          "topic": 7,
+          "kind": "concept",
+          "title": "Why Transformers, and the three kinds of attention",
+          "summary": "Attention is parallel; recurrence is not. In a Transformer every token updates using the whole context at once (\"I don't need to wait: I see all words at once\").",
+          "points": [
+            "RNN: $O(N)$ sequential steps for a sentence of length $N$. Transformer: a constant number of steps (in training; generation is still token by token).",
+            "Encoder self-attention: tokens look at each other (left and right); Q, K and V all come from encoder states.",
+            "Masked decoder self-attention: tokens look at the previous tokens and themselves only; Q, K, V from decoder states. Needed because in training the decoder processes all target tokens at once.",
+            "Decoder–encoder (cross-) attention: the target token looks at the source; queries from decoder states, keys and values from encoder states."
+          ],
+          "images": [],
+          "source": "lecture7_transformers-2.pdf pp. 3–14 (idea, vs RNNs), 17–19 (self-attention), 25 (masking), 41–48 (where each attention lives)"
+        },
+        {
+          "id": "nlp-self-attention",
+          "topic": 7,
+          "kind": "algorithm",
+          "title": "Self-attention calculation (with the causal mask)",
+          "summary": "Every token gets three roles: a query (what it looks for), a key (what it offers to be found by) and a value (what it hands over). $\\text{Attention}(Q, K, V) = \\operatorname{softmax}\\!\\left(\\frac{QK^\\top}{\\sqrt{d_k}}\\right) V$.",
+          "steps": [
+            "Project each token: $q = x W_Q$, $k = x W_K$, $v = x W_V$ (stack the rows into $Q$, $K$, $V$). Write the shape next to every matrix.",
+            "Scores: $S = QK^\\top / \\sqrt{d_k}$ (row $i$ = query $i$ against every key).",
+            "Causal mask (decoder only): set $S_{ij} = -\\infty$ for every $j > i$, before the softmax.",
+            "Attention matrix (attention weights): $A = \\operatorname{softmax}(S)$, row by row; each row sums to 1. If the question asks for the attention matrix, stop here: do not multiply by $V$.",
+            "Output: $AV$, each row a weighted sum of the value vectors."
+          ],
+          "points": [
+            "Q·K decides where to look; V is what you take. One vector no longer has to be meaning, findable and information at once. The cost: three projections, so more parameters, more data and a risk of overfitting.",
+            "Masking with 0 does not work: $e^0 = 1$ still gets weight. Use $-\\infty$ so $e^{-\\infty} = 0$. The masked weight matrix is lower-triangular.",
+            "Matrix orientation: the tutorial left-multiplied ($W X^\\top$, tokens as columns). Follow the convention in the question.",
+            "\"I am going to ask you this\": attention matrix $= \\operatorname{softmax}(QK^\\top / \\sqrt{d_k})$."
+          ],
+          "example": "$Q = [[1,1],[0,1],[1,2]]$, $K = [[1,0],[1,1],[2,1]]$, $V = [[0,1],[1,0],[1,1]]$, $d_k = 2$. Row 1 of $S$: $[1, 2, 3] / \\sqrt{2} = [0.7071, 1.4142, 2.1213]$ → $A_1 = [0.1400, 0.2840, 0.5760]$. Row 3: $[0.7071, 2.1213, 2.8284]$ → $A_3 = [0.0743, 0.3057, 0.6200]$, output$_3 = 0.0743 \\cdot [0,1] + 0.3057 \\cdot [1,0] + 0.62 \\cdot [1,1] = [0.9257, 0.6943]$. With the causal mask, row 1 becomes $[1, 0, 0]$, row 2 $[0.3302, 0.6698, 0]$, and row 3 is unchanged (it may see all three).",
+          "images": [
+            {
+              "src": "data/nlp/img/reference/nlp-attention-calc.png",
+              "alt": "Three 3×3 heat maps for X = [[1,0],[0,1],[1,1]], Q = [[1,1],[0,1],[1,2]], K = [[1,0],[1,1],[2,1]], V = [[0,1],[1,0],[1,1]]. Left: scores S = QKᵀ/√dk with rows 0.7071 1.4142 2.1213; 0 0.7071 0.7071; 0.7071 2.1213 2.8284. Middle: attention matrix A = softmax(S), \"stop here, no V\": rows 0.1400 0.2840 0.5760; 0.1978 0.4011 0.4011; 0.0743 0.3057 0.6200. Right: causal version with −∞ above the diagonal before softmax: rows 1 0 0; 0.3302 0.6698 0; 0.0743 0.3057 0.6200. Output 3 = A3·V = [0.9257, 0.6943].",
+              "width": 1540,
+              "height": 484
+            }
+          ],
+          "source": "lecture7_transformers-2.pdf pp. 20–22 (Q, K, V and the formula), 25 (masked self-attention); \"stop at the attention matrix\", −∞ masking and the tutorial orientation: the lecture recordings (exam-signals notes), not on the slides"
+        },
+        {
+          "id": "nlp-sqrt-dk",
+          "topic": 7,
+          "kind": "concept",
+          "title": "Why divide by √dₖ",
+          "summary": "In scaled dot-product attention the scores are divided by $\\sqrt{d_k}$. For random query and key vectors with unit-variance entries, $q \\cdot k$ has variance $d_k$. Without scaling, large dot products push the softmax towards one-hot, which is like a very low temperature and gives vanishing gradients.",
+          "points": [
+            "Dividing by $\\sqrt{d_k}$ brings the scores back to variance about 1, so the softmax stays soft and gradients flow.",
+            "Link to L5: scaling the logits is exactly a temperature."
+          ],
+          "images": [
+            {
+              "src": "data/nlp/img/reference/nlp-sqrt-dk.png",
+              "alt": "Line chart of the mean largest softmax weight over 10 keys against dk from 2^0 to 2^10. Unscaled softmax(q·k) rises from about 0.28 to about 0.97 (almost one-hot); scaled softmax(q·k/√dk) stays near 0.3 for every dk.",
+              "width": 825,
+              "height": 484
+            }
+          ],
+          "source": "lecture7_transformers-2.pdf p. 22 (the formula); the variance argument is the standard one from the original Transformer paper, not on the slides"
+        },
+        {
+          "id": "nlp-multi-head",
+          "topic": 7,
+          "kind": "concept",
+          "title": "Multi-head attention and its parameters",
+          "summary": "Run $h$ attention heads independently, each in a $d_k = d_{model}/h$ subspace, concatenate their outputs and project back with $W_O$. Different heads can track different things at once.",
+          "points": [
+            "Every head sees all tokens; the split is across dimensions, not tokens. Heads do not share weights.",
+            "$W_O$ ($d_{model} \\times d_{model}$) maps the concatenation back to $d_{model}$, so blocks stack and the residual can be added.",
+            "Parameters at fixed $d_{model}$: $W_Q, W_K, W_V, W_O$ are each $d_{model} \\times d_{model}$ in total, so $4 d_{model}^2$ (no biases) for any number of heads, the same as one head.",
+            "Heads specialise only through gradient descent; many are redundant and can be pruned (L7 analysis)."
+          ],
+          "example": "$d_{model} = 512$, $h = 8$: $d_k = 64$; parameters $4 \\cdot 512^2 = 1{,}048{,}576$ (with biases $+4 \\cdot 512 = 1{,}050{,}624$).",
+          "images": [],
+          "source": "lecture7_transformers-2.pdf pp. 28–38 (multi-head attention); the parameter count is a standard derivation, not on the slides"
+        },
+        {
+          "id": "nlp-transformer-block",
+          "topic": 7,
+          "kind": "concept",
+          "title": "The Transformer block: FFN, residuals and layer norm",
+          "summary": "Encoder layer: multi-head self-attention → Add & Norm → feed-forward → Add & Norm. Decoder layer: masked self-attention → Add & Norm → cross-attention → Add & Norm → feed-forward → Add & Norm. Each is repeated $N$ times.",
+          "points": [
+            "Feed-forward network, applied to each token separately: $\\text{FFN}(x) = \\max(0, x W_1 + b_1) W_2 + b_2$ (\"after taking information from other tokens, take a moment to think\").",
+            "Residual connection: output $= x + F(x)$. The layer learns an update, can \"do nothing\" easily, and the loss landscape is smoother.",
+            "Layer normalisation: per token, across its features: $\\frac{h_k - \\mu_k}{\\sigma_k} \\cdot \\text{scale} + \\text{bias}$ with learned scale ($\\gamma$) and bias ($\\beta$).",
+            "The decoder output goes through a linear layer and softmax over the vocabulary."
+          ],
+          "images": [],
+          "source": "lecture7_transformers-2.pdf pp. 41–48 (layout), 49–50 (feed-forward), 51 (residual), 52 (layer norm), 56 (full model); the FFN formula is from the lecture recordings (exam-signals notes), not on the slides"
+        },
+        {
+          "id": "nlp-positional-encoding",
+          "topic": 7,
+          "kind": "concept",
+          "title": "Positional encoding",
+          "summary": "Without recurrence or convolution, self-attention knows nothing about order: it is permutation equivariant (shuffle the tokens and the outputs shuffle the same way). So a position vector is added to each token embedding.",
+          "points": [
+            "$\\mathrm{PE}_{pos, 2i} = \\sin\\!\\left(pos / 10000^{2i / d_{model}}\\right)$, $\\mathrm{PE}_{pos, 2i+1} = \\cos\\!\\left(pos / 10000^{2i / d_{model}}\\right)$: sin on even dimensions, cos on odd.",
+            "The period is set by the dimension: low dimensions change fast (fine position), high dimensions slowly (long range).",
+            "The input is the sum of two embeddings, token + position (added, not concatenated). Positions can also be learned."
+          ],
+          "example": "$pos = 2$, dimension 0: $\\sin 2 = 0.909$. $pos = 1$, $d_{model} = 4$, dimension 2 ($i = 1$): $\\sin(1 / 10000^{2/4}) = \\sin(0.01) = 0.0100$, and dimension 3: $\\cos(0.01) = 0.99995$.",
+          "images": [
+            {
+              "src": "data/nlp/img/reference/nlp-positional-encoding.png",
+              "alt": "Left: heat map of sinusoidal positional encodings for d_model = 64, positions 0 to 59 against dimensions 0 to 63; low dimensions alternate quickly, high dimensions barely change. Right: the encoding value against position for dimension 0 (period 6.3), dimension 10 (period 26.5) and dimension 30 (period 471.2): the period is set by the dimension, and the encoding is added to the embedding.",
+              "width": 1430,
+              "height": 484
+            }
+          ],
+          "source": "lecture7_transformers-2.pdf pp. 53–55; \"permutation equivariant\": the lecture recordings (exam-signals notes), not on the slides"
+        },
+        {
+          "id": "nlp-transformer-analysis",
+          "topic": 7,
+          "kind": "concept",
+          "title": "What heads and layers learn",
+          "summary": "Analysis of trained Transformers: a few important heads have interpretable roles and the rest can be pruned; probing classifiers show where linguistic information lives.",
+          "points": [
+            "Important heads are positional (attend to neighbours), syntactic (track dependencies such as verb → subject) or attend to rare tokens.",
+            "Standard probing: freeze the model, train a simple classifier on its representations, and use its accuracy as the measure.",
+            "NMT and morphology (POS accuracy by encoder layer): encoding helps, layer 0 (the word embeddings) is the worst, and layer 1 is better than layer 2.",
+            "Surprise: a target language with weaker morphology leads to a stronger encoder."
+          ],
+          "images": [],
+          "source": "lecture7_transformers-2.pdf pp. 66–72 (heads), 75–80 (probing), 81–85 (NMT morphology)"
+        },
+        {
+          "id": "nlp-l7-traps",
+          "topic": 7,
+          "kind": "concept",
+          "title": "L7 quiz traps",
+          "summary": "Transformer facts that past quizzes and the lecturer flagged.",
+          "points": [
+            "Attention matrix $= \\operatorname{softmax}(QK^\\top / \\sqrt{d_k})$. Do not multiply by $V$.",
+            "Cross-attention: Q from the decoder, K and V from the encoder.",
+            "Masking: scores → $-\\infty$ before the softmax (0 does not mask). The weights are lower-triangular.",
+            "Heads: every head sees all tokens; the split is across dimensions. Heads do not share weights. Parameters stay $4 d_{model}^2$ for any $h$.",
+            "Self-attention without PE is permutation equivariant (he once said \"invariant\"; strictly equivariant). Sinusoids: the period changes with the dimension.",
+            "RNN: $O(N)$ sequential steps; Transformer: constant steps in training, but generation is still sequential."
+          ],
+          "images": [],
+          "source": "Past quizzes and the lecture recordings (exam-signals notes), not on the slides; facts on lecture7_transformers-2.pdf pp. 12–14, 20–25, 28–38, 47, 53–55"
+        },
+        {
+          "id": "nlp-gpt2-mcq",
+          "topic": 8,
+          "kind": "algorithm",
+          "title": "★ Test 2: adapting GPT-2 to multiple choice",
+          "summary": "Test 2 (10 marks, the hardest question), recalled after the test and not the official wording: \"How would you modify GPT-2 specifically for a task that takes in an MCQ question, the answer and four other options, and needs to be able to choose or know the correct answer?\" The answer is the GPT paper's \"Multiple Choice\" recipe on the L8 slide. Expect the same kind of question with another model or task.",
+          "steps": [
+            "Why it needs changing: GPT-2 is a decoder-only, causal (left-to-right) LM. It outputs a distribution over the next token, not a choice among options, so it needs an input format, a scoring head and a loss.",
+            "Input format: build 5 sequences, one per option: [Start] question [Delim] option$_i$ [Extract]. The special tokens get new embeddings learned during fine-tuning; the fixed format tells the model where the question ends and where to summarise.",
+            "Why the last token: under causal masking only the final [Extract] token has attended to the whole question and option, so its hidden state $h_{[Extract]}$ summarises the pair. (BERT is the opposite: bidirectional, so [CLS] comes first.)",
+            "New parameters: one linear layer $d_{model} \\to 1$ on $h_{[Extract]}$ gives a scalar score $s_i$ per option. The head is shared across options, and so are the transformer weights (the same GPT-2 run 5 times, or as a batch of 5).",
+            "Normalise across options: $P(i) = \\dfrac{\\exp(s_i)}{\\sum_{j=1}^{5} \\exp(s_j)}$.",
+            "Loss: cross-entropy $-\\log P(\\text{gold option})$, optionally $+ \\lambda \\cdot$ (LM loss) as an auxiliary objective, as in the GPT paper (helps generalisation and convergence).",
+            "Training: fine-tune all weights, or freeze GPT-2 and train only the head plus adapters or LoRA (cheaper, less catastrophic forgetting). The correct answer is only the label; never mark it in the input.",
+            "Inference: run the 5 sequences and take $\\arg\\max_i s_i$.",
+            "Practicalities: GPT-2 has no pad token, so define one and use an attention mask for options of different lengths; shuffle the option order so the model cannot learn a position shortcut; keep within the 1024-token context.",
+            "Zero-shot alternative (a baseline): with the unchanged LM, score each option by the length-normalised log-likelihood $\\frac{1}{|o_i|} \\log P(o_i \\mid \\text{question})$ and pick the largest. Normalise by length because longer options get lower raw probability. Weaker than fine-tuning."
+          ],
+          "points": [
+            "The general template for \"adapt model X to task Y\" is on its own card in this lecture."
+          ],
+          "images": [
+            {
+              "src": "data/nlp/img/reference/nlp-gpt2-mcq.png",
+              "alt": "Diagram of GPT-2 adapted to five-option multiple choice: five input rows, each [Start] Question [Delim] Option i [Extract], go through a shared GPT-2; the [Extract] hidden state goes through a linear layer to a score s1 to s5; a softmax over s1..s5 gives the choice, with loss −log p(correct) plus λ times the LM loss. Caption: each option is its own sequence with the same weights; the last token sees everything because of causal masking; inference is argmax; alternative: score by length-normalised log P(option | question).",
+              "width": 1430,
+              "height": 682
+            }
+          ],
+          "source": "Question recalled from Test 2 (2026-10-25), not the official wording. Method: lecture8_transfer_learning.pdf p. 56 (GPT-paper figure, \"Multiple Choice\" row); the 10-point answer is a written model answer, not the lecturer's memo"
+        },
+        {
+          "id": "nlp-adapt-template",
+          "topic": 8,
+          "kind": "concept",
+          "title": "Template: \"adapt model X to task Y\"",
+          "summary": "For any design question, walk through the same checklist: architecture constraint (bidirectional or causal) → input format and special tokens → which hidden state(s) → new head and its shape → normalisation → loss → training regime (full, frozen, adapters, LoRA) → inference and constraints → pitfalls.",
+          "points": [
+            "BERT, classification: [CLS] s1 [SEP] s2 [SEP]; a linear layer on $h_{[CLS]}$; softmax over $K$ classes.",
+            "BERT, extractive QA: learn start and end vectors $S, E$; softmax over passage positions of $S \\cdot T_i$ and of $E \\cdot T_j$; loss = CE(start) + CE(end); at inference the best span with $i \\le j$.",
+            "BERT, NER: a linear layer on every token's state, softmax over the tags; label only the first sub-word piece of each word.",
+            "GPT, classification: [Start] text [Extract] → linear on the last token's state.",
+            "GPT, sentence similarity (GPT paper): run both orders (text 1, text 2 and text 2, text 1), add the two final states, then a linear layer, because a causal model has no natural symmetric order.",
+            "GPT, generation tasks (summarise, translate): a prompt format and the LM loss on the target tokens only."
+          ],
+          "images": [],
+          "source": "lecture8_transfer_learning.pdf pp. 49–51 (BERT fine-tuning), 56 (GPT task formats); start/end vectors and NER labelling are from the BERT paper, not on the slides"
+        },
+        {
+          "id": "nlp-transfer-taxonomy",
+          "topic": 8,
+          "kind": "concept",
+          "title": "Why transfer learning, and its taxonomy",
+          "summary": "Labelled data is small and task-specific; unlabelled text is huge and general. Transfer learning moves knowledge from a source task (usually pretraining on raw text) to the target task.",
+          "points": [
+            "Transductive (same task, labels only in the source): domain adaptation (different domains) and cross-lingual learning (different languages).",
+            "Inductive (different tasks, labels in the target): multi-task learning (tasks learned simultaneously) and sequential transfer learning (pretrain, then fine-tune; the most popular).",
+            "Taxonomy from Ruder (2019).",
+            "Progression in the lecture: word embeddings (only word vectors transfer) → ELMo (words in context) → BERT and GPT (the whole network transfers)."
+          ],
+          "images": [],
+          "source": "lecture8_transfer_learning.pdf pp. 3–14 (idea), 15–17 (taxonomy), 19–22 (transfer through embeddings)"
+        },
+        {
+          "id": "nlp-elmo",
+          "topic": 8,
+          "kind": "concept",
+          "title": "ELMo: words in context",
+          "summary": "ELMo gives each word a vector that depends on its sentence. A character CNN + highway layer feeds a 2-layer forward and a 2-layer backward LSTM language model; a task learns its own weights over the layers.",
+          "points": [
+            "Character-level CNN + highway: represents even unknown words (open vocabulary) and tells the network which words are spelt similarly.",
+            "Forward and backward 2-layer LSTM LMs, trained on a huge unlabelled corpus.",
+            "Task representation: $\\gamma (\\lambda_0 h_0 + \\lambda_1 h_1 + \\lambda_2 h_2)$ with weights learned for each task (the slide shows the $\\lambda$s).",
+            "Plugged into almost any existing task model in place of the word embeddings: it learned \"not only words, but how to process entire texts\".",
+            "Quiz trap: ELMo has no self-attention."
+          ],
+          "images": [],
+          "source": "lecture8_transfer_learning.pdf pp. 25–33 (architecture), 34–36 (use), 52 (what changed); the overall scale $\\gamma$ is from the ELMo paper, not on the slides"
+        },
+        {
+          "id": "nlp-bert",
+          "topic": 8,
+          "kind": "algorithm",
+          "title": "BERT: input, masked LM, NSP and fine-tuning",
+          "summary": "BERT is a Transformer encoder (bidirectional) pretrained with two objectives on lots of data: masked language modelling (MLM) and next-sentence prediction (NSP). After it, there is \"no task-specific model at all\".",
+          "steps": [
+            "Input: a pair of sentences, [CLS] sentence A [SEP] sentence B [SEP]. Each token's input = token embedding + segment embedding (A or B) + position embedding.",
+            "NSP: the pair is consecutive 50% of the time and random 50%; the [CLS] output predicts which.",
+            "MLM, at each training step: pick 15% of the tokens at random.",
+            "Replace each chosen token with [MASK] with probability 80%, a random token with 10%, or leave it unchanged with 10%.",
+            "Predict the original tokens with cross-entropy, only at the chosen positions.",
+            "Fine-tune the whole network with a small head: single sentence (SST-2, CoLA) and sentence pairs (MNLI, QQP, STS-B) from $h_{[CLS]}$; question answering (SQuAD) by labelling the answer's start and end in the passage."
+          ],
+          "points": [
+            "Why not always [MASK]: [MASK] never appears at fine-tuning time, so the random and unchanged cases keep the model honest about every token.",
+            "Quiz trap: the corruption that is not used is \"replace with a synonym\".",
+            "Analysis: BERT heads show patterns (attend to the next token, to [SEP], syntactic relations); probing finds linguistic structure layer by layer; LMs can be queried as knowledge bases (\"Dante was born in [MASK]\")."
+          ],
+          "images": [],
+          "source": "lecture8_transfer_learning.pdf pp. 39–43 (input, NSP), 44–48 (MLM), 49–51 (fine-tuning), 53 (what changed), 82–102 (analysis); the [MASK] mismatch reason is from the BERT paper"
+        },
+        {
+          "id": "nlp-adapters",
+          "topic": 8,
+          "kind": "concept",
+          "title": "Full fine-tuning problems, adapters and prefix tuning",
+          "summary": "Fine-tuning updates 100% of the parameters and needs a new huge model per task. Parameter-efficient methods freeze the base model and train a few new parameters.",
+          "points": [
+            "Problems with full fine-tuning: time, compute, memory, and catastrophic forgetting (new training overwrites what was learned before).",
+            "Adapters: small bottleneck layers (small hidden size) inserted into each layer; only they are trained (about 1% of the parameters); the base model is the same for all tasks.",
+            "Adapter drawback: they add layers, so they add inference latency.",
+            "Prefix tuning: difficult to optimise and uses up part of the sequence length.",
+            "LoRA (next card) fixes the latency problem."
+          ],
+          "images": [],
+          "source": "lecture8_transfer_learning.pdf pp. 59–63 (adapters), 64 (other directions), 67 (fine-tuning problems), 68 (prior solutions)"
+        },
+        {
+          "id": "nlp-lora",
+          "topic": 8,
+          "kind": "algorithm",
+          "title": "LoRA: low-rank adaptation",
+          "summary": "Freeze the pretrained weight $W_0$ and learn the update as a product of two thin matrices: $W' = W_0 + BA$. By the intrinsic rank hypothesis, the change needed for adaptation lives in a low-dimensional space.",
+          "model": {
+            "variables": [
+              {
+                "math": "W_0 \\in \\mathbb{R}^{d \\times k}",
+                "meaning": "pretrained weight (frozen)"
+              },
+              {
+                "math": "B \\in \\mathbb{R}^{d \\times r},\\; A \\in \\mathbb{R}^{r \\times k}",
+                "meaning": "the trainable low-rank factors"
+              },
+              {
+                "math": "r",
+                "meaning": "the rank, $r \\ll \\min(d, k)$"
+              }
+            ],
+            "objective": "\\min_{A,\\, B}\\; \\mathcal{L}\\big(W_0 + BA\\big)",
+            "constraints": [
+              {
+                "math": "W_0 \\text{ fixed}",
+                "meaning": "only $A$ and $B$ get gradients"
+              },
+              {
+                "math": "\\operatorname{rank}(BA) \\le r",
+                "meaning": "the update is low-rank"
+              },
+              {
+                "math": "B = 0 \\text{ at the start}",
+                "meaning": "so training starts exactly from the pretrained model ($A$ random); a standard detail, not on the slides"
+              }
+            ]
+          },
+          "steps": [
+            "Pick the matrices to adapt (e.g. the attention projections) and a rank $r$ (8 is the standard default; 1 or 2 is often enough).",
+            "For each, add $B$ ($d \\times r$, zeros) and $A$ ($r \\times k$, random); freeze $W_0$.",
+            "Train only $A$ and $B$ on the task: $d r + r k$ parameters instead of $d k$.",
+            "After training, merge: $W' = W_0 + BA$. Same shape as before, so no extra inference latency.",
+            "Keep one base model and swap small per-task $BA$ checkpoints."
+          ],
+          "points": [
+            "Advantages (slide): fast, cheap, fewer trainable parameters and less training time, no inference latency, small checkpoints (GPT-3: 1 TB → about 25 MB), combinable with prefix tuning.",
+            "Raising $r$ adds parameters and eventually converges to full fine-tuning; if LoRA underperforms, increase $r$.",
+            "Works for any model that uses matrix multiplications, even SVMs.",
+            "QLoRA: LoRA on a quantised base model (e.g. 32-bit floats → 8-bit integers): even less memory.",
+            "The slide on p. 73 lists $A$ as $d \\times r$ and $B$ as $r \\times d$; the count ($2dr$ for a square $W$) is the same either way."
+          ],
+          "example": "Slide: $d = 30$, $k = 10$, $r = 2$: $30 \\cdot 2 + 2 \\cdot 10 = 80$ trainable parameters instead of $300$. One $4096 \\times 4096$ matrix, $r = 8$: $2 \\cdot 4096 \\cdot 8 = 65{,}536$ instead of $16{,}777{,}216$ (0.39%); in fp16 (2 bytes each) 128 KiB instead of 32 MiB.",
+          "images": [
+            {
+              "src": "data/nlp/img/reference/nlp-lora.png",
+              "alt": "Left: bar chart on a log scale of trainable parameters for one 4096×4096 matrix: full fine-tuning 16,777,216 (32.00 MiB in fp16); LoRA r=1 8,192 (0.05%), r=2 16,384 (0.10%), r=8 65,536 (0.39%), r=64 524,288 (3.12%), r=512 4,194,304 (25.00%). Right: W0 (d×k, frozen) plus B (d×r, initialised to 0) times A (r×k, random). Notes: W′ = W0 + BA; slide example d=30, k=10, r=2 gives 80 vs 300; fp16 memory is 2dk bytes for W and 2r(d+k) for LoRA; merging BA after training means no inference latency, unlike adapters.",
+              "width": 1430,
+              "height": 484
+            }
+          ],
+          "source": "lecture8_transfer_learning.pdf pp. 65–74 (LoRA, example), 76 (advantages), 77 (rank), 78 (insights), 79 (QLoRA), 80 (other uses)"
+        },
+        {
+          "id": "nlp-iterated-learning",
+          "topic": 8,
+          "kind": "algorithm",
+          "title": "Iterated learning (Kirby)",
+          "summary": "Chomsky: children learn language from little data (\"poverty of the stimulus\"), so the capacity must be built in (universal grammar). Kirby's alternative: language adapted to our brains. Each generation learns from the previous one, and the communication bottleneck keeps the parts that are easiest to learn.",
+          "steps": [
+            "Initialise a network and get some data.",
+            "Train the network, but stop early.",
+            "Relabel the data with the network's outputs (logits).",
+            "Train a new network on the relabelled data.",
+            "Repeat for $k$ generations."
+          ],
+          "points": [
+            "The early stopping is the bottleneck: what survives is what is easy to learn, so the \"language\" becomes more structured over generations.",
+            "Expressivity (many distinct meanings can be expressed) together with regularity (systematic, compressible, learnable) gives compositionality. These two definitions are the standard Kirby ones from the tutorial question; the slides do not define them."
+          ],
+          "images": [],
+          "source": "lecture8_transfer_learning.pdf pp. 104–106 (universal grammar, the alternative), 107–109 (iterated learning and its procedure)"
+        },
+        {
+          "id": "nlp-l8-traps",
+          "topic": 8,
+          "kind": "concept",
+          "title": "L8 quiz traps",
+          "summary": "Transfer-learning facts that past quizzes and the lecturer flagged.",
+          "points": [
+            "BERT MLM: 15% of tokens; of those 80% [MASK], 10% random, 10% unchanged (never a synonym). NSP 50/50. [CLS] for classification.",
+            "BERT input = token + segment + position embeddings.",
+            "ELMo: char-CNN + highway → 2-layer biLSTM LMs; task-weighted sum of layers; open vocabulary; contextual. No self-attention.",
+            "Adapter: small bottleneck layer, adds inference latency. LoRA: $W_0 + BA$, mergeable, no latency; works with any matrix-multiplication model, even SVMs.",
+            "LoRA parameters: $dr + rk$ vs $dk$. Default $r = 8$.",
+            "BERT is an encoder (bidirectional); GPT is a decoder (causal), so a GPT task head reads the last token, BERT's reads [CLS]."
+          ],
+          "images": [],
+          "source": "Past quizzes and the lecture recordings (exam-signals notes), not on the slides; facts on lecture8_transfer_learning.pdf pp. 27–33, 39–48, 56, 59–78"
+        },
+        {
+          "id": "nlp-scaling-laws",
+          "topic": 9,
+          "kind": "concept",
+          "title": "Emergence from scale: induction heads and scaling laws",
+          "summary": "L9 has only 9 slides and is quiz material. With scale, in-context learning appears, and loss improves predictably.",
+          "points": [
+            "Induction heads (the mechanism for in-context learning) tend to appear with scale through a \"phase change\": the model realises the task cannot be done by learning (memorising) and switches to using the context.",
+            "Neural scaling laws: predictable improvements with more compute, data and parameters; the slide's plots (Kaplan et al., 2020) show loss falling as a power law in each.",
+            "Believed to be due to the Zipf distribution of language."
+          ],
+          "images": [],
+          "source": "lecture9_scaling_nlp.pdf pp. 2–3 (induction heads), 4 (scaling laws)"
+        },
+        {
+          "id": "nlp-emergence-without-scale",
+          "topic": 9,
+          "kind": "concept",
+          "title": "Emergence without scale, and data poisoning",
+          "summary": "Two ways to get the benefits without a bigger dense model, and the big risk to all of it.",
+          "points": [
+            "Sparsity: mixture of experts, where a gate routes each input to a few experts, so only part of the network runs.",
+            "Modularity and sparsity: Recurrent Independent Mechanisms, where attention guides information flow between whole network modules.",
+            "Knowledge distillation: a big network trains a smaller one using far more detailed (soft) labels.",
+            "Data poisoning: generated data filtering back into training can cause model collapse within a handful of generations (Shumailov et al., 2024; more in L10)."
+          ],
+          "images": [],
+          "source": "lecture9_scaling_nlp.pdf pp. 5 (sparsity, mixture of experts), 6 (RIMs), 7 (distillation), 8–9 (data poisoning)"
+        },
+        {
+          "id": "nlp-reader-writer",
+          "topic": 10,
+          "kind": "concept",
+          "title": "Responsibility in language: writer- vs reader-responsible",
+          "summary": "Communication is the ability to direct others' attention (\"don't think about a pink elephant\"). Who is responsible for being understood differs between languages, and that matters for models built on context.",
+          "points": [
+            "Writer-responsible (e.g. English): the writer makes the message understandable; the context is presented with the message, so less situational awareness is needed.",
+            "Reader-responsible (e.g. Mandarin): context can be left out for brevity, and the reader must work it out.",
+            "A coarse grouping, open to stereotypes, but it shows responsible communication is at the heart of language.",
+            "Link to NLP: the distributional hypothesis needs context. The extra context in writer-responsible languages can carry implicit bias: \"He wants to be a nurse when he grows up\" adds a gender that is not needed, and a model can learn false correlations."
+          ],
+          "images": [],
+          "source": "lecture10_responsible_nlp.pdf pp. 2–4 (communication), 5–7 (writer vs reader), 8–12 (context, implicit bias), 18 (connection to NLP)"
+        },
+        {
+          "id": "nlp-multilingualism",
+          "topic": 10,
+          "kind": "concept",
+          "title": "Multilingualism and code-switching",
+          "summary": "Many people use a home language and a different professional language, and cultural standards differ. This shapes the data and how well models serve people.",
+          "points": [
+            "People educated in a second language may prefer it for professional domains; English is the usual language of science, and many languages lack the vocabulary for every domain.",
+            "Code-switching (moving between languages) is tiring for people and a big problem for LLMs.",
+            "Speaking a language without identifying with its culture can lead to mistakes (e.g. in some cultures asking a name directly is rude).",
+            "Preservation vs access: is it fair to translate isiZulu books into English if that means fewer isiZulu speakers but more awareness of the culture?"
+          ],
+          "images": [],
+          "source": "lecture10_responsible_nlp.pdf pp. 13–17"
+        },
+        {
+          "id": "nlp-stochastic-parrots",
+          "topic": 10,
+          "kind": "concept",
+          "title": "Stochastic parrots and the hegemonic view",
+          "summary": "Bender et al. (2021): an LM is \"a system for haphazardly stitching together sequences of linguistic forms it has observed in its vast training data, according to probabilistic information about how they combine, but without any reference to meaning: a stochastic parrot\".",
+          "points": [
+            "Fluency and coherence are consistent, but opinions and semantic content are sampled; we do not even know how to measure \"correct language\".",
+            "Human coherence relies on context shared between speaker and listener, and intent. LMs are ungrounded, so the user must supply their own intent and context.",
+            "Since 2021: multiple modalities can help with grounding, and context windows are larger and persistent.",
+            "Hegemonic view: the data mostly comes from the internet, where dominant voices are over-represented. Size does not equal diversity. The hegemonic viewpoint is context-specific: all views may be in the model, but common contexts trigger a specific one."
+          ],
+          "images": [],
+          "source": "lecture10_responsible_nlp.pdf pp. 19–24 (parrots, grounding), 25–28 (hegemonic view)"
+        },
+        {
+          "id": "nlp-present-harms",
+          "topic": 10,
+          "kind": "concept",
+          "title": "Present harms: unequal quality, jailbreaks, tokenization and prompting",
+          "summary": "With generative AI widely adopted, the concerns are unequal quality between groups, vulnerabilities that cause harm, and language becoming the interface to tools used across cultures.",
+          "points": [
+            "Adversarial examples and triggers: prompts that produce inappropriate behaviour indirectly through the context. Jailbreaking can override manual safeguards.",
+            "Tokenization: models are limited for under-represented languages. The isiZulu \"Ngiyalithanda ikati\" is 19 characters but 7 tokens in a commercial tokenizer, so it costs more, fits less in the context and is modelled worse.",
+            "Prompting problem 1: it is not a universal skill, and as an emerging technology it favours affluence.",
+            "Prompting problem 2: it leans into the speaker- (writer-) responsible view, so not everyone is equally comfortable with it.",
+            "Chain-of-thought prompting is the example of how much the phrasing matters."
+          ],
+          "images": [],
+          "source": "lecture10_responsible_nlp.pdf pp. 29–30 (bias from the model), 31–33 (adversarial examples), 34–37 (tokenization), 38–42 (prompting)"
+        },
+        {
+          "id": "nlp-model-collapse",
+          "topic": 10,
+          "kind": "concept",
+          "title": "Dead internet theory and model collapse",
+          "summary": "As generated content fills the internet and flows back into training data, models trained on it forget the real distribution (Shumailov et al.): the tails vanish first, and later generations converge to a narrow, low-variance and wrong distribution.",
+          "points": [
+            "Dead internet theory: the internet slowly being dominated by AI-generated content; it creates mistrust and hides authentic communication.",
+            "Bias propagation: generated content is fed back into future training data. It crowds out real creators with interesting perspectives and can isolate under-represented groups.",
+            "Collapse in text: after a few generations of training on its own output, the model's text drifts into nonsense (the slides' example ends up about jackrabbits).",
+            "Spotting it: the perplexity histogram of generated data shifts and narrows; diversity drops; error on real data rises.",
+            "Also shown for image models (\"nepotistically trained\" generative image models)."
+          ],
+          "images": [
+            {
+              "src": "data/nlp/img/reference/nlp-model-collapse.png",
+              "alt": "Left: normal curves refitted each generation on 50 samples from the previous fit; the spread shrinks from σ = 1.00 at generation 0 to 0.88 at 10, 0.32 at 30, 0.25 at 80 and 0.03 at 200: the tails vanish first and the distribution narrows. Right: σ of the learned distribution against generation (0 to 300), falling noisily from 1 to almost 0.",
+              "width": 1430,
+              "height": 484
+            }
+          ],
+          "source": "lecture10_responsible_nlp.pdf pp. 44–48 (dead internet), 51–64 (model collapse); lecture9_scaling_nlp.pdf pp. 8–9"
+        },
+        {
+          "id": "nlp-resource-exploitation",
+          "topic": 10,
+          "kind": "concept",
+          "title": "Resource use and the double edge",
+          "summary": "Bias also comes from training and running the model, not only from using it. LLM power use scales with parameter count, now in the billions.",
+          "points": [
+            "Low-resource communities feel the impact of high-resource models twice: (1) exclusion and inability to compete; (2) climate change hits the most marginalised first and they recover slower; (3) and the technology scales worse for them.",
+            "Data exploitation of marginalised communities: an asymmetric power balance (data used without further inclusion), no control over their data (lack of trust, conflicts of interest), data taken out of context or misinterpreted, and now eroded faster by generative AI.",
+            "Their notions of impact go beyond immediate technical concerns, so more perspectives from low- and middle-income countries are needed."
+          ],
+          "images": [],
+          "source": "lecture10_responsible_nlp.pdf pp. 65–68 (resource use), 69–71 (double edge)"
+        },
+        {
+          "id": "nlp-what-can-be-done",
+          "topic": 10,
+          "kind": "concept",
+          "title": "What can be done: curation and participation",
+          "summary": "Data curation is the organisation, selection and integration of data from various sources. It helps, but it has costs. Participation spreads the work and the benefit.",
+          "points": [
+            "Pros of curation: removes social biases, preserves privacy through anonymisation, removes exploitable patterns, balances the data.",
+            "Cons of curation: the curator plays a role and can be biased; it throws away data that can be expensive; there is no clear best approach; it is a step away from studying the world \"organically\".",
+            "Increase participation: every part of the development pipeline should be diverse and inclusive (e.g. participatory machine translation for African languages; Wikipedia articles vs number of speakers).",
+            "Conclusion: AI shapes culture in its own right. Unequal access to skills and tools is the immediate risk; data quality and quantity then cause lingering inequality."
+          ],
+          "images": [],
+          "source": "lecture10_responsible_nlp.pdf pp. 72–73 (curation, participation), 74 (conclusions)"
+        },
+        {
+          "id": "nlp-responsible-essay",
+          "topic": 10,
+          "kind": "concept",
+          "title": "Responsible-NLP essay skeleton (8–10 marks)",
+          "summary": "A structure for any responsible-NLP written question: name the concept → define it in one line (quote the slide if you can) → the mechanism (why it happens in LMs) → a concrete South African or African-language example → the consequence (who is harmed, and the double edge) → a mitigation and its limitation.",
+          "points": [
+            "Examples to reach for: isiZulu tokenization cost, code-switching, translating isiZulu books, writer-responsible implicit bias, model collapse of minority-language data.",
+            "Mitigations have limits too: curation brings the curator's bias and discards expensive data.",
+            "Reader/writer responsibility trap: writer-responsible (English) supplies the context with the message; reader-responsible (Mandarin) leaves the reader to infer it."
+          ],
+          "images": [],
+          "source": "Study structure (not from the slides), built on lecture10_responsible_nlp.pdf; written-question focus from the 2026 scope announcement"
+        }
+      ]
+    },
     "do-reference": {
       "id": "do-reference",
       "subject": "do",
       "title": "DO model sheet",
       "description": "Every model and algorithm in the 2026 final scope, one card each, checked against the course notes. Page numbers are the printed page numbers of the notes. Diagrams use made-up example data.",
+      "searchHint": "subtour, Metropolis",
       "scopeTopics": [
         1,
         2,

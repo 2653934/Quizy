@@ -17,6 +17,7 @@ node sidebar.cjs <path-to-Quizy> sb          # sidebar, phone menu and dark mode
 node mobile.cjs <path-to-Quizy> mb           # intro cue, rapid-mode burst, reset wrong answers, sticky Check / Next (see below)
 MISSES=1 node fit.cjs <path-to-Quizy> now    # how many questions fit on one phone screen, at four sizes (see below)
 node sheet.cjs <path-to-Quizy> sh           # the DO model sheet: chips, search, fold, images, practise, #ref= links (see below)
+node nlp-sheet.cjs <path-to-Quizy> ns       # the NLP model sheet: L1–L10 chips, search, images, practise a lecture, #ref=nlp-gpt2-mcq (see below)
 ```
 
 ## What it does
@@ -1942,7 +1943,7 @@ const answer = () => {
 
 ## sheet.cjs
 
-The DO model sheet (2026-11-05, `feature/do-past-papers`) over `file://` and HTTP, at 375×667 and 1280×800, light and dark: "Model sheet →" only for DO; 30 cards all open with KaTeX (no raw LaTeX), 11 topic chips and the last section "Also in past papers (not in final scope)"; formulas wider than their box scroll inside it (at 375px: QAP, ATSP, STSP and vertex cover objectives/constraints); a chip puts its topic just below the sticky chip row; search ("subtour", accents and case ignored, nothing found, chips disabled); Collapse all / Expand all and one card by its summary; an image opens full size in a new tab and stays on white in dark mode; "Practise these questions (n)" opens Browse on that topic with "← Back to the model sheet", which returns to the same scroll position; `#ref=<id>` on load and as a hash change; a `#ref=` link is ignored during a round; switching to NLP from the sheet goes back to setup; no sideways scroll, tap targets ≥ 44px, no console errors. It first found that lazy images without a size moved the page under a topic jump on phones; images now carry `width` / `height`.
+The DO model sheet (2026-11-05, `feature/do-past-papers`) over `file://` and HTTP, at 375×667 and 1280×800, light and dark: "Model sheet →" for DO (not DVE; NLP has its own sheet since 2026-11-07, see nlp-sheet.cjs); 30 cards all open with KaTeX (no raw LaTeX), 11 topic chips and the last section "Also in past papers (not in final scope)"; formulas wider than their box scroll inside it (at 375px: QAP, ATSP, STSP and vertex cover objectives/constraints); a chip puts its topic just below the sticky chip row; search ("subtour", accents and case ignored, nothing found, chips disabled); Collapse all / Expand all and one card by its summary; an image opens full size in a new tab and stays on white in dark mode; "Practise these questions (n)" opens Browse on that topic with "← Back to the model sheet", which returns to the same scroll position; `#ref=<id>` on load and as a hash change; a `#ref=` link is ignored during a round; switching to DVE from the sheet goes back to setup; no sideways scroll, tap targets ≥ 44px, no console errors. It first found that lazy images without a size moved the page under a topic jump on phones; images now carry `width` / `height`.
 
 ```js
 // node sheet.cjs <repoDir> <outDir>
@@ -2011,8 +2012,8 @@ const visible = (page, id) => page.evaluate(id => !document.getElementById(id).h
         await page.goto(url);
         await ready(page);
 
-        // The button: DO only.
-        for (const key of ['dve', 'nlp']) {
+        // The button: not for DVE (NLP has its own sheet, see nlp-sheet.cjs).
+        for (const key of ['dve']) {
           await pickSubject(page, key);
           await check(`${key} has no model sheet button`, async () => assert.equal(await visible(page, 'reference-open'), false));
         }
@@ -2184,12 +2185,12 @@ const visible = (page, id) => page.evaluate(id => !document.getElementById(id).h
           await page.click('#quit');
         });
 
-        // Switching subject while the sheet is open: NLP has none, so back to setup.
+        // Switching subject while the sheet is open: DVE has none, so back to setup.
         await check('subject switch from the sheet', async () => {
           await page.evaluate(() => { history.replaceState(null, '', location.pathname); });
           if (!(await visible(page, 'setup'))) await page.click('#again').catch(() => {});
           await page.click('#reference-open');
-          await pickSubject(page, 'nlp');
+          await pickSubject(page, 'dve');
           await settle(page);
           assert.equal(await visible(page, 'setup'), true);
           assert.equal(await visible(page, 'reference-open'), false);
@@ -2204,6 +2205,271 @@ const visible = (page, id) => page.evaluate(id => !document.getElementById(id).h
   server.close();
   console.log(report.join('\n'));
   console.log(problems.length ? `PROBLEMS (${problems.length}):\n` + problems.join('\n') : 'sheet.cjs: all checks passed');
+  process.exit(problems.length ? 1 : 0);
+})();
+```
+
+## nlp-sheet.cjs
+
+The NLP model sheet (2026-11-07, `feature/nlp-model-sheet`) over `file://` and HTTP, at 375×667 and 1280×800, light and dark: "Model sheet →" for NLP (not DVE); 52 cards all open with KaTeX (no raw LaTeX or KaTeX errors), chips L1–L10 and headings "L5 · Language modelling", the "e.g. attention, LoRA, perplexity" placeholder; no display formula wider than its box; chip jumps below the sticky row; search for "attention", "LoRA" and "perplexity" (expected cards shown, matches marked, nothing found for nonsense); every image loads, the attention diagram opens full size and stays on white in dark mode; "Practise these questions (n)" on the L8 Test 2 card opens Browse with only L8 on and n questions, back at the same scroll position, and the L3 card opens L3; `#ref=nlp-gpt2-mcq` on load, a DO `#ref=` link switching subject (placeholder back to "e.g. subtour, Metropolis") and back; switching to DVE goes to setup; no sideways scroll, tap targets ≥ 44px, no console errors. It found that the √dₖ card never said "attention" (now it does).
+
+```js
+// node nlp-sheet.cjs <repoDir> <outDir>
+// The NLP model sheet over file:// and HTTP, at 375x667 and 1280x800, light and dark: the button, cards and maths,
+// L1–L10 chips and "L5 · Language modelling" headings, search (attention, LoRA, perplexity), an image full size
+// (white in dark mode), "Practise these questions" landing on the card's lecture and back, the #ref=nlp-gpt2-mcq
+// deep link, no sideways scroll, tap targets, console errors.
+const http = require('node:http');
+const fs = require('node:fs');
+const path = require('node:path');
+const assert = require('node:assert/strict');
+const {chromium} = require('playwright-core');
+
+const repo = path.resolve(process.argv[2]);
+const out = path.resolve(process.argv[3]);
+fs.mkdirSync(out, {recursive: true});
+const TYPES = {'.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.svg': 'image/svg+xml', '.woff2': 'font/woff2'};
+const serve = () => new Promise(resolve => {
+  const server = http.createServer((req, res) => {
+    const file = path.join(repo, decodeURIComponent(new URL(req.url, 'http://x').pathname));
+    if (!file.startsWith(repo) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) { res.writeHead(404); return res.end(); }
+    res.writeHead(200, {'content-type': TYPES[path.extname(file)] || 'application/octet-stream'});
+    res.end(fs.readFileSync(file));
+  });
+  server.listen(0, () => resolve(server));
+});
+const ready = page => page.waitForSelector('.subject-tab[aria-pressed=true]', {state: 'attached'});
+const settle = page => page.evaluate(async () => {
+  let last = -1, same = 0;
+  for (let i = 0; i < 100 && same < 6; i++) { await new Promise(r => setTimeout(r, 50)); if (scrollY === last) same++; else { same = 0; last = scrollY; } }
+});
+const layout = page => page.evaluate(() => {
+  const doc = document.documentElement;
+  const small = [];
+  for (const node of document.querySelectorAll('button, select, input, textarea, summary')) {
+    const box = node.getBoundingClientRect();
+    if (!box.width || !box.height || node.closest('[hidden]')) continue;
+    if (node.closest('details:not([open])') && node.tagName !== 'SUMMARY') continue;
+    if (box.height < 43.5) small.push(`${node.tagName}#${node.id}.${node.className} ${Math.round(box.width)}x${Math.round(box.height)}`);
+  }
+  return {hScroll: doc.scrollWidth > doc.clientWidth, small: [...new Set(small)].slice(0, 8)};
+});
+async function pickSubject(page, key) {
+  if (await page.isVisible('#menu-toggle')) await page.click('#menu-toggle');
+  await page.click(`.subject-tab[data-key=${key}]`);
+}
+const visible = (page, id) => page.evaluate(id => !document.getElementById(id).hidden, id);
+const chip = (page, text) => page.locator('#ref-topics .chip', {hasText: new RegExp(`^${text}$`)});
+const shownIds = page => page.evaluate(() => [...document.querySelectorAll('.ref-topic:not([hidden]) .ref-card')].map(c => c.id.replace(/^card-/, '')));
+
+(async () => {
+  const server = await serve();
+  const fileUrl = 'file:///' + path.join(repo, 'index.html').replace(/\\/g, '/');
+  const httpUrl = `http://localhost:${server.address().port}/index.html`;
+  const ref = JSON.parse(fs.readFileSync(path.join(repo, 'data', 'nlp', 'reference.json')));
+  const total = ref.cards.length;
+  const browser = await chromium.launch({channel: 'msedge'});
+  const problems = [];
+  const report = [];
+  for (const [where, url] of [['file', fileUrl], ['http', httpUrl]]) {
+    for (const [w, h] of [[375, 667], [1280, 800]]) {
+      for (const scheme of ['light', 'dark']) {
+        const name = `${where}-${w}-${scheme}`;
+        const context = await browser.newContext({viewport: {width: w, height: h}, deviceScaleFactor: 1, colorScheme: scheme});
+        const page = await context.newPage();
+        const errors = [];
+        page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
+        page.on('pageerror', e => errors.push(String(e)));
+        const check = async (label, fn) => { try { await fn(); } catch (e) { problems.push(`${name} ${label}: ${e.message.split('\n').slice(0, 8).join(' | ')}`); } };
+        await page.goto(url);
+        await ready(page);
+
+        // The button: NLP and DO, not DVE.
+        await pickSubject(page, 'dve');
+        await check('dve has no model sheet button', async () => assert.equal(await visible(page, 'reference-open'), false));
+        await pickSubject(page, 'nlp');
+        await check('NLP button', async () => assert.equal(await visible(page, 'reference-open'), true));
+        await page.click('#reference-open');
+        await settle(page);
+        await check('sheet open', async () => {
+          assert.equal(await visible(page, 'reference'), true);
+          assert.equal(await page.evaluate(() => document.body.dataset.view), 'browse');
+          const info = await page.evaluate(() => ({
+            title: document.querySelector('#reference h2')?.textContent,
+            cards: document.querySelectorAll('.ref-card').length, open: document.querySelectorAll('.ref-card[open]').length,
+            katex: document.querySelectorAll('#ref-cards .katex').length, raw: document.querySelectorAll('#ref-cards .math-raw').length,
+            errors: document.querySelectorAll('#ref-cards .katex-error').length,
+            chips: [...document.querySelectorAll('#ref-topics .chip')].map(c => c.textContent),
+            count: document.getElementById('ref-count').textContent, images: document.querySelectorAll('.ref-figure img').length,
+            sections: [...document.querySelectorAll('.ref-topic-title')].map(t => t.textContent),
+            models: document.querySelectorAll('.ref-objective').length
+          }));
+          assert.equal(info.cards, total);
+          assert.equal(info.open, total);
+          assert.ok(info.katex > 200, `katex ${info.katex}`);
+          assert.equal(info.raw, 0);
+          assert.equal(info.errors, 0);
+          assert.deepEqual(info.chips, ['L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8', 'L9', 'L10']);
+          assert.equal(info.count, `${total} cards`);
+          assert.equal(info.images, 12);
+          assert.equal(info.sections[4], 'L5 · Language modelling');
+          assert.equal(info.sections.length, 10);
+          assert.equal(info.models, 2);
+          assert.equal(await page.getAttribute('#ref-search', 'placeholder'), 'e.g. attention, LoRA, perplexity');
+          if (name === 'file-375-light') report.push(`sections: ${info.sections.join(' | ')}`, `katex nodes: ${info.katex}`);
+        });
+        await check('layout (sheet top)', async () => { const l = await layout(page); assert.equal(l.hScroll, false); assert.deepEqual(l.small, []); });
+        await page.screenshot({path: path.join(out, `${name}-top.png`)});
+
+        const wide = await page.evaluate(() => [...document.querySelectorAll('#ref-cards .math-display')].filter(n => n.scrollWidth > n.clientWidth + 1)
+          .map(n => ({id: n.closest('.ref-card').id, overflow: getComputedStyle(n).overflowX})));
+        await check('wide formulas scroll in their box', async () => assert.ok(wide.every(x => x.overflow === 'auto'), JSON.stringify(wide)));
+        if (w === 375 && scheme === 'light') report.push(`${where} 375: ${wide.length} display formulas wider than their box: ${[...new Set(wide.map(x => x.id))].join(', ') || 'none'}`);
+
+        // Every chip jumps to its lecture just below the sticky bar.
+        await check('chip jumps', async () => {
+          for (const n of [7, 10, 1]) {
+            await chip(page, `L${n}`).click();
+            await settle(page);
+            const pos = await page.evaluate(n => ({bar: document.getElementById('ref-topics').getBoundingClientRect(), topic: document.getElementById(`ref-topic-${n}`).getBoundingClientRect().top}), n);
+            assert.ok(Math.abs(pos.bar.top) < 1 || n === 1, `L${n} bar top ${pos.bar.top}`);
+            assert.ok(pos.topic >= pos.bar.bottom - 1 && pos.topic < pos.bar.bottom + 30, `L${n} topic ${pos.topic} bar ${pos.bar.bottom}`);
+          }
+        });
+        await check('layout (after jumps)', async () => { const l = await layout(page); assert.equal(l.hScroll, false); });
+
+        // Card screenshots: the Test 2 card and the attention calculation.
+        for (const id of ['nlp-gpt2-mcq', 'nlp-self-attention', 'nlp-lora']) {
+          await check(`screenshot ${id}`, async () => {
+            await page.evaluate(id => document.getElementById(`card-${id}`).scrollIntoView(), id);
+            await page.waitForTimeout(200);
+            await page.locator(`#card-${id}`).screenshot({path: path.join(out, `${name}-${id}.png`)});
+          });
+        }
+
+        // Search.
+        await check('search', async () => {
+          const expect = {attention: ['nlp-self-attention', 'nlp-attention-seq2seq', 'nlp-multi-head', 'nlp-sqrt-dk'], lora: ['nlp-lora', 'nlp-adapters', 'nlp-l8-traps'], perplexity: ['nlp-perplexity-eval', 'nlp-lm-cross-entropy', 'nlp-l5-traps']};
+          for (const [query, ids] of Object.entries({attention: expect.attention, LoRA: expect.lora, perplexity: expect.perplexity})) {
+            await page.fill('#ref-search', query);
+            await page.waitForTimeout(400);
+            const s = await page.evaluate(() => ({count: document.getElementById('ref-count').textContent, marks: document.querySelectorAll('#ref-cards mark').length,
+              enabled: [...document.querySelectorAll('#ref-topics .chip:not(:disabled)')].map(c => c.textContent)}));
+            const got = await shownIds(page);
+            for (const id of ids) assert.ok(got.includes(id), `${query}: ${id} missing`);
+            assert.match(s.count, new RegExp(`^\\d+ of ${total} cards$`));
+            assert.ok(s.marks > 0, `${query}: marks`);
+            if (name === 'file-375-light') report.push(`search "${query}": ${s.count}; chips enabled ${s.enabled.join(' ')}`);
+            if (query === 'LoRA') await page.screenshot({path: path.join(out, `${name}-search-lora.png`)});
+          }
+          await page.fill('#ref-search', 'PERPLEXITE');
+          await page.waitForTimeout(400);
+          assert.match(await page.textContent('#ref-count'), /Nothing matches/);
+          await page.fill('#ref-search', 'tête');
+          await page.waitForTimeout(400);
+          await page.fill('#ref-search', '');
+          await page.waitForTimeout(400);
+          assert.equal(await page.textContent('#ref-count'), `${total} cards`);
+        });
+        await page.fill('#ref-search', '');
+        await page.waitForTimeout(400);
+
+        // An image opens full size; it stays on white in dark mode and loads.
+        await check('image full size', async () => {
+          const link = page.locator('#card-nlp-attention-calc .ref-figure a, #card-nlp-self-attention .ref-figure a').first();
+          await link.scrollIntoViewIfNeeded();
+          await page.waitForFunction(() => { const i = document.querySelector('#card-nlp-self-attention .ref-figure img'); return i.complete && i.naturalWidth > 0; });
+          assert.equal(await page.evaluate(() => getComputedStyle(document.querySelector('#card-nlp-self-attention .ref-figure img')).backgroundColor), 'rgb(255, 255, 255)');
+          const [popup] = await Promise.all([context.waitForEvent('page'), link.click()]);
+          await popup.waitForLoadState();
+          assert.match(popup.url(), /data\/nlp\/img\/reference\/nlp-attention-calc\.png$/);
+          await popup.close();
+        });
+        await check('all images load', async () => {
+          for (const img of await page.locator('.ref-figure img').all()) await img.scrollIntoViewIfNeeded();
+          await page.waitForFunction(() => [...document.querySelectorAll('.ref-figure img')].every(i => i.complete && i.naturalWidth > 0), null, {timeout: 10000});
+        });
+
+        // Practise these questions → Browse on that card's lecture, and back.
+        await check('practise and back', async () => {
+          await chip(page, 'L8').click();
+          await settle(page);
+          await page.locator('#card-nlp-gpt2-mcq .ref-practise').scrollIntoViewIfNeeded();
+          const before = await page.evaluate(() => scrollY);
+          const label = await page.textContent('#card-nlp-gpt2-mcq .ref-practise');
+          await page.click('#card-nlp-gpt2-mcq .ref-practise');
+          await settle(page);
+          assert.equal(await visible(page, 'browse'), true);
+          const b = await page.evaluate(() => ({pressed: [...document.querySelectorAll('#browse-lectures .chip[aria-pressed=true]')].map(c => c.textContent),
+            close: document.getElementById('browse-close').textContent, count: document.getElementById('browse-count').textContent,
+            first: document.querySelector('#browse-list .browse-card, #browse-list li, #browse-list article')?.textContent.slice(0, 80)}));
+          assert.deepEqual(b.pressed, ['L8']);
+          assert.equal(b.close, '← Back to the model sheet');
+          const n = Number(/\((\d+)\)/.exec(label)[1]);
+          assert.match(b.count, new RegExp(`^${n} of `));
+          if (name === 'file-375-light') report.push(`practise L8: "${label}" → browse "${b.count}", chips ${b.pressed.join()}`);
+          await page.screenshot({path: path.join(out, `${name}-practise-l8.png`)});
+          await page.click('#browse-close');
+          await settle(page);
+          assert.equal(await visible(page, 'reference'), true);
+          const after = await page.evaluate(() => scrollY);
+          assert.ok(Math.abs(after - before) < 2, `scroll ${before} → ${after}`);
+          // And L3.
+          await chip(page, 'L3').click();
+          await settle(page);
+          await page.click('#card-nlp-cnn-text .ref-practise');
+          await settle(page);
+          assert.deepEqual(await page.evaluate(() => [...document.querySelectorAll('#browse-lectures .chip[aria-pressed=true]')].map(c => c.textContent)), ['L3']);
+          await page.click('#browse-close');
+          await settle(page);
+        });
+
+        // Deep link (a fresh load), then a hash change from setup; DO links still switch subject.
+        await check('deep link', async () => {
+          await page.click('#ref-close');
+          await page.goto(url + '#ref=nlp-gpt2-mcq');
+          await ready(page);
+          await settle(page);
+          assert.equal(await visible(page, 'reference'), true);
+          const t = await page.evaluate(() => {
+            const card = document.getElementById('card-nlp-gpt2-mcq');
+            return {target: card.classList.contains('ref-target'), open: card.open, top: card.getBoundingClientRect().top, bar: document.getElementById('ref-topics').getBoundingClientRect().bottom,
+              hash: location.hash, subject: document.querySelector('.subject-tab[aria-pressed=true]').dataset.key};
+          });
+          assert.ok(t.target && t.open);
+          assert.equal(t.subject, 'nlp');
+          assert.ok(t.top >= t.bar - 1 && t.top < t.bar + 30, `card top ${t.top}, bar ${t.bar}`);
+          assert.equal(t.hash, '#ref=nlp-gpt2-mcq');
+          await page.screenshot({path: path.join(out, `${name}-deeplink.png`)});
+          await page.click('#ref-close');
+          await page.evaluate(() => { location.hash = '#ref=ref-qap'; });
+          await page.waitForTimeout(400);
+          assert.equal(await page.evaluate(() => document.querySelector('.subject-tab[aria-pressed=true]').dataset.key), 'do');
+          assert.equal(await page.getAttribute('#ref-search', 'placeholder'), 'e.g. subtour, Metropolis');
+          await page.click('#ref-close');
+          await page.evaluate(() => { location.hash = '#ref=nlp-bpe'; });
+          await page.waitForTimeout(400);
+          assert.equal(await page.evaluate(() => document.querySelector('.subject-tab[aria-pressed=true]').dataset.key), 'nlp');
+          assert.equal(await page.evaluate(() => document.getElementById('card-nlp-bpe').classList.contains('ref-target')), true);
+        });
+
+        // Switching subject while the NLP sheet is open: DVE has none, so back to setup.
+        await check('subject switch from the sheet', async () => {
+          await pickSubject(page, 'dve');
+          await settle(page);
+          assert.equal(await visible(page, 'setup'), true);
+          assert.equal(await visible(page, 'reference-open'), false);
+        });
+
+        await check('console errors', async () => assert.deepEqual(errors, []));
+        await context.close();
+      }
+    }
+  }
+  await browser.close();
+  server.close();
+  console.log(report.join('\n'));
+  console.log(problems.length ? `PROBLEMS (${problems.length}):\n` + problems.join('\n') : 'nlp-sheet.cjs: all checks passed');
   process.exit(problems.length ? 1 : 0);
 })();
 ```

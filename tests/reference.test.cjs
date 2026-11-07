@@ -1,6 +1,6 @@
 // node --test "tests/*.test.cjs"
 // The model sheet (src/core/reference.js): card validation, its shown texts and formulas, the sheet search,
-// the real DO reference file, and the build checks (tools/build-data.cjs run on a scratch folder).
+// the real DO and NLP reference files, and the build checks (tools/build-data.cjs run on a scratch folder).
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -116,7 +116,59 @@ test('the real DO model sheet: every scope topic has a card, every image is used
   // The notes' max-bisection, word for word in the formula.
   const bisection = ref.cards.find(c => c.id === 'ref-bisection');
   assert.ok(bisection.model.objective.includes('\\frac{1}{4} \\sum_{i=1}^n \\sum_{j=1}^n w_{ij}\\,(1 - x_i x_j)'));
-  for (const s of subjects) if (s.key !== 'do') assert.equal(s.reference, undefined, `${s.key} has no model sheet`);
+  for (const s of subjects) if (!['do', 'nlp'].includes(s.key)) assert.equal(s.reference, undefined, `${s.key} has no model sheet`);
+});
+
+test('a subject without topic names uses lecture numbers; topicTitles name the sections', () => {
+  const lectures = {key: 'tt', reference: 'tt-reference'};
+  const card = {...modelCard(), topic: 5};
+  const ref = {...reference([card]), scopeTopics: [1, 5], topicTitles: {5: 'Language modelling'}};
+  assert.deepEqual(problems(ref, lectures), []);
+  const out = problems({...ref, scopeTopics: [0, 1.5], cards: [{...card, topic: '5'}]}, lectures).join('\n');
+  assert.match(out, /scope topic 0 must be a lecture number/);
+  assert.match(out, /scope topic 1.5 must be a lecture number/);
+  assert.match(out, /topic 5 must be a lecture number/);
+  assert.match(problems({...ref, topicTitles: {7: 'Transformers'}}, lectures).join(), /topicTitles\["7"\] is not a scope topic/);
+  assert.match(problems({...ref, topicTitles: {5: ' '}}, lectures).join(), /topicTitles\["5"\] must be text/);
+  assert.match(problems({...ref, topicTitles: ['x']}, lectures).join(), /topicTitles must be an object/);
+  assert.deepEqual(problems({...ref, searchHint: 'attention, LoRA'}, lectures), []);
+  assert.match(problems({...ref, searchHint: ''}, lectures).join(), /searchHint must be text/);
+  // With topic names (DO), a number alone is not enough.
+  assert.match(problems({...reference([{...modelCard(), topic: 3}])}).join(), /topic 3 has no name in tt\.topics/);
+});
+
+test('the real NLP model sheet: lectures 1–10, every image used once, sources, the Test 2 card', () => {
+  const subjects = JSON.parse(fs.readFileSync(path.join(root, 'data', 'subjects.json'), 'utf8')).subjects;
+  const subject = subjects.find(s => s.key === 'nlp');
+  assert.equal(subject.reference, 'nlp-reference');
+  assert.equal(subject.topics, undefined, 'NLP keeps its L1–L10 lecture chips');
+  const ref = JSON.parse(fs.readFileSync(path.join(root, Quizy.setFile('nlp', subject.reference)), 'utf8'));
+  assert.deepEqual(problems(ref, subject, src => fs.existsSync(path.join(root, src))), []);
+  assert.deepEqual(ref.scopeTopics, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  for (const n of ref.scopeTopics) {
+    assert.ok(ref.cards.some(c => c.topic === n), `lecture ${n} has a card`);
+    assert.ok(ref.topicTitles[String(n)], `lecture ${n} has a section title`);
+  }
+  // Every diagram in the folder is used by exactly one card, at its real pixel size.
+  const images = ref.cards.flatMap(c => c.images);
+  const files = fs.readdirSync(path.join(root, 'data', 'nlp', 'img', 'reference'));
+  assert.deepEqual(images.map(i => path.basename(i.src)).sort(), [...files].sort());
+  for (const image of images) {
+    const png = fs.readFileSync(path.join(root, image.src));
+    assert.deepEqual([image.width, image.height], [png.readUInt32BE(16), png.readUInt32BE(20)], image.src);
+  }
+  // Card ids are unique across every sheet, so a #ref= link finds one subject.
+  const doRef = JSON.parse(fs.readFileSync(path.join(root, 'data', 'do', 'reference.json'), 'utf8'));
+  const doIds = new Set(doRef.cards.map(c => c.id));
+  for (const c of ref.cards) assert.ok(!doIds.has(c.id), `${c.id} is also a DO card`);
+  // The bookmarked Test 2 card: an algorithm with the 10-point answer, labelled as a recollection.
+  const mcq = ref.cards.find(c => c.id === 'nlp-gpt2-mcq');
+  assert.equal(mcq.topic, 8);
+  assert.equal(mcq.kind, 'algorithm');
+  assert.equal(mcq.steps.length, 10);
+  assert.match(mcq.source, /recalled from Test 2.*not the official wording/);
+  assert.match(mcq.source, /lecture8_transfer_learning\.pdf p\. 56/);
+  for (const c of ref.cards) assert.match(c.source, /lecture\d+_|not from the slides|scope announcement|recalled/, c.id);
 });
 
 // A scratch folder laid out like the repo with one subject, one set and a model sheet.
