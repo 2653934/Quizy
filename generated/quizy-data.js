@@ -36,6 +36,7 @@ window.QUIZY_DATA = {
         "nlp-bank-lecture-1",
         "nlp-bank-lecture-2",
         "nlp-bank-lecture-3",
+        "nlp-bank-lecture-4",
         "nlp-bank-lecture-5",
         "nlp-bank-lecture-6",
         "nlp-bank-lecture-7",
@@ -33249,6 +33250,524 @@ window.QUIZY_DATA = {
           ],
           "explanation": "Convolution: $(20 + 4 - 5)/1 + 1 = 20$ positions × 50 channels. Pooling 2 with stride 2 halves the positions: 10 × 50. Pooling never changes the number of channels.",
           "variantOf": "cnn-shape-calc"
+        }
+      ]
+    },
+    "nlp-bank-lecture-4": {
+      "id": "nlp-bank-lecture-4",
+      "subject": "nlp",
+      "title": "Practice bank: Lecture 4 (RNNs and BPE)",
+      "kind": "generated",
+      "origin": "new",
+      "description": "New quiz-style practice questions on RNNs, word embeddings, data augmentation, analysing filters and subword tokenization, with RNN-step, gradient, and BPE merge-trace calculations. Written for exam revision from the Lecture 4 slides and the tutorial. Not from the lecturer: the answers are unofficial.",
+      "unofficialAnswers": true,
+      "negativeMarkingNote": "The real Moodle quiz uses negative marking on MCQ questions: picking all right and wrong answers on a question results in a mark of 0.",
+      "totalMarks": 34,
+      "questions": [
+        {
+          "id": "nlp-b4-001",
+          "lecture": 4,
+          "concept": "RNN cell",
+          "source": {
+            "file": "lecture4_rnns_bpe.pdf",
+            "pages": [
+              3,
+              4
+            ]
+          },
+          "type": "numeric",
+          "marks": 4,
+          "question": "A vanilla RNN computes $h_t = \\tanh(h_{t-1}W_h + x_t W_x)$ (row vectors), with $W_h = \\begin{bmatrix}0.5 & 0 \\\\ 0 & 0.5\\end{bmatrix}$, $W_x = \\begin{bmatrix}1 & -1 \\\\ 0 & 1\\end{bmatrix}$ and $h_0 = (0, 0)$. The inputs are $x_1 = (1, 0)$, $x_2 = (0, 1)$.\n(a)–(b) $h_1$. (c)–(d) $h_2$.",
+          "parts": [
+            {
+              "label": "(a) h₁ first",
+              "answer": 0.7616,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "(b) h₁ second",
+              "answer": -0.7616,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "(c) h₂ first",
+              "answer": 0.3634,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "(d) h₂ second",
+              "answer": 0.5506,
+              "marks": 1,
+              "tolerance": 0.0006
+            }
+          ],
+          "solution": "$h_1 = \\tanh((0,0) + (1,-1)) = (0.7616, -0.7616)$.\n$h_1 W_h = (0.3808, -0.3808)$, $x_2 W_x = (0, 1)$, so $h_2 = \\tanh(0.3808, 0.6192) = (0.3634, 0.5506)$.",
+          "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+          "explanation": "The same $W_h$ and $W_x$ are used at every step. For classification the final state $h_T$ is the text representation.",
+          "variantOf": "rnn-step-calc"
+        },
+        {
+          "id": "nlp-b4-002",
+          "lecture": 4,
+          "concept": "RNN cell",
+          "source": {
+            "file": "lecture4_rnns_bpe.pdf",
+            "pages": [
+              4
+            ]
+          },
+          "type": "numeric",
+          "marks": 3,
+          "question": "A vanilla RNN has input size 100 and hidden size 50, $h_t = \\tanh(h_{t-1}W_h + x_tW_x + b)$. How many parameters does it have (a) in $W_h$, (b) in $W_x$, (c) in total with the bias?",
+          "parts": [
+            {
+              "label": "(a) W_h",
+              "answer": 2500,
+              "marks": 1,
+              "tolerance": 0.1
+            },
+            {
+              "label": "(b) W_x",
+              "answer": 5000,
+              "marks": 1,
+              "tolerance": 0.1
+            },
+            {
+              "label": "(c) total",
+              "answer": 7550,
+              "marks": 1,
+              "tolerance": 0.1
+            }
+          ],
+          "solution": "(a) $50 \\times 50 = 2500$. (b) $100 \\times 50 = 5000$. (c) $2500 + 5000 + 50 = 7550$, the same however long the sentence is.",
+          "inputHint": "A whole number."
+        },
+        {
+          "id": "nlp-b4-003",
+          "lecture": 4,
+          "concept": "RNN text classification",
+          "source": {
+            "file": "lecture4_rnns_bpe.pdf",
+            "pages": [
+              5
+            ]
+          },
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or False: The simplest RNN classifier reads the whole text and uses the final hidden state as the text representation $h$.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slide 5: the final state \"knows\" everything because it saw all tokens (though it is biased towards recent ones)."
+        },
+        {
+          "id": "nlp-b4-004",
+          "lecture": 4,
+          "concept": "Problems with recurrence",
+          "source": {
+            "file": "lecture4_rnns_bpe.pdf",
+            "pages": [
+              6
+            ]
+          },
+          "type": "numeric",
+          "marks": 2,
+          "question": "Back-propagating through an RNN multiplies the gradient by roughly the same factor at every time step. Over 50 steps, what does a factor of (a) 0.9 and (b) 1.1 do to a gradient of size 1?",
+          "parts": [
+            {
+              "label": "(a) factor 0.9",
+              "answer": 0.005154,
+              "marks": 1,
+              "relTolerance": 0.01
+            },
+            {
+              "label": "(b) factor 1.1",
+              "answer": 117.39,
+              "marks": 1,
+              "relTolerance": 0.01
+            }
+          ],
+          "solution": "(a) $0.9^{50} = 0.005154$: vanishing. (b) $1.1^{50} = 117.39$: exploding.",
+          "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+          "explanation": "\"Lots of matrix multiplications either blow up or diminish the activity going through the network\" (slide 6). The tanh derivative is at most 1, which pushes towards vanishing."
+        },
+        {
+          "id": "nlp-b4-005",
+          "lecture": 4,
+          "concept": "Problems with recurrence",
+          "source": {
+            "file": "lecture4_rnns_bpe.pdf",
+            "pages": [
+              6,
+              8
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which are the problems with recurrence listed in Lecture 4?",
+          "choices": [
+            "Vanishing and exploding gradients",
+            "Credit assignment: position information is subtle and often lost; recency bias",
+            "A fixed vector size that does not grow with the sentence",
+            "RNNs cannot handle variable-length input"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "RNNs do handle variable-length input; the problem is that the summary vector has a fixed size."
+        },
+        {
+          "id": "nlp-b4-006",
+          "lecture": 4,
+          "concept": "Multi-layer and bidirectional RNNs",
+          "source": {
+            "file": "lecture4_rnns_bpe.pdf",
+            "pages": [
+              10
+            ]
+          },
+          "type": "single",
+          "marks": 1,
+          "question": "What does a bidirectional RNN classifier use as its text representation?",
+          "choices": [
+            "The final states of a forward and a backward RNN (concatenated)",
+            "Only the backward RNN's first state",
+            "The average of the input embeddings",
+            "The output of a softmax"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Each direction is biased towards the words it read last, so combining them covers both ends of the sentence."
+        },
+        {
+          "id": "nlp-b4-007",
+          "lecture": 4,
+          "concept": "Multi-layer and bidirectional RNNs",
+          "source": {
+            "file": "lecture4_rnns_bpe.pdf",
+            "pages": [
+              9
+            ]
+          },
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or False: In a multi-layer RNN the states of one RNN are fed as the inputs of the next.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slide 9."
+        },
+        {
+          "id": "nlp-b4-008",
+          "lecture": 4,
+          "concept": "Word embeddings: scratch, pretrained or fine-tuned",
+          "source": {
+            "file": "lecture4_rnns_bpe.pdf",
+            "pages": [
+              13,
+              16
+            ]
+          },
+          "type": "match",
+          "marks": 3,
+          "question": "Match each way of getting word embeddings to what it knows (slide 15).",
+          "pairs": [
+            {
+              "prompt": "Train from scratch",
+              "answer": "May not be enough to learn relationships between words"
+            },
+            {
+              "prompt": "Take pretrained (Word2Vec, GloVe), frozen",
+              "answer": "Know relationships between words, but are not specific to the task"
+            },
+            {
+              "prompt": "Initialise with pretrained, then fine-tune",
+              "answer": "Know relationships between words and are adapted for the task"
+            }
+          ],
+          "options": [
+            "May not be enough to learn relationships between words",
+            "Know relationships between words, but are not specific to the task",
+            "Know relationships between words and are adapted for the task",
+            "Know the meaning of every word in every context"
+          ],
+          "explanation": "The third option \"transfers\" knowledge from a huge unlabelled corpus: a preview of Lecture 8."
+        },
+        {
+          "id": "nlp-b4-009",
+          "lecture": 4,
+          "concept": "Data augmentation for text",
+          "source": {
+            "file": "lecture4_rnns_bpe.pdf",
+            "pages": [
+              19,
+              25
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which are text data-augmentation methods from Lecture 4?",
+          "choices": [
+            "Word dropout: replace random words with UNK or random words",
+            "Replace words with synonyms from a thesaurus",
+            "Back-translation: translate to another language and back to get a paraphrase",
+            "Flipping the text backwards"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "Augmentation should change the text while keeping its meaning; reversing word order destroys it. Word dropout is \"the most simple and popular\"."
+        },
+        {
+          "id": "nlp-b4-010",
+          "lecture": 4,
+          "concept": "Analysing convolutional filters",
+          "source": {
+            "file": "lecture4_rnns_bpe.pdf",
+            "pages": [
+              29,
+              30
+            ]
+          },
+          "type": "single",
+          "marks": 1,
+          "question": "How does Lecture 4 find out what a convolutional filter has learned?",
+          "choices": [
+            "Find the positions where the filter activates most and trace them back to the n-grams in the input",
+            "Read the filter weights as words",
+            "Remove the filter and retrain",
+            "Look at the gradient of the loss"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Top n-grams per filter: e.g. one filter fires on \"poorly designed junk\", \"utterly useless .\"."
+        },
+        {
+          "id": "nlp-b4-011",
+          "lecture": 4,
+          "concept": "Analysing convolutional filters",
+          "source": {
+            "file": "lecture4_rnns_bpe.pdf",
+            "pages": [
+              30
+            ]
+          },
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or False: A single convolutional filter tends to activate for a family of n-grams with similar meaning (e.g. \"still working perfect\", \"works … perfect\", \"still near perfect\").",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slide 30: \"a filter activates for a family of n-grams with similar meaning\"."
+        },
+        {
+          "id": "nlp-b4-012",
+          "lecture": 4,
+          "concept": "Unknown words and subwords",
+          "source": {
+            "file": "lecture4_rnns_bpe.pdf",
+            "pages": [
+              32,
+              33
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "What are the problems with splitting text into whole words?",
+          "choices": [
+            "The model has a predefined vocabulary",
+            "Unseen words become the meaningless UNK token",
+            "Rare word forms get poor representations",
+            "Frequent words are split into characters"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "The fix is to represent rare or unknown words by subwords (morphemes are the smallest units of meaning)."
+        },
+        {
+          "id": "nlp-b4-013",
+          "lecture": 4,
+          "concept": "Unknown words and subwords",
+          "source": {
+            "file": "lecture4_rnns_bpe.pdf",
+            "pages": [
+              35
+            ]
+          },
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or False: In BPE, frequent words are kept intact while rare words are split into subwords.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slide 35; this is adaptive, unlike a fixed character or word vocabulary."
+        },
+        {
+          "id": "nlp-b4-014",
+          "lecture": 4,
+          "concept": "BPE training",
+          "source": {
+            "file": "lecture4_rnns_bpe.pdf",
+            "pages": [
+              39,
+              44
+            ]
+          },
+          "type": "numeric",
+          "marks": 3,
+          "question": "This is the slide example. A BPE tokenizer is trained on the word counts cat ×4, mat ×5, mats ×2, mate ×3, ate ×3, eat ×2, starting from characters (pairs are counted only inside words).\n(a) How many times does the most frequent pair occur at the first step?\n(b) After merging it, how many times does the most frequent pair occur at the second step?\n(c) How many tokens is \"mats\" after these two merges?",
+          "parts": [
+            {
+              "label": "(a) first count",
+              "answer": 19,
+              "marks": 1,
+              "tolerance": 0.1
+            },
+            {
+              "label": "(b) second count",
+              "answer": 10,
+              "marks": 1,
+              "tolerance": 0.1
+            },
+            {
+              "label": "(c) tokens in \"mats\"",
+              "answer": 2,
+              "marks": 1,
+              "tolerance": 0.1
+            }
+          ],
+          "solution": "Merges: 1. a+t (19), 2. m+at (10), 3. c+at (4).\n(a) \"a\"+\"t\" occurs in every word: $4 + 5 + 2 + 3 + 3 + 2 = 19$.\n(b) \"m\"+\"at\": mat 5 + mats 2 + mate 3 = 10.\n(c) \"mats\" → mat · s: 2 tokens.",
+          "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+          "explanation": "The slide then merges \"c\"+\"at\". Frequent words such as \"cat\" and \"mat\" end up as single symbols, while plurals (\"mats\") stay split longer.",
+          "variantOf": "bpe-calc"
+        },
+        {
+          "id": "nlp-b4-015",
+          "lecture": 4,
+          "concept": "BPE training",
+          "source": {
+            "file": "lecture4_rnns_bpe.pdf",
+            "pages": [
+              38,
+              45
+            ]
+          },
+          "type": "numeric",
+          "marks": 5,
+          "question": "Train BPE on the word counts low ×5, lower ×2, newest ×6, widest ×3, starting from characters. Count pairs only inside words, and break ties by choosing the alphabetically first pair.\n(a)–(d) Give the count of the pair merged at each of the first four steps.\n(e) Using these four merges in order, how many tokens is the new word \"lowest\"?",
+          "parts": [
+            {
+              "label": "(a) merge 1 count",
+              "answer": 9,
+              "marks": 1,
+              "tolerance": 0.1
+            },
+            {
+              "label": "(b) merge 2 count",
+              "answer": 9,
+              "marks": 1,
+              "tolerance": 0.1
+            },
+            {
+              "label": "(c) merge 3 count",
+              "answer": 7,
+              "marks": 1,
+              "tolerance": 0.1
+            },
+            {
+              "label": "(d) merge 4 count",
+              "answer": 7,
+              "marks": 1,
+              "tolerance": 0.1
+            },
+            {
+              "label": "(e) tokens in \"lowest\"",
+              "answer": 2,
+              "marks": 1,
+              "tolerance": 0.1
+            }
+          ],
+          "solution": "Merges in order: 1. e+s (9); 2. es+t (9); 3. l+o (7); 4. lo+w (7).\nWords after four merges: low ×5, low · e · r ×2, n · e · w · est ×6, w · i · d · est ×3.\n(e) Apply the merges in order to l o w e s t: low · est → 2 tokens.",
+          "inputHint": "A whole number.",
+          "explanation": "Inference applies the learned merges in the order they were learned (the merge table is ordered), so BPE is deterministic. A word never seen in training still gets segmented into known pieces.",
+          "variantOf": "bpe-calc"
+        },
+        {
+          "id": "nlp-b4-016",
+          "lecture": 4,
+          "concept": "BPE inference",
+          "source": {
+            "file": "lecture4_rnns_bpe.pdf",
+            "pages": [
+              45
+            ]
+          },
+          "type": "single",
+          "marks": 1,
+          "question": "How does a trained BPE tokenizer segment new text?",
+          "choices": [
+            "Split words into characters, then apply the merges from the merge table in order, wherever they occur",
+            "Look each whole word up in the vocabulary and use UNK if it is missing",
+            "Pick the longest vocabulary token at each position, greedily from the left",
+            "Sample a segmentation at random"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "The merge table is ordered: merges higher in the table were more frequent and get priority. BPE is deterministic."
+        },
+        {
+          "id": "nlp-b4-017",
+          "lecture": 4,
+          "concept": "BPE inference",
+          "source": {
+            "file": "lecture4_rnns_bpe.pdf",
+            "pages": [
+              44
+            ]
+          },
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or False: In the slide's BPE implementation detail, a marker such as \"@@\" lets the tokenizer treat \"mat\" as a whole word differently from \"mat\" inside \"mat s\".",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slide 44: the marker distinguishes whole-word tokens from word-internal pieces."
         }
       ]
     },
