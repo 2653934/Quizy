@@ -116,7 +116,8 @@
   function draw() {
     const ref = built;
     const terms = Quizy.searchTerms(query);
-    const groups = ref.scopeTopics.map(n => ({n, title: topicName(n), cards: []}));
+    // The chip shows the topic's name ("L5" without subject topic names); the heading adds the sheet's topicTitles.
+    const groups = ref.scopeTopics.map(n => ({n, chip: topicName(n), title: ref.topicTitles?.[String(n)] ? `${topicName(n)} · ${ref.topicTitles[String(n)]}` : topicName(n), cards: []}));
     const extra = {n: 'extra', title: ref.extraTitle || 'Other', cards: []};
     for (const c of ref.cards) (groups.find(g => g.n === c.topic) || extra).cards.push(c);
     if (extra.cards.length) groups.push(extra);
@@ -133,7 +134,7 @@
     $('ref-cards').replaceChildren(...sections);
     // A chip per scope topic; one whose cards are all filtered out by the search is disabled.
     $('ref-topics').replaceChildren(...groups.filter(g => g.n !== 'extra').map(g => {
-      const chip = el('button', 'chip', g.title);
+      const chip = el('button', 'chip', g.chip);
       chip.type = 'button';
       chip.disabled = sections[groups.indexOf(g)].hidden;
       chip.addEventListener('click', () => jumpTo($(`ref-topic-${g.n}`)));
@@ -182,6 +183,8 @@
     $('ref-title').textContent = ref.title;
     Quizy.richText($('ref-description'), ref.description || '');
     $('ref-search').value = query;
+    // The sheet's own example terms ("e.g. subtour, Metropolis"); a neutral hint without them.
+    $('ref-search').placeholder = ref.searchHint ? `e.g. ${ref.searchHint}` : 'Search the cards';
     draw();
     setHash(null);
     ui.show('reference');

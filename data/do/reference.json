@@ -3,6 +3,7 @@
   "subject": "do",
   "title": "DO model sheet",
   "description": "Every model and algorithm in the 2026 final scope, one card each, checked against the course notes. Page numbers are the printed page numbers of the notes. Diagrams use made-up example data.",
+  "searchHint": "subtour, Metropolis",
   "scopeTopics": [
     1,
     2,

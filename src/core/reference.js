@@ -8,6 +8,10 @@
 //   steps?: [text], points?: [text], images: [{src, alt, width, height}], example?, source}
 // An image's width and height (its pixel size) let the page reserve its space before it loads.
 // `math` and `objective` are bare LaTeX (drawn as formulas); every other text may hold $…$ maths.
+// A card's topic is a topic named in the subject's `topics` (DO) or, for a subject without them (NLP), a
+// lecture number (shown as "L5"). The optional `topicTitles` ({"5": "Language modelling"}) only adds a
+// title to a scope topic's section heading on the sheet ("L5 · Language modelling"). The optional `searchHint`
+// ("subtour, Metropolis") is shown in the search box as "e.g. …".
 (function (Quizy) {
   Quizy.REFERENCE_KINDS = ['model', 'algorithm', 'concept'];
 
@@ -48,10 +52,18 @@
     if (ref.id !== subject.reference) fail(`${where}: id is "${ref.id}", expected "${subject.reference}"`);
     if (ref.subject !== subject.key) fail(`${where}: subject is "${ref.subject}", expected "${subject.key}"`);
     if (!isText(ref.title)) fail(`${where}: missing title`);
-    const named = n => isText(subject.topics?.[String(n)]);
+    const named = n => subject.topics ? isText(subject.topics[String(n)]) : Number.isInteger(n) && n > 0;
     if (!Array.isArray(ref.scopeTopics) || !ref.scopeTopics.length) fail(`${where}: scopeTopics must list the topics to show as chips`);
-    else for (const n of ref.scopeTopics) if (!named(n)) fail(`${where}: scope topic ${n} has no name in ${subject.key}.topics`);
+    else for (const n of ref.scopeTopics) if (!named(n)) fail(subject.topics ? `${where}: scope topic ${n} has no name in ${subject.key}.topics` : `${where}: scope topic ${n} must be a lecture number`);
     if (ref.extraTitle !== undefined && !isText(ref.extraTitle)) fail(`${where}: extraTitle must be text`);
+    if (ref.searchHint !== undefined && !isText(ref.searchHint)) fail(`${where}: searchHint must be text`);
+    if (ref.topicTitles !== undefined) {
+      if (!ref.topicTitles || typeof ref.topicTitles !== 'object' || Array.isArray(ref.topicTitles)) fail(`${where}: topicTitles must be an object`);
+      else for (const [n, title] of Object.entries(ref.topicTitles)) {
+        if (!isText(title)) fail(`${where}: topicTitles["${n}"] must be text`);
+        if (!Array.isArray(ref.scopeTopics) || !ref.scopeTopics.map(String).includes(n)) fail(`${where}: topicTitles["${n}"] is not a scope topic`);
+      }
+    }
     if (!Array.isArray(ref.cards) || !ref.cards.length) return fail(`${where}: cards must be a non-empty array`);
     const ids = new Set();
     ref.cards.forEach((card, i) => {
@@ -61,7 +73,7 @@
       else if (ids.has(card.id)) fail(`${at}: duplicate id`);
       else if (!/^[a-z0-9-]+$/.test(card.id)) fail(`${at}: id may only use a–z, 0–9 and "-"`);
       ids.add(card.id);
-      if (!Number.isInteger(card.topic) || !named(card.topic)) fail(`${at}: topic ${card.topic} has no name in ${subject.key}.topics`);
+      if (!Number.isInteger(card.topic) || !named(card.topic)) fail(subject.topics ? `${at}: topic ${card.topic} has no name in ${subject.key}.topics` : `${at}: topic ${card.topic} must be a lecture number`);
       if (!isText(card.title)) fail(`${at}: missing title`);
       if (!Quizy.REFERENCE_KINDS.includes(card.kind)) fail(`${at}: kind must be ${Quizy.REFERENCE_KINDS.join(', ')}`);
       if (!isText(card.summary)) fail(`${at}: missing summary`);
