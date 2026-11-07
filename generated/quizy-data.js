@@ -42,7 +42,8 @@ window.QUIZY_DATA = {
         "nlp-bank-lecture-7",
         "nlp-bank-lecture-8",
         "nlp-bank-lecture-9",
-        "nlp-bank-lecture-10"
+        "nlp-bank-lecture-10",
+        "nlp-mock-exam"
       ]
     },
     {
@@ -41724,6 +41725,1093 @@ window.QUIZY_DATA = {
             },
             {
               "point": "Names who is disadvantaged",
+              "marks": 1
+            }
+          ]
+        }
+      ]
+    },
+    "nlp-mock-exam": {
+      "id": "nlp-mock-exam",
+      "subject": "nlp",
+      "title": "Mock exam (100 marks)",
+      "kind": "generated",
+      "origin": "new",
+      "description": "Your own 100-mark mock exam, imported as practice: Section A has 50 one-mark quiz questions from all lectures, Section B has 5 written questions (50 marks) with the memo as model answers. Generated practice, not lecturer-authored: the answers are unofficial.",
+      "sourceFile": "Obsidian: University/2026/COMS4054A - NLP/Prep/NLP Mock Exam.md and NLP Mock Exam Memo.md",
+      "unofficialAnswers": true,
+      "negativeMarkingNote": "The mock paper marks multi-select questions all-or-nothing; this app uses the Moodle formula, where picking all right and wrong answers results in a mark of 0.",
+      "totalMarks": 100,
+      "questions": [
+        {
+          "id": "nlp-mock-a01",
+          "lecture": 1,
+          "concept": "Derivation vs inflection",
+          "type": "single",
+          "marks": 1,
+          "question": "Which of these is an inflectional morpheme?",
+          "choices": [
+            "\"-ness\" in \"kindness\"",
+            "\"-s\" in \"comes\"",
+            "\"un-\" in \"undo\"",
+            "\"-er\" in \"teacher\""
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "\"-s\" is inflectional (no change of word class). The others are derivational."
+        },
+        {
+          "id": "nlp-mock-a02",
+          "lecture": 1,
+          "concept": "Stemming",
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or false: stemming always produces a valid dictionary word.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "Stemming chops affixes (\"studies\" → \"studi\"). Lemmatization returns a dictionary form."
+        },
+        {
+          "id": "nlp-mock-a03",
+          "lecture": 1,
+          "concept": "Distributional hypothesis",
+          "type": "single",
+          "marks": 1,
+          "question": "The distributional hypothesis states that:",
+          "choices": [
+            "frequent words carry less meaning",
+            "words that occur in similar contexts tend to have similar meanings",
+            "word meaning is determined by its morphemes",
+            "a word's probability depends only on the previous word"
+          ],
+          "answer": [
+            1
+          ]
+        },
+        {
+          "id": "nlp-mock-a04",
+          "lecture": 2,
+          "concept": "Skip-gram vs CBOW",
+          "type": "single",
+          "marks": 1,
+          "question": "In skip-gram word2vec, the model learns by predicting:",
+          "choices": [
+            "the centre word from the averaged context",
+            "the context words from the centre word",
+            "the next sentence",
+            "the document label"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "CBOW is the reverse (centre from context)."
+        },
+        {
+          "id": "nlp-mock-a05",
+          "lecture": 2,
+          "concept": "Word2Vec softmax probabilities",
+          "type": "single",
+          "marks": 1,
+          "question": "Word2vec keeps two vectors for each word (a centre vector and a context vector). The main reason is:",
+          "choices": [
+            "to double the model capacity for rare words",
+            "so that a word does not have to score its own vector highly against itself, which keeps the optimisation simpler",
+            "because CBOW and skip-gram need different vocabularies",
+            "to make the embeddings contextual"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "Using one vector would put $u \\cdot u$ in the objective. Two vectors keep it simple; they're averaged, summed, or the context vectors are thrown away at the end."
+        },
+        {
+          "id": "nlp-mock-a06",
+          "lecture": 2,
+          "concept": "Negative sampling",
+          "type": "single",
+          "marks": 1,
+          "question": "Negative sampling replaces the full softmax over $|V|$ with:",
+          "choices": [
+            "a softmax over the k most frequent words",
+            "a binary logistic classification of the true (centre, context) pair against k sampled noise pairs",
+            "hierarchical clustering of the vocabulary",
+            "a margin loss over all of V"
+          ],
+          "answer": [
+            1
+          ]
+        },
+        {
+          "id": "nlp-mock-a07",
+          "lecture": 2,
+          "concept": "Intrinsic vs extrinsic evaluation",
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or false: testing whether king − man + woman ≈ queen is an extrinsic evaluation of word embeddings.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "Analogies are intrinsic (fast, no downstream task)."
+        },
+        {
+          "id": "nlp-mock-a08",
+          "lecture": 2,
+          "concept": "Static embeddings as features",
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or false: word2vec gives \"bank\" the same vector in \"river bank\" and \"bank loan\".",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Static embeddings. This is the motivation for ELMo and BERT."
+        },
+        {
+          "id": "nlp-mock-a09",
+          "lecture": 3,
+          "concept": "tf-idf",
+          "type": "single",
+          "marks": 1,
+          "question": "tf-idf gives a low weight to a word that:",
+          "choices": [
+            "appears many times in one document",
+            "appears in almost every document in the corpus",
+            "is rare across the corpus",
+            "appears only in the title"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "The idf term is log(N/df), so a word in almost every document gets ≈ 0."
+        },
+        {
+          "id": "nlp-mock-a10",
+          "lecture": 3,
+          "concept": "CNN output shapes, stride and padding",
+          "type": "single",
+          "marks": 1,
+          "question": "A 1D CNN runs over a 10-token sentence with 50-dimensional embeddings, using 100 filters of width 3, stride 1 and no padding. What is the output shape (positions × channels)?",
+          "choices": [
+            "10 × 100",
+            "8 × 100",
+            "8 × 50",
+            "3 × 100"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "10 − 3 + 1 = 8 positions; 100 filters means 100 channels."
+        },
+        {
+          "id": "nlp-mock-a11",
+          "lecture": 3,
+          "concept": "CNN parameter counts",
+          "type": "single",
+          "marks": 1,
+          "question": "How many trainable parameters does that convolution layer (100 filters of width 3 over 50-dimensional embeddings) have, including biases?",
+          "choices": [
+            "15,000",
+            "15,100",
+            "300",
+            "5,100"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "3·50·100 + 100 biases = 15,100."
+        },
+        {
+          "id": "nlp-mock-a12",
+          "lecture": 3,
+          "concept": "Classical methods: BOW features, SVM, Naive Bayes",
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or false: Naive Bayes assumes the features are conditionally independent given the class.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ]
+        },
+        {
+          "id": "nlp-mock-a13",
+          "lecture": 3,
+          "concept": "Translation invariance and equivariance",
+          "type": "multi",
+          "marks": 1,
+          "negativeMarking": true,
+          "question": "Select all true statements:",
+          "choices": [
+            "convolution is translation equivariant",
+            "global max pooling is translation invariant",
+            "global pooling turns a variable-length input into a fixed-size vector",
+            "local pooling with stride 1 makes the output fully invariant"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "Local pooling only gives local invariance."
+        },
+        {
+          "id": "nlp-mock-a14",
+          "lecture": 3,
+          "concept": "Several kernel sizes, stacking and receptive field",
+          "type": "single",
+          "marks": 1,
+          "question": "Two stacked width-3 convolutions (stride 1) are applied over tokens. What is the receptive field of one output in the second layer?",
+          "choices": [
+            "3",
+            "4",
+            "5",
+            "6 tokens"
+          ],
+          "answer": [
+            2
+          ],
+          "explanation": "3 + (3 − 1) = 5."
+        },
+        {
+          "id": "nlp-mock-a15",
+          "lecture": 4,
+          "concept": "Problems with recurrence",
+          "type": "single",
+          "marks": 1,
+          "question": "The main cause of vanishing gradients in a vanilla RNN is:",
+          "choices": [
+            "the softmax at the output",
+            "repeated multiplication by the recurrent weight matrix and the tanh derivative over many time steps",
+            "using too large a learning rate",
+            "the embedding layer"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "The gradient is a product of Jacobians over time."
+        },
+        {
+          "id": "nlp-mock-a16",
+          "lecture": 4,
+          "concept": "BPE training",
+          "type": "single",
+          "marks": 1,
+          "question": "BPE is trained on the word counts {hug: 10, pug: 5, hugs: 5}, starting from characters. What is the first merge?",
+          "choices": [
+            "h + u",
+            "u + g",
+            "p + u",
+            "g + s"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "Pair counts: u‑g = 10 + 5 + 5 = 20, h‑u = 15, p‑u = 5, g‑s = 5. Next merge: h + ug → \"hug\"."
+        },
+        {
+          "id": "nlp-mock-a17",
+          "lecture": 4,
+          "concept": "Data augmentation for text",
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or false: back-translation (translating to another language and back) is a data-augmentation technique.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ]
+        },
+        {
+          "id": "nlp-mock-a18",
+          "lecture": 5,
+          "concept": "Markov assumption and n-gram order",
+          "type": "single",
+          "marks": 1,
+          "question": "A 4-gram language model conditions each prediction on how many previous words?",
+          "choices": [
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "n − 1 = 3. The n includes the predicted word."
+        },
+        {
+          "id": "nlp-mock-a19",
+          "lecture": 5,
+          "concept": "Temperature",
+          "type": "single",
+          "marks": 1,
+          "question": "As the softmax temperature $\\tau \\to 0$, sampling becomes:",
+          "choices": [
+            "uniform",
+            "equivalent to greedy (argmax) decoding",
+            "Laplace smoothing",
+            "nucleus sampling"
+          ],
+          "answer": [
+            1
+          ]
+        },
+        {
+          "id": "nlp-mock-a20",
+          "lecture": 5,
+          "concept": "Temperature",
+          "type": "single",
+          "marks": 1,
+          "question": "The logits are [2, 1, 0]. With $\\tau = 2$, the probability of the highest-scoring token is closest to:",
+          "choices": [
+            "0.665",
+            "0.867",
+            "0.507",
+            "0.333"
+          ],
+          "answer": [
+            2
+          ],
+          "explanation": "softmax([1, 0.5, 0]) = [0.5065, 0.3072, 0.1863]. (τ = 1 gives 0.6652; τ = 0.5 gives 0.8668.)"
+        },
+        {
+          "id": "nlp-mock-a21",
+          "lecture": 5,
+          "concept": "Perplexity",
+          "type": "single",
+          "marks": 1,
+          "question": "What is the perplexity of a uniform model over a vocabulary of 10,000 words?",
+          "choices": [
+            "1",
+            "$\\log_2 10{,}000$",
+            "10,000",
+            "1/10,000"
+          ],
+          "answer": [
+            2
+          ]
+        },
+        {
+          "id": "nlp-mock-a22",
+          "lecture": 5,
+          "concept": "Cross-entropy (not BCE) for next-token prediction",
+          "type": "single",
+          "marks": 1,
+          "question": "The correct per-token loss for next-token prediction is:",
+          "choices": [
+            "binary cross-entropy summed over |V| sigmoid outputs",
+            "$-\\log \\hat p(\\text{observed token})$ from a single softmax over |V|",
+            "mean-squared error between the logits and the one-hot vector",
+            "hinge loss"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "Not BCE."
+        },
+        {
+          "id": "nlp-mock-a23",
+          "lecture": 5,
+          "concept": "Top-p (nucleus) sampling",
+          "type": "single",
+          "marks": 1,
+          "question": "The next-token distribution is [0.50, 0.30, 0.15, 0.05]. How many tokens are in the nucleus (top-p) candidate set with p = 0.9?",
+          "choices": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "answer": [
+            2
+          ],
+          "explanation": "0.5 + 0.3 = 0.8 < 0.9, and adding 0.15 gives 0.95 ≥ 0.9, so the set has 3 tokens. Renormalise within it and sample."
+        },
+        {
+          "id": "nlp-mock-a24",
+          "lecture": 5,
+          "concept": "Weight tying",
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or false: weight tying needs the dimension of the vector fed to the output layer to match the embedding dimension (or a projection between them).",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ]
+        },
+        {
+          "id": "nlp-mock-a25",
+          "lecture": 5,
+          "concept": "Linear interpolation",
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or false: in linear interpolation of n-gram models, the λ weights must sum to 1 and are tuned on held-out data.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ]
+        },
+        {
+          "id": "nlp-mock-a26",
+          "lecture": 6,
+          "concept": "Greedy decoding vs the best sentence",
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or false: greedy decoding returns the sentence that maximises $\\prod_t p(y_t \\mid y_{<t}, x)$.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            1
+          ]
+        },
+        {
+          "id": "nlp-mock-a27",
+          "lecture": 6,
+          "concept": "Beam search",
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or false: beam search with beam width k = 1 is equivalent to greedy decoding.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ]
+        },
+        {
+          "id": "nlp-mock-a28",
+          "lecture": 6,
+          "concept": "Bahdanau model",
+          "type": "single",
+          "marks": 1,
+          "question": "Which pairing is correct (as taught)?",
+          "choices": [
+            "Bahdanau: unidirectional encoder, attends with $h_t$",
+            "Bahdanau: bidirectional encoder, attends with $h_{t-1}$",
+            "Luong: bidirectional encoder, attends with $h_{t-1}$",
+            "Luong: MLP score, attends with $h_{t-1}$"
+          ],
+          "answer": [
+            1
+          ]
+        },
+        {
+          "id": "nlp-mock-a29",
+          "lecture": 6,
+          "concept": "Attention score functions",
+          "type": "single",
+          "marks": 1,
+          "question": "Which is NOT an attention score function?",
+          "choices": [
+            "dot product",
+            "bilinear",
+            "MLP (additive)",
+            "softmax"
+          ],
+          "answer": [
+            3
+          ]
+        },
+        {
+          "id": "nlp-mock-a30",
+          "lecture": 6,
+          "concept": "The fixed-representation bottleneck",
+          "type": "single",
+          "marks": 1,
+          "question": "In a seq2seq model without attention, the decoder gets source information only through:",
+          "choices": [
+            "the encoder's output at every step",
+            "the encoder's final hidden state, used as its initial state",
+            "cross-attention",
+            "the target embeddings"
+          ],
+          "answer": [
+            1
+          ]
+        },
+        {
+          "id": "nlp-mock-a31",
+          "lecture": 6,
+          "concept": "BLEU",
+          "type": "multi",
+          "marks": 1,
+          "negativeMarking": true,
+          "question": "Select all true statements about BLEU:",
+          "choices": [
+            "it is based on n-gram precision against reference translations",
+            "it rewards correct synonyms that don't appear in the reference",
+            "it includes a brevity penalty",
+            "it can be gamed"
+          ],
+          "answer": [
+            0,
+            2,
+            3
+          ],
+          "explanation": "It only rewards exact n-gram matches, so it misses synonyms and paraphrases."
+        },
+        {
+          "id": "nlp-mock-a32",
+          "lecture": 6,
+          "concept": "Training with cross-entropy (teacher forcing)",
+          "type": "single",
+          "marks": 1,
+          "question": "During training, feeding the decoder the ground-truth previous token instead of its own prediction is called:",
+          "choices": [
+            "beam search",
+            "teacher forcing",
+            "backoff",
+            "weight tying"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "The concept is on the L6 cross-entropy slide; the name \"teacher forcing\" is standard but may not be the slide's wording."
+        },
+        {
+          "id": "nlp-mock-a33",
+          "lecture": 7,
+          "concept": "Attention weights vs attention output",
+          "type": "single",
+          "marks": 1,
+          "question": "The \"attention matrix\" (the attention weights) is:",
+          "choices": [
+            "$QK^\\top$",
+            "$\\text{softmax}(QK^\\top/\\sqrt{d_k})$",
+            "$\\text{softmax}(QK^\\top/\\sqrt{d_k})V$",
+            "$QK^\\top V$"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "Don't multiply by V."
+        },
+        {
+          "id": "nlp-mock-a34",
+          "lecture": 7,
+          "concept": "Cross-attention and where each attention type lives",
+          "type": "single",
+          "marks": 1,
+          "question": "In encoder–decoder cross-attention:",
+          "choices": [
+            "Q, K and V all come from the encoder",
+            "Q comes from the encoder; K and V from the decoder",
+            "Q comes from the decoder; K and V from the encoder",
+            "Q and K come from the decoder; V from the encoder"
+          ],
+          "answer": [
+            2
+          ]
+        },
+        {
+          "id": "nlp-mock-a35",
+          "lecture": 7,
+          "concept": "Masked self-attention",
+          "type": "single",
+          "marks": 1,
+          "question": "Causal masking in decoder self-attention is done by:",
+          "choices": [
+            "setting future scores to 0 before the softmax",
+            "setting future scores to −∞ before the softmax",
+            "setting future values to 0",
+            "dropping future tokens from the batch"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "exp(−∞) = 0. Setting a score to 0 gives exp(0) = 1, so it masks nothing."
+        },
+        {
+          "id": "nlp-mock-a36",
+          "lecture": 7,
+          "concept": "Positional encoding",
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or false: without positional information, self-attention is permutation equivariant.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Equivariant, not invariant."
+        },
+        {
+          "id": "nlp-mock-a37",
+          "lecture": 7,
+          "concept": "Scaling by the square root of d_k",
+          "type": "single",
+          "marks": 1,
+          "question": "Scores are divided by $\\sqrt{d_k}$ because:",
+          "choices": [
+            "it normalises the values",
+            "the variance of q·k grows with $d_k$; large scores saturate the softmax and shrink gradients",
+            "it makes the matrix symmetric",
+            "it removes the need for the softmax"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "Without the scaling it behaves like a very low temperature."
+        },
+        {
+          "id": "nlp-mock-a38",
+          "lecture": 7,
+          "concept": "Multi-head attention",
+          "type": "single",
+          "marks": 1,
+          "question": "With $d_{model} = 512$ and h = 8 heads, what is the usual per-head dimension $d_k$?",
+          "choices": [
+            "512",
+            "4096",
+            "64",
+            "8"
+          ],
+          "answer": [
+            2
+          ],
+          "explanation": "512 / 8 = 64."
+        },
+        {
+          "id": "nlp-mock-a39",
+          "lecture": 7,
+          "concept": "Multi-head attention",
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or false: at a fixed $d_{model}$, going from 1 head to 8 heads multiplies the number of attention projection parameters by 8.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "It stays the same. See B3(e)."
+        },
+        {
+          "id": "nlp-mock-a40",
+          "lecture": 7,
+          "concept": "Layer normalisation",
+          "type": "single",
+          "marks": 1,
+          "question": "LayerNorm in a Transformer normalises:",
+          "choices": [
+            "each feature across the batch",
+            "each token vector across its own $d_{model}$ features",
+            "each sentence across its tokens",
+            "the attention weights"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "Across the batch is BatchNorm."
+        },
+        {
+          "id": "nlp-mock-a41",
+          "lecture": 7,
+          "concept": "Positional encoding",
+          "type": "single",
+          "marks": 1,
+          "question": "With $PE(pos, 2i) = \\sin(pos / 10000^{2i/d_{model}})$, what is the value at pos = 2 in dimension 0?",
+          "choices": [
+            "0",
+            "1",
+            "≈ 0.909",
+            "≈ −0.416"
+          ],
+          "answer": [
+            2
+          ],
+          "explanation": "sin(2 / 10000⁰) = sin 2 ≈ 0.9093."
+        },
+        {
+          "id": "nlp-mock-a42",
+          "lecture": 8,
+          "concept": "BERT masked language modelling",
+          "type": "single",
+          "marks": 1,
+          "question": "Which corruption is NOT part of BERT's MLM masking scheme?",
+          "choices": [
+            "replace with [MASK]",
+            "replace with a random token",
+            "keep the original token",
+            "replace with a synonym"
+          ],
+          "answer": [
+            3
+          ],
+          "explanation": "The split is 80/10/10: [MASK], random token, unchanged."
+        },
+        {
+          "id": "nlp-mock-a43",
+          "lecture": 8,
+          "concept": "BERT next sentence prediction",
+          "type": "single",
+          "marks": 1,
+          "question": "BERT's two original pre-training objectives are:",
+          "choices": [
+            "causal LM and NSP",
+            "MLM and NSP",
+            "MLM and sentence ordering",
+            "translation and MLM"
+          ],
+          "answer": [
+            1
+          ]
+        },
+        {
+          "id": "nlp-mock-a44",
+          "lecture": 8,
+          "concept": "Using ELMo in a task model",
+          "type": "single",
+          "marks": 1,
+          "question": "ELMo's representation for a downstream task is:",
+          "choices": [
+            "only the top LSTM layer",
+            "a learned, task-specific weighted sum of all biLM layers, scaled by γ",
+            "the [CLS] vector",
+            "the character-CNN output only"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "ELMoₖ = γ Σⱼ sⱼ hₖ,ⱼ, with the sⱼ softmax-normalised."
+        },
+        {
+          "id": "nlp-mock-a45",
+          "lecture": 8,
+          "concept": "GPT and decoder-only models",
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or false: a decoder-only model like GPT-2 can be adapted for classification.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "E.g. a head on the final token, or scoring each option by likelihood."
+        },
+        {
+          "id": "nlp-mock-a46",
+          "lecture": 8,
+          "concept": "LoRA mechanism",
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or false: in LoRA, W′ = W + BA, and B is usually initialised to zero so that training starts exactly at the pretrained model.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "A is random (Gaussian); B = 0."
+        },
+        {
+          "id": "nlp-mock-a47",
+          "lecture": 8,
+          "concept": "Taxonomy of transfer learning",
+          "type": "single",
+          "marks": 1,
+          "question": "Adapting a model to the same task on a new data distribution (e.g. news sentiment → tweet sentiment) is:",
+          "choices": [
+            "sequential transfer learning",
+            "domain adaptation",
+            "multitask learning",
+            "distillation"
+          ],
+          "answer": [
+            1
+          ]
+        },
+        {
+          "id": "nlp-mock-a48",
+          "lecture": 8,
+          "concept": "Analysing BERT and probing",
+          "type": "single",
+          "marks": 1,
+          "question": "A probe (a simple classifier trained on frozen hidden states) predicts part-of-speech with 95% accuracy. The best conclusion is:",
+          "choices": [
+            "the model uses POS to make its predictions",
+            "POS information can be decoded from those representations, which doesn't prove the model uses it",
+            "the model was trained on POS tags",
+            "the probe is overfitting"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "Probing shows the information is decodable, not that the model uses it."
+        },
+        {
+          "id": "nlp-mock-a49",
+          "lecture": 10,
+          "concept": "Stochastic parrots",
+          "type": "single",
+          "marks": 1,
+          "question": "\"Stochastic parrots\" describes language models as:",
+          "choices": [
+            "models that memorise their training set exactly",
+            "systems that stitch together linguistic forms using statistical patterns, without reference to meaning",
+            "models trained with stochastic gradient descent",
+            "models that repeat the prompt"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "Bender, Gebru et al. (2021)."
+        },
+        {
+          "id": "nlp-mock-a50",
+          "lecture": 10,
+          "concept": "Model collapse",
+          "type": "multi",
+          "marks": 1,
+          "negativeMarking": true,
+          "question": "Select all signs consistent with model collapse when models are trained on model-generated data:",
+          "choices": [
+            "the tails of the distribution disappear (rare words and events)",
+            "output diversity falls over generations",
+            "perplexity on the model's own outputs drops while fidelity to real data gets worse",
+            "the vocabulary grows"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "id": "nlp-mock-b1",
+          "lecture": 5,
+          "concept": "N-gram MLE and the zero problem",
+          "type": "written",
+          "marks": 10,
+          "question": "Language modelling (10 marks). The training corpus is:\n<s> the cat sat </s>\n<s> the dog sat </s>\n<s> the cat ran </s>\nUse a bigram model. The prediction vocabulary is V = {the, cat, dog, sat, ran, </s>}, so |V| = 6. <s> is never predicted.\na) Give the MLE estimates P(cat | the), P(sat | cat) and P(ran | dog). Then compute P(<s> the dog ran </s>). Explain what this result shows about count-based LMs. (3)\nb) Re-estimate the probability of the same sentence with add-one (Laplace, δ = 1) smoothing, then compute its perplexity. Count the 4 predicted tokens. Is the value sensible compared with |V|? Explain. (4)\nc) A neural LM sees \"the dog ran\" for the first time at test time. Explain, in terms of continuous representations, why it can give this sentence a reasonable probability when the count model can't. Name one cost of the neural approach. (3)",
+          "modelAnswer": "a) P(cat | the) = 2/3, P(sat | cat) = 1/2, P(ran | dog) = 0/1 = 0. So P(sentence) = 1 · (1/3) · 0 · 1 = 0. One unseen bigram in the numerator sends the probability of an entirely plausible sentence to zero: counting can't generalise to unseen combinations, because language is compositional and sparse.\n\nb) $P(w \\mid h) = (c(h, w) + 1)/(c(h) + |V|)$: P(the | <s>) = 4/9, P(dog | the) = 2/9, P(ran | dog) = 1/7, P(</s> | ran) = 2/7. P = 16/3969 ≈ 0.004031. PP = $P^{-1/4}$ ≈ 3.9686. It lies between 1 (perfect) and |V| = 6 (uniform), so the model is better than uniform. Laplace's +|V| in the denominator takes a lot of mass from seen events; with a real vocabulary (|V| ~ 10⁶) this distortion is severe, which is why a tiny δ or backoff/interpolation is used.\n\nc) Words are dense vectors, and \"dog\" and \"cat\" share contexts (\"the __ sat\"), so they get nearby embeddings. The network is a smooth function of those vectors, so it interpolates: the evidence for \"cat ran\" transfers to \"dog ran\". Cost (any one): needs much more data and compute; a softmax over |V| at every step; less interpretable; gaps in the space are exploitable; a fixed context window (for a feed-forward LM).",
+          "rubric": [
+            {
+              "point": "a) Correct MLE values",
+              "marks": 1
+            },
+            {
+              "point": "a) P(sentence) = 0",
+              "marks": 1
+            },
+            {
+              "point": "a) Explains the zero problem",
+              "marks": 1
+            },
+            {
+              "point": "b) The four smoothed values",
+              "marks": 2
+            },
+            {
+              "point": "b) Sentence probability",
+              "marks": 1
+            },
+            {
+              "point": "b) Perplexity and comment",
+              "marks": 1
+            },
+            {
+              "point": "c) Similar contexts → nearby vectors → interpolation",
+              "marks": 2
+            },
+            {
+              "point": "c) One cost",
+              "marks": 1
+            }
+          ]
+        },
+        {
+          "id": "nlp-mock-b2",
+          "lecture": 6,
+          "concept": "Beam search",
+          "type": "written",
+          "marks": 10,
+          "question": "Seq2seq decoding and attention (10 marks). A decoder has this toy distribution. Every two-token prefix ends with </s> with probability 1.\nStep 1: A 0.5, B 0.4, </s> 0.1\nStep 2 given A: x 0.40, y 0.30, </s> 0.30\nStep 2 given B: x 0.90, y 0.05, </s> 0.05\na) Trace greedy decoding and give the probability of the output sentence. (2)\nb) Trace beam search with k = 2, showing the beam after each step, and give the final sentence and its probability. (3)\nc) Use (a) and (b) to explain why $\\prod_t \\arg\\max p(y_t \\mid y_{<t}, x) \\neq \\arg\\max \\prod_t p(y_t \\mid y_{<t}, x)$. Give one cost of beam search and say why open-ended LLMs usually sample instead. (2)\nd) Explain the information bottleneck in a non-attentional seq2seq model, and both ways attention relieves it (encoder side and decoder side). (3)",
+          "modelAnswer": "a) Greedy picks A (0.5), then x (0.4), then </s>. P(A x </s>) = 0.5 × 0.4 = 0.20.\n\nb) Step 1: keep {A: 0.5, B: 0.4}. Step 2: A x 0.20, A y 0.15, A </s> 0.15, B x 0.36, B y 0.02, B </s> 0.02; keep {B x: 0.36, A x: 0.20}. Final: B x </s>, 0.36.\n\nc) Greedy committed to the locally best A, but B leads to a far more confident continuation, so the best whole sequence (0.36) was never reached (greedy got 0.20). Local argmaxes don't give the global argmax, and exhaustive search is exponential. Costs: memory and compute scale with k (especially Transformer caches); still not guaranteed optimal; biases towards short or bland output. Open-ended generation needs diversity, and the most probable text is often short and dull, so LLMs sample (temperature, top-k, top-p).\n\nd) The whole source is compressed into one fixed-size final encoder state: long sentences lose detail, and early words fade first (recency bias). Encoder side: all encoder states stay available, so the final state no longer has to preserve every detail. Decoder side: at each step the decoder computes scores, softmax weights and a context vector, so it can fetch a different source detail for each output word; the recurrent state keeps the overall intent and what has already been said.",
+          "rubric": [
+            {
+              "point": "a) Greedy trace and 0.20",
+              "marks": 2
+            },
+            {
+              "point": "b) Beam after each step",
+              "marks": 2
+            },
+            {
+              "point": "b) B x </s>, 0.36",
+              "marks": 1
+            },
+            {
+              "point": "c) Explains the inequality with the example",
+              "marks": 1
+            },
+            {
+              "point": "c) A cost and why LLMs sample",
+              "marks": 1
+            },
+            {
+              "point": "d) The bottleneck",
+              "marks": 1
+            },
+            {
+              "point": "d) Encoder-side relief",
+              "marks": 1
+            },
+            {
+              "point": "d) Decoder-side relief",
+              "marks": 1
+            }
+          ]
+        },
+        {
+          "id": "nlp-mock-b3",
+          "lecture": 7,
+          "concept": "Self-attention calculation",
+          "type": "written",
+          "marks": 12,
+          "question": "Transformers (12 marks). Three tokens have embeddings (rows) $X = \\begin{bmatrix}1 & 0 \\\\ 0 & 1 \\\\ 1 & 1\\end{bmatrix}$. Use the row convention $Q = XW_Q$, $K = XW_K$, $V = XW_V$ with $W_Q = \\begin{bmatrix}1 & 1 \\\\ 0 & 1\\end{bmatrix}$, $W_K = \\begin{bmatrix}1 & 0 \\\\ 1 & 1\\end{bmatrix}$, $W_V = \\begin{bmatrix}0 & 1 \\\\ 1 & 0\\end{bmatrix}$, and $d_k = 2$.\na) Compute Q, K and V. (2)\nb) Compute the attention matrix for unmasked self-attention. (3)\nc) Compute the attention output for token 3 only. (1)\nd) Now apply a causal mask. Give the masked attention matrix and explain exactly how the mask is applied, including why setting a score to 0 would not work. (3)\ne) A colleague claims: \"8 heads at $d_{model}$ = 512 has 8× the attention parameters of 1 head, so multi-head attention is far more expensive.\" Count the projection parameters ($W_Q, W_K, W_V, W_O$, no biases) for h = 1 and h = 8, and correct the claim. Explain what multiple heads buy you, given that nothing tells each head what to specialise in. (3)",
+          "modelAnswer": "a) Q = [[1, 1], [0, 1], [1, 2]], K = [[1, 0], [1, 1], [2, 1]], V = [[0, 1], [1, 0], [1, 1]].\n\nb) $QK^\\top$ = [[1, 2, 3], [0, 1, 1], [1, 3, 4]]; divide by √2: [[0.7071, 1.4142, 2.1213], [0, 0.7071, 0.7071], [0.7071, 2.1213, 2.8284]]. Row-wise softmax: A = [[0.1400, 0.2840, 0.5760], [0.1978, 0.4011, 0.4011], [0.0743, 0.3057, 0.6200]]. Stop here: don't multiply by V. Each row sums to 1.\n\nc) Output₃ = 0.0743·[0, 1] + 0.3057·[1, 0] + 0.6200·[1, 1] = [0.9257, 0.6943].\n\nd) Add −∞ to the scores above the diagonal (key position > query position) before the softmax: A = [[1, 0, 0], [0.3302, 0.6698, 0], [0.0743, 0.3057, 0.6200]]. Row 3 doesn't change. Setting a score to 0 gives exp(0) = 1, so the future token still gets weight; setting a weight to 0 after the softmax breaks the sum-to-1 unless you renormalise. Masking keeps training (all positions in one parallel pass) consistent with inference.\n\ne) h = 1: $W_Q, W_K, W_V$ each 512 × 512 = 262,144, $W_O$ another 262,144: total 1,048,576. h = 8: each head has three 512 × 64 matrices, 8 × 512 × 64 = 262,144 per type; $W_O$ still 512 × 512: total 1,048,576, the same. Heads split the representation into subspaces; they don't add width. They buy several different attention patterns per layer (agreement, subject↔verb, positional, rare tokens); specialisation comes only from gradient descent, so many heads end up redundant and can be pruned.",
+          "rubric": [
+            {
+              "point": "a) Q, K, V",
+              "marks": 2
+            },
+            {
+              "point": "b) Scaled scores",
+              "marks": 1
+            },
+            {
+              "point": "b) Attention matrix, stopping before V",
+              "marks": 2
+            },
+            {
+              "point": "c) Output for token 3",
+              "marks": 1
+            },
+            {
+              "point": "d) Masked matrix",
+              "marks": 2
+            },
+            {
+              "point": "d) −∞ before softmax; why 0 fails",
+              "marks": 1
+            },
+            {
+              "point": "e) Correct counts for h = 1 and h = 8",
+              "marks": 2
+            },
+            {
+              "point": "e) What heads buy",
+              "marks": 1
+            }
+          ]
+        },
+        {
+          "id": "nlp-mock-b4",
+          "lecture": 8,
+          "concept": "Fine-tuning BERT for tasks",
+          "type": "written",
+          "marks": 10,
+          "question": "Transfer learning (10 marks). You must build an extractive question-answering system: given a question and a passage, return the span of the passage that answers it.\na) Explain why a model that feeds static word2vec embeddings into a classifier would struggle here. Use the word \"bank\" in \"she sat on the bank\" vs \"the bank raised rates\" in your answer. How do ELMo and BERT each fix this? (3)\nb) Describe in detail how you would adapt a pretrained BERT to this task. Cover the input format, any new parameters, how the start and end positions are predicted, the training loss, and decoding at inference (including a valid-span constraint). (4)\nc) You fine-tune a 4096 × 4096 projection matrix with LoRA, rank r = 8, stored in fp16 (2 bytes per value). Compute the trainable parameters and memory for full fine-tuning vs LoRA, and the LoRA fraction. Give one advantage of LoRA over bottleneck adapters at inference. (3)",
+          "modelAnswer": "a) Word2vec gives \"bank\" one vector, a frequency-weighted mix of its senses, whatever the context; a classifier fed static vectors would have to rebuild context itself. ELMo: a char-CNN feeds a biLSTM LM, and the representation is a task-weighted sum of the layers, so \"bank\" depends on the whole sentence. BERT: deep bidirectional self-attention, pretrained with MLM; every layer mixes left and right context, and it is fine-tuned end to end.\n\nb) Input: [CLS] question [SEP] passage [SEP], segment embeddings A/B, sliding windows for long passages. New parameters: a start vector S and an end vector E in $\\mathbb{R}^H$. $P_{start}(i) = \\text{softmax}_i(S \\cdot T_i)$, $P_{end}$ likewise with E. Loss: $-\\log P_{start}(\\text{gold start}) - \\log P_{end}(\\text{gold end})$. Inference: pick (i, j) maximising $S \\cdot T_i + E \\cdot T_j$ with j ≥ i, j − i ≤ max length, both inside the passage; for unanswerable questions point to [CLS] when its score beats the best span.\n\nc) Full: 4096² = 16,777,216 parameters, 33,554,432 bytes (32 MiB). LoRA: B (4096 × 8) + A (8 × 4096) = 65,536 parameters, 131,072 bytes (128 KiB). Fraction 0.39%. Advantage: BA can be merged into W after training, so there is no extra inference latency; adapters add sequential layers.",
+          "rubric": [
+            {
+              "point": "a) Static vector problem",
+              "marks": 1
+            },
+            {
+              "point": "a) ELMo fix",
+              "marks": 1
+            },
+            {
+              "point": "a) BERT fix",
+              "marks": 1
+            },
+            {
+              "point": "b) Input format",
+              "marks": 1
+            },
+            {
+              "point": "b) New parameters (S, E)",
+              "marks": 1
+            },
+            {
+              "point": "b) Start/end prediction and loss",
+              "marks": 1
+            },
+            {
+              "point": "b) Valid-span decoding",
+              "marks": 1
+            },
+            {
+              "point": "c) Counts, memory and fraction",
+              "marks": 2
+            },
+            {
+              "point": "c) Inference advantage",
+              "marks": 1
+            }
+          ]
+        },
+        {
+          "id": "nlp-mock-b5",
+          "lecture": 10,
+          "concept": "Data curation",
+          "type": "written",
+          "marks": 8,
+          "question": "Responsible NLP (8 marks). A start-up wants to launch an isiXhosa customer-service chatbot fast. Its plan:\n1. Machine-translate a large English chat dataset into isiXhosa.\n2. Add unfiltered web-scraped isiXhosa text, some of it generated by other LLMs.\n3. Fine-tune an English-centric pretrained LLM that uses its original BPE tokenizer.\na) Give three distinct risks or biases in this plan, each tied to a specific step. Your answer should touch on dataset curation, code-switching and model collapse. (6)\nb) Explain why using the original English-trained BPE tokenizer is a fairness and efficiency problem for an agglutinative language like isiXhosa. (2)",
+          "modelAnswer": "a) Two marks each for three well-explained points, each tied to a step:\n• Step 1, translated data (curation / translationese): machine-translated text carries English syntax, idioms and cultural framing, plus MT errors; the model learns \"translated isiXhosa\", not how speakers talk, and inherits English data's biases. (Reader- vs writer-responsible norms differ, so responses may come across as rude or unclear.)\n• Steps 1–2, code-switching: real South African chats mix isiXhosa and English within a sentence; translated data has none, so the model may handle mixed input badly or push users towards English.\n• Step 2, uncurated web data: toxic content, personal information, mislabelled-language text, duplicates; without provenance you can't audit it.\n• Step 2, model collapse: LLM-generated text fed back into training; over generations the tails (rare words, dialectal forms, rich morphology) vanish, diversity falls and errors compound, worse for a low-resource language. Detect it by diversity shrinking or perplexity on held-out human text rising.\n• Step 3, stochastic parrots / English-centric model: fluent form without grounded meaning; heads and representations tuned to English syntax transfer poorly.\n\nb) An English BPE vocabulary has few isiXhosa sub-words, so agglutinative words split into many tiny pieces (high fertility). More tokens per sentence means higher cost per query and less effective context; morphemes don't line up with tokens, so it learns worse. Speakers pay more for a worse service: a fairness problem. Fix: retrain or extend the tokenizer on curated isiXhosa text.",
+          "rubric": [
+            {
+              "point": "a) First risk, tied to a step",
+              "marks": 2
+            },
+            {
+              "point": "a) Second risk, tied to a step",
+              "marks": 2
+            },
+            {
+              "point": "a) Third risk, tied to a step",
+              "marks": 2
+            },
+            {
+              "point": "b) Fertility / poor segmentation of agglutinative words",
+              "marks": 1
+            },
+            {
+              "point": "b) Cost, context and fairness consequences",
               "marks": 1
             }
           ]
