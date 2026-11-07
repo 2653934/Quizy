@@ -1,0 +1,1228 @@
+{
+  "id": "nlp-bank-lecture-6",
+  "subject": "nlp",
+  "title": "Practice bank: Lecture 6 (Seq2seq and attention)",
+  "kind": "generated",
+  "origin": "new",
+  "description": "New practice questions on seq2seq models, decoding and attention, written for exam revision from the Lecture 6 slides, the recording notes and the tutorial: quiz questions, greedy and beam-search traces, attention calculations with all three score functions, and hard multi-part written questions. Not from the lecturer: the answers are unofficial.",
+  "unofficialAnswers": true,
+  "negativeMarkingNote": "The real Moodle quiz uses negative marking on MCQ questions: picking all right and wrong answers on a question results in a mark of 0.",
+  "totalMarks": 108,
+  "questions": [
+    {
+      "id": "nlp-b6-001",
+      "lecture": 6,
+      "concept": "Seq2seq tasks and argmax p(y given x)",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "A translation model looks for $y' = \\arg\\max_y p(y \\mid x, \\theta)$. What do $x$, $y$ and $\\theta$ stand for?",
+      "choices": [
+        "The source sentence, the target sentence and the model parameters",
+        "The target sentence, the source sentence and the temperature",
+        "The encoder state, the decoder state and the attention weights",
+        "The input token, the output token and the vocabulary"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A human translator implicitly picks $y^* = \\arg\\max_y p(y \\mid x)$; the model approximates $p$ with parameters $\\theta$."
+    },
+    {
+      "id": "nlp-b6-002",
+      "lecture": 6,
+      "concept": "Seq2seq tasks and argmax p(y given x)",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          2,
+          4
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which of these can be framed as sequence-to-sequence tasks?",
+      "choices": [
+        "Machine translation",
+        "Summarisation",
+        "Dialogue (producing a reply to a message)",
+        "Single-label sentiment classification of a review"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Seq2seq maps an input sequence to an output sequence of a possibly different length. Sentiment classification outputs one label, not a sequence."
+    },
+    {
+      "id": "nlp-b6-003",
+      "lecture": 6,
+      "concept": "Modelling, learning and search",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          5,
+          11
+        ]
+      },
+      "type": "match",
+      "marks": 3,
+      "question": "Match each of the three questions of seq2seq to what answers it.",
+      "pairs": [
+        {
+          "prompt": "Modelling: what does $p(y \\mid x, \\theta)$ look like?",
+          "answer": "The architecture, e.g. an RNN encoder–decoder"
+        },
+        {
+          "prompt": "Learning: how do we find $\\theta$?",
+          "answer": "Minimising cross-entropy on parallel data"
+        },
+        {
+          "prompt": "Search: how do we find the argmax?",
+          "answer": "Greedy decoding or beam search"
+        }
+      ],
+      "options": [
+        "The architecture, e.g. an RNN encoder–decoder",
+        "Minimising cross-entropy on parallel data",
+        "Greedy decoding or beam search",
+        "Applying a causal mask"
+      ],
+      "explanation": "The lecturer compared this to a Gaussian whose sufficient statistics are $\\mu$ and $\\sigma$: language needs millions or billions of parameters instead of two."
+    },
+    {
+      "id": "nlp-b6-004",
+      "lecture": 6,
+      "concept": "Modelling, learning and search",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          34
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Even a perfectly trained seq2seq model needs a search procedure, because finding $\\arg\\max_y p(y \\mid x)$ over all possible sentences is intractable.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The number of possible sentences grows exponentially with length, so we approximate the search with greedy decoding or beam search."
+    },
+    {
+      "id": "nlp-b6-005",
+      "lecture": 6,
+      "concept": "Encoder–decoder framework",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "In the encoder–decoder framework:",
+      "choices": [
+        "The encoder reads the source and produces a representation; the decoder uses it to generate the target",
+        "The encoder generates the target and the decoder checks it",
+        "Both the encoder and the decoder produce output tokens at every step",
+        "The decoder reads the source sentence directly, without an encoder"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The encoder produces no outputs: it only makes information available. The decoder outputs at every step and feeds its output back in."
+    },
+    {
+      "id": "nlp-b6-006",
+      "lecture": 6,
+      "concept": "Encoder–decoder framework",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: The decoder must feed each token it generates back in as the next input, otherwise it cannot know what it has already said.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecturer: the decoder is \"listening to itself\". That is what makes it autoregressive."
+    },
+    {
+      "id": "nlp-b6-007",
+      "lecture": 6,
+      "concept": "Seq2seq as a conditional LM",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          14,
+          15
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: The only new idea in a seq2seq model compared with a language model from Lecture 5 is that the decoder is conditioned on the source $x$.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A seq2seq decoder is a conditional LM: $P(y_t \\mid y_{<t}, x)$. The initial state comes from the encoder."
+    },
+    {
+      "id": "nlp-b6-008",
+      "lecture": 6,
+      "concept": "Seq2seq as a conditional LM",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          14,
+          18
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Compared with an unconditional LM, what does conditioning on the source do?",
+      "choices": [
+        "Lowers diversity and raises coherence",
+        "Gives the task a notion of \"correctness\" that a plain LM lacks",
+        "Gives a cleaner learning signal for constrained tasks such as translation",
+        "Removes the need for a softmax over the vocabulary"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "From the recording: the conditioning vector constrains what can be said, which is why translation trains well. Prompting and chain-of-thought work on the same principle. The output is still a softmax over $|V|$."
+    },
+    {
+      "id": "nlp-b6-009",
+      "lecture": 6,
+      "concept": "RNN encoder–decoder",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          19,
+          24
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "In the simplest RNN encoder–decoder (no attention), how does source information reach the decoder?",
+      "choices": [
+        "Only through the encoder's final hidden state, used as the decoder's initial state",
+        "Through attention over every encoder state",
+        "Through the target embeddings",
+        "Through the softmax layer"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "That single vector is the bottleneck attention removes."
+    },
+    {
+      "id": "nlp-b6-010",
+      "lecture": 6,
+      "concept": "RNN encoder–decoder",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          19
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: It is fine to initialise the encoder RNN's hidden state with zeros, because the input sentence provides the variation.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Zeros are fine; random noise is an option that adds a little diversity (2025 Quiz 2 Q3)."
+    },
+    {
+      "id": "nlp-b6-011",
+      "lecture": 6,
+      "concept": "What the final encoder state represents",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          27,
+          28
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "What does the final encoder state of a seq2seq model represent, according to Lecture 6?",
+      "choices": [
+        "The whole source sentence, with a bias towards the last words",
+        "A semantic summary rather than a word-for-word copy",
+        "Grammatical structure: in the latent-space plot one direction swaps subject and object (John ↔ Mary)",
+        "Exactly the last source word and nothing else"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Recency bias means early words fade first. Because the state is semantic, reproducing an exact word from it is hard, which motivates attention."
+    },
+    {
+      "id": "nlp-b6-012",
+      "lecture": 6,
+      "concept": "What the final encoder state represents",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          28
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: An encoder trained from scratch for translation learns a task-specific space: it keeps whatever helps the decoder, whether or not a human would call it \"the meaning\".",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Quiz 2 Q6 makes the same point: the final state captures everything useful for the task, not a general-purpose meaning."
+    },
+    {
+      "id": "nlp-b6-013",
+      "lecture": 6,
+      "concept": "Training with cross-entropy (teacher forcing)",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          31
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "When a seq2seq model is trained with cross-entropy, what does the decoder receive as input at step $t$?",
+      "choices": [
+        "The correct previous target token (teacher forcing), not its own prediction",
+        "Its own sampled prediction from step $t-1$",
+        "The source token at position $t$",
+        "Nothing: all target tokens are predicted from the encoder state at once"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The loss at each step is $-\\log p(y_t^* \\mid y^*_{<t}, x)$, using the ground-truth prefix. At inference the model must use its own predictions instead."
+    },
+    {
+      "id": "nlp-b6-014",
+      "lecture": 6,
+      "concept": "Training with cross-entropy (teacher forcing)",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          31
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: The total training loss for one target sentence is the sum over target positions of $-\\log p(y_t \\mid y_{<t}, x)$.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Cross-entropy again, one term per target token, conditioned on the source."
+    },
+    {
+      "id": "nlp-b6-015",
+      "lecture": 6,
+      "concept": "Greedy decoding vs the best sentence",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          35,
+          37
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "Which statement is the key lecture point about greedy decoding?",
+      "choices": [
+        "$\\prod_t \\arg\\max p(y_t \\mid y_{<t}, x) \\neq \\arg\\max \\prod_t p(y_t \\mid y_{<t}, x)$: the best token at each step need not give the most probable sentence",
+        "Greedy decoding always finds the most probable sentence",
+        "Greedy decoding samples from the full distribution",
+        "Greedy decoding keeps $k$ hypotheses"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The lecturer spelled this out as something to remember. An early choice can lock in a bad sentence (\"The Sistine Chapel is in London\")."
+    },
+    {
+      "id": "nlp-b6-016",
+      "lecture": 6,
+      "concept": "Beam search",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          38
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Beam search with a beam size of 1 is the same as greedy decoding.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "With one hypothesis kept, each step simply extends it with the most probable token."
+    },
+    {
+      "id": "nlp-b6-017",
+      "lecture": 6,
+      "concept": "Beam search",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          38,
+          56
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which statements about beam search are true?",
+      "choices": [
+        "It keeps the beam_size most probable partial hypotheses at each step",
+        "It usually finds a more probable sentence than greedy decoding, but is not guaranteed to find the best one",
+        "It is memory-hungry, especially for Transformers",
+        "Modern open-ended LLMs mostly use beam search rather than sampling"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Pros and cons, as the lecturer asked: closer to the best whole sentence, but costly. He said open-ended LLMs use sampling instead; beam search works well for short, constrained outputs."
+    },
+    {
+      "id": "nlp-b6-018",
+      "lecture": 6,
+      "concept": "Beam search",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          35,
+          38
+        ]
+      },
+      "type": "numeric",
+      "marks": 4,
+      "question": "A decoder has this toy distribution; after any two tokens it always outputs </s> with probability 1.\nStep 1: The 0.5, A 0.4, </s> 0.1\nAfter \"The\": cat 0.4, dog 0.35, </s> 0.25\nAfter \"A\": cat 0.9, dog 0.05, </s> 0.05\n(a) Probability of the greedy output.\n(b) Probability of the beam-search output with beam size 2.\n(c) Probability of the most probable sentence overall.",
+      "parts": [
+        {
+          "label": "(a) Greedy",
+          "answer": 0.2,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(b) Beam, k = 2",
+          "answer": 0.36,
+          "marks": 2,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(c) Best overall",
+          "answer": 0.36,
+          "marks": 1,
+          "tolerance": 0.0006
+        }
+      ],
+      "solution": "(a) Greedy picks \"The\" (0.5), then \"cat\" (0.4): \"The cat </s>\", $0.5 \\times 0.4 = 0.2$.\n(b) Beam after each step: step 1: The (0.5); A (0.4)\nstep 2: A cat (0.36); The cat (0.2)\nstep 3: A cat </s> (0.36); The cat </s> (0.2)\nResult: \"A cat </s>\" with $0.36$.\n(c) \"A cat </s>\" with $0.36$. The lower-probability first word \"A\" leads to a much better sentence, which greedy throws away at step 1.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "explanation": "This is exactly why $\\prod_t \\arg\\max \\neq \\arg\\max \\prod_t$.",
+      "variantOf": "beam-calc"
+    },
+    {
+      "id": "nlp-b6-019",
+      "lecture": 6,
+      "concept": "Beam search",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          38,
+          56
+        ]
+      },
+      "type": "numeric",
+      "marks": 4,
+      "question": "A decoder has these next-token probabilities (every sequence ends after its third word with </s> probability 1):\nStep 1: I 0.45, We 0.35, You 0.2\nAfter I: saw 0.5, see 0.3, </s> 0.2 · After We: saw 0.8, </s> 0.2 · After You: saw 0.9, </s> 0.1\nAfter \"I saw\": it 0.3, them 0.3, </s> 0.4 · After \"I see\": it 0.9, </s> 0.1 · After \"We saw\": it 0.7, </s> 0.3 · After \"You saw\": it 0.6, </s> 0.4\nA finished hypothesis (ending in </s>) stays in the beam and competes on its probability.\nGive the probability of the final output of (a) greedy decoding, (b) beam search with $k = 2$, (c) beam search with $k = 3$.",
+      "parts": [
+        {
+          "label": "(a) Greedy",
+          "answer": 0.09,
+          "marks": 1,
+          "tolerance": 0.0005
+        },
+        {
+          "label": "(b) Beam, k = 2",
+          "answer": 0.196,
+          "marks": 2,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(c) Beam, k = 3",
+          "answer": 0.196,
+          "marks": 1,
+          "tolerance": 0.0006
+        }
+      ],
+      "solution": "(a) \"I saw </s>\": $0.09$.\n(b) Step 1: I (0.45); We (0.35)\nStep 2: We saw (0.28); I saw (0.225)\nStep 3: We saw it (0.196); I saw </s> (0.09)\nStep 4: We saw it </s> (0.196); I saw </s> (0.09)\nOutput \"We saw it </s>\": $0.196$.\n(c) Step 1: I (0.45); We (0.35); You (0.2)\nStep 2: We saw (0.28); I saw (0.225); You saw (0.18)\nStep 3: We saw it (0.196); You saw it (0.108); I saw </s> (0.09)\nStep 4: We saw it </s> (0.196); You saw it </s> (0.108); I saw </s> (0.09)\nOutput \"We saw it </s>\": $0.196$.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "explanation": "Note how short hypotheses that end early keep a high probability: this is why real systems length-normalise beam scores (not on the slides).",
+      "variantOf": "beam-calc"
+    },
+    {
+      "id": "nlp-b6-020",
+      "lecture": 6,
+      "concept": "The fixed-representation bottleneck",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          57
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Why is a fixed source representation a problem, according to Lecture 6?",
+      "choices": [
+        "For the encoder: compressing a whole sentence into one vector is hard",
+        "For the decoder: different information may be needed at different steps",
+        "Early source words tend to be lost first",
+        "The fixed vector makes training impossible to parallelise on GPUs"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Attention fixes both halves: the encoder no longer has to keep every detail in one vector, and the decoder can fetch a different detail at each step. Parallelism motivated the Transformer, not RNN attention."
+    },
+    {
+      "id": "nlp-b6-021",
+      "lecture": 6,
+      "concept": "Attention scores, weights and output",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          70,
+          76
+        ]
+      },
+      "type": "match",
+      "marks": 3,
+      "question": "Match each term to its meaning at decoder step $t$.",
+      "pairs": [
+        {
+          "prompt": "Attention score",
+          "answer": "An unnormalised relevance of source token $k$ (a \"propensity\")"
+        },
+        {
+          "prompt": "Attention weight $a_k^{(t)}$",
+          "answer": "The score after the softmax over all source tokens"
+        },
+        {
+          "prompt": "Attention output $c^{(t)}$",
+          "answer": "The weighted sum of the encoder states"
+        }
+      ],
+      "options": [
+        "An unnormalised relevance of source token $k$ (a \"propensity\")",
+        "The score after the softmax over all source tokens",
+        "The weighted sum of the encoder states",
+        "The final encoder state"
+      ],
+      "explanation": "Score → softmax → weights → weighted sum → context (\"source context for decoder step $t$\")."
+    },
+    {
+      "id": "nlp-b6-022",
+      "lecture": 6,
+      "concept": "Attention scores, weights and output",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          73,
+          77
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Because the attention weights come from a softmax, they are all positive and sum to 1, so the attention output keeps roughly the same magnitude as the encoder states.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The softmax is a differentiable \"soft argmax\" that usually concentrates on one or two tokens. Weights are close to, but never exactly, zero."
+    },
+    {
+      "id": "nlp-b6-023",
+      "lecture": 6,
+      "concept": "Attention scores, weights and output",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          71
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: The attention scores for all source tokens at one decoder step can be computed in parallel, even though the decoder itself is still recurrent.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Computing attention is parallel across encoder states; generation is still bottlenecked by the recurrence."
+    },
+    {
+      "id": "nlp-b6-024",
+      "lecture": 6,
+      "concept": "Attention scores, weights and output",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          70,
+          86
+        ]
+      },
+      "type": "numeric",
+      "marks": 5,
+      "question": "A decoder state is $h = (1,2)$ and the three encoder states are $s_1 = (1,0)$, $s_2 = (0,1)$, $s_3 = (1,1)$. Use dot-product scores.\n(a)–(c) The attention weights $a_1, a_2, a_3$.\n(d)–(e) The two components of the attention output $c$.",
+      "parts": [
+        {
+          "label": "(a) a₁",
+          "answer": 0.09,
+          "marks": 1,
+          "tolerance": 0.0005
+        },
+        {
+          "label": "(b) a₂",
+          "answer": 0.2447,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(c) a₃",
+          "answer": 0.6652,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(d) c, first component",
+          "answer": 0.7553,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(e) c, second component",
+          "answer": 0.91,
+          "marks": 1,
+          "tolerance": 0.0006
+        }
+      ],
+      "solution": "Scores $h^\\top s_k$: $(1, 2, 3)$.\nWeights: $\\text{softmax}(1, 2, 3) = (0.09, 0.2447, 0.6652)$.\nOutput: $c = \\sum_k a_k s_k = (0.7553, 0.91)$.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "variantOf": "rnn-attn-calc"
+    },
+    {
+      "id": "nlp-b6-025",
+      "lecture": 6,
+      "concept": "Luong model",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          86,
+          99
+        ]
+      },
+      "type": "numeric",
+      "marks": 7,
+      "question": "Luong-style attention uses the current decoder state $h_t = (1,-1)$ and a bilinear score $h_t^\\top W s_k$ with $W = \\begin{bmatrix}1 & 0 \\\\ 1 & 1\\end{bmatrix}$. The encoder states are $s_1 = (2,0)$, $s_2 = (0,1)$, $s_3 = (1,1)$.\n(a)–(c) The scores. (d)–(f) The attention weights. (g) The first component of the attention output.",
+      "parts": [
+        {
+          "label": "(a) score₁",
+          "answer": 0,
+          "marks": 1,
+          "tolerance": 0.001
+        },
+        {
+          "label": "(b) score₂",
+          "answer": -1,
+          "marks": 1,
+          "tolerance": 0.006
+        },
+        {
+          "label": "(c) score₃",
+          "answer": -1,
+          "marks": 1,
+          "tolerance": 0.006
+        },
+        {
+          "label": "(d) a₁",
+          "answer": 0.5761,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(e) a₂",
+          "answer": 0.2119,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(f) a₃",
+          "answer": 0.2119,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(g) c, first component",
+          "answer": 1.3642,
+          "marks": 1,
+          "tolerance": 0.006
+        }
+      ],
+      "solution": "$W s_k$: $W s_1 = (2,2)$, $W s_2 = (0,1)$, $W s_3 = (1,2)$.\nScores $h_t^\\top W s_k$: $(0, -1, -1)$.\nWeights: $(0.5761, 0.2119, 0.2119)$.\n$c = (1.3642, 0.4239)$. Luong then combines $[h_t; c]$ through a tanh layer to predict the next token.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "variantOf": "rnn-attn-calc"
+    },
+    {
+      "id": "nlp-b6-026",
+      "lecture": 6,
+      "concept": "Bahdanau model",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          86,
+          91
+        ]
+      },
+      "type": "numeric",
+      "marks": 3,
+      "question": "Bahdanau-style (MLP) attention: $\\text{score}(h, s_k) = w_2^\\top \\tanh(W_1 [h; s_k])$ with $[h; s_k]$ the concatenation. The previous decoder state is $h_{t-1} = (1,0)$, the encoder states are $s_1 = (0,1)$ and $s_2 = (1,1)$, and\n$W_1 = \\begin{bmatrix}1 & 0 & 0 & 1 \\\\ 0 & 1 & 1 & 0\\end{bmatrix}$, $w_2 = (1,-1)$.\nGive (a) score₁, (b) score₂, (c) the attention weight $a_1$.",
+      "parts": [
+        {
+          "label": "(a) score₁",
+          "answer": 0.964,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(b) score₂",
+          "answer": 0.2024,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(c) a₁",
+          "answer": 0.6817,
+          "marks": 1,
+          "tolerance": 0.0006
+        }
+      ],
+      "solution": "$[h; s_1] = (1,0,0,1)$, $W_1[h; s_1] = (2,0)$, $\\tanh = (0.964, 0)$, score $= 0.964$.\n$[h; s_2] = (1,0,1,1)$, $W_1[h; s_2] = (2,1)$, $\\tanh = (0.964, 0.7616)$, score $= 0.2024$.\n$a_1 = \\frac{e^{0.964}}{e^{0.964} + e^{0.2024}} = 0.6817$.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "variantOf": "rnn-attn-calc"
+    },
+    {
+      "id": "nlp-b6-027",
+      "lecture": 6,
+      "concept": "Attention score functions",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          86
+        ]
+      },
+      "type": "match",
+      "marks": 3,
+      "question": "Match each attention score function to its formula.",
+      "pairs": [
+        {
+          "prompt": "Dot product",
+          "answer": "$h^\\top s_k$"
+        },
+        {
+          "prompt": "Bilinear",
+          "answer": "$h^\\top W s_k$"
+        },
+        {
+          "prompt": "Multi-layer perceptron (additive)",
+          "answer": "$w_2^\\top \\tanh(W_1[h, s_k])$"
+        }
+      ],
+      "options": [
+        "$h^\\top s_k$",
+        "$h^\\top W s_k$",
+        "$w_2^\\top \\tanh(W_1[h, s_k])$",
+        "$\\text{softmax}(h^\\top s_k)$",
+        "$\\cos(h, s_k)$"
+      ],
+      "explanation": "The softmax turns scores into weights; it is not a score function (Quiz 2 Q1 and Q8)."
+    },
+    {
+      "id": "nlp-b6-028",
+      "lecture": 6,
+      "concept": "Attention score functions",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          86
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which statements about score functions are true?",
+      "choices": [
+        "Dot-product attention is bilinear attention with $W = I$",
+        "The dot product needs $h$ and $s_k$ to have the same dimension; bilinear and MLP scores do not",
+        "The MLP score is the most flexible: a small classifier deciding where to look",
+        "The dot product has the most trainable parameters"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Dot product has no parameters at all. A learned $W$ reshapes the comparison and can map between different sizes."
+    },
+    {
+      "id": "nlp-b6-029",
+      "lecture": 6,
+      "concept": "Bahdanau model",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          91,
+          98
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which features belong to the Bahdanau model as taught?",
+      "choices": [
+        "A bidirectional encoder (forward and backward states concatenated)",
+        "The previous decoder state $h_{t-1}$ is used to compute attention",
+        "An MLP (additive) score function",
+        "The context vector is combined with $h_t$ only after the decoder step, through a tanh layer"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Option (d) is Luong. In Bahdanau the context, $h_{t-1}$ and the previous target embedding together produce the new state."
+    },
+    {
+      "id": "nlp-b6-030",
+      "lecture": 6,
+      "concept": "Luong model",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          99,
+          106
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which features belong to the Luong model as taught?",
+      "choices": [
+        "A unidirectional encoder",
+        "The current decoder state $h_t$ (after reading the previous word) is used to compute attention",
+        "A bilinear score function",
+        "$[h_t; c^{(t)}]$ goes through a tanh layer to make the prediction"
+      ],
+      "answer": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "explanation": "Nothing is missing from Luong (a correction to your notes): it updates $h_t$ first, then attends with it. (The Luong paper also proposed dot and concat scores; answer as taught.)"
+    },
+    {
+      "id": "nlp-b6-031",
+      "lecture": 6,
+      "concept": "Bahdanau model",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          91
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: The lecturer described Bahdanau's backward RNN as free to specialise in making attention precise, because it could not usefully initialise the decoder.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "He called this \"deeply insightful\": the backward states only matter through attention."
+    },
+    {
+      "id": "nlp-b6-032",
+      "lecture": 6,
+      "concept": "Learned alignment",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          107
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "What does the English–French attention plot (\"European Economic Area\" ↔ \"zone économique européenne\") show?",
+      "choices": [
+        "Attention learns an (almost) word-level alignment, including reordering, without being told the alignment",
+        "Attention always looks at the same position in the source as the target",
+        "The decoder ignores the source after the first word",
+        "Attention weights are uniform"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The reversed block shows the model looked at the right words in the right (reversed) order. The lecturer called this the root of mechanistic interpretability: where is the network looking, and why?"
+    },
+    {
+      "id": "nlp-b6-033",
+      "lecture": 6,
+      "concept": "Learned alignment",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          107
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: The alignment in the attention plot is learned only from translation pairs; no word alignments are given during training.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "That is why the slide says \"Attention learned (almost) alignment\"."
+    },
+    {
+      "id": "nlp-b6-034",
+      "lecture": 6,
+      "concept": "BLEU",
+      "type": "numeric",
+      "marks": 3,
+      "question": "Reference: \"the cat is on the mat\". Candidate: \"the the cat on mat\".\nUsing the standard BLEU ingredients:\n(a) clipped unigram precision, (b) clipped bigram precision, (c) the brevity penalty $\\text{BP} = e^{1 - r/c}$ (since $c < r$).",
+      "parts": [
+        {
+          "label": "(a) Unigram precision",
+          "answer": 1,
+          "marks": 1,
+          "tolerance": 0.006
+        },
+        {
+          "label": "(b) Bigram precision",
+          "answer": 0.25,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(c) Brevity penalty",
+          "answer": 0.8187,
+          "marks": 1,
+          "tolerance": 0.0006
+        }
+      ],
+      "solution": "(a) Candidate unigrams: the ×2, cat, on, mat. \"the\" appears twice in the reference, so both count: $5/5 = 1$.\n(b) Bigrams: \"the the\", \"the cat\", \"cat on\", \"on mat\"; only \"the cat\" is in the reference: $1/4 = 0.25$.\n(c) $c = 5$, $r = 6$: $e^{1 - 6/5} = 0.8187$.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "explanation": "BLEU is the tutorial's Q5.1, not on the slides; this uses the standard definition. Clipping stops \"the the the…\" from scoring well; the brevity penalty stops very short candidates from getting perfect precision. BLEU still misses synonyms and paraphrases, and can be gamed."
+    },
+    {
+      "id": "nlp-b6-035",
+      "lecture": 6,
+      "concept": "BLEU",
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which are genuine problems with BLEU as a translation metric?",
+      "choices": [
+        "It only matches exact n-grams, so correct synonyms and paraphrases are penalised",
+        "It can be gamed (the lecturer mentioned longer outputs)",
+        "It needs one or more reference translations",
+        "It cannot be computed automatically"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "BLEU is automatic, which is why it was popular. It is n-gram precision against references with a brevity penalty (tutorial 5.1)."
+    },
+    {
+      "id": "nlp-b6-036",
+      "lecture": 6,
+      "concept": "Greedy decoding vs the best sentence",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          34,
+          57
+        ]
+      },
+      "type": "written",
+      "marks": 10,
+      "question": "A decoder has this toy distribution; after any two tokens it outputs </s> with probability 1.\nStep 1: Je 0.45, Il 0.40, </s> 0.15\nAfter \"Je\": suis 0.35, mange 0.35, </s> 0.30\nAfter \"Il\": mange 0.85, est 0.10, </s> 0.05\n(a) Trace greedy decoding and give the output and its probability. (2)\n(b) Trace beam search with $k = 2$, showing the beam after each step, and give the result. (3)\n(c) Use (a) and (b) to explain why $\\prod_t \\arg\\max p(y_t \\mid y_{<t}, x) \\neq \\arg\\max \\prod_t p(y_t \\mid y_{<t}, x)$, and give one advantage and one cost of beam search. (3)\n(d) Explain the information bottleneck in a seq2seq model without attention, and both ways attention relieves it. (2) (10 Marks)",
+      "modelAnswer": "(a) Step 1 takes \"Je\" (0.45). Step 2: \"suis\" and \"mange\" tie at 0.35 (either is accepted), then </s>. Output \"Je suis </s>\" (or \"Je mange </s>\"), probability $0.45 \\times 0.35 = 0.1575$.\n\n(b) Step 1: Je (0.45); Il (0.4)\nStep 2: Il mange (0.34); Je suis (0.1575)\nStep 3: Il mange </s> (0.34); Je suis </s> (0.1575)\nResult \"Il mange </s>\" with 0.34, which is also the best sentence overall (0.34).\n\n(c) Greedy maximises each factor separately; the most probable sentence maximises their product. \"Il\" is worse than \"Je\" at step 1 (0.40 < 0.45), but its continuation is far more certain (0.85), so the full sentence wins. Searching every sentence is intractable; beam search keeps $k$ hypotheses so it can recover from a locally worse choice. Advantage: closer to the best whole sentence than greedy. Cost: $k$ times the compute and memory (especially for Transformers), still no guarantee, and it reduces diversity; open-ended LLMs therefore sample instead.\n\n(d) Without attention the whole source is squeezed into the encoder's final state, which initialises the decoder: hard for long sentences, early words fade (recency bias), and the decoder gets the same vector at every step. Attention: (1) encoder side: it no longer has to store every detail in one vector because every encoder state stays available; (2) decoder side: at each step it can fetch the specific source information it needs now, while its recurrent state keeps the overall intent and what it has already said.",
+      "rubric": [
+        {
+          "point": "(a) Correct greedy trace and probability",
+          "marks": 2
+        },
+        {
+          "point": "(b) Correct beams at each step",
+          "marks": 2
+        },
+        {
+          "point": "(b) Correct final output and probability",
+          "marks": 1
+        },
+        {
+          "point": "(c) Explains product of argmaxes vs argmax of product with the example",
+          "marks": 1
+        },
+        {
+          "point": "(c) An advantage and a cost of beam search",
+          "marks": 2
+        },
+        {
+          "point": "(d) Describes the bottleneck",
+          "marks": 1
+        },
+        {
+          "point": "(d) Both ways attention relieves it",
+          "marks": 1
+        }
+      ],
+      "variantOf": "beam-written"
+    },
+    {
+      "id": "nlp-b6-037",
+      "lecture": 6,
+      "concept": "Attention score functions",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          70,
+          106
+        ]
+      },
+      "type": "written",
+      "marks": 10,
+      "question": "A decoder state is $h = (0.5,1)$ and the encoder states are $s_1 = (1,0)$, $s_2 = (0,1)$, $s_3 = (1,1)$.\n(a) Compute the dot-product attention weights and the attention output. (3)\n(b) Compute the bilinear attention weights with $W = \\begin{bmatrix}0 & 1 \\\\ 1 & 0\\end{bmatrix}$, and explain in words what this $W$ does to the comparison. (3)\n(c) State the three score functions and which one Bahdanau and Luong use (as taught). (2)\n(d) Bahdanau attends with $h_{t-1}$ and Luong with $h_t$. Explain the difference in how each uses the attention output. (2) (10 Marks)",
+      "modelAnswer": "(a) Scores $(0.5, 1, 1.5)$, weights $(0.1863, 0.3072, 0.5065)$, output $c = (0.6928, 0.8137)$.\n\n(b) $W$ swaps the two coordinates of $s_k$, so the score compares $h_1$ with $s_{k,2}$ and $h_2$ with $s_{k,1}$. Scores $(1, 0.5, 1.5)$, weights $(0.3072, 0.1863, 0.5065)$: the focus moves from $s_2$ to $s_1$. A learned $W$ lets the model decide which features of the decoder state should match which features of the encoder state.\n\n(c) Dot product $h^\\top s_k$; bilinear $h^\\top W s_k$; MLP $w_2^\\top \\tanh(W_1[h, s_k])$. Bahdanau: MLP. Luong: bilinear (the paper also proposed dot and concat).\n\n(d) Bahdanau: $h_{t-1}$ scores the (bidirectional) encoder states; the context, $h_{t-1}$ and the previous target embedding together produce the new state $h_t$, which predicts the token. Luong: the RNN first updates to $h_t$ from the previous word, then $h_t$ attends; $\\tilde h_t = \\tanh(W_c [h_t; c^{(t)}])$ makes the prediction. Only the order of updating and attending differs.",
+      "rubric": [
+        {
+          "point": "(a) Correct dot-product weights",
+          "marks": 2
+        },
+        {
+          "point": "(a) Correct output",
+          "marks": 1
+        },
+        {
+          "point": "(b) Correct bilinear weights",
+          "marks": 2
+        },
+        {
+          "point": "(b) Interprets W",
+          "marks": 1
+        },
+        {
+          "point": "(c) Three formulas and who uses which",
+          "marks": 2
+        },
+        {
+          "point": "(d) Bahdanau vs Luong use of the context",
+          "marks": 2
+        }
+      ]
+    },
+    {
+      "id": "nlp-b6-038",
+      "lecture": 6,
+      "concept": "Seq2seq as a conditional LM",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          12,
+          31
+        ]
+      },
+      "type": "written",
+      "marks": 6,
+      "question": "Explain why a seq2seq decoder is a conditional language model. Describe the RNN encoder–decoder (what the encoder outputs, how the decoder is initialised, what it receives at each step), how it is trained (including teacher forcing), and why conditioning on the source makes translation easier to learn than open-ended generation. (6 Marks)",
+      "modelAnswer": "A seq2seq decoder models $P(y_t \\mid y_{<t}, x)$: exactly an L5 language model, but conditioned on the source $x$. That is the only new idea.\n\nEncoder: an RNN reads the source tokens; it produces no outputs, only states, and its final state summarises the sentence. Decoder: an RNN LM whose initial state is the encoder's final state; at each step it takes the previous target token, updates its state, and outputs a softmax over the target vocabulary; at inference it feeds its own prediction back in (autoregressive).\n\nTraining: cross-entropy, summing $-\\log p(y^*_t \\mid y^*_{<t}, x)$ over target positions, with the ground-truth previous token as the decoder input (teacher forcing), so all steps get a clean signal.\n\nConditioning lowers diversity and raises coherence: for a given source only a few targets are correct, which gives the task a notion of correctness and a clean, constrained learning signal. Open-ended generation has many valid continuations, so the one-hot labels conflict more.",
+      "rubric": [
+        {
+          "point": "States $P(y_t | y_{<t}, x)$: an LM conditioned on the source",
+          "marks": 1
+        },
+        {
+          "point": "Encoder: states only; final state initialises the decoder",
+          "marks": 1
+        },
+        {
+          "point": "Decoder step and autoregressive feedback",
+          "marks": 1
+        },
+        {
+          "point": "Cross-entropy with teacher forcing",
+          "marks": 1
+        },
+        {
+          "point": "Why conditioning helps (less diversity, correctness, clean signal)",
+          "marks": 2
+        }
+      ]
+    },
+    {
+      "id": "nlp-b6-039",
+      "lecture": 6,
+      "concept": "Seq2seq tasks and argmax p(y given x)",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          5,
+          38
+        ]
+      },
+      "type": "written",
+      "marks": 4,
+      "question": "Lecture 6 frames seq2seq as three questions: modelling, learning and search. Explain each for an RNN-with-attention translation model, and explain why a better answer to \"learning\" does not remove the need for a good answer to \"search\". (4 Marks)",
+      "modelAnswer": "Modelling: what $p(y \\mid x, \\theta)$ looks like: an encoder RNN over the source, a decoder RNN (conditional LM) that at each step attends over the encoder states (scores → softmax → weighted sum) and predicts a softmax over target tokens.\n\nLearning: how to find $\\theta$: minimise cross-entropy $-\\sum_t \\log p(y_t^* \\mid y^*_{<t}, x)$ over parallel sentence pairs by gradient descent (teacher forcing).\n\nSearch: how to find $\\arg\\max_y p(y \\mid x, \\theta)$: impossible exactly (exponentially many sentences), so use greedy decoding or beam search.\n\nEven a perfect model only gives probabilities; the output still has to be found. Greedy picks the best token each step, but $\\prod_t \\arg\\max \\neq \\arg\\max \\prod_t$, so a locally best token can lead to a worse sentence; beam search reduces (but does not remove) this search error. So modelling/learning errors and search errors are separate.",
+      "rubric": [
+        {
+          "point": "Modelling explained for this model",
+          "marks": 1
+        },
+        {
+          "point": "Learning: cross-entropy on parallel data",
+          "marks": 1
+        },
+        {
+          "point": "Search: intractable argmax; greedy/beam",
+          "marks": 1
+        },
+        {
+          "point": "Why search still matters (search error, product of argmaxes)",
+          "marks": 1
+        }
+      ]
+    },
+    {
+      "id": "nlp-b6-040",
+      "lecture": 6,
+      "concept": "BLEU",
+      "type": "written",
+      "marks": 4,
+      "question": "Explain what BLEU measures and how it is computed at a high level, and give two problems with it. Why did the lecturer say the field moved away from it? (4 Marks)",
+      "modelAnswer": "BLEU compares a candidate translation with one or more reference translations: it computes modified (clipped) n-gram precisions for $n = 1$ to $4$ (how many candidate n-grams appear in a reference, each counted at most as often as in the reference), combines them with a geometric mean, and multiplies by a brevity penalty for candidates shorter than the reference.\n\nProblems: (1) exact n-gram matching misses synonyms and paraphrases, so a correct but differently worded translation scores low; (2) it can be gamed (the lecturer mentioned longer outputs), and it ignores meaning and grammaticality beyond local n-grams; it also needs reference translations. Because of this, the field moved to other evaluations.",
+      "rubric": [
+        {
+          "point": "Precision of n-grams against references (clipped)",
+          "marks": 1
+        },
+        {
+          "point": "Brevity penalty / combination",
+          "marks": 1
+        },
+        {
+          "point": "Two valid problems",
+          "marks": 2
+        }
+      ]
+    },
+    {
+      "id": "nlp-b6-041",
+      "lecture": 6,
+      "concept": "Learned alignment",
+      "source": {
+        "file": "lecture6_attention.pdf",
+        "pages": [
+          57,
+          107
+        ]
+      },
+      "type": "written",
+      "marks": 4,
+      "question": "Attention in RNN seq2seq models has costs as well as benefits. Discuss: what attention fixes, what the alignment plots reveal, and what the lecturer said attention costs (diagnosis, data). (4 Marks)",
+      "modelAnswer": "Fixes: the bottleneck. The encoder no longer has to preserve every detail in one vector, and the decoder can fetch a different detail at each step; the recurrent state keeps the intent and history while attention supplies the detail.\n\nAlignment plots: attention weights for each target word over source words form an almost one-to-one alignment, including reordering (European Economic Area ↔ zone économique européenne), learned without alignment labels. This makes the model partly interpretable: \"where is the network looking, and why?\", the root of mechanistic interpretability.\n\nCosts: errors are harder to diagnose (bad encoding? lost track? attended to the wrong token?), it needs more data, gradient descent has to make the encoder states easy to find, and the extra computation per step.",
+      "rubric": [
+        {
+          "point": "What attention fixes",
+          "marks": 1
+        },
+        {
+          "point": "What alignment plots show",
+          "marks": 1
+        },
+        {
+          "point": "At least two costs from the lecture",
+          "marks": 2
+        }
+      ]
+    }
+  ]
+}
