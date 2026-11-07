@@ -910,7 +910,7 @@
       },
       "type": "numeric",
       "marks": 3,
-      "question": "Two steps of generation give these sorted distributions:\nPeaked: $(0.88, 0.05, 0.03, 0.02, 0.02)$\nFlat: $(0.12, 0.11, 0.11, 0.1, 0.1, 0.1, 0.09, 0.09, 0.09, 0.09)$\nWith top-p, $p = 0.8$, how many tokens are in the nucleus (a) for the peaked step and (b) for the flat step? (c) With top-k, $k = 4$, what total probability mass is kept at the peaked step?",
+      "question": "Two steps of generation give these sorted distributions:\nPeaked: 0.88, 0.05, 0.03, 0.02, 0.02\nFlat: 0.12, 0.11, 0.11, 0.1, 0.1, 0.1, 0.09, 0.09, 0.09, 0.09\nWith top-p, $p = 0.8$, how many tokens are in the nucleus (a) for the peaked step and (b) for the flat step? (c) With top-k, $k = 4$, what total probability mass is kept at the peaked step?",
       "parts": [
         {
           "label": "(a) Peaked nucleus size",
