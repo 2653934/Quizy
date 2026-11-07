@@ -1,0 +1,562 @@
+{
+  "id": "nlp-bank-lecture-1",
+  "subject": "nlp",
+  "title": "Practice bank: Lecture 1 (Basic processing)",
+  "kind": "generated",
+  "origin": "new",
+  "description": "New quiz-style practice questions on Lecture 1 (tokenization, morphology, one-hot vectors, the distributional hypothesis and count-based methods), with co-occurrence and PPMI calculations. Written for exam revision from the slides and the tutorial. Not from the lecturer: the answers are unofficial.",
+  "unofficialAnswers": true,
+  "negativeMarkingNote": "The real Moodle quiz uses negative marking on MCQ questions: picking all right and wrong answers on a question results in a mark of 0.",
+  "totalMarks": 33,
+  "questions": [
+    {
+      "id": "nlp-b1-001",
+      "lecture": 1,
+      "concept": "Tokenization",
+      "source": {
+        "file": "lecture1_intro.pdf",
+        "pages": [
+          4
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "Tokenizing \"The children are selling the clothes to each other.\" by splitting on white space and punctuation gives how many tokens?",
+      "choices": [
+        "10",
+        "9",
+        "8",
+        "11"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The slide's own example: [\"The\", \"children\", \"are\", \"selling\", \"the\", \"clothes\", \"to\", \"each\", \"other\", \".\"]: the full stop is its own token."
+    },
+    {
+      "id": "nlp-b1-002",
+      "lecture": 1,
+      "concept": "Tokenizing agglutinative African languages",
+      "source": {
+        "file": "lecture1_intro.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: For many African languages tokenization is non-trivial because they are agglutinative: one written word can contain a subject marker, tense, object marker, verb root and more.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The slide splits \"Abashana bayazithengiselana izimpahla\" into many morphemes (\"Aba-shana ba-ya-zi-theng-is-el-an-a\"). Whitespace splitting leaves huge, rare words."
+    },
+    {
+      "id": "nlp-b1-003",
+      "lecture": 1,
+      "concept": "Tokenizing agglutinative African languages",
+      "source": {
+        "file": "lecture1_intro.pdf",
+        "pages": [
+          5
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "Why does whitespace tokenization work worse for isiZulu than for English?",
+      "choices": [
+        "Words are agglutinative, so each whitespace \"word\" packs several morphemes and most word forms are rare",
+        "isiZulu has no spaces between words",
+        "isiZulu has no punctuation",
+        "isiZulu words are always shorter than English words"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A whitespace token in isiZulu often corresponds to a whole English clause, so the vocabulary explodes and most words are seen rarely. This returns in L4 (BPE) and L10 (tokenizers for African languages)."
+    },
+    {
+      "id": "nlp-b1-004",
+      "lecture": 1,
+      "concept": "Stemming",
+      "source": {
+        "file": "lecture1_intro.pdf",
+        "pages": [
+          7
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "Which output is typical of stemming rather than lemmatization?",
+      "choices": [
+        "\"studies\" → \"studi\"",
+        "\"ran\" → \"run\"",
+        "\"better\" → \"good\"",
+        "\"mice\" → \"mouse\""
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Stemming chops off endings with crude heuristics, so it can produce non-words. Mapping \"ran\" → \"run\" or \"better\" → \"good\" needs a vocabulary and morphological analysis: lemmatization."
+    },
+    {
+      "id": "nlp-b1-005",
+      "lecture": 1,
+      "concept": "Lemmatization",
+      "source": {
+        "file": "lecture1_intro.pdf",
+        "pages": [
+          14
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Lemmatization uses a vocabulary and morphological analysis, normally aiming to remove inflectional endings only and return the dictionary form (the lemma).",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The slide's definition: runs, running, ran → run."
+    },
+    {
+      "id": "nlp-b1-006",
+      "lecture": 1,
+      "concept": "Lemmatization",
+      "source": {
+        "file": "lecture1_intro.pdf",
+        "pages": [
+          6,
+          14
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which statements about stemming and lemmatization are true?",
+      "choices": [
+        "Both aim to reduce inflectional (and sometimes derivationally related) forms to a common base form",
+        "Lemmatization returns a dictionary word (the lemma)",
+        "Stemming always returns a valid dictionary word",
+        "\"car, cars, car's, cars'\" → \"car\" is an example of this kind of reduction"
+      ],
+      "answer": [
+        0,
+        1,
+        3
+      ],
+      "explanation": "Stemming is a crude heuristic and can produce non-words."
+    },
+    {
+      "id": "nlp-b1-007",
+      "lecture": 1,
+      "concept": "Bound and unbound morphemes",
+      "source": {
+        "file": "lecture1_intro.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "Which of these is a bound morpheme?",
+      "choices": [
+        "\"-ness\" in \"kindness\"",
+        "\"kind\" in \"kindness\"",
+        "\"cat\"",
+        "\"run\""
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "A bound morpheme does not occur on its own in the language; \"-ness\" only appears attached to a root or stem."
+    },
+    {
+      "id": "nlp-b1-008",
+      "lecture": 1,
+      "concept": "Bound and unbound morphemes",
+      "source": {
+        "file": "lecture1_intro.pdf",
+        "pages": [
+          9
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: An unbound (free) morpheme is one that can be found on its own in the language.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "For example \"kind\" or \"come\". Roots, stems and affixes are other morpheme types."
+    },
+    {
+      "id": "nlp-b1-009",
+      "lecture": 1,
+      "concept": "Roots, stems and affixes",
+      "source": {
+        "file": "lecture1_intro.pdf",
+        "pages": [
+          8,
+          12
+        ]
+      },
+      "type": "match",
+      "marks": 5,
+      "question": "Match each term to its definition (Lecture 1).",
+      "pairs": [
+        {
+          "prompt": "Morpheme",
+          "answer": "The smallest meaningful unit of grammar"
+        },
+        {
+          "prompt": "Affix",
+          "answer": "A bound morpheme combined with a root or stem"
+        },
+        {
+          "prompt": "Stem",
+          "answer": "A root plus derivational affixes, without inflectional affixes"
+        },
+        {
+          "prompt": "Morphology",
+          "answer": "The study of how morphemes are placed together"
+        },
+        {
+          "prompt": "Syntax",
+          "answer": "The rules of how to combine words to form sentences"
+        }
+      ],
+      "options": [
+        "The smallest meaningful unit of grammar",
+        "A bound morpheme combined with a root or stem",
+        "A root plus derivational affixes, without inflectional affixes",
+        "The study of how morphemes are placed together",
+        "The rules of how to combine words to form sentences",
+        "A computer-readable collection of text"
+      ],
+      "explanation": "From the terminology slides."
+    },
+    {
+      "id": "nlp-b1-010",
+      "lecture": 1,
+      "concept": "Derivation vs inflection",
+      "source": {
+        "file": "lecture1_intro.pdf",
+        "pages": [
+          12
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "Which pair is an example of inflection rather than derivation?",
+      "choices": [
+        "come + s → comes",
+        "kind + ness → kindness",
+        "teach + er → teacher",
+        "happy + ness → happiness"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Inflection usually keeps the word class and is required by grammar (\"comes\" is still a verb). Derivation forms a new word and usually changes the class (adjective → noun)."
+    },
+    {
+      "id": "nlp-b1-011",
+      "lecture": 1,
+      "concept": "Derivation vs inflection",
+      "source": {
+        "file": "lecture1_intro.pdf",
+        "pages": [
+          11,
+          12
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which statements about derivation and inflection are true?",
+      "choices": [
+        "Derivation forms a new word or stem, usually changing the word class",
+        "Inflection changes meaning in a predictable way and is invoked by grammar (obligatory)",
+        "Inflection usually changes a noun into a verb",
+        "Both work by adding affixes"
+      ],
+      "answer": [
+        0,
+        1,
+        3
+      ],
+      "explanation": "Changing the word class is typical of derivation, not inflection."
+    },
+    {
+      "id": "nlp-b1-012",
+      "lecture": 1,
+      "concept": "Corpus",
+      "source": {
+        "file": "lecture1_intro.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "What is a corpus?",
+      "choices": [
+        "A computer-readable collection of text or speech",
+        "The vocabulary of a model",
+        "A single sentence used for testing",
+        "A table of word counts"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Plural: corpora (slide 15)."
+    },
+    {
+      "id": "nlp-b1-013",
+      "lecture": 1,
+      "concept": "Corpus",
+      "source": {
+        "file": "lecture1_intro.pdf",
+        "pages": [
+          15
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: The data a BPE tokenizer is trained on (its corpus) does not have to be the same data used to train the model.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "L4 slide 37: the tokenizer's input is \"a corpus of text to train the tokenizer, not necessarily the same data we use to train our model\"."
+    },
+    {
+      "id": "nlp-b1-014",
+      "lecture": 1,
+      "concept": "One-hot vectors",
+      "source": {
+        "file": "lecture1_intro.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "With a vocabulary of 50,000 words, what is the cosine similarity between the one-hot vectors of \"cat\" and \"kitten\"?",
+      "choices": [
+        "0",
+        "1",
+        "0.5",
+        "1/50000"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Different one-hot vectors are orthogonal, so their dot product (and cosine) is 0 for every pair: one-hot vectors capture no similarity of meaning."
+    },
+    {
+      "id": "nlp-b1-015",
+      "lecture": 1,
+      "concept": "One-hot vectors",
+      "source": {
+        "file": "lecture1_intro.pdf",
+        "pages": [
+          20
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which are problems with one-hot word vectors?",
+      "choices": [
+        "Their size equals the vocabulary size",
+        "They are sparse (almost all zeros)",
+        "Every pair of words is equally (dis)similar",
+        "They cannot be fed into a linear layer"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "A one-hot vector times a weight matrix selects a row: that is exactly an embedding lookup (Quiz 1 Q19)."
+    },
+    {
+      "id": "nlp-b1-016",
+      "lecture": 1,
+      "concept": "Distributional hypothesis",
+      "source": {
+        "file": "lecture1_intro.pdf",
+        "pages": [
+          24,
+          30
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "The \"Tej\" example (A bottle of ___ is on the table; ___ makes you drunk; we make ___ out of honey) shows that:",
+      "choices": [
+        "We can infer a word's meaning from the contexts it appears in",
+        "Rare words cannot be understood",
+        "Meaning comes from spelling",
+        "Words have no meaning outside a dictionary"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Tej is an alcoholic drink made from honey: you can work this out from its contexts alone. Rows of the context table that are similar (Tej and wine) belong to words with similar meaning."
+    },
+    {
+      "id": "nlp-b1-017",
+      "lecture": 1,
+      "concept": "Count-based methods and SVD",
+      "source": {
+        "file": "lecture1_intro.pdf",
+        "pages": [
+          33,
+          35
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Count-based methods first build a word–context matrix and then reduce its dimensionality, because the raw matrix is huge and sparse.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Slides 33–35: (1) construct the matrix, (2) reduce its dimensionality (e.g. truncated SVD), because of size and sparsity."
+    },
+    {
+      "id": "nlp-b1-018",
+      "lecture": 1,
+      "concept": "Co-occurrence counts",
+      "source": {
+        "file": "lecture1_intro.pdf",
+        "pages": [
+          36,
+          42
+        ]
+      },
+      "type": "numeric",
+      "marks": 4,
+      "question": "Use the corpus \"I saw a cute grey cat. a loving, cute cat\" with punctuation removed (so the tokens are: I saw a cute grey cat a loving cute cat). The context of a word is the words up to 2 positions to its left and right.\nGive the co-occurrence counts (a) $N(cat, cute)$, (b) $N(cute, a)$, (c) $N(grey, saw)$, (d) $N(a, cute)$.",
+      "parts": [
+        {
+          "label": "(a) N(cat, cute)",
+          "answer": 2,
+          "marks": 1,
+          "tolerance": 0.1
+        },
+        {
+          "label": "(b) N(cute, a)",
+          "answer": 2,
+          "marks": 1,
+          "tolerance": 0.1
+        },
+        {
+          "label": "(c) N(grey, saw)",
+          "answer": 0,
+          "marks": 1,
+          "tolerance": 0.1
+        },
+        {
+          "label": "(d) N(a, cute)",
+          "answer": 2,
+          "marks": 1,
+          "tolerance": 0.1
+        }
+      ],
+      "solution": "Positions: 1 I, 2 saw, 3 a, 4 cute, 5 grey, 6 cat, 7 a, 8 loving, 9 cute, 10 cat.\n(a) Both \"cat\"s have \"cute\" within 2 positions (position 4 for the cat at 6; position 9 for the cat at 10): 2.\n(b) \"cute\" at 4 has \"a\" at 3; \"cute\" at 9 has \"a\" at 7: 2.\n(c) \"grey\" at 5 sees positions 3–7; \"saw\" is at 2: 0.\n(d) 2: the matrix is symmetric for a symmetric window.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "explanation": "This is the slide's toy corpus; check your full table against the finished one on slide 42.",
+      "variantOf": "cooc-calc"
+    },
+    {
+      "id": "nlp-b1-019",
+      "lecture": 1,
+      "concept": "Co-occurrence counts",
+      "source": {
+        "file": "lecture1_intro.pdf",
+        "pages": [
+          36
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: In a co-occurrence matrix with a symmetric window, $N(w, c) = N(c, w)$.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Each time $c$ is within $L$ words of $w$, $w$ is within $L$ words of $c$."
+    },
+    {
+      "id": "nlp-b1-020",
+      "lecture": 1,
+      "concept": "PPMI",
+      "type": "numeric",
+      "marks": 3,
+      "question": "A word–context count matrix has rows (words) w1, w2, w3 and columns (contexts) c1, c2, c3:\n$$\\begin{bmatrix}2 & 1 & 0 \\\\ 1 & 3 & 1 \\\\ 0 & 1 & 4\\end{bmatrix}$$\nUsing $\\text{PMI}(w, c) = \\log_2 \\frac{P(w, c)}{P(w)P(c)}$ with probabilities from the counts, and $\\text{PPMI} = \\max(0, \\text{PMI})$ (0 for zero counts), give (a) PPMI(w1, c1), (b) PPMI(w1, c2), (c) PPMI(w3, c3).",
+      "parts": [
+        {
+          "label": "(a) PPMI(w1, c1)",
+          "answer": 1.5305,
+          "marks": 1,
+          "tolerance": 0.006
+        },
+        {
+          "label": "(b) PPMI(w1, c2)",
+          "answer": 0,
+          "marks": 1,
+          "tolerance": 0.001
+        },
+        {
+          "label": "(c) PPMI(w3, c3)",
+          "answer": 1.0566,
+          "marks": 1,
+          "tolerance": 0.006
+        }
+      ],
+      "solution": "Total 13; row sums $(3,5,5)$; column sums $(3,5,5)$.\n(a) $\\log_2 \\frac{2/13}{(3/13)(3/13)} = 1.5305$.\n(b) PMI $= -0.2065$ < 0, so PPMI = 0.\n(c) PMI $= 1.0566$.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "explanation": "PPMI is in Tutorial 1.4, not on the slides (L2 recommends a PMI reading). PMI compares how often $w$ and $c$ co-occur with how often they would by chance; negative values are unreliable with sparse counts, so they are clipped to 0."
+    },
+    {
+      "id": "nlp-b1-021",
+      "lecture": 1,
+      "concept": "PPMI",
+      "type": "single",
+      "marks": 1,
+      "question": "Why is PPMI often used instead of raw co-occurrence counts?",
+      "choices": [
+        "Raw counts are dominated by frequent words such as \"the\"; PMI measures whether two words co-occur more than chance",
+        "PPMI makes the matrix smaller",
+        "Raw counts cannot be negative",
+        "PPMI turns the matrix into one-hot vectors"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Frequent function words co-occur with everything. PMI divides by what independence predicts, and PPMI clips unreliable negative values to 0."
+    }
+  ]
+}
