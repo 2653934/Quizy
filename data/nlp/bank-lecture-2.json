@@ -1,0 +1,578 @@
+{
+  "id": "nlp-bank-lecture-2",
+  "subject": "nlp",
+  "title": "Practice bank: Lecture 2 (Word embeddings)",
+  "kind": "generated",
+  "origin": "new",
+  "description": "New quiz-style practice questions on Word2Vec, negative sampling, GloVe and evaluating embeddings, with softmax, negative-sampling, cosine-similarity and analogy calculations. Written for exam revision from the Lecture 2 slides and the tutorial. Not from the lecturer: the answers are unofficial.",
+  "unofficialAnswers": true,
+  "negativeMarkingNote": "The real Moodle quiz uses negative marking on MCQ questions: picking all right and wrong answers on a question results in a mark of 0.",
+  "totalMarks": 35,
+  "questions": [
+    {
+      "id": "nlp-b2-001",
+      "lecture": 2,
+      "concept": "Word2Vec: prediction-based idea",
+      "source": {
+        "file": "lecture2_word2vec.pdf",
+        "pages": [
+          2,
+          4
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Word2Vec learns word vectors by going over the text with a sliding window and, for each central word, adjusting the vectors to increase the probability of its context words.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Slide 4: an iterative method, one window position at a time."
+    },
+    {
+      "id": "nlp-b2-002",
+      "lecture": 2,
+      "concept": "Word2Vec objective (negative log-likelihood)",
+      "source": {
+        "file": "lecture2_word2vec.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "What does Word2Vec minimise?",
+      "choices": [
+        "The average negative log-likelihood of the context words given each central word: $-\\frac{1}{T}\\sum_t \\sum_{-m \\le j \\le m, j \\ne 0} \\log P(w_{t+j} \\mid w_t, \\theta)$",
+        "The squared distance between every pair of word vectors",
+        "The number of co-occurrences in the word–context matrix",
+        "The negative log-likelihood of the central word given the whole document"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Slide 11: the likelihood is a product over positions and window offsets; the loss is its average negative log."
+    },
+    {
+      "id": "nlp-b2-003",
+      "lecture": 2,
+      "concept": "Word2Vec objective (negative log-likelihood)",
+      "source": {
+        "file": "lecture2_word2vec.pdf",
+        "pages": [
+          11
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Minimising the negative log-likelihood is the same as maximising the likelihood of the observed context words.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "$-\\log$ is decreasing, so the minimum of $-\\log L$ is the maximum of $L$."
+    },
+    {
+      "id": "nlp-b2-004",
+      "lecture": 2,
+      "concept": "Word2Vec softmax probabilities",
+      "source": {
+        "file": "lecture2_word2vec.pdf",
+        "pages": [
+          12,
+          13
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "In Word2Vec, $P(o \\mid c) = \\frac{\\exp(u_o^\\top v_c)}{\\sum_{w \\in V} \\exp(u_w^\\top v_c)}$. Which statements are true?",
+      "choices": [
+        "Each word has two vectors: $v_w$ when it is a central word and $u_w$ when it is a context word",
+        "The dot product measures similarity: a larger dot product gives a larger probability",
+        "The denominator normalises over the entire vocabulary",
+        "After training, both vector sets are always concatenated"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Once trained, the context vectors are usually thrown away and only the word (central) vectors are used (slide 12)."
+    },
+    {
+      "id": "nlp-b2-005",
+      "lecture": 2,
+      "concept": "Word2Vec softmax probabilities",
+      "source": {
+        "file": "lecture2_word2vec.pdf",
+        "pages": [
+          12,
+          13
+        ]
+      },
+      "type": "numeric",
+      "marks": 3,
+      "question": "A toy Word2Vec model has vocabulary {cute, grey, the, cat}. The central vector of \"cat\" is $v_{cat} = (1,0.5)$ and the context vectors are $u_{cute} = (1,1)$, $u_{grey} = (0.5,0)$, $u_{the} = (0,-1)$, $u_{cat} = (2,1)$.\n(a) $P(cute \\mid cat)$  (b) $P(the \\mid cat)$  (c) the loss term $J = -\\log P(cute \\mid cat)$ (natural log).",
+      "parts": [
+        {
+          "label": "(a) P(cute | cat)",
+          "answer": 0.2369,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(b) P(the | cat)",
+          "answer": 0.0321,
+          "marks": 1,
+          "tolerance": 0.0005
+        },
+        {
+          "label": "(c) J",
+          "answer": 1.4402,
+          "marks": 1,
+          "tolerance": 0.006
+        }
+      ],
+      "solution": "Dot products $u_w^\\top v_{cat}$: cute 1.5, grey 0.5, the -0.5, cat 2.5.\nSoftmax: cute 0.2369, grey 0.0871, the 0.0321, cat 0.6439.\n(c) $-\\ln 0.2369 = 1.4402$.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "explanation": "Note that \"cat\" also has a context vector: a word can be in its own vocabulary of contexts, which is one reason Word2Vec keeps two vectors per word.",
+      "variantOf": "w2v-softmax-calc"
+    },
+    {
+      "id": "nlp-b2-006",
+      "lecture": 2,
+      "concept": "Word2Vec gradient updates",
+      "source": {
+        "file": "lecture2_word2vec.pdf",
+        "pages": [
+          21,
+          23
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "One gradient step on $J_{t,j} = -\\log P(cute \\mid cat)$ with the full softmax does what?",
+      "choices": [
+        "Increases the similarity of $v_{cat}$ and $u_{cute}$ and decreases the similarity of $v_{cat}$ with $u_w$ for all other words",
+        "Increases the similarity of $v_{cat}$ with every context vector",
+        "Updates only $u_{cute}$",
+        "Updates every central vector $v_w$"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Slides 22–23. Only $v_{cat}$ among the central vectors, and every $u_w$ among the context vectors, are updated at this step."
+    },
+    {
+      "id": "nlp-b2-007",
+      "lecture": 2,
+      "concept": "Word2Vec gradient updates",
+      "source": {
+        "file": "lecture2_word2vec.pdf",
+        "pages": [
+          23
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Word2Vec pushes $v_{cat}$ away from the context vectors of \"grey\" and \"playing\" at a step about \"cute\", even though they are also valid contexts of \"cat\"; on average over all updates it still learns the right distribution.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Slide 23: this sounds strange, but we make updates for every context word, so on average the vectors learn the distribution of possible contexts."
+    },
+    {
+      "id": "nlp-b2-008",
+      "lecture": 2,
+      "concept": "Why the full softmax is inefficient",
+      "source": {
+        "file": "lecture2_word2vec.pdf",
+        "pages": [
+          24,
+          25
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "Why is training Word2Vec with the full softmax extremely inefficient?",
+      "choices": [
+        "Every step needs dot products with, and updates to, the context vectors of all |V| words",
+        "The sliding window is too small",
+        "Gradients cannot be computed through a softmax",
+        "Each word needs a separate model"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The normalising sum has |V| terms (often hundreds of thousands), and all |V| context vectors change at each step."
+    },
+    {
+      "id": "nlp-b2-009",
+      "lecture": 2,
+      "concept": "Why the full softmax is inefficient",
+      "source": {
+        "file": "lecture2_word2vec.pdf",
+        "pages": [
+          25,
+          26
+        ]
+      },
+      "type": "numeric",
+      "marks": 2,
+      "question": "A vocabulary has 100,000 words and negative sampling uses $K = 5$ negatives. How many vectors are updated at one step (a) with the full softmax, (b) with negative sampling?",
+      "parts": [
+        {
+          "label": "(a) full softmax",
+          "answer": 100001,
+          "marks": 1,
+          "tolerance": 0.5
+        },
+        {
+          "label": "(b) negative sampling",
+          "answer": 7,
+          "marks": 1,
+          "tolerance": 0.1
+        }
+      ],
+      "solution": "(a) $v_{cat}$ plus $u_w$ for every word: $|V| + 1 = 100001$.\n(b) $v_{cat}$, $u_{cute}$ and the $K$ negatives: $K + 2 = 7$.",
+      "inputHint": "A whole number."
+    },
+    {
+      "id": "nlp-b2-010",
+      "lecture": 2,
+      "concept": "Negative sampling",
+      "source": {
+        "file": "lecture2_word2vec.pdf",
+        "pages": [
+          25,
+          26
+        ]
+      },
+      "type": "numeric",
+      "marks": 3,
+      "question": "With negative sampling the loss for one (central, context) pair is $J = -\\log \\sigma(u_o^\\top v_c) - \\sum_{w \\in \\text{neg}} \\log \\sigma(-u_w^\\top v_c)$. Take $v_c = (1,1)$, $u_o = (1,0.5)$ and three negatives (0.5,-1), (-1,0), (0,0.5).\n(a) $\\sigma(u_o^\\top v_c)$  (b) the positive term $-\\log\\sigma(u_o^\\top v_c)$  (c) the total loss (natural logs).",
+      "parts": [
+        {
+          "label": "(a) σ(u_o·v_c)",
+          "answer": 0.8176,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(b) positive term",
+          "answer": 0.2014,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(c) total J",
+          "answer": 1.9628,
+          "marks": 1,
+          "tolerance": 0.006
+        }
+      ],
+      "solution": "$u_o^\\top v_c = 1.5$, $\\sigma = 0.8176$, term $0.2014$.\nNegatives: $u_w^\\top v_c = (-0.5, -1, 0.5)$, terms $-\\log\\sigma(-x) = (0.4741, 0.3133, 0.9741)$.\nTotal $1.9628$.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "explanation": "A binary logistic classifier: the true pair should score high, the $K$ random pairs low. No sum over the vocabulary.",
+      "variantOf": "negsamp-calc"
+    },
+    {
+      "id": "nlp-b2-011",
+      "lecture": 2,
+      "concept": "Negative sampling",
+      "source": {
+        "file": "lecture2_word2vec.pdf",
+        "pages": [
+          26
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: In negative sampling the softmax over the whole vocabulary is replaced by sigmoids for the true context word and $K$ randomly chosen \"negative\" words.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Slide 26; the sigmoid is $\\sigma(x) = 1/(1 + e^{-x})$."
+    },
+    {
+      "id": "nlp-b2-012",
+      "lecture": 2,
+      "concept": "Skip-gram vs CBOW",
+      "source": {
+        "file": "lecture2_word2vec.pdf",
+        "pages": [
+          27
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: Skip-gram predicts each context word from the central word (one at a time); CBOW predicts the central word from the sum of the context vectors.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Slide 27."
+    },
+    {
+      "id": "nlp-b2-013",
+      "lecture": 2,
+      "concept": "GloVe and count vs prediction",
+      "source": {
+        "file": "lecture2_word2vec.pdf",
+        "pages": [
+          28
+        ]
+      },
+      "type": "match",
+      "marks": 3,
+      "question": "Match each method to how it works (slide 28).",
+      "pairs": [
+        {
+          "prompt": "Count-based (e.g. SVD of a co-occurrence matrix)",
+          "answer": "Global corpus statistics; vectors from dimensionality reduction"
+        },
+        {
+          "prompt": "GloVe",
+          "answer": "Global corpus statistics; vectors learned by gradient descent"
+        },
+        {
+          "prompt": "Prediction-based (Word2Vec)",
+          "answer": "\"Reading\" a text corpus window by window; vectors learned by gradient descent"
+        }
+      ],
+      "options": [
+        "Global corpus statistics; vectors from dimensionality reduction",
+        "Global corpus statistics; vectors learned by gradient descent",
+        "\"Reading\" a text corpus window by window; vectors learned by gradient descent",
+        "Contextual vectors from a biLSTM"
+      ],
+      "explanation": "GloVe combines the two: count statistics as the information, gradient descent as the learning."
+    },
+    {
+      "id": "nlp-b2-014",
+      "lecture": 2,
+      "concept": "GloVe and count vs prediction",
+      "source": {
+        "file": "lecture2_word2vec.pdf",
+        "pages": [
+          28
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "Where does GloVe get its information from?",
+      "choices": [
+        "Global corpus co-occurrence statistics",
+        "Labelled sentiment data",
+        "A biLSTM language model",
+        "Character n-grams only"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "GloVe = \"Global Vectors\": counts like count-based methods, learned like prediction-based ones."
+    },
+    {
+      "id": "nlp-b2-015",
+      "lecture": 2,
+      "concept": "Intrinsic vs extrinsic evaluation",
+      "source": {
+        "file": "lecture2_word2vec.pdf",
+        "pages": [
+          29,
+          31
+        ]
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which statements about evaluating word embeddings are true?",
+      "choices": [
+        "Intrinsic evaluation (similarity, analogy) is usually fast but may not tell you what is better in practice",
+        "Extrinsic evaluation on a real task tells you directly what is better, but training several task models is expensive",
+        "Correlation with human similarity scores is an intrinsic benchmark",
+        "Using embeddings in a POS tagger and measuring accuracy is intrinsic"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "A POS tagger is a downstream task, so that is extrinsic (Quiz 1 Q33)."
+    },
+    {
+      "id": "nlp-b2-016",
+      "lecture": 2,
+      "concept": "Word analogies and linear structure",
+      "source": {
+        "file": "lecture2_word2vec.pdf",
+        "pages": [
+          32,
+          36
+        ]
+      },
+      "type": "numeric",
+      "marks": 5,
+      "question": "Toy embeddings: king $(3,1,2)$, man $(2,0,1)$, woman $(2,2,1)$, queen $(3,3,2)$, prince $(3,0,2)$, girl $(1,2,0)$.\n(a)–(c) Compute $v(king) - v(man) + v(woman)$.\n(d) Its cosine similarity with $v(queen)$.\n(e) Its cosine similarity with $v(prince)$.",
+      "parts": [
+        {
+          "label": "(a) component 1",
+          "answer": 3,
+          "marks": 1,
+          "tolerance": 0.001
+        },
+        {
+          "label": "(b) component 2",
+          "answer": 3,
+          "marks": 1,
+          "tolerance": 0.001
+        },
+        {
+          "label": "(c) component 3",
+          "answer": 2,
+          "marks": 1,
+          "tolerance": 0.001
+        },
+        {
+          "label": "(d) cos with queen",
+          "answer": 1,
+          "marks": 1,
+          "tolerance": 0.006
+        },
+        {
+          "label": "(e) cos with prince",
+          "answer": 0.7687,
+          "marks": 1,
+          "tolerance": 0.0006
+        }
+      ],
+      "solution": "$(3,1,2) - (2,0,1) + (2,2,1) = (3,3,2)$.\nCosines: queen 1, girl 0.8581, prince 0.7687: the nearest (excluding the query words) is queen.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "explanation": "Analogy benchmarks (intrinsic): find the word closest to $v(a^*) - v(a) + v(b)$ and check it is the expected one.",
+      "variantOf": "analogy-calc"
+    },
+    {
+      "id": "nlp-b2-017",
+      "lecture": 2,
+      "concept": "Word analogies and linear structure",
+      "source": {
+        "file": "lecture2_word2vec.pdf",
+        "pages": [
+          32
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: The analogy $v(kings) - v(king) + v(queen) \\approx v(queens)$ is an example of a syntactic relationship captured linearly in the embedding space.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Slide 32 separates semantic (king/queen) and syntactic (singular/plural) analogies."
+    },
+    {
+      "id": "nlp-b2-018",
+      "lecture": 2,
+      "concept": "Cross-lingual embedding mapping",
+      "source": {
+        "file": "lecture2_word2vec.pdf",
+        "pages": [
+          37
+        ]
+      },
+      "type": "single",
+      "marks": 1,
+      "question": "What does Lecture 2 say about semantic spaces of different languages?",
+      "choices": [
+        "They are (somewhat) linearly related: one space can be linearly mapped onto another so that translations match",
+        "They are unrelated, so translation needs parallel sentences",
+        "They are identical without any mapping",
+        "They only align for languages with the same alphabet"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Slides 37–38: \"Word Translation Without Parallel Data\"."
+    },
+    {
+      "id": "nlp-b2-019",
+      "lecture": 2,
+      "concept": "Cross-lingual embedding mapping",
+      "source": {
+        "file": "lecture2_word2vec.pdf",
+        "pages": [
+          38
+        ]
+      },
+      "type": "truefalse",
+      "marks": 1,
+      "question": "True or False: The cross-lingual mapping result suggests word translations can be learned with little or no parallel data.",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "The cited paper learns the mapping without parallel data; your notes add that a few seed translations help."
+    },
+    {
+      "id": "nlp-b2-020",
+      "lecture": 2,
+      "concept": "Cosine similarity",
+      "source": {
+        "file": "lecture2_word2vec.pdf",
+        "pages": [
+          35
+        ]
+      },
+      "type": "numeric",
+      "marks": 3,
+      "question": "Compute the cosine similarity of (a) $(1,2,2)$ and $(2,1,2)$, (b) $(1,2,2)$ and $(-1,-2,-2)$, (c) $(1,2,2)$ and $(2, 4, 4)$.",
+      "parts": [
+        {
+          "label": "(a)",
+          "answer": 0.8889,
+          "marks": 1,
+          "tolerance": 0.0006
+        },
+        {
+          "label": "(b)",
+          "answer": -1,
+          "marks": 1,
+          "tolerance": 0.006
+        },
+        {
+          "label": "(c)",
+          "answer": 1,
+          "marks": 1,
+          "tolerance": 0.001
+        }
+      ],
+      "solution": "$\\cos = \\frac{a \\cdot b}{\\|a\\|\\|b\\|}$. (a) $8/(3 \\times 3) = 0.8889$. (b) $-9/9 = -1$ (opposite direction). (c) Same direction: 1, whatever the length.",
+      "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+      "variantOf": "cos-calc"
+    }
+  ]
+}
