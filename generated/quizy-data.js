@@ -27,6 +27,7 @@ window.QUIZY_DATA = {
         "aside": "#ebe8f4"
       },
       "sets": [
+        "nlp-past-quiz-1-2025",
         "nlp-past-quiz-2-2025",
         "nlp-practice-quiz",
         "nlp-tutorial",
@@ -26622,6 +26623,753 @@ window.QUIZY_DATA = {
             1
           ],
           "explanation": "The Fourier Transform exposes the frequencies and amplitudes that compose a signal, making periodic structure visible."
+        }
+      ]
+    },
+    "nlp-past-quiz-1-2025": {
+      "id": "nlp-past-quiz-1-2025",
+      "subject": "nlp",
+      "title": "Past paper: Quiz 1 (2025)",
+      "kind": "past-paper",
+      "description": "All 38 questions from the 2025 Quiz 1 (Moodle attempt review, 16 Sep 2025), transcribed word for word. Only the order of questions and options is randomised. This review shows no 'correct answer' lines: answers to questions marked fully correct are confirmed; the others are worked out from the marks awarded and say so in their study note.",
+      "sourceFile": "02 Practice Questions/NLP quiz 1.pdf",
+      "totalMarks": 50,
+      "negativeMarkingNote": "The real Moodle quiz uses negative marking on MCQ questions: picking all right and wrong answers on a question results in a mark of 0.",
+      "transcriptionNotes": "Question and option text is copied exactly from the PDF, including capitalisation and wording ('co-occurance', 'Pincer', 'imbalance'). Bold words in the PDF are listed as emphasis. The review shows only the student's picks with ticks/crosses and the mark per question, not the correct answers. Where a question was fully correct, the ticked options are the answer. For Q10, Q23 and Q33 (true/false, marked wrong) the other option is the answer. For Q13, Q15, Q22, Q32 and Q35 the answer is inferred from the partial marks and the Moodle multi-select formula (score = picked correct / C − picked wrong / W); each says so in its study note and the less certain ones carry a keyDispute. The 'explanation' fields are study notes, not part of the paper.",
+      "questions": [
+        {
+          "id": "nlp-q1-01",
+          "number": 1,
+          "lecture": 3,
+          "concept": "Pooling: max, mean, local and global",
+          "marks": 1,
+          "type": "truefalse",
+          "question": "True or False, when using a global pooling layer in a CNN we are implicitly assuming the position of a word in the text does not matter.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Global pooling (e.g. max-over-time) keeps only the strongest response of each filter over the whole text, so where in the text a pattern occurred is thrown away (L3: \"we don't care where the cat is\")."
+        },
+        {
+          "id": "nlp-q1-02",
+          "number": 2,
+          "lecture": 3,
+          "concept": "Linear layer + softmax = logistic regression",
+          "marks": 1,
+          "type": "truefalse",
+          "question": "True or False, when doing logistic regression, increasing the probability of the correct class simultaneously decreases the probability of the incorrect classes.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "The softmax outputs sum to 1, so pushing up the probability of the correct class must push the others down. That is why minimising cross-entropy on the correct class is enough."
+        },
+        {
+          "id": "nlp-q1-03",
+          "number": 3,
+          "lecture": 4,
+          "concept": "Problems with recurrence",
+          "marks": 2,
+          "type": "multi",
+          "negativeMarking": true,
+          "question": "Which of the following are weaknesses with traditional RNNs which motivate the use of attention in RNN decoders.",
+          "choices": [
+            "When training an RNN the gradients vanish due to the long chain of matrix multiplications.",
+            "RNNs are slow to train (in terms of epochs) due to the many matrix multiplications.",
+            "RNN encoders are not easily parallelizable to work on GPUs",
+            "RNNs have a fixed embedding size for variable length sentences."
+          ],
+          "answer": [
+            0,
+            3
+          ],
+          "explanation": "Full marks for (a) and (d) in the review. Long chains of multiplications make gradients vanish, and squeezing any sentence into one fixed-size vector is the bottleneck attention removes. Poor parallelism is a real RNN weakness, but it motivated the Transformer, not attention in RNN decoders."
+        },
+        {
+          "id": "nlp-q1-04",
+          "number": 4,
+          "lecture": 4,
+          "concept": "CNNs (spatial) vs RNNs (temporal)",
+          "marks": 1,
+          "type": "truefalse",
+          "question": "True or False, CNNs for NLP represent time spatially while RNNs do not.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "A CNN sees the whole sentence laid out at once and slides filters across positions, so word order becomes a spatial axis. An RNN processes tokens one step after another, so order is handled through time."
+        },
+        {
+          "id": "nlp-q1-05",
+          "number": 5,
+          "lecture": 1,
+          "concept": "Bonus question",
+          "marks": 1,
+          "type": "truefalse",
+          "question": "True or False, Devon really likes cats!",
+          "emphasis": [
+            "really"
+          ],
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "A free mark on the real quiz. (Count the cats in his examples.)"
+        },
+        {
+          "id": "nlp-q1-06",
+          "number": 6,
+          "lecture": 1,
+          "concept": "Tokenization",
+          "marks": 4,
+          "type": "multi",
+          "negativeMarking": true,
+          "question": "Which of the following is/are true?",
+          "choices": [
+            "Tokenization translates a sentence into another language.",
+            "Tokenization removes punctuation from text.",
+            "Tokenization only corrects spelling errors in text.",
+            "Tokenization is the process of segmenting running text into words or subwords."
+          ],
+          "answer": [
+            3
+          ],
+          "explanation": "L1: \"Tokenization is the task of segmenting running text into words.\" Punctuation is usually kept as its own token (the slide's example ends with \".\")."
+        },
+        {
+          "id": "nlp-q1-07",
+          "number": 7,
+          "lecture": 4,
+          "concept": "Word embeddings: scratch, pretrained or fine-tuned",
+          "marks": 1,
+          "type": "single",
+          "question": "Which of the following is not a typically viable method of getting word-embeddings in a neural model that capture the semantic meaning of tokens:",
+          "emphasis": [
+            "not"
+          ],
+          "choices": [
+            "Train an embedding layer from scratch using gradient descent",
+            "Use pretrained embeddings from another neural model and fine tune them",
+            "Use fixed Word2Vec embeddings",
+            "Use fixed random embeddings"
+          ],
+          "answer": [
+            3
+          ],
+          "explanation": "The three options on the slides are: train from scratch, take pretrained (Word2Vec, GloVe), or initialise with pretrained and fine-tune. Fixed random vectors carry no meaning and never learn any."
+        },
+        {
+          "id": "nlp-q1-08",
+          "number": 8,
+          "lecture": 3,
+          "concept": "Classical methods: BOW features, SVM, Naive Bayes",
+          "marks": 1,
+          "type": "single",
+          "question": "Laplace smoothing is used in case:",
+          "choices": [
+            "An unseen word appears during inference.",
+            "The class labels are very imbalance.",
+            "All of the above.",
+            "Too many stop words appear in the training data."
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "An unseen word would get a count (and probability) of 0, which zeroes the whole product in Naive Bayes or an n-gram model. Adding δ to every count avoids that."
+        },
+        {
+          "id": "nlp-q1-09",
+          "number": 9,
+          "lecture": 1,
+          "concept": "One-hot vectors",
+          "marks": 1,
+          "type": "truefalse",
+          "question": "True or False: 1-hot representations of words accurately capture the semantic meaning of the word.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "L1: \"one-hot vectors do not capture meaning.\" Every pair of one-hot vectors is orthogonal, so cat is as far from kitten as from carburettor."
+        },
+        {
+          "id": "nlp-q1-10",
+          "number": 10,
+          "lecture": 3,
+          "concept": "Several kernel sizes, stacking and receptive field",
+          "marks": 1,
+          "type": "truefalse",
+          "question": "True or False, the effective receptive field of a convolutional layer gets smaller as the size of the kernel gets larger.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "Answer inferred: the review marked \"True\" as wrong, so the answer is False. A larger kernel sees more input positions at once, so the receptive field grows with the kernel size (for stacked stride-1 layers it is 1 + Σ(k − 1))."
+        },
+        {
+          "id": "nlp-q1-11",
+          "number": 11,
+          "lecture": 4,
+          "concept": "Data augmentation for text",
+          "marks": 1,
+          "type": "single",
+          "question": "Training a neural network to perform a task but with a small subset of the input words replaced with random words is not an example of:",
+          "emphasis": [
+            "not"
+          ],
+          "choices": [
+            "Encryption",
+            "Word dropout",
+            "Data augmentation"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Replacing a few random words (with UNK or random words) is word dropout, \"the most simple and popular\" text data augmentation on the L4 slides. It has nothing to do with encryption."
+        },
+        {
+          "id": "nlp-q1-12",
+          "number": 12,
+          "lecture": 5,
+          "concept": "Markov assumption and n-gram order",
+          "marks": 1,
+          "type": "multi",
+          "negativeMarking": true,
+          "question": "Please select the answers that are true statements about language models:",
+          "choices": [
+            "The idea behind using Multi-layer RNNs is that lower layers will identify local phenomena, while higher layers will identify longer dependencies.",
+            "When using n-gram models we can use laplace smoothing to ensure there are no zeros in the numerator",
+            "The Markov Property states that the probability of a word depends on all previous words.",
+            "The inability to use longer contexts is the main shortcoming of neural models"
+          ],
+          "emphasisInChoices": {
+            "2": [
+              "all"
+            ]
+          },
+          "answer": [
+            0,
+            1
+          ],
+          "explanation": "Full marks for (a) and (b). The Markov assumption says the next word depends on only a fixed number (n − 1) of previous words, not all of them. Neural LMs can use long contexts; the short fixed context is the weakness of n-gram models."
+        },
+        {
+          "id": "nlp-q1-13",
+          "number": 13,
+          "lecture": 3,
+          "concept": "Translation invariance and equivariance",
+          "marks": 2,
+          "type": "multi",
+          "negativeMarking": true,
+          "question": "Which of the following describes a convolutional neural network for text classification with a global pooling layer?",
+          "emphasis": [
+            "with"
+          ],
+          "choices": [
+            "The CNN with global pooling is translation invariant (it does not care about the order of phrases in the sentence).",
+            "The CNN with global pooling is permutation invariant (it does not care about word order of nearby words).",
+            "The CNN with global pooling is permutation equivariant (the output changes predictably when changing the word order of nearby words).",
+            "The CNN with global pooling is translation equivariant (the output changes predictably when the order of phrases in the sentence changes)."
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Answer inferred: the review marked (d) wrong and shows no answer. Convolution on its own is translation equivariant (shift the input, the feature map shifts), and global pooling then throws the position away, so the whole model is translation invariant. It still cares about the order of nearby words, because each filter reads a window of words in order.",
+          "keyDispute": "The review does not show the correct options. (a) follows from the slides; (b) and (c) are very likely false, but this can't be confirmed from the attempt review."
+        },
+        {
+          "id": "nlp-q1-14",
+          "number": 14,
+          "lecture": 1,
+          "concept": "Stemming",
+          "marks": 1,
+          "type": "truefalse",
+          "question": "True or False: Stemming is a crude process of chopping off the end of the word to obtain the “stem” word.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "L1: stemming is a \"crude heuristic process that chops off the ends of words\". Lemmatization instead uses a vocabulary and morphological analysis to return the dictionary form."
+        },
+        {
+          "id": "nlp-q1-15",
+          "number": 15,
+          "lecture": 5,
+          "concept": "Temperature",
+          "marks": 2,
+          "type": "multi",
+          "negativeMarking": true,
+          "question": "Which of the following is correct when increasing the temperature on a softmax function at the end of a neural language model?",
+          "emphasis": [
+            "increasing"
+          ],
+          "choices": [
+            "Increasing the temperature typically can make the generated text more repetitive.",
+            "Increasing the temperature will increase the loss of the model when trained with the cross-entropy loss on examples of generated text.",
+            "Increasing the temperature improves the diversity of the generated text.",
+            "Increasing the temperature makes the model less likely to sample different words from the most probable one."
+          ],
+          "answer": [
+            1,
+            2
+          ],
+          "explanation": "Answer inferred: picking only (c) earned 1 of 2 marks, so there are exactly two correct options and (c) is one. (a) and (d) describe lowering the temperature, which leaves (b): a higher temperature flattens the distribution, so the probability of the observed token, and with it −log p, gets worse.",
+          "keyDispute": "(b) is inferred from the partial mark, not shown in the review."
+        },
+        {
+          "id": "nlp-q1-16",
+          "number": 16,
+          "lecture": 1,
+          "concept": "Distributional hypothesis",
+          "marks": 3,
+          "type": "multi",
+          "negativeMarking": true,
+          "question": "Which of the following is/are true?",
+          "choices": [
+            "Lemmatization is the use of crude heuristics to reduce words to their inflectional forms.",
+            "Words which frequently appear in similar contexts have similar meaning.",
+            "TF-IDF measures the originality of words by comparing the number of times a word appears in a doc with the number of docs a word appears in."
+          ],
+          "answer": [
+            1,
+            2
+          ],
+          "explanation": "Full marks for (b) and (c). (b) is the distributional hypothesis. (c) is tf-idf: term frequency in the document times the inverse document frequency. (a) describes stemming (crude heuristics); lemmatization uses a vocabulary and morphology to get the base form."
+        },
+        {
+          "id": "nlp-q1-17",
+          "number": 17,
+          "lecture": 1,
+          "concept": "Derivation vs inflection",
+          "marks": 1,
+          "type": "truefalse",
+          "question": "The combination of the morphemes \"kind\" and \"ness\" is an example of derivation where \"ness\" is a derivational affix and \"kind\" is a root word.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "This is the slide's own example: kind (root) + ness (bound affix) = kindness. Derivation forms a new word and usually changes the word class (adjective → noun)."
+        },
+        {
+          "id": "nlp-q1-18",
+          "number": 18,
+          "lecture": 3,
+          "concept": "Feature extractor + classifier",
+          "marks": 1,
+          "type": "truefalse",
+          "question": "True or False, the first layers of any text classification neural model that we have covered in this course aim to transform word-level representations into a whole-text (sentence or page)-level representation.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Every model follows the same pipeline: a feature extractor turns the tokens into one vector h for the whole text (BOE, CNN + global pooling, RNN final state), then a linear layer + softmax classifies it."
+        },
+        {
+          "id": "nlp-q1-19",
+          "number": 19,
+          "lecture": 5,
+          "concept": "Neural LM pipeline",
+          "marks": 1,
+          "type": "truefalse",
+          "question": "Is the following statement True or False: assuming we have an embedding layer which is given word indices and a linear layer which is given the equivalent 1-hot representations; then the embedding layer is functionally equivalent to the linear layer (both compute the same linear mapping on their input).",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Multiplying a one-hot vector by a weight matrix just selects one row, which is exactly what an embedding lookup does. The embedding layer is the efficient version."
+        },
+        {
+          "id": "nlp-q1-20",
+          "number": 20,
+          "lecture": 2,
+          "concept": "Word2Vec: prediction-based idea",
+          "marks": 1,
+          "type": "single",
+          "question": "In Word2Vec the context of a focal word is the:",
+          "choices": [
+            "all meta-data about a corpus such as the language and author",
+            "setting of the passage in the story.",
+            "surrounding words in the text.",
+            "the position of the word in the sentence"
+          ],
+          "answer": [
+            2
+          ],
+          "explanation": "Word2Vec slides a window over the text; the words inside the window around the central word are its context words."
+        },
+        {
+          "id": "nlp-q1-21",
+          "number": 21,
+          "lecture": 4,
+          "concept": "Multi-layer and bidirectional RNNs",
+          "marks": 1,
+          "type": "single",
+          "question": "RNNs which accumulate sentence representations forward and backwards in time are called:",
+          "choices": [
+            "Bidirectional RNN",
+            "Temporal Pincer Model",
+            "Bimodal RNN",
+            "Squeeze RNN"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "A bidirectional RNN runs one RNN left-to-right and another right-to-left and uses (concatenates) both final states."
+        },
+        {
+          "id": "nlp-q1-22",
+          "number": 22,
+          "lecture": 3,
+          "concept": "Pooling: max, mean, local and global",
+          "marks": 1,
+          "type": "single",
+          "question": "Which of the following statements is False about the layers and operations of a CNN.",
+          "emphasis": [
+            "False"
+          ],
+          "choices": [
+            "The larger the kernel size of a CNN layer the less filters we use to avoid overfitting.",
+            "Strided convolutional is a convolution operation where the kernel slides more than one token at a time over the input sentence.",
+            "Only max pooling can be used in a global pooling layer for text classification as all other pooling methods lose spatial information about where words are placed in a sentence.",
+            "CNNs show an example of parameter sharing as the same weights of a convolutional kernel are used multiple times on the same input sentence."
+          ],
+          "answer": [
+            2
+          ],
+          "explanation": "Answer inferred: (a) was marked wrong, and (b) and (d) are textbook-true. (c) is false: mean pooling is also used for global pooling, and every global pooling (max included) throws away where words were."
+        },
+        {
+          "id": "nlp-q1-23",
+          "number": 23,
+          "lecture": 3,
+          "concept": "Feature extractor + classifier",
+          "marks": 1,
+          "type": "truefalse",
+          "question": "True or False, a benefit of using neural networks for feature learning is their interpretability.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "Answer inferred: \"True\" was marked wrong. Learned features are hard to interpret (the slides need whole analysis sections to probe them); hand-crafted features are the interpretable ones."
+        },
+        {
+          "id": "nlp-q1-24",
+          "number": 24,
+          "lecture": 3,
+          "concept": "Linear layer + softmax = logistic regression",
+          "marks": 1,
+          "type": "short",
+          "question": "What function is typically used to get the probability distribution over classes, after the linear layer? Please write the name of the function only.",
+          "accept": [
+            "softmax",
+            "softmax function",
+            "soft max"
+          ],
+          "explanation": "The softmax turns the K scores from the linear layer into positive numbers that sum to 1."
+        },
+        {
+          "id": "nlp-q1-25",
+          "number": 25,
+          "lecture": 5,
+          "concept": "Perplexity",
+          "marks": 1,
+          "type": "truefalse",
+          "question": "True or False, perplexity is an attractive performance metric as its range of possible values are intuitive (ranging from 1 at best to the dictionary size at worst)",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "The slides' framing: a perfect model scores 1 and a uniform model scores |V|. (Strictly, a model that is confidently wrong can go above |V|, but answer as the slides do.)"
+        },
+        {
+          "id": "nlp-q1-26",
+          "number": 26,
+          "lecture": 3,
+          "concept": "Bag of embeddings and weighted BOE",
+          "marks": 1,
+          "type": "single",
+          "question": "Which of the following can not be interpreted as a neural method:",
+          "choices": [
+            "Bag of words",
+            "Weighted bag of words",
+            "Bag of embeddings (embeddings from Word2Vec)",
+            "Weighted bag of embeddings (embeddings from Word2Vec)"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Bag of words is a hand-crafted count feature (the classical SVM input). The bag-of-embeddings models are the simplest neural feature extractors on the slides."
+        },
+        {
+          "id": "nlp-q1-27",
+          "number": 27,
+          "lecture": 3,
+          "concept": "Variable-length input",
+          "marks": 1,
+          "type": "single",
+          "question": "Which of the following models is unable to handle a variable length input sequence?",
+          "choices": [
+            "Convolutional Neural Network without Global Pooling",
+            "Convolutional Neural Network with Global Pooling",
+            "Recurrent Neural Network",
+            "Logistic regression with the average of the word tokens as input"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Without global pooling the size of the feature map depends on the sentence length, so the following linear layer can't have a fixed input size. Global pooling, an RNN's final state and averaging all give a fixed-size vector."
+        },
+        {
+          "id": "nlp-q1-28",
+          "number": 28,
+          "lecture": 5,
+          "concept": "Top-p (nucleus) sampling",
+          "marks": 1,
+          "type": "truefalse",
+          "question": "True or False: Nucleus sampling is a technique that adjusts the number of words a language model can choose from based on the number of viable candidate words there are at a given time.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Top-p keeps the smallest set of tokens whose probabilities add up to p, so the set is small for a peaked distribution and large for a flat one. Top-k always keeps k."
+        },
+        {
+          "id": "nlp-q1-29",
+          "number": 29,
+          "lecture": 2,
+          "concept": "Static embeddings as features",
+          "marks": 1,
+          "type": "truefalse",
+          "question": "True or False, Word2Vec can be used as a feature extractor for a downstream classification algorithm.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Pretrained Word2Vec vectors (e.g. averaged into a bag of embeddings) are a standard input feature for a classifier: this is the simplest form of transfer learning."
+        },
+        {
+          "id": "nlp-q1-30",
+          "number": 30,
+          "lecture": 1,
+          "concept": "Distributional hypothesis",
+          "marks": 1,
+          "type": "single",
+          "question": "The Distributional Hypothesis States:",
+          "choices": [
+            "Words which are spelt the same have similar meaning.",
+            "Words which frequently appear in similar contexts have similar meaning.",
+            "The position of the word in a sentence determines its meaning.",
+            "Words which appear with similar individual frequencies have similar meaning."
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "This is the slide's wording. To capture meaning and to capture contexts are, according to the hypothesis, the same thing (the Tej example)."
+        },
+        {
+          "id": "nlp-q1-31",
+          "number": 31,
+          "lecture": 2,
+          "concept": "Skip-gram vs CBOW",
+          "marks": 1,
+          "type": "single",
+          "question": "Continuous Bag of Words (CBOW) learns to map:",
+          "choices": [
+            "Focal (center) words to context words.",
+            "Random words to focal (center) words.",
+            "Focal (center) words to random words.",
+            "Context words to focal (center) words."
+          ],
+          "answer": [
+            3
+          ],
+          "explanation": "CBOW: from the sum of the context vectors, predict the central word. Skip-gram goes the other way: from the central word, predict each context word."
+        },
+        {
+          "id": "nlp-q1-32",
+          "number": 32,
+          "lecture": 5,
+          "concept": "CNN language models",
+          "marks": 4,
+          "type": "multi",
+          "negativeMarking": true,
+          "question": "Which of the following are True about language models?",
+          "choices": [
+            "Bi-directional RNNs are useful as language models since it means that the sentence is generated from left to right and from right to left simultaneously and then the two generations meet in the middle, forming a more coherent sentence.",
+            "Using subword tokenisation for language models can be useful as it means the model can produce new words by combining seen tokens (whether it will ever need to is a different story).",
+            "If you train a language model without the softmax function at the end while still using cross-entropy loss the model will learn a more diverse latent space.",
+            "It is impossible to create a language model that uses tokens which are smaller than words (for example character level tokens).",
+            "When using an RNN as a language model, initialising the initial hidden state with random values rather than zeros can help the model generate more varied sentences",
+            "A large problem with using CNNs as language models is that they need to repeatedly process the same input words each time they generate a new word - making them inefficient.",
+            "CNNs cannot be used as language models as they are not recurrent.",
+            "Language models are not conditioned on any additional information aside from what text has already been generated."
+          ],
+          "answer": [
+            1,
+            4,
+            5,
+            7
+          ],
+          "explanation": "Answer inferred: (b) and (f) were ticked correct; (a) and (c) were wrong; the score was 0. With the Moodle formula 2/C − 2/W = 0 only if C = W = 4, so exactly two of (d), (e), (g), (h) are also correct. (d) is false (character-level LMs exist) and (g) is false (the slides show CNN LMs), which leaves (e) (random initial state adds diversity, as in Quiz 2 Q3) and (h) (a plain LM conditions only on the tokens generated so far).",
+          "keyDispute": "(e) and (h) are inferred from the mark, not shown in the review. (h) is only true of a plain LM: a seq2seq decoder is a conditional LM that also sees the source."
+        },
+        {
+          "id": "nlp-q1-33",
+          "number": 33,
+          "lecture": 2,
+          "concept": "Intrinsic vs extrinsic evaluation",
+          "marks": 1,
+          "type": "truefalse",
+          "question": "True or False, part of speech classification is an example of extrinsic evaluation for trained word embeddings.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Answer inferred: \"False\" was marked wrong. Training a part-of-speech tagger on top of the embeddings measures them on a real downstream task, which is extrinsic evaluation. Similarity and analogy benchmarks are intrinsic."
+        },
+        {
+          "id": "nlp-q1-34",
+          "number": 34,
+          "lecture": 1,
+          "concept": "Count-based methods and SVD",
+          "marks": 1,
+          "type": "single",
+          "question": "Which portion of the SVD of a co-occurance matrix (also called a word-context matrix) represents the word vectors:",
+          "choices": [
+            "Left singular vectors.",
+            "Singular values.",
+            "Right singular vectors."
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Rows of the word-context matrix are words, so the left singular vectors (truncated to d dimensions) are the word vectors; the right singular vectors are the context vectors."
+        },
+        {
+          "id": "nlp-q1-35",
+          "number": 35,
+          "lecture": 4,
+          "concept": "BPE training",
+          "marks": 2,
+          "type": "multi",
+          "negativeMarking": true,
+          "question": "Which of the following are False about BPE",
+          "choices": [
+            "BPE aims to combine other tokens to minimize the number of tokens used throughout a corpus of text.",
+            "BPE must be trained before it can be used.",
+            "BPE assumes that by separating the most frequently seen pairs of tokens we will arrive at the most efficient (in terms of number of symbols used) representation of all words across the dictionary.",
+            "BPE is not a suitable tokenisation scheme for classification tasks as sub-word tokenisation is only useful with language models."
+          ],
+          "answer": [
+            2,
+            3
+          ],
+          "explanation": "Answer inferred: (d) was ticked correct, (b) was marked wrong and the score was 0. With the Moodle formula 1/C − 1/W = 0 means C = W = 2, so one more option is false. (c) is: BPE merges (combines) the most frequent pairs, it doesn't separate them. (a) is true, and (b) is true too (the merge table must be learned before it can be applied)."
+        },
+        {
+          "id": "nlp-q1-36",
+          "number": 36,
+          "lecture": 5,
+          "concept": "Markov assumption and n-gram order",
+          "marks": 1,
+          "type": "truefalse",
+          "question": "True or False, the Markov Assumption for language models says that we need to remember all of the previous words that have been generated to know what word to generate next.",
+          "emphasis": [
+            "all"
+          ],
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "The Markov assumption is the opposite: the next word depends only on a fixed number of previous words (n − 1 for an n-gram model)."
+        },
+        {
+          "id": "nlp-q1-37",
+          "number": 37,
+          "lecture": 3,
+          "concept": "Pooling: max, mean, local and global",
+          "marks": 1,
+          "type": "multi",
+          "negativeMarking": true,
+          "question": "Which of the following are types of pooling layers typically found in convolutional neural networks?",
+          "emphasis": [
+            "pooling"
+          ],
+          "choices": [
+            "Average Pooling",
+            "Nucleus Pooling",
+            "Jarvis Pooling",
+            "Logarithmic Pooling"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "The slides show max pooling and mean (average) pooling. Nucleus is a sampling method, not a pooling method."
+        },
+        {
+          "id": "nlp-q1-38",
+          "number": 38,
+          "lecture": 3,
+          "concept": "Convolution as a linear layer on windows",
+          "marks": 1,
+          "type": "truefalse",
+          "question": "True or False, even if a CNN kernel has a window size of 2 (two words are considered by the kernel at a time) it can still learn to process individual words in the text separately.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "A filter is a linear map over the concatenated window, so it can learn weights of zero for one of the two positions and respond to a single word."
         }
       ]
     },
