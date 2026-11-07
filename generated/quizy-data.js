@@ -35,6 +35,7 @@ window.QUIZY_DATA = {
         "nlp-label-diagrams",
         "nlp-bank-lecture-5",
         "nlp-bank-lecture-6",
+        "nlp-bank-lecture-7",
         "nlp-bank-lecture-10"
       ]
     },
@@ -34374,6 +34375,1450 @@ window.QUIZY_DATA = {
             {
               "point": "At least two costs from the lecture",
               "marks": 2
+            }
+          ]
+        }
+      ]
+    },
+    "nlp-bank-lecture-7": {
+      "id": "nlp-bank-lecture-7",
+      "subject": "nlp",
+      "title": "Practice bank: Lecture 7 (Transformers)",
+      "kind": "generated",
+      "origin": "new",
+      "description": "New practice questions on Transformers, written for exam revision from the Lecture 7 slides, the recording notes and the tutorial: quiz questions, full self-attention calculations (masked, unmasked, cross-attention, both matrix orientations), parameter counts, positional encodings and layer norm, and hard multi-part written questions. Not from the lecturer: the answers are unofficial.",
+      "unofficialAnswers": true,
+      "negativeMarkingNote": "The real Moodle quiz uses negative marking on MCQ questions: picking all right and wrong answers on a question results in a mark of 0.",
+      "totalMarks": 134,
+      "questions": [
+        {
+          "id": "nlp-b7-001",
+          "lecture": 7,
+          "concept": "Transformer encoder and decoder roles",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              6,
+              11
+            ]
+          },
+          "type": "match",
+          "marks": 3,
+          "question": "Match each part of the Transformer to what it does.",
+          "pairs": [
+            {
+              "prompt": "Encoder",
+              "answer": "Source tokens look at each other and update their representations, repeatedly"
+            },
+            {
+              "prompt": "Decoder",
+              "answer": "The target token at the current step looks at previous target tokens and at the source, and updates its representation"
+            },
+            {
+              "prompt": "Final linear + softmax",
+              "answer": "Turns the top decoder vector into a distribution over the vocabulary"
+            }
+          ],
+          "options": [
+            "Source tokens look at each other and update their representations, repeatedly",
+            "The target token at the current step looks at previous target tokens and at the source, and updates its representation",
+            "Turns the top decoder vector into a distribution over the vocabulary",
+            "Compresses the sentence into one fixed vector"
+          ],
+          "explanation": "Slides 6–9 (\"who is doing? what are they doing?\"). A Transformer keeps a vector per token instead of one fixed sentence vector."
+        },
+        {
+          "id": "nlp-b7-002",
+          "lecture": 7,
+          "concept": "Transformer encoder and decoder roles",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              12
+            ]
+          },
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or False: In a Transformer, training is parallel across target positions, but generation at inference is still sequential, one token at a time.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "With teacher forcing and a causal mask, every target position is processed in one pass. At inference each new token depends on the previous ones."
+        },
+        {
+          "id": "nlp-b7-003",
+          "lecture": 7,
+          "concept": "Why Transformers beat RNNs",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              12,
+              16
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Why can Transformers be better than RNNs, according to Lecture 7?",
+          "choices": [
+            "Every token can see every other token directly, instead of through a long chain of recurrent steps",
+            "Attention is parallelisable over positions; recurrence is not",
+            "Processing a sentence takes a constant number of sequential layer steps, not $O(N)$",
+            "They need no data to train"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "The lecturer suspected parallelism was the real motivation. Transformers are data hungry: three projection matrices per layer means more parameters to fit."
+        },
+        {
+          "id": "nlp-b7-004",
+          "lecture": 7,
+          "concept": "Why Transformers beat RNNs",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              16
+            ]
+          },
+          "type": "single",
+          "marks": 1,
+          "question": "An RNN processes a sentence of $N$ tokens. How many sequential steps does it need, compared with a Transformer encoder with $L$ layers?",
+          "choices": [
+            "RNN: $N$ steps; Transformer: $L$ steps whatever the sentence length",
+            "RNN: $L$ steps; Transformer: $N$ steps",
+            "Both need $N \\times L$ steps",
+            "Both need a constant number of steps"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Each Transformer layer updates all tokens in parallel (Quiz 2 Q11–12)."
+        },
+        {
+          "id": "nlp-b7-005",
+          "lecture": 7,
+          "concept": "Self-attention",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              17,
+              19
+            ]
+          },
+          "type": "single",
+          "marks": 1,
+          "question": "What makes self-attention \"self\"?",
+          "choices": [
+            "Each state in a set looks at all other states in the same set",
+            "A token attends only to itself",
+            "The decoder state looks at the encoder states",
+            "The model attends to its own weights"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Decoder–encoder attention looks from one decoder state at all encoder states. Self-attention looks from each state at all states of the same sequence (Quiz 2 Q16: \"only to itself\" is false)."
+        },
+        {
+          "id": "nlp-b7-006",
+          "lecture": 7,
+          "concept": "Self-attention",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              19
+            ]
+          },
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or False: If one attention weight in a row is 1 and the rest are 0, self-attention simply passes that one token's value forward, so attention generalises a normal layer.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "From the recording: the output is $\\sum_j a_{ij} v_j$, so a one-hot weight row copies one value."
+        },
+        {
+          "id": "nlp-b7-007",
+          "lecture": 7,
+          "concept": "Query, key and value",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              20
+            ]
+          },
+          "type": "match",
+          "marks": 3,
+          "question": "Match each role to its description.",
+          "pairs": [
+            {
+              "prompt": "Query",
+              "answer": "The vector from which attention is looking (\"do you have this information?\")"
+            },
+            {
+              "prompt": "Key",
+              "answer": "The vector the query is compared with to compute weights (\"I have this, give me a large weight\")"
+            },
+            {
+              "prompt": "Value",
+              "answer": "Their weighted sum is the attention output (\"here is the information I have\")"
+            }
+          ],
+          "options": [
+            "The vector from which attention is looking (\"do you have this information?\")",
+            "The vector the query is compared with to compute weights (\"I have this, give me a large weight\")",
+            "Their weighted sum is the attention output (\"here is the information I have\")",
+            "The position of the token in the sentence"
+          ],
+          "explanation": "The lecturer's analogy: the query is \"I want to know about cats\", the key \"I know about cats, come talk to me\", the weight is how much of your hour you spend with each person and the value is what they tell you."
+        },
+        {
+          "id": "nlp-b7-008",
+          "lecture": 7,
+          "concept": "Query, key and value",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              20,
+              22
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which statements about $Q$, $K$ and $V$ are true?",
+          "choices": [
+            "For each token, $q = W_Q x$, $k = W_K x$ and $v = W_V x$: three separate learned projections of the same input",
+            "Splitting the roles decouples where to look ($q \\cdot k$) from what to take ($v$)",
+            "Having three matrices means more parameters, so more data is needed and overfitting is a risk",
+            "The value of a token is its query"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "In RNN attention one vector had to encode meaning, be findable and provide the information. Option (d) is a misreading corrected in your notes."
+        },
+        {
+          "id": "nlp-b7-009",
+          "lecture": 7,
+          "concept": "Attention weights vs attention output",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              22
+            ]
+          },
+          "type": "single",
+          "marks": 1,
+          "question": "You are asked for the attention matrix of a self-attention layer. What do you give?",
+          "choices": [
+            "$A = \\text{softmax}(QK^\\top / \\sqrt{d_k})$, row-wise, after any mask",
+            "$\\text{softmax}(QK^\\top / \\sqrt{d_k})\\,V$",
+            "$QK^\\top$",
+            "$QK^\\top V / \\sqrt{d_k}$"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "The lecturer: \"do not multiply by V… and I am going to ask you this.\" $AV$ is the attention output.",
+          "variantOf": "attn-weights-eq"
+        },
+        {
+          "id": "nlp-b7-010",
+          "lecture": 7,
+          "concept": "Attention weights vs attention output",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              22
+            ]
+          },
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or False: To find a single attention weight $a_{12}$ you only need $q_1$ and $k_2$.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "The softmax normalises over all keys, so $a_{12}$ needs every score in row 1: $q_1 \\cdot k_j$ for all $j$."
+        },
+        {
+          "id": "nlp-b7-011",
+          "lecture": 7,
+          "concept": "Self-attention calculation",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              22
+            ]
+          },
+          "type": "numeric",
+          "marks": 9,
+          "question": "Three tokens have embeddings (rows) $X = \\begin{bmatrix}1 & 0 \\\\ 0 & 2 \\\\ 1 & 1\\end{bmatrix}$. Use the row convention $Q = XW_Q$, $K = XW_K$, $V = XW_V$ with\n$W_Q = \\begin{bmatrix}1 & 0 \\\\ 1 & 1\\end{bmatrix}$, $W_K = \\begin{bmatrix}0 & 1 \\\\ 1 & 0\\end{bmatrix}$, $W_V = \\begin{bmatrix}1 & 1 \\\\ 0 & 1\\end{bmatrix}$, $d_k = 2$.\nGive the unmasked attention matrix $A = \\text{softmax}(QK^\\top/\\sqrt{d_k})$, row by row (rows = queries, columns = keys).",
+          "parts": [
+            {
+              "label": "A[1,1]",
+              "answer": 0.14,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "A[1,2]",
+              "answer": 0.576,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "A[1,3]",
+              "answer": 0.284,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "A[2,1]",
+              "answer": 0.1084,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "A[2,2]",
+              "answer": 0.4458,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "A[2,3]",
+              "answer": 0.4458,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "A[3,1]",
+              "answer": 0.0743,
+              "marks": 1,
+              "tolerance": 0.0005
+            },
+            {
+              "label": "A[3,2]",
+              "answer": 0.62,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "A[3,3]",
+              "answer": 0.3057,
+              "marks": 1,
+              "tolerance": 0.0006
+            }
+          ],
+          "solution": "$Q = XW_Q = \\begin{bmatrix}1 & 0 \\\\ 2 & 2 \\\\ 2 & 1\\end{bmatrix}$, $K = XW_K = \\begin{bmatrix}0 & 1 \\\\ 2 & 0 \\\\ 1 & 1\\end{bmatrix}$, $V = XW_V = \\begin{bmatrix}1 & 1 \\\\ 0 & 2 \\\\ 1 & 2\\end{bmatrix}$.\n$$QK^\\top = \\begin{bmatrix}0 & 2 & 1 \\\\ 2 & 4 & 4 \\\\ 1 & 4 & 3\\end{bmatrix}$$\n$$S = QK^\\top/\\sqrt{2} = \\begin{bmatrix}0 & 1.4142 & 0.7071 \\\\ 1.4142 & 2.8284 & 2.8284 \\\\ 0.7071 & 2.8284 & 2.1213\\end{bmatrix}$$\nRow-wise softmax:\n$$A = \\begin{bmatrix}0.14 & 0.576 & 0.284 \\\\ 0.1084 & 0.4458 & 0.4458 \\\\ 0.0743 & 0.62 & 0.3057\\end{bmatrix}$$\nEach row sums to 1. (The output would be $AV = \\begin{bmatrix}0.424 & 1.86 \\\\ 0.5542 & 1.8916 \\\\ 0.38 & 1.9257\\end{bmatrix}$, but the question asks for $A$: stop there.)",
+          "grid": {
+            "rows": 3,
+            "cols": 3
+          },
+          "inputHint": "Decimals to 4 places, e.g. 0.3333.",
+          "variantOf": "attn-calc"
+        },
+        {
+          "id": "nlp-b7-012",
+          "lecture": 7,
+          "concept": "Masked self-attention",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              22,
+              25
+            ]
+          },
+          "type": "numeric",
+          "marks": 8,
+          "question": "Same setup: $X = \\begin{bmatrix}1 & 0 \\\\ 0 & 2 \\\\ 1 & 1\\end{bmatrix}$, $W_Q = \\begin{bmatrix}1 & 0 \\\\ 1 & 1\\end{bmatrix}$, $W_K = \\begin{bmatrix}0 & 1 \\\\ 1 & 0\\end{bmatrix}$, $W_V = \\begin{bmatrix}1 & 1 \\\\ 0 & 1\\end{bmatrix}$, $d_k = 2$, row convention.\nNow apply a causal (decoder) mask.\n(a)–(c) The masked attention weights in row 2 ($a_{21}$, $a_{22}$, $a_{23}$) and row 3 ($a_{31}$, $a_{32}$, $a_{33}$).\n(d) The attention output for token 2 ($[AV]_2$, both components).",
+          "parts": [
+            {
+              "label": "a₂₁",
+              "answer": 0.1956,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "a₂₂",
+              "answer": 0.8044,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "a₂₃",
+              "answer": 0,
+              "marks": 1,
+              "tolerance": 0.0005
+            },
+            {
+              "label": "a₃₁",
+              "answer": 0.0743,
+              "marks": 1,
+              "tolerance": 0.0005
+            },
+            {
+              "label": "a₃₂",
+              "answer": 0.62,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "a₃₃",
+              "answer": 0.3057,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "[AV]₂ first",
+              "answer": 0.1956,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "[AV]₂ second",
+              "answer": 1.8044,
+              "marks": 1,
+              "tolerance": 0.006
+            }
+          ],
+          "solution": "Scores as before, $S = \\begin{bmatrix}0 & 1.4142 & 0.7071 \\\\ 1.4142 & 2.8284 & 2.8284 \\\\ 0.7071 & 2.8284 & 2.1213\\end{bmatrix}$. Mask: set every score above the diagonal ($j > i$) to $-\\infty$ before the softmax:\n$$S_{\\text{mask}} = \\begin{bmatrix}0 & -\\infty & -\\infty \\\\ 1.4142 & 2.8284 & -\\infty \\\\ 0.7071 & 2.8284 & 2.1213\\end{bmatrix}$$\nSoftmax per row ($e^{-\\infty} = 0$):\n$$A = \\begin{bmatrix}1 & 0 & 0 \\\\ 0.1956 & 0.8044 & 0 \\\\ 0.0743 & 0.62 & 0.3057\\end{bmatrix}$$\nRow 1 is always $(1, 0, 0)$; row 3 is unchanged by the mask.\nOutput for token 2: $a_{21} v_1 + a_{22} v_2 = 0.1956(1,1) + 0.8044(0,2) = (0.1956, 1.8044)$.",
+          "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+          "explanation": "Setting a score to 0 would not mask anything, because $e^0 = 1$. The allowed weights form a lower-triangular matrix (rows = queries, columns = keys).",
+          "variantOf": "attn-masked-calc"
+        },
+        {
+          "id": "nlp-b7-013",
+          "lecture": 7,
+          "concept": "Self-attention calculation",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              22
+            ]
+          },
+          "type": "numeric",
+          "marks": 6,
+          "question": "As in the tutorial, each row of $X$ is a token and you left-multiply by the weights: $Q = W_Q X^\\top$, $K = W_K X^\\top$, $V = W_V X^\\top$ (so each column is one token).\n$X = \\begin{bmatrix}1 & 2 \\\\ 2 & 0\\end{bmatrix}$, $W_Q = \\begin{bmatrix}1 & 0 \\\\ 0.5 & 1\\end{bmatrix}$, $W_K = \\begin{bmatrix}1 & 1 \\\\ 0 & 1\\end{bmatrix}$, $W_V = \\begin{bmatrix}2 & 0 \\\\ 1 & 1\\end{bmatrix}$, $d_k = 2$.\n(a) The self-attention matrix $A$ (rows = query tokens).\n(b) The attention output for token 1.",
+          "parts": [
+            {
+              "label": "A[1,1]",
+              "answer": 0.9858,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "A[1,2]",
+              "answer": 0.0142,
+              "marks": 1,
+              "tolerance": 0.0005
+            },
+            {
+              "label": "A[2,1]",
+              "answer": 0.9442,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "A[2,2]",
+              "answer": 0.0558,
+              "marks": 1,
+              "tolerance": 0.0005
+            },
+            {
+              "label": "(b) output₁ first",
+              "answer": 2.0283,
+              "marks": 1,
+              "tolerance": 0.006
+            },
+            {
+              "label": "(b) output₁ second",
+              "answer": 2.9858,
+              "marks": 1,
+              "tolerance": 0.006
+            }
+          ],
+          "solution": "Columns are tokens:\n$Q = W_Q X^\\top = \\begin{bmatrix}1 & 2 \\\\ 2.5 & 1\\end{bmatrix}$, so $q_1 = (1,2.5)$, $q_2 = (2,1)$.\n$K = W_K X^\\top = \\begin{bmatrix}3 & 2 \\\\ 2 & 0\\end{bmatrix}$, $V = W_V X^\\top = \\begin{bmatrix}2 & 4 \\\\ 3 & 2\\end{bmatrix}$.\nScores $S_{ij} = q_i \\cdot k_j / \\sqrt 2$, i.e. $S = Q^\\top K/\\sqrt 2 = \\begin{bmatrix}5.6569 & 1.4142 \\\\ 5.6569 & 2.8284\\end{bmatrix}$.\n$A = \\begin{bmatrix}0.9858 & 0.0142 \\\\ 0.9442 & 0.0558\\end{bmatrix}$.\n(b) $a_{11} v_1 + a_{12} v_2 = (2.0283, 2.9858)$ with $v_j$ the columns of $V$.",
+          "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+          "explanation": "Watch the orientation: with tokens as columns the score matrix is $Q^\\top K$, not $QK^\\top$. Either way, entry $(i, j)$ is query $i$ against key $j$.",
+          "variantOf": "attn-calc"
+        },
+        {
+          "id": "nlp-b7-014",
+          "lecture": 7,
+          "concept": "Cross-attention and where each attention type lives",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              41,
+              43
+            ]
+          },
+          "type": "numeric",
+          "marks": 6,
+          "question": "In encoder–decoder (cross) attention, two decoder positions have queries $Q = \\begin{bmatrix}1 & 0 \\\\ 1 & 1\\end{bmatrix}$ (rows), and three encoder tokens have keys $K = \\begin{bmatrix}1 & 0 \\\\ 0 & 1 \\\\ 1 & -1\\end{bmatrix}$ and values $V = \\begin{bmatrix}1 & 0 \\\\ 0 & 1 \\\\ 2 & 2\\end{bmatrix}$. $d_k = 2$.\n(a) What shape is the attention matrix (rows × columns)? Give the rows then the columns.\n(b) The attention weights of decoder position 2 over the three encoder tokens.\n(c) The first component of decoder position 2's output.",
+          "parts": [
+            {
+              "label": "(a) rows",
+              "answer": 2,
+              "marks": 1,
+              "tolerance": 0.1
+            },
+            {
+              "label": "(a) columns",
+              "answer": 3,
+              "marks": 1,
+              "tolerance": 0.1
+            },
+            {
+              "label": "(b) a₂₁",
+              "answer": 0.4011,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "(b) a₂₂",
+              "answer": 0.4011,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "(b) a₂₃",
+              "answer": 0.1978,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "(c) output₂ first",
+              "answer": 0.7967,
+              "marks": 1,
+              "tolerance": 0.0006
+            }
+          ],
+          "solution": "(a) One row per query (decoder position), one column per key (encoder token): $2 \\times 3$. Cross-attention matrices need not be square.\n(b) Scores row 2: $q_2 \\cdot k_j / \\sqrt 2 = (0.7071, 0.7071, 0)$; softmax $(0.4011, 0.4011, 0.1978)$.\n(c) $\\sum_j a_{2j} v_j = (0.7967, 0.7967)$.",
+          "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+          "explanation": "Q comes from the decoder; K and V come from the (final) encoder output. No causal mask is needed: the whole source is known.",
+          "variantOf": "cross-calc"
+        },
+        {
+          "id": "nlp-b7-015",
+          "lecture": 7,
+          "concept": "Scaling by the square root of d_k",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              22
+            ]
+          },
+          "type": "numeric",
+          "marks": 3,
+          "question": "A query has dot products $(16, 8, 0)$ with three keys, and $d_k = 64$.\n(a) The weight on the first key without scaling.\n(b) The weight on the first key with the usual scaling by $\\sqrt{d_k}$.\n(c) The weight on the third key with scaling.",
+          "parts": [
+            {
+              "label": "(a) Unscaled a₁",
+              "answer": 0.99966,
+              "marks": 1,
+              "tolerance": 0.0002
+            },
+            {
+              "label": "(b) Scaled a₁",
+              "answer": 0.6652,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "(c) Scaled a₃",
+              "answer": 0.09,
+              "marks": 1,
+              "tolerance": 0.0005
+            }
+          ],
+          "solution": "(a) $\\text{softmax}(16, 8, 0)$: $a_1 = 0.99966$: essentially one-hot.\n(b) Divide by $\\sqrt{64} = 8$: scores $(2, 1, 0)$, $a_1 = 0.6652$.\n(c) $a_3 = 0.09$.",
+          "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+          "explanation": "The variance of $q \\cdot k$ grows with $d_k$ (it is $d_k$ if the components have unit variance). Without scaling the softmax saturates, acting like a very low temperature: weights become nearly one-hot and gradients vanish.",
+          "variantOf": "sqrt-calc"
+        },
+        {
+          "id": "nlp-b7-016",
+          "lecture": 7,
+          "concept": "Scaling by the square root of d_k",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              22
+            ]
+          },
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or False: Dividing the scores by $\\sqrt{d_k}$ has the same effect on the attention weights as a softmax temperature of $\\tau = \\sqrt{d_k}$.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "$\\text{softmax}(s/\\sqrt{d_k})$ is exactly temperature sampling's formula with $\\tau = \\sqrt{d_k}$: a link between L5 and L7."
+        },
+        {
+          "id": "nlp-b7-017",
+          "lecture": 7,
+          "concept": "Masked self-attention",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              25,
+              27
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which statements about the causal mask are correct?",
+          "choices": [
+            "Masked scores are set to $-\\infty$ before the softmax, so their weights become 0",
+            "Without the mask, training would let position 3 see the word at position 4, which will not exist at inference",
+            "Setting the masked scores to 0 would be enough",
+            "The mask makes training and inference consistent"
+          ],
+          "answer": [
+            0,
+            1,
+            3
+          ],
+          "explanation": "The lecturer was unsure whether the mask goes on the score or after the softmax; the standard answer is $-\\infty$ on the score, before the softmax. $e^0 = 1$, so 0 masks nothing."
+        },
+        {
+          "id": "nlp-b7-018",
+          "lecture": 7,
+          "concept": "Multi-head attention",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              28,
+              40
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which statements about multi-head attention are correct?",
+          "choices": [
+            "Every head sees all the tokens; heads differ in their own (smaller) $W_Q$, $W_K$, $W_V$",
+            "The head outputs are concatenated and multiplied by $W_O$ to return to $d_{model}$",
+            "Nothing tells a head what to specialise in; gradient descent decides",
+            "The sentence is split into $h$ chunks, one per head"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "Option (d) is a misreading corrected in your notes: the split is across representation subspaces, not across parts of the sentence."
+        },
+        {
+          "id": "nlp-b7-019",
+          "lecture": 7,
+          "concept": "Multi-head attention",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              28
+            ]
+          },
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or False: At a fixed $d_{model}$ with $d_k = d_{model}/h$, using 8 heads instead of 1 multiplies the attention projection parameters by 8.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "Each head has $W_Q, W_K, W_V$ of size $d_{model} \\times d_{model}/h$, so all heads together still have $3 d_{model}^2$, plus $W_O$. The lecturer suggested otherwise; the standard design costs the same.",
+          "keyDispute": "The lecturer suggested parameters multiply with the number of heads; in the standard design (each head uses d_model/h) they do not."
+        },
+        {
+          "id": "nlp-b7-020",
+          "lecture": 7,
+          "concept": "Multi-head attention",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              28,
+              49
+            ]
+          },
+          "type": "numeric",
+          "marks": 4,
+          "question": "A BERT-base encoder layer has $d_{model} = 768$, $h = 12$ heads and a feed-forward inner size $d_{ff} = 3072$.\n(a) $d_k$ per head.\n(b) Weights in $W_Q$, $W_K$, $W_V$, $W_O$ (no biases).\n(c) Parameters in the feed-forward block (both linear layers, with biases).\n(d) Total parameters in the layer, counting attention biases ($4 \\times d_{model}$) and the two LayerNorms ($\\gamma$ and $\\beta$ each).",
+          "parts": [
+            {
+              "label": "(a) d_k",
+              "answer": 64,
+              "marks": 1,
+              "tolerance": 0.1
+            },
+            {
+              "label": "(b) Attention weights",
+              "answer": 2359296,
+              "marks": 1,
+              "relTolerance": 0.0005
+            },
+            {
+              "label": "(c) FFN parameters",
+              "answer": 4722432,
+              "marks": 1,
+              "relTolerance": 0.0005
+            },
+            {
+              "label": "(d) Layer total",
+              "answer": 7087872,
+              "marks": 1,
+              "relTolerance": 0.0005
+            }
+          ],
+          "solution": "(a) $768/12 = 64$.\n(b) Each of the four matrices is $768 \\times 768$ overall: $4 \\times 768^2$ = 2,359,296.\n(c) $W_1$: $768 \\times 3072$ + bias 3072; $W_2$: $3072 \\times 768$ + bias 768; total 4,722,432.\n(d) 2,359,296 + 3,072 + 4,722,432 + 3,072 = 7,087,872.",
+          "inputHint": "A whole number (e.g. 2359296).",
+          "explanation": "The feed-forward block holds about two thirds of a layer's parameters. Twelve such layers give about 85M of BERT-base's ~110M parameters; the rest is mostly the embeddings.",
+          "variantOf": "mha-params-calc"
+        },
+        {
+          "id": "nlp-b7-021",
+          "lecture": 7,
+          "concept": "Multi-head attention",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              28,
+              40
+            ]
+          },
+          "type": "numeric",
+          "marks": 3,
+          "question": "A Transformer has $d_{model} = 256$. Count the weights in $W_Q, W_K, W_V$ (all heads together) plus $W_O$, no biases, when (a) $h = 1$ with $d_k = 256$ and (b) $h = 8$ with $d_k = 32$. (c) What is the size of one head's $W_Q$ in case (b)? Give the number of entries.",
+          "parts": [
+            {
+              "label": "(a) h = 1",
+              "answer": 262144,
+              "marks": 1,
+              "relTolerance": 0.0005
+            },
+            {
+              "label": "(b) h = 8",
+              "answer": 262144,
+              "marks": 1,
+              "relTolerance": 0.0005
+            },
+            {
+              "label": "(c) one head W_Q entries",
+              "answer": 8192,
+              "marks": 1,
+              "relTolerance": 0.0005
+            }
+          ],
+          "solution": "(a) $3 \\times 256^2 + 256^2$ = 262,144.\n(b) Each head: three $256 \\times 32$ matrices; 8 heads: $3 \\times 8 \\times 256 \\times 32 = 3 \\times 256^2$; plus $W_O$ ($256 \\times 256$): the same 262,144.\n(c) $256 \\times 32 = 8192$ entries.",
+          "inputHint": "A whole number.",
+          "variantOf": "mha-params-calc"
+        },
+        {
+          "id": "nlp-b7-022",
+          "lecture": 7,
+          "concept": "Cross-attention and where each attention type lives",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              43
+            ]
+          },
+          "type": "single",
+          "marks": 1,
+          "question": "In encoder–decoder (cross) attention:",
+          "choices": [
+            "Q comes from the decoder; K and V come from the encoder output",
+            "Q comes from the encoder; K and V come from the decoder",
+            "Q, K and V all come from the encoder",
+            "Q and K come from the decoder; V comes from the encoder"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "The lecturer: \"If you understand the key–query–value mechanism and how keys and queries can be paired differently, I'm happy.\""
+        },
+        {
+          "id": "nlp-b7-023",
+          "lecture": 7,
+          "concept": "Cross-attention and where each attention type lives",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              41,
+              43
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which statements about where attention appears are correct?",
+          "choices": [
+            "Encoder: unmasked self-attention (tokens look left and right)",
+            "Decoder: masked self-attention first, then cross-attention, then the feed-forward block",
+            "Every decoder layer cross-attends to the final encoder output",
+            "The encoder uses a causal mask"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "Decoder order: masked self-attention → add & norm → cross-attention → add & norm → FFN → add & norm. The encoder sees the whole source, so it needs no causal mask."
+        },
+        {
+          "id": "nlp-b7-024",
+          "lecture": 7,
+          "concept": "Feed-forward block",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              49
+            ]
+          },
+          "type": "single",
+          "marks": 1,
+          "question": "What is the Transformer's feed-forward block?",
+          "choices": [
+            "$\\text{FFN}(x) = \\max(0, xW_1 + b_1)W_2 + b_2$, applied to each token separately",
+            "A second attention layer over all tokens",
+            "A recurrent layer that carries information between tokens",
+            "A softmax over the vocabulary"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "A two-layer ReLU MLP per token (\"take a moment to think\"). Tokens only exchange information in attention."
+        },
+        {
+          "id": "nlp-b7-025",
+          "lecture": 7,
+          "concept": "Residual connections",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              51
+            ]
+          },
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or False: A residual connection computes $x + F(x)$, so a block learns an update to its input and can easily \"do nothing\".",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Residuals come from ResNet; they smooth the loss landscape and \"do a lot of heavy lifting\". They have nothing to do with the value vectors (a correction to your notes)."
+        },
+        {
+          "id": "nlp-b7-026",
+          "lecture": 7,
+          "concept": "Residual connections",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              51,
+              52
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Why must the output of an attention block have the same dimension as its input?",
+          "choices": [
+            "So that the residual connection $x + F(x)$ can be added",
+            "So that blocks can be stacked $N$ times",
+            "Because each layer moves a token within the same representation space",
+            "Because the softmax requires it"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "That is why $W_O$ projects the concatenated heads back to $d_{model}$."
+        },
+        {
+          "id": "nlp-b7-027",
+          "lecture": 7,
+          "concept": "Layer normalisation",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              52
+            ]
+          },
+          "type": "numeric",
+          "marks": 4,
+          "question": "A token vector is $x = (2,4,4,6)$. Apply layer normalisation ignoring $\\epsilon$: $\\hat x = (x - \\mu)/\\sqrt{\\sigma^2}$, output $\\gamma \\odot \\hat x + \\beta$, with $\\gamma = (1,1,2,2)$ and $\\beta = (0,0,0,1)$.\n(a) $\\mu$  (b) $\\sigma^2$  (c) $\\hat x_1$  (d) the fourth output component.",
+          "parts": [
+            {
+              "label": "(a) μ",
+              "answer": 4,
+              "marks": 1,
+              "tolerance": 0.001
+            },
+            {
+              "label": "(b) σ²",
+              "answer": 2,
+              "marks": 1,
+              "tolerance": 0.001
+            },
+            {
+              "label": "(c) x̂₁",
+              "answer": -1.4142,
+              "marks": 1,
+              "tolerance": 0.006
+            },
+            {
+              "label": "(d) output₄",
+              "answer": 3.8284,
+              "marks": 1,
+              "tolerance": 0.006
+            }
+          ],
+          "solution": "(a) $\\mu = 4$. (b) $\\sigma^2 = \\frac{1}{4}\\sum (x_i - \\mu)^2 = 2$. (c) $\\hat x = (-1.4142, 0, 0, 1.4142)$. (d) $2 \\times 1.4142 + 1 = 3.8284$.",
+          "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+          "explanation": "LayerNorm normalises each token across its own $d_{model}$ features (not across the batch: that is BatchNorm). The learned $\\gamma, \\beta$ keep flexibility.",
+          "variantOf": "ln-calc"
+        },
+        {
+          "id": "nlp-b7-028",
+          "lecture": 7,
+          "concept": "Layer normalisation",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              52
+            ]
+          },
+          "type": "single",
+          "marks": 1,
+          "question": "Why do Transformers use layer normalisation, according to the lecturer?",
+          "choices": [
+            "If every block scaled its vectors by 2, ten blocks would scale them by $2^{10}$; normalising keeps the scale stable",
+            "To make the attention weights sum to 1",
+            "To remove the need for positional encodings",
+            "To mask future tokens"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Stable scale across many stacked blocks; $\\gamma$ and $\\beta$ give back flexibility."
+        },
+        {
+          "id": "nlp-b7-029",
+          "lecture": 7,
+          "concept": "Positional encoding",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              55
+            ]
+          },
+          "type": "numeric",
+          "marks": 5,
+          "question": "Use $PE_{(pos, 2i)} = \\sin(pos/10000^{2i/d_{model}})$ and $PE_{(pos, 2i+1)} = \\cos(pos/10000^{2i/d_{model}})$ with $d_{model} = 4$ (radians).\n(a)–(d) The four components of the positional encoding for $pos = 3$.\n(e) The wavelength (in positions) of dimensions 2 and 3.",
+          "parts": [
+            {
+              "label": "PE(3, 0)",
+              "answer": 0.1411,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "PE(3, 1)",
+              "answer": -0.99,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "PE(3, 2)",
+              "answer": 0.03,
+              "marks": 1,
+              "tolerance": 0.0005
+            },
+            {
+              "label": "PE(3, 3)",
+              "answer": 0.9996,
+              "marks": 1,
+              "tolerance": 0.0006
+            },
+            {
+              "label": "(e) Wavelength, dims 2–3",
+              "answer": 628.32,
+              "marks": 1,
+              "tolerance": 0.05
+            }
+          ],
+          "solution": "Dims 0–1 use $i = 0$: $\\sin 3 = 0.1411$, $\\cos 3 = -0.99$.\nDims 2–3 use $i = 1$: $10000^{2/4} = 100$, so $\\sin 0.03 = 0.03$, $\\cos 0.03 = 0.9996$.\n(e) Wavelength $= 2\\pi \\times 10000^{2i/d} = 2\\pi \\times 100 = 628.32$ positions (dims 0–1: $2\\pi \\approx 6.28$).",
+          "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
+          "explanation": "Sin goes on even dimensions, cos on odd. High-frequency dimensions give fine resolution; low-frequency ones cover long ranges, so the combination does not repeat over realistic lengths (though a single wave does).",
+          "variantOf": "pe-calc"
+        },
+        {
+          "id": "nlp-b7-030",
+          "lecture": 7,
+          "concept": "Positional encoding",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              53,
+              55
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which statements about positional encoding are correct?",
+          "choices": [
+            "Without it, self-attention is permutation equivariant: shuffle the tokens and the outputs shuffle the same way",
+            "The position vector is added to the token embedding",
+            "Learned position embeddings are a valid alternative to sinusoids",
+            "Sinusoidal encodings never repeat for arbitrarily long sentences"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "Quiz 2 Q18: they can repeat. Strictly the term is equivariant (the lecturer ended up saying \"invariant\")."
+        },
+        {
+          "id": "nlp-b7-031",
+          "lecture": 7,
+          "concept": "Full Transformer architecture",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              56
+            ]
+          },
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or False: In the original Transformer the encoder and decoder both have $N = 6$ layers, but they do not strictly have to match, because every decoder layer attends to the final encoder output.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "The lecturer said they must match; the watch-out in your notes corrects this."
+        },
+        {
+          "id": "nlp-b7-032",
+          "lecture": 7,
+          "concept": "What attention heads do",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              66,
+              72
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which roles did the analysis of NMT Transformer heads find for the important heads?",
+          "choices": [
+            "Positional heads that attend to neighbouring tokens",
+            "Syntactic heads that track dependencies such as verb → subject and object → verb",
+            "Heads that attend to rare tokens",
+            "Heads that always attend uniformly to every token"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "Voita et al.: the important heads play interpretable roles, and many of the rest can be pruned with little loss."
+        },
+        {
+          "id": "nlp-b7-033",
+          "lecture": 7,
+          "concept": "What attention heads do",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              66
+            ]
+          },
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or False: Many heads can be pruned from a trained Transformer with little loss of quality.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Only a few heads are \"important\". The lecturer added that many heads end up doing nothing for African languages because they are tuned to English syntax."
+        },
+        {
+          "id": "nlp-b7-034",
+          "lecture": 7,
+          "concept": "Probing",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              75,
+              80
+            ]
+          },
+          "type": "single",
+          "marks": 1,
+          "question": "What is \"probing\" a representation?",
+          "choices": [
+            "Training a simple classifier on the (frozen) representations and using its accuracy to see whether a property is encoded",
+            "Masking random input tokens and predicting them",
+            "Visualising one attention head",
+            "Fine-tuning the whole model on a new task"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "A high probe accuracy shows the information is decodable; it does not prove the model uses it."
+        },
+        {
+          "id": "nlp-b7-035",
+          "lecture": 7,
+          "concept": "Probing",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              73,
+              80
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which analysis methods are model-agnostic (they do not depend on the architecture)?",
+          "choices": [
+            "Probing representations with a classifier",
+            "Contrastive evaluation with minimal pairs",
+            "Looking at attention heads",
+            "Inspecting individual neurons of a specific model"
+          ],
+          "answer": [
+            0,
+            1
+          ],
+          "explanation": "Model-specific methods look inside (heads, neurons); model-agnostic methods only need representations or output probabilities."
+        },
+        {
+          "id": "nlp-b7-036",
+          "lecture": 7,
+          "concept": "NMT and morphology",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              81,
+              87
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "What did probing NMT encoders for morphology find (as shown in Lecture 7)?",
+          "choices": [
+            "Layer 0 (the embeddings) is worst at predicting morphology",
+            "Layer 1 is better than layer 2",
+            "Surprisingly, translating into a target language with weaker morphology gives a better encoder for source morphology",
+            "The decoder learns morphology better than the encoder in every setting"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "Belinkov et al.: lower (but not the lowest) layers capture morphology best. If the target language marks less morphology, the encoder has to do more of the work itself."
+        },
+        {
+          "id": "nlp-b7-037",
+          "lecture": 7,
+          "concept": "NMT and morphology",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              87
+            ]
+          },
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or False: In the NMT morphology experiments, the embedding layer (layer 0) gave the best part-of-speech/morphology probe accuracy.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            1
+          ],
+          "explanation": "Layer 0 was worst; context from the first layer helps."
+        },
+        {
+          "id": "nlp-b7-038",
+          "lecture": 7,
+          "concept": "Self-attention calculation",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              20,
+              27
+            ]
+          },
+          "type": "written",
+          "marks": 12,
+          "question": "Two tokens have embeddings (rows) $X = \\begin{bmatrix}1 & 1 \\\\ 2 & 0\\end{bmatrix}$. Use $Q = XW_Q$, $K = XW_K$, $V = XW_V$ with $W_Q = \\begin{bmatrix}1 & 0 \\\\ 0 & 2\\end{bmatrix}$, $W_K = \\begin{bmatrix}1 & 1 \\\\ 0 & 1\\end{bmatrix}$, $W_V = \\begin{bmatrix}0 & 1 \\\\ 1 & 0\\end{bmatrix}$ and $d_k = 2$.\n(a) Compute $Q$, $K$ and $V$. (2)\n(b) Compute the attention matrix (unmasked). (3)\n(c) Compute the attention output for both tokens. (1)\n(d) Give the masked attention matrix for a decoder, and explain exactly how and why the mask is applied. (2)\n(e) Explain why the scores are divided by $\\sqrt{d_k}$ and what would happen at $d_k = 512$ without it. (2)\n(f) Using the lecturer's analogy, explain intuitively what $q$, $k$ and $v$ do. (2) (12 Marks)",
+          "modelAnswer": "(a) $Q = \\begin{bmatrix}1 & 2 \\\\ 2 & 0\\end{bmatrix}$, $K = \\begin{bmatrix}1 & 2 \\\\ 2 & 2\\end{bmatrix}$, $V = \\begin{bmatrix}1 & 1 \\\\ 0 & 2\\end{bmatrix}$.\n\n(b) $QK^\\top = \\begin{bmatrix}5 & 6 \\\\ 2 & 4\\end{bmatrix}$, $S = QK^\\top/\\sqrt 2 = \\begin{bmatrix}3.5355 & 4.2426 \\\\ 1.4142 & 2.8284\\end{bmatrix}$, row-wise softmax: $A = \\begin{bmatrix}0.3302 & 0.6698 \\\\ 0.1956 & 0.8044\\end{bmatrix}$. This is the attention matrix: stop here (no $V$).\n\n(c) $AV = \\begin{bmatrix}0.3302 & 1.6698 \\\\ 0.1956 & 1.8044\\end{bmatrix}$.\n\n(d) Set scores above the diagonal to $-\\infty$ before the softmax: $A_{\\text{mask}} = \\begin{bmatrix}1 & 0 \\\\ 0.1956 & 0.8044\\end{bmatrix}$. Token 1 may only attend to itself; token 2 to tokens 1 and 2. In training the decoder sees the whole target at once, so without the mask it would cheat by looking at future words that do not exist at inference. Setting a score to 0 would not mask anything, since $e^0 = 1$.\n\n(e) If $q$ and $k$ have components with unit variance, $q \\cdot k$ has variance $d_k$. At $d_k = 512$ the scores would be around $\\pm 22$, the softmax would saturate (nearly one-hot, like a very low temperature) and its gradients would vanish. Dividing by $\\sqrt{d_k}$ brings the variance back to about 1.\n\n(f) The query says \"I want to know about X\"; each key says \"I know about Y, come talk to me\"; $q \\cdot k$ (after the softmax) decides how much of your time you spend with each token; the value is what that token actually tells you. Splitting the roles lets where-to-look ($Q$, $K$) be learned separately from what-to-take ($V$).",
+          "rubric": [
+            {
+              "point": "(a) Correct Q, K, V",
+              "marks": 2
+            },
+            {
+              "point": "(b) Correct scaled scores",
+              "marks": 1
+            },
+            {
+              "point": "(b) Correct attention matrix, stopping before V",
+              "marks": 2
+            },
+            {
+              "point": "(c) Correct output",
+              "marks": 1
+            },
+            {
+              "point": "(d) Correct masked matrix",
+              "marks": 1
+            },
+            {
+              "point": "(d) −∞ before softmax and why (training/inference consistency)",
+              "marks": 1
+            },
+            {
+              "point": "(e) Variance grows with d_k → saturation, vanishing gradients",
+              "marks": 2
+            },
+            {
+              "point": "(f) Intuitive explanation of q, k, v",
+              "marks": 2
+            }
+          ],
+          "variantOf": "attn-written"
+        },
+        {
+          "id": "nlp-b7-039",
+          "lecture": 7,
+          "concept": "Why Transformers beat RNNs",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              12,
+              16
+            ]
+          },
+          "type": "written",
+          "marks": 8,
+          "question": "Compare RNNs, CNNs and Transformers as sequence encoders. For each, explain how information travels between distant tokens, how parallelisable the computation is, and one weakness. Then explain what Transformers need that the other two do not, and why. (8 Marks)",
+          "modelAnswer": "RNN: information travels step by step through the hidden state, so distant tokens interact through $O(N)$ sequential steps; this suffers from vanishing/exploding gradients and recency bias. Computation is sequential over positions (not parallelisable within a sequence). Weakness: slow, hard credit assignment, fixed-size state.\n\nCNN: each filter sees a local window; distant tokens interact only after stacking layers (receptive field grows with depth/kernel size). Fully parallel over positions. Weakness: long-range dependencies need many layers; for generation it reprocesses the whole input per token.\n\nTransformer: self-attention connects every pair of tokens in one layer (constant path length), and all positions are processed in parallel, so a sentence takes a constant number of sequential layer steps. Weaknesses: attention cost grows with $N^2$, it is data hungry (three projection matrices per layer), and generation is still sequential.\n\nWhat it needs: positional encodings. Self-attention is permutation equivariant, so without them \"cat\" as subject and as object look the same; RNNs (time) and CNNs (spatial windows) get order for free.",
+          "rubric": [
+            {
+              "point": "RNN: path length, sequential, weakness",
+              "marks": 2
+            },
+            {
+              "point": "CNN: local windows, receptive field, parallel, weakness",
+              "marks": 2
+            },
+            {
+              "point": "Transformer: direct pairs, parallel, weakness (N², data)",
+              "marks": 2
+            },
+            {
+              "point": "Needs positional encodings because of permutation equivariance",
+              "marks": 2
+            }
+          ]
+        },
+        {
+          "id": "nlp-b7-040",
+          "lecture": 7,
+          "concept": "Full Transformer architecture",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              41,
+              56
+            ]
+          },
+          "type": "written",
+          "marks": 8,
+          "question": "Describe one encoder layer and one decoder layer of the original Transformer in order, naming every sub-layer. For each attention sub-layer state where Q, K and V come from and whether a mask is used. Then explain the purpose of the residual connections, layer normalisation and the feed-forward block, and why the output dimension of every sub-layer equals its input dimension. (8 Marks)",
+          "modelAnswer": "Encoder layer: (1) multi-head self-attention (Q, K, V all from the encoder's previous layer; no mask: tokens look left and right) → add & norm; (2) position-wise feed-forward → add & norm.\n\nDecoder layer: (1) masked multi-head self-attention (Q, K, V from the decoder's previous layer; causal mask: look left only and at yourself) → add & norm; (2) cross-attention (Q from the decoder, K and V from the final encoder output; no causal mask) → add & norm; (3) feed-forward → add & norm. A final linear layer and softmax give the next-token distribution.\n\nResiduals: each sub-layer computes $x + F(x)$, learning an update; easier optimisation and smoother loss landscape, and a block can do nothing. LayerNorm: normalises each token across its features so the scale does not explode over many layers ($\\gamma, \\beta$ learned). FFN: $\\max(0, xW_1 + b_1)W_2 + b_2$ per token, the per-token processing step (most of the parameters).\n\nSame dimension: so the residual addition works and layers can be stacked $N$ times; each layer moves the token within the same space (multi-head outputs are concatenated and projected back with $W_O$).",
+          "rubric": [
+            {
+              "point": "Encoder sub-layers in order",
+              "marks": 1
+            },
+            {
+              "point": "Decoder sub-layers in order",
+              "marks": 1
+            },
+            {
+              "point": "Q/K/V source and masking for all three attention types",
+              "marks": 2
+            },
+            {
+              "point": "Purpose of residuals",
+              "marks": 1
+            },
+            {
+              "point": "Purpose of LayerNorm (per token)",
+              "marks": 1
+            },
+            {
+              "point": "Purpose of FFN",
+              "marks": 1
+            },
+            {
+              "point": "Why output dim = input dim",
+              "marks": 1
+            }
+          ]
+        },
+        {
+          "id": "nlp-b7-041",
+          "lecture": 7,
+          "concept": "Positional encoding",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              53,
+              55
+            ]
+          },
+          "type": "written",
+          "marks": 5,
+          "question": "Explain why Transformers need positional encodings and how sinusoidal encodings work. Compute $PE_{(pos=2, 0)}$ and $PE_{(pos=2, 1)}$ for any $d_{model}$. Explain why many dimensions with different wavelengths are used, and name the alternative mentioned in the lecture. (5 Marks)",
+          "modelAnswer": "Self-attention is permutation equivariant: it treats the input as a set, so shuffling the tokens just shuffles the outputs, and word order (subject vs object) is lost. A position vector is therefore added to each token embedding.\n\n$PE_{(pos, 2i)} = \\sin(pos/10000^{2i/d})$, $PE_{(pos, 2i+1)} = \\cos(pos/10000^{2i/d})$: sin on even dimensions, cos on odd. For $i = 0$ the denominator is 1, so $PE_{(2,0)} = \\sin 2 = 0.9093$ and $PE_{(2,1)} = \\cos 2 = -0.4161$.\n\nA single wave repeats, so two positions a wavelength apart would look the same. Using many dimensions whose wavelengths grow geometrically (from $2\\pi$ to $10000 \\cdot 2\\pi$) gives fine resolution from the fast dimensions and long range from the slow ones, so the combination identifies positions. Alternative: learned position embeddings trained by gradient descent.",
+          "rubric": [
+            {
+              "point": "Permutation equivariance explained",
+              "marks": 1
+            },
+            {
+              "point": "Added to embeddings; sin/cos formula on even/odd dims",
+              "marks": 1
+            },
+            {
+              "point": "Correct values",
+              "marks": 1
+            },
+            {
+              "point": "Why many wavelengths",
+              "marks": 1
+            },
+            {
+              "point": "Learned embeddings as the alternative",
+              "marks": 1
+            }
+          ]
+        },
+        {
+          "id": "nlp-b7-042",
+          "lecture": 7,
+          "concept": "Multi-head attention",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              28,
+              40
+            ]
+          },
+          "type": "written",
+          "marks": 5,
+          "question": "Explain multi-head attention: how the heads are formed and combined, what they buy you, and how many projection parameters they cost compared with a single head at the same $d_{model}$. Comment on the lecturer's remark that many heads end up doing nothing for African languages. (5 Marks)",
+          "modelAnswer": "Each head $i$ has its own $W_i^Q, W_i^K, W_i^V$ of size $d_{model} \\times d_{model}/h$, computes scaled dot-product attention over all tokens in its own subspace, and the $h$ outputs are concatenated and multiplied by $W_O$ back to $d_{model}$. Every head sees every token; the split is across representation subspaces.\n\nBenefit: one softmax can focus on only one or two things; several heads can track different relations at once (agreement, who is the subject, properties, prepositions). Nothing tells a head what to specialise in; gradient descent decides.\n\nCost: $h \\times 3 \\times d_{model} \\times d_{model}/h = 3d_{model}^2$, the same as one full-width head, plus $d_{model}^2$ for $W_O$. (The lecturer suggested they multiply; in the standard design they do not.)\n\nAfrican languages: heads specialise in whatever the training data rewards, which is mostly English syntax; for agglutinative, under-represented languages these heads do not match the structure (and tokenization is poor), so many contribute nothing, which links to the fairness concerns of Lecture 10.",
+          "rubric": [
+            {
+              "point": "How heads are formed and combined (subspaces, concat, W_O)",
+              "marks": 2
+            },
+            {
+              "point": "What they buy (different relations; no assigned roles)",
+              "marks": 1
+            },
+            {
+              "point": "Correct parameter comparison",
+              "marks": 1
+            },
+            {
+              "point": "African-language comment linked to data/tokenization",
+              "marks": 1
+            }
+          ]
+        },
+        {
+          "id": "nlp-b7-043",
+          "lecture": 7,
+          "concept": "Probing",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              60,
+              87
+            ]
+          },
+          "type": "written",
+          "marks": 6,
+          "question": "Describe how you would find out what a trained Transformer encoder knows about syntax. Cover looking at attention heads and probing, what each found in the lecture, and the limits of each. (6 Marks)",
+          "modelAnswer": "Attention heads (model-specific): visualise head weights and measure which heads attend in consistent patterns; find which heads matter by pruning. Lecture finding: the important heads are positional (neighbours), syntactic (verb → subject, object → verb, subject → verb) and rare-token heads; many others can be pruned. Limit: attention weights are not a full explanation of what the model uses, and only some heads are interpretable.\n\nProbing (model-agnostic): freeze the representations at each layer, train a simple classifier to predict a property (e.g. part of speech, morphology, dependency labels) and compare accuracy across layers. Lecture finding (NMT): layer 0 is worst for morphology, layer 1 better than layer 2; a target language with weaker morphology gives a better encoder. Limit: high probe accuracy shows the information can be decoded, not that the model uses it; a powerful probe may learn the task itself.",
+          "rubric": [
+            {
+              "point": "Head analysis method and findings",
+              "marks": 2
+            },
+            {
+              "point": "A limit of head analysis",
+              "marks": 1
+            },
+            {
+              "point": "Probing method and findings",
+              "marks": 2
+            },
+            {
+              "point": "A limit of probing",
+              "marks": 1
             }
           ]
         }
