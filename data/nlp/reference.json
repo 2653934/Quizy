@@ -2,7 +2,7 @@
   "id": "nlp-reference",
   "subject": "nlp",
   "title": "NLP model sheet",
-  "description": "The key models, algorithms, calculations and quiz traps of lectures 1–10, one card each, checked against the slides. Page numbers are slide (PDF) pages. Points marked as coming from the lecture recordings are not on the slides. Worked examples were checked with a script; the diagrams use made-up example data. Start with the ★ Test 2 card in L8.",
+  "description": "The key models, algorithms, calculations and quiz traps of lectures 1–10, one card each, checked against the slides (L10: the 2026 HTML deck on Moodle). Page numbers are slide (PDF) pages. Points marked as coming from the lecture recordings are not on the slides. Worked examples were checked with a script; the diagrams use made-up example data. Start with the ★ Test 2 card in L8.",
   "searchHint": "attention, LoRA, perplexity",
   "scopeTopics": [
     1,
@@ -25,8 +25,8 @@
     "6": "Seq2seq and attention",
     "7": "Transformers",
     "8": "Transfer learning",
-    "9": "Scaling NLP",
-    "10": "Responsible NLP"
+    "9": "Responsible NLP",
+    "10": "Scaling NLP"
   },
   "cards": [
     {
@@ -39,7 +39,7 @@
         "A common working definition: a sequence of letters separated by whitespace or punctuation, an atomic unit of meaning.",
         "English: \"The children are selling the clothes to each other.\" splits cleanly into 10 tokens (9 words and the full stop).",
         "isiZulu: \"Abashana bayazithengiselana izimpahla\" says the same in 3 words. One word, aba-shana ba-ya-zi-theng-is-el-an-a, carries the subject marker, tense, \"buy\" and the reciprocal, so whitespace splitting loses the structure.",
-        "This is why tokenization comes back in L4 (BPE) and L10 (African languages cost more tokens)."
+        "This is why tokenization comes back in L4 (BPE) and L9 (African languages cost more tokens)."
       ],
       "images": [],
       "source": "lecture1_intro.pdf pp. 2–5"
@@ -135,7 +135,7 @@
       "topic": 2,
       "kind": "concept",
       "title": "\"Comment on Word2Vec\" inside a transfer-learning answer",
-      "summary": "The written questions focus on L5–L8 and L10 but pull earlier topics in. When a transfer-learning question asks about word2vec, give its three limits and what ELMo and BERT fixed.",
+      "summary": "The written questions focus on L5–L8 and L9 but pull earlier topics in. When a transfer-learning question asks about word2vec, give its three limits and what ELMo and BERT fixed.",
       "points": [
         "Static: one vector per word type, so it cannot separate senses (\"bank\" of a river vs. a bank account).",
         "Shallow transfer: only the embedding layer is pretrained; the rest of the task model starts from scratch.",
@@ -889,37 +889,8 @@
       "source": "Past quizzes and the lecture recordings (exam-signals notes), not on the slides; facts on lecture8_transfer_learning.pdf pp. 27–33, 39–48, 56, 59–78"
     },
     {
-      "id": "nlp-scaling-laws",
-      "topic": 9,
-      "kind": "concept",
-      "title": "Emergence from scale: induction heads and scaling laws",
-      "summary": "L9 has only 9 slides and is quiz material. With scale, in-context learning appears, and loss improves predictably.",
-      "points": [
-        "Induction heads (the mechanism for in-context learning) tend to appear with scale through a \"phase change\": the model realises the task cannot be done by learning (memorising) and switches to using the context.",
-        "Neural scaling laws: predictable improvements with more compute, data and parameters; the slide's plots (Kaplan et al., 2020) show loss falling as a power law in each.",
-        "Believed to be due to the Zipf distribution of language."
-      ],
-      "images": [],
-      "source": "lecture9_scaling_nlp.pdf pp. 2–3 (induction heads), 4 (scaling laws)"
-    },
-    {
-      "id": "nlp-emergence-without-scale",
-      "topic": 9,
-      "kind": "concept",
-      "title": "Emergence without scale, and data poisoning",
-      "summary": "Two ways to get the benefits without a bigger dense model, and the big risk to all of it.",
-      "points": [
-        "Sparsity: mixture of experts, where a gate routes each input to a few experts, so only part of the network runs.",
-        "Modularity and sparsity: Recurrent Independent Mechanisms, where attention guides information flow between whole network modules.",
-        "Knowledge distillation: a big network trains a smaller one using far more detailed (soft) labels.",
-        "Data poisoning: generated data filtering back into training can cause model collapse within a handful of generations (Shumailov et al., 2024; more in L10)."
-      ],
-      "images": [],
-      "source": "lecture9_scaling_nlp.pdf pp. 5 (sparsity, mixture of experts), 6 (RIMs), 7 (distillation), 8–9 (data poisoning)"
-    },
-    {
       "id": "nlp-reader-writer",
-      "topic": 10,
+      "topic": 9,
       "kind": "concept",
       "title": "Responsibility in language: writer- vs reader-responsible",
       "summary": "Communication is the ability to direct others' attention (\"don't think about a pink elephant\"). Who is responsible for being understood differs between languages, and that matters for models built on context.",
@@ -934,7 +905,7 @@
     },
     {
       "id": "nlp-multilingualism",
-      "topic": 10,
+      "topic": 9,
       "kind": "concept",
       "title": "Multilingualism and code-switching",
       "summary": "Many people use a home language and a different professional language, and cultural standards differ. This shapes the data and how well models serve people.",
@@ -949,7 +920,7 @@
     },
     {
       "id": "nlp-stochastic-parrots",
-      "topic": 10,
+      "topic": 9,
       "kind": "concept",
       "title": "Stochastic parrots and the hegemonic view",
       "summary": "Bender et al. (2021): an LM is \"a system for haphazardly stitching together sequences of linguistic forms it has observed in its vast training data, according to probabilistic information about how they combine, but without any reference to meaning: a stochastic parrot\".",
@@ -964,7 +935,7 @@
     },
     {
       "id": "nlp-present-harms",
-      "topic": 10,
+      "topic": 9,
       "kind": "concept",
       "title": "Present harms: unequal quality, jailbreaks, tokenization and prompting",
       "summary": "With generative AI widely adopted, the concerns are unequal quality between groups, vulnerabilities that cause harm, and language becoming the interface to tools used across cultures.",
@@ -980,7 +951,7 @@
     },
     {
       "id": "nlp-model-collapse",
-      "topic": 10,
+      "topic": 9,
       "kind": "concept",
       "title": "Dead internet theory and model collapse",
       "summary": "As generated content fills the internet and flows back into training data, models trained on it forget the real distribution (Shumailov et al.): the tails vanish first, and later generations converge to a narrow, low-variance and wrong distribution.",
@@ -1003,7 +974,7 @@
     },
     {
       "id": "nlp-resource-exploitation",
-      "topic": 10,
+      "topic": 9,
       "kind": "concept",
       "title": "Resource use and the double edge",
       "summary": "Bias also comes from training and running the model, not only from using it. LLM power use scales with parameter count, now in the billions.",
@@ -1017,7 +988,7 @@
     },
     {
       "id": "nlp-what-can-be-done",
-      "topic": 10,
+      "topic": 9,
       "kind": "concept",
       "title": "What can be done: curation and participation",
       "summary": "Data curation is the organisation, selection and integration of data from various sources. It helps, but it has costs. Participation spreads the work and the benefit.",
@@ -1032,7 +1003,7 @@
     },
     {
       "id": "nlp-responsible-essay",
-      "topic": 10,
+      "topic": 9,
       "kind": "concept",
       "title": "Responsible-NLP essay skeleton (8–10 marks)",
       "summary": "A structure for any responsible-NLP written question: name the concept → define it in one line (quote the slide if you can) → the mechanism (why it happens in LMs) → a concrete South African or African-language example → the consequence (who is harmed, and the double edge) → a mitigation and its limitation.",
@@ -1043,6 +1014,128 @@
       ],
       "images": [],
       "source": "Study structure (not from the slides), built on lecture10_responsible_nlp.pdf; written-question focus from the 2026 scope announcement"
+    },
+    {
+      "id": "nlp-scaling-laws",
+      "topic": 10,
+      "kind": "concept",
+      "title": "Scaling laws and compute-optimal training",
+      "summary": "Loss falls as a power law in parameters, data and compute, so model size and data must be balanced. Devon: this lecture is examined at a high level.",
+      "points": [
+        "Training minimises average surprise: $\\mathcal{L} = \\text{average}[-\\log p(\\text{true next token})]$.",
+        "Kaplan et al. (2020): loss is a power law in $N$, $D$ and $C \\approx 6ND$; for size $\\mathcal{L} \\propto N^{-0.076}$, so each doubling multiplies the loss by about $0.95$. A straight line on log–log axes, so small runs forecast big ones.",
+        "Scale the three in proportion, or one becomes the bottleneck.",
+        "Hoffmann et al. (2022): at fixed compute, too big = undertrained, too small = underpowered. Compute-optimal ≈ 20 tokens per parameter. Chinchilla (70B, 1.4T tokens) beat Gopher (280B, 300B tokens) at about the same compute.",
+        "Beyond the optimum: Llama 3 8B read ~1,900 tokens/parameter because training is paid once and inference on every request; cheaper inference leaves room for test-time compute."
+      ],
+      "images": [],
+      "example": "Chinchilla: $D = 20 \\times 70\\text{B} = 1.4\\text{T}$ tokens; $C = 6 \\times 7\\times10^{10} \\times 1.4\\times10^{12} \\approx 5.9\\times10^{23}$ FLOPs, close to Gopher's $6 \\times 2.8\\times10^{11} \\times 3\\times10^{11} \\approx 5.0\\times10^{23}$.",
+      "source": "Scaling NLP HTML deck (Moodle, 2026) slides 4–8; lecture recording"
+    },
+    {
+      "id": "nlp-emergence-without-scale",
+      "topic": 10,
+      "kind": "concept",
+      "title": "Mixture of experts and sparsity",
+      "summary": "Separate total capacity from per-token compute by running only a few experts per token.",
+      "points": [
+        "Dense model: every token passes through every parameter (seeing every doctor). MoE = conditional computation (see the right specialists).",
+        "One big FFN becomes many small experts; a router scores them, picks the top $k$ and mixes their outputs with the router weights (e.g. 0.7 and 0.3).",
+        "Total parameters set capacity and memory; active parameters set compute per token. Switch: 1 expert/token, 1.6T total. Mixtral 8×7B: 2 of 8, 47B total / 13B active (not 56B: attention is shared). DeepSeek-V3: 8 of 256 + 1 shared, 671B / 37B.",
+        "Expert collapse (not model collapse): experts that start slightly better are picked more, train more, get better; the rest go unused.",
+        "Load balancing: Switch adds an auxiliary loss; DeepSeek-V3 adds a per-expert bias to router scores (up if under-used, down if over-used), which changes selection only, not the mixing weights.",
+        "Experts specialise by token type (punctuation, numbers, code, syntax), not topic. Dense models are naturally sparse too (most neurons near-silent; pruning)."
+      ],
+      "images": [],
+      "source": "Scaling NLP HTML deck (Moodle, 2026) slides 9–14; lecture recording"
+    },
+    {
+      "id": "nlp-icl-induction",
+      "topic": 10,
+      "kind": "concept",
+      "title": "In-context learning, induction heads and emergence",
+      "summary": "A frozen model learns a task from the prompt; induction heads are the copy mechanism behind much of it.",
+      "points": [
+        "In-context learning: worked examples in the prompt (sea otter → loutre de mer, …, cheese →) make the pattern the only coherent continuation. No weights change.",
+        "Induction head: if $A$ was followed by $B$ earlier, after $A$ again predict $B$ (\"Harry\" → \"Potter\"). Works on made-up tokens: an algorithm, not word knowledge.",
+        "Needs two layers: a previous-token head marks each token with its predecessor; the induction head finds the earlier copy and copies what followed.",
+        "Emergence or metric? With per-token accuracy $p$, an exact $L$-token answer is right with probability $p^L$ ($0.9^{20} \\approx 0.12$), so smooth gains can look like a sudden jump."
+      ],
+      "images": [],
+      "source": "Scaling NLP HTML deck (Moodle, 2026) slides 16–18; lecture recording"
+    },
+    {
+      "id": "nlp-rag",
+      "topic": 10,
+      "kind": "algorithm",
+      "title": "Retrieval-augmented generation (RAG)",
+      "summary": "An open-book exam: retrieve passages and put them in the prompt, so knowledge is updatable and citable.",
+      "steps": [
+        "Offline: split the documents into passages, embed each passage and store the vectors in an index.",
+        "Online: embed the query.",
+        "Retrieve the $k$ nearest passages (BM25 on shared words, dense embeddings on meaning, or both with reranking).",
+        "Put the passages and the query in the prompt.",
+        "Generate the answer, citing the passages."
+      ],
+      "points": [
+        "Parametric memory: update by retraining, fixed capacity, not citable, instant. Documents: update by editing the index, grows with the corpus, citable, needs a search.",
+        "BM25 weights rare words (like TF-IDF) but misses synonyms; dense retrieval handles \"specialist\" ↔ \"expert\".",
+        "Failures: missing the passage, lost in the middle, irrelevant passages distract, evidence contradicts memorised facts. Check retrieval and generation separately. Agentic systems decide when and what to search."
+      ],
+      "images": [],
+      "source": "Scaling NLP HTML deck (Moodle, 2026) slides 20–23; lecture recording"
+    },
+    {
+      "id": "nlp-diffusion-lm",
+      "topic": 10,
+      "kind": "concept",
+      "title": "Diffusion language models",
+      "summary": "Start from masks and fill several tokens per round, instead of one token per forward pass.",
+      "points": [
+        "Autoregression: one token per pass (1,000 tokens = 1,000 sequential passes), can't revise, flexible length, KV cache.",
+        "Masked diffusion training: pick $t \\in [0,1]$, hide each token with probability $t$, predict all hidden tokens; loss = average surprise on them. All levels, so generation can start fully masked (LLaDA).",
+        "Pros: both-sided context, many tokens per pass (12 tokens at 3 per pass = 4 passes), can revise, fills middle gaps. Cons: length fixed in advance, no direct KV cache, too many tokens per pass lowers quality.",
+        "Block diffusion: blocks left to right, parallel denoising inside a block, finished blocks cached, any length; block size 1 = autoregression.",
+        "Transfusion: one transformer, next-token loss for text and diffusion loss for image patches."
+      ],
+      "images": [],
+      "source": "Scaling NLP HTML deck (Moodle, 2026) slides 25–31; lecture recording"
+    },
+    {
+      "id": "nlp-rlhf-rlvr",
+      "topic": 10,
+      "kind": "algorithm",
+      "title": "Post-training: RLHF, DPO and RLVR",
+      "summary": "Shape a base text imitator into an assistant with preference or verifiable rewards.",
+      "steps": [
+        "Supervised fine-tuning (SFT) on demonstrations.",
+        "Collect pairwise human preferences (easier than writing perfect answers) and train a reward model so $r(A) > r(B)$ when A is preferred.",
+        "RL (e.g. PPO) to maximise $\\text{reward} - \\beta\\, D_{KL}(\\pi \\,\\|\\, \\pi_{SFT})$."
+      ],
+      "points": [
+        "The KL term is a leash: small $\\beta$ lets the policy exploit reward-model errors (reward hacking: flattery, sycophancy, verbosity); large $\\beta$ barely changes the model.",
+        "DPO skips the reward model and RL loop, directly preferring chosen over rejected answers relative to a reference model; still a proxy. RLAIF uses AI feedback.",
+        "RLVR: rewards a program can check (maths answers, code tests). GRPO samples a group of answers and reinforces those above the group average (DeepSeek-R1). Grounded and harder to game, but only where correctness is checkable."
+      ],
+      "images": [],
+      "example": "Rewards $(1, 0, 0, 0)$: mean $0.25$, so the correct answer's advantage is $+0.75$ and each wrong one's $-0.25$.",
+      "source": "Scaling NLP HTML deck (Moodle, 2026) slides 33–37; lecture recording"
+    },
+    {
+      "id": "nlp-superposition-jspace",
+      "topic": 10,
+      "kind": "concept",
+      "title": "Superposition, sparse autoencoders and J-space",
+      "summary": "More features than neurons, packed as directions; lenses and SAEs try to read them.",
+      "points": [
+        "Concepts are directions (king − man + woman ≈ queen). Superposition: $h = \\sum_i a_i w_i$ with most $a_i = 0$, so features share neurons through almost-orthogonal directions.",
+        "Toy model: 5 features through a 2D layer. If they co-occur, only 2 survive; if they are sparse, all 5 fit as a pentagon (neighbours at 72°, $\\cos 72^\\circ \\approx 0.31$).",
+        "Sparse autoencoder: expand into many features, keep few active, reconstruct; loss = reconstruction + sparsity. Fairly monosemantic, steerable features (Golden Gate Bridge), but an imperfect reconstruction.",
+        "Logit lens: apply $W_U$ to a middle layer. J-lens: $W_U(J_l h_l)$ with an averaged Jacobian of the later layers.",
+        "J-space: a small set (≈ 25 or fewer) of word-like concepts in middle layers that can be reported and steered (Spanish → French). Compared to global workspace theory as an analogy; July 2026, not widely replicated; a safety interest (hidden goals), not proof of consciousness."
+      ],
+      "images": [],
+      "source": "Scaling NLP HTML deck (Moodle, 2026) slides 39–43; lecture recording"
     }
   ]
 }

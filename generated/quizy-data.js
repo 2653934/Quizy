@@ -29162,7 +29162,7 @@ window.QUIZY_DATA = {
         {
           "id": "nlp-tut-7-1",
           "number": "7.1",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Reader vs writer responsible languages",
           "type": "written",
           "marks": 3,
@@ -29186,7 +29186,7 @@ window.QUIZY_DATA = {
         {
           "id": "nlp-tut-7-2",
           "number": "7.2",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Code-switching",
           "type": "written",
           "marks": 3,
@@ -29210,7 +29210,7 @@ window.QUIZY_DATA = {
         {
           "id": "nlp-tut-7-3",
           "number": "7.3",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Expressivity, regularity and compositionality",
           "type": "written",
           "marks": 3,
@@ -29235,7 +29235,7 @@ window.QUIZY_DATA = {
         {
           "id": "nlp-tut-7-4",
           "number": "7.4",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Dataset curation",
           "type": "written",
           "marks": 5,
@@ -29267,7 +29267,7 @@ window.QUIZY_DATA = {
         {
           "id": "nlp-tut-7-5",
           "number": "7.5",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Stochastic parrots",
           "type": "written",
           "marks": 2,
@@ -29287,7 +29287,7 @@ window.QUIZY_DATA = {
         {
           "id": "nlp-tut-7-6",
           "number": "7.6",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Model collapse",
           "type": "written",
           "marks": 2,
@@ -29307,7 +29307,7 @@ window.QUIZY_DATA = {
         {
           "id": "nlp-tut-8-1",
           "number": "8.1",
-          "lecture": 9,
+          "lecture": 10,
           "concept": "Mechanistic interpretability",
           "type": "written",
           "marks": 4,
@@ -31670,7 +31670,7 @@ window.QUIZY_DATA = {
           "answer": [
             0
           ],
-          "explanation": "A whitespace token in isiZulu often corresponds to a whole English clause, so the vocabulary explodes and most words are seen rarely. This returns in L4 (BPE) and L10 (tokenizers for African languages)."
+          "explanation": "A whitespace token in isiZulu often corresponds to a whole English clause, so the vocabulary explodes and most words are seen rarely. This returns in L4 (BPE) and L9 (tokenizers for African languages)."
         },
         {
           "id": "nlp-b1-004",
@@ -32162,7 +32162,7 @@ window.QUIZY_DATA = {
       "description": "New quiz-style practice questions on Word2Vec, negative sampling, GloVe and evaluating embeddings, with softmax, negative-sampling, cosine-similarity and analogy calculations. Written for exam revision from the Lecture 2 slides and the tutorial. Not from the lecturer: the answers are unofficial.",
       "unofficialAnswers": true,
       "negativeMarkingNote": "The real Moodle quiz uses negative marking on MCQ questions: picking all right and wrong answers on a question results in a mark of 0.",
-      "totalMarks": 35,
+      "totalMarks": 49,
       "questions": [
         {
           "id": "nlp-b2-001",
@@ -32728,6 +32728,193 @@ window.QUIZY_DATA = {
           "solution": "$\\cos = \\frac{a \\cdot b}{\\|a\\|\\|b\\|}$. (a) $8/(3 \\times 3) = 0.8889$. (b) $-9/9 = -1$ (opposite direction). (c) Same direction: 1, whatever the length.",
           "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
           "variantOf": "cos-calc"
+        },
+        {
+          "id": "nlp-b2-021",
+          "concept": "Embedding layer",
+          "source": {
+            "file": "Lecture 2 recording (transcript)"
+          },
+          "type": "single",
+          "question": "Let $W = [v_1\\ v_2\\ v_3\\ v_4]$ (columns are word vectors) and $x = (0, 0, 1, 0)^\\top$ be a one-hot input. What is $Wx$, and what does this say about an embedding layer?",
+          "choices": [
+            "$v_3$: multiplying by a one-hot vector just selects a column, so an embedding layer (look up index 3) is functionally the same as a linear layer on one-hot input",
+            "$v_1 + v_2 + v_3 + v_4$: an embedding layer sums all word vectors",
+            "The zero vector, because most of $x$ is zero",
+            "$v_3^\\top v_3$: an embedding layer computes a dot product"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Devon: \"If you're in an exam, and I may ask this… draw the matrix as a vector of vectors and do the dot product.\" Storing the index instead of a giant one-hot vector is what makes the embedding layer efficient (L2).",
+          "marks": 1,
+          "lecture": 2
+        },
+        {
+          "id": "nlp-b2-022",
+          "concept": "Likelihood vs probability",
+          "source": {
+            "file": "Lecture 2 recording (transcript)"
+          },
+          "type": "single",
+          "question": "In Word2Vec's objective, why do we talk about the likelihood $L(\\theta)$ rather than just a probability?",
+          "choices": [
+            "The likelihood is a function of the parameters $\\theta$ given the observed data, $L(\\theta) = P(\\text{data} \\mid \\theta)$; training searches for the $\\theta$ that makes the observed context words most probable",
+            "Likelihood and probability are two names for the same function of the data",
+            "The likelihood is the probability of the parameters given the data",
+            "Likelihoods are always larger than probabilities"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Devon's Gaussian example: slide the mean until the data is most probable. He said he wants you to understand this distinction; then the negative (to minimise) and the log (products become sums, more stable).",
+          "marks": 1,
+          "lecture": 2
+        },
+        {
+          "id": "nlp-b2-023",
+          "concept": "Word2Vec objective",
+          "source": {
+            "file": "Lecture 2 recording (transcript)"
+          },
+          "type": "truefalse",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "question": "True or False: Word2Vec's loss treats every context word in the window as independent of the others, which is why the probabilities of the context words are simply multiplied.",
+          "explanation": "True. Devon: \"make clear notes of this… it all corresponds to a massive independence assumption.\" Unnatural, but doing a simple thing fast on a huge corpus works.",
+          "marks": 1,
+          "lecture": 2
+        },
+        {
+          "id": "nlp-b2-024",
+          "concept": "Word2Vec objective",
+          "source": {
+            "file": "Lecture 2 recording (transcript)"
+          },
+          "type": "single",
+          "question": "In $P(o \\mid c) = \\dfrac{\\exp(u_o^\\top v_c)}{\\sum_{w} \\exp(u_w^\\top v_c)}$, why is the dot product passed through $\\exp$ before normalising?",
+          "choices": [
+            "Dot products (propensities) can be negative, which would make the ratio ill-defined; exp maps them to positive values and keeps their order (it is monotonic)",
+            "To make training slower and more stable",
+            "Because the dot product is always larger than 1",
+            "To turn the dot product into a distance"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Devon's propensity argument: probability = propensity ÷ sum of propensities only works for positive propensities. A \"definitely not a cat\" score of −2 would give a 'probability' above 1.",
+          "marks": 1,
+          "lecture": 2
+        },
+        {
+          "id": "nlp-b2-025",
+          "concept": "Negative sampling",
+          "source": {
+            "file": "Lecture 2 recording (transcript)"
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which statements about the move from the full softmax to negative sampling in Word2Vec are true?",
+          "choices": [
+            "The full softmax sums over the whole vocabulary at every update, which is too slow",
+            "Only $K$ random negative words (not the true context word) are pushed down per update",
+            "The multiclass softmax becomes several binary (sigmoid / logistic) decisions",
+            "It works because negative sampling makes the vectors orthogonal",
+            "Negative sampling uses the true context word as one of the negatives"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "Devon: \"As long as you understand how Word2Vec goes from the softmax classification to the sigmoid, I am happy.\" With two classes, fixing one propensity at 0 turns softmax into a sigmoid, and exp being monotonic keeps the ordering.",
+          "lecture": 2
+        },
+        {
+          "id": "nlp-b2-026",
+          "concept": "Skip-gram vs CBOW",
+          "source": {
+            "file": "Lecture 2 recording (transcript)"
+          },
+          "type": "single",
+          "question": "What weakness of CBOW did Devon point out compared with skip-gram?",
+          "choices": [
+            "The context vectors are summed, so one well-trained context word can dominate the sum and carry the prediction while the others stay poor (an attribution / credit-assignment problem)",
+            "CBOW can't be trained with gradient descent",
+            "CBOW predicts the context words, so it is slower than skip-gram",
+            "CBOW needs labelled data"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Skip-gram forces a good representation for each context word separately (four separate data points), which Devon prefers; CBOW's sum also loses order.",
+          "marks": 1,
+          "lecture": 2
+        },
+        {
+          "id": "nlp-b2-027",
+          "concept": "Evaluating embeddings",
+          "source": {
+            "file": "Lecture 2 recording (transcript)"
+          },
+          "type": "truefalse",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "question": "True or False: Word2Vec spaces trained separately on English and Spanish can be mapped onto each other with a single linear map learned from a few word pairs, and translations of words not in those pairs then come out \"for free\".",
+          "explanation": "True (L2). This suggests semantic spaces across languages are roughly linear transformations of each other.",
+          "marks": 1,
+          "lecture": 2
+        },
+        {
+          "id": "nlp-b2-028",
+          "concept": "Word2Vec objective",
+          "source": {
+            "file": "Lecture 2 recording (transcript)"
+          },
+          "type": "written",
+          "section": "theory",
+          "marks": 6,
+          "question": "Explain how skip-gram Word2Vec learns word embeddings. Include the training objective (why a negative log-likelihood), the independence assumption, how $P(o \\mid c)$ is computed, and how and why negative sampling changes it. (6 Marks)",
+          "modelAnswer": "By the distributional hypothesis, a word's meaning comes from its context, so the parameters (each word's focal vector $v$ and context vector $u$) are trained so a focal word predicts its context words within a window of $m$.\n\nObjective: maximise the likelihood $L(\\theta) = \\prod_t \\prod_{j \\ne 0} P(w_{t+j} \\mid w_t; \\theta)$; take the negative log (minimise; products become sums; stable) and average. Multiplying assumes every context word is independent.\n\n$P(o \\mid c) = \\exp(u_o^\\top v_c) / \\sum_w \\exp(u_w^\\top v_c)$: the dot product measures similarity; exp makes the propensities positive; dividing by the sum normalises over the vocabulary.\n\nNegative sampling: the sum over the vocabulary is too slow, so each update raises $\\sigma(u_o^\\top v_c)$ for the true pair and lowers $\\sigma(u_{w_k}^\\top v_c)$ for $K$ random negatives: several binary logistic decisions instead of one huge softmax. Afterwards the context vectors are usually discarded.",
+          "rubric": [
+            {
+              "point": "Distributional hypothesis; focal and context vectors are the parameters",
+              "marks": 1
+            },
+            {
+              "point": "Likelihood over windows; why negative and log",
+              "marks": 1
+            },
+            {
+              "point": "Independence assumption stated",
+              "marks": 1
+            },
+            {
+              "point": "Softmax over dot products, with why exp",
+              "marks": 1
+            },
+            {
+              "point": "Negative sampling: K negatives, avoids summing over the vocabulary",
+              "marks": 1
+            },
+            {
+              "point": "Softmax becomes sigmoid / binary logistic decisions",
+              "marks": 1
+            }
+          ],
+          "explanation": "L2 recording: the parts Devon flagged.",
+          "lecture": 2
         }
       ]
     },
@@ -32740,7 +32927,7 @@ window.QUIZY_DATA = {
       "description": "New quiz-style practice questions on text classification and CNNs, with tf-idf, softmax and cross-entropy, CNN output-shape, parameter-count and receptive-field calculations. Written for exam revision from the Lecture 3 slides and the tutorial. Not from the lecturer: the answers are unofficial.",
       "unofficialAnswers": true,
       "negativeMarkingNote": "The real Moodle quiz uses negative marking on MCQ questions: picking all right and wrong answers on a question results in a mark of 0.",
-      "totalMarks": 38,
+      "totalMarks": 42,
       "questions": [
         {
           "id": "nlp-b3-001",
@@ -33267,6 +33454,72 @@ window.QUIZY_DATA = {
           ],
           "explanation": "Convolution: $(20 + 4 - 5)/1 + 1 = 20$ positions × 50 channels. Pooling 2 with stride 2 halves the positions: 10 × 50. Pooling never changes the number of channels.",
           "variantOf": "cnn-shape-calc"
+        },
+        {
+          "id": "nlp-b3-017",
+          "concept": "Bag of words and n-grams",
+          "source": {
+            "file": "Lecture 3 recording (transcript)"
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which statements about bag-of-words and n-gram features are true?",
+          "choices": [
+            "Bag of words loses word order: \"I don't like the cat, wake it up\" and \"I like the cat, don't wake it up\" look almost the same",
+            "Adding bigrams such as \"don't like\" as their own features recovers some local word order",
+            "Using large n-grams makes the feature vector explode (curse of dimensionality) and they still carry no semantics",
+            "Bag of words is a neural feature extractor"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "These were Devon's three in-class questions on L3: why counting is bad, how bigrams fix it, and why not just use big n-grams. BoW + bigrams was the popular trade-off for SVMs.",
+          "lecture": 3
+        },
+        {
+          "id": "nlp-b3-018",
+          "concept": "Linear layer and softmax",
+          "source": {
+            "file": "Lecture 3 recording (transcript)"
+          },
+          "type": "single",
+          "question": "In a text classifier's final layer, class $k$ gets the score $w_k^\\top h + b_k$. If the sentence vector $h$ were all zeros, what would decide the prediction?",
+          "choices": [
+            "Only the biases $b_k$: the model's prior preference for each class (e.g. the most common class)",
+            "Nothing: every class gets probability zero",
+            "The largest weight vector $w_k$",
+            "The softmax temperature"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Devon's Harry Potter example: with a meaningless $h$, the best guess is the class prior (book 5 has the most pages). Each $w_k$ is a direction \"searching\" the semantic space for its class.",
+          "marks": 1,
+          "lecture": 3
+        },
+        {
+          "id": "nlp-b3-019",
+          "concept": "Pooling",
+          "source": {
+            "file": "Lecture 3 recording (transcript)"
+          },
+          "type": "single",
+          "question": "Why is max pooling usually preferred to mean pooling in CNN text classifiers?",
+          "choices": [
+            "A following linear layer can already learn an average, but it can't learn a maximum; max adds a useful non-linearity (\"did this phrase appear anywhere?\")",
+            "Mean pooling isn't translation invariant",
+            "Max pooling uses fewer parameters",
+            "Mean pooling can't handle variable-length input"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "L3 recording. Both pool over positions, so both handle variable length; max keeps the strongest filter response wherever it occurs.",
+          "marks": 1,
+          "lecture": 3
         }
       ]
     },
@@ -33279,7 +33532,7 @@ window.QUIZY_DATA = {
       "description": "New quiz-style practice questions on RNNs, word embeddings, data augmentation, analysing filters and subword tokenization, with RNN-step, gradient, and BPE merge-trace calculations. Written for exam revision from the Lecture 4 slides and the tutorial. Not from the lecturer: the answers are unofficial.",
       "unofficialAnswers": true,
       "negativeMarkingNote": "The real Moodle quiz uses negative marking on MCQ questions: picking all right and wrong answers on a question results in a mark of 0.",
-      "totalMarks": 34,
+      "totalMarks": 46,
       "questions": [
         {
           "id": "nlp-b4-001",
@@ -33785,6 +34038,189 @@ window.QUIZY_DATA = {
             0
           ],
           "explanation": "Slide 44: the marker distinguishes whole-word tokens from word-internal pieces."
+        },
+        {
+          "id": "nlp-b4-018",
+          "concept": "Receptive field",
+          "source": {
+            "file": "Lecture 4 recording (transcript)"
+          },
+          "type": "single",
+          "question": "What is the difference between a kernel's receptive field and its effective receptive field?",
+          "choices": [
+            "The receptive field is what the kernel sees in its own input layer; the effective receptive field is how much of the original input it sees through the layers below",
+            "They are the same thing",
+            "The effective receptive field is the kernel size minus the stride",
+            "The receptive field is measured on the input; the effective one on the output"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Devon: \"I do expect you know these words.\" Depth lets a small kernel see more of the sentence (a width-2 kernel after pooling might see about six words).",
+          "marks": 1,
+          "lecture": 4
+        },
+        {
+          "id": "nlp-b4-019",
+          "concept": "Receptive field",
+          "source": {
+            "file": "Lecture 4 recording (transcript)"
+          },
+          "type": "numeric",
+          "marks": 2,
+          "question": "Two width-3 convolutions (stride 1) are stacked over word embeddings. (a) What is the receptive field of one output of layer 2 on layer 1's outputs? (b) What is its effective receptive field on the input words?",
+          "parts": [
+            {
+              "label": "(a) receptive field (layer-1 positions)",
+              "answer": 3,
+              "tolerance": 0.5,
+              "marks": 1
+            },
+            {
+              "label": "(b) effective receptive field (words)",
+              "answer": 5,
+              "tolerance": 0.5,
+              "marks": 1
+            }
+          ],
+          "solution": "(a) It sees 3 layer-1 outputs. (b) Each of those sees 3 words, overlapping by 2: $3 + (3-1) = 5$ words.",
+          "explanation": "Each extra width-$k$ layer (stride 1) adds $k - 1$ words to the effective receptive field.",
+          "lecture": 4
+        },
+        {
+          "id": "nlp-b4-020",
+          "concept": "Problems with recurrence",
+          "source": {
+            "file": "Lecture 4 recording (transcript)"
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Devon: \"If I asked you in a test, what are the two primary problems with the RNN?\" Which two was he mainly looking for?",
+          "choices": [
+            "Everything has to be squeezed into a fixed-size vector, so long sentences are hard to represent",
+            "Credit assignment: it is hard to know which earlier word (through which recurrent step) caused an error",
+            "RNNs can't be stacked",
+            "RNNs can't process words in order"
+          ],
+          "answer": [
+            0,
+            1
+          ],
+          "explanation": "He said he would accept any of three (vanishing/exploding gradients is the third), but these two were the ones he wanted. The tutorial's \"unstable to train\" version wants vanishing and exploding gradients.",
+          "lecture": 4
+        },
+        {
+          "id": "nlp-b4-021",
+          "concept": "RNN cell",
+          "source": {
+            "file": "Lecture 4 recording (transcript)"
+          },
+          "type": "single",
+          "question": "In $h_t = \\tanh(W_h h_{t-1} + W_x x_t + b)$, why can't $W_h$ simply be the identity matrix?",
+          "choices": [
+            "Addition is commutative ($h + x = x + h$), so without processing the memory the cell would lose the order of the words",
+            "The identity matrix has no inverse",
+            "It would make the hidden state too small",
+            "Because tanh needs a square matrix"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "L4 recording: $W_h$ processes the previous memory so it can absorb the new word in an order-sensitive way.",
+          "marks": 1,
+          "lecture": 4
+        },
+        {
+          "id": "nlp-b4-022",
+          "concept": "RNN cell",
+          "source": {
+            "file": "Lecture 4 recording (transcript)"
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Why does the RNN cell use tanh rather than ReLU, and what does it cost?",
+          "choices": [
+            "tanh saturates, so \"really really really … like\" doesn't keep growing in magnitude across a long sequence",
+            "Saturation is an inductive bias that groups very positive (or negative) sentences together",
+            "The flat regions give very small (vanishing) gradients, which slows training",
+            "tanh only outputs positive values"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "L4 recording: ReLU fits CNN filters (fire or not), but a recurrent sum over a long sentence needs a bounded activation.",
+          "lecture": 4
+        },
+        {
+          "id": "nlp-b4-023",
+          "concept": "Where embeddings come from",
+          "source": {
+            "file": "Lecture 4 recording (transcript)"
+          },
+          "type": "single",
+          "question": "Why do embeddings trained from scratch on a classification task tend to be worse than Word2Vec embeddings?",
+          "choices": [
+            "Classification is an easier, lower-rank task: many embeddings give the right label, so the model never needs to separate words like \"happy\" and \"ecstatic\"",
+            "Classification datasets have no vocabulary",
+            "Back-propagation can't reach the embedding layer",
+            "Word2Vec embeddings are larger"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Devon: \"The harder the task, if it's trainable, the better the representations.\" Usual fix: start from pre-trained embeddings and fine-tune them.",
+          "marks": 1,
+          "lecture": 4
+        },
+        {
+          "id": "nlp-b4-024",
+          "concept": "Where embeddings come from",
+          "source": {
+            "file": "Lecture 4 recording (transcript)"
+          },
+          "type": "single",
+          "question": "Training first on all of arXiv, then on bioRxiv, then on cancer papers (general, hard task first, becoming more specific) is called:",
+          "choices": [
+            "An anti-curriculum, a form of transfer learning",
+            "A curriculum, because it ends with the easiest data",
+            "Data augmentation",
+            "Word dropout"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "L4 recording: a curriculum goes easy → hard; an anti-curriculum starts with the hard, general task. Transfer learning returns in L8.",
+          "marks": 1,
+          "lecture": 4
+        },
+        {
+          "id": "nlp-b4-025",
+          "concept": "BPE",
+          "source": {
+            "file": "Lecture 4 recording (transcript)"
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which statements about Byte Pair Encoding are true?",
+          "choices": [
+            "Training outputs an ordered merge table and a token vocabulary",
+            "At inference the merges are applied in merge-table order, so BPE is deterministic",
+            "The tokenizer can be trained on different data from the model",
+            "The tokenizer and the embedding layer are the same thing",
+            "Pairs are merged across word boundaries"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "Devon: \"In a test I may ask you to do either one [training or inference]. I may ask you to do both.\" Don't confuse the tokenizer (symbols) with the embeddings (their vectors).",
+          "lecture": 4
         }
       ]
     },
@@ -37987,7 +38423,7 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 5,
           "question": "Explain multi-head attention: how the heads are formed and combined, what they buy you, and how many projection parameters they cost compared with a single head at the same $d_{model}$. Comment on the lecturer's remark that many heads end up doing nothing for African languages. (5 Marks)",
-          "modelAnswer": "Each head $i$ has its own $W_i^Q, W_i^K, W_i^V$ of size $d_{model} \\times d_{model}/h$, computes scaled dot-product attention over all tokens in its own subspace, and the $h$ outputs are concatenated and multiplied by $W_O$ back to $d_{model}$. Every head sees every token; the split is across representation subspaces.\n\nBenefit: one softmax can focus on only one or two things; several heads can track different relations at once (agreement, who is the subject, properties, prepositions). Nothing tells a head what to specialise in; gradient descent decides.\n\nCost: $h \\times 3 \\times d_{model} \\times d_{model}/h = 3d_{model}^2$, the same as one full-width head, plus $d_{model}^2$ for $W_O$. (The lecturer suggested they multiply; in the standard design they do not.)\n\nAfrican languages: heads specialise in whatever the training data rewards, which is mostly English syntax; for agglutinative, under-represented languages these heads do not match the structure (and tokenization is poor), so many contribute nothing, which links to the fairness concerns of Lecture 10.",
+          "modelAnswer": "Each head $i$ has its own $W_i^Q, W_i^K, W_i^V$ of size $d_{model} \\times d_{model}/h$, computes scaled dot-product attention over all tokens in its own subspace, and the $h$ outputs are concatenated and multiplied by $W_O$ back to $d_{model}$. Every head sees every token; the split is across representation subspaces.\n\nBenefit: one softmax can focus on only one or two things; several heads can track different relations at once (agreement, who is the subject, properties, prepositions). Nothing tells a head what to specialise in; gradient descent decides.\n\nCost: $h \\times 3 \\times d_{model} \\times d_{model}/h = 3d_{model}^2$, the same as one full-width head, plus $d_{model}^2$ for $W_O$. (The lecturer suggested they multiply; in the standard design they do not.)\n\nAfrican languages: heads specialise in whatever the training data rewards, which is mostly English syntax; for agglutinative, under-represented languages these heads do not match the structure (and tokenization is poor), so many contribute nothing, which links to the fairness concerns of Lecture 9.",
           "rubric": [
             {
               "point": "How heads are formed and combined (subspaces, concat, W_O)",
@@ -39575,7 +40011,7 @@ window.QUIZY_DATA = {
           },
           "type": "written",
           "marks": 5,
-          "question": "Explain the \"poverty of the stimulus\" argument and the Universal Grammar view, then the alternative offered by iterated learning. Describe the iterated-learning procedure for neural networks and explain how it relates to expressivity, regularity and compositionality, and to model collapse (Lecture 10). (5 Marks)",
+          "question": "Explain the \"poverty of the stimulus\" argument and the Universal Grammar view, then the alternative offered by iterated learning. Describe the iterated-learning procedure for neural networks and explain how it relates to expressivity, regularity and compositionality, and to model collapse (Lecture 9). (5 Marks)",
           "modelAnswer": "Poverty of the stimulus (Chomsky): children learn language quickly from limited data, so the capacity for language may be innate; Universal Grammar: only a limited set of languages is learnable, and the brain is tuned to structures such as compositional generalisation.\n\nIterated learning (Kirby) flips this: language is tuned to our brains. Each generation learns from the previous one; the parts easiest to learn survive (the learning/communication bottleneck), refining the language over generations.\n\nNeural procedure: train a network but stop early, relabel the data with its outputs (logits), train a new network on those labels, repeat for $k$ generations.\n\nThe bottleneck favours regularity (systematic, compressible structure); the need to communicate favours expressivity (many distinct meanings). Together they produce compositionality: reusable parts combined by rules. Model collapse is the dark side of the same loop: when models train on previous models' outputs without a pressure to stay expressive (and without real data), the distribution narrows, tails vanish and outputs degenerate.",
           "rubric": [
             {
@@ -39669,382 +40105,17 @@ window.QUIZY_DATA = {
     "nlp-bank-lecture-9": {
       "id": "nlp-bank-lecture-9",
       "subject": "nlp",
-      "title": "Practice bank: Lecture 9 (Scaling NLP)",
+      "title": "Practice bank: Lecture 9 (Responsible NLP)",
       "kind": "generated",
       "origin": "new",
-      "description": "New practice questions on Lecture 9 (induction heads, scaling laws, mixture of experts, modularity, distillation and data poisoning), with scaling-law and distillation calculations, plus mechanistic interpretability from the tutorial. Written for exam revision from the slides. Not from the lecturer: the answers are unofficial.",
+      "description": "New practice questions on Responsible NLP, written for exam revision from the Lecture 9 slides and the tutorial. Quiz questions, short calculations from the slides' own figures, and hard scenario questions for the written section. Not from the lecturer: the answers are unofficial.",
       "unofficialAnswers": true,
       "negativeMarkingNote": "The real Moodle quiz uses negative marking on MCQ questions: picking all right and wrong answers on a question results in a mark of 0.",
-      "totalMarks": 23,
-      "questions": [
-        {
-          "id": "nlp-b9-001",
-          "lecture": 9,
-          "concept": "Induction heads and in-context learning",
-          "source": {
-            "file": "lecture9_scaling_nlp.pdf",
-            "pages": [
-              2
-            ]
-          },
-          "type": "single",
-          "marks": 1,
-          "question": "What is the \"phase change\" associated with induction heads (Lecture 9)?",
-          "choices": [
-            "With scale, the model realises the task cannot be done by learning alone and switches to using the context (in-context learning)",
-            "The model's loss suddenly increases at the end of training",
-            "Attention heads switch from the encoder to the decoder",
-            "The model switches from greedy decoding to beam search"
-          ],
-          "answer": [
-            0
-          ],
-          "explanation": "Slide 2. Induction heads tend to emerge with scale and are argued to be the mechanism for most in-context learning (slide 3)."
-        },
-        {
-          "id": "nlp-b9-002",
-          "lecture": 9,
-          "concept": "Induction heads and in-context learning",
-          "source": {
-            "file": "lecture9_scaling_nlp.pdf",
-            "pages": [
-              2,
-              3
-            ]
-          },
-          "type": "truefalse",
-          "marks": 1,
-          "question": "True or False: An induction head needs two attention layers working together: a previous-token head and a head that uses it to copy what followed an earlier occurrence of the current token.",
-          "choices": [
-            "True",
-            "False"
-          ],
-          "answer": [
-            0
-          ],
-          "explanation": "The circuit on slide 2 shows a \"previous token head\" feeding the induction head. The lecturer linked this to stacked layers in L5 and to the project."
-        },
-        {
-          "id": "nlp-b9-003",
-          "lecture": 9,
-          "concept": "Neural scaling laws",
-          "source": {
-            "file": "lecture9_scaling_nlp.pdf",
-            "pages": [
-              4
-            ]
-          },
-          "type": "numeric",
-          "marks": 4,
-          "question": "The Kaplan et al. fits on slide 4 are $L(N) = (N / 8.8 \\times 10^{13})^{-0.076}$ (parameters) and $L(D) = (D / 5.4 \\times 10^{13})^{-0.095}$ (tokens).\n(a) $L$ for a model with $N = 10^9$ parameters.\n(b) The factor by which $L$ is multiplied when $N$ grows 10×.\n(c) $L$ for $D = 10^{10}$ tokens.\n(d) The factor when $D$ grows 10×.",
-          "parts": [
-            {
-              "label": "(a) L(N = 1e9)",
-              "answer": 2.3756,
-              "marks": 1,
-              "tolerance": 0.006
-            },
-            {
-              "label": "(b) factor for 10× N",
-              "answer": 0.8395,
-              "marks": 1,
-              "tolerance": 0.0006
-            },
-            {
-              "label": "(c) L(D = 1e10)",
-              "answer": 2.2624,
-              "marks": 1,
-              "tolerance": 0.006
-            },
-            {
-              "label": "(d) factor for 10× D",
-              "answer": 0.8035,
-              "marks": 1,
-              "tolerance": 0.0006
-            }
-          ],
-          "solution": "(a) $(10^9 / 8.8\\times10^{13})^{-0.076} = 2.3756$. (b) $10^{-0.076} = 0.8395$: about 16% lower loss per 10× parameters. (c) $2.2624$. (d) $10^{-0.095} = 0.8035$.",
-          "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
-          "explanation": "A power law is a straight line on log–log axes: each 10× in scale gives the same fractional improvement, which is what makes the improvements predictable.",
-          "variantOf": "scaling-calc"
-        },
-        {
-          "id": "nlp-b9-004",
-          "lecture": 9,
-          "concept": "Neural scaling laws",
-          "source": {
-            "file": "lecture9_scaling_nlp.pdf",
-            "pages": [
-              4
-            ]
-          },
-          "type": "multi",
-          "marks": 2,
-          "negativeMarking": true,
-          "question": "Which statements about neural scaling laws are made on the slides?",
-          "choices": [
-            "Language-model loss improves smoothly and predictably as compute, data and parameters grow",
-            "Each factor has a power-law relationship with the loss when not bottlenecked by the others",
-            "The regularity is believed to be due to the Zipf distribution of language",
-            "Scaling up removes the need for more data"
-          ],
-          "answer": [
-            0,
-            1,
-            2
-          ],
-          "explanation": "Slide 4 (Kaplan et al.). The three must be scaled in tandem."
-        },
-        {
-          "id": "nlp-b9-005",
-          "lecture": 9,
-          "concept": "Sparsity: mixture of experts",
-          "source": {
-            "file": "lecture9_scaling_nlp.pdf",
-            "pages": [
-              5
-            ]
-          },
-          "type": "single",
-          "marks": 1,
-          "question": "In a sparsely-gated mixture-of-experts layer:",
-          "choices": [
-            "A gating network selects a few experts for each input, so only part of the parameters is used per token",
-            "Every expert processes every token and the outputs are averaged",
-            "Experts are separate models trained on different languages",
-            "The gate is fixed by hand"
-          ],
-          "answer": [
-            0
-          ],
-          "explanation": "Slide 5 (Shazeer et al.): the gate picks two experts here. Sparsity gives the capacity of a large model at the compute cost of a small one."
-        },
-        {
-          "id": "nlp-b9-006",
-          "lecture": 9,
-          "concept": "Sparsity: mixture of experts",
-          "source": {
-            "file": "lecture9_scaling_nlp.pdf",
-            "pages": [
-              5
-            ]
-          },
-          "type": "numeric",
-          "marks": 3,
-          "question": "An MoE layer has 64 experts, each with 4.2M parameters, and the gate selects the top 2 experts per token. (a) What fraction of the expert parameters is used for one token? (b) How many expert parameters are stored? (c) How many are used per token?",
-          "parts": [
-            {
-              "label": "(a) fraction",
-              "answer": 0.0313,
-              "marks": 1,
-              "tolerance": 0.0005
-            },
-            {
-              "label": "(b) stored",
-              "answer": 268800000,
-              "marks": 1,
-              "relTolerance": 0.001
-            },
-            {
-              "label": "(c) used",
-              "answer": 8400000,
-              "marks": 1,
-              "relTolerance": 0.001
-            }
-          ],
-          "solution": "(a) $2/64 = 0.03125$. (b) $64 \\times 4.2$M = 268.8M. (c) $2 \\times 4.2$M = 8.4M.",
-          "inputHint": "A decimal or whole number (e.g. 2.688e8)."
-        },
-        {
-          "id": "nlp-b9-007",
-          "lecture": 9,
-          "concept": "Modularity: recurrent independent mechanisms",
-          "source": {
-            "file": "lecture9_scaling_nlp.pdf",
-            "pages": [
-              6
-            ]
-          },
-          "type": "single",
-          "marks": 1,
-          "question": "In Recurrent Independent Mechanisms (RIMs), what role does attention play?",
-          "choices": [
-            "It guides information flow through whole network modules, so only the relevant modules are activated and they communicate sparsely",
-            "It replaces the recurrence entirely",
-            "It masks future tokens",
-            "It is used only to read the output"
-          ],
-          "answer": [
-            0
-          ],
-          "explanation": "Slide 6: modularity and sparsity baked in; modules compete via input attention and communicate sparsely."
-        },
-        {
-          "id": "nlp-b9-008",
-          "lecture": 9,
-          "concept": "Modularity: recurrent independent mechanisms",
-          "source": {
-            "file": "lecture9_scaling_nlp.pdf",
-            "pages": [
-              5,
-              6
-            ]
-          },
-          "type": "truefalse",
-          "marks": 1,
-          "question": "True or False: Lecture 9 presents sparsity (mixture of experts) and modularity (e.g. RIMs) as ways to get emergent abilities without needing as much scale.",
-          "choices": [
-            "True",
-            "False"
-          ],
-          "answer": [
-            0
-          ],
-          "explanation": "The slides' heading is \"Emergence without the scale\"."
-        },
-        {
-          "id": "nlp-b9-009",
-          "lecture": 9,
-          "concept": "Knowledge distillation",
-          "source": {
-            "file": "lecture9_scaling_nlp.pdf",
-            "pages": [
-              7
-            ]
-          },
-          "type": "numeric",
-          "marks": 3,
-          "question": "A teacher network gives logits $(4,2,1,0)$ for four classes; the true label is class 1.\n(a) The teacher's probability for class 2 at temperature 1.\n(b) The same at temperature 4 (softened labels for distillation).\n(c) The hard label's probability for class 2.",
-          "parts": [
-            {
-              "label": "(a) τ = 1",
-              "answer": 0.1125,
-              "marks": 1,
-              "tolerance": 0.0006
-            },
-            {
-              "label": "(b) τ = 4",
-              "answer": 0.2479,
-              "marks": 1,
-              "tolerance": 0.0006
-            },
-            {
-              "label": "(c) hard label",
-              "answer": 0,
-              "marks": 1,
-              "tolerance": 0.0005
-            }
-          ],
-          "solution": "(a) $\\text{softmax}(4,2,1,0)_2 = 0.1125$. (b) Dividing by 4: $(1, 0.5, 0.25, 0)$, $p_2 = 0.2479$. (c) The one-hot label gives 0.",
-          "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
-          "explanation": "Distillation trains the student on the teacher's soft labels, which say how similar the wrong classes are to the right one: \"far more detailed labels\" than one-hot targets (slide 7). The temperature is the same knob as in L5.",
-          "variantOf": "kd-calc"
-        },
-        {
-          "id": "nlp-b9-010",
-          "lecture": 9,
-          "concept": "Knowledge distillation",
-          "source": {
-            "file": "lecture9_scaling_nlp.pdf",
-            "pages": [
-              7
-            ]
-          },
-          "type": "multi",
-          "marks": 2,
-          "negativeMarking": true,
-          "question": "Which statements about knowledge distillation are true?",
-          "choices": [
-            "A big (teacher) network is used to train a smaller (student) network",
-            "The student learns from the teacher's soft predictions, which carry more detail than hard labels",
-            "The student can also be trained on the true labels at the same time",
-            "The student must be larger than the teacher"
-          ],
-          "answer": [
-            0,
-            1,
-            2
-          ],
-          "explanation": "The slide shows soft labels from the teacher and hard labels from the data both feeding the student."
-        },
-        {
-          "id": "nlp-b9-011",
-          "lecture": 9,
-          "concept": "Data poisoning",
-          "source": {
-            "file": "lecture9_scaling_nlp.pdf",
-            "pages": [
-              8,
-              9
-            ]
-          },
-          "type": "multi",
-          "marks": 2,
-          "negativeMarking": true,
-          "question": "The data-poisoning slides describe how model-generated data filtering back into training causes collapse. Which statements match them?",
-          "choices": [
-            "Probable events are over-estimated and improbable events under-estimated",
-            "Errors come from finite sampling and approximate fitting",
-            "The tails of the distribution shrink over time",
-            "Collapse takes thousands of generations to appear"
-          ],
-          "answer": [
-            0,
-            1,
-            2
-          ],
-          "explanation": "It can happen \"over a handful of generations\"."
-        },
-        {
-          "id": "nlp-b9-012",
-          "lecture": 9,
-          "concept": "Mechanistic interpretability",
-          "type": "single",
-          "marks": 1,
-          "question": "What is the high-level goal of mechanistic interpretability (Tutorial 8.1)?",
-          "choices": [
-            "To reverse-engineer the computations inside a trained network into human-understandable mechanisms (circuits), such as induction heads",
-            "To make models smaller by pruning",
-            "To measure a model's accuracy on benchmarks",
-            "To write programs that generate neural networks"
-          ],
-          "answer": [
-            0
-          ],
-          "explanation": "Not on the slides: this follows the standard definition used in the tutorial. Induction heads are a classic example of a circuit found this way."
-        },
-        {
-          "id": "nlp-b9-013",
-          "lecture": 9,
-          "concept": "Mechanistic interpretability",
-          "type": "truefalse",
-          "marks": 1,
-          "question": "True or False: Probing a representation with a classifier shows that information is present, while mechanistic interpretability tries to show how the network actually uses it.",
-          "choices": [
-            "True",
-            "False"
-          ],
-          "answer": [
-            0
-          ],
-          "explanation": "Probing is correlational (\"decodable\"); mechanistic work traces the causal circuit (e.g. which heads compose into an induction head). Tutorial 8.1 topic; standard definitions."
-        }
-      ]
-    },
-    "nlp-bank-lecture-10": {
-      "id": "nlp-bank-lecture-10",
-      "subject": "nlp",
-      "title": "Practice bank: Lecture 10 (Responsible NLP)",
-      "kind": "generated",
-      "origin": "new",
-      "description": "New practice questions on Responsible NLP, written for exam revision from the Lecture 10 slides and the tutorial. Quiz questions, short calculations from the slides' own figures, and hard scenario questions for the written section. Not from the lecturer: the answers are unofficial.",
-      "unofficialAnswers": true,
-      "negativeMarkingNote": "The real Moodle quiz uses negative marking on MCQ questions: picking all right and wrong answers on a question results in a mark of 0.",
-      "totalMarks": 136,
+      "totalMarks": 139,
       "questions": [
         {
           "id": "nlp-b10-001",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Language and responsibility",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40054,7 +40125,7 @@ window.QUIZY_DATA = {
           },
           "type": "single",
           "marks": 1,
-          "question": "According to Lecture 10, communication is best described as:",
+          "question": "According to Lecture 9, communication is best described as:",
           "choices": [
             "The ability to direct others' attention, cognition or thoughts",
             "The exchange of words that share a context",
@@ -40068,7 +40139,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-002",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Language and responsibility",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40079,7 +40150,7 @@ window.QUIZY_DATA = {
           "type": "multi",
           "marks": 2,
           "negativeMarking": true,
-          "question": "Lecture 10 says that with the power of language \"comes responsibility\". Which statements match the slides?",
+          "question": "Lecture 9 says that with the power of language \"comes responsibility\". Which statements match the slides?",
           "choices": [
             "What information is conveyed is one part of the responsibility (it describes culture)",
             "Conveying information appropriately is another part (it is a piece of culture)",
@@ -40095,7 +40166,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-003",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Language and responsibility",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40117,7 +40188,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-004",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Writer vs reader responsible languages",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40142,7 +40213,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-005",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Writer vs reader responsible languages",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40153,7 +40224,7 @@ window.QUIZY_DATA = {
           },
           "type": "match",
           "marks": 4,
-          "question": "Match each description to the type of language (as described in Lecture 10).",
+          "question": "Match each description to the type of language (as described in Lecture 9).",
           "pairs": [
             {
               "prompt": "The slides' example is English",
@@ -40181,7 +40252,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-006",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Writer vs reader responsible languages",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40191,7 +40262,7 @@ window.QUIZY_DATA = {
           },
           "type": "truefalse",
           "marks": 1,
-          "question": "True or False: Lecture 10 presents the writer/reader responsible split as an exact classification of every language.",
+          "question": "True or False: Lecture 9 presents the writer/reader responsible split as an exact classification of every language.",
           "choices": [
             "True",
             "False"
@@ -40203,7 +40274,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-007",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Implicit bias from added context",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40214,7 +40285,7 @@ window.QUIZY_DATA = {
           },
           "type": "single",
           "marks": 1,
-          "question": "Compare \"They want to be a nurse when they grow up\" with \"He wants to be a nurse when he grows up\". What does Lecture 10 say the second sentence does?",
+          "question": "Compare \"They want to be a nurse when they grow up\" with \"He wants to be a nurse when he grows up\". What does Lecture 9 say the second sentence does?",
           "choices": [
             "It adds the person's gender as implicit context where it is not necessary, which a model can learn as a false correlation",
             "It removes context, so a model cannot learn anything from it",
@@ -40228,7 +40299,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-008",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Implicit bias from added context",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40246,11 +40317,11 @@ window.QUIZY_DATA = {
           "answer": [
             0
           ],
-          "explanation": "Words that share contexts get similar representations. If \"nurse\" keeps appearing with \"she\", that association is learned whether or not it is relevant (Lecture 10, linking back to the Tej example of Lecture 1)."
+          "explanation": "Words that share contexts get similar representations. If \"nurse\" keeps appearing with \"she\", that association is learned whether or not it is relevant (Lecture 9, linking back to the Tej example of Lecture 1)."
         },
         {
           "id": "nlp-b10-009",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Implicit bias from added context",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40262,7 +40333,7 @@ window.QUIZY_DATA = {
           "type": "multi",
           "marks": 2,
           "negativeMarking": true,
-          "question": "Which statements connect Lecture 10's linguistics points to NLP, as the slides do?",
+          "question": "Which statements connect Lecture 9's linguistics points to NLP, as the slides do?",
           "choices": [
             "Useful context is needed to impart meaning",
             "Implicit bias can stem from the nature of some languages themselves",
@@ -40278,7 +40349,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-010",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Multilingualism and culture",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40290,7 +40361,7 @@ window.QUIZY_DATA = {
           "type": "multi",
           "marks": 2,
           "negativeMarking": true,
-          "question": "Which points about multilingualism appear in Lecture 10?",
+          "question": "Which points about multilingualism appear in Lecture 9?",
           "choices": [
             "In some cultures it is rude to ask a person their name directly",
             "People often have a home language and a separate professional language",
@@ -40306,7 +40377,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-011",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Multilingualism and culture",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40316,7 +40387,7 @@ window.QUIZY_DATA = {
           },
           "type": "single",
           "marks": 1,
-          "question": "Lecture 10 asks: \"Is it fair to translate Zulu books into English if it means there are less Zulu speakers but more awareness of Zulu culture?\" Which tension does this question capture?",
+          "question": "Lecture 9 asks: \"Is it fair to translate Zulu books into English if it means there are less Zulu speakers but more awareness of Zulu culture?\" Which tension does this question capture?",
           "choices": [
             "Preserving cultural identity vs providing access to information",
             "Coherence vs diversity in generated text",
@@ -40330,7 +40401,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-012",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Code-switching",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40350,11 +40421,11 @@ window.QUIZY_DATA = {
           "answer": [
             0
           ],
-          "explanation": "Lecture 10: having to switch between languages can be tiring, and code-switching is a big problem for LLMs as well."
+          "explanation": "Lecture 9: having to switch between languages can be tiring, and code-switching is a big problem for LLMs as well."
         },
         {
           "id": "nlp-b10-013",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Code-switching",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40364,7 +40435,7 @@ window.QUIZY_DATA = {
           },
           "type": "truefalse",
           "marks": 1,
-          "question": "True or False: Lecture 10 describes code-switching as a big problem for LLMs as well as being tiring for people.",
+          "question": "True or False: Lecture 9 describes code-switching as a big problem for LLMs as well as being tiring for people.",
           "choices": [
             "True",
             "False"
@@ -40376,7 +40447,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-014",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Code-switching",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40388,7 +40459,7 @@ window.QUIZY_DATA = {
           "type": "multi",
           "marks": 2,
           "negativeMarking": true,
-          "question": "A user writes a request that mixes isiZulu and English in one sentence. Which outcomes are plausible for an English-centric LLM, given Lecture 10?",
+          "question": "A user writes a request that mixes isiZulu and English in one sentence. Which outcomes are plausible for an English-centric LLM, given Lecture 9?",
           "choices": [
             "The isiZulu parts are split into many more tokens than the English parts",
             "The model may answer only in English, nudging the user away from their home language",
@@ -40404,7 +40475,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-015",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Stochastic parrots",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40428,7 +40499,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-016",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Stochastic parrots",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40438,7 +40509,7 @@ window.QUIZY_DATA = {
           },
           "type": "truefalse",
           "marks": 1,
-          "question": "True or False: According to Lecture 10, in a stochastic parrot the fluency and coherence of the text are consistent, while opinions or semantic content are sampled.",
+          "question": "True or False: According to Lecture 9, in a stochastic parrot the fluency and coherence of the text are consistent, while opinions or semantic content are sampled.",
           "choices": [
             "True",
             "False"
@@ -40450,7 +40521,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-017",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Stochastic parrots",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40462,7 +40533,7 @@ window.QUIZY_DATA = {
           "type": "multi",
           "marks": 2,
           "negativeMarking": true,
-          "question": "Why does Lecture 10 say LMs (as of the stochastic parrots paper) are \"ungrounded\"?",
+          "question": "Why does Lecture 9 say LMs (as of the stochastic parrots paper) are \"ungrounded\"?",
           "choices": [
             "Coherence in human language revolves around a shared context between speaker and listener with intent",
             "LMs require the speaker to describe their own intent and context",
@@ -40477,7 +40548,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-018",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Grounding: modalities and longer contexts",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40489,7 +40560,7 @@ window.QUIZY_DATA = {
           "type": "multi",
           "marks": 2,
           "negativeMarking": true,
-          "question": "Lecture 10 says LMs have come a long way since 2021. Which developments does it list as addressing the stochastic-parrot criticism?",
+          "question": "Lecture 9 says LMs have come a long way since 2021. Which developments does it list as addressing the stochastic-parrot criticism?",
           "choices": [
             "Incorporating multiple modalities can fix the grounding problem",
             "Context windows are becoming bigger and persistent, allowing more detailed comprehension",
@@ -40504,7 +40575,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-019",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Grounding: modalities and longer contexts",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40514,7 +40585,7 @@ window.QUIZY_DATA = {
           },
           "type": "truefalse",
           "marks": 1,
-          "question": "True or False: Lecture 10 claims that notions of intent, agency and context in LMs are shifting as models gain more modalities and longer contexts.",
+          "question": "True or False: Lecture 9 claims that notions of intent, agency and context in LMs are shifting as models gain more modalities and longer contexts.",
           "choices": [
             "True",
             "False"
@@ -40526,7 +40597,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-020",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Hegemonic views in training data",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40537,7 +40608,7 @@ window.QUIZY_DATA = {
           },
           "type": "single",
           "marks": 1,
-          "question": "Why do LMs \"enforce a hegemonic view\", according to Lecture 10?",
+          "question": "Why do LMs \"enforce a hegemonic view\", according to Lecture 9?",
           "choices": [
             "They need a lot of data, mostly from the internet, where the dominant voices are over-represented",
             "They are trained only on government documents",
@@ -40551,7 +40622,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-021",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Hegemonic views in training data",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40561,7 +40632,7 @@ window.QUIZY_DATA = {
           },
           "type": "truefalse",
           "marks": 1,
-          "question": "True or False: Lecture 10 argues that a bigger training set automatically makes a model more diverse.",
+          "question": "True or False: Lecture 9 argues that a bigger training set automatically makes a model more diverse.",
           "choices": [
             "True",
             "False"
@@ -40573,7 +40644,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-022",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Hegemonic views in training data",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40583,7 +40654,7 @@ window.QUIZY_DATA = {
           },
           "type": "truefalse",
           "marks": 1,
-          "question": "True or False: According to Lecture 10, all views can be represented in an LM, but common or important contexts may trigger one specific viewpoint.",
+          "question": "True or False: According to Lecture 9, all views can be represented in an LM, but common or important contexts may trigger one specific viewpoint.",
           "choices": [
             "True",
             "False"
@@ -40595,7 +40666,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-023",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Bias from the model",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40607,7 +40678,7 @@ window.QUIZY_DATA = {
           "type": "multi",
           "marks": 2,
           "negativeMarking": true,
-          "question": "Which concerns about the widespread adoption of Gen AI tools does Lecture 10 list under \"bias from the model\"?",
+          "question": "Which concerns about the widespread adoption of Gen AI tools does Lecture 9 list under \"bias from the model\"?",
           "choices": [
             "Unequal quality between subgroups in society",
             "Vulnerabilities in the tool which can cause harm",
@@ -40623,7 +40694,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-024",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Bias from the model",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40633,7 +40704,7 @@ window.QUIZY_DATA = {
           },
           "type": "single",
           "marks": 1,
-          "question": "Lecture 10 says language now serves a \"third role\". What is it?",
+          "question": "Lecture 9 says language now serves a \"third role\". What is it?",
           "choices": [
             "An interface to tools used across cultures",
             "A way of storing knowledge in model weights",
@@ -40647,7 +40718,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-025",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Adversarial triggers and jailbreaking",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40657,7 +40728,7 @@ window.QUIZY_DATA = {
           },
           "type": "single",
           "marks": 1,
-          "question": "What is an adversarial trigger, as described in Lecture 10?",
+          "question": "What is an adversarial trigger, as described in Lecture 9?",
           "choices": [
             "A prompt that produces inappropriate behaviour indirectly through the context",
             "A training example with a wrong label",
@@ -40671,7 +40742,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-026",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Adversarial triggers and jailbreaking",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40681,7 +40752,7 @@ window.QUIZY_DATA = {
           },
           "type": "truefalse",
           "marks": 1,
-          "question": "True or False: Lecture 10 states that jailbreaking prompts can over-ride the manual safeguards placed on LLMs.",
+          "question": "True or False: Lecture 9 states that jailbreaking prompts can over-ride the manual safeguards placed on LLMs.",
           "choices": [
             "True",
             "False"
@@ -40693,7 +40764,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-027",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Adversarial triggers and jailbreaking",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40705,7 +40776,7 @@ window.QUIZY_DATA = {
           "type": "multi",
           "marks": 2,
           "negativeMarking": true,
-          "question": "Which statements about adversarial triggers are consistent with Lecture 10 (and the L5 point about continuous representation spaces)?",
+          "question": "Which statements about adversarial triggers are consistent with Lecture 9 (and the L5 point about continuous representation spaces)?",
           "choices": [
             "They work through the context of the prompt rather than by changing the model's weights",
             "Universal triggers can be designed that work across many inputs",
@@ -40721,7 +40792,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-028",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Tokenization of African languages",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40746,7 +40817,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-029",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Tokenization of African languages",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40756,7 +40827,7 @@ window.QUIZY_DATA = {
           },
           "type": "truefalse",
           "marks": 1,
-          "question": "True or False: Lecture 10 argues that even if AI is used carefully, models remain limited for under-represented languages, and tokenization is a big problem for African languages in particular.",
+          "question": "True or False: Lecture 9 argues that even if AI is used carefully, models remain limited for under-represented languages, and tokenization is a big problem for African languages in particular.",
           "choices": [
             "True",
             "False"
@@ -40768,7 +40839,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-030",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Tokenization of African languages",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40796,7 +40867,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-031",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Tokenization of African languages",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40845,7 +40916,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-032",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Prompting and its problems",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40857,7 +40928,7 @@ window.QUIZY_DATA = {
           "type": "multi",
           "marks": 2,
           "negativeMarking": true,
-          "question": "Lecture 10 names two problems with \"prompting\". Which are they?",
+          "question": "Lecture 9 names two problems with \"prompting\". Which are they?",
           "choices": [
             "Prompting is not a universal skill and is an emerging technology which favours affluence",
             "It leans into the speaker-responsible view, so not everyone will be equally comfortable depending on their background",
@@ -40872,7 +40943,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-033",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Prompting and its problems",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40882,7 +40953,7 @@ window.QUIZY_DATA = {
           },
           "type": "single",
           "marks": 1,
-          "question": "According to Lecture 10, what does good prompting do?",
+          "question": "According to Lecture 9, what does good prompting do?",
           "choices": [
             "Makes sure the most useful context is provided to the model",
             "Changes the model's weights for the task",
@@ -40896,7 +40967,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-034",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Prompting and its problems",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40918,7 +40989,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-035",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Dead internet theory",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40943,7 +41014,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-036",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Dead internet theory",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40955,7 +41026,7 @@ window.QUIZY_DATA = {
           "type": "multi",
           "marks": 2,
           "negativeMarking": true,
-          "question": "Which consequences of AI-generated content does Lecture 10 list under the dead internet theory?",
+          "question": "Which consequences of AI-generated content does Lecture 9 list under the dead internet theory?",
           "choices": [
             "Bias propagation: generated content is fed back into the training data of future models",
             "It crowds out real content creators with interesting perspectives",
@@ -40971,7 +41042,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-037",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Model collapse",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -40996,7 +41067,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-038",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Model collapse",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -41008,7 +41079,7 @@ window.QUIZY_DATA = {
           "type": "multi",
           "marks": 2,
           "negativeMarking": true,
-          "question": "Which observations on the Lecture 10 slides are signs of model collapse?",
+          "question": "Which observations on the Lecture 9 slides are signs of model collapse?",
           "choices": [
             "Generated MNIST digits become blurry and then all look alike by generation 20",
             "OPT-125m outputs drift from architecture to lists of \"jackrabbits\" by generation 9",
@@ -41024,7 +41095,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-039",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Model collapse",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -41046,7 +41117,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-040",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Model collapse",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -41070,7 +41141,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-041",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Resource use",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -41103,11 +41174,11 @@ window.QUIZY_DATA = {
           ],
           "solution": "(a) $626155/126000 \\approx 4.97$ car lifetimes.\n(b) $626155/1984 \\approx 315.6$ flights.\n(c) $626155/192 \\approx 3261$: the tuning and search around a model can cost thousands of times more than one training run.",
           "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
-          "explanation": "Lecture 10's point: consider the bias and harm from training models, not only from using them. Training is extremely expensive, with impacts on the economy and environment."
+          "explanation": "Lecture 9's point: consider the bias and harm from training models, not only from using them. Training is extremely expensive, with impacts on the economy and environment."
         },
         {
           "id": "nlp-b10-042",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Resource use",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -41119,7 +41190,7 @@ window.QUIZY_DATA = {
           "type": "multi",
           "marks": 2,
           "negativeMarking": true,
-          "question": "Which statements about resource use are made in Lecture 10?",
+          "question": "Which statements about resource use are made in Lecture 9?",
           "choices": [
             "Training LLMs is extremely expensive and has impacts on the economy and the environment",
             "LLM power usage tends to scale with parameter count, now in the billions",
@@ -41135,7 +41206,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-043",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Double edge of resource use",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -41146,7 +41217,7 @@ window.QUIZY_DATA = {
           "type": "multi",
           "marks": 2,
           "negativeMarking": true,
-          "question": "Lecture 10 says lower-resource communities feel the impact of high-resource models \"twice\" (and more). Which points are on that slide?",
+          "question": "Lecture 9 says lower-resource communities feel the impact of high-resource models \"twice\" (and more). Which points are on that slide?",
           "choices": [
             "Through exclusion and inability to compete",
             "The effects of climate change tend to hit the world's most marginalised first and they bounce back slower",
@@ -41162,7 +41233,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-044",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Double edge of resource use",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -41173,7 +41244,7 @@ window.QUIZY_DATA = {
           "type": "multi",
           "marks": 2,
           "negativeMarking": true,
-          "question": "Which are listed in Lecture 10 as forms of exploitation in data collection involving marginalised communities?",
+          "question": "Which are listed in Lecture 9 as forms of exploitation in data collection involving marginalised communities?",
           "choices": [
             "Institutions use the data for research without inclusion beyond the collection (asymmetric power balance)",
             "Communities cannot control the use of their data (lack of trust, conflicts of interest)",
@@ -41190,7 +41261,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-045",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Participation",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -41227,7 +41298,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-046",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Data curation",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -41238,7 +41309,7 @@ window.QUIZY_DATA = {
           "type": "multi",
           "marks": 2,
           "negativeMarking": true,
-          "question": "Which are listed in Lecture 10 as pros of data curation?",
+          "question": "Which are listed in Lecture 9 as pros of data curation?",
           "choices": [
             "Removes social biases",
             "Preserves privacy through anonymisation",
@@ -41254,7 +41325,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-047",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Data curation",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -41265,7 +41336,7 @@ window.QUIZY_DATA = {
           "type": "multi",
           "marks": 2,
           "negativeMarking": true,
-          "question": "Which are listed in Lecture 10 as cons of data curation?",
+          "question": "Which are listed in Lecture 9 as cons of data curation?",
           "choices": [
             "The curator plays a role and can be biased",
             "It throws away data, which can be expensive",
@@ -41282,7 +41353,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-048",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Data curation",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -41292,7 +41363,7 @@ window.QUIZY_DATA = {
           },
           "type": "single",
           "marks": 1,
-          "question": "Lecture 10 defines data curation as:",
+          "question": "Lecture 9 defines data curation as:",
           "choices": [
             "The organisation, selection and integration of data collected from various sources",
             "Generating extra training data with an LLM",
@@ -41306,7 +41377,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-049",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Participation",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -41316,7 +41387,7 @@ window.QUIZY_DATA = {
           },
           "type": "truefalse",
           "marks": 1,
-          "question": "True or False: Lecture 10 argues that all aspects of the development pipeline (e.g. for machine translation) must be diverse and inclusive.",
+          "question": "True or False: Lecture 9 argues that all aspects of the development pipeline (e.g. for machine translation) must be diverse and inclusive.",
           "choices": [
             "True",
             "False"
@@ -41328,7 +41399,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-050",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Participation",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -41338,7 +41409,7 @@ window.QUIZY_DATA = {
           },
           "type": "single",
           "marks": 1,
-          "question": "Which of these is one of Lecture 10's conclusions?",
+          "question": "Which of these is one of Lecture 9's conclusions?",
           "choices": [
             "Even if the skills gap is addressed, data quality and quantity issues are likely to create lingering inequality",
             "Bigger models will remove inequality between languages on their own",
@@ -41352,7 +41423,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-051",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Expressivity, regularity and compositionality",
           "source": {
             "file": "lecture8_transfer_learning.pdf",
@@ -41393,7 +41464,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-052",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Expressivity, regularity and compositionality",
           "source": {
             "file": "lecture8_transfer_learning.pdf",
@@ -41416,7 +41487,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-053",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Expressivity, regularity and compositionality",
           "source": {
             "file": "lecture8_transfer_learning.pdf",
@@ -41440,7 +41511,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-054",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Tokenization of African languages",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -41497,7 +41568,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-055",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Model collapse",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -41509,7 +41580,7 @@ window.QUIZY_DATA = {
           },
           "type": "written",
           "marks": 10,
-          "question": "A company trains a new language model every year on a fresh web crawl. More and more of the web is now generated by earlier models.\n(a) Describe the model-collapse loop shown in Lecture 10 and explain why the tails of the distribution disappear first. (4)\n(b) Describe one way model collapse can be identified and why it corresponds to collapse. (2)\n(c) Link this to the dead internet theory and say why the harm is not evenly spread across communities. (2)\n(d) Propose one mitigation and say what it costs. (2) (10 Marks)",
+          "question": "A company trains a new language model every year on a fresh web crawl. More and more of the web is now generated by earlier models.\n(a) Describe the model-collapse loop shown in Lecture 9 and explain why the tails of the distribution disappear first. (4)\n(b) Describe one way model collapse can be identified and why it corresponds to collapse. (2)\n(c) Link this to the dead internet theory and say why the harm is not evenly spread across communities. (2)\n(d) Propose one mitigation and say what it costs. (2) (10 Marks)",
           "modelAnswer": "(a) Real data Data⁰ is used to fit Model 0; samples from Model 0 become (part of) Data¹, which trains Model 1, and so on, so Dataⁿ drifts from Data⁰. Each step loses information through finite sampling (rare events may simply not be sampled) and approximate fitting (the model smooths and over-weights what it has seen). Probable events are over-estimated and improbable events under-estimated, so each generation is more concentrated than the last: the tails shrink and eventually vanish, and errors compound (\"probable events poison reality\").\n\n(b) Evaluate each generation's outputs with a model trained on real data (or look at the outputs): in the slides the perplexity histogram of generated text narrows towards low values over generations, and the OPT-125m outputs degrade into repetitive nonsense (\"jackrabbits\"). Lower perplexity on its own outputs with less spread means the model is reproducing its own most likely text and has lost the diversity of real data: that loss of the tails is collapse. (Other valid signs: falling diversity, MNIST digits converging to one blurry shape.)\n\n(c) The dead internet theory says the web is increasingly AI-generated, so web crawls feed generated data back in (bias propagation). Under-represented languages and groups have little real data to anchor them (e.g. ~80 Zulu Wikipedia articles per million speakers vs ~4,800 for English), so their real data is eroded fastest, their content creators are crowded out, and the hegemonic view is amplified.\n\n(d) Preserve a share of verified real (human) data in every generation (the slides' 10% preserved setting keeps the model much closer to the original), or detect and filter generated content, or curate. Cost: real data is expensive to collect and verify, filtering throws data away, curation can introduce curator bias, and detectors are imperfect.",
           "rubric": [
             {
@@ -41548,7 +41619,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-056",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Stochastic parrots",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -41582,7 +41653,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-057",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Implicit bias from added context",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -41593,7 +41664,7 @@ window.QUIZY_DATA = {
           },
           "type": "written",
           "marks": 6,
-          "question": "Lecture 10 contrasts \"They want to be a nurse when they grow up\" with \"He wants to be a nurse when he grows up\".\n(a) Explain how the second sentence can lead a model to learn an implicit bias, referring to the distributional hypothesis. (2)\n(b) Word2Vec is trained on a large English corpus. Explain why you might find that the vector for \"nurse\" is closer to \"she\" than to \"he\", and how this would show up in an analogy test. (2)\n(c) Explain why this kind of bias is linked to writer-responsible languages in particular. (2) (6 Marks)",
+          "question": "Lecture 9 contrasts \"They want to be a nurse when they grow up\" with \"He wants to be a nurse when he grows up\".\n(a) Explain how the second sentence can lead a model to learn an implicit bias, referring to the distributional hypothesis. (2)\n(b) Word2Vec is trained on a large English corpus. Explain why you might find that the vector for \"nurse\" is closer to \"she\" than to \"he\", and how this would show up in an analogy test. (2)\n(c) Explain why this kind of bias is linked to writer-responsible languages in particular. (2) (6 Marks)",
           "modelAnswer": "(a) The distributional hypothesis says words that share contexts get similar meanings/representations. The second sentence adds the gender as implicit context where it is not necessary. Across a corpus, \"nurse\" co-occurs with gendered words, so the model learns a correlation between gender and occupation that is not part of the meaning of \"nurse\": a false correlation.\n\n(b) Word2Vec learns vectors by predicting context words in a sliding window. If \"nurse\" appears near \"she/her\" more often than \"he/him\", the training updates pull v(nurse) towards the context vectors of female words, so cosine similarity to \"she\" is higher. In an analogy test, v(doctor) − v(man) + v(woman) may land nearest \"nurse\": the linear structure that gives king − man + woman ≈ queen also encodes social stereotypes.\n\n(c) In writer-responsible languages the writer supplies the context with the message (more explicit context per sentence). English, for instance, forces gendered pronouns, so gender is stated even when irrelevant. That extra, unnecessary context is exactly what a co-occurrence-based model learns from.",
           "rubric": [
             {
@@ -41616,7 +41687,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-058",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Double edge of resource use",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -41627,7 +41698,7 @@ window.QUIZY_DATA = {
           },
           "type": "written",
           "marks": 6,
-          "question": "A large lab argues that its new multilingual LLM \"benefits everyone equally\". Using Lecture 10, critique this claim. Cover resource use, the \"double edge\" for lower-resource communities, exploitation in data collection, and what can be done. (6 Marks)",
+          "question": "A large lab argues that its new multilingual LLM \"benefits everyone equally\". Using Lecture 9, critique this claim. Cover resource use, the \"double edge\" for lower-resource communities, exploitation in data collection, and what can be done. (6 Marks)",
           "modelAnswer": "Resource use: training is extremely expensive (power scales with billions of parameters; architecture search ≈ 626k lbs CO₂e, about 5 car lifetimes), which has economic and environmental impacts.\n\nDouble edge: lower-resource communities (1) are excluded and cannot compete, (2) feel climate-change effects first and recover slower, and (3) get technology that scales poorly for them (more tokens per word, lower quality, higher cost).\n\nData collection: institutions may use community data for research without inclusion beyond collection (asymmetric power), communities can't control how their data is used (lack of trust, conflicts of interest), data is taken out of context or misinterpreted, and generative AI erodes their data faster.\n\nWhat can be done: careful curation (removes biases, anonymises, balances, but the curator can be biased and it is expensive), increased participation so every part of the pipeline is diverse and inclusive (participatory MT research), and gathering perspectives from low- and middle-income countries whose notion of impact goes beyond short-term technical concerns. So the benefits are not equal unless these are addressed.",
           "rubric": [
             {
@@ -41650,7 +41721,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-059",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Adversarial triggers and jailbreaking",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -41681,7 +41752,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-060",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Language and responsibility",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -41692,7 +41763,7 @@ window.QUIZY_DATA = {
           },
           "type": "written",
           "marks": 4,
-          "question": "Lecture 10 says language both describes culture and is a piece of culture. Explain this distinction, and use it to discuss the question \"Is it fair to translate Zulu books into English if it means there are less Zulu speakers but more awareness of Zulu culture?\" Refer to multilingualism (home vs professional language). (4 Marks)",
+          "question": "Lecture 9 says language both describes culture and is a piece of culture. Explain this distinction, and use it to discuss the question \"Is it fair to translate Zulu books into English if it means there are less Zulu speakers but more awareness of Zulu culture?\" Refer to multilingualism (home vs professional language). (4 Marks)",
           "modelAnswer": "Communication directs others' attention and thoughts, so it carries responsibility. What is conveyed describes culture (the information); how it is conveyed appropriately is itself a piece of culture (norms such as not asking a name directly, how much context to give).\n\nTranslating Zulu books into English makes the information about Zulu culture accessible to more people (describing culture), but the English version loses the piece of culture that lives in the language itself: its conventions, idioms and reader/writer responsibility. If English becomes the default for reading, and people already use English as their professional language (science, many domains lack vocabulary), fewer people use Zulu, which erodes the culture being described. A fair approach preserves cultural identity while giving access: translate both ways, build tools and vocabulary in Zulu, and involve speakers.",
           "rubric": [
             {
@@ -41711,7 +41782,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-b10-061",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Writer vs reader responsible languages",
           "source": {
             "file": "lecture10_responsible_nlp.pdf",
@@ -41743,8 +41814,1633 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ]
+        },
+        {
+          "id": "nlp-b10-062",
+          "concept": "Value lock",
+          "source": {
+            "file": "Lecture 9 recording (transcript)"
+          },
+          "type": "single",
+          "question": "What is the value-lock problem in Lecture 9?",
+          "choices": [
+            "When culture changes quickly (e.g. Wikipedia pages corrected during Black Lives Matter), models trained on older data reproduce the old views and pull society back towards them",
+            "Models refuse to change their outputs after deployment because their weights are frozen",
+            "A security lock that stops jailbreaks",
+            "Users locking their chat history so it isn't used for training"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "From the stochastic parrots discussion: ungrounded models can't absorb rapid cultural change, so they undermine efforts to change culture.",
+          "marks": 1,
+          "lecture": 9
+        },
+        {
+          "id": "nlp-b10-063",
+          "concept": "Grounding and synthetic data",
+          "source": {
+            "file": "Lecture 9 recording (transcript)"
+          },
+          "type": "single",
+          "question": "In the grounded synthetic-data paper Devon called \"the one paper to read from this course\", what stops the teacher's synthetic problems from collapsing?",
+          "choices": [
+            "The student is evaluated on real held-out questions, and that improvement is the teacher's reward: an outer loop grounded in the real world",
+            "The teacher only produces short problems",
+            "The synthetic data is mixed with random noise",
+            "The student is trained with a higher temperature"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Synthetic data alone over-emphasises coherence and collapses; grounding it in a real task keeps expressivity, like intent in the human iterated-learning experiments.",
+          "marks": 1,
+          "lecture": 9
+        },
+        {
+          "id": "nlp-b10-064",
+          "concept": "Grounding and synthetic data",
+          "source": {
+            "file": "Lecture 9 recording (transcript)"
+          },
+          "type": "single",
+          "question": "In a Lewis signalling game (sender maps a state to a signal, receiver maps the signal to an action), what prevents several states collapsing onto one signal?",
+          "choices": [
+            "The sender and receiver share the reward for the action, which grounds the signals",
+            "Having more signals than states",
+            "A larger vocabulary for the receiver",
+            "Removing the reward entirely"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Devon's open question for LLMs: when the interlocutor is a model that just writes onto the page, who provides this grounding?",
+          "marks": 1,
+          "lecture": 9
         }
       ]
+    },
+    "nlp-bank-lecture-10": {
+      "id": "nlp-bank-lecture-10",
+      "subject": "nlp",
+      "title": "Practice bank: Lecture 10 (Scaling NLP)",
+      "kind": "generated",
+      "origin": "new",
+      "description": "Practice questions on Lecture 10, Scaling NLP, written from the 2026 HTML slide deck on Moodle (45 slides) and the lecture recording: scaling laws and Chinchilla, mixture of experts, in-context learning and induction heads, retrieval-augmented generation, diffusion language models, RLHF and RLVR, superposition and J-space, plus mechanistic interpretability from the tutorial. Devon said this section is examined at a high level. Not from the lecturer: the answers are unofficial.",
+      "unofficialAnswers": true,
+      "negativeMarkingNote": "The real Moodle quiz uses negative marking on MCQ questions: picking all right and wrong answers on a question results in a mark of 0.",
+      "totalMarks": 109,
+      "questions": [
+        {
+          "id": "nlp-scale-001",
+          "concept": "The life of a language model",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              2,
+              3
+            ]
+          },
+          "type": "match",
+          "marks": 2,
+          "question": "Lecture 10 groups its seven parts into four stages of a model's life. Match each topic to its stage.",
+          "pairs": [
+            {
+              "prompt": "Scaling laws and mixture of experts",
+              "answer": "Build"
+            },
+            {
+              "prompt": "In-context learning, retrieval and diffusion LMs",
+              "answer": "Use"
+            },
+            {
+              "prompt": "RLHF and RLVR",
+              "answer": "Shape"
+            },
+            {
+              "prompt": "Superposition, sparse autoencoders and J-space",
+              "answer": "Understand"
+            }
+          ],
+          "options": [
+            "Build",
+            "Use",
+            "Shape",
+            "Understand"
+          ],
+          "explanation": "Slide 3: Build (how big and efficient?), Use (how does it answer?), Shape (what should it want?), Understand (what is happening inside?).",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-002",
+          "concept": "Next-token prediction and loss",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              4
+            ]
+          },
+          "type": "single",
+          "question": "What does a language model's training loss measure, in Lecture 10's words?",
+          "choices": [
+            "How surprised the model is by the true next token: the average of $-\\log p(\\text{true next token})$",
+            "The number of grammar rules the model has learned",
+            "The fraction of tokens the model copies from its context",
+            "The distance between the input and output embeddings"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slide 4: a high probability for the true token means low surprise. Grammar, facts and some reasoning emerge because they all help predict the next token.",
+          "marks": 1,
+          "lecture": 10
+        },
+        {
+          "id": "nlp-b9-004",
+          "lecture": 10,
+          "concept": "Neural scaling laws",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              5
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which statements about neural scaling laws (Kaplan et al., 2020) are true?",
+          "choices": [
+            "Language-model loss improves smoothly and predictably as compute, data and parameters grow",
+            "Each factor has a power-law relationship with the loss when not bottlenecked by the others",
+            "On log–log axes the loss curve is close to a straight line, so cheap small runs can forecast a much larger run",
+            "Scaling up the parameters removes the need for more data"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "Slide 5: loss falls as a power law ($\\mathcal{L} \\propto N^{-0.076}$ for size), which is a straight line on log–log axes. The three must grow in proportion: scaling only one makes another the bottleneck."
+        },
+        {
+          "id": "nlp-scale-003",
+          "concept": "Neural scaling laws",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              5
+            ]
+          },
+          "type": "numeric",
+          "marks": 2,
+          "question": "With $\\mathcal{L} \\propto N^{-0.076}$ (and data and compute not the bottleneck), by what factor is the loss multiplied when the number of parameters $N$ (a) doubles, (b) grows 10×?",
+          "parts": [
+            {
+              "label": "(a) factor for 2× N",
+              "answer": 0.9487,
+              "tolerance": 0.0006,
+              "marks": 1
+            },
+            {
+              "label": "(b) factor for 10× N",
+              "answer": 0.8395,
+              "tolerance": 0.0006,
+              "marks": 1
+            }
+          ],
+          "solution": "(a) $2^{-0.076} = 0.9487$: about 5% lower loss per doubling. (b) $10^{-0.076} = 0.8395$: about 16% lower.",
+          "explanation": "Each doubling gives the same small fractional improvement, which is why the curve is a straight line on log–log axes (slide 5).",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-005",
+          "concept": "Compute-optimal training (Chinchilla)",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              5,
+              7
+            ]
+          },
+          "type": "numeric",
+          "marks": 3,
+          "question": "Use the Chinchilla rule of about 20 training tokens per parameter and $C \\approx 6ND$.\n(a) How many tokens (in trillions) should a 70B-parameter model see?\n(b) Its training compute in units of $10^{23}$ FLOPs.\n(c) Gopher (280B parameters, 300B tokens): its compute in units of $10^{23}$ FLOPs.",
+          "parts": [
+            {
+              "label": "(a) tokens (trillions)",
+              "answer": 1.4,
+              "tolerance": 0.01,
+              "marks": 1
+            },
+            {
+              "label": "(b) Chinchilla compute (×10²³)",
+              "answer": 5.88,
+              "tolerance": 0.02,
+              "marks": 1
+            },
+            {
+              "label": "(c) Gopher compute (×10²³)",
+              "answer": 5.04,
+              "tolerance": 0.02,
+              "marks": 1
+            }
+          ],
+          "solution": "(a) $20 \\times 70\\text{B} = 1.4\\text{T}$ tokens. (b) $6 \\times 7\\times10^{10} \\times 1.4\\times10^{12} = 5.88\\times10^{23}$. (c) $6 \\times 2.8\\times10^{11} \\times 3\\times10^{11} = 5.04\\times10^{23}$.",
+          "explanation": "Roughly the same compute, but Chinchilla (4× smaller, ~5× more data) performed better (slide 7): grow the model and the data together.",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-007",
+          "concept": "Neural scaling laws",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              5,
+              6
+            ]
+          },
+          "type": "truefalse",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            1
+          ],
+          "question": "True or False: The scaling-law line means you can keep increasing the number of parameters alone and the loss will keep falling along the same straight line.",
+          "explanation": "False. The line traces the compute-optimal points with data and compute kept in proportion; scale parameters alone and data or compute becomes the bottleneck (slides 5–6).",
+          "marks": 1,
+          "lecture": 10
+        },
+        {
+          "type": "written",
+          "section": "theory",
+          "id": "nlp-scale-041",
+          "concept": "Neural scaling laws",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              5,
+              6,
+              7
+            ]
+          },
+          "marks": 5,
+          "question": "Explain neural scaling laws and the Chinchilla result. Why do modern models such as Llama 3 train far beyond the Chinchilla optimum? (5 Marks)",
+          "modelAnswer": "Loss falls predictably as a power law in model size $N$, data $D$ and compute $C \\approx 6ND$ (Kaplan et al.), a straight line on log–log axes, so small runs forecast big ones; the three must grow in proportion or one becomes the bottleneck.\n\nChinchilla (Hoffmann et al.): at fixed compute a model can be too big (undertrained, reads too little) or too small (underpowered); the optimum is about 20 tokens per parameter. Chinchilla (70B, 1.4T tokens) beat Gopher (280B, 300B tokens) at about the same compute.\n\nBeyond the optimum: training is paid once but inference on every request, so a smaller model trained longer (Llama 3 8B: ~1,900 tokens/param) is cheaper to deploy and leaves room for test-time compute.",
+          "rubric": [
+            {
+              "point": "Power law in N, D and C; straight line on log–log axes / predictable",
+              "marks": 1
+            },
+            {
+              "point": "Must scale in proportion, otherwise one resource bottlenecks",
+              "marks": 1
+            },
+            {
+              "point": "Fixed compute: too big = undertrained, too small = underpowered; one optimum",
+              "marks": 1
+            },
+            {
+              "point": "~20 tokens per parameter; Chinchilla beats Gopher at equal compute",
+              "marks": 1
+            },
+            {
+              "point": "Over-training small models: training paid once, inference every request; test-time compute",
+              "marks": 1
+            }
+          ],
+          "explanation": "Lecture 10 Part 1 (slides 4–8).",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-004",
+          "concept": "Compute-optimal training (Chinchilla)",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              6
+            ]
+          },
+          "type": "single",
+          "question": "With a fixed compute budget, what goes wrong if the model is too large?",
+          "choices": [
+            "It is undertrained: it can't read enough tokens in the budget",
+            "It is underpowered: it lacks the capacity to learn the data",
+            "It overfits because it sees every token many times",
+            "Nothing: bigger is always better at fixed compute"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slide 6 (Hoffmann et al., 2022): too big means it reads too little (undertrained); too small means underpowered. Each budget has one compute-optimal size.",
+          "marks": 1,
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-006",
+          "concept": "Compute-optimal training (Chinchilla)",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              7
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Llama 3 8B was trained on roughly 1,900 tokens per parameter, far past the Chinchilla optimum. Which reasons does Lecture 10 give for training a small model this long?",
+          "choices": [
+            "Training is paid once, but inference is paid on every request, so a smaller model is cheaper to deploy",
+            "A cheaper forward pass leaves room for test-time compute (letting the model 'think' longer)",
+            "Chinchilla's rule says more tokens per parameter always lowers loss for free",
+            "Small models can't be undertrained"
+          ],
+          "answer": [
+            0,
+            1
+          ],
+          "explanation": "Slide 7: going beyond compute-optimal costs extra training compute, but makes serving cheaper, and the saved inference cost can be spent on test-time compute.",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-008",
+          "concept": "Mixture of experts",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              9
+            ]
+          },
+          "type": "single",
+          "question": "In Lecture 10's hospital analogy, a dense model is like:",
+          "choices": [
+            "Showing every patient to every doctor: every token passes through every parameter",
+            "Sending each patient to the right specialist",
+            "A hospital with one doctor",
+            "Turning patients away when the hospital is full"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slide 9: dense models use every weight for every token, so 2× size ≈ 2× work per token. MoE is conditional computation: send the token to the relevant specialists.",
+          "marks": 1,
+          "lecture": 10
+        },
+        {
+          "type": "written",
+          "section": "theory",
+          "id": "nlp-scale-042",
+          "concept": "Mixture of experts",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ]
+          },
+          "marks": 5,
+          "question": "Explain how a mixture-of-experts layer works, why it is more efficient than a dense model, and the problem of expert collapse with one way to fix it. (5 Marks)",
+          "modelAnswer": "A dense model runs every parameter for every token, so cost grows with size. MoE replaces one big feed-forward block with many small experts; a small router scores them, picks the top $k$ per token and combines their outputs with the router weights (conditional computation).\n\nCapacity and memory follow the total parameters, but compute per token follows only the active ones (Mixtral: 47B total, 13B active; DeepSeek-V3: 671B / 37B).\n\nExpert collapse: experts that start slightly better are chosen more, train more and get better, so the rest go unused. Fix: load balancing, e.g. an auxiliary loss (Switch) or DeepSeek-V3's per-expert router bias, raised for under-used and lowered for over-used experts, which changes selection but not the mixing weights.",
+          "rubric": [
+            {
+              "point": "Router picks top-k small expert FFNs; output = router-weighted sum",
+              "marks": 1
+            },
+            {
+              "point": "Dense uses every weight per token; MoE = conditional computation",
+              "marks": 1
+            },
+            {
+              "point": "Total vs active parameters (capacity/memory vs compute), with an example",
+              "marks": 1
+            },
+            {
+              "point": "Expert collapse as a rich-get-richer loop",
+              "marks": 1
+            },
+            {
+              "point": "A load-balancing fix (bias on router scores or auxiliary loss)",
+              "marks": 1
+            }
+          ],
+          "explanation": "Lecture 10 Part 2 (slides 9–14).",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-009",
+          "concept": "Mixture of experts",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              10
+            ]
+          },
+          "type": "numeric",
+          "marks": 2,
+          "question": "A router picks experts E2 and E6 for a token, with router weights 0.7 and 0.3. Their outputs are $E_2 = (1, 2)$ and $E_6 = (3, -1)$. What is the MoE layer's output? Give (a) the first and (b) the second component.",
+          "parts": [
+            {
+              "label": "(a) component 1",
+              "answer": 1.6,
+              "tolerance": 0.005,
+              "marks": 1
+            },
+            {
+              "label": "(b) component 2",
+              "answer": 1.1,
+              "tolerance": 0.005,
+              "marks": 1
+            }
+          ],
+          "solution": "$0.7(1,2) + 0.3(3,-1) = (0.7+0.9,\\ 1.4-0.3) = (1.6,\\ 1.1)$.",
+          "explanation": "The output is the router-weighted sum of the chosen experts only; the other six experts don't run (slide 10).",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-b9-005",
+          "lecture": 10,
+          "concept": "Mixture of experts",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              10
+            ]
+          },
+          "type": "single",
+          "marks": 1,
+          "question": "In a mixture-of-experts layer:",
+          "choices": [
+            "A small router scores the experts and picks the top $k$ for each token, so only part of the parameters is used per token",
+            "Every expert processes every token and the outputs are averaged",
+            "Experts are separate models trained on different languages",
+            "The gate is fixed by hand"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slide 10: one big feed-forward network is replaced by many small experts; the router picks the top $k$ (two of eight in the diagram, weights 0.7 and 0.3) and their outputs are combined with the router weights."
+        },
+        {
+          "id": "nlp-scale-010",
+          "concept": "Mixture of experts",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              11
+            ]
+          },
+          "type": "numeric",
+          "marks": 2,
+          "question": "What fraction of its parameters is active for one token in (a) Mixtral 8×7B (47B total, 13B active) and (b) DeepSeek-V3 (671B total, 37B active)?",
+          "parts": [
+            {
+              "label": "(a) Mixtral",
+              "answer": 0.2766,
+              "tolerance": 0.002,
+              "marks": 1
+            },
+            {
+              "label": "(b) DeepSeek-V3",
+              "answer": 0.0551,
+              "tolerance": 0.0006,
+              "marks": 1
+            }
+          ],
+          "solution": "(a) $13/47 = 0.277$. (b) $37/671 = 0.055$.",
+          "explanation": "Memory follows the total; compute per token follows the active parameters. 8×7B isn't 56B because the experts share attention and the other common weights (slide 11).",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-011",
+          "concept": "Mixture of experts",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              11
+            ]
+          },
+          "type": "truefalse",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            1
+          ],
+          "question": "True or False: Mixtral \"8×7B\" has 56B parameters, all of which are used for every token.",
+          "explanation": "False on both counts: it has about 47B (experts share attention and other common weights), and only about 13B are active per token (2 of 8 experts).",
+          "marks": 1,
+          "lecture": 10
+        },
+        {
+          "id": "nlp-b9-006",
+          "lecture": 10,
+          "concept": "Mixture of experts",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              11
+            ]
+          },
+          "type": "numeric",
+          "marks": 3,
+          "question": "An MoE layer has 64 experts, each with 4.2M parameters, and the gate selects the top 2 experts per token. (a) What fraction of the expert parameters is used for one token? (b) How many expert parameters are stored? (c) How many are used per token?",
+          "parts": [
+            {
+              "label": "(a) fraction",
+              "answer": 0.0313,
+              "marks": 1,
+              "tolerance": 0.0005
+            },
+            {
+              "label": "(b) stored",
+              "answer": 268800000,
+              "marks": 1,
+              "relTolerance": 0.001
+            },
+            {
+              "label": "(c) used",
+              "answer": 8400000,
+              "marks": 1,
+              "relTolerance": 0.001
+            }
+          ],
+          "solution": "(a) $2/64 = 0.03125$. (b) $64 \\times 4.2$M = 268.8M. (c) $2 \\times 4.2$M = 8.4M.",
+          "inputHint": "A decimal or whole number (e.g. 2.688e8).",
+          "explanation": "Capacity and memory follow the total (stored) parameters; the compute per token follows the active ones (slide 11). This is how MoE separates capacity from cost."
+        },
+        {
+          "id": "nlp-scale-012",
+          "concept": "Expert collapse and load balancing",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              12
+            ]
+          },
+          "type": "single",
+          "question": "What is expert collapse in a mixture-of-experts model?",
+          "choices": [
+            "A rich-get-richer loop: experts that start slightly better get picked more, train more and get even better, so the rest go unused",
+            "The model's own generated data floods its training set",
+            "All experts learn identical weights because they share a router",
+            "The router stops working after training"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slide 12. Don't confuse it with model collapse (Lecture 9), which comes from training on synthetic data.",
+          "marks": 1,
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-013",
+          "concept": "Expert collapse and load balancing",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              13
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "How does DeepSeek-V3's routing-bias load balancing work? Select all that apply.",
+          "choices": [
+            "Each expert has a small bias added to its router score",
+            "An under-used expert's bias goes up and an over-used expert's bias goes down",
+            "The bias changes which experts are selected, not the weights used to combine their outputs",
+            "It adds an auxiliary load-balancing loss to the main training loss",
+            "It removes the router entirely"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "Slide 13: the bias only affects selection, so it balances usage without an extra loss term (the Switch Transformer used an auxiliary penalty instead).",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-014",
+          "concept": "Mixture of experts",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              14
+            ]
+          },
+          "type": "single",
+          "question": "What do mixture-of-experts experts usually specialise in?",
+          "choices": [
+            "Token types such as punctuation, numbers, code or syntax",
+            "Broad topics such as biology or history",
+            "Different human languages, one per expert",
+            "Different layers of the network"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slide 14: specialisation is by token type, not topic, and many small experts specialise more sharply. Dense models are also naturally sparse: most neurons are near-silent for any one token.",
+          "marks": 1,
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-015",
+          "concept": "In-context learning and induction heads",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              16
+            ]
+          },
+          "type": "truefalse",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            1
+          ],
+          "question": "True or False: In in-context learning, the model's weights are updated from the examples in the prompt.",
+          "explanation": "False. No weights change: the worked examples constrain the continuation so much that following the pattern is the only coherent thing to do (slide 16). It's prompting, not fine-tuning.",
+          "marks": 1,
+          "lecture": 10
+        },
+        {
+          "type": "written",
+          "section": "theory",
+          "id": "nlp-scale-047",
+          "concept": "In-context learning and induction heads",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              16,
+              17,
+              18
+            ]
+          },
+          "marks": 4,
+          "question": "Explain in-context learning, how an induction head implements part of it, and why some \"emergent\" abilities may be a measurement effect. (4 Marks)",
+          "modelAnswer": "In-context learning: a frozen model infers a task from examples in the prompt (English → French pairs, then \"cheese →\" gives \"fromage\") with no weight updates; the examples constrain the continuation so the pattern is the only coherent option.\n\nInduction head: if token $A$ was followed by $B$ earlier, after $A$ again predict $B$. Two layers: a previous-token head marks each token with its predecessor, and the induction head finds the earlier $A$ and copies its successor. It works on made-up tokens, so it is an algorithm (match and copy), not word knowledge.\n\nEmergence: with per-token accuracy $p$, an exact $L$-token answer is right with probability $p^L$, so smooth per-token gains look like a sudden jump in exact match; some thresholds are metric artefacts.",
+          "rubric": [
+            {
+              "point": "ICL: task from prompt examples, no weight change",
+              "marks": 1
+            },
+            {
+              "point": "Induction rule A…B…A → B",
+              "marks": 1
+            },
+            {
+              "point": "Two-head circuit; works on invented tokens (algorithmic)",
+              "marks": 1
+            },
+            {
+              "point": "p^L exact-match argument for apparent emergence",
+              "marks": 1
+            }
+          ],
+          "explanation": "Lecture 10 Part 3 (slides 16–18).",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-016",
+          "concept": "In-context learning and induction heads",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              17
+            ]
+          },
+          "type": "short",
+          "question": "Context: \"… Mr Dursley saw Harry Potter. Later, Harry\". An induction head predicts which next word?",
+          "accept": [
+            "Potter"
+          ],
+          "explanation": "If $A$ was followed by $B$ earlier, then after $A$ again predict $B$ (slide 17): match the earlier \"Harry\" and copy what followed it.",
+          "marks": 1,
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-017",
+          "concept": "In-context learning and induction heads",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              17
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which statements about induction heads are true?",
+          "choices": [
+            "They work even on made-up tokens never seen in training",
+            "They are a match-and-copy algorithm rather than memorised word knowledge",
+            "They are a single attention head in the first layer",
+            "They only work for English words"
+          ],
+          "answer": [
+            0,
+            1
+          ],
+          "explanation": "Slide 17: it is a two-layer circuit (a previous-token head plus the induction head), so it is an algorithm that doesn't care what the tokens are.",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-b9-002",
+          "lecture": 10,
+          "concept": "In-context learning and induction heads",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              17
+            ]
+          },
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or False: An induction head needs two attention layers working together: a previous-token head and a head that uses it to copy what followed an earlier occurrence of the current token.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slide 17: one head marks each token with its predecessor, a later head finds the earlier copy of the current token and copies what followed it. That's why it needs two layers, and why it works even on made-up tokens."
+        },
+        {
+          "id": "nlp-scale-018",
+          "concept": "Is emergence real?",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              18
+            ]
+          },
+          "type": "numeric",
+          "marks": 3,
+          "question": "If each token of an answer is correct with probability $p$ independently, an exact $L$-token answer is correct with probability $p^L$. For $L = 20$, give the exact-match accuracy when (a) $p = 0.9$, (b) $p = 0.95$, (c) $p = 0.99$.",
+          "parts": [
+            {
+              "label": "(a) p = 0.9",
+              "answer": 0.1216,
+              "tolerance": 0.0006,
+              "marks": 1
+            },
+            {
+              "label": "(b) p = 0.95",
+              "answer": 0.3585,
+              "tolerance": 0.0006,
+              "marks": 1
+            },
+            {
+              "label": "(c) p = 0.99",
+              "answer": 0.8179,
+              "tolerance": 0.0006,
+              "marks": 1
+            }
+          ],
+          "solution": "(a) $0.9^{20} = 0.122$. (b) $0.95^{20} = 0.358$. (c) $0.99^{20} = 0.818$.",
+          "explanation": "Smooth per-token gains look like a sudden jump in exact match on long answers, so some \"emergent\" abilities are a metric effect (slide 18).",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-019",
+          "concept": "Is emergence real?",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              18
+            ]
+          },
+          "type": "single",
+          "question": "Why can a capability appear to \"emerge\" suddenly with scale even if the model improves smoothly?",
+          "choices": [
+            "Exact-match scoring on long answers ($p^L$) turns smooth per-token gains into an apparent jump",
+            "Large models switch to a different architecture",
+            "Emergence is always a sign of a new circuit",
+            "The loss stops being a power law at large scale"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slide 18: some emergence is real (circuits like induction heads appear during training), but some thresholds are measurement artefacts. Always ask what metric was used.",
+          "marks": 1,
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-020",
+          "concept": "Retrieval-augmented generation",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              20
+            ]
+          },
+          "type": "match",
+          "marks": 2,
+          "question": "Compare a plain model's parametric memory with RAG's non-parametric documents (slide 20).",
+          "pairs": [
+            {
+              "prompt": "How to update knowledge in the weights",
+              "answer": "Retrain the model"
+            },
+            {
+              "prompt": "How to update knowledge in RAG",
+              "answer": "Edit the document index"
+            },
+            {
+              "prompt": "Which one can cite its source",
+              "answer": "RAG (non-parametric documents)"
+            },
+            {
+              "prompt": "Which one answers fastest",
+              "answer": "Parametric memory (a single forward pass)"
+            }
+          ],
+          "options": [
+            "Retrain the model",
+            "Edit the document index",
+            "RAG (non-parametric documents)",
+            "Parametric memory (a single forward pass)"
+          ],
+          "explanation": "A plain model is a closed-book exam; RAG is open-book: capacity grows with the corpus and answers can be cited, at the cost of a search step.",
+          "lecture": 10
+        },
+        {
+          "type": "written",
+          "section": "theory",
+          "id": "nlp-scale-043",
+          "concept": "Retrieval-augmented generation",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              20,
+              21,
+              22,
+              23
+            ]
+          },
+          "marks": 5,
+          "question": "Describe retrieval-augmented generation: why it is used, its pipeline, two ways to retrieve passages, and two ways it can fail. (5 Marks)",
+          "modelAnswer": "Why: a plain LM is a closed-book exam: knowledge is frozen in its weights, rare facts are weak and missing ones get hallucinated. RAG is open-book: knowledge is updated by editing an index, grows with the corpus and can be cited.\n\nPipeline: offline, split documents into passages, embed and index them; online, embed the query, retrieve the $k$ nearest passages, place them in the prompt and generate.\n\nRetrieval: BM25 (shared words, rare terms weighted higher, like TF-IDF; misses synonyms) and dense embeddings (semantic, handles synonyms); often combined and reranked.\n\nFailures: missing the right passage, lost in the middle of long contexts, irrelevant passages distracting, retrieved text contradicting memorised knowledge. Evaluate retrieval and generation separately.",
+          "rubric": [
+            {
+              "point": "Motivation: frozen/stale parametric memory, hallucination; updatable and citable",
+              "marks": 1
+            },
+            {
+              "point": "Pipeline: chunk → embed → index; query → nearest neighbours → prompt → generate",
+              "marks": 1
+            },
+            {
+              "point": "BM25 vs dense retrieval and the synonym problem",
+              "marks": 1
+            },
+            {
+              "point": "Failure mode 1",
+              "marks": 1
+            },
+            {
+              "point": "Failure mode 2 (or evaluating retrieval and generation separately)",
+              "marks": 1
+            }
+          ],
+          "explanation": "Lecture 10 Part 4 (slides 20–23).",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-021",
+          "concept": "Retrieval-augmented generation",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              21
+            ]
+          },
+          "type": "single",
+          "question": "Which is the correct order of the RAG pipeline?",
+          "choices": [
+            "Split documents into passages → embed and index them → embed the query → retrieve the $k$ nearest passages → put them in the prompt → generate",
+            "Embed the query → fine-tune the model on it → generate",
+            "Generate an answer → search for documents that agree → cite them",
+            "Retrieve every document → concatenate them all into the prompt → generate"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slide 21: indexing is done once offline; per query you embed, find nearest neighbours, and generate from the prompt plus passages.",
+          "marks": 1,
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-022",
+          "concept": "Retrieval-augmented generation",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              22
+            ]
+          },
+          "type": "single",
+          "question": "A user asks about a \"specialist\" but the right passage only says \"expert\". Which retriever is more likely to find it, and why?",
+          "choices": [
+            "Dense retrieval, because it compares meaning embeddings and handles synonyms",
+            "BM25, because it gives rare words more weight",
+            "BM25, because it counts shared words",
+            "Neither: retrieval only matches exact strings"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "BM25 (like TF-IDF) matches shared words and weights rare ones, so it misses synonyms; dense embeddings handle them. Real systems often combine both and rerank (slide 22).",
+          "marks": 1,
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-023",
+          "concept": "Retrieval-augmented generation",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              23
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which are failure modes of RAG named in Lecture 10?",
+          "choices": [
+            "Facts in the middle of a long context are used less well (\"lost in the middle\")",
+            "Irrelevant retrieved passages distract the model",
+            "A retrieved passage can contradict what the model memorised",
+            "Retrieval permanently changes the model's weights"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "Slide 23: evaluate retrieval and generation separately: was the evidence found, and was the answer faithful to it? Agentic systems let the model decide when and what to search.",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-025",
+          "concept": "Diffusion language models",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              25,
+              28,
+              30
+            ]
+          },
+          "type": "numeric",
+          "marks": 3,
+          "question": "(a) How many sequential forward passes does an autoregressive model need for a 1,000-token answer?\n(b) A masked diffusion LM fills 3 tokens per pass. How many passes for a 12-token sentence?\n(c) Block diffusion with 16-token blocks fills 4 tokens per pass inside a block. How many passes for 1,024 tokens?",
+          "parts": [
+            {
+              "label": "(a) autoregressive passes",
+              "answer": 1000,
+              "tolerance": 0.5,
+              "marks": 1
+            },
+            {
+              "label": "(b) diffusion passes",
+              "answer": 4,
+              "tolerance": 0.5,
+              "marks": 1
+            },
+            {
+              "label": "(c) block-diffusion passes",
+              "answer": 256,
+              "tolerance": 0.5,
+              "marks": 1
+            }
+          ],
+          "solution": "(a) One pass per token: 1,000. (b) $12/3 = 4$. (c) $1024/16 = 64$ blocks, each $16/4 = 4$ passes: $64 \\times 4 = 256$.",
+          "explanation": "Slide 28's example: 12 autoregressive passes vs 4 diffusion passes. Too many tokens per pass lowers quality.",
+          "lecture": 10
+        },
+        {
+          "type": "written",
+          "section": "theory",
+          "id": "nlp-scale-044",
+          "concept": "Diffusion language models",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              25,
+              26,
+              27,
+              28,
+              29,
+              30
+            ]
+          },
+          "marks": 5,
+          "question": "Compare autoregressive generation with masked diffusion language models, including how a masked diffusion LM is trained, and explain what block diffusion adds. (5 Marks)",
+          "modelAnswer": "Autoregression writes one token at a time, left to right: 1,000 tokens need 1,000 sequential passes and tokens can't be revised, but output length is flexible and a KV cache makes it efficient.\n\nMasked diffusion: training picks a masking level $t \\in [0,1]$, hides each token with probability $t$ and predicts all hidden tokens (average surprise on them), over all levels, so generation can start fully masked and fill several tokens per round. It sees both sides, can revise guesses and fills middle gaps naturally, but the length is fixed in advance, there is no direct KV cache, and too many tokens per pass hurts quality.\n\nBlock diffusion generates blocks left to right and denoises tokens within a block in parallel; finished blocks are cached and any length is possible. Block size one is autoregression.",
+          "rubric": [
+            {
+              "point": "Autoregression: sequential, can't revise, flexible length, KV cache",
+              "marks": 1
+            },
+            {
+              "point": "Masked diffusion training: random masking level t, predict masked tokens",
+              "marks": 1
+            },
+            {
+              "point": "Diffusion pros: parallel, both sides, can revise / fill gaps",
+              "marks": 1
+            },
+            {
+              "point": "Diffusion cons: fixed length, no direct caching, quality drops with too many tokens per pass",
+              "marks": 1
+            },
+            {
+              "point": "Block diffusion: blocks left to right, parallel within, cacheable; block size 1 = AR",
+              "marks": 1
+            }
+          ],
+          "explanation": "Lecture 10 Part 5 (slides 25–31).",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-024",
+          "concept": "Diffusion language models",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              26,
+              27
+            ]
+          },
+          "type": "single",
+          "question": "Text can't be blurred like an image. What plays the role of \"noise\" in a masked diffusion language model?",
+          "choices": [
+            "Replacing tokens with a mask token, with each token hidden independently with probability $t$",
+            "Adding Gaussian noise to the token ids",
+            "Shuffling the word order",
+            "Lowering the softmax temperature"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slides 26–27: masking is the discrete analogue of noise. Training covers every masking level $t \\in [0,1]$, so generation can start from a fully masked sequence.",
+          "marks": 1,
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-026",
+          "concept": "Diffusion language models",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              29
+            ]
+          },
+          "type": "match",
+          "marks": 3,
+          "question": "Match each property to the model it describes (slide 29).",
+          "pairs": [
+            {
+              "prompt": "Sees context on both sides",
+              "answer": "Masked diffusion"
+            },
+            {
+              "prompt": "Output length decided while generating",
+              "answer": "Autoregressive"
+            },
+            {
+              "prompt": "Can use a KV cache directly",
+              "answer": "Autoregressive"
+            },
+            {
+              "prompt": "Filling a gap in the middle is natural",
+              "answer": "Masked diffusion"
+            },
+            {
+              "prompt": "Predicts many tokens per pass",
+              "answer": "Masked diffusion"
+            },
+            {
+              "prompt": "Can't revise a token once written",
+              "answer": "Autoregressive"
+            }
+          ],
+          "options": [
+            "Autoregressive",
+            "Masked diffusion"
+          ],
+          "explanation": "Diffusion is parallel, sees both sides and can revise, but needs the length up front and can't cache directly.",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-027",
+          "concept": "Diffusion language models",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              30
+            ]
+          },
+          "type": "truefalse",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "question": "True or False: Block diffusion with a block size of one is ordinary autoregression.",
+          "explanation": "True (slide 30). Blocks are generated left to right and denoised in parallel inside, so block size sets a continuum between fully sequential and fully parallel. Finished blocks are cacheable.",
+          "marks": 1,
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-028",
+          "concept": "Diffusion language models",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              31
+            ]
+          },
+          "type": "single",
+          "question": "What does Transfusion do?",
+          "choices": [
+            "Trains one transformer on mixed text and image sequences: next-token prediction for text, diffusion for image patches",
+            "Fuses two language models into one by averaging weights",
+            "Uses diffusion for text and next-token prediction for images",
+            "Translates images into text before training"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slide 31: a shared architecture doesn't need a shared loss. Text benefits from order; images from global denoising (a sun and its shadow are produced together).",
+          "marks": 1,
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-029",
+          "concept": "RLHF",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              33
+            ]
+          },
+          "type": "single",
+          "question": "What is the order of the three RLHF stages?",
+          "choices": [
+            "Supervised fine-tuning on demonstrations → reward model from pairwise preferences → RL (e.g. PPO) against the reward with a KL leash",
+            "Reward model → pre-training → supervised fine-tuning",
+            "RL from scratch → supervised fine-tuning → preference ranking",
+            "Pairwise preferences → pre-training → distillation"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slide 33. People compare two answers because that is easier than writing a perfect one. InstructGPT showed a well post-trained small model can be preferred over a much larger base model.",
+          "marks": 1,
+          "lecture": 10
+        },
+        {
+          "type": "written",
+          "section": "theory",
+          "id": "nlp-scale-045",
+          "concept": "RLHF",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              33,
+              34,
+              35,
+              36,
+              37
+            ]
+          },
+          "marks": 6,
+          "question": "Explain how RLHF post-trains a language model, the role of the KL term, what reward hacking is, and how RLVR with GRPO differs. (6 Marks)",
+          "modelAnswer": "A base model imitates text rather than following instructions, and goals like helpful/honest/harmless are hard to write as a loss.\n\nRLHF: (1) SFT on demonstrations; (2) people compare pairs of answers (easier than writing a perfect one) and a reward model learns $r(A) > r(B)$; (3) RL (e.g. PPO) maximises reward $-\\ \\beta D_{KL}(\\pi \\| \\pi_{SFT})$.\n\nThe KL leash keeps the policy near the SFT model: the reward model is only a proxy, so with small $\\beta$ the policy exploits its errors (reward hacking: e.g. flattery, verbosity, sycophancy), while large $\\beta$ changes little. DPO skips the reward model and RL loop but still optimises a proxy.\n\nRLVR uses rewards a program can check (maths answers, code tests); GRPO samples a group of answers and reinforces those above the group average. It is grounded and harder to game, but only works where correctness is checkable.",
+          "rubric": [
+            {
+              "point": "Why post-train: base model imitates, goals hard to write as a loss",
+              "marks": 1
+            },
+            {
+              "point": "SFT → pairwise preferences → reward model",
+              "marks": 1
+            },
+            {
+              "point": "RL against reward with KL term to the SFT model",
+              "marks": 1
+            },
+            {
+              "point": "Reward hacking explained, and the effect of β",
+              "marks": 1
+            },
+            {
+              "point": "RLVR: verifiable reward (maths/code), grounded but limited to checkable tasks",
+              "marks": 1
+            },
+            {
+              "point": "GRPO: group of answers, compare to group average",
+              "marks": 1
+            }
+          ],
+          "explanation": "Lecture 10 Part 6 (slides 33–37).",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-030",
+          "concept": "RLHF",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              34,
+              35
+            ]
+          },
+          "type": "numeric",
+          "marks": 4,
+          "question": "The policy maximises $\\text{reward} - \\beta\\, D_{KL}(\\pi \\,\\|\\, \\pi_{SFT})$. Answer A has reward 3.0 and KL 2.0; answer B has reward 2.5 and KL 0.5.\n(a) A's objective with $\\beta = 0.1$. (b) B's with $\\beta = 0.1$.\n(c) A's with $\\beta = 1$. (d) B's with $\\beta = 1$.",
+          "parts": [
+            {
+              "label": "(a) A, β = 0.1",
+              "answer": 2.8,
+              "tolerance": 0.005,
+              "marks": 1
+            },
+            {
+              "label": "(b) B, β = 0.1",
+              "answer": 2.45,
+              "tolerance": 0.005,
+              "marks": 1
+            },
+            {
+              "label": "(c) A, β = 1",
+              "answer": 1,
+              "tolerance": 0.005,
+              "marks": 1
+            },
+            {
+              "label": "(d) B, β = 1",
+              "answer": 2,
+              "tolerance": 0.005,
+              "marks": 1
+            }
+          ],
+          "solution": "(a) $3.0 - 0.1(2.0) = 2.8$. (b) $2.5 - 0.1(0.5) = 2.45$. (c) $3.0 - 2.0 = 1.0$. (d) $2.5 - 0.5 = 2.0$.",
+          "explanation": "With a weak leash the high-reward answer that drifts far from the SFT model (e.g. flattery the reward model overrates) wins; a strong leash prefers the answer that stays close (slide 35).",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-031",
+          "concept": "RLHF",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              35,
+              36
+            ]
+          },
+          "type": "single",
+          "question": "What is reward hacking?",
+          "choices": [
+            "Maximising the learned reward (a proxy) without achieving the real human goal, e.g. sycophancy or verbosity",
+            "Humans giving deliberately wrong preference labels",
+            "Stealing another model's reward model",
+            "Training with too high a learning rate"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "The reward model is only an approximation; a small $\\beta$ lets the policy exploit its errors. Over-optimising any proxy can raise its score while lowering true quality (slides 35–36).",
+          "marks": 1,
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-032",
+          "concept": "RLHF",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              36
+            ]
+          },
+          "type": "truefalse",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            1
+          ],
+          "question": "True or False: DPO (Direct Preference Optimisation) needs a separately trained reward model and an RL loop.",
+          "explanation": "False. DPO skips both and directly makes preferred answers more likely than rejected ones relative to a reference model. It still relies on preference data, an imperfect proxy (slide 36).",
+          "marks": 1,
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-033",
+          "concept": "RLVR and GRPO",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              37
+            ]
+          },
+          "type": "numeric",
+          "marks": 3,
+          "question": "GRPO samples a group of 4 answers to a maths problem; a checker gives rewards $(1, 0, 0, 0)$. Each answer's advantage is its reward minus the group mean.\n(a) The group mean. (b) The correct answer's advantage. (c) A wrong answer's advantage.",
+          "parts": [
+            {
+              "label": "(a) group mean",
+              "answer": 0.25,
+              "tolerance": 0.005,
+              "marks": 1
+            },
+            {
+              "label": "(b) correct answer",
+              "answer": 0.75,
+              "tolerance": 0.005,
+              "marks": 1
+            },
+            {
+              "label": "(c) wrong answer",
+              "answer": -0.25,
+              "tolerance": 0.005,
+              "marks": 1
+            }
+          ],
+          "solution": "(a) $1/4 = 0.25$. (b) $1 - 0.25 = 0.75$ (reinforced). (c) $0 - 0.25 = -0.25$ (discouraged).",
+          "explanation": "Slide 37: above-average answers become more likely, below-average ones less. (Real GRPO also divides by the group's standard deviation; the slide keeps it to \"compare with the group average\".)",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-034",
+          "concept": "RLVR and GRPO",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              37
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which statements about RLVR (reinforcement learning from verifiable rewards) are true?",
+          "choices": [
+            "The reward is a program's check, such as a maths answer checker or code tests",
+            "It is harder to game than a learned preference model because it is grounded in an external check",
+            "It only applies where correctness can be checked automatically",
+            "It needs humans to compare pairs of answers"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "Slide 37: used for reasoning models such as DeepSeek-R1 (with GRPO). The grounding links back to Lecture 9: verified, grounded synthetic data avoids collapse.",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-035",
+          "concept": "Superposition",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              39,
+              40
+            ]
+          },
+          "type": "single",
+          "question": "Why can a toy network pack five features into a two-dimensional hidden layer?",
+          "choices": [
+            "The features are sparse (usually zero), so they rarely clash and can share almost-orthogonal directions",
+            "Each feature gets its own neuron",
+            "The network stores only the two most frequent features",
+            "Superposition works best when the features always occur together"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slide 40: if features co-occur often, interference is costly and only two survive; if they are sparse, all five fit as a pentagon. Real concepts (\"king\" and \"chainsaw\") are rarely active together.",
+          "marks": 1,
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-037",
+          "concept": "Superposition",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              39
+            ]
+          },
+          "type": "truefalse",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            1
+          ],
+          "question": "True or False: In a large language model each concept is stored in its own dedicated neuron.",
+          "explanation": "False. Models know more concepts than neurons, so a feature is a direction across neurons; concepts share neurons through almost-orthogonal directions ($h = \\sum_i a_i w_i$, most $a_i = 0$).",
+          "marks": 1,
+          "lecture": 10
+        },
+        {
+          "type": "written",
+          "section": "theory",
+          "id": "nlp-scale-046",
+          "concept": "Superposition",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              39,
+              40,
+              41,
+              42,
+              43
+            ]
+          },
+          "marks": 5,
+          "question": "Explain superposition and why sparsity makes it possible, then describe two tools used to read what a model represents (sparse autoencoders, the logit lens or the J-lens). (5 Marks)",
+          "modelAnswer": "Concepts are directions in activation space (king − man + woman ≈ queen). Models know more concepts than they have neurons, so features share neurons as almost-orthogonal directions: superposition, $h = \\sum_i a_i w_i$ with most $a_i = 0$.\n\nSparsity: in the toy model, five features squeezed through 2D clash if they co-occur (only two survive), but if they are usually zero, interference is rare and all five fit as a pentagon. So individual neurons are hard to interpret.\n\nTools: a sparse autoencoder expands activations into many features with only a few active (reconstruction + sparsity loss), giving fairly monosemantic, steerable features (Golden Gate Bridge), though imperfectly. The logit lens applies $W_U$ to a middle layer; the J-lens first applies an averaged Jacobian of the later layers, $W_U(J_l h_l)$, revealing a small \"J-space\" of word-like concepts that can be steered (Spanish ↔ French). J-space is very recent and not widely replicated.",
+          "rubric": [
+            {
+              "point": "Concepts as directions; more concepts than neurons",
+              "marks": 1
+            },
+            {
+              "point": "Superposition: features share neurons as near-orthogonal directions",
+              "marks": 1
+            },
+            {
+              "point": "Sparsity makes it work (toy model: co-occurring vs sparse features)",
+              "marks": 1
+            },
+            {
+              "point": "Tool 1 explained",
+              "marks": 1
+            },
+            {
+              "point": "Tool 2 explained (with a limitation)",
+              "marks": 1
+            }
+          ],
+          "explanation": "Lecture 10 Part 7 (slides 39–43).",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-036",
+          "concept": "Superposition",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              40
+            ]
+          },
+          "type": "numeric",
+          "marks": 1,
+          "question": "Five features are packed in 2D as the corners of a regular pentagon (72° apart). What is the cosine between neighbouring feature directions (the interference when both are active)?",
+          "parts": [
+            {
+              "label": "cos 72°",
+              "answer": 0.309,
+              "tolerance": 0.002,
+              "marks": 1
+            }
+          ],
+          "solution": "$\\cos 72^\\circ = 0.309$ (and $\\cos 144^\\circ = -0.809$ for non-neighbours).",
+          "explanation": "Not orthogonal, so two active features interfere; that's acceptable only because they are rarely active together.",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-038",
+          "concept": "Sparse autoencoders",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              41
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which statements about sparse autoencoders (SAEs) are true?",
+          "choices": [
+            "They expand an activation into many possible features, keep only a few active and reconstruct the activation",
+            "Their loss combines reconstruction error with a sparsity penalty",
+            "Their features can be fairly monosemantic (e.g. French text, the Golden Gate Bridge), and boosting one can steer the output",
+            "They reconstruct the activations perfectly, so they explain all of the computation"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "Slide 41: SAEs try to untangle superposed features, but the reconstruction is imperfect.",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-039",
+          "concept": "Logit lens and J-lens",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              42
+            ]
+          },
+          "type": "single",
+          "question": "How does the J-lens differ from the logit lens?",
+          "choices": [
+            "It first applies an averaged Jacobian $J_l$ of the remaining layers before the unembedding: $W_U(J_l h_l)$",
+            "It trains a new classifier on each layer",
+            "It applies $W_U$ directly to a middle layer",
+            "It reads the attention weights instead of the activations"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Slide 42: the logit lens applies $W_U$ straight to a middle layer (works better late than early); the J-lens translates the direction through the rest of the network first, so it shows concepts that influence later output.",
+          "marks": 1,
+          "lecture": 10
+        },
+        {
+          "id": "nlp-scale-040",
+          "concept": "J-space",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              43
+            ]
+          },
+          "type": "multi",
+          "marks": 2,
+          "negativeMarking": true,
+          "question": "Which statements about J-space match Lecture 10?",
+          "choices": [
+            "The J-lens finds a small set (roughly 25 or fewer) of word-like concepts active together in middle layers",
+            "Swapping a Spanish direction for a French one changes the output language",
+            "It is compared functionally to global workspace theory, as an analogy",
+            "It proves the model is conscious"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explanation": "Slide 43: very recent (July 2026) and not widely replicated. The safety interest is that it may reveal internal goals or awareness of being tested; it is not evidence of consciousness.",
+          "lecture": 10
+        },
+        {
+          "id": "nlp-b9-012",
+          "lecture": 10,
+          "concept": "Mechanistic interpretability",
+          "type": "single",
+          "marks": 1,
+          "question": "What is the high-level goal of mechanistic interpretability (Tutorial 8.1)?",
+          "choices": [
+            "To reverse-engineer the computations inside a trained network into human-understandable mechanisms (circuits), such as induction heads",
+            "To make models smaller by pruning",
+            "To measure a model's accuracy on benchmarks",
+            "To write programs that generate neural networks"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Not on the slides: this follows the standard definition used in the tutorial. Induction heads are a classic example of a circuit found this way. Lecture 10's Part 7 (superposition, sparse autoencoders, the logit lens and J-lens) is mechanistic interpretability in practice."
+        },
+        {
+          "id": "nlp-b9-013",
+          "lecture": 10,
+          "concept": "Mechanistic interpretability",
+          "type": "truefalse",
+          "marks": 1,
+          "question": "True or False: Probing a representation with a classifier shows that information is present, while mechanistic interpretability tries to show how the network actually uses it.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": [
+            0
+          ],
+          "explanation": "Probing is correlational (\"decodable\"); mechanistic work traces the causal circuit (e.g. which heads compose into an induction head). Tutorial 8.1 topic; standard definitions. Lecture 10's Part 7 (superposition, sparse autoencoders, the logit lens and J-lens) is mechanistic interpretability in practice."
+        }
+      ],
+      "sourceFile": "Scaling NLP HTML deck (Moodle, 2026); lecture recording"
     },
     "nlp-mock-exam": {
       "id": "nlp-mock-exam",
@@ -42588,7 +44284,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-mock-a49",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Stochastic parrots",
           "type": "single",
           "marks": 1,
@@ -42606,7 +44302,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-mock-a50",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Model collapse",
           "type": "multi",
           "marks": 1,
@@ -42802,7 +44498,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-mock-b5",
-          "lecture": 10,
+          "lecture": 9,
           "concept": "Data curation",
           "type": "written",
           "marks": 8,
@@ -47025,7 +48721,7 @@ window.QUIZY_DATA = {
       "id": "nlp-reference",
       "subject": "nlp",
       "title": "NLP model sheet",
-      "description": "The key models, algorithms, calculations and quiz traps of lectures 1–10, one card each, checked against the slides. Page numbers are slide (PDF) pages. Points marked as coming from the lecture recordings are not on the slides. Worked examples were checked with a script; the diagrams use made-up example data. Start with the ★ Test 2 card in L8.",
+      "description": "The key models, algorithms, calculations and quiz traps of lectures 1–10, one card each, checked against the slides (L10: the 2026 HTML deck on Moodle). Page numbers are slide (PDF) pages. Points marked as coming from the lecture recordings are not on the slides. Worked examples were checked with a script; the diagrams use made-up example data. Start with the ★ Test 2 card in L8.",
       "searchHint": "attention, LoRA, perplexity",
       "scopeTopics": [
         1,
@@ -47048,8 +48744,8 @@ window.QUIZY_DATA = {
         "6": "Seq2seq and attention",
         "7": "Transformers",
         "8": "Transfer learning",
-        "9": "Scaling NLP",
-        "10": "Responsible NLP"
+        "9": "Responsible NLP",
+        "10": "Scaling NLP"
       },
       "cards": [
         {
@@ -47062,7 +48758,7 @@ window.QUIZY_DATA = {
             "A common working definition: a sequence of letters separated by whitespace or punctuation, an atomic unit of meaning.",
             "English: \"The children are selling the clothes to each other.\" splits cleanly into 10 tokens (9 words and the full stop).",
             "isiZulu: \"Abashana bayazithengiselana izimpahla\" says the same in 3 words. One word, aba-shana ba-ya-zi-theng-is-el-an-a, carries the subject marker, tense, \"buy\" and the reciprocal, so whitespace splitting loses the structure.",
-            "This is why tokenization comes back in L4 (BPE) and L10 (African languages cost more tokens)."
+            "This is why tokenization comes back in L4 (BPE) and L9 (African languages cost more tokens)."
           ],
           "images": [],
           "source": "lecture1_intro.pdf pp. 2–5"
@@ -47158,7 +48854,7 @@ window.QUIZY_DATA = {
           "topic": 2,
           "kind": "concept",
           "title": "\"Comment on Word2Vec\" inside a transfer-learning answer",
-          "summary": "The written questions focus on L5–L8 and L10 but pull earlier topics in. When a transfer-learning question asks about word2vec, give its three limits and what ELMo and BERT fixed.",
+          "summary": "The written questions focus on L5–L8 and L9 but pull earlier topics in. When a transfer-learning question asks about word2vec, give its three limits and what ELMo and BERT fixed.",
           "points": [
             "Static: one vector per word type, so it cannot separate senses (\"bank\" of a river vs. a bank account).",
             "Shallow transfer: only the embedding layer is pretrained; the rest of the task model starts from scratch.",
@@ -47912,37 +49608,8 @@ window.QUIZY_DATA = {
           "source": "Past quizzes and the lecture recordings (exam-signals notes), not on the slides; facts on lecture8_transfer_learning.pdf pp. 27–33, 39–48, 56, 59–78"
         },
         {
-          "id": "nlp-scaling-laws",
-          "topic": 9,
-          "kind": "concept",
-          "title": "Emergence from scale: induction heads and scaling laws",
-          "summary": "L9 has only 9 slides and is quiz material. With scale, in-context learning appears, and loss improves predictably.",
-          "points": [
-            "Induction heads (the mechanism for in-context learning) tend to appear with scale through a \"phase change\": the model realises the task cannot be done by learning (memorising) and switches to using the context.",
-            "Neural scaling laws: predictable improvements with more compute, data and parameters; the slide's plots (Kaplan et al., 2020) show loss falling as a power law in each.",
-            "Believed to be due to the Zipf distribution of language."
-          ],
-          "images": [],
-          "source": "lecture9_scaling_nlp.pdf pp. 2–3 (induction heads), 4 (scaling laws)"
-        },
-        {
-          "id": "nlp-emergence-without-scale",
-          "topic": 9,
-          "kind": "concept",
-          "title": "Emergence without scale, and data poisoning",
-          "summary": "Two ways to get the benefits without a bigger dense model, and the big risk to all of it.",
-          "points": [
-            "Sparsity: mixture of experts, where a gate routes each input to a few experts, so only part of the network runs.",
-            "Modularity and sparsity: Recurrent Independent Mechanisms, where attention guides information flow between whole network modules.",
-            "Knowledge distillation: a big network trains a smaller one using far more detailed (soft) labels.",
-            "Data poisoning: generated data filtering back into training can cause model collapse within a handful of generations (Shumailov et al., 2024; more in L10)."
-          ],
-          "images": [],
-          "source": "lecture9_scaling_nlp.pdf pp. 5 (sparsity, mixture of experts), 6 (RIMs), 7 (distillation), 8–9 (data poisoning)"
-        },
-        {
           "id": "nlp-reader-writer",
-          "topic": 10,
+          "topic": 9,
           "kind": "concept",
           "title": "Responsibility in language: writer- vs reader-responsible",
           "summary": "Communication is the ability to direct others' attention (\"don't think about a pink elephant\"). Who is responsible for being understood differs between languages, and that matters for models built on context.",
@@ -47957,7 +49624,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-multilingualism",
-          "topic": 10,
+          "topic": 9,
           "kind": "concept",
           "title": "Multilingualism and code-switching",
           "summary": "Many people use a home language and a different professional language, and cultural standards differ. This shapes the data and how well models serve people.",
@@ -47972,7 +49639,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-stochastic-parrots",
-          "topic": 10,
+          "topic": 9,
           "kind": "concept",
           "title": "Stochastic parrots and the hegemonic view",
           "summary": "Bender et al. (2021): an LM is \"a system for haphazardly stitching together sequences of linguistic forms it has observed in its vast training data, according to probabilistic information about how they combine, but without any reference to meaning: a stochastic parrot\".",
@@ -47987,7 +49654,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-present-harms",
-          "topic": 10,
+          "topic": 9,
           "kind": "concept",
           "title": "Present harms: unequal quality, jailbreaks, tokenization and prompting",
           "summary": "With generative AI widely adopted, the concerns are unequal quality between groups, vulnerabilities that cause harm, and language becoming the interface to tools used across cultures.",
@@ -48003,7 +49670,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-model-collapse",
-          "topic": 10,
+          "topic": 9,
           "kind": "concept",
           "title": "Dead internet theory and model collapse",
           "summary": "As generated content fills the internet and flows back into training data, models trained on it forget the real distribution (Shumailov et al.): the tails vanish first, and later generations converge to a narrow, low-variance and wrong distribution.",
@@ -48026,7 +49693,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-resource-exploitation",
-          "topic": 10,
+          "topic": 9,
           "kind": "concept",
           "title": "Resource use and the double edge",
           "summary": "Bias also comes from training and running the model, not only from using it. LLM power use scales with parameter count, now in the billions.",
@@ -48040,7 +49707,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-what-can-be-done",
-          "topic": 10,
+          "topic": 9,
           "kind": "concept",
           "title": "What can be done: curation and participation",
           "summary": "Data curation is the organisation, selection and integration of data from various sources. It helps, but it has costs. Participation spreads the work and the benefit.",
@@ -48055,7 +49722,7 @@ window.QUIZY_DATA = {
         },
         {
           "id": "nlp-responsible-essay",
-          "topic": 10,
+          "topic": 9,
           "kind": "concept",
           "title": "Responsible-NLP essay skeleton (8–10 marks)",
           "summary": "A structure for any responsible-NLP written question: name the concept → define it in one line (quote the slide if you can) → the mechanism (why it happens in LMs) → a concrete South African or African-language example → the consequence (who is harmed, and the double edge) → a mitigation and its limitation.",
@@ -48066,6 +49733,128 @@ window.QUIZY_DATA = {
           ],
           "images": [],
           "source": "Study structure (not from the slides), built on lecture10_responsible_nlp.pdf; written-question focus from the 2026 scope announcement"
+        },
+        {
+          "id": "nlp-scaling-laws",
+          "topic": 10,
+          "kind": "concept",
+          "title": "Scaling laws and compute-optimal training",
+          "summary": "Loss falls as a power law in parameters, data and compute, so model size and data must be balanced. Devon: this lecture is examined at a high level.",
+          "points": [
+            "Training minimises average surprise: $\\mathcal{L} = \\text{average}[-\\log p(\\text{true next token})]$.",
+            "Kaplan et al. (2020): loss is a power law in $N$, $D$ and $C \\approx 6ND$; for size $\\mathcal{L} \\propto N^{-0.076}$, so each doubling multiplies the loss by about $0.95$. A straight line on log–log axes, so small runs forecast big ones.",
+            "Scale the three in proportion, or one becomes the bottleneck.",
+            "Hoffmann et al. (2022): at fixed compute, too big = undertrained, too small = underpowered. Compute-optimal ≈ 20 tokens per parameter. Chinchilla (70B, 1.4T tokens) beat Gopher (280B, 300B tokens) at about the same compute.",
+            "Beyond the optimum: Llama 3 8B read ~1,900 tokens/parameter because training is paid once and inference on every request; cheaper inference leaves room for test-time compute."
+          ],
+          "images": [],
+          "example": "Chinchilla: $D = 20 \\times 70\\text{B} = 1.4\\text{T}$ tokens; $C = 6 \\times 7\\times10^{10} \\times 1.4\\times10^{12} \\approx 5.9\\times10^{23}$ FLOPs, close to Gopher's $6 \\times 2.8\\times10^{11} \\times 3\\times10^{11} \\approx 5.0\\times10^{23}$.",
+          "source": "Scaling NLP HTML deck (Moodle, 2026) slides 4–8; lecture recording"
+        },
+        {
+          "id": "nlp-emergence-without-scale",
+          "topic": 10,
+          "kind": "concept",
+          "title": "Mixture of experts and sparsity",
+          "summary": "Separate total capacity from per-token compute by running only a few experts per token.",
+          "points": [
+            "Dense model: every token passes through every parameter (seeing every doctor). MoE = conditional computation (see the right specialists).",
+            "One big FFN becomes many small experts; a router scores them, picks the top $k$ and mixes their outputs with the router weights (e.g. 0.7 and 0.3).",
+            "Total parameters set capacity and memory; active parameters set compute per token. Switch: 1 expert/token, 1.6T total. Mixtral 8×7B: 2 of 8, 47B total / 13B active (not 56B: attention is shared). DeepSeek-V3: 8 of 256 + 1 shared, 671B / 37B.",
+            "Expert collapse (not model collapse): experts that start slightly better are picked more, train more, get better; the rest go unused.",
+            "Load balancing: Switch adds an auxiliary loss; DeepSeek-V3 adds a per-expert bias to router scores (up if under-used, down if over-used), which changes selection only, not the mixing weights.",
+            "Experts specialise by token type (punctuation, numbers, code, syntax), not topic. Dense models are naturally sparse too (most neurons near-silent; pruning)."
+          ],
+          "images": [],
+          "source": "Scaling NLP HTML deck (Moodle, 2026) slides 9–14; lecture recording"
+        },
+        {
+          "id": "nlp-icl-induction",
+          "topic": 10,
+          "kind": "concept",
+          "title": "In-context learning, induction heads and emergence",
+          "summary": "A frozen model learns a task from the prompt; induction heads are the copy mechanism behind much of it.",
+          "points": [
+            "In-context learning: worked examples in the prompt (sea otter → loutre de mer, …, cheese →) make the pattern the only coherent continuation. No weights change.",
+            "Induction head: if $A$ was followed by $B$ earlier, after $A$ again predict $B$ (\"Harry\" → \"Potter\"). Works on made-up tokens: an algorithm, not word knowledge.",
+            "Needs two layers: a previous-token head marks each token with its predecessor; the induction head finds the earlier copy and copies what followed.",
+            "Emergence or metric? With per-token accuracy $p$, an exact $L$-token answer is right with probability $p^L$ ($0.9^{20} \\approx 0.12$), so smooth gains can look like a sudden jump."
+          ],
+          "images": [],
+          "source": "Scaling NLP HTML deck (Moodle, 2026) slides 16–18; lecture recording"
+        },
+        {
+          "id": "nlp-rag",
+          "topic": 10,
+          "kind": "algorithm",
+          "title": "Retrieval-augmented generation (RAG)",
+          "summary": "An open-book exam: retrieve passages and put them in the prompt, so knowledge is updatable and citable.",
+          "steps": [
+            "Offline: split the documents into passages, embed each passage and store the vectors in an index.",
+            "Online: embed the query.",
+            "Retrieve the $k$ nearest passages (BM25 on shared words, dense embeddings on meaning, or both with reranking).",
+            "Put the passages and the query in the prompt.",
+            "Generate the answer, citing the passages."
+          ],
+          "points": [
+            "Parametric memory: update by retraining, fixed capacity, not citable, instant. Documents: update by editing the index, grows with the corpus, citable, needs a search.",
+            "BM25 weights rare words (like TF-IDF) but misses synonyms; dense retrieval handles \"specialist\" ↔ \"expert\".",
+            "Failures: missing the passage, lost in the middle, irrelevant passages distract, evidence contradicts memorised facts. Check retrieval and generation separately. Agentic systems decide when and what to search."
+          ],
+          "images": [],
+          "source": "Scaling NLP HTML deck (Moodle, 2026) slides 20–23; lecture recording"
+        },
+        {
+          "id": "nlp-diffusion-lm",
+          "topic": 10,
+          "kind": "concept",
+          "title": "Diffusion language models",
+          "summary": "Start from masks and fill several tokens per round, instead of one token per forward pass.",
+          "points": [
+            "Autoregression: one token per pass (1,000 tokens = 1,000 sequential passes), can't revise, flexible length, KV cache.",
+            "Masked diffusion training: pick $t \\in [0,1]$, hide each token with probability $t$, predict all hidden tokens; loss = average surprise on them. All levels, so generation can start fully masked (LLaDA).",
+            "Pros: both-sided context, many tokens per pass (12 tokens at 3 per pass = 4 passes), can revise, fills middle gaps. Cons: length fixed in advance, no direct KV cache, too many tokens per pass lowers quality.",
+            "Block diffusion: blocks left to right, parallel denoising inside a block, finished blocks cached, any length; block size 1 = autoregression.",
+            "Transfusion: one transformer, next-token loss for text and diffusion loss for image patches."
+          ],
+          "images": [],
+          "source": "Scaling NLP HTML deck (Moodle, 2026) slides 25–31; lecture recording"
+        },
+        {
+          "id": "nlp-rlhf-rlvr",
+          "topic": 10,
+          "kind": "algorithm",
+          "title": "Post-training: RLHF, DPO and RLVR",
+          "summary": "Shape a base text imitator into an assistant with preference or verifiable rewards.",
+          "steps": [
+            "Supervised fine-tuning (SFT) on demonstrations.",
+            "Collect pairwise human preferences (easier than writing perfect answers) and train a reward model so $r(A) > r(B)$ when A is preferred.",
+            "RL (e.g. PPO) to maximise $\\text{reward} - \\beta\\, D_{KL}(\\pi \\,\\|\\, \\pi_{SFT})$."
+          ],
+          "points": [
+            "The KL term is a leash: small $\\beta$ lets the policy exploit reward-model errors (reward hacking: flattery, sycophancy, verbosity); large $\\beta$ barely changes the model.",
+            "DPO skips the reward model and RL loop, directly preferring chosen over rejected answers relative to a reference model; still a proxy. RLAIF uses AI feedback.",
+            "RLVR: rewards a program can check (maths answers, code tests). GRPO samples a group of answers and reinforces those above the group average (DeepSeek-R1). Grounded and harder to game, but only where correctness is checkable."
+          ],
+          "images": [],
+          "example": "Rewards $(1, 0, 0, 0)$: mean $0.25$, so the correct answer's advantage is $+0.75$ and each wrong one's $-0.25$.",
+          "source": "Scaling NLP HTML deck (Moodle, 2026) slides 33–37; lecture recording"
+        },
+        {
+          "id": "nlp-superposition-jspace",
+          "topic": 10,
+          "kind": "concept",
+          "title": "Superposition, sparse autoencoders and J-space",
+          "summary": "More features than neurons, packed as directions; lenses and SAEs try to read them.",
+          "points": [
+            "Concepts are directions (king − man + woman ≈ queen). Superposition: $h = \\sum_i a_i w_i$ with most $a_i = 0$, so features share neurons through almost-orthogonal directions.",
+            "Toy model: 5 features through a 2D layer. If they co-occur, only 2 survive; if they are sparse, all 5 fit as a pentagon (neighbours at 72°, $\\cos 72^\\circ \\approx 0.31$).",
+            "Sparse autoencoder: expand into many features, keep few active, reconstruct; loss = reconstruction + sparsity. Fairly monosemantic, steerable features (Golden Gate Bridge), but an imperfect reconstruction.",
+            "Logit lens: apply $W_U$ to a middle layer. J-lens: $W_U(J_l h_l)$ with an averaged Jacobian of the later layers.",
+            "J-space: a small set (≈ 25 or fewer) of word-like concepts in middle layers that can be reported and steered (Spanish → French). Compared to global workspace theory as an analogy; July 2026, not widely replicated; a safety interest (hidden goals), not proof of consciousness."
+          ],
+          "images": [],
+          "source": "Scaling NLP HTML deck (Moodle, 2026) slides 39–43; lecture recording"
         }
       ]
     },

@@ -77,7 +77,7 @@
       "answer": [
         0
       ],
-      "explanation": "A whitespace token in isiZulu often corresponds to a whole English clause, so the vocabulary explodes and most words are seen rarely. This returns in L4 (BPE) and L10 (tokenizers for African languages)."
+      "explanation": "A whitespace token in isiZulu often corresponds to a whole English clause, so the vocabulary explodes and most words are seen rarely. This returns in L4 (BPE) and L9 (tokenizers for African languages)."
     },
     {
       "id": "nlp-b1-004",
