@@ -47,8 +47,8 @@
       "answer": [
         0
       ],
-      "explanation": "Correct answer per the review: True. Beam search keeps several hypotheses at once instead of committing greedily to one token at each step.",
-      "keyDispute": "Questionable: beam search mainly targets the most probable (coherent) sentence and in practice tends to reduce diversity. This is the answer the review gives, but don't rely on it as a general principle."
+      "explanation": "Correct answer per the review: True. Beam search keeps the k most probable partial sentences (the beam) at each step instead of committing greedily to one token, so it usually finds a more probable whole sentence than greedy decoding. Devon's cons (L6 recording): it needs a lot of memory, the beam has to be large for a Transformer, and \"current language models don't use beam search\".",
+      "keyDispute": "Questionable. In the L6 recording Devon presented beam search as a way to get closer to the most probable sentence (\"keep several candidate sentences in mind at once\"), with memory as its downside; he never said it adds diversity. Searching for the most probable sentence favours coherence and, if anything, reduces diversity (sampling with temperature or top-p is what adds it). True is the review's answer, so pick it on the quiz, but don't reuse it as a principle."
     },
     {
       "id": "nlp-pq2-03",
@@ -72,7 +72,7 @@
         0,
         2
       ],
-      "explanation": "A zero initial state is fine because the source sentence already provides the variation. A random (noisy) initial state is optional and adds diversity, not coherence. Nothing forces zeros."
+      "explanation": "A zero initial state is fine because the source sentence already provides the variation. A random (noisy) initial state is optional and adds diversity, not coherence. Nothing forces zeros. Devon (L6 recording): \"you may then start with different initial vectors here. Sometimes it'll be zero\", and a different initial vector is \"a way to inject a little bit of diversity\"."
     },
     {
       "id": "nlp-pq2-04",
@@ -467,7 +467,7 @@
         2
       ],
       "explanation": "ELMo is char-CNN → highway layers → (bi)LSTM language model. It has no self-attention.",
-      "keyDispute": "Likely key error: the review's correct answer lists BOTH 'Self-attention' and 'Recurrent network layer' as not components. But ELMo's LSTM-LM layers ARE recurrent (the Lecture 8 slides show 'char-CNN+Highway' feeding 'LSTM-LM'). The defensible answer is Self-attention only."
+      "keyDispute": "Likely key error: the review's correct answer lists BOTH 'Self-attention' and 'Recurrent network layer' as not components. But ELMo's LSTM-LM layers ARE recurrent: the Lecture 8 slides show 'char-CNN+Highway' feeding 'LSTM-LM', and in the L8 recording Devon says \"we're going to then run a LSTM. So just abstract this away as a recurrent neural network… There's two layers to the recurrence.\" The defensible answer is Self-attention only."
     },
     {
       "id": "nlp-pq2-23",

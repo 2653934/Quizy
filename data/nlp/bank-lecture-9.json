@@ -1033,7 +1033,7 @@
       "answer": [
         0
       ],
-      "explanation": "Under-represented languages start from a worse position (more surprise per token) and have less real data to anchor them, so the double edge of resource use applies to model collapse too."
+      "explanation": "Under-represented languages start from a worse position (more surprise per token) and have less real data to anchor them, so the double edge of resource use applies to model collapse too. Devon said it outright in the L9 recording: \"lower resource languages collapse faster than English and French\" (Swedish and Danish fragment, while English and French shift left more slowly). Model collapse is a mechanism for injustice."
     },
     {
       "id": "nlp-b10-041",

@@ -26836,7 +26836,7 @@ window.QUIZY_DATA = {
         {
           "id": "nlp-q1-10",
           "number": 10,
-          "lecture": 3,
+          "lecture": 4,
           "concept": "Several kernel sizes, stacking and receptive field",
           "marks": 1,
           "type": "truefalse",
@@ -26848,7 +26848,7 @@ window.QUIZY_DATA = {
           "answer": [
             1
           ],
-          "explanation": "Answer inferred: the review marked \"True\" as wrong, so the answer is False. A larger kernel sees more input positions at once, so the receptive field grows with the kernel size (for stacked stride-1 layers it is 1 + Σ(k − 1))."
+          "explanation": "Answer inferred: the review marked \"True\" as wrong, so the answer is False. The receptive field is the region of the input a kernel can see, so a larger kernel sees more positions and the field grows with the kernel size. Stacking layers grows it further: the part of the original input a deeper layer sees is the effective receptive field (for stride-1 layers, 1 + Σ(k − 1)). Devon defines both terms in the L4 recording (his CNN recap) and expects you to know them."
         },
         {
           "id": "nlp-q1-11",
@@ -27141,7 +27141,8 @@ window.QUIZY_DATA = {
           "answer": [
             0
           ],
-          "explanation": "The slides' framing: a perfect model scores 1 and a uniform model scores |V|. (Strictly, a model that is confidently wrong can go above |V|, but answer as the slides do.)"
+          "explanation": "Devon's framing in the L5 recording: a perfect model gives probability 1 to every true token, so perplexity = $2^0$ = 1 (the best); a uniform model gives $|V|$, which he called the intuitive upper bound (\"how many possible words you could have picked\"). Lower is better.",
+          "keyDispute": "Marked correct in the review, and it is how the course frames it, so answer True. Strictly, $|V|$ is only the perplexity of a uniform model: a model that gives the true tokens less than $1/|V|$ on average scores above $|V|$, so there is no real upper bound. In a written answer say \"a uniform model scores $|V|$\"."
         },
         {
           "id": "nlp-q1-26",
@@ -27196,7 +27197,7 @@ window.QUIZY_DATA = {
           "answer": [
             0
           ],
-          "explanation": "Top-p keeps the smallest set of tokens whose probabilities add up to p, so the set is small for a peaked distribution and large for a flat one. Top-k always keeps k."
+          "explanation": "Top-p keeps the smallest set of tokens whose probabilities add up to p, so the set is small for a peaked distribution and large for a flat one, and the next token is sampled from inside it. Top-k always keeps k. (Devon said he picks uniformly inside the nucleus; the standard method samples in proportion to the renormalised probabilities.)"
         },
         {
           "id": "nlp-q1-29",
@@ -27314,7 +27315,8 @@ window.QUIZY_DATA = {
           "answer": [
             0
           ],
-          "explanation": "Rows of the word-context matrix are words, so the left singular vectors (truncated to d dimensions) are the word vectors; the right singular vectors are the context vectors."
+          "explanation": "Rows of the word-context matrix are words. The SVD is $X = U\\Sigma V^T$: the left singular vectors are the columns of $U$, and row $i$ of $U$ (truncated to the first $d$ columns, often scaled by $\\Sigma$) is the vector for word $i$. The right singular vectors ($V$) give the context vectors.",
+          "keyDispute": "Marked correct in the review, so pick (a). But in the 2026 L1 recording Devon warned \"please do not get this confused, the word representations are not the singular vectors\": the singular vectors run down the columns of $U$, and each row is a word vector. In a written answer say \"the rows of $U$, truncated to $d$ columns\"."
         },
         {
           "id": "nlp-q1-35",
@@ -27448,8 +27450,8 @@ window.QUIZY_DATA = {
           "answer": [
             0
           ],
-          "explanation": "Correct answer per the review: True. Beam search keeps several hypotheses at once instead of committing greedily to one token at each step.",
-          "keyDispute": "Questionable: beam search mainly targets the most probable (coherent) sentence and in practice tends to reduce diversity. This is the answer the review gives, but don't rely on it as a general principle."
+          "explanation": "Correct answer per the review: True. Beam search keeps the k most probable partial sentences (the beam) at each step instead of committing greedily to one token, so it usually finds a more probable whole sentence than greedy decoding. Devon's cons (L6 recording): it needs a lot of memory, the beam has to be large for a Transformer, and \"current language models don't use beam search\".",
+          "keyDispute": "Questionable. In the L6 recording Devon presented beam search as a way to get closer to the most probable sentence (\"keep several candidate sentences in mind at once\"), with memory as its downside; he never said it adds diversity. Searching for the most probable sentence favours coherence and, if anything, reduces diversity (sampling with temperature or top-p is what adds it). True is the review's answer, so pick it on the quiz, but don't reuse it as a principle."
         },
         {
           "id": "nlp-pq2-03",
@@ -27473,7 +27475,7 @@ window.QUIZY_DATA = {
             0,
             2
           ],
-          "explanation": "A zero initial state is fine because the source sentence already provides the variation. A random (noisy) initial state is optional and adds diversity, not coherence. Nothing forces zeros."
+          "explanation": "A zero initial state is fine because the source sentence already provides the variation. A random (noisy) initial state is optional and adds diversity, not coherence. Nothing forces zeros. Devon (L6 recording): \"you may then start with different initial vectors here. Sometimes it'll be zero\", and a different initial vector is \"a way to inject a little bit of diversity\"."
         },
         {
           "id": "nlp-pq2-04",
@@ -27868,7 +27870,7 @@ window.QUIZY_DATA = {
             2
           ],
           "explanation": "ELMo is char-CNN → highway layers → (bi)LSTM language model. It has no self-attention.",
-          "keyDispute": "Likely key error: the review's correct answer lists BOTH 'Self-attention' and 'Recurrent network layer' as not components. But ELMo's LSTM-LM layers ARE recurrent (the Lecture 8 slides show 'char-CNN+Highway' feeding 'LSTM-LM'). The defensible answer is Self-attention only."
+          "keyDispute": "Likely key error: the review's correct answer lists BOTH 'Self-attention' and 'Recurrent network layer' as not components. But ELMo's LSTM-LM layers ARE recurrent: the Lecture 8 slides show 'char-CNN+Highway' feeding 'LSTM-LM', and in the L8 recording Devon says \"we're going to then run a LSTM. So just abstract this away as a recurrent neural network… There's two layers to the recurrence.\" The defensible answer is Self-attention only."
         },
         {
           "id": "nlp-pq2-23",
@@ -28138,8 +28140,8 @@ window.QUIZY_DATA = {
           "answer": [
             0
           ],
-          "explanation": "An embedding lookup is a linear layer (without bias) applied to a one-hot vector: multiplying a one-hot vector by the weight matrix just selects one row. The lookup is simply the efficient way to do it.",
-          "keyDispute": "No official key. 'Functionally equivalent' assumes a one-hot input and no bias."
+          "explanation": "An embedding lookup is a linear layer (without bias) applied to a one-hot vector: multiplying a one-hot vector by the weight matrix just selects one row. The lookup is simply the efficient way to do it. Devon flagged this in the L2 recording (\"If you're in an exam, and I may ask this…\").",
+          "keyDispute": "No official key here, but 2025 Quiz 1 Q19 (the same statement, with the one-hot input spelled out) was marked True. 'Functionally equivalent' assumes a one-hot input and no bias."
         },
         {
           "id": "nlp-pq-4-2",
@@ -28486,7 +28488,7 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 4,
           "question": "Describe the difference between SkipGram and CBOW (the two versions of Word2Vec). (4 Marks)",
-          "modelAnswer": "Both learn word vectors by prediction within a context window, but in opposite directions:\n• Skip-gram takes the centre (focal) word and predicts each of the surrounding context words. Each centre word gives several training pairs, so it is slower but represents rare words better.\n• CBOW (continuous bag of words) takes the surrounding context words, combines them (averages/sums their vectors, ignoring order) and predicts the centre word. It is faster and smooths over the context, but does worse for rare words.",
+          "modelAnswer": "Both learn word vectors by prediction within a context window, but in opposite directions:\n• Skip-gram takes the centre (focal) word and predicts each of the surrounding context words. Each centre word gives several training pairs, so every context word gets its own learning signal: slower and harder to learn, but each word gets a good vector (rare words included). Devon prefers it: the harder task gives a better space.\n• CBOW (continuous bag of words) takes the surrounding context words, sums/averages their vectors (losing their order) and predicts the centre word. It is faster and smoother, but has an attribution problem: one well-trained context word can dominate the sum and carry the prediction, so the other context words stay poorly trained (and rare words suffer).",
           "rubric": [
             {
               "point": "Skip-gram: input is the centre word, it predicts the context words",
@@ -28497,11 +28499,11 @@ window.QUIZY_DATA = {
               "marks": 1
             },
             {
-              "point": "CBOW combines/averages the context vectors (bag of words: order ignored)",
+              "point": "CBOW sums/averages the context vectors (bag of words: order ignored)",
               "marks": 1
             },
             {
-              "point": "A trade-off: skip-gram is slower but better for rare words; CBOW is faster/smoother",
+              "point": "A trade-off: skip-gram is slower but gives every word its own signal (better for rare words); CBOW is faster but has the attribution problem (one context word can dominate the sum)",
               "marks": 1
             }
           ]
@@ -28514,14 +28516,14 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 3,
           "question": "Explain what Negative Sampling is and the approach that word2vec uses to choose negative samples. (3 Marks)",
-          "modelAnswer": "Computing a softmax over the whole vocabulary for every training pair is too expensive. Negative sampling replaces it with a few binary classifications: push up the score of the real (centre, context) pair and push down the scores of k randomly chosen 'negative' context words that did not occur with it. Only k + 1 output vectors are updated per step.\n\nword2vec draws the negatives from the unigram distribution raised to the power 3/4: $P(w) \\propto \\mathrm{count}(w)^{0.75}$. Frequent words are sampled more often, but the 3/4 power flattens the distribution so rare words get picked more than their raw frequency would give.",
+          "modelAnswer": "Computing a softmax over the whole vocabulary for every training pair is too expensive (its denominator sums over every word). Negative sampling turns that one $|V|$-way softmax classification into a few binary sigmoid (logistic) decisions, \"do these two words go together?\": push up $\\sigma(u_o^T v_c)$ for the real (centre, context) pair and push it down for k randomly chosen 'negative' words that did not occur with it. Only k + 1 output vectors are updated per step.\n\nword2vec draws the negatives from the unigram distribution raised to the power 3/4: $P(w) \\propto \\mathrm{count}(w)^{0.75}$. Frequent words are sampled more often, but the 3/4 power flattens the distribution so rare words get picked more than their raw frequency would give.",
           "rubric": [
             {
               "point": "Replaces the expensive full softmax over the vocabulary (speeds up training)",
               "marks": 1
             },
             {
-              "point": "Trains the model to tell the true context word from k randomly sampled 'negative' words (score up for the real pair, down for the negatives)",
+              "point": "Turns it into binary sigmoid (logistic) decisions: the true context word against k randomly sampled 'negative' words (score up for the real pair, down for the negatives)",
               "marks": 1
             },
             {
@@ -28660,7 +28662,8 @@ window.QUIZY_DATA = {
               "point": "So it needs no independence assumption: correlated/overlapping features are handled by the learned weights rather than double-counted",
               "marks": 1
             }
-          ]
+          ],
+          "explanation": "Devon said in the 2026 L3 recording that Naive Bayes and generative vs discriminative models were removed from this year's course (only a slide or two on NB remain), so this question is less likely in 2026. It is still a good test of why learned weights don't need the independence assumption."
         },
         {
           "id": "nlp-tut-3-4",
@@ -28860,17 +28863,18 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 2,
           "question": "What are the two primary weaknesses of RNNs which make them difficult or unstable to train. (2 Marks)",
-          "modelAnswer": "Backpropagation through time multiplies by the same recurrent weight matrix (and activation derivatives) at every step, so:\n1. Vanishing gradients: the gradient shrinks exponentially over long sequences, so early inputs get almost no credit and long-range dependencies aren't learned (a credit-assignment problem). LSTMs/GRUs use gating to help.\n2. Exploding gradients: the gradient grows exponentially, making updates huge and training unstable. Gradient clipping is the usual fix.",
+          "modelAnswer": "Devon's wording (L4 recording): \"If I asked you in a test, what are the two primary problems with the RNN? I would accept any one of these three answers. But the two I'm mainly looking for…\":\n1. The fixed-size vector: the whole sentence, however long, is squeezed into one fixed-size hidden state, so as the sentence grows it is hard to know what to hang on to.\n2. Credit assignment: it is very hard for the model to learn how to track its memory, because the error has to be traced back through many steps to the input that caused it.\n\nThe third accepted answer, and the closest fit to \"difficult or unstable to train\": backpropagation through time multiplies by the same recurrent weight matrix (and tanh derivatives) at every step, so gradients either vanish (shrink exponentially: early inputs get almost no credit and long-range dependencies aren't learned; LSTMs/GRUs gate to help) or explode (grow exponentially: huge, unstable updates; gradient clipping is the usual fix).\n\nSafe answer: vanishing/exploding gradients, linked to credit assignment, plus the fixed-size bottleneck.",
           "rubric": [
             {
-              "point": "Vanishing gradients (long-range dependencies not learned)",
+              "point": "First weakness: vanishing gradients / the credit-assignment problem (early inputs get almost no gradient, long-range dependencies aren't learned)",
               "marks": 1
             },
             {
-              "point": "Exploding gradients (unstable updates)",
+              "point": "Second weakness: exploding gradients (unstable updates), or the fixed-size vector bottleneck (Devon accepts any two of the three)",
               "marks": 1
             }
-          ]
+          ],
+          "explanation": "The question says \"difficult or unstable to train\", which points to vanishing and exploding gradients. In the L4 recording Devon said he mainly looks for the fixed-size vector and credit assignment, but accepts any of the three."
         },
         {
           "id": "nlp-tut-5-3",
@@ -29032,7 +29036,7 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 6,
           "question": "Briefly describe the structure of the output of the BERT model and the two types of tasks used to pre-train the model. (6 Marks)",
-          "modelAnswer": "Output structure: BERT is a Transformer encoder. For an input [CLS] tokens… [SEP] (tokens of sentence B [SEP]) it outputs one contextual vector per input token, from the final layer, all of the same hidden size. The vector at the [CLS] position is used as a summary of the whole input for sequence-level tasks (classification, sentence-pair tasks). The other token vectors are used for token-level tasks (tagging, span extraction such as QA).\n\nPre-training tasks:\n1. Masked language modelling (MLM): 15% of tokens are chosen; of those, 80% are replaced by [MASK], 10% by a random token and 10% left unchanged. The model predicts the original tokens from both left and right context.\n2. Next sentence prediction (NSP): the input is a pair of segments that are either consecutive in the text or random (50/50), and the [CLS] output predicts which.",
+          "modelAnswer": "Output structure: BERT is a Transformer encoder. For an input [CLS] tokens… [SEP] (tokens of sentence B [SEP]) it outputs one contextual vector per input token, from the final layer, all of the same hidden size. Each input token is the sum of a token, a segment (A/B) and a learned position embedding. The vector at the [CLS] position is used as a summary of the whole input for sequence-level tasks (classification, sentence-pair tasks): NSP is predicted from the [CLS] output, which forces it to encode both segments. The other token vectors are used for token-level tasks (tagging, span extraction such as QA).\n\nPre-training tasks:\n1. Masked language modelling (MLM): 15% of tokens are chosen; of those, 80% are replaced by [MASK], 10% by a random token and 10% left unchanged. The model predicts the original tokens from both left and right context.\n2. Next sentence prediction (NSP): the input is a pair of segments that are either consecutive in the text or random (50/50), and the [CLS] output predicts which.",
           "rubric": [
             {
               "point": "One contextual output vector per input token (from the final encoder layer)",
@@ -29117,22 +29121,22 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 4,
           "question": "Describe the benefits of LoRa over an adapter layer and how it achieves these benefits. (4 marks)",
-          "modelAnswer": "How LoRA works: the pretrained weights $W_0$ are frozen, and the update is learned as a low-rank product $\\Delta W = BA$ ($B \\in \\mathbb{R}^{d \\times r}$, $A \\in \\mathbb{R}^{r \\times k}$, with rank $r \\ll d, k$), so $W' = W_0 + BA$.\n\nBenefits over adapters:\n• No extra inference latency: adapters add new layers that run in sequence at inference time. LoRA's $BA$ can be merged into $W_0$ after training ($W' = W_0 + BA$), so the model has the same architecture and speed as before.\n• Very few trainable parameters and less memory: only A and B are trained (the slides quote up to 10,000× fewer trainable parameters and 3× less GPU memory for GPT-3), and swapping tasks means swapping small BA matrices.",
+          "modelAnswer": "How LoRA works: the pretrained weights $W_0$ are frozen, and the update is learned as a low-rank product $\\Delta W = BA$ ($B \\in \\mathbb{R}^{d \\times r}$, $A \\in \\mathbb{R}^{r \\times k}$, rank $r \\ll d, k$), added in parallel to the frozen layer: $h = W_0 x + BAx$. Unlike an adapter there is no non-linearity between $A$ and $B$, so the update is just a matrix.\n\nBenefits over adapters:\n• No extra inference latency: an adapter is an extra sequential bottleneck (down-projection, non-linearity, up-projection) at every layer, which adds time to every call. Because LoRA is linear and parallel, $BA$ can be merged into the weights after training ($W' = W_0 + BA$), so the model has the same architecture and speed as before.\n• Far fewer trainable parameters and less memory: a $d \\times k$ layer needs $r(d + k)$ trainable values instead of $dk$ (Devon's example: $d = 30$, $k = 10$, $r = 2$ gives 80 instead of 300). $W_0$ is frozen, so it needs no gradients or optimiser state (the slides quote up to 10,000× fewer trainable parameters and 3× less GPU memory for GPT-3), and swapping tasks means swapping small $BA$ matrices.",
           "rubric": [
             {
-              "point": "Freezes the pretrained weights $W_0$",
+              "point": "Freezes $W_0$ and learns a low-rank update $\\Delta W = BA$ (rank $r$ much smaller than the weight dimensions)",
               "marks": 1
             },
             {
-              "point": "Learns a low-rank update ΔW = BA (rank r much smaller than the weight dimensions)",
+              "point": "How: no non-linearity, the update runs in parallel with $W_0$, so $BA$ can be merged into $W_0$ after training",
               "marks": 1
             },
             {
-              "point": "Benefit: no added inference latency, because BA can be merged into W (adapters add sequential layers)",
+              "point": "Benefit: no added inference latency (an adapter adds a sequential bottleneck at every layer)",
               "marks": 1
             },
             {
-              "point": "Benefit: far fewer trainable parameters / less memory, small per-task checkpoints",
+              "point": "Benefit: far fewer trainable parameters ($r(d + k)$ instead of $dk$) and less memory (no gradients for the frozen $W_0$), small per-task checkpoints",
               "marks": 1
             }
           ]
@@ -29167,7 +29171,7 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 3,
           "question": "Describe the difference between reader responsible and writer responsible languages. (3 Marks)",
-          "modelAnswer": "It's about who is responsible for making communication understood, which comes down to how much context has to be given explicitly.\n• Writer-responsible languages (e.g. English): the speaker/writer must make the message understandable, so the necessary context is stated explicitly with the message and little situational awareness is needed.\n• Reader-responsible languages (e.g. Mandarin): the listener/reader must work out the meaning; context is often omitted for brevity and lots of situational awareness is needed.\n\nThe lecture's NLP link: writer-responsible text adds context that isn't always necessary (e.g. stating gender in 'He wants to be a nurse'), which can teach models false correlations and implicit bias.",
+          "modelAnswer": "It's about who is responsible for making communication understood, which comes down to how much context has to be given explicitly.\n• Writer-responsible languages (e.g. English): the speaker/writer must make the message understandable, so the necessary context is stated explicitly with the message and little situational awareness is needed.\n• Reader-responsible languages (e.g. Mandarin): the listener/reader must work out the meaning; context is often omitted for brevity and lots of situational awareness is needed.\n\nThe NLP link Devon draws (L9): NLP is built on the writer-responsible view. The distributional hypothesis, encoding all the context before decoding, and prompting (\"give me all the context\") all assume the meaning is in the text. Over-supplying context also teaches models false correlations and implicit bias (e.g. stating gender in 'He wants to be a nurse').",
           "rubric": [
             {
               "point": "Writer-responsible: the writer/speaker makes the meaning clear; context given explicitly (e.g. English)",
@@ -29178,7 +29182,7 @@ window.QUIZY_DATA = {
               "marks": 1
             },
             {
-              "point": "The difference is how much context must be explicit (optionally: the link to implicit bias/false correlations in models)",
+              "point": "The difference is how much context must be explicit; NLP assumes the writer-responsible view (optionally: implicit bias from over-supplied context)",
               "marks": 1
             }
           ]
@@ -29191,18 +29195,18 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 3,
           "question": "Explain what is meant by the term “code-switching” and one bias that LLMs can induce in languages which have code-switching. (3 Marks)",
-          "modelAnswer": "Code-switching is alternating between two or more languages (or varieties) within one conversation, or even within one sentence, e.g. mixing isiZulu and English. It's common in multilingual communities such as South Africa, where people have a home language and a professional language.\n\nOne bias (example): LLMs are trained mostly on high-resource, monolingual (largely English) web text and tokenise under-represented languages poorly. On code-switched input they tend to answer in or default to the dominant language, mistranslate or 'correct' the mixed text into standard English, or perform worse, treating code-switched speech as wrong. That pushes users towards the dominant language and reinforces a hegemonic view (erasing the minority language and its culture).",
+          "modelAnswer": "Code-switching is when vocabulary from one language enters another: switching between languages within one conversation or even one sentence (e.g. isiZulu words inside English), for a missing word, emphasis or humour. It is common in multilingual communities such as South Africa, where people have a home language and a professional language. It is situational and relies on reader-responsible shared context.\n\nOne bias (Devon's, L9): an LLM generates the most likely next words, and a switch into another language is an unlikely next token, so the model smooths code-switching away. It answers in, or \"corrects\" the text into, the dominant language (usually English), unless the borrowed words are treated as part of the first language. Training data that is mostly monolingual and high-resource, and poor tokenisation of under-represented languages, make this worse. The result pushes users towards the dominant language and reinforces a hegemonic view, eroding how those communities actually speak.",
           "rubric": [
             {
-              "point": "Defines code-switching: alternating between languages within a conversation/sentence",
+              "point": "Defines code-switching: vocabulary of one language entering another / alternating between languages within a conversation or sentence",
               "marks": 1
             },
             {
-              "point": "Names a bias: e.g. defaulting/normalising to the dominant (English) language, or worse performance on mixed or under-represented languages",
+              "point": "Names a bias: the LLM removes the switch or normalises it into the dominant (English) language, or performs worse on mixed text",
               "marks": 1
             },
             {
-              "point": "Explains why/impact: training data dominated by high-resource monolingual text and poor tokenisation, so minority language use and culture are eroded (hegemonic view)",
+              "point": "Explains why: a switch is a low-probability next token for a model trained on mostly monolingual data (plus poor tokenisation), so minority language use is erased (hegemonic view)",
               "marks": 1
             }
           ]
@@ -29215,7 +29219,7 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 3,
           "question": "Define the terms “Expressivity” and “Regularity”. Then explain how the combination of these two properties of language can lead to compositionality. (3 Marks)",
-          "modelAnswer": "Expressivity: a language's ability to express many distinct meanings, with different signals for different meanings. It comes from the pressure to communicate.\n\nRegularity (compressibility): the language follows systematic, consistent rules and patterns, which makes it easy to learn and pass on. It comes from the learning bottleneck in iterated learning, where each generation learns from limited data.\n\nTogether: a language that is only expressive could be a huge list of unrelated words (hard to learn); one that is only regular could be a single signal for everything (useless). Satisfying both pressures leads to compositionality: a small set of reusable parts (words and morphemes) combined by regular rules, whose meaning is built from the meanings of the parts. This gives near-unlimited expressiveness from a learnable system.",
+          "modelAnswer": "Expressivity: a language's ability to express many distinct meanings, with different signals for different meanings. It comes from the pressure to communicate.\n\nRegularity (compressibility): the language follows systematic, consistent rules and patterns, which makes it easy to learn and pass on. It comes from the learning bottleneck in iterated learning, where each generation learns from limited data.\n\nTogether: a language that is only expressive could be a huge list of unrelated words (hard to learn); one that is only regular could be a single signal for everything (useless). Satisfying both pressures leads to compositionality: a small set of reusable parts (words and morphemes) combined by regular rules, whose meaning is built from the meanings of the parts. This gives near-unlimited expressiveness from a learnable system.\n\nWhere it comes from (L9, Kirby et al.'s iterated-learning \"alien language\" experiment): each learner sees only some scene–word pairs and their labels train the next generation. With no pressure to communicate, the language becomes highly regular but loses expressivity (everything moving right ends up as one word). When expressivity is enforced, the words become compositional (one part for the shape, another for the motion).",
           "rubric": [
             {
               "point": "Expressivity: the ability to convey many distinct meanings (communicative pressure)",
@@ -29230,7 +29234,7 @@ window.QUIZY_DATA = {
               "marks": 1
             }
           ],
-          "explanation": "These terms aren't in the slide text; they come from the iterated-learning / origins-of-language discussion (Kirby) linked in Lecture 8. Check your own lecture notes for the lecturer's exact wording."
+          "explanation": "These terms come from the iterated-learning discussion (Kirby's alien-language experiment). The slides sit at the end of the Lecture 8 deck, but Devon taught them in the Lecture 9 (Responsible NLP) recording. Compositionality is what lets humans, and ideally models, generalise to meanings they have never seen."
         },
         {
           "id": "nlp-tut-7-4",
@@ -29272,14 +29276,14 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 2,
           "question": "Please explain what is meant by the term “Stochastic Parrots” in relation to neural network based language models. (2 Marks)",
-          "modelAnswer": "From Bender et al. (2021): a language model is 'a system for haphazardly stitching together sequences of linguistic forms it has observed in its vast training data, according to probabilistic information about how they combine, but without any reference to meaning'. It is fluent and coherent (it parrots form, stochastically), but it isn't grounded in meaning, intent or shared context with the listener, so its opinions and semantic content are just sampled. The paper also warns that bigger isn't more diverse: huge web datasets encode a hegemonic view.",
+          "modelAnswer": "From Bender et al. (2021): a language model is 'a system for haphazardly stitching together sequences of linguistic forms it has observed in its vast training data, according to probabilistic information about how they combine, but without any reference to meaning'. It is fluent and coherent (it parrots form, stochastically), but it isn't grounded in meaning, intent or shared context with the listener, so its opinions and semantic content are just sampled. Devon's points (L9): LLMs are trained for fluency and coherence (next-word prediction) as a surrogate, because we don't know how to measure \"correct language\"; real coherence needs shared context and intent between speaker and listener, which the model doesn't have. Consequences: a hegemonic viewpoint (the dominant views of the training data are reproduced) and value lock (a model trained before a cultural shift keeps pulling society back towards older views).",
           "rubric": [
             {
-              "point": "LMs generate text by recombining patterns from training data according to probabilities (stochastic, parroting form)",
+              "point": "LMs generate text by recombining patterns from training data according to probabilities (stochastic, parroting form): trained for fluency/coherence",
               "marks": 1
             },
             {
-              "point": "Without grounding in meaning/intent/understanding: fluent but not meaningful (with related risks, e.g. bias at scale)",
+              "point": "Without grounding in meaning, intent or shared context: fluent but not meaningful (consequences such as the hegemonic viewpoint or value lock)",
               "marks": 1
             }
           ]
@@ -29292,14 +29296,14 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 2,
           "question": "Please describe one way in which model collapse can be identified and why this phenomenon corresponds to model collapse. (2 Marks)",
-          "modelAnswer": "Model collapse happens when models are trained recursively on data generated by earlier models instead of real human data.\n\nOne way to identify it: train successive generations on the previous generation's outputs and track the output distribution against the original data. The diversity falls (variance shrinks, outputs become repetitive and more alike, rare tokens or events disappear), and the perplexity on real held-out human data rises.\n\nWhy that is collapse: each generation samples mostly from the high-probability region and loses the tails. Training on those samples narrows the learned distribution further, so over generations the model's distribution 'collapses' towards a few modes and forgets the true data distribution. Errors compound instead of averaging out.",
+          "modelAnswer": "Model collapse happens when models are trained recursively on data generated by earlier models instead of real human data: real data → model → synthetic data floods the internet → the next model trains on it.\n\nHow to identify it (Devon, L9, from the Nature paper's OPT-125M on WikiText-2 experiment): look at the distribution of perplexity of the generated text. Over generations it shifts to the left, to very low perplexity, and develops a long tail: generated text becomes unsurprising while real human text becomes extremely surprising to the model. Output diversity falls with it (repetitive text, \"jackrabbits\" by generation 10; rare content disappears). Low-resource languages collapse faster.\n\nWhy that is collapse: a model trained for coherence samples mostly from the high-probability region and loses the tails. Training on those samples narrows the distribution further each generation, so it collapses towards a few modes. Language needs some surprise (information content), so very low perplexity means the model has lost diversity, not that it has got better.",
           "rubric": [
             {
-              "point": "A way to identify it, e.g. falling output diversity/variance, disappearing tails/rare content, or rising perplexity on real data across generations trained on generated data",
+              "point": "A way to identify it: the perplexity distribution shifts to very low values (with a long tail) across generations, or output diversity falls and rare content disappears",
               "marks": 1
             },
             {
-              "point": "Why: recursive training on generated samples loses the tails, so the distribution narrows (collapses towards modes) and forgets the true data",
+              "point": "Why: recursive training on coherent generated samples loses the tails, so the distribution narrows towards a few modes; language needs some surprise, so very low perplexity = lost diversity",
               "marks": 1
             }
           ]
@@ -29312,7 +29316,7 @@ window.QUIZY_DATA = {
           "type": "written",
           "marks": 4,
           "question": "Define mechanistic interpretability and describe the high level goal of the subfield. (4 Marks)",
-          "modelAnswer": "Definition: mechanistic interpretability is the study of reverse-engineering a trained neural network's internal computations, its weights, neurons, attention heads and the circuits they form, into human-understandable mechanisms (algorithms). It is more than correlating inputs with outputs.\n\nHow: look inside the model, e.g. probe or visualise activations, study attention heads, and do causal interventions (ablating or patching activations) to test what a component does. A classic example is the induction head: a two-layer attention circuit that looks back for an earlier occurrence of the current token and copies what followed it, which explains in-context learning.\n\nGoal: explain how the model produces its behaviour, so we can predict, debug and control it: detect failures, biases or deception, and make models safer and more trustworthy (e.g. steering a feature, as with 'Golden Gate Claude').",
+          "modelAnswer": "Definition: mechanistic interpretability is the study of reverse-engineering a trained neural network's internal computations, its weights, neurons, attention heads and the circuits they form, into human-understandable mechanisms (algorithms). It asks how the model computes its output, not just which inputs correlate with which outputs.\n\nHow: look inside the model and test causally, e.g. probe or visualise activations, study attention heads, and ablate or patch components to see what they do. Examples from the course: induction heads (a two-head circuit that finds an earlier occurrence of the current token and copies what followed it, a mechanism behind in-context learning); superposition (a model stores more features than it has dimensions when the features are sparse) and sparse autoencoders that pull those features apart; the logit lens and the J-lens / J-space, which read a middle layer as vocabulary tokens to see the model's \"internal monologue\".\n\nGoal: explain how behaviour arises so we can predict, debug and control models (detect failures, biases or deception, steer features) and make them safer and more trustworthy. Devon (L10) said this lecture is examined at a high level, so define it and give one or two examples rather than derivations.",
           "rubric": [
             {
               "point": "Definition: reverse-engineering a network's internal components (neurons/heads/circuits) into understandable mechanisms",
@@ -29323,7 +29327,7 @@ window.QUIZY_DATA = {
               "marks": 1
             },
             {
-              "point": "An example such as induction heads (or the sentiment neuron, curve detectors)",
+              "point": "An example such as induction heads, superposition/SAE features, or the logit lens / J-lens",
               "marks": 1
             },
             {
@@ -41137,7 +41141,7 @@ window.QUIZY_DATA = {
           "answer": [
             0
           ],
-          "explanation": "Under-represented languages start from a worse position (more surprise per token) and have less real data to anchor them, so the double edge of resource use applies to model collapse too."
+          "explanation": "Under-represented languages start from a worse position (more surprise per token) and have less real data to anchor them, so the double edge of resource use applies to model collapse too. Devon said it outright in the L9 recording: \"lower resource languages collapse faster than English and French\" (Swedish and Danish fragment, while English and French shift left more slowly). Model collapse is a mechanism for injustice."
         },
         {
           "id": "nlp-b10-041",
