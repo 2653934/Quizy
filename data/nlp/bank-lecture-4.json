@@ -7,7 +7,7 @@
   "description": "New quiz-style practice questions on RNNs, word embeddings, data augmentation, analysing filters and subword tokenization, with RNN-step, gradient, and BPE merge-trace calculations. Written for exam revision from the Lecture 4 slides and the tutorial. Not from the lecturer: the answers are unofficial.",
   "unofficialAnswers": true,
   "negativeMarkingNote": "The real Moodle quiz uses negative marking on MCQ questions: picking all right and wrong answers on a question results in a mark of 0.",
-  "totalMarks": 34,
+  "totalMarks": 46,
   "questions": [
     {
       "id": "nlp-b4-001",
@@ -513,6 +513,189 @@
         0
       ],
       "explanation": "Slide 44: the marker distinguishes whole-word tokens from word-internal pieces."
+    },
+    {
+      "id": "nlp-b4-018",
+      "concept": "Receptive field",
+      "source": {
+        "file": "Lecture 4 recording (transcript)"
+      },
+      "type": "single",
+      "question": "What is the difference between a kernel's receptive field and its effective receptive field?",
+      "choices": [
+        "The receptive field is what the kernel sees in its own input layer; the effective receptive field is how much of the original input it sees through the layers below",
+        "They are the same thing",
+        "The effective receptive field is the kernel size minus the stride",
+        "The receptive field is measured on the input; the effective one on the output"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Devon: \"I do expect you know these words.\" Depth lets a small kernel see more of the sentence (a width-2 kernel after pooling might see about six words).",
+      "marks": 1,
+      "lecture": 4
+    },
+    {
+      "id": "nlp-b4-019",
+      "concept": "Receptive field",
+      "source": {
+        "file": "Lecture 4 recording (transcript)"
+      },
+      "type": "numeric",
+      "marks": 2,
+      "question": "Two width-3 convolutions (stride 1) are stacked over word embeddings. (a) What is the receptive field of one output of layer 2 on layer 1's outputs? (b) What is its effective receptive field on the input words?",
+      "parts": [
+        {
+          "label": "(a) receptive field (layer-1 positions)",
+          "answer": 3,
+          "tolerance": 0.5,
+          "marks": 1
+        },
+        {
+          "label": "(b) effective receptive field (words)",
+          "answer": 5,
+          "tolerance": 0.5,
+          "marks": 1
+        }
+      ],
+      "solution": "(a) It sees 3 layer-1 outputs. (b) Each of those sees 3 words, overlapping by 2: $3 + (3-1) = 5$ words.",
+      "explanation": "Each extra width-$k$ layer (stride 1) adds $k - 1$ words to the effective receptive field.",
+      "lecture": 4
+    },
+    {
+      "id": "nlp-b4-020",
+      "concept": "Problems with recurrence",
+      "source": {
+        "file": "Lecture 4 recording (transcript)"
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Devon: \"If I asked you in a test, what are the two primary problems with the RNN?\" Which two was he mainly looking for?",
+      "choices": [
+        "Everything has to be squeezed into a fixed-size vector, so long sentences are hard to represent",
+        "Credit assignment: it is hard to know which earlier word (through which recurrent step) caused an error",
+        "RNNs can't be stacked",
+        "RNNs can't process words in order"
+      ],
+      "answer": [
+        0,
+        1
+      ],
+      "explanation": "He said he would accept any of three (vanishing/exploding gradients is the third), but these two were the ones he wanted. The tutorial's \"unstable to train\" version wants vanishing and exploding gradients.",
+      "lecture": 4
+    },
+    {
+      "id": "nlp-b4-021",
+      "concept": "RNN cell",
+      "source": {
+        "file": "Lecture 4 recording (transcript)"
+      },
+      "type": "single",
+      "question": "In $h_t = \\tanh(W_h h_{t-1} + W_x x_t + b)$, why can't $W_h$ simply be the identity matrix?",
+      "choices": [
+        "Addition is commutative ($h + x = x + h$), so without processing the memory the cell would lose the order of the words",
+        "The identity matrix has no inverse",
+        "It would make the hidden state too small",
+        "Because tanh needs a square matrix"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "L4 recording: $W_h$ processes the previous memory so it can absorb the new word in an order-sensitive way.",
+      "marks": 1,
+      "lecture": 4
+    },
+    {
+      "id": "nlp-b4-022",
+      "concept": "RNN cell",
+      "source": {
+        "file": "Lecture 4 recording (transcript)"
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Why does the RNN cell use tanh rather than ReLU, and what does it cost?",
+      "choices": [
+        "tanh saturates, so \"really really really … like\" doesn't keep growing in magnitude across a long sequence",
+        "Saturation is an inductive bias that groups very positive (or negative) sentences together",
+        "The flat regions give very small (vanishing) gradients, which slows training",
+        "tanh only outputs positive values"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "L4 recording: ReLU fits CNN filters (fire or not), but a recurrent sum over a long sentence needs a bounded activation.",
+      "lecture": 4
+    },
+    {
+      "id": "nlp-b4-023",
+      "concept": "Where embeddings come from",
+      "source": {
+        "file": "Lecture 4 recording (transcript)"
+      },
+      "type": "single",
+      "question": "Why do embeddings trained from scratch on a classification task tend to be worse than Word2Vec embeddings?",
+      "choices": [
+        "Classification is an easier, lower-rank task: many embeddings give the right label, so the model never needs to separate words like \"happy\" and \"ecstatic\"",
+        "Classification datasets have no vocabulary",
+        "Back-propagation can't reach the embedding layer",
+        "Word2Vec embeddings are larger"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Devon: \"The harder the task, if it's trainable, the better the representations.\" Usual fix: start from pre-trained embeddings and fine-tune them.",
+      "marks": 1,
+      "lecture": 4
+    },
+    {
+      "id": "nlp-b4-024",
+      "concept": "Where embeddings come from",
+      "source": {
+        "file": "Lecture 4 recording (transcript)"
+      },
+      "type": "single",
+      "question": "Training first on all of arXiv, then on bioRxiv, then on cancer papers (general, hard task first, becoming more specific) is called:",
+      "choices": [
+        "An anti-curriculum, a form of transfer learning",
+        "A curriculum, because it ends with the easiest data",
+        "Data augmentation",
+        "Word dropout"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "L4 recording: a curriculum goes easy → hard; an anti-curriculum starts with the hard, general task. Transfer learning returns in L8.",
+      "marks": 1,
+      "lecture": 4
+    },
+    {
+      "id": "nlp-b4-025",
+      "concept": "BPE",
+      "source": {
+        "file": "Lecture 4 recording (transcript)"
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which statements about Byte Pair Encoding are true?",
+      "choices": [
+        "Training outputs an ordered merge table and a token vocabulary",
+        "At inference the merges are applied in merge-table order, so BPE is deterministic",
+        "The tokenizer can be trained on different data from the model",
+        "The tokenizer and the embedding layer are the same thing",
+        "Pairs are merged across word boundaries"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Devon: \"In a test I may ask you to do either one [training or inference]. I may ask you to do both.\" Don't confuse the tokenizer (symbols) with the embeddings (their vectors).",
+      "lecture": 4
     }
   ]
 }

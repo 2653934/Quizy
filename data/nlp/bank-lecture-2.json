@@ -7,7 +7,7 @@
   "description": "New quiz-style practice questions on Word2Vec, negative sampling, GloVe and evaluating embeddings, with softmax, negative-sampling, cosine-similarity and analogy calculations. Written for exam revision from the Lecture 2 slides and the tutorial. Not from the lecturer: the answers are unofficial.",
   "unofficialAnswers": true,
   "negativeMarkingNote": "The real Moodle quiz uses negative marking on MCQ questions: picking all right and wrong answers on a question results in a mark of 0.",
-  "totalMarks": 35,
+  "totalMarks": 49,
   "questions": [
     {
       "id": "nlp-b2-001",
@@ -573,6 +573,193 @@
       "solution": "$\\cos = \\frac{a \\cdot b}{\\|a\\|\\|b\\|}$. (a) $8/(3 \\times 3) = 0.8889$. (b) $-9/9 = -1$ (opposite direction). (c) Same direction: 1, whatever the length.",
       "inputHint": "A decimal (e.g. 0.25) or a fraction (e.g. 1/4).",
       "variantOf": "cos-calc"
+    },
+    {
+      "id": "nlp-b2-021",
+      "concept": "Embedding layer",
+      "source": {
+        "file": "Lecture 2 recording (transcript)"
+      },
+      "type": "single",
+      "question": "Let $W = [v_1\\ v_2\\ v_3\\ v_4]$ (columns are word vectors) and $x = (0, 0, 1, 0)^\\top$ be a one-hot input. What is $Wx$, and what does this say about an embedding layer?",
+      "choices": [
+        "$v_3$: multiplying by a one-hot vector just selects a column, so an embedding layer (look up index 3) is functionally the same as a linear layer on one-hot input",
+        "$v_1 + v_2 + v_3 + v_4$: an embedding layer sums all word vectors",
+        "The zero vector, because most of $x$ is zero",
+        "$v_3^\\top v_3$: an embedding layer computes a dot product"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Devon: \"If you're in an exam, and I may ask this… draw the matrix as a vector of vectors and do the dot product.\" Storing the index instead of a giant one-hot vector is what makes the embedding layer efficient (L2).",
+      "marks": 1,
+      "lecture": 2
+    },
+    {
+      "id": "nlp-b2-022",
+      "concept": "Likelihood vs probability",
+      "source": {
+        "file": "Lecture 2 recording (transcript)"
+      },
+      "type": "single",
+      "question": "In Word2Vec's objective, why do we talk about the likelihood $L(\\theta)$ rather than just a probability?",
+      "choices": [
+        "The likelihood is a function of the parameters $\\theta$ given the observed data, $L(\\theta) = P(\\text{data} \\mid \\theta)$; training searches for the $\\theta$ that makes the observed context words most probable",
+        "Likelihood and probability are two names for the same function of the data",
+        "The likelihood is the probability of the parameters given the data",
+        "Likelihoods are always larger than probabilities"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Devon's Gaussian example: slide the mean until the data is most probable. He said he wants you to understand this distinction; then the negative (to minimise) and the log (products become sums, more stable).",
+      "marks": 1,
+      "lecture": 2
+    },
+    {
+      "id": "nlp-b2-023",
+      "concept": "Word2Vec objective",
+      "source": {
+        "file": "Lecture 2 recording (transcript)"
+      },
+      "type": "truefalse",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "question": "True or False: Word2Vec's loss treats every context word in the window as independent of the others, which is why the probabilities of the context words are simply multiplied.",
+      "explanation": "True. Devon: \"make clear notes of this… it all corresponds to a massive independence assumption.\" Unnatural, but doing a simple thing fast on a huge corpus works.",
+      "marks": 1,
+      "lecture": 2
+    },
+    {
+      "id": "nlp-b2-024",
+      "concept": "Word2Vec objective",
+      "source": {
+        "file": "Lecture 2 recording (transcript)"
+      },
+      "type": "single",
+      "question": "In $P(o \\mid c) = \\dfrac{\\exp(u_o^\\top v_c)}{\\sum_{w} \\exp(u_w^\\top v_c)}$, why is the dot product passed through $\\exp$ before normalising?",
+      "choices": [
+        "Dot products (propensities) can be negative, which would make the ratio ill-defined; exp maps them to positive values and keeps their order (it is monotonic)",
+        "To make training slower and more stable",
+        "Because the dot product is always larger than 1",
+        "To turn the dot product into a distance"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Devon's propensity argument: probability = propensity ÷ sum of propensities only works for positive propensities. A \"definitely not a cat\" score of −2 would give a 'probability' above 1.",
+      "marks": 1,
+      "lecture": 2
+    },
+    {
+      "id": "nlp-b2-025",
+      "concept": "Negative sampling",
+      "source": {
+        "file": "Lecture 2 recording (transcript)"
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which statements about the move from the full softmax to negative sampling in Word2Vec are true?",
+      "choices": [
+        "The full softmax sums over the whole vocabulary at every update, which is too slow",
+        "Only $K$ random negative words (not the true context word) are pushed down per update",
+        "The multiclass softmax becomes several binary (sigmoid / logistic) decisions",
+        "It works because negative sampling makes the vectors orthogonal",
+        "Negative sampling uses the true context word as one of the negatives"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Devon: \"As long as you understand how Word2Vec goes from the softmax classification to the sigmoid, I am happy.\" With two classes, fixing one propensity at 0 turns softmax into a sigmoid, and exp being monotonic keeps the ordering.",
+      "lecture": 2
+    },
+    {
+      "id": "nlp-b2-026",
+      "concept": "Skip-gram vs CBOW",
+      "source": {
+        "file": "Lecture 2 recording (transcript)"
+      },
+      "type": "single",
+      "question": "What weakness of CBOW did Devon point out compared with skip-gram?",
+      "choices": [
+        "The context vectors are summed, so one well-trained context word can dominate the sum and carry the prediction while the others stay poor (an attribution / credit-assignment problem)",
+        "CBOW can't be trained with gradient descent",
+        "CBOW predicts the context words, so it is slower than skip-gram",
+        "CBOW needs labelled data"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Skip-gram forces a good representation for each context word separately (four separate data points), which Devon prefers; CBOW's sum also loses order.",
+      "marks": 1,
+      "lecture": 2
+    },
+    {
+      "id": "nlp-b2-027",
+      "concept": "Evaluating embeddings",
+      "source": {
+        "file": "Lecture 2 recording (transcript)"
+      },
+      "type": "truefalse",
+      "choices": [
+        "True",
+        "False"
+      ],
+      "answer": [
+        0
+      ],
+      "question": "True or False: Word2Vec spaces trained separately on English and Spanish can be mapped onto each other with a single linear map learned from a few word pairs, and translations of words not in those pairs then come out \"for free\".",
+      "explanation": "True (L2). This suggests semantic spaces across languages are roughly linear transformations of each other.",
+      "marks": 1,
+      "lecture": 2
+    },
+    {
+      "id": "nlp-b2-028",
+      "concept": "Word2Vec objective",
+      "source": {
+        "file": "Lecture 2 recording (transcript)"
+      },
+      "type": "written",
+      "section": "theory",
+      "marks": 6,
+      "question": "Explain how skip-gram Word2Vec learns word embeddings. Include the training objective (why a negative log-likelihood), the independence assumption, how $P(o \\mid c)$ is computed, and how and why negative sampling changes it. (6 Marks)",
+      "modelAnswer": "By the distributional hypothesis, a word's meaning comes from its context, so the parameters (each word's focal vector $v$ and context vector $u$) are trained so a focal word predicts its context words within a window of $m$.\n\nObjective: maximise the likelihood $L(\\theta) = \\prod_t \\prod_{j \\ne 0} P(w_{t+j} \\mid w_t; \\theta)$; take the negative log (minimise; products become sums; stable) and average. Multiplying assumes every context word is independent.\n\n$P(o \\mid c) = \\exp(u_o^\\top v_c) / \\sum_w \\exp(u_w^\\top v_c)$: the dot product measures similarity; exp makes the propensities positive; dividing by the sum normalises over the vocabulary.\n\nNegative sampling: the sum over the vocabulary is too slow, so each update raises $\\sigma(u_o^\\top v_c)$ for the true pair and lowers $\\sigma(u_{w_k}^\\top v_c)$ for $K$ random negatives: several binary logistic decisions instead of one huge softmax. Afterwards the context vectors are usually discarded.",
+      "rubric": [
+        {
+          "point": "Distributional hypothesis; focal and context vectors are the parameters",
+          "marks": 1
+        },
+        {
+          "point": "Likelihood over windows; why negative and log",
+          "marks": 1
+        },
+        {
+          "point": "Independence assumption stated",
+          "marks": 1
+        },
+        {
+          "point": "Softmax over dot products, with why exp",
+          "marks": 1
+        },
+        {
+          "point": "Negative sampling: K negatives, avoids summing over the vocabulary",
+          "marks": 1
+        },
+        {
+          "point": "Softmax becomes sigmoid / binary logistic decisions",
+          "marks": 1
+        }
+      ],
+      "explanation": "L2 recording: the parts Devon flagged.",
+      "lecture": 2
     }
   ]
 }

@@ -7,7 +7,7 @@
   "description": "New quiz-style practice questions on text classification and CNNs, with tf-idf, softmax and cross-entropy, CNN output-shape, parameter-count and receptive-field calculations. Written for exam revision from the Lecture 3 slides and the tutorial. Not from the lecturer: the answers are unofficial.",
   "unofficialAnswers": true,
   "negativeMarkingNote": "The real Moodle quiz uses negative marking on MCQ questions: picking all right and wrong answers on a question results in a mark of 0.",
-  "totalMarks": 38,
+  "totalMarks": 42,
   "questions": [
     {
       "id": "nlp-b3-001",
@@ -534,6 +534,72 @@
       ],
       "explanation": "Convolution: $(20 + 4 - 5)/1 + 1 = 20$ positions × 50 channels. Pooling 2 with stride 2 halves the positions: 10 × 50. Pooling never changes the number of channels.",
       "variantOf": "cnn-shape-calc"
+    },
+    {
+      "id": "nlp-b3-017",
+      "concept": "Bag of words and n-grams",
+      "source": {
+        "file": "Lecture 3 recording (transcript)"
+      },
+      "type": "multi",
+      "marks": 2,
+      "negativeMarking": true,
+      "question": "Which statements about bag-of-words and n-gram features are true?",
+      "choices": [
+        "Bag of words loses word order: \"I don't like the cat, wake it up\" and \"I like the cat, don't wake it up\" look almost the same",
+        "Adding bigrams such as \"don't like\" as their own features recovers some local word order",
+        "Using large n-grams makes the feature vector explode (curse of dimensionality) and they still carry no semantics",
+        "Bag of words is a neural feature extractor"
+      ],
+      "answer": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "These were Devon's three in-class questions on L3: why counting is bad, how bigrams fix it, and why not just use big n-grams. BoW + bigrams was the popular trade-off for SVMs.",
+      "lecture": 3
+    },
+    {
+      "id": "nlp-b3-018",
+      "concept": "Linear layer and softmax",
+      "source": {
+        "file": "Lecture 3 recording (transcript)"
+      },
+      "type": "single",
+      "question": "In a text classifier's final layer, class $k$ gets the score $w_k^\\top h + b_k$. If the sentence vector $h$ were all zeros, what would decide the prediction?",
+      "choices": [
+        "Only the biases $b_k$: the model's prior preference for each class (e.g. the most common class)",
+        "Nothing: every class gets probability zero",
+        "The largest weight vector $w_k$",
+        "The softmax temperature"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "Devon's Harry Potter example: with a meaningless $h$, the best guess is the class prior (book 5 has the most pages). Each $w_k$ is a direction \"searching\" the semantic space for its class.",
+      "marks": 1,
+      "lecture": 3
+    },
+    {
+      "id": "nlp-b3-019",
+      "concept": "Pooling",
+      "source": {
+        "file": "Lecture 3 recording (transcript)"
+      },
+      "type": "single",
+      "question": "Why is max pooling usually preferred to mean pooling in CNN text classifiers?",
+      "choices": [
+        "A following linear layer can already learn an average, but it can't learn a maximum; max adds a useful non-linearity (\"did this phrase appear anywhere?\")",
+        "Mean pooling isn't translation invariant",
+        "Max pooling uses fewer parameters",
+        "Mean pooling can't handle variable-length input"
+      ],
+      "answer": [
+        0
+      ],
+      "explanation": "L3 recording. Both pool over positions, so both handle variable length; max keeps the strongest filter response wherever it occurs.",
+      "marks": 1,
+      "lecture": 3
     }
   ]
 }

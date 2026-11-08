@@ -111,6 +111,8 @@ button.primary:disabled {
 /* Form rows (setup panel) */
 .form-row {
   display: grid;
+  /* minmax(0, …): a long option (e.g. a set title) must not widen the column past the screen */
+  grid-template-columns: minmax(0, 1fr);
   gap: 6px;
   margin: 16px 0;
   max-width: 480px;

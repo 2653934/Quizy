@@ -205,8 +205,8 @@
       "answer": [
         0
       ],
-      "explanation": "An embedding lookup is a linear layer (without bias) applied to a one-hot vector: multiplying a one-hot vector by the weight matrix just selects one row. The lookup is simply the efficient way to do it.",
-      "keyDispute": "No official key. 'Functionally equivalent' assumes a one-hot input and no bias."
+      "explanation": "An embedding lookup is a linear layer (without bias) applied to a one-hot vector: multiplying a one-hot vector by the weight matrix just selects one row. The lookup is simply the efficient way to do it. Devon flagged this in the L2 recording (\"If you're in an exam, and I may ask this…\").",
+      "keyDispute": "No official key here, but 2025 Quiz 1 Q19 (the same statement, with the one-hot input spelled out) was marked True. 'Functionally equivalent' assumes a one-hot input and no bias."
     },
     {
       "id": "nlp-pq-4-2",

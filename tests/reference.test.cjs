@@ -168,7 +168,7 @@ test('the real NLP model sheet: lectures 1–10, every image used once, sources,
   assert.equal(mcq.steps.length, 10);
   assert.match(mcq.source, /recalled from Test 2.*not the official wording/);
   assert.match(mcq.source, /lecture8_transfer_learning\.pdf p\. 56/);
-  for (const c of ref.cards) assert.match(c.source, /lecture\d+_|not from the slides|scope announcement|recalled/, c.id);
+  for (const c of ref.cards) assert.match(c.source, /lecture\d+_|HTML deck|not from the slides|scope announcement|recalled/, c.id);
 });
 
 // A scratch folder laid out like the repo with one subject, one set and a model sheet.

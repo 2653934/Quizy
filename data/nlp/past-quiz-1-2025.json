@@ -88,10 +88,10 @@
       "explanation": "L1: \"one-hot vectors do not capture meaning.\" Every pair of one-hot vectors is orthogonal, so cat is as far from kitten as from carburettor."
     },
     {
-      "id": "nlp-q1-10", "number": 10, "lecture": 3, "concept": "Several kernel sizes, stacking and receptive field", "marks": 1, "type": "truefalse",
+      "id": "nlp-q1-10", "number": 10, "lecture": 4, "concept": "Several kernel sizes, stacking and receptive field", "marks": 1, "type": "truefalse",
       "question": "True or False, the effective receptive field of a convolutional layer gets smaller as the size of the kernel gets larger.",
       "choices": ["True", "False"], "answer": [1],
-      "explanation": "Answer inferred: the review marked \"True\" as wrong, so the answer is False. A larger kernel sees more input positions at once, so the receptive field grows with the kernel size (for stacked stride-1 layers it is 1 + Σ(k − 1))."
+      "explanation": "Answer inferred: the review marked \"True\" as wrong, so the answer is False. The receptive field is the region of the input a kernel can see, so a larger kernel sees more positions and the field grows with the kernel size. Stacking layers grows it further: the part of the original input a deeper layer sees is the effective receptive field (for stride-1 layers, 1 + Σ(k − 1)). Devon defines both terms in the L4 recording (his CNN recap) and expects you to know them."
     },
     {
       "id": "nlp-q1-11", "number": 11, "lecture": 4, "concept": "Data augmentation for text", "marks": 1, "type": "single",
@@ -221,7 +221,8 @@
       "id": "nlp-q1-25", "number": 25, "lecture": 5, "concept": "Perplexity", "marks": 1, "type": "truefalse",
       "question": "True or False, perplexity is an attractive performance metric as its range of possible values are intuitive (ranging from 1 at best to the dictionary size at worst)",
       "choices": ["True", "False"], "answer": [0],
-      "explanation": "The slides' framing: a perfect model scores 1 and a uniform model scores |V|. (Strictly, a model that is confidently wrong can go above |V|, but answer as the slides do.)"
+      "explanation": "Devon's framing in the L5 recording: a perfect model gives probability 1 to every true token, so perplexity = $2^0$ = 1 (the best); a uniform model gives $|V|$, which he called the intuitive upper bound (\"how many possible words you could have picked\"). Lower is better.",
+      "keyDispute": "Marked correct in the review, and it is how the course frames it, so answer True. Strictly, $|V|$ is only the perplexity of a uniform model: a model that gives the true tokens less than $1/|V|$ on average scores above $|V|$, so there is no real upper bound. In a written answer say \"a uniform model scores $|V|$\"."
     },
     {
       "id": "nlp-q1-26", "number": 26, "lecture": 3, "concept": "Bag of embeddings and weighted BOE", "marks": 1, "type": "single",
@@ -251,7 +252,7 @@
       "id": "nlp-q1-28", "number": 28, "lecture": 5, "concept": "Top-p (nucleus) sampling", "marks": 1, "type": "truefalse",
       "question": "True or False: Nucleus sampling is a technique that adjusts the number of words a language model can choose from based on the number of viable candidate words there are at a given time.",
       "choices": ["True", "False"], "answer": [0],
-      "explanation": "Top-p keeps the smallest set of tokens whose probabilities add up to p, so the set is small for a peaked distribution and large for a flat one. Top-k always keeps k."
+      "explanation": "Top-p keeps the smallest set of tokens whose probabilities add up to p, so the set is small for a peaked distribution and large for a flat one, and the next token is sampled from inside it. Top-k always keeps k. (Devon said he picks uniformly inside the nucleus; the standard method samples in proportion to the renormalised probabilities.)"
     },
     {
       "id": "nlp-q1-29", "number": 29, "lecture": 2, "concept": "Static embeddings as features", "marks": 1, "type": "truefalse",
@@ -311,7 +312,8 @@
       "question": "Which portion of the SVD of a co-occurance matrix (also called a word-context matrix) represents the word vectors:",
       "choices": ["Left singular vectors.", "Singular values.", "Right singular vectors."],
       "answer": [0],
-      "explanation": "Rows of the word-context matrix are words, so the left singular vectors (truncated to d dimensions) are the word vectors; the right singular vectors are the context vectors."
+      "explanation": "Rows of the word-context matrix are words. The SVD is $X = U\\Sigma V^T$: the left singular vectors are the columns of $U$, and row $i$ of $U$ (truncated to the first $d$ columns, often scaled by $\\Sigma$) is the vector for word $i$. The right singular vectors ($V$) give the context vectors.",
+      "keyDispute": "Marked correct in the review, so pick (a). But in the 2026 L1 recording Devon warned \"please do not get this confused, the word representations are not the singular vectors\": the singular vectors run down the columns of $U$, and each row is a word vector. In a written answer say \"the rows of $U$, truncated to $d$ columns\"."
     },
     {
       "id": "nlp-q1-35", "number": 35, "lecture": 4, "concept": "BPE training", "marks": 2, "type": "multi", "negativeMarking": true,

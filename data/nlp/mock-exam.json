@@ -840,7 +840,7 @@
     },
     {
       "id": "nlp-mock-a49",
-      "lecture": 10,
+      "lecture": 9,
       "concept": "Stochastic parrots",
       "type": "single",
       "marks": 1,
@@ -858,7 +858,7 @@
     },
     {
       "id": "nlp-mock-a50",
-      "lecture": 10,
+      "lecture": 9,
       "concept": "Model collapse",
       "type": "multi",
       "marks": 1,
@@ -1054,7 +1054,7 @@
     },
     {
       "id": "nlp-mock-b5",
-      "lecture": 10,
+      "lecture": 9,
       "concept": "Data curation",
       "type": "written",
       "marks": 8,
