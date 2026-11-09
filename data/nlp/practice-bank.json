@@ -7,7 +7,7 @@
   "description": "One bank for Lectures 1–10: quiz questions, diagrams, calculations and written answers. Lecture chips and question style let you narrow the bank. These are new practice questions with unofficial answers, not lecturer-authored questions.",
   "unofficialAnswers": true,
   "negativeMarkingNote": "The real Moodle quiz uses negative marking on MCQ questions: picking all right and wrong answers on a question results in a mark of 0.",
-  "totalMarks": 1227,
+  "totalMarks": 1417,
   "questions": [
     {
       "id": "nlp-lab-cooccurrence",
@@ -4847,6 +4847,174 @@
       ]
     },
     {
+      "id": "nlp-long-a1",
+      "lecture": 5,
+      "concept": "Choosing a generation policy",
+      "source": {
+        "file": "NLP Written Practice - Three Predicted Sections.md"
+      },
+      "type": "written",
+      "section": "theory",
+      "marks": 10,
+      "question": "A neural LM produces logits z=(ln 4, ln 2, 0) for tokens (a,b,c). The correct next token in a held-out example is b.\n\n1. At temperature τ=1, calculate the entire next-token distribution and the cross-entropy loss for this example. [4]\n2. Recalculate the distribution at τ=0.5. Explain how the change would affect repeated sampling and the coherence–diversity trade-off. [3]\n3. Return to τ=1. Apply nucleus sampling with threshold p=0.8: identify the retained tokens, give the renormalized distribution, and explain why this policy is adaptive in a way fixed top-k is not. [3]\n\nProvided: Pτ(i)=exp(z_i/τ)/Σ_j exp(z_j/τ); one-hot CE=−ln P(correct). A nucleus is the smallest descending-probability prefix whose mass is at least p; include the threshold-crossing token. Natural logarithms throughout.",
+      "modelAnswer": "At temperature one, exponentiating gives (4,2,1), whose sum is seven. Therefore P=(.5714,.2857,.1429). Because the target is b, the loss is −ln(.2857)=ln(3.5)=1.2528 nats. The loss is calculated from the normalized correct-token probability, not the logit.\n\nAt temperature one-half, the logits double, so the exponentials are (16,4,1) and P=(.7619,.1905,.0476). The largest probability increases and the tail shrinks. Repeated sampling will favor a more often and produce less varied continuations. This usually favors high-probability, locally coherent text, but can also reinforce repetitive patterns; it does not guarantee factual correctness or global coherence.\n\nFor the original distribution, the cumulative mass after a is .5714, and after b it is .8571. The nucleus is thus {a,b}. Dividing each retained probability by 6/7 yields (2/3,1/3,0). This set can contain few tokens when probability is concentrated and many when it is diffuse. Top-k always retains k tokens, potentially excluding useful alternatives in a flat distribution or admitting poor tail tokens in a peaked one.",
+      "rubric": [
+        {
+          "point": "Exponentials (4,2,1) and denominator 7.",
+          "marks": 1
+        },
+        {
+          "point": "Full distribution (4/7,2/7,1/7).",
+          "marks": 1
+        },
+        {
+          "point": "Selects P(b)=2/7 and writes −ln(2/7).",
+          "marks": 1
+        },
+        {
+          "point": "Loss 1.2528 nats.",
+          "marks": 1
+        },
+        {
+          "point": "At τ=.5, distribution (16/21,4/21,1/21).",
+          "marks": 1
+        },
+        {
+          "point": "Sharpening increases preference for high-probability a, reducing sampled diversity/repeating high-probability patterns.",
+          "marks": 1
+        },
+        {
+          "point": "Connects this to the usual coherence preference while stating that correctness or freedom from repetition is not guaranteed.",
+          "marks": 1
+        },
+        {
+          "point": "a,b retained because .5714<.8 and .8571≥.8.",
+          "marks": 1
+        },
+        {
+          "point": "Renormalized (2/3,1/3,0).",
+          "marks": 1
+        },
+        {
+          "point": "Nucleus size responds to distribution shape; fixed k fixes cardinality.",
+          "marks": 1
+        }
+      ],
+      "explanation": "New, unofficial written-practice scenario based on the lecture slides, tutorials, exam scope and previous written-question style. This is not a predicted or confirmed exam question."
+    },
+    {
+      "id": "nlp-long-b1",
+      "lecture": 5,
+      "concept": "Sparse counts and language-model evaluation",
+      "source": {
+        "file": "NLP Written Practice - Three Predicted Sections.md"
+      },
+      "type": "written",
+      "section": "theory",
+      "marks": 10,
+      "question": "A trigram LM has C(at the)=8, C(at the clinic)=0, vocabulary size |V|=8 and smoothing constant δ=.5.\n\n1. State how much history the trigram uses. Give the unsmoothed and add-δ estimates of P(clinic | at the), showing the denominator. [4]\n2. In a separate three-token evaluation example, the probabilities assigned to the three true tokens are .5, .25 and .125. Calculate the sequence probability and perplexity, and interpret the latter. [3]\n3. Explain why increasing n can worsen sparsity; how backoff responds; and why a neural LM can generalize differently from exact n-gram counts. [3]\n\nProvided: Pδ(w|h)=[C(h,w)+δ]/[C(h)+δ|V|]; P(sequence)=∏_t p_t; PP=exp[−(1/M)Σ_t ln p_t]=P(sequence)^(−1/M). Count only the three specified prediction events in part 2; there is no additional EOS factor.",
+      "modelAnswer": "A trigram predicts the next token from the previous two tokens, here at the. The unsmoothed estimate is C(at the clinic)/C(at the)=0/8=0. Add-δ gives\n\n(0+.5)/(8+.5×8)=.5/12=1/24≈.0417.\n\nThe denominator adds .5 pseudo-counts for every one of the eight possible next-token types. Adding only to the observed numerator would not maintain a normalized distribution.\n\nFor the separate evaluation, P=.5×.25×.125=.015625=1/64. There are three prediction events, so PP=P^(−1/3)=4. This is the inverse geometric mean of the true-token probabilities; the model has the same geometric-mean confidence as a distribution assigning 1/4 to each true event. It is not a count of incorrect predictions. On the same evaluation and tokenization, lower perplexity indicates higher likelihood of the held-out sequence, not necessarily better factual answers.\n\nLarger n allows a longer history but each exact history recurs less often, producing unreliable or zero counts. Backoff responds by using a shorter context when support for the longer one is inadequate. A neural model instead learns continuous representations and shared parameters: similar contexts can lead to useful predictions even when a particular full n-gram was never observed. It still needs suitable data and can generalize incorrectly; it does not make the sparsity problem disappear by definition.",
+      "rubric": [
+        {
+          "point": "A trigram uses two previous tokens to predict the third.",
+          "marks": 1
+        },
+        {
+          "point": "Unsmoothed estimate 0/8=0.",
+          "marks": 1
+        },
+        {
+          "point": "Correct smoothed setup (0+.5)/(8+.5×8); both numerator and denominator change.",
+          "marks": 1
+        },
+        {
+          "point": "Pδ=.5/12=1/24≈.0417.",
+          "marks": 1
+        },
+        {
+          "point": "Sequence probability .5×.25×.125=1/64=.015625.",
+          "marks": 1
+        },
+        {
+          "point": "PP=(1/64)^(−1/3)=4.",
+          "marks": 1
+        },
+        {
+          "point": "Lower PP means higher geometric-mean probability on the true tokens; here equivalent to probability 1/4 per event, not four mistakes.",
+          "marks": 1
+        },
+        {
+          "point": "Longer exact histories have fewer repetitions, so counts become sparse/zero despite more context.",
+          "marks": 1
+        },
+        {
+          "point": "Backoff uses a shorter history when the longer one is unsupported/unreliable.",
+          "marks": 1
+        },
+        {
+          "point": "A neural LM shares learned representations/parameters across similar contexts rather than requiring the exact longer sequence to have been counted; this does not guarantee success.",
+          "marks": 1
+        }
+      ],
+      "explanation": "New, unofficial written-practice scenario based on the lecture slides, tutorials, exam scope and previous written-question style. This is not a predicted or confirmed exam question."
+    },
+    {
+      "id": "nlp-long-c1",
+      "lecture": 5,
+      "concept": "Turn a document classifier into a neural LM",
+      "source": {
+        "file": "NLP Written Practice - Three Predicted Sections.md"
+      },
+      "type": "written",
+      "section": "theory",
+      "marks": 10,
+      "question": "A student has implemented text → embeddings → feature extractor → h → linear → softmax for classifying a whole document into one of three classes. They claim that replacing the three-class output with a vocabulary-sized output is the entire change needed to train a language model.\n\n1. Draw and label a next-token LM pipeline for a prefix and explain the training examples and target alignment needed beyond replacing the head. [4]\n2. Compare a CNN with global pooling and an RNN as feature extractors for variable-length prefixes. Explain how each obtains a fixed-size representation, what positional information pooling sacrifices, and one recurrent limitation. [3]\n3. Explain weight tying between input embeddings and the output projection: what is shared, the parameter benefit and one restriction/trade-off. [3]\n\nProvided: the vocabulary has size |V|, token embeddings have dimension d and the context representation has dimension d. With row-vector convention, input embedding table E∈R^(|V|×d) maps token IDs to rows. An untied output matrix is W_out∈R^(d×|V|). Ignore biases. Do not derive a new training algorithm.",
+      "modelAnswer": "The head change is necessary but the supervision and information flow must also change:\n\nprefix y_<t → tokenizer/IDs → input embeddings → causal context extractor\n                                                       ↓\n                                                     h_t (d)\n                                                       ↓\n                                        linear d→|V| → softmax\n                                                       ↓\n                                               P(y_t | y_<t)\ntraining target: the true next token y_t; loss: −ln P(y_t | y_<t)\n\nFrom each training sentence, create prediction events aligned so that the representation of the available prefix predicts its next token. The original document-class label is no longer the target. In the standard supervised sequence-training setup, previous gold tokens supply the prefix, while the true token being predicted and later tokens must not leak into that prefix. Cross-entropy trains the vocabulary distribution against the next-token identity.\n\nA CNN computes features over prefix windows and global pooling aggregates each feature across positions. The result has one entry per feature regardless of prefix length. This discards the absolute locations of detected features, although the filters can distinguish order within their windows; it does not make every permutation of individual words equivalent. An RNN instead updates a fixed-size hidden state for each prefix token. Its state size also does not grow with the prefix, but relevant early details may be compressed or fade, and the loss may have a long credit-assignment path to them.\n\nWith input table E∈R^(|V|×d), tying sets the output projection to Eᵀ∈R^(d×|V|). The same vocabulary vectors used for lookup therefore score candidate next tokens against h. This removes one separate |V|×d parameter matrix. It requires the context and embedding dimensions to match in the stated form and limits the freedom to learn unrelated input and output representations. It is parameter sharing, not avoiding recomputation of a token that has already appeared.",
+      "rubric": [
+        {
+          "point": "Diagram shows prefix token IDs/embeddings → context extractor → d-dimensional h.",
+          "marks": 1
+        },
+        {
+          "point": "Diagram shows h→linear d→|V|→softmax as next-token probabilities.",
+          "marks": 1
+        },
+        {
+          "point": "Creates prefix/next-token targets at prediction positions, rather than keeping the document's class label.",
+          "marks": 1
+        },
+        {
+          "point": "CE uses the true next token; only permitted prefix information is available, with gold previous tokens during the described training setup.",
+          "marks": 1
+        },
+        {
+          "point": "CNN global pooling aggregates feature maps across all prefix positions into a fixed-size feature vector as prefix length varies.",
+          "marks": 1
+        },
+        {
+          "point": "Pooling sacrifices location of detected features; convolution can still encode order inside its windows, so this is not arbitrary word-permutation invariance.",
+          "marks": 1
+        },
+        {
+          "point": "RNN produces a fixed-size recurrent state from sequential updates, but long credit-assignment paths/recency/compression limit remembered detail.",
+          "marks": 1
+        },
+        {
+          "point": "Tie W_out=Eᵀ under the specified row convention, reusing vocabulary vectors for input lookup and output scoring.",
+          "marks": 1
+        },
+        {
+          "point": "Saves one |V|×d matrix of parameters relative to separate equally sized tables.",
+          "marks": 1
+        },
+        {
+          "point": "Requires compatible dimensions and constrains input/output roles to share parameters, reducing their independent flexibility.",
+          "marks": 1
+        }
+      ],
+      "explanation": "New, unofficial written-practice scenario based on the lecture slides, tutorials, exam scope and previous written-question style. This is not a predicted or confirmed exam question."
+    },
+    {
       "id": "nlp-new-015",
       "lecture": 6,
       "concept": "Seq2seq structure",
@@ -6680,6 +6848,174 @@
           "marks": 2
         }
       ]
+    },
+    {
+      "id": "nlp-long-a2",
+      "lecture": 6,
+      "concept": "Repairing a translation model's omissions",
+      "source": {
+        "file": "NLP Written Practice - Three Predicted Sections.md"
+      },
+      "type": "written",
+      "section": "theory",
+      "marks": 10,
+      "question": "A plain encoder–decoder RNN translates short sentences reasonably well. On longer sentences, it omits an early place name and repeats an object near the end. A developer proposes replacing only its encoder with a bidirectional RNN and still passing a single fixed-size summary to the decoder.\n\n1. Explain why this proposal may help but does not fully address the failure. Distinguish representation compression from decoder access to source details. [3]\n2. Specify an attention-based decoding step that would let the decoder retrieve a different source detail at each step. Define the stored states, score, attention weights and context vector. [4]\n3. Explain one benefit for credit assignment, one limitation that remains after adding attention, and one reason a learned attention alignment need not be word-for-word. [3]\n\nProvided: e_ti=score(s_(t−1),h_i), α_ti=exp(e_ti)/Σ_j exp(e_tj), c_t=Σ_i α_ti h_i. Here h_i is a source state and s_(t−1) the previous decoder state. Use this Bahdanau-style order consistently.",
+      "modelAnswer": "A bidirectional encoder reads the source forward and backward, so each source position can use context on both sides. It can preserve early information more effectively than a forward-only final state. However, concatenating two final states still creates a fixed-size summary. Longer sentences must still be compressed into that summary, and the decoder must retain and extract all relevant details from a static representation as it generates. It has no separate retrieval of the place name when that name becomes relevant.\n\nInstead, retain a state h_i for every source position; in a bidirectional encoder this can concatenate the two directional states at i. At target step t, compare s_(t−1) with every h_i using e_ti=score(s_(t−1),h_i). Softmax these scores across source positions to obtain α_ti, with Σ_i α_ti=1. Form c_t=Σ_i α_ti h_i. Use this context, the previous target embedding and the previous decoder state to compute the new state and next-token distribution. Because the decoder state changes, the attention distribution and context can change at every step.\n\nThe target loss can influence a selected source representation through the context-vector path instead of relying entirely on that information surviving a chain to the final encoder state. This eases credit assignment but does not eliminate recurrence or guarantee correct attention. The decoder may still attend repeatedly to the same object or fail to select the place name. Finally, alignment need not be one source word to one target word: translation can reorder constituents, map a phrase to a single word, or distribute one morphological meaning across several subwords.",
+      "rubric": [
+        {
+          "point": "Bidirectionality contextualizes source states using both directions and reduces one-sided recency bias.",
+          "marks": 1
+        },
+        {
+          "point": "A fixed-size final summary still compresses arbitrarily long source information.",
+          "marks": 1
+        },
+        {
+          "point": "A single static summary does not give a fresh, source-position-specific retrieval at each target step.",
+          "marks": 1
+        },
+        {
+          "point": "Retain the sequence of source states, e.g. concatenated forward/backward states at each position.",
+          "marks": 1
+        },
+        {
+          "point": "Score every source state using the previous decoder state, in the supplied timing convention.",
+          "marks": 1
+        },
+        {
+          "point": "Softmax scores over source positions to obtain nonnegative weights summing to one.",
+          "marks": 1
+        },
+        {
+          "point": "Weighted sum c_t, passed with previous target embedding/state to update/predict; it can change with t.",
+          "marks": 1
+        },
+        {
+          "point": "Attention gives a more direct path from a target loss to the source representation it used, easing long credit-assignment paths.",
+          "marks": 1
+        },
+        {
+          "point": "Identifies a real residual limitation with mechanism: decoder recurrence remains, mistaken alignments remain, or omissions/repetition are still possible.",
+          "marks": 1
+        },
+        {
+          "point": "Explains non-one-to-one alignment through reordering, multiword expressions or subword/morphological differences.",
+          "marks": 1
+        }
+      ],
+      "explanation": "New, unofficial written-practice scenario based on the lecture slides, tutorials, exam scope and previous written-question style. This is not a predicted or confirmed exam question."
+    },
+    {
+      "id": "nlp-long-b2",
+      "lecture": 6,
+      "concept": "Search is not the model",
+      "source": {
+        "file": "NLP Written Practice - Three Predicted Sections.md"
+      },
+      "type": "written",
+      "section": "theory",
+      "marks": 10,
+      "question": "A conditional LM must produce exactly two output tokens. Its complete probability tree is:\n\nFirst token:        A: .60                     B: .40\nSecond token:   x: .50 y: .30 z: .20        x: .90 y: .05 z: .05\n\nEach row of second-token probabilities is conditioned on its own first token and the same source input. All sequences terminate immediately after the second token. There are no length penalties, extra EOS probabilities or other tokens.\n\n1. Trace greedy decoding and beam search of width two. Show the expanded sequence probabilities, the final two beam entries, and which sequence each policy returns. Explain the discrepancy. [5]\n2. Give one cost and one limitation of increasing beam width. [2]\n3. For real English–isiXhosa translation, explain what BLEU measures and give two limitations that prevent a high BLEU score from establishing complete translation quality. [3]\n\nProvided: score a hypothesis by the product of its conditional probabilities, equivalently the sum of their log-probabilities. Beam search keeps the two highest-scoring complete or partial hypotheses at each stage here.",
+      "modelAnswer": "Greedy takes A because .60>.40. Within A it takes x because .50 is the largest next-token probability, yielding Ax with probability .30. Width-two beam initially retains both A and B. Expanding gives:\n\n| Hypothesis | Calculation | Probability |\n|---|---|---:|\n| Ax | .60×.50 | .30 |\n| Ay | .60×.30 | .18 |\n| Az | .60×.20 | .12 |\n| Bx | .40×.90 | .36 |\n| By | .40×.05 | .02 |\n| Bz | .40×.05 | .02 |\n\nThe final beam contains Bx and Ax, and returns Bx. B was initially less probable, but it permits a much stronger continuation. Therefore the sequence with the best product need not begin with the locally most probable token. Both methods use the same model; only search changed.\n\nA wider beam uses more computation and memory. In general it remains an approximate search when it prunes hypotheses, and maximizing the model's probability does not guarantee a faithful translation if the model itself is wrong. Maintaining more candidates also does not guarantee diverse final outputs.\n\nBLEU evaluates overlap between generated translations and reference translations through clipped n-gram precision, with a brevity penalty discouraging trivially short candidates. First, a correct isiXhosa rendering may use different but valid wording, inflection or ordering and receive low overlap. Second, a candidate can share many n-grams while mistranslating a crucial relation or fact; reference availability and tokenization affect the score. Thus BLEU is useful comparative evidence under a fixed protocol but cannot establish complete semantic adequacy or successful communication on its own.",
+      "rubric": [
+        {
+          "point": "Greedy chooses A then x.",
+          "marks": 1
+        },
+        {
+          "point": "Greedy's sequence probability is .6×.5=.30.",
+          "marks": 1
+        },
+        {
+          "point": "Width two retains A and B after the first step.",
+          "marks": 1
+        },
+        {
+          "point": "Expansion table: Ax .30, Ay .18, Az .12, Bx .36, By .02, Bz .02.",
+          "marks": 1
+        },
+        {
+          "point": "Final beam Bx .36, Ax .30; returns Bx, showing that the lower-probability first token has the stronger continuation and local argmax is not sequence argmax.",
+          "marks": 1
+        },
+        {
+          "point": "Larger width requires more hypothesis storage and decoding computation.",
+          "marks": 1
+        },
+        {
+          "point": "Finite-width pruning can discard an eventual best hypothesis; wider search does not guarantee quality/diversity or fix wrong model probabilities. One reasoned limitation suffices.",
+          "marks": 1
+        },
+        {
+          "point": "BLEU uses clipped reference n-gram precision with a brevity penalty.",
+          "marks": 1
+        },
+        {
+          "point": "Exact overlap penalizes valid synonyms/paraphrases or alternative morphology/word order.",
+          "marks": 1
+        },
+        {
+          "point": "Surface overlap can miss meaning errors/adequacy, with scores also depending on reference coverage and tokenization; gives a consequence for interpreting the metric.",
+          "marks": 1
+        }
+      ],
+      "explanation": "New, unofficial written-practice scenario based on the lecture slides, tutorials, exam scope and previous written-question style. This is not a predicted or confirmed exam question."
+    },
+    {
+      "id": "nlp-long-c2",
+      "lecture": 6,
+      "concept": "Compare two recurrent attention loops",
+      "source": {
+        "file": "NLP Written Practice - Three Predicted Sections.md"
+      },
+      "type": "written",
+      "section": "theory",
+      "marks": 10,
+      "question": "Two simplified loops are shown below. Source states are h_i, previous target embedding is e(y_(t−1)), and all weights and outputs are learned in the usual supervised model. Attention details inside Attend are score → source-position softmax → weighted sum.\n\nLoop U:\n    s_(t−1), {h_i} → Attend → c_t\n    s_(t−1), e(y_(t−1)), c_t → recurrent update → s_t → prediction\n\nLoop V:\n    s_(t−1), e(y_(t−1)) → recurrent update → s_t\n    s_t, {h_i} → Attend → c_t\n    [s_t ; c_t] → combine → prediction\n\n1. Identify U and V as the Bahdanau-style and Luong-style order taught in the course. Explain the timing of the decoder state/context, and state the encoder-direction difference in the taught examples. [4]\n2. Name these three score functions. Explain the dot/bilinear relationship as part of your answer. [3]\n   - f₁(s,h)=sᵀh\n   - f₂(s,h)=sᵀWh\n   - f₃(s,h)=vᵀ tanh(U[s;h])\n3. A student proposes “use a backward encoder and the most flexible scoring function, but keep only one final encoder summary.” Explain why that does not reproduce attention over all source positions, and identify one sequential dependency that the proper attention model still has. [3]\n\nProvided: the score equations above. Biases are omitted for simplicity. Use the course's illustrated models, not universal claims about every variant in the original literature.",
+      "modelAnswer": "Loop U is the taught Bahdanau-style order. Its query is the previous decoder state s_(t−1). It computes attention over the source before the next recurrent update, so the resulting c_t helps construct s_t together with the previous state and target embedding. Loop V is the taught Luong-style order: first construct the current decoder state s_t, then use it to attend, and combine that state with c_t for prediction. In the illustrated course examples, Bahdanau uses a bidirectional encoder with concatenated directional source states, while Luong is shown with a one-directional encoder. These describe the taught examples, not restrictions on all attention variants.\n\nThe first equation is dot-product scoring: it measures alignment directly. The second is bilinear scoring: a learned W transforms the comparison, and choosing W=I recovers the dot product for compatible dimensions. The third is an MLP/additive score: concatenate the decoder and source states, apply a learned transformation and tanh, then project to a scalar with v. These are unnormalized scores; the separate softmax converts them into a distribution over source positions.\n\nReading backward changes which source positions are most recent, but a single final representation is still a fixed-size compression. Nor can a flexible score function recover separate position-specific candidates after they have been discarded: attention needs the retained collection {h_i} so that a query can weight different source details. Even after that change, the recurrent decoder still computes its next state from a previous state and, during generation, previous outputs. Attention does not make this recurrent generation loop simultaneous.",
+      "rubric": [
+        {
+          "point": "U is Bahdanau-style: attention scores source states with s_(t−1).",
+          "marks": 1
+        },
+        {
+          "point": "U's retrieved context participates in computing the new decoder state.",
+          "marks": 1
+        },
+        {
+          "point": "V is Luong-style: computes s_t first, attends with it, then combines s_t,c_t for prediction.",
+          "marks": 1
+        },
+        {
+          "point": "The taught Bahdanau example uses a bidirectional encoder; the taught Luong example uses a one-directional encoder. Does not generalize this to every possible implementation.",
+          "marks": 1
+        },
+        {
+          "point": "f₁ is dot-product attention scoring.",
+          "marks": 1
+        },
+        {
+          "point": "f₂ is bilinear scoring with learned W; f₁ is its W=I case when dimensions match.",
+          "marks": 1
+        },
+        {
+          "point": "f₃ is MLP/additive scoring: learned nonlinear comparison of concatenated vectors followed by scalar projection.",
+          "marks": 1
+        },
+        {
+          "point": "Reversing direction still leaves fixed-summary compression when only the final vector is kept.",
+          "marks": 1
+        },
+        {
+          "point": "A flexible scorer cannot select distinct source positions if their separate states are not retained; retrieval needs a set of candidates.",
+          "marks": 1
+        },
+        {
+          "point": "Recurrent decoder state updates still depend on previous states/outputs, so target generation remains sequential.",
+          "marks": 1
+        }
+      ],
+      "explanation": "New, unofficial written-practice scenario based on the lecture slides, tutorials, exam scope and previous written-question style. This is not a predicted or confirmed exam question."
     },
     {
       "id": "nlp-new-025",
@@ -8636,6 +8972,174 @@
           "marks": 1
         }
       ]
+    },
+    {
+      "id": "nlp-long-a3",
+      "lecture": 7,
+      "concept": "Complete and explain a Transformer translation architecture",
+      "source": {
+        "file": "NLP Written Practice - Three Predicted Sections.md"
+      },
+      "type": "written",
+      "section": "theory",
+      "marks": 10,
+      "question": "Complete this encoder–decoder translation architecture:\nEncoder: source tokens → token and position embeddings → [A] → Add & Norm → FFN → Add & Norm → encoder output E.\nDecoder: shifted target tokens → token and position embeddings → [B] → Add & Norm → [C], which also receives E → Add & Norm → [D] → Add & Norm → linear vocabulary head → softmax.\n\n(a) Label A–D and give the role of each. (4)\n(b) For C, state where Q, K and V originate. Explain how B is masked and why parallel training still needs the mask. (3)\n(c) Explain why position information, multiple heads and the output projection W_O are needed. (3)",
+      "modelAnswer": "A is encoder self-attention: source tokens attend across the source and update their representations. B is masked decoder self-attention: each target position uses the available target prefix. C is cross-attention: a target representation retrieves relevant information from the encoded source. D is the position-wise feed-forward network, a small nonlinear network applied separately to each token representation after attention.\n\nAt C, queries are projections of the decoder states entering cross-attention, while keys and values are projections of the encoder output E. At B, entries corresponding to future target positions are blocked. With rows as queries and columns as keys, set future scores to negative infinity before softmax so those weights become zero. Training can compute positions in parallel, but each position must obey the same information restriction as generation. With shifted targets, allowing access to later inputs can reveal the token being predicted or later target tokens and create leakage.\n\nPositional embeddings are added because the attention mechanism itself does not encode sequence order; without position information, permuting source tokens merely permutes their corresponding outputs. Multiple heads use different learned projections, so one may track one relation while another tracks another; all can consider the permitted tokens. Their outputs are concatenated and passed through W_O, which mixes the subspaces and returns a d_model-dimensional vector for residual addition and the next block.",
+      "rubric": [
+        {
+          "point": "A=unmasked encoder self-attention, contextualizing source tokens from permitted source context.",
+          "marks": 1
+        },
+        {
+          "point": "B=causal/masked decoder self-attention, incorporating available target-prefix information.",
+          "marks": 1
+        },
+        {
+          "point": "C=encoder–decoder cross-attention, retrieving source information for target representations.",
+          "marks": 1
+        },
+        {
+          "point": "D=position-wise feed-forward network, processing each token's contextual representation.",
+          "marks": 1
+        },
+        {
+          "point": "C: Q from decoder representations; K and V from encoder output E.",
+          "marks": 1
+        },
+        {
+          "point": "B: mask future key positions, e.g. logits −∞ before row softmax, yielding zero weights there.",
+          "marks": 1
+        },
+        {
+          "point": "Parallel training must not reveal target information unavailable at inference; shifted-target alignment is acknowledged.",
+          "marks": 1
+        },
+        {
+          "point": "Without position signals, unmasked self-attention cannot distinguish order except by permuting its outputs; add positional representations.",
+          "marks": 1
+        },
+        {
+          "point": "Independent head projections permit attention to different relationships/subspaces; specialization is learned, not prescribed.",
+          "marks": 1
+        },
+        {
+          "point": "Concatenation combines head information; W_O mixes/projects it back to the model dimension compatible with residual addition/stacking.",
+          "marks": 1
+        }
+      ],
+      "explanation": "New, unofficial written-practice scenario based on the lecture slides, tutorials, exam scope and previous written-question style. This is not a predicted or confirmed exam question."
+    },
+    {
+      "id": "nlp-long-b3",
+      "lecture": 7,
+      "concept": "Calculate and mask an attention head",
+      "source": {
+        "file": "NLP Written Practice - Three Predicted Sections.md"
+      },
+      "type": "written",
+      "section": "theory",
+      "marks": 10,
+      "question": "Tokens are rows. Use Q=XW_Q, K=XW_K, V=XW_V, S=QKᵀ/√d_k, A=softmax by row of S, and Z=AV. The query and key projections determine scores; the attention weights then mix the value projections.\n\nGiven\n\nX = [[1,0], [0,1]]\nW_Q = W_K = [[1,0], [0,1]]\nW_V = [[2,0], [0,4]]\nd_k = 2\n\n1. Explain the distinct roles of Q, K and V in this pipeline. [2]\n2. Calculate Q, K, V, S, the attention matrix A, and Z. Explicitly identify which matrix answers the request “attention weights.” [5]\n3. Treat the two positions as causal decoder inputs. Show how S is masked and calculate the new attention matrix. Explain why the first row must change. [3]\n\nProvided: exp(1/√2)≈2.0281; exp(−∞)=0. Row i attends only to keys j with j≤i in the causal case.",
+      "modelAnswer": "Each query expresses the information needed by its receiving token. Dot products with the keys score how relevant the available token representations are. The values supply the information to be mixed, weighted by the resulting attention matrix. Thus Q and K decide where to look, while V determines what is taken.\n\nBecause X and both Q/K projection matrices are identity, Q=K=I. The value projection is V=[[2,0],[0,4]]. All three matrices are 2×2, with two token rows. Therefore\n\nS = [[1/√2, 0], [0, 1/√2]]\n  ≈ [[.7071,0], [0,.7071]].\n\nA = [[2.0281/3.0281, 1/3.0281],\n     [1/3.0281, 2.0281/3.0281]]\n  ≈ [[.6698,.3302], [.3302,.6698]].\n\nZ = AV\n  ≈ [[1.3395,1.3210], [.6605,2.6790]].\n\nA is the requested attention-weight matrix; Z is the attention output. Each row of A sums to one. The off-diagonal weights are positive even though the off-diagonal scores are zero, because exp(0)=1.\n\nFor causal decoding, the first query must not see the second key. Replace S_12 with negative infinity before softmax:\n\nS_mask = [[.7071,−∞], [0,.7071]]\nA_mask = [[1,0], [.3302,.6698]].\n\nThe second row remains allowed to use both positions, while the first row has one eligible key and therefore gives it all the probability mass. This enforces the prefix restriction required at inference and prevents future target information from leaking during training.",
+      "rubric": [
+        {
+          "point": "Queries represent what the receiving token seeks; compare them with keys describing what source tokens match.",
+          "marks": 1
+        },
+        {
+          "point": "Values carry the content combined using those match weights; they do not determine A in this formula.",
+          "marks": 1
+        },
+        {
+          "point": "Correct Q=K=I and V=[[2,0],[0,4]], all 2×2.",
+          "marks": 1
+        },
+        {
+          "point": "S=[[.7071,0],[0,.7071]].",
+          "marks": 1
+        },
+        {
+          "point": "Row-softmax setup with exponentiated diagonal 2.0281, off-diagonal 1, denominator 3.0281.",
+          "marks": 1
+        },
+        {
+          "point": "Correct A=[[.6698,.3302],[.3302,.6698]], explicitly identified as weights.",
+          "marks": 1
+        },
+        {
+          "point": "Z=[[1.3395,1.3210],[.6605,2.6790]] to rounding.",
+          "marks": 1
+        },
+        {
+          "point": "S_mask=[[.7071,−∞],[0,.7071]].",
+          "marks": 1
+        },
+        {
+          "point": "A_mask=[[1,0],[.3302,.6698]].",
+          "marks": 1
+        },
+        {
+          "point": "First query cannot access the future second token, so renormalization places all its mass on the first; prevents future leakage.",
+          "marks": 1
+        }
+      ],
+      "explanation": "New, unofficial written-practice scenario based on the lecture slides, tutorials, exam scope and previous written-question style. This is not a predicted or confirmed exam question."
+    },
+    {
+      "id": "nlp-long-c3",
+      "lecture": 7,
+      "concept": "Explain the machinery around attention",
+      "source": {
+        "file": "NLP Written Practice - Three Predicted Sections.md"
+      },
+      "type": "written",
+      "section": "theory",
+      "marks": 10,
+      "question": "Consider a simplified post-normalization encoder block. The input has shape n×d_model. Add [P] to token embeddings. Then apply multi-head attention, add the input as a residual bypass, apply [N], apply [F], add the second residual bypass and normalize again.\n\n1. Label P, N and F, and explain what the bypass/addition contributes beyond attention. State which axis N normalizes. [4]\n2. In one head, a single query has raw dot products (4,0) with two allowed keys, d_k=4, and scalar values (1,3). Calculate the scaled scores, attention weights and scalar attention output. Explain the purpose of scaling by √d_k. [4]\n3. A student says, “With four heads, each head reads a quarter of the sentence and all heads use the same projections.” Correct both claims. [2]\n\nProvided: A=softmax((qKᵀ)/√d_k), output=Σ_i A_i v_i; exp(2)≈7.3891. P is added at the model input. Use the shown post-norm diagram; other normalization arrangements are not being examined.",
+      "modelAnswer": "P supplies position information and is added to token embeddings before the block, so order can affect the representations. N is LayerNorm. For each token independently it normalizes its feature dimensions and then applies learned scale and shift. It does not average the token vectors across the sentence. F is the position-wise feed-forward network, typically a linear expansion, ReLU and another linear map, applied to each token representation.\n\nEach bypass adds the input of a sublayer to that sublayer's output before normalization in this diagram. This lets the sublayer learn an update while preserving an identity route; it need not recreate the entire input representation and gradients have a more direct path. The addition is of representation vectors, not a redistribution of attention weights.\n\nFor the single query, √d_k=2, so the scores become (2,0). Softmax gives (7.3891/8.3891,1/8.3891)=(.8808,.1192). The scalar output is 1×.8808+3×.1192=1.2384. It is a weighted combination of the values, not a token probability. Scaling is needed because dot-product magnitudes typically grow with the number of dimensions; excessively large scores make softmax nearly one-hot and reduce useful gradients. Dividing by the square root stabilizes that comparison.\n\nFour heads do not split the sentence into four token chunks. Each head can examine every permitted position, using its own learned Q/K/V projections into a representation subspace. Heads may learn different relationships; their outputs are combined afterward.",
+      "rubric": [
+        {
+          "point": "P=positional encoding/embedding, added to token embeddings to provide order information.",
+          "marks": 1
+        },
+        {
+          "point": "N=LayerNorm, normalizing across features within each token representation, with learned scale/shift.",
+          "marks": 1
+        },
+        {
+          "point": "F=position-wise feed-forward network, e.g. two linear maps with ReLU between them, independently applied at each position.",
+          "marks": 1
+        },
+        {
+          "point": "Bypass adds a sublayer's input to its output (x+F_sub(x)); learns an update and provides an identity/gradient path, rather than mixing attention probabilities.",
+          "marks": 1
+        },
+        {
+          "point": "Scaled scores (4,0)/√4=(2,0).",
+          "marks": 1
+        },
+        {
+          "point": "Weights (e²/(e²+1),1/(e²+1))≈(.8808,.1192).",
+          "marks": 1
+        },
+        {
+          "point": "Output .8808×1+.1192×3≈1.2384.",
+          "marks": 1
+        },
+        {
+          "point": "Dot-product variance grows with key dimension under the usual assumptions; scaling controls magnitude and avoids overly saturated softmax/weak gradients.",
+          "marks": 1
+        },
+        {
+          "point": "Every head can attend to all permitted tokens; it does not receive only a contiguous quarter of the sentence.",
+          "marks": 1
+        },
+        {
+          "point": "Heads use their own learned Q/K/V projections; their independent outputs are subsequently combined.",
+          "marks": 1
+        }
+      ],
+      "explanation": "New, unofficial written-practice scenario based on the lecture slides, tutorials, exam scope and previous written-question style. This is not a predicted or confirmed exam question."
     },
     {
       "id": "nlp-new-037",
@@ -10828,6 +11332,407 @@
       ]
     },
     {
+      "id": "nlp-long-a4",
+      "lecture": 8,
+      "concept": "Adapt BERT to extract answers from university notices",
+      "source": {
+        "file": "NLP Written Practice - Three Predicted Sections.md"
+      },
+      "type": "written",
+      "section": "theory",
+      "marks": 10,
+      "question": "You have a pretrained BERT model and labelled (question, notice, start-token, end-token) examples. Every answer is one contiguous span in its notice. Design a model that returns the answer span; do not turn this into free-text generation.\n\n1. Specify the input sequence, the relevant BERT outputs and the new prediction head or heads. [3]\n2. Explain supervised training and inference, including which labels and token positions the model should use. State your parameter-update choice. [4]\n3. Explain why BERT's pretraining is useful, naming its two taught objectives, and contrast its representation with Word2Vec. [3]\n\nProvided: BERT outputs one hidden vector h_i∈R^d per input token. You may use start logits uᵀh_i+b_s and end logits vᵀh_i+b_e, followed by softmax over eligible positions. Loss may be the sum of the two cross-entropies. Answers are guaranteed present; no unanswerable-case machinery is required.",
+      "modelAnswer": "Form [CLS] question [SEP] notice [SEP] using BERT's tokenizer and token, position and segment embeddings. BERT is an encoder, so its contextual representation of a notice token can incorporate the question and the surrounding notice. Use each eligible notice vector h_i to produce separate start and end logits through two learned linear heads. Softmax each set of logits over valid notice-token positions.\n\nTokenize the labelled examples and map each gold answer boundary to the corresponding input-token index; a surface word may span several subwords. Train with L=−ln P_s(s*)−ln P_e(e*). Mask question tokens, special tokens and padding out of both candidate distributions. I would initialize from pretrained BERT, initialize the two heads newly, and fine-tune both the backbone and the heads on the labelled examples. At inference, choose the highest-scoring valid pair with s≤e within the notice, then reconstruct the original text span. Independently taking two argmaxes can produce an invalid span, so enforce the constraint.\n\nBERT's masked language modelling predicts the original selected tokens using context on both sides, learning representations useful for interpreting notices. Its taught next-sentence prediction task distinguishes consecutive from random sentence pairs. These objectives provide useful initialization, but neither directly replaces answer-span supervision. Word2Vec would provide one static vector for a word type, while BERT can represent the same word differently depending on its notice and the question.",
+      "rubric": [
+        {
+          "point": "Input [CLS] question [SEP] notice [SEP], with position and sentence/segment information.",
+          "marks": 1
+        },
+        {
+          "point": "Uses contextual token vectors for the notice, not only [CLS].",
+          "marks": 1
+        },
+        {
+          "point": "Two learned scalar scoring heads per position, normalized as start/end distributions.",
+          "marks": 1
+        },
+        {
+          "point": "Aligns gold start/end labels to the tokenized notice positions, including subword indexing if relevant.",
+          "marks": 1
+        },
+        {
+          "point": "Uses start/end supervised cross-entropy, with question/special/padding positions excluded from candidate answers.",
+          "marks": 1
+        },
+        {
+          "point": "Explicitly chooses to fine-tune BERT plus new heads, or coherently specifies a frozen-backbone alternative.",
+          "marks": 1
+        },
+        {
+          "point": "Predicts a legal notice span s≤e, e.g. maximizing P_s(s)P_e(e), then maps it back to text.",
+          "marks": 1
+        },
+        {
+          "point": "MLM predicts original tokens selected for corruption using bidirectional context, teaching contextual features.",
+          "marks": 1
+        },
+        {
+          "point": "NSP predicts consecutive versus random sentence pairs, providing the second taught pretraining signal.",
+          "marks": 1
+        },
+        {
+          "point": "Word2Vec supplies a fixed vector per word type; BERT's token vector depends on the question/notice context.",
+          "marks": 1
+        }
+      ],
+      "explanation": "New, unofficial written-practice scenario based on the lecture slides, tutorials, exam scope and previous written-question style. This is not a predicted or confirmed exam question."
+    },
+    {
+      "id": "nlp-long-b4",
+      "lecture": 8,
+      "concept": "Adapt GPT-2 for entailment with a small update",
+      "source": {
+        "file": "NLP Written Practice - Three Predicted Sections.md"
+      },
+      "type": "written",
+      "section": "theory",
+      "marks": 10,
+      "question": "Design a three-way classifier that decides whether a hypothesis follows from, contradicts, or is neutral with respect to a premise. Start from pretrained GPT-2, which remains causally masked.\n\n1. Specify input formatting, the representation used, the output head, supervised training and prediction. Explain why your summary location can access both sentences. [5]\n2. One frozen matrix has shape W₀∈R^(100×40). A rank-two LoRA update is BA, with B∈R^(100×2) and A∈R^(2×40). Calculate the dense weight storage, LoRA update storage and combined storage, all in fp16 bytes. [3]\n3. Explain one training/storage advantage of LoRA over full fine-tuning and why it can avoid the extra inference layer of a conventional bottleneck adapter. [2]\n\nProvided: W'=W₀+BA; fp16 uses two bytes per stored scalar. Ignore biases, the classification head, gradients, activations, optimizer state and any scaling factor. Count the base and update separately before adding them.",
+      "modelAnswer": "Format each pair as [Start] premise [Delim] hypothesis [Extract]. Keep causal masking. Take the final-layer hidden vector of the Extract token. Since it occurs after both sentences, it can incorporate the premise and hypothesis through the causal Transformer. A token placed before them could not serve that role in an ordinary left-to-right GPT-2 pass.\n\nAttach a newly initialized linear head mapping its d-dimensional hidden vector to three logits, then softmax over entailment, contradiction and neutral. Train with cross-entropy against the labelled relation. I would train the new head and any added token embeddings, freeze the base GPT-2 weights, and train LoRA updates in the selected matrices. At inference, input only the two sentences in the same format and select the largest class probability; the correct label is never part of the input.\n\nThe dense matrix contains 100×40=4,000 fp16 values, requiring 2×4,000=8,000 bytes. Rank-two A/B contain 100×2+2×40=280 values, requiring 560 bytes. Storing both the frozen base and these updates uses 8,560 bytes under the specified accounting. The update is small, but it does not replace the need to hold the base.\n\nCompared with full fine-tuning, only the low-rank update needs trainable state and a small task-specific checkpoint for this layer. LoRA constrains the rank of the change, not necessarily the rank of W₀. Once the task update is fixed, compute W'=W₀+BA and use it as the ordinary linear map, avoiding an extra inference branch. A conventional bottleneck adapter inserts a new, generally nonlinear operation, so its additional computation cannot usually be absorbed into that matrix.",
+      "rubric": [
+        {
+          "point": "Formats [Start] premise [Delim] hypothesis [Extract] or an equivalent unambiguous pair with a final summary position.",
+          "marks": 1
+        },
+        {
+          "point": "Uses the final hidden state at Extract; causal attention there can incorporate both preceding sentences, unlike a first-position summary.",
+          "marks": 1
+        },
+        {
+          "point": "New shared linear head d→3, followed by softmax over the three relation labels.",
+          "marks": 1
+        },
+        {
+          "point": "Trains on labelled premise–hypothesis relations with cross-entropy; names newly trained head/special embeddings and pretrained-weight update strategy, e.g. LoRA.",
+          "marks": 1
+        },
+        {
+          "point": "At inference uses only premise/hypothesis, same format, returns argmax relation; no gold label supplied.",
+          "marks": 1
+        },
+        {
+          "point": "Dense: 100×40=4,000 entries, 8,000 bytes.",
+          "marks": 1
+        },
+        {
+          "point": "Update: 100×2+2×40=280 entries, 560 bytes.",
+          "marks": 1
+        },
+        {
+          "point": "Base plus update: 8,560 bytes. The base remains stored.",
+          "marks": 1
+        },
+        {
+          "point": "Freezes W₀ and trains/saves the much smaller A/B update, reducing trainable-state or per-task checkpoint storage; not total model storage to 560 bytes.",
+          "marks": 1
+        },
+        {
+          "point": "Can merge the fixed update into W₀+BA for inference, leaving the same linear map; a nonlinear inserted adapter generally cannot be merged this way.",
+          "marks": 1
+        }
+      ],
+      "explanation": "New, unofficial written-practice scenario based on the lecture slides, tutorials, exam scope and previous written-question style. This is not a predicted or confirmed exam question."
+    },
+    {
+      "id": "nlp-long-c4",
+      "lecture": 8,
+      "concept": "Adapt ELMo to a low-data text-classification task",
+      "source": {
+        "file": "NLP Written Practice - Three Predicted Sections.md"
+      },
+      "type": "written",
+      "section": "theory",
+      "marks": 10,
+      "question": "A project has a small labelled dataset of isiZulu service messages with three mutually exclusive intent classes. It has access to an ELMo model pretrained on relevant unlabelled language data. Design a classifier using the taught ELMo feature-transfer approach.\n\n1. Explain the path from characters to an intent distribution, including the contextual layers, their combination, a message-level representation and supervised training. State what you freeze and train. [5]\n2. Compare this with initializing the classifier using pretrained Word2Vec. Explain one representation difference, one fine-tuning choice and how you would compare the two for this task. [3]\n3. Distinguish sequential transfer from domain adaptation, using the kinds of task/data involved. Explain how both stages could occur in the same project. [2]\n\nProvided: the taught ELMo contains a character CNN with global pooling/highway processing, and forward/backward LSTM language-model layers. A task can learn a weighted combination of available layers. No detailed LSTM gate or highway equations are required. The existence of a suitable pretrained ELMo is stipulated, not a claim about model availability.",
+      "modelAnswer": "Split each word into characters and use the pretrained character CNN, global pooling and highway processing to construct a fixed-dimensional word representation. This character-based construction can represent an unseen word form without requiring that exact whole word in a fixed Word2Vec vocabulary. It does not guarantee that the representation captures every morphological meaning correctly.\n\nPass the sentence through the pretrained forward and backward LSTM language-model layers. These produce contextual features: the representation of a word depends on surrounding words, with each directional LM observing its own permitted context. For this low-data feature-transfer design I would freeze ELMo and learn the task's weighted mixture of its available layers. Mean-pool the resulting contextual token vectors into a fixed-size message representation, then apply a new linear d→3 layer and softmax. Train the layer-mixture weights and intent head with cross-entropy against the three intent labels; if a learned aggregator is used, train it too. At inference the message alone yields the largest-probability intent.\n\nWord2Vec transfer would initialize the word-embedding table but supply the same vector for a word type in different contexts. The downstream classifier would have to perform contextual processing itself. Those embeddings could remain frozen to preserve general relationships or be fine-tuned to adapt to service language; small labelled data makes overfitting and overly task-specific representations a concern. To choose between the models, compare held-out intent performance using the same examples and evaluation protocol. A word-similarity score is an intrinsic property and cannot alone show which system better identifies service intents.\n\nELMo language-model pretraining followed by intent classification is sequential transfer because the source and target tasks differ and are learned in sequence. If a classifier for the same intent labels then moves from general messages into university-service messages, that stage is domain adaptation: the task stays the same while the data distribution changes. A project can therefore include sequential transfer first and domain adaptation afterward.",
+      "rubric": [
+        {
+          "point": "Characters of each word → character CNN/global pooling/highway → fixed-size word representation, allowing construction of representations for previously unseen word forms.",
+          "marks": 1
+        },
+        {
+          "point": "Forward/backward LSTM layers contextualize words with directional sentence context.",
+          "marks": 1
+        },
+        {
+          "point": "Learns task-specific layer-mixing weights; explicitly states frozen pretrained ELMo in the chosen feature-transfer design.",
+          "marks": 1
+        },
+        {
+          "point": "Defines a message aggregator, e.g. mean pooling contextual token vectors, followed by a learned d→3 linear/softmax head.",
+          "marks": 1
+        },
+        {
+          "point": "Trains mixture/aggregation/head parameters as applicable using labelled intent CE; inference uses only the message.",
+          "marks": 1
+        },
+        {
+          "point": "Word2Vec supplies static word-type embeddings; ELMo supplies word-in-context features, not merely another tokenizer.",
+          "marks": 1
+        },
+        {
+          "point": "Word2Vec may be frozen or fine-tuned; explains general-feature preservation versus task adaptation/overfitting trade-off for small labelled data.",
+          "marks": 1
+        },
+        {
+          "point": "Compares held-out intent performance under matched data/protocol; intrinsic similarity alone is insufficient for the downstream task.",
+          "marks": 1
+        },
+        {
+          "point": "Sequential transfer: different source and target tasks learned in sequence, e.g. language modelling then intent classification, with target labels.",
+          "marks": 1
+        },
+        {
+          "point": "Domain adaptation: same task with changed domain/distribution, e.g. general-message intent classification to university-service intent classification with compatible labels; can follow the pretraining→classification transfer stage.",
+          "marks": 1
+        }
+      ],
+      "explanation": "New, unofficial written-practice scenario based on the lecture slides, tutorials, exam scope and previous written-question style. This is not a predicted or confirmed exam question."
+    },
+    {
+      "id": "nlp-long-gpt-classification",
+      "lecture": 8,
+      "concept": "Adapt a causal model for single-text classification",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          56
+        ]
+      },
+      "type": "written",
+      "section": "theory",
+      "marks": 10,
+      "question": "A pretrained GPT-2 decoder must classify a full customer message as complaint, request or praise. Design the classifier from input formatting to the predicted label. Explain where the readout token belongs and why, the new head and its dimensions, how labels train it, what can be frozen or fine-tuned, and two ways the design could fail. (10 Marks)",
+      "modelAnswer": "Use a consistent sequence such as [Start] message [Extract]. The decoder is causally masked, so a token before the message cannot summarize words that follow it. The final Extract position can attend to the whole message and has a d-dimensional hidden state. Add a newly initialized shared linear head d→3 to produce one logit per class, then softmax. Train on labelled messages with multiclass cross-entropy; either fine-tune the pretrained backbone and head or freeze the backbone and train a small task module/head. If Extract is a new token, train its embedding. At inference, input only the message, apply the same format and select the highest-scoring class. The gold class is never included in the input. Failure risks include too little labelled data, a readout placed before the text, long messages truncated before their decisive evidence, and label imbalance or spurious shortcuts. Evaluate on representative held-out messages.",
+      "rubric": [
+        {
+          "point": "Formats a complete message with a consistent final readout token",
+          "marks": 1
+        },
+        {
+          "point": "Explains causal masking and why an early token cannot summarize later text",
+          "marks": 1
+        },
+        {
+          "point": "Takes the final readout hidden state",
+          "marks": 1
+        },
+        {
+          "point": "Adds a new d-to-3 class head",
+          "marks": 1
+        },
+        {
+          "point": "Softmaxes the three logits",
+          "marks": 1
+        },
+        {
+          "point": "Uses labelled examples and multiclass cross-entropy",
+          "marks": 1
+        },
+        {
+          "point": "States which backbone/head/token parameters are trained or frozen",
+          "marks": 1
+        },
+        {
+          "point": "Selects the highest class score at inference without label leakage",
+          "marks": 1
+        },
+        {
+          "point": "Explains one concrete failure risk",
+          "marks": 1
+        },
+        {
+          "point": "Explains a second risk or suitable held-out evaluation",
+          "marks": 1
+        }
+      ],
+      "explanation": "Unofficial task-adaptation variant of the decoder classification format shown in Lecture 8; not a confirmed exam question."
+    },
+    {
+      "id": "nlp-long-gpt-similarity",
+      "lecture": 8,
+      "concept": "Adapt a causal model for symmetric sentence similarity",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          56
+        ]
+      },
+      "type": "written",
+      "section": "theory",
+      "marks": 10,
+      "question": "A pretrained GPT-2 decoder must assign a similarity score from 1 to 5 to two sentences. Design an adaptation that does not change its answer merely because sentence A and B were swapped. State the input sequences, readout states, how they are combined, the new prediction head and loss, training and inference procedure, and why a single left-to-right ordering can create a shortcut. (10 Marks)",
+      "modelAnswer": "Construct both [Start] A [Delim] B [Extract] and [Start] B [Delim] A [Extract]. Run the same causal backbone on both. Each final Extract state can see the complete ordered pair; an Extract at the start could not. Combine the two d-dimensional states with a symmetric operation such as their sum or average, so swapping A and B leaves the combined vector unchanged. A newly initialized linear head maps the combined vector to one similarity score; train against labelled 1–5 scores with a suitable regression loss such as mean squared error. If a class formulation is chosen instead, use five logits and cross-entropy consistently. Fine-tune the backbone plus head or state a frozen-backbone alternative; train any new token embeddings. At inference, score both orders and clip the regression output to the 1–5 range (or use the five-class formulation) and report the score. A single order gives different positional roles to A and B, letting the model use order rather than just similarity. Check swap consistency and score error on held-out pairs.",
+      "rubric": [
+        {
+          "point": "Formats A–B with a final readout token",
+          "marks": 1
+        },
+        {
+          "point": "Also formats B–A",
+          "marks": 1
+        },
+        {
+          "point": "Uses the same causal pretrained model for both",
+          "marks": 1
+        },
+        {
+          "point": "Explains why the final token sees the full pair",
+          "marks": 1
+        },
+        {
+          "point": "Combines states with a symmetric operation",
+          "marks": 1
+        },
+        {
+          "point": "Adds an appropriate scalar or five-class head",
+          "marks": 1
+        },
+        {
+          "point": "Specifies a compatible supervised loss",
+          "marks": 1
+        },
+        {
+          "point": "Specifies trainable parameters and inference",
+          "marks": 1
+        },
+        {
+          "point": "Explains order bias in a one-way input",
+          "marks": 1
+        },
+        {
+          "point": "Checks swap consistency or held-out similarity performance",
+          "marks": 1
+        }
+      ],
+      "explanation": "Unofficial task-adaptation variant of the two-order similarity format on the Lecture 8 GPT slide; not a confirmed exam question."
+    },
+    {
+      "id": "nlp-long-gpt-mcq-likelihood",
+      "lecture": 8,
+      "concept": "Multiple-choice adaptation by conditional likelihood",
+      "source": {
+        "file": "NLP Exam Prediction and Model Sheet.md"
+      },
+      "type": "written",
+      "section": "theory",
+      "marks": 10,
+      "question": "You must solve a five-option multiple-choice task with a pretrained GPT-2 decoder, but you are not allowed to add an Extract classification head. Give a complete alternative that scores the five answers from next-token probabilities. Explain the prompt, which token probabilities contribute to a choice score, how to compare unequal-length answers, training on labelled questions, inference, and two shortcut safeguards. (10 Marks)",
+      "modelAnswer": "For each option a_i, use the same prefix, such as Question: q Answer:, followed by that option. Run the same causal model for all five candidates. Sum the log probabilities of the answer tokens conditioned on the question and the earlier answer tokens; do not include probabilities of question tokens in the candidate score. Divide by the number of answer tokens (or otherwise calibrate length) so a longer option is not automatically penalized for having more factors. Optionally softmax the five normalized scores and fine-tune on labelled questions with cross-entropy over the correct option index; if no fine-tuning data are available, use the pretrained scores as a baseline and say so. At inference, choose the largest normalized score, never put a correct-answer marker in the prompt, and use the same formatting for every option. Shuffle option order during training. For batches, pad and mask variable-length sequences so padding contributes nothing to the score. Compare this likelihood method with a learned Extract-head method: it reuses next-token prediction directly but its score can be sensitive to answer wording and normalization.",
+      "rubric": [
+        {
+          "point": "Uses the same question prefix for all five options",
+          "marks": 1
+        },
+        {
+          "point": "Runs one causal model on each question–answer candidate",
+          "marks": 1
+        },
+        {
+          "point": "Scores only conditional probabilities of answer tokens",
+          "marks": 1
+        },
+        {
+          "point": "Combines token scores using log probabilities",
+          "marks": 1
+        },
+        {
+          "point": "Handles unequal answer lengths fairly",
+          "marks": 1
+        },
+        {
+          "point": "Defines optional softmax/cross-entropy training on labelled option indices",
+          "marks": 1
+        },
+        {
+          "point": "Selects the best candidate at inference",
+          "marks": 1
+        },
+        {
+          "point": "Avoids correct-answer leakage and option-position shortcuts",
+          "marks": 1
+        },
+        {
+          "point": "Masks padding in batched scoring",
+          "marks": 1
+        },
+        {
+          "point": "States a real limitation or distinction from the learned-head method",
+          "marks": 1
+        }
+      ],
+      "explanation": "Unofficial alternative from the course model sheet; the lecture slide itself shows the final-token task-format approach. Not a confirmed exam question."
+    },
+    {
+      "id": "nlp-long-bert-entailment",
+      "lecture": 8,
+      "concept": "Adapt an encoder for three-way entailment",
+      "source": {
+        "file": "lecture8_transfer_learning.pdf",
+        "pages": [
+          50
+        ]
+      },
+      "type": "written",
+      "section": "theory",
+      "marks": 10,
+      "question": "A pretrained BERT encoder must classify whether a hypothesis follows from, contradicts, or is neutral to a premise. Design the complete input, representation, output head, supervision, training and inference. Explain why [CLS] is suitable here, what [SEP] and segment/position embeddings contribute, and contrast this with adapting a causal decoder for the same task. (10 Marks)",
+      "modelAnswer": "Tokenize the pair as [CLS] premise [SEP] hypothesis [SEP]. Add token, position and A/B segment embeddings so the model can distinguish token identity, order and which sentence a token belongs to. Full encoder self-attention allows the final [CLS] state to incorporate information from both sentences. Attach a newly initialized d→3 linear head, softmax the three relation logits, and train on labelled pairs with multiclass cross-entropy; fine-tune the encoder and head, or clearly specify a frozen-backbone option. At inference, provide only the pair and select the largest relation score. BERT pretraining supplies contextual representations but its masked-language-model and next-sentence objectives do not themselves give the three relation labels. A causal decoder can also be adapted, but its readout must come after both sentences, e.g. [Start] premise [Delim] hypothesis [Extract], because an early token cannot attend to later text. Evaluate on held-out pairs and check for shortcut patterns such as lexical overlap being mistaken for entailment.",
+      "rubric": [
+        {
+          "point": "Formats [CLS] premise [SEP] hypothesis [SEP]",
+          "marks": 1
+        },
+        {
+          "point": "Explains token, segment and position embeddings",
+          "marks": 1
+        },
+        {
+          "point": "Uses full encoder attention to justify [CLS] as a pair representation",
+          "marks": 1
+        },
+        {
+          "point": "Adds a d-to-3 classification head",
+          "marks": 1
+        },
+        {
+          "point": "Uses softmax over entailment, contradiction and neutral",
+          "marks": 1
+        },
+        {
+          "point": "Trains on labelled pairs with cross-entropy",
+          "marks": 1
+        },
+        {
+          "point": "Specifies frozen or fine-tuned parameters",
+          "marks": 1
+        },
+        {
+          "point": "Defines inference without supplying the gold label",
+          "marks": 1
+        },
+        {
+          "point": "Places a causal decoder readout after both sentences in the comparison",
+          "marks": 1
+        },
+        {
+          "point": "Explains one limitation of pretraining or a shortcut-risk evaluation",
+          "marks": 1
+        }
+      ],
+      "explanation": "Unofficial adaptation variant based on the Lecture 8 sentence-pair classification slide; not a confirmed exam question."
+    },
+    {
       "id": "nlp-lab-model-collapse",
       "lecture": 9,
       "concept": "Recursive synthetic training and model collapse",
@@ -12633,6 +13538,174 @@
       "explanation": "Devon's open question for LLMs: when the interlocutor is a model that just writes onto the page, who provides this grounding?",
       "marks": 1,
       "lecture": 9
+    },
+    {
+      "id": "nlp-long-a5",
+      "lecture": 9,
+      "concept": "Audit an English–isiZulu service assistant",
+      "source": {
+        "file": "NLP Written Practice - Three Predicted Sections.md"
+      },
+      "type": "written",
+      "section": "theory",
+      "marks": 10,
+      "question": "In this hypothetical deployment, a university assistant performs well on formal English. It often rewrites English–isiZulu code-switched messages into English and misses their intended emphasis. A local audit also finds that meaning-matched isiZulu messages require more tokens than English under this assistant's tokenizer.\n\n1. Explain two different mechanisms behind these problems: code-switch suppression and tokenization disadvantage. Connect token counts to a practical consequence. [3]\n2. Propose a data-curation intervention, explain its intended benefit, and identify a risk introduced by the curator's choices. [3]\n3. Give an evaluation and participation plan that could establish whether the intervention improved this service for its users. Include a distinction between fluency and successful communication. [4]",
+      "modelAnswer": "A model trained mainly on monolingual English can learn that a switch is an unlikely continuation and replace it with an English phrase. That can remove emphasis, humour or identity carried by the switch even when the resulting sentence is fluent. Separately, a tokenizer with weak coverage of isiZulu forms may divide agglutinative words into many small fragments. BPE merges frequent symbol pairs; its pieces are not guaranteed to coincide with meaningful morphemes. The observed excess tokens can leave less room for message history in a fixed token window and can raise costs in a token-priced service.\n\nCurate service-relevant isiZulu and mixed-language examples with speakers, retaining switches and their conversational context instead of automatically translating everything to English. Correct consent, privacy and annotation issues while preserving intended meaning. This improves coverage of the actual user distribution and gives training examples in which the switch matters. However, a curator who treats mixed language as noisy or “incorrect” can delete exactly the scarce examples needed, so curation can impose a new bias.\n\nBuild a held-out evaluation containing meaning-matched English, isiZulu and code-switched requests. Report results for each group. Ask speakers whether the assistant understood the intent, preserved meaningful emphasis and enabled the user to complete the service task; grammatical English alone is not proof of success. Include speakers and service users in annotation and decisions about acceptable responses, with authority to challenge the categories. Compare the original and revised assistant using the same test and inspect both failures and token burden. Better overall accuracy could conceal continuing exclusion of the mixed-language group.",
+      "rubric": [
+        {
+          "point": "Dominant monolingual training patterns can assign low probability to switches and normalize them away, losing contextual emphasis/identity.",
+          "marks": 1
+        },
+        {
+          "point": "Poor coverage of agglutinative forms can fragment them into many subwords; BPE is frequency-based, not guaranteed morpheme analysis.",
+          "marks": 1
+        },
+        {
+          "point": "More tokens per matched message consume more of a fixed context budget or increase token-based cost/processing; do not assume every model is priced identically.",
+          "marks": 1
+        },
+        {
+          "point": "Specific curation action, e.g. select verified, consented/authored mixed-language service examples with preserved context.",
+          "marks": 1
+        },
+        {
+          "point": "Explains how this improves representation of meaningful switches or relevant linguistic forms instead of only enlarging the dataset.",
+          "marks": 1
+        },
+        {
+          "point": "Identifies curator bias/filtering out “nonstandard” language, loss of scarce data, or another specific curation trade-off.",
+          "marks": 1
+        },
+        {
+          "point": "Held-out, meaning-matched formal-English, isiZulu and code-switched examples, with subgroup results reported separately.",
+          "marks": 1
+        },
+        {
+          "point": "Measures task completion/intent and preservation of emphasis or switch meaning, not fluency alone.",
+          "marks": 1
+        },
+        {
+          "point": "Involves speakers/service users in collection, annotation, interpretation and/or governance, with real influence.",
+          "marks": 1
+        },
+        {
+          "point": "Compares before/after under the same protocol and checks token burden or failure cases; improvement in one aggregate score is insufficient.",
+          "marks": 1
+        }
+      ],
+      "explanation": "New, unofficial written-practice scenario based on the lecture slides, tutorials, exam scope and previous written-question style. This is not a predicted or confirmed exam question."
+    },
+    {
+      "id": "nlp-long-b5",
+      "lecture": 9,
+      "concept": "Fluent communication is not shared understanding",
+      "source": {
+        "file": "NLP Written Practice - Three Predicted Sections.md"
+      },
+      "type": "written",
+      "section": "theory",
+      "marks": 10,
+      "question": "A multilingual student-help service tells users: “If our assistant misunderstands you, provide a longer prompt in formal English.” The team claims that because replies are grammatical and coherent, the service communicates responsibly.\n\n1. Use the course's writer-responsible/reader-responsible distinction to analyze the advice. Avoid treating these categories as universal rules about entire populations. [3]\n2. Use the “stochastic parrots” critique to explain why the team's quality claim is insufficient. Give a concrete failure in this service. [3]\n3. Propose two specific improvements to its training data or development process, explain one curation trade-off, and state how users should influence the decision. [4]",
+      "modelAnswer": "In the course's writer-responsible framing, the sender must supply sufficient explicit information for the recipient to understand. In reader-responsible communication, the receiver also works to establish or infer a shared situational context. These are coarse tendencies rather than fixed properties of all speakers of a language. The service's instruction puts the burden on users to formulate detailed English prompts. It therefore advantages people with the relevant language, prompting skills and familiarity with the institution, rather than demonstrating that the assistant can accommodate different communication contexts.\n\nThe stochastic-parrots critique warns that a model can generate fluent forms by learning probabilistic regularities without that fluency establishing grounded understanding or communicative intent. A coherent answer is evidence about form, not sufficient evidence about truth or whether the student's need was met. For example, the assistant could normalize a meaningful English–isiZulu switch into a literal English expression, miss its emphasis, and confidently route the user to the wrong service. Its grammar would remain good while communication failed.\n\nFirst, curate verified multilingual and code-switched service dialogues with contextual explanations and correct outcomes, rather than only formal English examples. Second, run speaker-led evaluations and annotate actual misunderstanding patterns so development is driven by successful intent recognition across groups. Curation has its own risk: a filter for “clean language” can delete mixed forms, or one curator can impose a dominant cultural interpretation. Students and speakers affected by these decisions should help set the annotation categories, interpret disagreements and decide what counts as an acceptable response. Participation should give them influence over the service, not just extract their data.",
+      "rubric": [
+        {
+          "point": "Writer-responsible communication places responsibility for supplying sufficient explicit context on the sender.",
+          "marks": 1
+        },
+        {
+          "point": "Reader-responsible communication asks the receiver to establish/infer relevant shared context.",
+          "marks": 1
+        },
+        {
+          "point": "Advice favors explicit-prompt English skills and shifts burden to users; explains unequal access without stereotyping.",
+          "marks": 1
+        },
+        {
+          "point": "Stochastic-parrot critique: learned probabilistic patterns can produce fluent linguistic forms.",
+          "marks": 1
+        },
+        {
+          "point": "Such fluency does not itself establish grounded meaning, shared context, truth or successful intent satisfaction.",
+          "marks": 1
+        },
+        {
+          "point": "Concrete causal failure, e.g. fluent English answer misreads a culturally meaningful switch and gives the wrong service response.",
+          "marks": 1
+        },
+        {
+          "point": "A concrete data improvement, e.g. curate verified multilingual service examples with context and corrected labels.",
+          "marks": 1
+        },
+        {
+          "point": "A second concrete process improvement, e.g. speaker-led mixed-language evaluation and error annotation, rather than repeating “more data.”",
+          "marks": 1
+        },
+        {
+          "point": "Curation risk explained: subjective filters may erase nonstandard forms, impose the curator's viewpoint or discard scarce examples.",
+          "marks": 1
+        },
+        {
+          "point": "Affected speakers/users influence requirements, interpretation and approval of acceptable behavior, not merely supply raw text.",
+          "marks": 1
+        }
+      ],
+      "explanation": "New, unofficial written-practice scenario based on the lecture slides, tutorials, exam scope and previous written-question style. This is not a predicted or confirmed exam question."
+    },
+    {
+      "id": "nlp-long-c5",
+      "lecture": 9,
+      "concept": "Synthetic-data feedback, expressivity and scale",
+      "source": {
+        "file": "NLP Written Practice - Three Predicted Sections.md"
+      },
+      "type": "written",
+      "section": "theory",
+      "marks": 10,
+      "question": "A team repeatedly trains a new language model mainly on text sampled from its previous model. It removes much of the original human corpus. In this invented controlled example, a fixed independent scorer, fixed tokenizer, fixed evaluation procedure and fixed test sets give:\n\n| Generation | PP of generated text under fixed scorer | PP of fixed human test set under each generation's model | Coverage of a fixed set of rare human expressions |\n|---|---:|---:|---:|\n| 0 | 3.0 | 4.0 | 95% |\n| 1 | 2.0 | 6.0 | 60% |\n| 2 | 1.3 | 10.0 | 20% |\n\nThe fixed scorer assesses each generation's samples; a different column evaluates each trained generation on the same human test set. Assume sufficient samples and otherwise matched evaluation conditions. These numbers are teaching data, not experimental results from the course.\n\n1. Explain a mechanism by which this feedback loop can cause model collapse, with a particular risk for low-resource language forms. [3]\n2. Interpret the joint evidence in the table. Explain why “lower perplexity means the model is better” is insufficient here, and why one low perplexity value alone would not identify collapse. [3]\n3. Define expressivity and regularity, explain their connection to compositionality, and assess the proposal “use a larger model to solve the problem.” Keep the scaling discussion high-level. [4]",
+      "modelAnswer": "The first model approximates human language, and its samples are only a finite, selective realization of that approximation. If the next model is trained mainly on those samples while original human data is removed, it learns the previous model's distribution and errors. Rare expressions can disappear from the samples and therefore from later training. Repeating the cycle can narrow coverage and amplify distortions. Low-resource forms are particularly vulnerable because they begin with fewer examples; losing a small absolute number can remove much of their support. This is a mechanism for unequal representation, not proof that every synthetic-data use inevitably collapses.\n\nIn the table, generated text becomes easier for the fixed scorer to predict, but the trained models assign progressively worse likelihood to the unchanged human test set. Rare-expression coverage also falls sharply. Taken together, those trends support the hypothesis that the model family is becoming narrower or drifting from the human distribution. The low perplexity of its samples is not a measure of factual correctness, cultural coverage or variety. It concerns a different evaluation from each model's perplexity on the fixed human set. A single low sample-perplexity value could simply describe predictable good text; identifying collapse requires the experimental context and changes in real-data coverage across generations.\n\nExpressivity is the capacity to distinguish and communicate different meanings. Regularity is systematic, learnable structure. A system that maps every meaning to the same easy symbol is highly simple but has lost expressivity. Preserving distinctions while favoring reusable regularities can produce compositionality: known meaningful pieces combine by rules to express new meanings rather than requiring an unrelated whole label for every case.\n\nA larger model may have greater capacity, but scaling does not supply omitted rare human forms or guarantee that their meanings survive this loop. I would retain and curate genuine human data, track held-out and rare-form performance over generations, and let affected speakers assess which distinctions are being lost. More capacity is useful only when the data and objective support the desired coverage; it is not a substitute for that evidence.",
+      "rubric": [
+        {
+          "point": "Later generations learn the previous model's sampled/approximated distribution rather than recovering the original human distribution directly.",
+          "marks": 1
+        },
+        {
+          "point": "Rare/tail forms can be omitted or distorted and the error amplified as generated data displaces human data.",
+          "marks": 1
+        },
+        {
+          "point": "Underrepresented language forms have fewer surviving examples, so this mechanism can worsen their exclusion; presented as a risk, not an inevitable measured outcome for every language.",
+          "marks": 1
+        },
+        {
+          "point": "Generated samples become more predictable to the fixed scorer while human-test PP worsens and rare-expression coverage falls.",
+          "marks": 1
+        },
+        {
+          "point": "Joint pattern supports distribution narrowing/drift away from human coverage; low sample PP measures predictability, not truth/diversity/quality.",
+          "marks": 1
+        },
+        {
+          "point": "A single low value cannot diagnose collapse without a baseline, data/scorer definition and evidence across generations; separates the two scoring procedures.",
+          "marks": 1
+        },
+        {
+          "point": "Expressivity=ability to express/distinguish different meanings.",
+          "marks": 1
+        },
+        {
+          "point": "Regularity=systematic, reusable/learnable structure, not merely repeating one answer.",
+          "marks": 1
+        },
+        {
+          "point": "Combining learnable regularities with preserved meaning distinctions favors compositional reuse of meaningful parts/rules to express new combinations.",
+          "marks": 1
+        },
+        {
+          "point": "More parameters/compute do not restore missing human evidence by themselves; preserve/curate genuine data, evaluate human/rare-form coverage and involve affected speakers. One justified targeted response is sufficient.",
+          "marks": 1
+        }
+      ],
+      "explanation": "New, unofficial written-practice scenario based on the lecture slides, tutorials, exam scope and previous written-question style. This is not a predicted or confirmed exam question."
     },
     {
       "id": "nlp-lab-moe-routing",
