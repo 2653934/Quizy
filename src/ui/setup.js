@@ -13,6 +13,7 @@
     ['short', 'Short answer'], ['numeric', 'Calculation'], ['written', 'Written / theory'], ['label', 'Label the diagram']
   ];
   const ALL = 'all';
+  const WRITTEN_FOCUS = 'written-focus';
   let lectures = []; // the chosen lecture chips, as strings; empty means every lecture
 
   const subjectName = () => state.subject.key.toUpperCase();
@@ -78,8 +79,12 @@
   ui.selection = function () {
     const style = $('style').value;
     const reviewOnly = $('mode').value === 'review';
+    const unansweredOnly = $('mode').value === 'unanswered';
     return ui.currentSets().flatMap(s => s.questions)
-      .filter(q => inLectures(q) && (style === ALL || q.type === style) && (!reviewOnly || state.attempts[q.id]?.correct === false));
+      .filter(q => inLectures(q) && (style === ALL || (style === WRITTEN_FOCUS
+        ? ['written', 'numeric'].includes(q.type) : q.type === style))
+        && (!reviewOnly || state.attempts[q.id]?.correct === false)
+        && (!unansweredOnly || !state.attempts[q.id]));
   };
 
   ui.updateNote = function () {
@@ -96,7 +101,13 @@
 
   // "Question style": the styles present in the chosen set(s) and lectures. Keeps the choice if it is still there.
   function buildStyles() {
-    ui.fillStyles($('style'), ui.currentSets().flatMap(s => s.questions).filter(inLectures));
+    const before = $('style').value;
+    const questions = ui.currentSets().flatMap(s => s.questions).filter(inLectures);
+    ui.fillStyles($('style'), questions);
+    if (state.subject.key === 'nlp' && questions.some(q => ['written', 'numeric'].includes(q.type))) {
+      $('style').add(new Option('Written + calculation', WRITTEN_FOCUS));
+      if (before === WRITTEN_FOCUS) $('style').value = WRITTEN_FOCUS;
+    }
   }
   ui.fillStyles = function (select, questions, before = select.value) {
     const present = new Set(questions.map(q => q.type));
@@ -147,14 +158,44 @@
     ui.updateNote();
   };
 
+  // One action selects every written and calculation question in the exam's five written-focus lectures,
+  // including the lecturer's tutorial questions and the new practice bank. Question IDs stay unchanged.
+  ui.chooseWrittenFocus = function () {
+    if (state.subject.key !== 'nlp') return;
+    $('set').value = ALL;
+    lectures = ['5', '6', '7', '8', '9'];
+    storage.saveLectures(state.subject.key, lectures);
+    $('mode').value = 'unanswered';
+    ui.chooseSet();
+    $('style').value = WRITTEN_FOCUS;
+    ui.updateNote();
+    $('setup-message').textContent = 'Ready: unanswered written answers and calculations from Lectures 5–9, across every set. Choose All questions to include previous attempts.';
+  };
+
+  // Group the smaller NLP set list by purpose. Other subjects keep their existing set order.
+  ui.setChoices = function (allLabel) {
+    const all = state.sets.length > 1 ? [new Option(allLabel, ALL)] : [];
+    if (state.subject.key !== 'nlp') return [...all, ...state.sets.map(s => new Option(s.title, s.id))];
+    const group = (label, ids) => {
+      const optgroup = document.createElement('optgroup');
+      optgroup.label = label;
+      ids.map(id => state.sets.find(s => s.id === id)).filter(Boolean)
+        .forEach(s => optgroup.append(new Option(s.title, s.id)));
+      return optgroup;
+    };
+    return [...all,
+      group('Practice', ['nlp-practice-bank', 'nlp-test-style-2026', 'nlp-mock-exam']),
+      group('Lecturer questions', ['nlp-past-quiz-1-2025', 'nlp-past-quiz-2-2025', 'nlp-practice-quiz', 'nlp-tutorial'])];
+  };
+
   // Fills the set list for the current subject, or shows "No quizzes yet".
   ui.showSets = function () {
     const {sets} = state;
     $('setup-form').hidden = !sets.length;
     $('empty').hidden = sets.length > 0;
-    $('set').replaceChildren(...sets.map(s => new Option(s.title, s.id)));
-    if (sets.length > 1) $('set').prepend(new Option(`Everything in ${subjectName()}`, ALL));
+    $('set').replaceChildren(...ui.setChoices(`Everything in ${subjectName()}`));
     if (sets.length) $('set').value = sets[0].id;
+    $('written-focus').hidden = state.subject.key !== 'nlp';
     const known = new Set(lecturesIn(Quizy.allQuestions()));
     lectures = storage.loadLectures(state.subject.key).filter(n => known.has(n));
     $('paper-code').value = '';
@@ -193,7 +234,9 @@
   ui.start = function () {
     const selected = ui.selection();
     if (!selected.length) {
-      $('setup-message').textContent = $('mode').value === 'review' ? 'No missed questions here yet. Try “All questions” first.' : 'No questions in this selection yet.';
+      $('setup-message').textContent = $('mode').value === 'review' ? 'No missed questions here yet. Try “All questions” first.'
+        : $('mode').value === 'unanswered' ? 'You have attempted every question in this selection. Choose “Only ones I got wrong” or “All questions” to practise again.'
+          : 'No questions in this selection yet.';
       return;
     }
     ui.startRound(ui.roundSet(selected), selected, {rapidMode: $('rapid-mode').checked});

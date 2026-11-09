@@ -44,7 +44,7 @@
 
   function buildFilters() {
     const set = $('browse-set');
-    set.replaceChildren(new Option(state.sets.length > 1 ? 'All sets' : state.sets[0].title, ALL()), ...(state.sets.length > 1 ? state.sets.map(s => new Option(s.title, s.id)) : []));
+    set.replaceChildren(...ui.setChoices('All sets'));
     set.value = filters.set;
     $('browse-search').value = filters.query;
     $('browse-wrong').checked = filters.wrong;

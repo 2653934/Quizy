@@ -27,6 +27,7 @@
   $('style').addEventListener('change', ui.updateNote);
   $('mode').addEventListener('change', ui.updateNote);
   $('start').addEventListener('click', ui.start);
+  $('written-focus').addEventListener('click', ui.chooseWrittenFocus);
   $('generate').addEventListener('click', ui.generatePaper);
   $('scope-exam').addEventListener('click', () => ui.generateScope('exam'));
   $('scope-sweep').addEventListener('click', () => ui.generateScope('sweep'));
