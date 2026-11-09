@@ -7,7 +7,7 @@
   "description": "One bank for Lectures 1–10: quiz questions, diagrams, calculations and written answers. Lecture chips and question style let you narrow the bank. These are new practice questions with unofficial answers, not lecturer-authored questions.",
   "unofficialAnswers": true,
   "negativeMarkingNote": "The real Moodle quiz uses negative marking on MCQ questions: picking all right and wrong answers on a question results in a mark of 0.",
-  "totalMarks": 1417,
+  "totalMarks": 1437,
   "questions": [
     {
       "id": "nlp-lab-cooccurrence",
@@ -15358,6 +15358,226 @@
         0
       ],
       "explanation": "Probing is correlational (\"decodable\"); mechanistic work traces the causal circuit (e.g. which heads compose into an induction head). Tutorial 8.1 topic; standard definitions. Lecture 10's Part 7 (superposition, sparse autoencoders, the logit lens and J-lens) is mechanistic interpretability in practice."
+    },
+    {
+      "id": "nlp-quick-001",
+      "lecture": 5,
+      "concept": "Backoff",
+      "source": { "file": "lecture5_lms.pdf", "pages": [37, 38] },
+      "type": "short",
+      "marks": 1,
+      "question": "Your 4-gram model has never seen this context, so it falls back to a shorter context. Name the technique.",
+      "accept": ["backoff", "back-off", "back off"],
+      "explanation": "Backoff uses a lower-order n-gram when the longer history has no usable count."
+    },
+    {
+      "id": "nlp-quick-002",
+      "lecture": 5,
+      "concept": "Interpolation",
+      "source": { "file": "lecture5_lms.pdf", "pages": [39, 40, 41] },
+      "type": "short",
+      "marks": 1,
+      "question": "A language model blends unigram, bigram and trigram probabilities instead of choosing just one. Name the technique.",
+      "accept": ["interpolation", "linear interpolation", "interpolated n-gram", "interpolated n-grams"],
+      "explanation": "Interpolation combines estimates from several context lengths with weights."
+    },
+    {
+      "id": "nlp-quick-003",
+      "lecture": 5,
+      "concept": "Nucleus sampling",
+      "source": { "file": "lecture5_lms.pdf", "pages": [80] },
+      "type": "short",
+      "marks": 1,
+      "question": "At each generation step, keep the smallest group of tokens whose probabilities add up to at least p. Name this sampling method.",
+      "accept": ["top-p", "top p", "top-p sampling", "nucleus sampling", "nucleus"],
+      "explanation": "Top-p (nucleus) sampling adapts the number of eligible tokens to the shape of the next-token distribution."
+    },
+    {
+      "id": "nlp-quick-004",
+      "lecture": 5,
+      "concept": "Perplexity",
+      "source": { "file": "lecture5_lms.pdf", "pages": [83, 84, 85, 86, 87, 88, 89] },
+      "type": "short",
+      "marks": 1,
+      "question": "Two models are tested on the same held-out text. Which metric, derived from cross-entropy, says how surprised each model is?",
+      "accept": ["perplexity", "ppl"],
+      "explanation": "Perplexity is the exponential of average cross-entropy; lower means the model assigned more probability to the actual text."
+    },
+    {
+      "id": "nlp-quick-005",
+      "lecture": 6,
+      "concept": "Beam search",
+      "source": { "file": "lecture6_attention.pdf", "pages": [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54] },
+      "type": "short",
+      "marks": 1,
+      "question": "A decoder keeps the best three partial translations alive at every step. Name this search strategy.",
+      "accept": ["beam search", "beam decoding"],
+      "explanation": "Beam search keeps several promising partial sequences; greedy decoding keeps only one."
+    },
+    {
+      "id": "nlp-quick-006",
+      "lecture": 6,
+      "concept": "Attention context vector",
+      "source": { "file": "lecture6_attention.pdf", "pages": [70, 71, 72, 73, 74, 75, 76] },
+      "type": "short",
+      "marks": 1,
+      "question": "After attention scores are normalised, the weighted sum of encoder states is called the what vector?",
+      "accept": ["context", "context vector", "attention context", "attention context vector"],
+      "explanation": "The context vector is the weighted combination of encoder states made for the current decoder step."
+    },
+    {
+      "id": "nlp-quick-007",
+      "lecture": 6,
+      "concept": "Fixed-vector bottleneck",
+      "source": { "file": "lecture6_attention.pdf", "pages": [27, 28, 57] },
+      "type": "short",
+      "marks": 1,
+      "question": "A basic encoder–decoder squeezes a long source sentence into one final state. What is this limitation called?",
+      "accept": ["bottleneck", "fixed-vector bottleneck", "fixed vector bottleneck", "information bottleneck"],
+      "explanation": "The decoder has to rely on one fixed-size summary; attention lets it revisit the encoder states."
+    },
+    {
+      "id": "nlp-quick-008",
+      "lecture": 7,
+      "concept": "Causal mask",
+      "source": { "file": "lecture7_transformers-2.pdf", "pages": [25] },
+      "type": "short",
+      "marks": 1,
+      "question": "A decoder token must not attend to later tokens while predicting the next one. What mask enforces this?",
+      "accept": ["causal mask", "look-ahead mask", "look ahead mask", "future mask"],
+      "explanation": "A causal mask hides future positions so generation cannot use answers that have not been produced yet."
+    },
+    {
+      "id": "nlp-quick-009",
+      "lecture": 7,
+      "concept": "Positional encoding",
+      "source": { "file": "lecture7_transformers-2.pdf", "pages": [53, 54, 55] },
+      "type": "short",
+      "marks": 1,
+      "question": "Self-attention can see the tokens but has no built-in sense of their order. What is added to token representations to supply order?",
+      "accept": ["positional encoding", "positional encodings", "position encoding", "position embeddings", "positional embeddings"],
+      "explanation": "Positional information tells the Transformer where each token sits in the sequence."
+    },
+    {
+      "id": "nlp-quick-010",
+      "lecture": 7,
+      "concept": "Cross-attention",
+      "source": { "file": "lecture7_transformers-2.pdf", "pages": [41, 42, 43, 44, 45, 46, 47, 48] },
+      "type": "short",
+      "marks": 1,
+      "question": "In an encoder–decoder Transformer, decoder queries look at encoder keys and values. Name this attention type.",
+      "accept": ["cross-attention", "cross attention", "encoder-decoder attention", "encoder decoder attention"],
+      "explanation": "Cross-attention connects the decoder to the encoded source; self-attention stays within one sequence."
+    },
+    {
+      "id": "nlp-quick-011",
+      "lecture": 7,
+      "concept": "Residual connection",
+      "source": { "file": "lecture7_transformers-2.pdf", "pages": [51] },
+      "type": "short",
+      "marks": 1,
+      "question": "A Transformer sublayer adds its input back to its output before normalisation. Name this connection.",
+      "accept": ["residual connection", "residual", "skip connection", "skip"],
+      "explanation": "The residual or skip connection carries the input around the sublayer and adds it to the sublayer output."
+    },
+    {
+      "id": "nlp-quick-012",
+      "lecture": 8,
+      "concept": "Masked language modelling",
+      "source": { "file": "lecture8_transfer_learning.pdf", "pages": [44, 45, 46, 47, 48] },
+      "type": "short",
+      "marks": 1,
+      "question": "A bidirectional encoder hides selected input tokens and learns to recover them from surrounding words. Name this pretraining objective.",
+      "accept": ["masked language modelling", "masked language modeling", "masked language model", "mlm"],
+      "explanation": "Masked language modelling predicts hidden tokens using context on both sides."
+    },
+    {
+      "id": "nlp-quick-013",
+      "lecture": 8,
+      "concept": "Low-rank adaptation",
+      "source": { "file": "lecture8_transfer_learning.pdf", "pages": [65, 66, 67, 68, 69, 70, 71, 72, 73, 74] },
+      "type": "short",
+      "marks": 1,
+      "question": "A pretrained weight matrix stays frozen while two small matrices learn its update. Name the adaptation method.",
+      "accept": ["lora", "low-rank adaptation", "low rank adaptation"],
+      "explanation": "Low-rank adaptation learns a compact update, often written $W' = W_0 + BA$."
+    },
+    {
+      "id": "nlp-quick-014",
+      "lecture": 8,
+      "concept": "Adapters",
+      "source": { "file": "lecture8_transfer_learning.pdf", "pages": [59, 60, 61, 62, 63] },
+      "type": "short",
+      "marks": 1,
+      "question": "Instead of changing all pretrained weights, you insert small trainable modules inside the network. What are they called?",
+      "accept": ["adapters", "adapter", "adapter modules", "adaptor", "adaptors"],
+      "explanation": "Adapters are small added modules that can be trained for a task while most original weights stay frozen."
+    },
+    {
+      "id": "nlp-quick-015",
+      "lecture": 9,
+      "concept": "Code-switching",
+      "source": { "file": "lecture10_responsible_nlp.pdf", "pages": [13, 14, 15, 16, 17] },
+      "type": "short",
+      "marks": 1,
+      "question": "A speaker moves between their home language and professional language in one conversation. Name this language practice.",
+      "accept": ["code-switching", "code switching", "codeswitching"],
+      "explanation": "Code-switching is the use of more than one language or variety within a conversation."
+    },
+    {
+      "id": "nlp-quick-016",
+      "lecture": 9,
+      "concept": "Model collapse",
+      "source": { "file": "lecture10_responsible_nlp.pdf", "pages": [51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64] },
+      "type": "short",
+      "marks": 1,
+      "question": "New models repeatedly train on generated text and lose rare parts of the original data distribution. Name the failure mode.",
+      "accept": ["model collapse", "collapse"],
+      "explanation": "Model collapse can arise when generated data feeds back into training and the tails of the real distribution disappear."
+    },
+    {
+      "id": "nlp-quick-017",
+      "lecture": 10,
+      "concept": "Retrieval-augmented generation",
+      "source": { "file": "Scaling NLP HTML deck (Moodle, 2026)", "pages": [20, 21, 22, 23] },
+      "type": "short",
+      "marks": 1,
+      "question": "An assistant searches current documents, inserts relevant passages into its prompt, then answers. Name this method.",
+      "accept": ["rag", "retrieval-augmented generation", "retrieval augmented generation"],
+      "explanation": "Retrieval-augmented generation supplies external evidence at answer time, like an open-book exam."
+    },
+    {
+      "id": "nlp-quick-018",
+      "lecture": 10,
+      "concept": "Mixture of experts",
+      "source": { "file": "Scaling NLP HTML deck (Moodle, 2026)", "pages": [9, 10, 11, 12, 13, 14] },
+      "type": "short",
+      "marks": 1,
+      "question": "A router sends each token to only a few specialised subnetworks, keeping per-token compute sparse. Name the architecture.",
+      "accept": ["mixture of experts", "moe", "mixture-of-experts"],
+      "explanation": "A mixture of experts has many experts available, but activates only a small subset for each token."
+    },
+    {
+      "id": "nlp-quick-019",
+      "lecture": 10,
+      "concept": "Sparse autoencoders",
+      "source": { "file": "Scaling NLP HTML deck (Moodle, 2026)", "pages": [39, 40, 41] },
+      "type": "short",
+      "marks": 1,
+      "question": "To unpack overlapping features in a model's activations, a researcher trains a dictionary with few active features per input. Name the tool.",
+      "accept": ["sparse autoencoder", "sparse autoencoders", "sae", "saes"],
+      "explanation": "A sparse autoencoder reconstructs activations from a larger set of features while encouraging only a few to fire at once."
+    },
+    {
+      "id": "nlp-quick-020",
+      "lecture": 10,
+      "concept": "Direct preference optimisation",
+      "source": { "file": "Scaling NLP HTML deck (Moodle, 2026)", "pages": [33, 34, 35, 36, 37] },
+      "type": "short",
+      "marks": 1,
+      "question": "A post-training method learns directly from preferred and rejected answers without a separate reward model. Name the method.",
+      "accept": ["dpo", "direct preference optimisation", "direct preference optimization"],
+      "explanation": "Direct preference optimisation learns from preference pairs without the separate reward-model-and-policy loop used in RLHF."
     }
   ]
 }
