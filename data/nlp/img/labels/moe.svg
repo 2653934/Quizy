@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500">
+<rect width="900" height="500" fill="#fffdf9"/><text x="45" y="55" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#24213e">One token, a few active experts</text>
+<g stroke="#6551a1" stroke-width="3" fill="#eee9fc"><rect x="45" y="185" width="135" height="90" rx="14"/><rect x="265" y="185" width="135" height="90" rx="14"/><rect x="500" y="100" width="135" height="90" rx="14"/><rect x="500" y="260" width="135" height="90" rx="14"/><rect x="720" y="185" width="135" height="90" rx="14"/></g>
+<g font-family="Arial,sans-serif" font-size="38" fill="#352b67" text-anchor="middle"><text x="112" y="241">1</text><text x="332" y="241">2</text><text x="567" y="156">3</text><text x="567" y="316">4</text><text x="787" y="241">5</text></g>
+<g stroke="#6551a1" stroke-width="4" fill="none"><path d="M180 230h85 M400 230h35v-85h65 M435 230v75h65 M635 145h35v85h50 M635 305h35v-75h50"/></g>
+<text x="45" y="430" font-family="Arial,sans-serif" font-size="19" fill="#5d5868">Routing activates only top-scoring experts; other experts do no work for this token.</text>
+</svg>

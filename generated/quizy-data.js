@@ -30913,9 +30913,9 @@ window.QUIZY_DATA = {
       "title": "Label the diagram",
       "kind": "generated",
       "origin": "new",
-      "description": "Diagrams from the lecture slides (Lectures 5–8) with labels hidden and numbered. Pick the right label for each number. Made by Claude from your notes images, so they're new, not from the lecturer.",
+      "description": "Original numbered practice diagrams for Lectures 1–10, based on the course notes and slides. Pick the right label for each number. These are unofficial study reconstructions, not lecturer-authored diagrams.",
       "unofficialAnswers": true,
-      "totalMarks": 77,
+      "totalMarks": 110,
       "questions": [
         {
           "id": "nlp-lab-transformer",
@@ -31593,6 +31593,330 @@ window.QUIZY_DATA = {
             "Dot-product (score function)"
           ],
           "explanation": "Luong: unidirectional encoder; attention uses the current decoder state $h_t$; bilinear score function; then $\\tilde{h}_t = \\tanh(W_c[h_t, c^{(t)}])$ combines context and state to predict the next token."
+        },
+        {
+          "id": "nlp-lab-cooccurrence",
+          "lecture": 1,
+          "concept": "Co-occurrence and PPMI pipeline",
+          "type": "label",
+          "marks": 4,
+          "question": "Label the four stages that turn text into a word–context association score.",
+          "image": {
+            "src": "data/nlp/img/labels/cooccurrence.svg",
+            "alt": "A four-stage co-occurrence and PPMI pipeline with blank boxes numbered 1–4."
+          },
+          "labels": [
+            {
+              "number": 1,
+              "answer": "Focal word"
+            },
+            {
+              "number": 2,
+              "answer": "Context window"
+            },
+            {
+              "number": 3,
+              "answer": "Co-occurrence matrix"
+            },
+            {
+              "number": 4,
+              "answer": "PPMI weighting"
+            }
+          ],
+          "options": [
+            "Focal word",
+            "Context window",
+            "Co-occurrence matrix",
+            "PPMI weighting",
+            "Sentence embedding",
+            "Softmax output"
+          ],
+          "explanation": "Choose a focal word, count nearby words within the stated window, store the counts by focal/context pair, then use PPMI to highlight stronger-than-chance associations. With window 1, cat and mat in the tutorial sentence never co-occur, so PPMI(cat, mat) is 0.",
+          "source": {
+            "file": "lecture1_intro.pdf"
+          }
+        },
+        {
+          "id": "nlp-lab-word2vec-flow",
+          "lecture": 2,
+          "concept": "Word2Vec prediction and negative sampling",
+          "type": "label",
+          "marks": 5,
+          "question": "Label the Word2Vec skip-gram path and its two ways to train context predictions.",
+          "image": {
+            "src": "data/nlp/img/labels/word2vec.svg",
+            "alt": "A centre word flows through an embedding and context scores, then branches to two training choices, numbered 1–5."
+          },
+          "labels": [
+            {
+              "number": 1,
+              "answer": "Centre word"
+            },
+            {
+              "number": 2,
+              "answer": "Embedding lookup"
+            },
+            {
+              "number": 3,
+              "answer": "Context-word dot-product scores"
+            },
+            {
+              "number": 4,
+              "answer": "Full-vocabulary softmax"
+            },
+            {
+              "number": 5,
+              "answer": "Negative sampling with sigmoid"
+            }
+          ],
+          "options": [
+            "Centre word",
+            "Embedding lookup",
+            "Context-word dot-product scores",
+            "Full-vocabulary softmax",
+            "Negative sampling with sigmoid",
+            "Global max pooling",
+            "Cross-attention"
+          ],
+          "explanation": "Skip-gram starts from a centre word and predicts surrounding words. A full softmax scores the whole vocabulary; negative sampling instead distinguishes the true pair from a few sampled non-pairs with sigmoid decisions. Both train the word vectors.",
+          "source": {
+            "file": "lecture2_word2vec.pdf"
+          }
+        },
+        {
+          "id": "nlp-lab-cnn-text",
+          "lecture": 3,
+          "concept": "Text CNN classification pipeline",
+          "type": "label",
+          "marks": 5,
+          "question": "Label the five stages of a text CNN classifier.",
+          "image": {
+            "src": "data/nlp/img/labels/cnn-text.svg",
+            "alt": "A five-stage text CNN from word vectors to class scores, with boxes numbered 1–5."
+          },
+          "labels": [
+            {
+              "number": 1,
+              "answer": "Token embeddings"
+            },
+            {
+              "number": 2,
+              "answer": "Shared convolutional filters"
+            },
+            {
+              "number": 3,
+              "answer": "Feature maps"
+            },
+            {
+              "number": 4,
+              "answer": "Global pooling"
+            },
+            {
+              "number": 5,
+              "answer": "Linear classifier and softmax"
+            }
+          ],
+          "options": [
+            "Token embeddings",
+            "Shared convolutional filters",
+            "Feature maps",
+            "Global pooling",
+            "Linear classifier and softmax",
+            "Recurrent hidden state",
+            "BPE merge table"
+          ],
+          "explanation": "Filters detect local phrases at every position. Their feature maps vary with sentence length; global pooling makes one fixed-size sentence vector, which the classifier turns into class probabilities.",
+          "source": {
+            "file": "lecture3_cnns.pdf"
+          }
+        },
+        {
+          "id": "nlp-lab-bpe-flow",
+          "lecture": 4,
+          "concept": "BPE training and inference",
+          "type": "label",
+          "marks": 4,
+          "question": "Label the BPE training stages and the result used to tokenize new words.",
+          "image": {
+            "src": "data/nlp/img/labels/bpe.svg",
+            "alt": "A four-stage BPE flow from characters through pair counting and learned rules to a new tokenization, numbered 1–4."
+          },
+          "labels": [
+            {
+              "number": 1,
+              "answer": "Initial character symbols"
+            },
+            {
+              "number": 2,
+              "answer": "Count adjacent symbol pairs"
+            },
+            {
+              "number": 3,
+              "answer": "Ordered merge table"
+            },
+            {
+              "number": 4,
+              "answer": "Apply merges at inference"
+            }
+          ],
+          "options": [
+            "Initial character symbols",
+            "Count adjacent symbol pairs",
+            "Ordered merge table",
+            "Apply merges at inference",
+            "Predict next word",
+            "Randomly merge pairs"
+          ],
+          "explanation": "During training, repeatedly count adjacent pairs and merge the most frequent one, saving each merge in order. At inference, start from characters and apply those learned merges in order; do not recalculate pair frequencies on the new word.",
+          "source": {
+            "file": "lecture4_rnns_bpe.pdf"
+          }
+        },
+        {
+          "id": "nlp-lab-model-collapse",
+          "lecture": 9,
+          "concept": "Recursive synthetic training and model collapse",
+          "type": "label",
+          "marks": 4,
+          "question": "Label the four stages in a simplified model-collapse feedback loop.",
+          "image": {
+            "src": "data/nlp/img/labels/model-collapse.svg",
+            "alt": "A four-stage loop from human text to a trained model, generated text and a later model, numbered 1–4."
+          },
+          "labels": [
+            {
+              "number": 1,
+              "answer": "Human text"
+            },
+            {
+              "number": 2,
+              "answer": "Train a model"
+            },
+            {
+              "number": 3,
+              "answer": "Synthetic generated text"
+            },
+            {
+              "number": 4,
+              "answer": "Train the next model"
+            }
+          ],
+          "options": [
+            "Human text",
+            "Train a model",
+            "Synthetic generated text",
+            "Train the next model",
+            "Human evaluation only",
+            "Retrieval index"
+          ],
+          "explanation": "If a new model repeatedly trains on earlier models' output, rare patterns can disappear and generated text becomes more uniform. A shift toward very low perplexity, with a long tail, is one sign; low perplexity here does not prove better language.",
+          "source": {
+            "file": "lecture10_responsible_nlp.pdf"
+          }
+        },
+        {
+          "id": "nlp-lab-moe-routing",
+          "lecture": 10,
+          "concept": "Mixture-of-experts routing",
+          "type": "label",
+          "marks": 5,
+          "question": "Label the input, router, active experts and output mixture of an MoE layer.",
+          "image": {
+            "src": "data/nlp/img/labels/moe.svg",
+            "alt": "A token is routed through two active expert branches that rejoin at an output, with five numbered boxes."
+          },
+          "labels": [
+            {
+              "number": 1,
+              "answer": "Input token"
+            },
+            {
+              "number": 2,
+              "answer": "Router"
+            },
+            {
+              "number": 3,
+              "answer": "Selected expert"
+            },
+            {
+              "number": 4,
+              "answer": "Selected expert"
+            },
+            {
+              "number": 5,
+              "answer": "Weighted expert mixture"
+            }
+          ],
+          "options": [
+            "Input token",
+            "Router",
+            "Selected expert",
+            "Weighted expert mixture",
+            "All experts run",
+            "Attention mask"
+          ],
+          "explanation": "The router scores experts for this token and activates only the top few. Their outputs are mixed by router weights; unselected experts do no work for this token. The two expert boxes share one valid label.",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              10
+            ]
+          }
+        },
+        {
+          "id": "nlp-lab-rag-flow",
+          "lecture": 10,
+          "concept": "RAG indexing and answering pipeline",
+          "type": "label",
+          "marks": 6,
+          "question": "Label the offline document path and online question-answering path in RAG.",
+          "image": {
+            "src": "data/nlp/img/labels/rag.svg",
+            "alt": "A six-box RAG flow: three offline boxes on top and three online boxes below, numbered 1–6."
+          },
+          "labels": [
+            {
+              "number": 1,
+              "answer": "Source documents"
+            },
+            {
+              "number": 2,
+              "answer": "Split and embed passages"
+            },
+            {
+              "number": 3,
+              "answer": "Vector index"
+            },
+            {
+              "number": 4,
+              "answer": "User query"
+            },
+            {
+              "number": 5,
+              "answer": "Retrieve relevant passages"
+            },
+            {
+              "number": 6,
+              "answer": "Generate answer with citations"
+            }
+          ],
+          "options": [
+            "Source documents",
+            "Split and embed passages",
+            "Vector index",
+            "User query",
+            "Retrieve relevant passages",
+            "Generate answer with citations",
+            "Fine-tune model weights",
+            "Reward model"
+          ],
+          "explanation": "Offline, split documents into passages, embed them and store them for search. Online, use the query to retrieve relevant passages, then give those passages to the generator so it can answer with citations. Updating the documents does not require retraining the language model.",
+          "source": {
+            "file": "Scaling NLP HTML deck (Moodle, 2026)",
+            "pages": [
+              21
+            ]
+          }
         }
       ]
     },

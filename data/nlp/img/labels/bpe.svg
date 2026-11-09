@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500">
+<rect width="900" height="500" fill="#fffdf9"/><text x="45" y="55" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#24213e">BPE: learn merges, then tokenize new text</text>
+<g stroke="#6551a1" stroke-width="3" fill="#eee9fc"><rect x="50" y="140" width="170" height="100" rx="14"/><rect x="260" y="140" width="170" height="100" rx="14"/><rect x="470" y="140" width="170" height="100" rx="14"/><rect x="680" y="140" width="170" height="100" rx="14"/></g>
+<g font-family="Arial,sans-serif" font-size="40" fill="#352b67" text-anchor="middle"><text x="135" y="203">1</text><text x="345" y="203">2</text><text x="555" y="203">3</text><text x="765" y="203">4</text></g>
+<g stroke="#6551a1" stroke-width="4"><path d="M220 190h40 M430 190h40 M640 190h40"/></g>
+<g font-family="Arial,sans-serif" font-size="17" fill="#5d5868" text-anchor="middle"><text x="135" y="274">c a t</text><text x="345" y="274">which pair repeats?</text><text x="555" y="274">keep ordered rules</text><text x="765" y="274">apply to new word</text></g>
+<path d="M555 307v92h210v-91" stroke="#bc8939" stroke-width="4" fill="none"/><text x="660" y="433" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" fill="#725121">Inference follows the learned rule order.</text>
+</svg>

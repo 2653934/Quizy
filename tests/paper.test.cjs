@@ -180,10 +180,12 @@ test('real data: papers from the registered sets', () => {
   for (const lectures of [['5', '6', '7', '8'], []]) {
     for (let code = 1000; code < 1040; code++) checkPaper(Quizy.makePaper({sets: nlp, lectures, code}), lectures);
   }
-  // NLP lecture 10 alone has too few quiz marks for the 50-mark quiz section; the DVE lecture bank has no theory questions.
+  // The extra L10 diagram practice now makes a complete lecture-only NLP paper possible.
   const nlpSections = Quizy.paperSectionsOf(subjects.find(s => s.key === 'nlp'));
   const l10 = Quizy.makePaper({sets: nlp, lectures: ['10'], code: 1, sections: nlpSections});
-  assert.deepEqual([l10.ok, l10.section.key], [false, 'quiz']);
+  assert.equal(l10.ok, true);
+  checkPaper(l10, ['10'], [50, 50]);
+  // DVE still has no theory questions.
   const dve = Quizy.makePaper({sets: setsOf('dve'), lectures: [], code: 1});
   assert.deepEqual([dve.ok, dve.section.key], [false, 'theory']);
 });

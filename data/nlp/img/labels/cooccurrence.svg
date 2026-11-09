@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500">
+<rect width="900" height="500" fill="#fffdf9"/><g font-family="Arial,sans-serif" fill="#24213e"><text x="45" y="55" font-size="30" font-weight="700">From text to a word–context score</text><text x="45" y="94" font-size="18">“the cat sat on the mat” · one neighbour on either side</text></g>
+<g stroke="#6551a1" stroke-width="3" fill="#eee9fc"><rect x="40" y="190" width="170" height="110" rx="14"/><rect x="255" y="190" width="170" height="110" rx="14"/><rect x="470" y="190" width="170" height="110" rx="14"/><rect x="685" y="190" width="170" height="110" rx="14"/></g>
+<g font-family="Arial,sans-serif" fill="#352b67" text-anchor="middle"><text x="125" y="257" font-size="42">1</text><text x="340" y="257" font-size="42">2</text><text x="555" y="257" font-size="42">3</text><text x="770" y="257" font-size="42">4</text></g>
+<g stroke="#6551a1" stroke-width="4" fill="none"><path d="M210 245h40 M425 245h40 M640 245h40"/></g><g fill="#6551a1"><path d="M250 245l-13-8v16z M465 245l-13-8v16z M680 245l-13-8v16z"/></g>
+<g font-family="Arial,sans-serif" font-size="17" fill="#5d5868" text-anchor="middle"><text x="125" y="335">choose centre</text><text x="340" y="335">look left/right</text><text x="555" y="335">count pairs</text><text x="770" y="335">weight association</text></g>
+<text x="45" y="420" font-family="Arial,sans-serif" font-size="19" fill="#5d5868">Example: at “cat”, the two neighbours are “the” and “sat”.</text>
+</svg>

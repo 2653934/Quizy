@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500">
+<rect width="900" height="500" fill="#fffdf9"/><text x="45" y="55" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#24213e">Recursive training can narrow a language model</text>
+<g stroke="#6551a1" stroke-width="3" fill="#eee9fc"><rect x="45" y="155" width="170" height="105" rx="14"/><rect x="255" y="155" width="170" height="105" rx="14"/><rect x="465" y="155" width="170" height="105" rx="14"/><rect x="675" y="155" width="170" height="105" rx="14"/></g>
+<g font-family="Arial,sans-serif" font-size="40" fill="#352b67" text-anchor="middle"><text x="130" y="221">1</text><text x="340" y="221">2</text><text x="550" y="221">3</text><text x="760" y="221">4</text></g>
+<g stroke="#6551a1" stroke-width="4"><path d="M215 208h40 M425 208h40 M635 208h40"/></g>
+<path d="M760 270v94H340v-94" stroke="#bc8939" stroke-width="4" fill="none"/><text x="550" y="397" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" fill="#725121">Repeat across generations: rare patterns disappear.</text>
+<text x="45" y="452" font-family="Arial,sans-serif" font-size="18" fill="#5d5868">A shift toward very low perplexity with a long tail is a warning sign.</text>
+</svg>

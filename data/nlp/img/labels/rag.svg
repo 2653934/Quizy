@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500">
+<rect width="900" height="500" fill="#fffdf9"/><text x="45" y="55" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#24213e">RAG: give the model an open book</text>
+<g stroke="#6551a1" stroke-width="3" fill="#eee9fc"><rect x="50" y="125" width="160" height="90" rx="14"/><rect x="280" y="125" width="160" height="90" rx="14"/><rect x="510" y="125" width="160" height="90" rx="14"/><rect x="280" y="285" width="160" height="90" rx="14"/><rect x="510" y="285" width="160" height="90" rx="14"/><rect x="740" y="205" width="125" height="90" rx="14"/></g>
+<g font-family="Arial,sans-serif" font-size="38" fill="#352b67" text-anchor="middle"><text x="130" y="181">1</text><text x="360" y="181">2</text><text x="590" y="181">3</text><text x="360" y="341">4</text><text x="590" y="341">5</text><text x="802" y="261">6</text></g>
+<g stroke="#6551a1" stroke-width="4" fill="none"><path d="M210 170h70 M440 170h70 M440 330h70 M590 215v70 M670 330h35v-80h35"/></g>
+<text x="45" y="445" font-family="Arial,sans-serif" font-size="19" fill="#5d5868">Top row: prepare documents once. Bottom row: answer each question with retrieved passages.</text>
+</svg>
