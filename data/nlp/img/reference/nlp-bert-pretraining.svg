@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#fbfaf7"/>
+  <text x="70" y="82" font-family="Arial,sans-serif" font-size="34" font-weight="700" fill="#282342">BERT: full-context encoder and two pre-training tasks</text>
+  <text x="70" y="122" font-family="Arial,sans-serif" font-size="20" fill="#625b70">Every token sees left and right context through unmasked self-attention.</text>
+  <rect x="95" y="202" width="1010" height="95" rx="14" fill="#e7e1ff" stroke="#6653a8" stroke-width="3"/>
+  <text x="600" y="258" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" fill="#282342">[CLS] sentence A [SEP] sentence B [SEP]</text>
+  <path d="M600 297 V352" stroke="#6653a8" stroke-width="5"/><polygon points="600,352 590,334 610,334" fill="#6653a8"/>
+  <rect x="390" y="357" width="420" height="105" rx="14" fill="#e1f0ee" stroke="#268278" stroke-width="3"/>
+  <text x="600" y="401" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" fill="#234b48">BERT encoder</text>
+  <text x="600" y="433" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" fill="#234b48">one contextual vector per token</text>
+  <path d="M490 462 L285 513 M710 462 L910 513" stroke="#6653a8" stroke-width="4"/>
+  <rect x="90" y="520" width="420" height="105" rx="14" fill="#fff1d8" stroke="#bc8939" stroke-width="3"/>
+  <text x="300" y="560" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" fill="#593f20">Masked LM</text>
+  <text x="300" y="591" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#593f20">predict selected original tokens</text>
+  <rect x="690" y="520" width="420" height="105" rx="14" fill="#fff1d8" stroke="#bc8939" stroke-width="3"/>
+  <text x="900" y="560" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" fill="#593f20">Next sentence prediction</text>
+  <text x="900" y="591" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#593f20">[CLS]: actual next or random?</text>
+</svg>

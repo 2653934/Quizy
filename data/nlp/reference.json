@@ -97,7 +97,7 @@
         "It is a binary task (true pair vs. noise), so each update costs $O(K)$ instead of $O(|V|)$.",
         "Over a large corpus every vector still gets enough updates to learn the relationships."
       ],
-      "images": [],
+      "images": [{"src": "data/nlp/img/reference/nlp-word2vec-flow.svg", "alt": "A centre word becomes an embedding, which scores real context words and sampled negative words.", "width": 1200, "height": 675}],
       "source": "lecture2_word2vec.pdf pp. 2–10 (idea), 11 (objective), 12–18 (softmax), 19–23 (training), 24–26 (negative sampling)"
     },
     {
@@ -443,7 +443,7 @@
         "Bottleneck: the whole source is squeezed into one fixed vector. Hard for the encoder (compress everything) and for the decoder (it needs different information at different steps). Attention fixes this.",
         "BLEU (not on the slides): n-gram precision against reference translations with a brevity penalty. Problems: it can be gamed (e.g. by length), and exact n-gram matching misses synonyms and paraphrases."
       ],
-      "images": [],
+      "images": [{"src": "data/nlp/img/reference/nlp-seq2seq-attention.svg", "alt": "The decoder scores all encoder states, softmaxes the scores and uses their weighted sum to predict a token.", "width": 1200, "height": 675}],
       "source": "lecture6_attention.pdf pp. 2–5 (task), 12–26 (encoder–decoder, conditional LM), 27–28 (final state), 31 (cross-entropy), 57 (bottleneck); teacher forcing and BLEU: the lecture recordings (exam-signals notes), not on the slides"
     },
     {
@@ -615,7 +615,7 @@
         "Layer normalisation: per token, across its features: $\\frac{h_k - \\mu_k}{\\sigma_k} \\cdot \\text{scale} + \\text{bias}$ with learned scale ($\\gamma$) and bias ($\\beta$).",
         "The decoder output goes through a linear layer and softmax over the vocabulary."
       ],
-      "images": [],
+      "images": [{"src": "data/nlp/img/reference/nlp-transformer-block.svg", "alt": "A Transformer block applies attention and a feed-forward network, each with a residual path and layer normalisation.", "width": 1200, "height": 675}],
       "source": "lecture7_transformers-2.pdf pp. 41–48 (layout), 49–50 (feed-forward), 51 (residual), 52 (layer norm), 56 (full model); the FFN formula is from the lecture recordings (exam-signals notes), not on the slides"
     },
     {
@@ -770,7 +770,7 @@
         "Quiz trap: the corruption that is not used is \"replace with a synonym\".",
         "Analysis: BERT heads show patterns (attend to the next token, to [SEP], syntactic relations); probing finds linguistic structure layer by layer; LMs can be queried as knowledge bases (\"Dante was born in [MASK]\")."
       ],
-      "images": [],
+      "images": [{"src": "data/nlp/img/reference/nlp-bert-pretraining.svg", "alt": "BERT reads CLS and SEP marked input pairs with full-context attention and learns masked-token and next-sentence tasks.", "width": 1200, "height": 675}],
       "source": "lecture8_transfer_learning.pdf pp. 39–43 (input, NSP), 44–48 (MLM), 49–51 (fine-tuning), 53 (what changed), 82–102 (analysis); the [MASK] mismatch reason is from the BERT paper"
     },
     {

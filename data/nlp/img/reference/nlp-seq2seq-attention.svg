@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#fbfaf7"/>
+  <text x="70" y="82" font-family="Arial,sans-serif" font-size="34" font-weight="700" fill="#282342">Seq2seq with attention</text>
+  <text x="70" y="122" font-family="Arial,sans-serif" font-size="20" fill="#625b70">The decoder can consult every encoder state for each output word.</text>
+  <text x="95" y="213" font-family="Arial,sans-serif" font-size="23" font-weight="700" fill="#265d78">ENCODER STATES</text>
+  <g font-family="Arial,sans-serif" font-size="21" text-anchor="middle" fill="#234554">
+    <rect x="90" y="240" width="180" height="100" rx="14" fill="#e3f0f4" stroke="#4283a0" stroke-width="3"/><text x="180" y="298">s₁: the</text>
+    <rect x="320" y="240" width="180" height="100" rx="14" fill="#e3f0f4" stroke="#4283a0" stroke-width="3"/><text x="410" y="298">s₂: cat</text>
+    <rect x="550" y="240" width="180" height="100" rx="14" fill="#e3f0f4" stroke="#4283a0" stroke-width="3"/><text x="640" y="298">s₃: sat</text>
+  </g>
+  <path d="M180 340 L560 435 M410 340 L590 435 M640 340 L620 435" stroke="#8c7aba" stroke-width="4"/>
+  <rect x="490" y="435" width="285" height="95" rx="14" fill="#e7e1ff" stroke="#6653a8" stroke-width="3"/>
+  <text x="632" y="473" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" fill="#282342">scores → softmax</text>
+  <text x="632" y="503" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" fill="#282342">weighted sum: context cₜ</text>
+  <rect x="860" y="415" width="260" height="115" rx="14" fill="#fff1d8" stroke="#bc8939" stroke-width="3"/>
+  <text x="990" y="462" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" fill="#593f20">DECODER at t</text>
+  <text x="990" y="493" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#593f20">predict next token</text>
+  <path d="M775 482 H860" stroke="#6653a8" stroke-width="5"/><polygon points="860,482 842,472 842,492" fill="#6653a8"/>
+  <text x="91" y="607" font-family="Arial,sans-serif" font-size="21" fill="#625b70">Different decoder steps can put different weights on the same source words.</text>
+</svg>

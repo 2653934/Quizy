@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#fbfaf7"/>
+  <text x="70" y="82" font-family="Arial,sans-serif" font-size="34" font-weight="700" fill="#282342">Transformer block: attention, then feed-forward</text>
+  <text x="70" y="122" font-family="Arial,sans-serif" font-size="20" fill="#625b70">Each sublayer updates token vectors; skip paths preserve the input.</text>
+  <rect x="90" y="260" width="155" height="100" rx="14" fill="#f1eee9" stroke="#a6a0a8" stroke-width="3"/>
+  <text x="167" y="317" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" fill="#282342">tokens x</text>
+  <path d="M245 310 H305 M525 310 H585 M805 310 H865" stroke="#6653a8" stroke-width="5"/>
+  <g fill="#6653a8"><polygon points="305,310 287,300 287,320"/><polygon points="585,310 567,300 567,320"/><polygon points="865,310 847,300 847,320"/></g>
+  <rect x="310" y="235" width="215" height="150" rx="14" fill="#e7e1ff" stroke="#6653a8" stroke-width="3"/>
+  <text x="417" y="291" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" fill="#282342">self-attention</text>
+  <text x="417" y="326" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" fill="#282342">mix across tokens</text>
+  <rect x="590" y="235" width="215" height="150" rx="14" fill="#e1f0ee" stroke="#268278" stroke-width="3"/>
+  <text x="697" y="291" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" fill="#234b48">feed-forward</text>
+  <text x="697" y="326" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" fill="#234b48">update each token</text>
+  <rect x="870" y="260" width="245" height="100" rx="14" fill="#fff1d8" stroke="#bc8939" stroke-width="3"/>
+  <text x="992" y="317" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" fill="#593f20">updated tokens</text>
+  <path d="M167 260 V190 H545 V235 M545 190 H825 V235" fill="none" stroke="#a79b6a" stroke-width="3" stroke-dasharray="8 7"/>
+  <text x="555" y="177" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" fill="#635927">residual additions + layer norm around each sublayer</text>
+  <text x="90" y="514" font-family="Arial,sans-serif" font-size="21" fill="#625b70">Encoder attention sees both directions. Decoder attention masks future positions.</text>
+  <text x="90" y="550" font-family="Arial,sans-serif" font-size="21" fill="#625b70">An encoder–decoder decoder also adds cross-attention between these sublayers.</text>
+</svg>

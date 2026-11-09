@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#fbfaf7"/>
+  <text x="70" y="82" font-family="Arial,sans-serif" font-size="34" font-weight="700" fill="#282342">Word2Vec: learn by predicting neighbours</text>
+  <text x="70" y="122" font-family="Arial,sans-serif" font-size="20" fill="#625b70">Skip-gram turns one centre word into several centre–context training pairs.</text>
+  <rect x="80" y="245" width="180" height="105" rx="15" fill="#e7e1ff" stroke="#6653a8" stroke-width="3"/>
+  <text x="170" y="307" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" fill="#282342">cat</text>
+  <path d="M260 298 H370" stroke="#6653a8" stroke-width="5"/>
+  <polygon points="370,298 352,288 352,308" fill="#6653a8"/>
+  <rect x="375" y="245" width="250" height="105" rx="15" fill="#e1f0ee" stroke="#268278" stroke-width="3"/>
+  <text x="500" y="288" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" fill="#234b48">embedding lookup</text>
+  <text x="500" y="320" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#234b48">centre vector v(cat)</text>
+  <path d="M625 298 H730" stroke="#6653a8" stroke-width="5"/>
+  <polygon points="730,298 712,288 712,308" fill="#6653a8"/>
+  <rect x="735" y="225" width="375" height="145" rx="15" fill="#fff1d8" stroke="#bc8939" stroke-width="3"/>
+  <text x="922" y="275" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" fill="#593f20">score context words</text>
+  <text x="922" y="314" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" fill="#593f20">dot products → softmax</text>
+  <text x="922" y="343" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" fill="#593f20">or positive + sampled negatives</text>
+  <rect x="135" y="465" width="925" height="105" rx="15" fill="#f2f0ec" stroke="#aaa4ac" stroke-width="2"/>
+  <text x="170" y="507" font-family="Arial,sans-serif" font-size="21" fill="#282342">Observed neighbours: “the” and “sat” → raise their scores.</text>
+  <text x="170" y="543" font-family="Arial,sans-serif" font-size="21" fill="#282342">Negative sampling → lower scores of a few sampled non-neighbours.</text>
+</svg>
