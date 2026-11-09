@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#44338f"/></marker></defs>
+  <rect width="1200" height="675" fill="#fbfaf7"/>
+  <text x="65" y="72" font-family="Arial" font-size="42" font-weight="700" fill="#201d2c">Superposition: five sparse features in two dimensions</text>
+  <text x="65" y="112" font-family="Arial" font-size="23" fill="#5f5a6b">Features are directions across neurons, not one feature per neuron</text>
+  <line x1="355" y1="545" x2="355" y2="180" stroke="#8d8798" stroke-width="3"/><line x1="175" y1="365" x2="535" y2="365" stroke="#8d8798" stroke-width="3"/>
+  <g stroke="#5b4bb7" stroke-width="7" marker-end="url(#a)">
+    <line x1="355" y1="365" x2="355" y2="205"/><line x1="355" y1="365" x2="507" y2="315"/><line x1="355" y1="365" x2="450" y2="500"/><line x1="355" y1="365" x2="260" y2="500"/><line x1="355" y1="365" x2="203" y2="315"/>
+  </g>
+  <circle cx="355" cy="365" r="10" fill="#201d2c"/>
+  <text x="355" y="160" text-anchor="middle" font-family="Arial" font-size="23" font-weight="700" fill="#5b4bb7">pentagon packing</text>
+  <rect x="645" y="175" width="470" height="350" rx="26" fill="#ebe8f7" stroke="#44338f" stroke-width="3"/>
+  <text x="880" y="230" text-anchor="middle" font-family="Arial" font-size="28" font-weight="700" fill="#201d2c">Why sparsity makes this work</text>
+  <text x="690" y="290" font-family="Arial" font-size="23" fill="#201d2c">1. Most feature activations are zero.</text>
+  <text x="690" y="340" font-family="Arial" font-size="23" fill="#201d2c">2. Unrelated features rarely co-occur.</text>
+  <text x="690" y="390" font-family="Arial" font-size="23" fill="#201d2c">3. Interference is therefore uncommon.</text>
+  <text x="690" y="455" font-family="Arial" font-size="23" fill="#5b4bb7">Result: more represented concepts</text>
+  <text x="690" y="490" font-family="Arial" font-size="23" fill="#5b4bb7">than available neurons.</text>
+</svg>

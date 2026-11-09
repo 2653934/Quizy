@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#44338f"/></marker></defs>
+  <rect width="1200" height="675" fill="#fbfaf7"/>
+  <text x="65" y="72" font-family="Arial" font-size="42" font-weight="700" fill="#201d2c">Post-training: demonstrations, preferences and rewards</text>
+  <g font-family="Arial" text-anchor="middle">
+    <rect x="70" y="220" width="190" height="120" rx="20" fill="#e6e2f6" stroke="#44338f" stroke-width="3"/><text x="165" y="268" font-size="25" font-weight="700" fill="#201d2c">base model</text><text x="165" y="305" font-size="20" fill="#5f5a6b">continue text</text>
+    <rect x="330" y="220" width="190" height="120" rx="20" fill="#d8f1e8" stroke="#20856f" stroke-width="3"/><text x="425" y="262" font-size="25" font-weight="700" fill="#201d2c">SFT</text><text x="425" y="295" font-size="20" fill="#5f5a6b">demonstrations</text><text x="425" y="320" font-size="20" fill="#5f5a6b">follow instructions</text>
+    <rect x="590" y="220" width="190" height="120" rx="20" fill="#ffe8d8" stroke="#d36b38" stroke-width="3"/><text x="685" y="262" font-size="25" font-weight="700" fill="#201d2c">preferences</text><text x="685" y="297" font-size="20" fill="#5f5a6b">A preferred to B</text>
+    <rect x="850" y="220" width="280" height="120" rx="20" fill="#e6e2f6" stroke="#44338f" stroke-width="3"/><text x="990" y="262" font-size="25" font-weight="700" fill="#201d2c">optimise policy</text><text x="990" y="297" font-size="20" fill="#5f5a6b">reward - beta KL</text><text x="990" y="322" font-size="20" fill="#5f5a6b">or direct preference loss</text>
+  </g>
+  <g stroke="#44338f" stroke-width="5" marker-end="url(#a)"><line x1="260" y1="280" x2="317" y2="280"/><line x1="520" y1="280" x2="577" y2="280"/><line x1="780" y1="280" x2="837" y2="280"/></g>
+  <rect x="250" y="445" width="700" height="105" rx="22" fill="#fff3c9" stroke="#ad8418" stroke-width="3"/>
+  <text x="600" y="485" text-anchor="middle" font-family="Arial" font-size="25" font-weight="700" fill="#201d2c">The KL term is a leash</text>
+  <text x="600" y="520" text-anchor="middle" font-family="Arial" font-size="22" fill="#5f5a6b">small beta: more change and reward hacking risk · large beta: stay near SFT</text>
+</svg>

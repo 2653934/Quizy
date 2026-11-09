@@ -154,8 +154,15 @@ test('the real NLP model sheet: lectures 1–10, every image used once, sources,
   const files = fs.readdirSync(path.join(root, 'data', 'nlp', 'img', 'reference'));
   assert.deepEqual(images.map(i => path.basename(i.src)).sort(), [...files].sort());
   for (const image of images) {
-    const png = fs.readFileSync(path.join(root, image.src));
-    assert.deepEqual([image.width, image.height], [png.readUInt32BE(16), png.readUInt32BE(20)], image.src);
+    const bytes = fs.readFileSync(path.join(root, image.src));
+    if (image.src.endsWith('.svg')) {
+      const svg = bytes.toString('utf8');
+      const size = svg.match(/<svg\b[^>]*\bwidth="(\d+)"[^>]*\bheight="(\d+)"/);
+      assert.ok(size, `${image.src} has explicit dimensions`);
+      assert.deepEqual([image.width, image.height], [Number(size[1]), Number(size[2])], image.src);
+    } else {
+      assert.deepEqual([image.width, image.height], [bytes.readUInt32BE(16), bytes.readUInt32BE(20)], image.src);
+    }
   }
   // Card ids are unique across every sheet, so a #ref= link finds one subject.
   const doRef = JSON.parse(fs.readFileSync(path.join(root, 'data', 'do', 'reference.json'), 'utf8'));

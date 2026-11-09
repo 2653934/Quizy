@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#44338f"/></marker></defs>
+  <rect width="1200" height="675" fill="#fbfaf7"/>
+  <text x="70" y="72" font-family="Arial" font-size="42" font-weight="700" fill="#201d2c">Neural scaling laws</text>
+  <text x="70" y="112" font-family="Arial" font-size="23" fill="#5f5a6b">On log-log axes, predictable power laws become straight lines</text>
+  <line x1="120" y1="560" x2="820" y2="560" stroke="#201d2c" stroke-width="4" marker-end="url(#a)"/>
+  <line x1="120" y1="560" x2="120" y2="155" stroke="#201d2c" stroke-width="4" marker-end="url(#a)"/>
+  <text x="690" y="610" font-family="Arial" font-size="25" fill="#201d2c">log(resource)</text>
+  <text x="34" y="360" transform="rotate(-90 34 360)" font-family="Arial" font-size="25" fill="#201d2c">log(loss)</text>
+  <path d="M170 475 L760 255" fill="none" stroke="#5b4bb7" stroke-width="8"/>
+  <path d="M170 505 L760 315" fill="none" stroke="#d36b38" stroke-width="8"/>
+  <path d="M170 530 L760 375" fill="none" stroke="#20856f" stroke-width="8"/>
+  <text x="770" y="262" font-family="Arial" font-size="24" font-weight="700" fill="#5b4bb7">parameters N</text>
+  <text x="770" y="322" font-family="Arial" font-size="24" font-weight="700" fill="#d36b38">data D</text>
+  <text x="770" y="382" font-family="Arial" font-size="24" font-weight="700" fill="#20856f">compute C</text>
+  <rect x="875" y="165" width="265" height="345" rx="24" fill="#ebe8f7" stroke="#44338f" stroke-width="3"/>
+  <text x="1007" y="215" text-anchor="middle" font-family="Arial" font-size="27" font-weight="700" fill="#201d2c">Balance matters</text>
+  <text x="905" y="270" font-family="Arial" font-size="22" fill="#201d2c">Too large:</text><text x="905" y="302" font-family="Arial" font-size="21" fill="#5f5a6b">reads too little</text>
+  <text x="905" y="356" font-family="Arial" font-size="22" fill="#201d2c">Too small:</text><text x="905" y="388" font-family="Arial" font-size="21" fill="#5f5a6b">underpowered</text>
+  <text x="905" y="442" font-family="Arial" font-size="22" fill="#201d2c">Compute-optimal:</text><text x="905" y="474" font-family="Arial" font-size="21" fill="#5f5a6b">about 20 tokens</text><text x="905" y="503" font-family="Arial" font-size="21" fill="#5f5a6b">per parameter</text>
+</svg>

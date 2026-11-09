@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#44338f"/></marker></defs>
+  <rect width="1200" height="675" fill="#fbfaf7"/>
+  <text x="65" y="72" font-family="Arial" font-size="42" font-weight="700" fill="#201d2c">Logit lens versus J-lens</text>
+  <text x="65" y="112" font-family="Arial" font-size="23" fill="#5f5a6b">The J-lens first translates an early direction through the remaining network</text>
+  <g font-family="Arial" text-anchor="middle">
+    <rect x="70" y="250" width="210" height="110" rx="20" fill="#e6e2f6" stroke="#44338f" stroke-width="3"/><text x="175" y="295" font-size="25" font-weight="700" fill="#201d2c">middle layer</text><text x="175" y="330" font-size="22" fill="#5f5a6b">activation h_l</text>
+    <rect x="390" y="160" width="210" height="110" rx="20" fill="#ffe8d8" stroke="#d36b38" stroke-width="3"/><text x="495" y="205" font-size="25" font-weight="700" fill="#201d2c">logit lens</text><text x="495" y="240" font-size="22" fill="#5f5a6b">apply W_U now</text>
+    <rect x="390" y="390" width="210" height="110" rx="20" fill="#d8f1e8" stroke="#20856f" stroke-width="3"/><text x="495" y="435" font-size="25" font-weight="700" fill="#201d2c">Jacobian J_l</text><text x="495" y="470" font-size="22" fill="#5f5a6b">effect on final layer</text>
+    <rect x="710" y="250" width="210" height="110" rx="20" fill="#e6e2f6" stroke="#44338f" stroke-width="3"/><text x="815" y="295" font-size="25" font-weight="700" fill="#201d2c">unembed W_U</text><text x="815" y="330" font-size="22" fill="#5f5a6b">token scores</text>
+    <rect x="1010" y="250" width="150" height="110" rx="20" fill="#fff3c9" stroke="#ad8418" stroke-width="3"/><text x="1085" y="295" font-size="25" font-weight="700" fill="#201d2c">concepts</text><text x="1085" y="330" font-size="20" fill="#5f5a6b">J-space</text>
+  </g>
+  <path d="M280 285 C330 220 340 215 377 215" fill="none" stroke="#d36b38" stroke-width="5" marker-end="url(#a)"/><path d="M600 215 C665 215 665 285 697 285" fill="none" stroke="#d36b38" stroke-width="5" marker-end="url(#a)"/>
+  <path d="M280 335 C330 420 340 445 377 445" fill="none" stroke="#20856f" stroke-width="5" marker-end="url(#a)"/><path d="M600 445 C665 445 665 325 697 325" fill="none" stroke="#20856f" stroke-width="5" marker-end="url(#a)"/>
+  <line x1="920" y1="305" x2="997" y2="305" stroke="#44338f" stroke-width="5" marker-end="url(#a)"/>
+  <text x="600" y="585" text-anchor="middle" font-family="Arial" font-size="26" fill="#201d2c">J-lens(h_l) = W_U (J_l h_l)</text>
+</svg>

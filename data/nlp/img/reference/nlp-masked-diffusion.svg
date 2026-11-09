@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#fbfaf7"/>
+  <text x="65" y="72" font-family="Arial" font-size="42" font-weight="700" fill="#201d2c">Masked diffusion fills several tokens per round</text>
+  <g font-family="Arial" text-anchor="middle">
+    <text x="110" y="175" font-size="24" font-weight="700" fill="#5f5a6b">round 0</text>
+    <text x="110" y="285" font-size="24" font-weight="700" fill="#5f5a6b">round 1</text>
+    <text x="110" y="395" font-size="24" font-weight="700" fill="#5f5a6b">round 2</text>
+    <text x="110" y="505" font-size="24" font-weight="700" fill="#5f5a6b">round 3</text>
+  </g>
+  <g font-family="Arial" font-size="24" text-anchor="middle">
+    <g fill="#dedbe5" stroke="#8d8798" stroke-width="2"><rect x="220" y="130" width="135" height="65" rx="12"/><rect x="375" y="130" width="135" height="65" rx="12"/><rect x="530" y="130" width="135" height="65" rx="12"/><rect x="685" y="130" width="135" height="65" rx="12"/><rect x="840" y="130" width="135" height="65" rx="12"/></g>
+    <g fill="#dedbe5" stroke="#8d8798" stroke-width="2"><rect x="220" y="240" width="135" height="65" rx="12"/><rect x="530" y="240" width="135" height="65" rx="12"/><rect x="840" y="240" width="135" height="65" rx="12"/></g>
+    <g fill="#dedbe5" stroke="#8d8798" stroke-width="2"><rect x="530" y="350" width="135" height="65" rx="12"/></g>
+    <g fill="#e6e2f6" stroke="#44338f" stroke-width="2"><rect x="375" y="240" width="135" height="65" rx="12"/><rect x="685" y="240" width="135" height="65" rx="12"/><rect x="220" y="350" width="135" height="65" rx="12"/><rect x="375" y="350" width="135" height="65" rx="12"/><rect x="685" y="350" width="135" height="65" rx="12"/><rect x="840" y="350" width="135" height="65" rx="12"/><rect x="220" y="460" width="135" height="65" rx="12"/><rect x="375" y="460" width="135" height="65" rx="12"/><rect x="530" y="460" width="135" height="65" rx="12"/><rect x="685" y="460" width="135" height="65" rx="12"/><rect x="840" y="460" width="135" height="65" rx="12"/></g>
+    <g fill="#5f5a6b"><text x="287" y="172">[MASK]</text><text x="442" y="172">[MASK]</text><text x="597" y="172">[MASK]</text><text x="752" y="172">[MASK]</text><text x="907" y="172">[MASK]</text><text x="287" y="282">[MASK]</text><text x="597" y="282">[MASK]</text><text x="907" y="282">[MASK]</text><text x="597" y="392">[MASK]</text></g>
+    <g fill="#201d2c"><text x="442" y="282">models</text><text x="752" y="282">several</text><text x="287" y="392">Diffusion</text><text x="442" y="392">models</text><text x="752" y="392">several</text><text x="907" y="392">tokens</text><text x="287" y="502">Diffusion</text><text x="442" y="502">models</text><text x="597" y="502">fill</text><text x="752" y="502">several</text><text x="907" y="502">tokens</text></g>
+  </g>
+  <text x="600" y="600" text-anchor="middle" font-family="Arial" font-size="24" fill="#5f5a6b">Both left and right context can revise uncertain positions</text>
+</svg>

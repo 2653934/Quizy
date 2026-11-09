@@ -50086,7 +50086,14 @@ window.QUIZY_DATA = {
             "Hoffmann et al. (2022): at fixed compute, too big = undertrained, too small = underpowered. Compute-optimal ≈ 20 tokens per parameter. Chinchilla (70B, 1.4T tokens) beat Gopher (280B, 300B tokens) at about the same compute.",
             "Beyond the optimum: Llama 3 8B read ~1,900 tokens/parameter because training is paid once and inference on every request; cheaper inference leaves room for test-time compute."
           ],
-          "images": [],
+          "images": [
+            {
+              "src": "data/nlp/img/reference/nlp-scaling-laws.svg",
+              "alt": "Loss falls smoothly with model size; a curved ordinary plot becomes a straight line on log-log axes.",
+              "width": 1200,
+              "height": 675
+            }
+          ],
           "example": "Chinchilla: $D = 20 \\times 70\\text{B} = 1.4\\text{T}$ tokens; $C = 6 \\times 7\\times10^{10} \\times 1.4\\times10^{12} \\approx 5.9\\times10^{23}$ FLOPs, close to Gopher's $6 \\times 2.8\\times10^{11} \\times 3\\times10^{11} \\approx 5.0\\times10^{23}$.",
           "source": "Scaling NLP HTML deck (Moodle, 2026) slides 4–8; lecture recording"
         },
@@ -50104,7 +50111,14 @@ window.QUIZY_DATA = {
             "Load balancing: Switch adds an auxiliary loss; DeepSeek-V3 adds a per-expert bias to router scores (up if under-used, down if over-used), which changes selection only, not the mixing weights.",
             "Experts specialise by token type (punctuation, numbers, code, syntax), not topic. Dense models are naturally sparse too (most neurons near-silent; pruning)."
           ],
-          "images": [],
+          "images": [
+            {
+              "src": "data/nlp/img/reference/nlp-moe-routing.svg",
+              "alt": "A router sends a token to two of eight experts, then mixes their outputs by score.",
+              "width": 1200,
+              "height": 675
+            }
+          ],
           "source": "Scaling NLP HTML deck (Moodle, 2026) slides 9–14; lecture recording"
         },
         {
@@ -50119,7 +50133,14 @@ window.QUIZY_DATA = {
             "Needs two layers: a previous-token head marks each token with its predecessor; the induction head finds the earlier copy and copies what followed.",
             "Emergence or metric? With per-token accuracy $p$, an exact $L$-token answer is right with probability $p^L$ ($0.9^{20} \\approx 0.12$), so smooth gains can look like a sudden jump."
           ],
-          "images": [],
+          "images": [
+            {
+              "src": "data/nlp/img/reference/nlp-induction-head.svg",
+              "alt": "An induction head matches a repeated token and copies the word that followed its earlier occurrence.",
+              "width": 1200,
+              "height": 675
+            }
+          ],
           "source": "Scaling NLP HTML deck (Moodle, 2026) slides 16–18; lecture recording"
         },
         {
@@ -50140,7 +50161,14 @@ window.QUIZY_DATA = {
             "BM25 weights rare words (like TF-IDF) but misses synonyms; dense retrieval handles \"specialist\" ↔ \"expert\".",
             "Failures: missing the passage, lost in the middle, irrelevant passages distract, evidence contradicts memorised facts. Check retrieval and generation separately. Agentic systems decide when and what to search."
           ],
-          "images": [],
+          "images": [
+            {
+              "src": "data/nlp/img/reference/nlp-rag-pipeline.svg",
+              "alt": "RAG indexes document passages offline, retrieves relevant passages for a query, then answers with citations.",
+              "width": 1200,
+              "height": 675
+            }
+          ],
           "source": "Scaling NLP HTML deck (Moodle, 2026) slides 20–23; lecture recording"
         },
         {
@@ -50156,7 +50184,14 @@ window.QUIZY_DATA = {
             "Block diffusion: blocks left to right, parallel denoising inside a block, finished blocks cached, any length; block size 1 = autoregression.",
             "Transfusion: one transformer, next-token loss for text and diffusion loss for image patches."
           ],
-          "images": [],
+          "images": [
+            {
+              "src": "data/nlp/img/reference/nlp-masked-diffusion.svg",
+              "alt": "Autoregressive decoding fills one token per pass, while masked diffusion fills several tokens in parallel.",
+              "width": 1200,
+              "height": 675
+            }
+          ],
           "source": "Scaling NLP HTML deck (Moodle, 2026) slides 25–31; lecture recording"
         },
         {
@@ -50175,7 +50210,14 @@ window.QUIZY_DATA = {
             "DPO skips the reward model and RL loop, directly preferring chosen over rejected answers relative to a reference model; still a proxy. RLAIF uses AI feedback.",
             "RLVR: rewards a program can check (maths answers, code tests). GRPO samples a group of answers and reinforces those above the group average (DeepSeek-R1). Grounded and harder to game, but only where correctness is checkable."
           ],
-          "images": [],
+          "images": [
+            {
+              "src": "data/nlp/img/reference/nlp-post-training.svg",
+              "alt": "RLHF proceeds from supervised fine-tuning to human preference comparisons, a reward model and reinforcement learning.",
+              "width": 1200,
+              "height": 675
+            }
+          ],
           "example": "Rewards $(1, 0, 0, 0)$: mean $0.25$, so the correct answer's advantage is $+0.75$ and each wrong one's $-0.25$.",
           "source": "Scaling NLP HTML deck (Moodle, 2026) slides 33–37; lecture recording"
         },
@@ -50192,7 +50234,20 @@ window.QUIZY_DATA = {
             "Logit lens: apply $W_U$ to a middle layer. J-lens: $W_U(J_l h_l)$ with an averaged Jacobian of the later layers.",
             "J-space: a small set (≈ 25 or fewer) of word-like concepts in middle layers that can be reported and steered (Spanish → French). Compared to global workspace theory as an analogy; July 2026, not widely replicated; a safety interest (hidden goals), not proof of consciousness."
           ],
-          "images": [],
+          "images": [
+            {
+              "src": "data/nlp/img/reference/nlp-superposition.svg",
+              "alt": "Five sparse features share two dimensions as directions arranged around a pentagon.",
+              "width": 1200,
+              "height": 675
+            },
+            {
+              "src": "data/nlp/img/reference/nlp-j-lens.svg",
+              "alt": "The logit lens reads a middle-layer activation directly, while the J-lens translates it through later layers before decoding.",
+              "width": 1200,
+              "height": 675
+            }
+          ],
           "source": "Scaling NLP HTML deck (Moodle, 2026) slides 39–43; lecture recording"
         }
       ]
