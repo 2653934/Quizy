@@ -1261,7 +1261,8 @@
           "marks": 2
         }
       ],
-      "explanation": "This question is the owner's recollection of the hardest 10-mark question on a past test (not an official transcription). The model answer follows the GPT multiple-choice figure on slide 56."
+      "explanation": "This question is the owner's recollection of the hardest 10-mark question on a past test (not an official transcription). The model answer follows the GPT multiple-choice figure on slide 56.",
+      "variantOf": "decoder-mcq-test-style"
     },
     {
       "id": "nlp-b8-044",

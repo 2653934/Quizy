@@ -48,6 +48,7 @@ window.QUIZY_DATA = {
         "nlp-tutorial",
         "nlp-new-questions",
         "nlp-label-diagrams",
+        "nlp-test-style-2026",
         "nlp-bank-lecture-1",
         "nlp-bank-lecture-2",
         "nlp-bank-lecture-3",
@@ -31595,6 +31596,339 @@ window.QUIZY_DATA = {
         }
       ]
     },
+    "nlp-test-style-2026": {
+      "id": "nlp-test-style-2026",
+      "subject": "nlp",
+      "title": "2026 test-style written practice",
+      "kind": "generated",
+      "origin": "new",
+      "unofficialAnswers": true,
+      "totalMarks": 62,
+      "description": "Six newly written practice questions matching the topics and mark allocations Devon described for Tests 1 and 2. These are not official transcriptions: the original written scripts and marking memos are unavailable. Model answers and rubrics are based on the lecture slides.",
+      "questions": [
+        {
+          "id": "nlp-ts26-01",
+          "lecture": 2,
+          "concept": "Word2Vec intrinsic and extrinsic evaluation",
+          "source": {
+            "file": "lecture2_word2vec.pdf",
+            "pages": [
+              29,
+              30,
+              31
+            ]
+          },
+          "type": "written",
+          "section": "theory",
+          "marks": 7,
+          "question": "A team has trained two Word2Vec models and must decide which one to deploy.\n(a) Distinguish intrinsic and extrinsic evaluation. (2)\n(b) Give one suitable example of each. (2)\n(c) Compare their advantages and limitations. (2)\n(d) Which evaluation should decide deployment for a known downstream task, and why? (1) (7 Marks)",
+          "modelAnswer": "Intrinsic evaluation tests the embedding space directly, without training a full downstream system. Examples include correlation with human word-similarity judgements and analogy accuracy using vector arithmetic. It is fast, cheap and useful for diagnosis, but a good intrinsic score may not translate into better performance on the task that matters.\n\nExtrinsic evaluation inserts each embedding model into the same downstream system, such as a POS tagger or sentiment classifier, trains under the same conditions and compares task performance. It is slower and more expensive because a complete model must be trained for every embedding choice, and its result can depend on the downstream architecture and hyperparameters. However, it directly measures usefulness for that task.\n\nFor a known deployment task, the final decision should use extrinsic performance on representative validation or test data. Intrinsic tests remain useful for fast screening and understanding the geometry.",
+          "rubric": [
+            {
+              "point": "Defines intrinsic evaluation as direct evaluation of the representation",
+              "marks": 1
+            },
+            {
+              "point": "Defines extrinsic evaluation as evaluation through a downstream task",
+              "marks": 1
+            },
+            {
+              "point": "Gives a valid intrinsic example, such as similarity or analogies",
+              "marks": 1
+            },
+            {
+              "point": "Gives a valid extrinsic example, such as POS tagging or sentiment classification",
+              "marks": 1
+            },
+            {
+              "point": "Explains that intrinsic evaluation is fast/cheap but may correlate poorly with downstream value",
+              "marks": 1
+            },
+            {
+              "point": "Explains that extrinsic evaluation is expensive/confounded but task-relevant",
+              "marks": 1
+            },
+            {
+              "point": "Chooses controlled extrinsic evaluation for a known deployment task",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice reconstruction from Devon's Test 1 description. The wording and rubric are unofficial; the content follows the Word2Vec evaluation slides.",
+          "variantOf": "word2vec-evaluation-test-style"
+        },
+        {
+          "id": "nlp-ts26-02",
+          "lecture": 3,
+          "concept": "Variable length, invariance and softmax",
+          "source": {
+            "file": "lecture3_cnns.pdf and lecture4_rnns_bpe.pdf",
+            "pages": [
+              29,
+              32,
+              52,
+              83
+            ]
+          },
+          "type": "written",
+          "section": "theory",
+          "marks": 12,
+          "question": "Compare RNN and CNN text classifiers.\n(a) Explain how each accepts a variable-length input but produces a fixed-size representation for classification. (3)\n(b) Compare translation invariance in the two models. (3)\n(c) A classifier produces logits $(2,1,0)$ for classes A, B and C. Calculate the softmax probabilities. Show that adding 5 to every logit leaves the probabilities unchanged. (4)\n(d) State why the fixed-size final representation is needed. (2) (12 Marks)",
+          "modelAnswer": "(a) An RNN reuses the same recurrent cell for as many time steps as the sequence contains. Its final hidden state, or pooled hidden states, gives a fixed-dimensional sentence vector. A CNN applies shared filters at every valid position, producing a variable number of activations, then global max or mean pooling takes one value per filter and therefore produces a fixed-dimensional vector.\n\n(b) A CNN is translation equivariant before pooling: shifting a local pattern shifts its activation. Shared filters detect the same pattern anywhere. Global pooling removes position and makes the final representation translation invariant. An RNN shares its cell across time, but its state depends on order and position through the recurrent history; moving a phrase changes the states, so the final representation is not translation invariant in the same way.\n\n(c) $e^2=7.389$, $e^1=2.718$, $e^0=1$, with sum $11.107$. Thus $P(A)=0.665$, $P(B)=0.245$, $P(C)=0.090$. For logits $(7,6,5)$ every numerator and the denominator are multiplied by $e^5$, which cancels, so the probabilities are unchanged.\n\n(d) The final linear layer expects a vector of fixed width so it can compute one score per class with a fixed parameter matrix. The recurrent summary or global pooling bridges variable-length text and that fixed classifier.",
+          "rubric": [
+            {
+              "point": "RNN handles any number of time steps and produces a fixed hidden-state summary",
+              "marks": 1
+            },
+            {
+              "point": "CNN produces variable-position activations and global pooling gives one value per filter",
+              "marks": 2
+            },
+            {
+              "point": "CNN shared filters give translation equivariance and pooling gives invariance",
+              "marks": 2
+            },
+            {
+              "point": "RNN order/history means its final representation is not position-invariant in the same sense",
+              "marks": 1
+            },
+            {
+              "point": "Computes the exponentials and normalising sum correctly",
+              "marks": 1
+            },
+            {
+              "point": "Obtains probabilities approximately (0.665, 0.245, 0.090)",
+              "marks": 2
+            },
+            {
+              "point": "Shows that a common logit shift cancels from softmax",
+              "marks": 1
+            },
+            {
+              "point": "Explains why the classifier needs a fixed-width input",
+              "marks": 2
+            }
+          ],
+          "explanation": "Practice reconstruction from Devon's 12-mark Test 1 description. It combines the three confirmed elements and preserves the four-mark softmax component.",
+          "variantOf": "cnn-rnn-softmax-test-style"
+        },
+        {
+          "id": "nlp-ts26-03",
+          "lecture": 5,
+          "concept": "Language-model generation trade-off",
+          "source": {
+            "file": "lecture5_lms.pdf",
+            "pages": [
+              66,
+              68,
+              77,
+              80
+            ]
+          },
+          "type": "written",
+          "section": "theory",
+          "marks": 11,
+          "question": "A language model must generate answers that are both coherent and varied.\n(a) Define coherence and diversity in this setting. (2)\n(b) Explain how greedy decoding, temperature, top-k sampling and nucleus (top-p) sampling affect the trade-off. (5)\n(c) Recommend a decoding strategy that adapts when the next-token distribution is sometimes peaked and sometimes flat. Justify it. (2)\n(d) Give two ways to evaluate whether the output has achieved the desired balance. (2) (11 Marks)",
+          "modelAnswer": "Coherence means that generated tokens fit the context, grammar and meaning so the sequence remains sensible. Diversity means the system can produce different valid continuations instead of repeating the same safe output.\n\nGreedy decoding always selects the highest-probability token. It is deterministic and usually coherent locally, but generic and repetitive, and it need not find the most probable complete sentence. Temperature divides logits before softmax: $\\tau<1$ sharpens the distribution and increases coherence at the cost of diversity; $\\tau>1$ flattens it and increases diversity at the risk of incoherent tail tokens. Top-k keeps a fixed number of highest-probability tokens, removes the tail, renormalises and samples, but the same $k$ is too restrictive for a flat distribution and too permissive for a peaked one. Top-p keeps the smallest set whose cumulative probability reaches $p$, renormalises and samples, so the candidate-set size adapts to the distribution.\n\nUse nucleus sampling, optionally with a moderate temperature such as $\\tau$ near 1. The nucleus is small when the model is confident and larger when several continuations are plausible, which protects coherence while retaining controlled variety.\n\nEvaluate quality with human judgements of relevance, fluency and factual consistency, alongside diversity measures such as distinct n-grams or repeated-sequence rate. Perplexity can help measure fit to held-out human text but cannot by itself establish useful diversity or factuality.",
+          "rubric": [
+            {
+              "point": "Defines coherence",
+              "marks": 1
+            },
+            {
+              "point": "Defines diversity",
+              "marks": 1
+            },
+            {
+              "point": "Explains greedy decoding and its low-diversity behaviour",
+              "marks": 1
+            },
+            {
+              "point": "Explains lower versus higher temperature",
+              "marks": 2
+            },
+            {
+              "point": "Explains top-k sampling and its fixed-size limitation",
+              "marks": 1
+            },
+            {
+              "point": "Explains top-p sampling and its adaptive candidate set",
+              "marks": 1
+            },
+            {
+              "point": "Recommends and justifies top-p, optionally with moderate temperature",
+              "marks": 2
+            },
+            {
+              "point": "Gives two suitable evaluation methods or measures",
+              "marks": 2
+            }
+          ],
+          "explanation": "Practice reconstruction from Devon's 11-mark Test 1 description. The exact unseen question and official memo are not available.",
+          "variantOf": "generation-tradeoff-test-style"
+        },
+        {
+          "id": "nlp-ts26-04",
+          "lecture": 6,
+          "concept": "Problems attention solves in RNNs",
+          "source": {
+            "file": "lecture6_attention.pdf",
+            "pages": [
+              12,
+              13,
+              58,
+              70,
+              76
+            ]
+          },
+          "type": "written",
+          "section": "theory",
+          "marks": 12,
+          "question": "Explain the major problems attention solves in RNN encoder-decoder models. Your answer must discuss both a one-directional encoder and a bidirectional encoder, the fixed-vector bottleneck, credit assignment, position/recency effects, the attention computation, and at least one problem attention does not solve. (12 Marks)",
+          "modelAnswer": "Without attention, a one-directional encoder must compress the entire source into its final hidden state. Early information passes through many recurrent updates, so it can fade because of recency bias and vanishing gradients. The fixed-size vector must represent a source of any length, and credit assignment is difficult because the loss must travel back through the whole recurrent chain to identify which source token mattered.\n\nA bidirectional encoder gives each source position left and right context and combines the final forward and backward states, which protects both ends better. It still compresses the source into a fixed number of vectors when the decoder receives only the final summary. The middle can be represented least directly, and the model still faces recurrent training and credit-assignment problems.\n\nAttention keeps all encoder states $s_1,\\ldots,s_m$. At decoder step $t$, it scores each state against the decoder state, normalises the scores with softmax to get weights $a_k^{(t)}$, and forms $c^{(t)}=\\sum_k a_k^{(t)}s_k$. The decoder therefore retrieves a different source summary for each output token. This removes the single-vector bottleneck, creates short direct paths from the current loss to relevant source states, reduces position/recency pressure, and provides a soft alignment that can be inspected.\n\nAttention does not remove every limitation: an RNN encoder and decoder are still sequential and hard to parallelise, generation is still autoregressive, attention can choose the wrong evidence, and computation/memory grows with the number of source states.",
+          "rubric": [
+            {
+              "point": "Explains the one-directional final-state bottleneck",
+              "marks": 2
+            },
+            {
+              "point": "Explains recency/vanishing gradients and difficult credit assignment",
+              "marks": 2
+            },
+            {
+              "point": "Explains what bidirectionality improves",
+              "marks": 1
+            },
+            {
+              "point": "Explains why bidirectionality does not remove the fixed-summary/middle-position problem",
+              "marks": 2
+            },
+            {
+              "point": "Correct attention pipeline: scores, softmax weights and weighted context vector",
+              "marks": 2
+            },
+            {
+              "point": "Links attention to step-specific retrieval, shorter paths and alignment",
+              "marks": 2
+            },
+            {
+              "point": "Names a genuine remaining limitation",
+              "marks": 1
+            }
+          ],
+          "explanation": "Practice reconstruction from Devon's 12-mark Test 2 description. The rubric is unofficial and follows the seq2seq and attention slides.",
+          "variantOf": "attention-rnn-problems-test-style"
+        },
+        {
+          "id": "nlp-ts26-05",
+          "lecture": 7,
+          "concept": "Transformer attention-head diagram",
+          "source": {
+            "file": "lecture7_transformers-2.pdf",
+            "pages": [
+              19,
+              20,
+              21,
+              28,
+              29
+            ]
+          },
+          "type": "written",
+          "section": "theory",
+          "marks": 10,
+          "question": "A self-attention diagram uses three colours. A blue vector leaves the current token and is compared with one yellow vector from every token. The comparison scores pass through softmax. The resulting weights multiply the red vectors, which are then summed.\n(a) Label blue, yellow and red as query, key or value. (3)\n(b) Explain every step from the input token vectors to the attention output. (5)\n(c) Explain what changes in multi-head attention. (2) (10 Marks)",
+          "modelAnswer": "(a) Blue is the query $q$: what the current position is looking for. Yellow is the key $k_j$: what each candidate position advertises for matching. Red is the value $v_j$: the information retrieved if that position receives weight.\n\n(b) Each input vector $x_j$ is projected with learned matrices: $q_j=x_jW_Q$, $k_j=x_jW_K$, $v_j=x_jW_V$. For the current query $q_i$, compute compatibility scores $s_{ij}=q_i k_j^T/\\sqrt{d_k}$. Apply any mask before softmax. Softmax across $j$ gives non-negative weights $a_{ij}$ that sum to one. The output is $z_i=\\sum_j a_{ij}v_j$. Keys affect the weights; values carry the content in the weighted sum. The $1/\\sqrt{d_k}$ factor prevents large dot products from saturating softmax.\n\n(c) Each head has its own $W_Q^h,W_K^h,W_V^h$ and performs the same process in a smaller subspace, allowing different relations to be tracked. Concatenate the head outputs and project them with $W_O$ back to $d_{model}$.",
+          "rubric": [
+            {
+              "point": "Blue = query",
+              "marks": 1
+            },
+            {
+              "point": "Yellow = key",
+              "marks": 1
+            },
+            {
+              "point": "Red = value",
+              "marks": 1
+            },
+            {
+              "point": "Projects inputs with separate W_Q, W_K and W_V matrices",
+              "marks": 1
+            },
+            {
+              "point": "Computes scaled query-key scores",
+              "marks": 1
+            },
+            {
+              "point": "Applies mask if needed and softmax over scores",
+              "marks": 1
+            },
+            {
+              "point": "Uses the weights in a weighted sum of values",
+              "marks": 1
+            },
+            {
+              "point": "Explains the purpose of scaling or distinguishes keys from values",
+              "marks": 1
+            },
+            {
+              "point": "Explains independent heads/subspaces",
+              "marks": 1
+            },
+            {
+              "point": "Concatenates heads and projects with W_O",
+              "marks": 1
+            }
+          ],
+          "explanation": "Textual practice version of the colour-coded attention-head diagram Devon described for Test 2. It does not reproduce the unseen test image.",
+          "variantOf": "qkv-diagram-test-style"
+        },
+        {
+          "id": "nlp-ts26-06",
+          "lecture": 8,
+          "concept": "Decoder-only transfer learning for multiple choice",
+          "source": {
+            "file": "lecture8_transfer_learning.pdf",
+            "pages": [
+              56,
+              58
+            ]
+          },
+          "type": "written",
+          "section": "theory",
+          "marks": 10,
+          "question": "You have a pretrained decoder-only causal language model and labelled multiple-choice data. Each item contains a question, one correct answer and four distractors. Design a transfer-learning system that chooses the correct option. Explain the input construction, which hidden state is used, new parameters, training loss, inference rule and two safeguards against shortcuts or scoring bias. (10 Marks)",
+          "modelAnswer": "The base model is a decoder-only causal language model. Build five sequences per item, one for each option: $[start]$ question $[delim]$ option$_i$ $[extract]$. The same model processes every sequence. Because of the causal mask, the final $[extract]$ position has attended to the complete question-option pair, so use its hidden state as the pair representation.\n\nApply one shared linear head $s_i=w^Th_i+b$ to produce a scalar score for each option. Apply a softmax across the five scores and train with multiclass cross-entropy using the correct option index. Fine-tune the base model, or freeze it and train the head plus adapters/LoRA. At inference, score all five choices and select $\\arg\\max_i s_i$; the model need not generate an answer.\n\nSafeguards: shuffle option order so position is not predictive; do not mark the correct answer in the input; use padding and attention masks for different lengths. If options are scored by conditional log-likelihood rather than a classification head, divide by the number of option tokens so longer options are not unfairly penalised.",
+          "rubric": [
+            {
+              "point": "Builds one question-option sequence per candidate using a fixed format",
+              "marks": 2
+            },
+            {
+              "point": "Uses the final/extract-token hidden state because it has seen the full pair",
+              "marks": 2
+            },
+            {
+              "point": "Adds a shared scalar classification head",
+              "marks": 1
+            },
+            {
+              "point": "Softmax across five option scores and multiclass cross-entropy",
+              "marks": 2
+            },
+            {
+              "point": "Inference selects the highest-scoring option",
+              "marks": 1
+            },
+            {
+              "point": "Gives two valid safeguards: order shuffle, no label leakage, masks or length normalisation",
+              "marks": 2
+            }
+          ],
+          "explanation": "A newly worded practice variant of the confirmed 10-mark decoder-only MCQ design question. The existing Lecture 8 bank retains the owner's recalled wording; neither is an official transcription.",
+          "variantOf": "decoder-mcq-test-style"
+        }
+      ]
+    },
     "nlp-bank-lecture-1": {
       "id": "nlp-bank-lecture-1",
       "subject": "nlp",
@@ -39746,7 +40080,8 @@ window.QUIZY_DATA = {
               "marks": 2
             }
           ],
-          "explanation": "This question is the owner's recollection of the hardest 10-mark question on a past test (not an official transcription). The model answer follows the GPT multiple-choice figure on slide 56."
+          "explanation": "This question is the owner's recollection of the hardest 10-mark question on a past test (not an official transcription). The model answer follows the GPT multiple-choice figure on slide 56.",
+          "variantOf": "decoder-mcq-test-style"
         },
         {
           "id": "nlp-b8-044",
